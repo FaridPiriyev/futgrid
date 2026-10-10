@@ -1,0 +1,1804 @@
+[
+    {
+        "id": 101,
+        "name": "Real Madrid",
+        "short_name": "RMA",
+        "slug": "real-madrid",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/200px-Real_Madrid_CF.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 102,
+        "name": "Manchester City",
+        "short_name": "MCI",
+        "slug": "manchester-city",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/200px-Manchester_City_FC_badge.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 103,
+        "name": "Bayern Munich",
+        "short_name": "BAY",
+        "slug": "bayern-munich",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/200px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+        "country_id": "DE",
+        "league": "Bundesliga"
+    },
+    {
+        "id": 104,
+        "name": "Arsenal",
+        "short_name": "ARS",
+        "slug": "arsenal",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/200px-Arsenal_FC.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 105,
+        "name": "Inter Milan",
+        "short_name": "INT",
+        "slug": "inter-milan",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/200px-FC_Internazionale_Milano_2021.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 106,
+        "name": "Paris Saint-Germain",
+        "short_name": "PSG",
+        "slug": "paris-saint-germain",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/200px-Paris_Saint-Germain_F.C..svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 107,
+        "name": "FC Barcelona",
+        "short_name": "BAR",
+        "slug": "fc-barcelona",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/200px-FC_Barcelona_%28crest%29.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 108,
+        "name": "Liverpool",
+        "short_name": "LIV",
+        "slug": "liverpool",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/200px-Liverpool_FC.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 109,
+        "name": "Bayer Leverkusen",
+        "short_name": "LEV",
+        "slug": "bayer-leverkusen",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Bayer_04_Leverkusen_logo.svg/200px-Bayer_04_Leverkusen_logo.svg.png",
+        "country_id": "DE",
+        "league": "Bundesliga"
+    },
+    {
+        "id": 110,
+        "name": "Atletico Madrid",
+        "short_name": "ATM",
+        "slug": "atletico-madrid",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Atletico_Madrid_2017_logo.svg/200px-Atletico_Madrid_2017_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 111,
+        "name": "Borussia Dortmund",
+        "short_name": "BVB",
+        "slug": "borussia-dortmund",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/200px-Borussia_Dortmund_logo.svg.png",
+        "country_id": "DE",
+        "league": "Bundesliga"
+    },
+    {
+        "id": 112,
+        "name": "Juventus",
+        "short_name": "JUV",
+        "slug": "juventus",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Juventus_FC_2017_icon_%28black%29.svg/200px-Juventus_FC_2017_icon_%28black%29.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 113,
+        "name": "Atalanta",
+        "short_name": "ATA",
+        "slug": "atalanta",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/AtalantaBC.svg/200px-AtalantaBC.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 114,
+        "name": "AC Milan",
+        "short_name": "ACM",
+        "slug": "ac-milan",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/200px-Logo_of_AC_Milan.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 115,
+        "name": "SL Benfica",
+        "short_name": "SLB",
+        "slug": "sl-benfica",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/SL_Benfica_logo.svg/200px-SL_Benfica_logo.svg.png",
+        "country_id": "PT",
+        "league": "Primeira Liga"
+    },
+    {
+        "id": 116,
+        "name": "Sporting CP",
+        "short_name": "SCP",
+        "slug": "sporting-cp",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Sporting_Clube_de_Portugal_logo.svg/200px-Sporting_Clube_de_Portugal_logo.svg.png",
+        "country_id": "PT",
+        "league": "Primeira Liga"
+    },
+    {
+        "id": 117,
+        "name": "FC Porto",
+        "short_name": "POR",
+        "slug": "fc-porto",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/FC_Porto.svg/200px-FC_Porto.svg.png",
+        "country_id": "PT",
+        "league": "Primeira Liga"
+    },
+    {
+        "id": 118,
+        "name": "RB Leipzig",
+        "short_name": "RBL",
+        "slug": "rb-leipzig",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/RB_Leipzig_2014_logo.svg/200px-RB_Leipzig_2014_logo.svg.png",
+        "country_id": "DE",
+        "league": "Bundesliga"
+    },
+    {
+        "id": 119,
+        "name": "Aston Villa",
+        "short_name": "AVL",
+        "slug": "aston-villa",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Aston_Villa_logo.svg/200px-Aston_Villa_logo.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 120,
+        "name": "Chelsea",
+        "short_name": "CHE",
+        "slug": "chelsea",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/200px-Chelsea_FC.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 121,
+        "name": "Napoli",
+        "short_name": "NAP",
+        "slug": "napoli",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/S.S.C._Napoli_logo.svg/200px-S.S.C._Napoli_logo.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 122,
+        "name": "Tottenham Hotspur",
+        "short_name": "TOT",
+        "slug": "tottenham-hotspur",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Tottenham_Hotspur.svg/200px-Tottenham_Hotspur.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 123,
+        "name": "Manchester United",
+        "short_name": "MUN",
+        "slug": "manchester-united",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/200px-Manchester_United_FC_crest.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 124,
+        "name": "Newcastle United",
+        "short_name": "NEW",
+        "slug": "newcastle-united",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Newcastle_United_Logo.svg/200px-Newcastle_United_Logo.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 125,
+        "name": "Real Sociedad",
+        "short_name": "RSO",
+        "slug": "real-sociedad",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Real_Sociedad_logo.svg/200px-Real_Sociedad_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 126,
+        "name": "AS Roma",
+        "short_name": "ROM",
+        "slug": "as-roma",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/AS_Roma_logo_%282017%29.svg/200px-AS_Roma_logo_%282017%29.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 127,
+        "name": "Lazio",
+        "short_name": "LAZ",
+        "slug": "lazio",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/SS_Lazio.svg/200px-SS_Lazio.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 128,
+        "name": "PSV Eindhoven",
+        "short_name": "PSV",
+        "slug": "psv-eindhoven",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/PSV_Eindhoven.svg/200px-PSV_Eindhoven.svg.png",
+        "country_id": "NL",
+        "league": "Eredivisie"
+    },
+    {
+        "id": 129,
+        "name": "Feyenoord",
+        "short_name": "FEY",
+        "slug": "feyenoord",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Feyenoord_logo.svg/200px-Feyenoord_logo.svg.png",
+        "country_id": "NL",
+        "league": "Eredivisie"
+    },
+    {
+        "id": 130,
+        "name": "Ajax",
+        "short_name": "AJA",
+        "slug": "ajax",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/79/Ajax_Amsterdam_logo.svg/200px-Ajax_Amsterdam_logo.svg.png",
+        "country_id": "NL",
+        "league": "Eredivisie"
+    },
+    {
+        "id": 131,
+        "name": "SC Braga",
+        "short_name": "BRA",
+        "slug": "sc-braga",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/SC_Braga_logo.svg/200px-SC_Braga_logo.svg.png",
+        "country_id": "PT",
+        "league": "Primeira Liga"
+    },
+    {
+        "id": 132,
+        "name": "Eintracht Frankfurt",
+        "short_name": "SGE",
+        "slug": "eintracht-frankfurt",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Eintracht_Frankfurt_Logo.svg/200px-Eintracht_Frankfurt_Logo.svg.png",
+        "country_id": "DE",
+        "league": "Bundesliga"
+    },
+    {
+        "id": 133,
+        "name": "Club Brugge",
+        "short_name": "BRU",
+        "slug": "club-brugge",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/Club_Brugge_KV_logo.svg/200px-Club_Brugge_KV_logo.svg.png",
+        "country_id": "BE",
+        "league": "Belgian Pro League"
+    },
+    {
+        "id": 134,
+        "name": "Villarreal",
+        "short_name": "VIL",
+        "slug": "villarreal",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Villarreal_CF_logo.svg/200px-Villarreal_CF_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 135,
+        "name": "Sevilla FC",
+        "short_name": "SEV",
+        "slug": "sevilla-fc",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Sevilla_FC_logo.svg/200px-Sevilla_FC_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 136,
+        "name": "West Ham United",
+        "short_name": "WHU",
+        "slug": "west-ham-united",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c2/West_Ham_United_FC_logo.svg/200px-West_Ham_United_FC_logo.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 137,
+        "name": "Brighton & Hove Albion",
+        "short_name": "BHA",
+        "slug": "brighton-hove-albion",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Brighton_%26_Hove_Albion_logo.svg/200px-Brighton_%26_Hove_Albion_logo.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 138,
+        "name": "Real Betis",
+        "short_name": "BET",
+        "slug": "real-betis",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/13/Real_betis_logo.svg/200px-Real_betis_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 139,
+        "name": "Athletic Bilbao",
+        "short_name": "ATH",
+        "slug": "athletic-bilbao",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Club_Athletic_Bilbao_logo.svg/200px-Club_Athletic_Bilbao_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 140,
+        "name": "Fiorentina",
+        "short_name": "FIO",
+        "slug": "fiorentina",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/49/ACF_Fiorentina_logo_%282022%29.svg/200px-ACF_Fiorentina_logo_%282022%29.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 141,
+        "name": "VfB Stuttgart",
+        "short_name": "STU",
+        "slug": "vfb-stuttgart",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/VfB_Stuttgart_1893_Logo.svg/200px-VfB_Stuttgart_1893_Logo.svg.png",
+        "country_id": "DE",
+        "league": "Bundesliga"
+    },
+    {
+        "id": 142,
+        "name": "Bologna",
+        "short_name": "BOL",
+        "slug": "bologna",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Bologna_F.C._1909_logo.svg/200px-Bologna_F.C._1909_logo.svg.png",
+        "country_id": "IT",
+        "league": "Serie A"
+    },
+    {
+        "id": 143,
+        "name": "AS Monaco",
+        "short_name": "MON",
+        "slug": "as-monaco",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/AS_Monaco_FC.svg/200px-AS_Monaco_FC.svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 144,
+        "name": "Lille OSC",
+        "short_name": "LIL",
+        "slug": "lille-osc",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Lille_OSC_2018_logo.svg/200px-Lille_OSC_2018_logo.svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 145,
+        "name": "Olympique de Marseille",
+        "short_name": "MAR",
+        "slug": "olympique-de-marseille",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Olympique_Marseille_logo.svg/200px-Olympique_Marseille_logo.svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 146,
+        "name": "Olympique Lyonnais",
+        "short_name": "LYO",
+        "slug": "olympique-lyonnais",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Olympique_Lyonnais.svg/200px-Olympique_Lyonnais.svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 147,
+        "name": "RC Lens",
+        "short_name": "RCL",
+        "slug": "rc-lens",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/RC_Lens_logo.svg/200px-RC_Lens_logo.svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 148,
+        "name": "Stade Rennais",
+        "short_name": "REN",
+        "slug": "stade-rennais",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Stade_Rennais_FC.svg/200px-Stade_Rennais_FC.svg.png",
+        "country_id": "FR",
+        "league": "Ligue 1"
+    },
+    {
+        "id": 149,
+        "name": "Galatasaray",
+        "short_name": "GAL",
+        "slug": "galatasaray",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Galatasaray_Sports_Club_Logo.svg/200px-Galatasaray_Sports_Club_Logo.svg.png",
+        "country_id": "TR",
+        "league": "Süper Lig"
+    },
+    {
+        "id": 150,
+        "name": "Fenerbahçe",
+        "short_name": "FEN",
+        "slug": "fenerbahce",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/39/Fenerbah%C3%A7e.svg/200px-Fenerbah%C3%A7e.svg.png",
+        "country_id": "TR",
+        "league": "Süper Lig"
+    },
+    {
+        "id": 151,
+        "name": "Beşiktaş",
+        "short_name": "BES",
+        "slug": "besiktas",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Be%C5%9Fikta%C5%9F_Logo_Be%C5%9Fikta%C5%9F_Amblem_Be%C5%9Fikta%C5%9F_Arma.png/200px-Be%C5%9Fikta%C5%9F_Logo_Be%C5%9Fikta%C5%9F_Amblem_Be%C5%9Fikta%C5%9F_Arma.png",
+        "country_id": "TR",
+        "league": "Süper Lig"
+    },
+    {
+        "id": 152,
+        "name": "Shakhtar Donetsk",
+        "short_name": "SHA",
+        "slug": "shakhtar-donetsk",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/FC_Shakhtar_Donetsk.svg/200px-FC_Shakhtar_Donetsk.svg.png",
+        "country_id": "UA",
+        "league": "Ukrainian Premier League"
+    },
+    {
+        "id": 153,
+        "name": "Red Bull Salzburg",
+        "short_name": "RBS",
+        "slug": "red-bull-salzburg",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/FC_Red_Bull_Salzburg_logo.svg/200px-FC_Red_Bull_Salzburg_logo.svg.png",
+        "country_id": "AT",
+        "league": "Austrian Bundesliga"
+    },
+    {
+        "id": 154,
+        "name": "FC Twente",
+        "short_name": "TWE",
+        "slug": "fc-twente",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/FC_Twente.svg/200px-FC_Twente.svg.png",
+        "country_id": "NL",
+        "league": "Eredivisie"
+    },
+    {
+        "id": 155,
+        "name": "AZ Alkmaar",
+        "short_name": "AZ",
+        "slug": "az-alkmaar",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/AZ_Alkmaar.svg/200px-AZ_Alkmaar.svg.png",
+        "country_id": "NL",
+        "league": "Eredivisie"
+    },
+    {
+        "id": 156,
+        "name": "Girona FC",
+        "short_name": "GIR",
+        "slug": "girona-fc",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Girona_FC_2022_logo.svg/200px-Girona_FC_2022_logo.svg.png",
+        "country_id": "ES",
+        "league": "La Liga"
+    },
+    {
+        "id": 157,
+        "name": "Crystal Palace",
+        "short_name": "CRY",
+        "slug": "crystal-palace",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Crystal_Palace_FC_logo.svg/200px-Crystal_Palace_FC_logo.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 158,
+        "name": "Everton",
+        "short_name": "EVE",
+        "slug": "everton",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Everton_FC_logo.svg/200px-Everton_FC_logo.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 159,
+        "name": "Fulham",
+        "short_name": "FUL",
+        "slug": "fulham",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Fulham_FC_%28shield%29.svg/200px-Fulham_FC_%28shield%29.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    {
+        "id": 160,
+        "name": "Brentford",
+        "short_name": "BRE",
+        "slug": "brentford",
+        "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Brentford_FC_crest.svg/200px-Brentford_FC_crest.svg.png",
+        "country_id": "GB",
+        "league": "Premier League"
+    },
+    [
+        {
+            "id": 161,
+            "name": "AFC Bournemouth",
+            "short_name": "BOU",
+            "slug": "afc-bournemouth",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/AFC_Bournemouth_%282013%29.svg/200px-AFC_Bournemouth_%282013%29.svg.png",
+            "country_id": "GB",
+            "league": "Premier League"
+        },
+        {
+            "id": 162,
+            "name": "Wolverhampton Wanderers",
+            "short_name": "WOL",
+            "slug": "wolverhampton-wanderers",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/fc/Wolverhampton_Wanderers_FC_crest.svg/200px-Wolverhampton_Wanderers_FC_crest.svg.png",
+            "country_id": "GB",
+            "league": "Premier League"
+        },
+        {
+            "id": 163,
+            "name": "Nottingham Forest",
+            "short_name": "NFO",
+            "slug": "nottingham-forest",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/Nottingham_Forest_F.C._logo.svg/200px-Nottingham_Forest_F.C._logo.svg.png",
+            "country_id": "GB",
+            "league": "Premier League"
+        },
+        {
+            "id": 164,
+            "name": "VfL Wolfsburg",
+            "short_name": "WOB",
+            "slug": "vfl-wolfsburg",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/VfL_Wolfsburg_Logo.svg/200px-VfL_Wolfsburg_Logo.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 165,
+            "name": "SC Freiburg",
+            "short_name": "SCF",
+            "slug": "sc-freiburg",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/SC_Freiburg_logo.svg/200px-SC_Freiburg_logo.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 166,
+            "name": "Borussia Mönchengladbach",
+            "short_name": "BMG",
+            "slug": "borussia-monchengladbach",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Borussia_M%C3%B6nchengladbach_logo.svg/200px-Borussia_M%C3%B6nchengladbach_logo.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 167,
+            "name": "TSG Hoffenheim",
+            "short_name": "TSG",
+            "slug": "tsg-hoffenheim",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Logo_TSG_Hoffenheim.svg/200px-Logo_TSG_Hoffenheim.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 168,
+            "name": "Werder Bremen",
+            "short_name": "SVW",
+            "slug": "werder-bremen",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/SV-Werder-Bremen-Logo.svg/200px-SV-Werder-Bremen-Logo.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 169,
+            "name": "Union Berlin",
+            "short_name": "FCU",
+            "slug": "union-berlin",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/1._FC_Union_Berlin_Logo.svg/200px-1._FC_Union_Berlin_Logo.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 170,
+            "name": "FC Augsburg",
+            "short_name": "FCA",
+            "slug": "fc-augsburg",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/FC_Augsburg_logo.svg/200px-FC_Augsburg_logo.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 171,
+            "name": "Mainz 05",
+            "short_name": "M05",
+            "slug": "mainz-05",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Logo_Mainz_05.svg/200px-Logo_Mainz_05.svg.png",
+            "country_id": "DE",
+            "league": "Bundesliga"
+        },
+        {
+            "id": 172,
+            "name": "Torino FC",
+            "short_name": "TOR",
+            "slug": "torino-fc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Torino_FC_Logo.svg/200px-Torino_FC_Logo.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 173,
+            "name": "Genoa",
+            "short_name": "GEN",
+            "slug": "genoa",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6c/Genoa_C.F.C._logo.svg/200px-Genoa_C.F.C._logo.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 174,
+            "name": "AC Monza",
+            "short_name": "MON",
+            "slug": "ac-monza",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/AC_Monza_logo_%282021-present%29.svg/200px-AC_Monza_logo_%282021-present%29.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 175,
+            "name": "Udinese",
+            "short_name": "UDI",
+            "slug": "udinese",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/Udinese_Calcio_logo.svg/200px-Udinese_Calcio_logo.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 176,
+            "name": "Hellas Verona",
+            "short_name": "VER",
+            "slug": "hellas-verona",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Hellas_Verona_FC_logo.svg/200px-Hellas_Verona_FC_logo.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 177,
+            "name": "Empoli",
+            "short_name": "EMP",
+            "slug": "empoli",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a3/Empoli_FC_1920_logo.svg/200px-Empoli_FC_1920_logo.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 178,
+            "name": "Lecce",
+            "short_name": "LEC",
+            "slug": "lecce",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/46/U.S._Lecce_logo.svg/200px-U.S._Lecce_logo.svg.png",
+            "country_id": "IT",
+            "league": "Serie A"
+        },
+        {
+            "id": 179,
+            "name": "Valencia CF",
+            "short_name": "VAL",
+            "slug": "valencia-cf",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/Valenciacf.svg/200px-Valenciacf.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 180,
+            "name": "Osasuna",
+            "short_name": "OSA",
+            "slug": "osasuna",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/Osasuna_logo.svg/200px-Osasuna_logo.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 181,
+            "name": "Getafe CF",
+            "short_name": "GET",
+            "slug": "getafe-cf",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Getafe_logo.svg/200px-Getafe_logo.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 182,
+            "name": "RCD Mallorca",
+            "short_name": "MLL",
+            "slug": "rcd-mallorca",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Rcd_mallorca.svg/200px-Rcd_mallorca.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 183,
+            "name": "Celta Vigo",
+            "short_name": "CEL",
+            "slug": "celta-vigo",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/12/RC_Celta_de_Vigo_logo.svg/200px-RC_Celta_de_Vigo_logo.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 184,
+            "name": "Rayo Vallecano",
+            "short_name": "RAY",
+            "slug": "rayo-vallecano",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Rayo_vallecano_madrid.svg/200px-Rayo_vallecano_madrid.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 185,
+            "name": "Deportivo Alavés",
+            "short_name": "ALA",
+            "slug": "deportivo-alaves",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Deportivo_Alaves_logo.svg/200px-Deportivo_Alaves_logo.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 186,
+            "name": "Las Palmas",
+            "short_name": "LPA",
+            "slug": "las-palmas",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/20/UD_Las_Palmas_logo.svg/200px-UD_Las_Palmas_logo.svg.png",
+            "country_id": "ES",
+            "league": "La Liga"
+        },
+        {
+            "id": 187,
+            "name": "OGC Nice",
+            "short_name": "NIC",
+            "slug": "ogc-nice",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/OGC_Nice_logo.svg/200px-OGC_Nice_logo.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 188,
+            "name": "Stade Brestois",
+            "short_name": "BRE",
+            "slug": "stade-brestois",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Stade_Brestois_29_logo.svg/200px-Stade_Brestois_29_logo.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 189,
+            "name": "Reims",
+            "short_name": "REI",
+            "slug": "reims",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Stade_de_Reims_logo.svg/200px-Stade_de_Reims_logo.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 190,
+            "name": "Toulouse FC",
+            "short_name": "TOU",
+            "slug": "toulouse-fc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Toulouse_FC_2021_logo.svg/200px-Toulouse_FC_2021_logo.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 191,
+            "name": "Strasbourg",
+            "short_name": "STR",
+            "slug": "strasbourg",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/RC_Strasbourg_Alsace_logo.svg/200px-RC_Strasbourg_Alsace_logo.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 192,
+            "name": "Montpellier",
+            "short_name": "MON",
+            "slug": "montpellier",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/Montpellier_HSC_logo.svg/200px-Montpellier_HSC_logo.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 193,
+            "name": "Nantes",
+            "short_name": "NAN",
+            "slug": "nantes",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/FC_Nantes_%282019%29.svg/200px-FC_Nantes_%282019%29.svg.png",
+            "country_id": "FR",
+            "league": "Ligue 1"
+        },
+        {
+            "id": 194,
+            "name": "Vitória SC",
+            "short_name": "VSC",
+            "slug": "vitoria-sc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Vitoria_Guimaraes.svg/200px-Vitoria_Guimaraes.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 195,
+            "name": "Anderlecht",
+            "short_name": "AND",
+            "slug": "anderlecht",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/RSC_Anderlecht_logo.svg/200px-RSC_Anderlecht_logo.svg.png",
+            "country_id": "BE",
+            "league": "Belgian Pro League"
+        },
+        {
+            "id": 196,
+            "name": "Union SG",
+            "short_name": "USG",
+            "slug": "union-sg",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Royale_Union_Saint-Gilloise_logo.svg/200px-Royale_Union_Saint-Gilloise_logo.svg.png",
+            "country_id": "BE",
+            "league": "Belgian Pro League"
+        },
+        {
+            "id": 197,
+            "name": "KRC Genk",
+            "short_name": "GNK",
+            "slug": "krc-genk",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/K.R.C._Genk_Logo.svg/200px-K.R.C._Genk_Logo.svg.png",
+            "country_id": "BE",
+            "league": "Belgian Pro League"
+        },
+        {
+            "id": 198,
+            "name": "Celtic",
+            "short_name": "CEL",
+            "slug": "celtic",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Celtic_FC.svg/200px-Celtic_FC.svg.png",
+            "country_id": "GB",
+            "league": "Scottish Premiership"
+        },
+        {
+            "id": 199,
+            "name": "Rangers",
+            "short_name": "RAN",
+            "slug": "rangers",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Rangers_FC.svg/200px-Rangers_FC.svg.png",
+            "country_id": "GB",
+            "league": "Scottish Premiership"
+        },
+        {
+            "id": 200,
+            "name": "FC Copenhagen",
+            "short_name": "FCK",
+            "slug": "fc-copenhagen",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/FC_K%C3%B8benhavn.svg/200px-FC_K%C3%B8benhavn.svg.png",
+            "country_id": "DK",
+            "league": "Danish Superliga"
+        },
+        {
+            "id": 201,
+            "name": "Dynamo Kyiv",
+            "short_name": "DYN",
+            "slug": "dynamo-kyiv",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/FC_Dynamo_Kyiv_logo.svg/200px-FC_Dynamo_Kyiv_logo.svg.png",
+            "country_id": "UA",
+            "league": "Ukrainian Premier League"
+        },
+        {
+            "id": 202,
+            "name": "Slavia Prague",
+            "short_name": "SLA",
+            "slug": "slavia-prague",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/SK_Slavia_Praha_logo.svg/200px-SK_Slavia_Praha_logo.svg.png",
+            "country_id": "CZ",
+            "league": "Czech First League"
+        },
+        {
+            "id": 203,
+            "name": "Sparta Prague",
+            "short_name": "SPA",
+            "slug": "sparta-prague",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/AC_Sparta_Praha_logo.svg/200px-AC_Sparta_Praha_logo.svg.png",
+            "country_id": "CZ",
+            "league": "Czech First League"
+        },
+        {
+            "id": 204,
+            "name": "Viktoria Plzeň",
+            "short_name": "PLZ",
+            "slug": "viktoria-plzen",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/FC_Viktoria_Plzen_logo.svg/200px-FC_Viktoria_Plzen_logo.svg.png",
+            "country_id": "CZ",
+            "league": "Czech First League"
+        },
+        {
+            "id": 205,
+            "name": "Dinamo Zagreb",
+            "short_name": "DIN",
+            "slug": "dinamo-zagreb",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/GNK_Dinamo_Zagreb_logo.svg/200px-GNK_Dinamo_Zagreb_logo.svg.png",
+            "country_id": "HR",
+            "league": "Prva HNL"
+        },
+        {
+            "id": 206,
+            "name": "Olympiacos",
+            "short_name": "OLY",
+            "slug": "olympiacos",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Olympiacos_FC_logo.svg/200px-Olympiacos_FC_logo.svg.png",
+            "country_id": "GR",
+            "league": "Super League Greece"
+        },
+        {
+            "id": 207,
+            "name": "PAOK",
+            "short_name": "PAO",
+            "slug": "paok",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/PAOK_FC.svg/200px-PAOK_FC.svg.png",
+            "country_id": "GR",
+            "league": "Super League Greece"
+        },
+        {
+            "id": 208,
+            "name": "AEK Athens",
+            "short_name": "AEK",
+            "slug": "aek-athens",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/AEK_Athens_FC_logo.svg/200px-AEK_Athens_FC_logo.svg.png",
+            "country_id": "GR",
+            "league": "Super League Greece"
+        },
+        {
+            "id": 209,
+            "name": "Panathinaikos",
+            "short_name": "PAN",
+            "slug": "panathinaikos",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/Panathinaikos_FC_logo.svg/200px-Panathinaikos_FC_logo.svg.png",
+            "country_id": "GR",
+            "league": "Super League Greece"
+        },
+        {
+            "id": 210,
+            "name": "Maccabi Tel Aviv",
+            "short_name": "MTA",
+            "slug": "maccabi-tel-aviv",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Maccabi_Tel_Aviv_FC_logo.svg/200px-Maccabi_Tel_Aviv_FC_logo.svg.png",
+            "country_id": "IL",
+            "league": "Israeli Premier League"
+        },
+        {
+            "id": 211,
+            "name": "Maccabi Haifa",
+            "short_name": "MHA",
+            "slug": "maccabi-haifa",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Maccabi_Haifa_FC_logo.svg/200px-Maccabi_Haifa_FC_logo.svg.png",
+            "country_id": "IL",
+            "league": "Israeli Premier League"
+        },
+        {
+            "id": 212,
+            "name": "Young Boys",
+            "short_name": "YBO",
+            "slug": "young-boys",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/BSC_Young_Boys_logo.svg/200px-BSC_Young_Boys_logo.svg.png",
+            "country_id": "CH",
+            "league": "Swiss Super League"
+        },
+        {
+            "id": 213,
+            "name": "FC Basel",
+            "short_name": "BAS",
+            "slug": "fc-basel",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/FC_Basel_logo.svg/200px-FC_Basel_logo.svg.png",
+            "country_id": "CH",
+            "league": "Swiss Super League"
+        },
+        {
+            "id": 214,
+            "name": "Trabzonspor",
+            "short_name": "TRA",
+            "slug": "trabzonspor",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Trabzonspor_logo.svg/200px-Trabzonspor_logo.svg.png",
+            "country_id": "TR",
+            "league": "Süper Lig"
+        },
+        {
+            "id": 215,
+            "name": "Başakşehir",
+            "short_name": "BAS",
+            "slug": "basaksehir",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Istanbul_Basaksehir_logo.svg/200px-Istanbul_Basaksehir_logo.svg.png",
+            "country_id": "TR",
+            "league": "Süper Lig"
+        },
+        {
+            "id": 216,
+            "name": "Qarabağ FK",
+            "short_name": "QAR",
+            "slug": "qarabag-fk",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Qaraba%C4%9F_FK_logo.svg/200px-Qaraba%C4%9F_FK_logo.svg.png",
+            "country_id": "AZ",
+            "league": "Azerbaijan Premier League"
+        },
+        {
+            "id": 217,
+            "name": "Bodø/Glimt",
+            "short_name": "BOD",
+            "slug": "bodo-glimt",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/FK_Bod%C3%B8-Glimt_logo.svg/200px-FK_Bod%C3%B8-Glimt_logo.svg.png",
+            "country_id": "NO",
+            "league": "Eliteserien"
+        },
+        {
+            "id": 218,
+            "name": "Molde FK",
+            "short_name": "MOL",
+            "slug": "molde-fk",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Molde_FK_logo.svg/200px-Molde_FK_logo.svg.png",
+            "country_id": "NO",
+            "league": "Eliteserien"
+        },
+        {
+            "id": 219,
+            "name": "Malmö FF",
+            "short_name": "MAL",
+            "slug": "malmo-ff",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Malmo_FF_logo.svg/200px-Malmo_FF_logo.svg.png",
+            "country_id": "SE",
+            "league": "Allsvenskan"
+        },
+        {
+            "id": 220,
+            "name": "FC Midtjylland",
+            "short_name": "FCM",
+            "slug": "fc-midtjylland",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/FC_Midtjylland.svg/200px-FC_Midtjylland.svg.png",
+            "country_id": "DK",
+            "league": "Danish Superliga"
+        },
+        {
+            "id": 221,
+            "name": "Ludogorets Razgrad",
+            "short_name": "LUD",
+            "slug": "ludogorets-razgrad",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d7/PFC_Ludogorets_Razgrad_logo.svg/200px-PFC_Ludogorets_Razgrad_logo.svg.png",
+            "country_id": "BG",
+            "league": "First Professional Football League"
+        },
+        {
+            "id": 222,
+            "name": "Ferencváros",
+            "short_name": "FER",
+            "slug": "ferencvaros",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Ferencvarosi_TC_logo.svg/200px-Ferencvarosi_TC_logo.svg.png",
+            "country_id": "HU",
+            "league": "Nemzeti Bajnokság I"
+        },
+        {
+            "id": 223,
+            "name": "Red Star Belgrade",
+            "short_name": "RSB",
+            "slug": "red-star-belgrade",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/FK_Crvena_zvezda_logo.svg/200px-FK_Crvena_zvezda_logo.svg.png",
+            "country_id": "RS",
+            "league": "Serbian SuperLiga"
+        },
+        {
+            "id": 224,
+            "name": "Partizan",
+            "short_name": "PAR",
+            "slug": "partizan",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/75/FK_Partizan_logo.svg/200px-FK_Partizan_logo.svg.png",
+            "country_id": "RS",
+            "league": "Serbian SuperLiga"
+        },
+        {
+            "id": 225,
+            "name": "Legia Warsaw",
+            "short_name": "LEG",
+            "slug": "legia-warsaw",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Legia_Warszawa_logo.svg/200px-Legia_Warszawa_logo.svg.png",
+            "country_id": "PL",
+            "league": "Ekstraklasa"
+        },
+        {
+            "id": 226,
+            "name": "Raków Częstochowa",
+            "short_name": "RAK",
+            "slug": "rakow-czestochowa",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Rak%C3%B3w_Cz%C4%99stochowa_logo.svg/200px-Rak%C3%B3w_Cz%C4%99stochowa_logo.svg.png",
+            "country_id": "PL",
+            "league": "Ekstraklasa"
+        },
+        {
+            "id": 227,
+            "name": "Lech Poznań",
+            "short_name": "LPO",
+            "slug": "lech-poznan",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lech_Pozna%C5%84_logo.svg/200px-Lech_Pozna%C5%84_logo.svg.png",
+            "country_id": "PL",
+            "league": "Ekstraklasa"
+        },
+        {
+            "id": 228,
+            "name": "CFR Cluj",
+            "short_name": "CFR",
+            "slug": "cfr-cluj",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/CFR_Cluj_logo.svg/200px-CFR_Cluj_logo.svg.png",
+            "country_id": "RO",
+            "league": "Liga I"
+        },
+        {
+            "id": 229,
+            "name": "FCSB",
+            "short_name": "FCS",
+            "slug": "fcsb",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/FCSB_logo.svg/200px-FCSB_logo.svg.png",
+            "country_id": "RO",
+            "league": "Liga I"
+        },
+        {
+            "id": 230,
+            "name": "Sheriff Tiraspol",
+            "short_name": "SHE",
+            "slug": "sheriff-tiraspol",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/00/FC_Sheriff_Tiraspol_logo.svg/200px-FC_Sheriff_Tiraspol_logo.svg.png",
+            "country_id": "MD",
+            "league": "Moldovan Super Liga"
+        },
+        {
+            "id": 231,
+            "name": "HJK Helsinki",
+            "short_name": "HJK",
+            "slug": "hjk-helsinki",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/HJK_Helsinki_logo.svg/200px-HJK_Helsinki_logo.svg.png",
+            "country_id": "FI",
+            "league": "Veikkausliiga"
+        },
+        {
+            "id": 232,
+            "name": "Slovan Bratislava",
+            "short_name": "SLO",
+            "slug": "slovan-bratislava",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/82/SK_Slovan_Bratislava_logo.svg/200px-SK_Slovan_Bratislava_logo.svg.png",
+            "country_id": "SK",
+            "league": "Slovak First Football League"
+        },
+        {
+            "id": 233,
+            "name": "Zorya Luhansk",
+            "short_name": "ZOR",
+            "slug": "zorya-luhansk",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/FC_Zorya_Luhansk_logo.svg/200px-FC_Zorya_Luhansk_logo.svg.png",
+            "country_id": "UA",
+            "league": "Ukrainian Premier League"
+        },
+        {
+            "id": 234,
+            "name": "LASK",
+            "short_name": "LAS",
+            "slug": "lask",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/LASK_Linz_logo.svg/200px-LASK_Linz_logo.svg.png",
+            "country_id": "AT",
+            "league": "Austrian Bundesliga"
+        },
+        {
+            "id": 235,
+            "name": "Sturm Graz",
+            "short_name": "STU",
+            "slug": "sturm-graz",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/SK_Sturm_Graz_logo.svg/200px-SK_Sturm_Graz_logo.svg.png",
+            "country_id": "AT",
+            "league": "Austrian Bundesliga"
+        },
+        {
+            "id": 236,
+            "name": "Rapid Wien",
+            "short_name": "RAP",
+            "slug": "rapid-wien",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/SK_Rapid_Wien_logo.svg/200px-SK_Rapid_Wien_logo.svg.png",
+            "country_id": "AT",
+            "league": "Austrian Bundesliga"
+        },
+        {
+            "id": 237,
+            "name": "Royal Antwerp",
+            "short_name": "ANT",
+            "slug": "royal-antwerp",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Royal_Antwerp_FC_logo.svg/200px-Royal_Antwerp_FC_logo.svg.png",
+            "country_id": "BE",
+            "league": "Belgian Pro League"
+        },
+        {
+            "id": 238,
+            "name": "KAA Gent",
+            "short_name": "GNT",
+            "slug": "kaa-gent",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/KAA_Gent_logo.svg/200px-KAA_Gent_logo.svg.png",
+            "country_id": "BE",
+            "league": "Belgian Pro League"
+        },
+        {
+            "id": 239,
+            "name": "Standard Liège",
+            "short_name": "STA",
+            "slug": "standard-liege",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Standard_Liege_logo.svg/200px-Standard_Liege_logo.svg.png",
+            "country_id": "BE",
+            "league": "Belgian Pro League"
+        },
+        {
+            "id": 240,
+            "name": "SC Heerenveen",
+            "short_name": "HEE",
+            "slug": "sc-heerenveen",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/6c/SC_Heerenveen_logo.svg/200px-SC_Heerenveen_logo.svg.png",
+            "country_id": "NL",
+            "league": "Eredivisie"
+        },
+        {
+            "id": 241,
+            "name": "FC Utrecht",
+            "short_name": "UTR",
+            "slug": "fc-utrecht",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/FC_Utrecht.svg/200px-FC_Utrecht.svg.png",
+            "country_id": "NL",
+            "league": "Eredivisie"
+        },
+        {
+            "id": 242,
+            "name": "Vitesse",
+            "short_name": "VIT",
+            "slug": "vitesse",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/SBV_Vitesse_logo.svg/200px-SBV_Vitesse_logo.svg.png",
+            "country_id": "NL",
+            "league": "Eredivisie"
+        },
+        {
+            "id": 243,
+            "name": "Sparta Rotterdam",
+            "short_name": "SPR",
+            "slug": "sparta-rotterdam",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Sparta_Rotterdam_logo.svg/200px-Sparta_Rotterdam_logo.svg.png",
+            "country_id": "NL",
+            "league": "Eredivisie"
+        },
+        {
+            "id": 244,
+            "name": "Boavista",
+            "short_name": "BOA",
+            "slug": "boavista",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Boavista_F.C._logo.svg/200px-Boavista_F.C._logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 245,
+            "name": "Famalicão",
+            "short_name": "FAM",
+            "slug": "famalicao",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/F.C._Famalic%C3%A3o_logo.svg/200px-F.C._Famalic%C3%A3o_logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 246,
+            "name": "FC Arouca",
+            "short_name": "ARO",
+            "slug": "fc-arouca",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/FC_Arouca_logo.svg/200px-FC_Arouca_logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 247,
+            "name": "Rio Ave",
+            "short_name": "RIO",
+            "slug": "rio-ave",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Rio_Ave_F.C._logo.svg/200px-Rio_Ave_F.C._logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 248,
+            "name": "Estoril Praia",
+            "short_name": "EST",
+            "slug": "estoril-praia",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/G.D._Estoril_Praia_logo.svg/200px-G.D._Estoril_Praia_logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 249,
+            "name": "Gil Vicente",
+            "short_name": "GIL",
+            "slug": "gil-vicente",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Gil_Vicente_F.C._logo.svg/200px-Gil_Vicente_F.C._logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 250,
+            "name": "Casa Pia",
+            "short_name": "CAS",
+            "slug": "casa-pia",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Casa_Pia_A.C._logo.svg/200px-Casa_Pia_A.C._logo.svg.png",
+            "country_id": "PT",
+            "league": "Primeira Liga"
+        },
+        {
+            "id": 251,
+            "name": "Boca Juniors",
+            "short_name": "BOC",
+            "slug": "boca-juniors",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Boca_Juniors_logo.svg/200px-Boca_Juniors_logo.svg.png",
+            "country_id": "AR",
+            "league": "Primera División"
+        },
+        {
+            "id": 252,
+            "name": "River Plate",
+            "short_name": "RIV",
+            "slug": "river-plate",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Logo_Club_Atletico_River_Plate_2022.svg/200px-Logo_Club_Atletico_River_Plate_2022.svg.png",
+            "country_id": "AR",
+            "league": "Primera División"
+        },
+        {
+            "id": 253,
+            "name": "Flamengo",
+            "short_name": "FLA",
+            "slug": "flamengo",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flamengo-RJ_%28BRA%29.png/200px-Flamengo-RJ_%28BRA%29.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 254,
+            "name": "Palmeiras",
+            "short_name": "PAL",
+            "slug": "palmeiras",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/200px-Palmeiras_logo.svg.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 255,
+            "name": "São Paulo",
+            "short_name": "SAO",
+            "slug": "sao-paulo",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/S%C3%A3o_Paulo_Futebol_Clube.png/200px-S%C3%A3o_Paulo_Futebol_Clube.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 256,
+            "name": "Corinthians",
+            "short_name": "COR",
+            "slug": "corinthians",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Sport_Club_Corinthians_Paulista_crest.svg/200px-Sport_Club_Corinthians_Paulista_crest.svg.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 257,
+            "name": "Grêmio",
+            "short_name": "GRE",
+            "slug": "gremio",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Gremio_logo.svg/200px-Gremio_logo.svg.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 258,
+            "name": "Atlético Mineiro",
+            "short_name": "CAM",
+            "slug": "atletico-mineiro",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Atletico_mineiro_galo.png/200px-Atletico_mineiro_galo.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 259,
+            "name": "Fluminense",
+            "short_name": "FLU",
+            "slug": "fluminense",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Fluminense_FC_escudo.png/200px-Fluminense_FC_escudo.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 260,
+            "name": "Cruzeiro",
+            "short_name": "CRU",
+            "slug": "cruzeiro",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Cruzeiro_Esporte_Clube_%28logo%29.svg/200px-Cruzeiro_Esporte_Clube_%28logo%29.svg.png",
+            "country_id": "BR",
+            "league": "Série A"
+        },
+        {
+            "id": 261,
+            "name": "Independiente",
+            "short_name": "IND",
+            "slug": "independiente",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Escudo_del_Club_Atl%C3%A9tico_Independiente.svg/200px-Escudo_del_Club_Atl%C3%A9tico_Independiente.svg.png",
+            "country_id": "AR",
+            "league": "Primera División"
+        },
+        {
+            "id": 262,
+            "name": "Racing Club",
+            "short_name": "RAC",
+            "slug": "racing-club",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Escudo_de_Racing_Club_%282014%29.svg/200px-Escudo_de_Racing_Club_%282014%29.svg.png",
+            "country_id": "AR",
+            "league": "Primera División"
+        },
+        {
+            "id": 263,
+            "name": "San Lorenzo",
+            "short_name": "SLO",
+            "slug": "san-lorenzo",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/San_Lorenzo_de_Almagro_logo.svg/200px-San_Lorenzo_de_Almagro_logo.svg.png",
+            "country_id": "AR",
+            "league": "Primera División"
+        },
+        {
+            "id": 264,
+            "name": "Peñarol",
+            "short_name": "PEN",
+            "slug": "penarol",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Escudo_del_Club_Atl%C3%A9tico_Pe%C3%B1arol.svg/200px-Escudo_del_Club_Atl%C3%A9tico_Pe%C3%B1arol.svg.png",
+            "country_id": "UY",
+            "league": "Primera División"
+        },
+        {
+            "id": 265,
+            "name": "Nacional",
+            "short_name": "NAC",
+            "slug": "nacional",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Escudo_del_Club_Nacional_de_Football.svg/200px-Escudo_del_Club_Nacional_de_Football.svg.png",
+            "country_id": "UY",
+            "league": "Primera División"
+        },
+        {
+            "id": 266,
+            "name": "Colo-Colo",
+            "short_name": "COL",
+            "slug": "colo-colo",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Colo-Colo_logo.svg/200px-Colo-Colo_logo.svg.png",
+            "country_id": "CL",
+            "league": "Primera División"
+        },
+        {
+            "id": 267,
+            "name": "Universidad de Chile",
+            "short_name": "UCH",
+            "slug": "universidad-de-chile",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Escudo_del_Club_Universidad_de_Chile.svg/200px-Escudo_del_Club_Universidad_de_Chile.svg.png",
+            "country_id": "CL",
+            "league": "Primera División"
+        },
+        {
+            "id": 268,
+            "name": "Club América",
+            "short_name": "AME",
+            "slug": "club-america",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Club_Am%C3%A9rica_logo.svg/200px-Club_Am%C3%A9rica_logo.svg.png",
+            "country_id": "MX",
+            "league": "Liga MX"
+        },
+        {
+            "id": 269,
+            "name": "CD Guadalajara",
+            "short_name": "CHV",
+            "slug": "cd-guadalajara",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/CD_Guadalajara_logo.svg/200px-CD_Guadalajara_logo.svg.png",
+            "country_id": "MX",
+            "league": "Liga MX"
+        },
+        {
+            "id": 270,
+            "name": "Cruz Azul",
+            "short_name": "CAZ",
+            "slug": "cruz-azul",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0d/Cruz_Azul_logo.svg/200px-Cruz_Azul_logo.svg.png",
+            "country_id": "MX",
+            "league": "Liga MX"
+        },
+        {
+            "id": 271,
+            "name": "Monterrey",
+            "short_name": "MON",
+            "slug": "monterrey",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/CF_Monterrey_logo.svg/200px-CF_Monterrey_logo.svg.png",
+            "country_id": "MX",
+            "league": "Liga MX"
+        },
+        {
+            "id": 272,
+            "name": "Tigres UANL",
+            "short_name": "TIG",
+            "slug": "tigres-uanl",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Tigres_UANL_logo.svg/200px-Tigres_UANL_logo.svg.png",
+            "country_id": "MX",
+            "league": "Liga MX"
+        },
+        {
+            "id": 273,
+            "name": "UNAM Pumas",
+            "short_name": "PUM",
+            "slug": "unam-pumas",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Pumas_UNAM_logo.svg/200px-Pumas_UNAM_logo.svg.png",
+            "country_id": "MX",
+            "league": "Liga MX"
+        },
+        {
+            "id": 274,
+            "name": "LA Galaxy",
+            "short_name": "LAG",
+            "slug": "la-galaxy",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/LA_Galaxy_logo.svg/200px-LA_Galaxy_logo.svg.png",
+            "country_id": "US",
+            "league": "MLS"
+        },
+        {
+            "id": 275,
+            "name": "Inter Miami CF",
+            "short_name": "MIA",
+            "slug": "inter-miami-cf",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/Inter_Miami_CF_logo.svg/200px-Inter_Miami_CF_logo.svg.png",
+            "country_id": "US",
+            "league": "MLS"
+        },
+        {
+            "id": 276,
+            "name": "Los Angeles FC",
+            "short_name": "LAF",
+            "slug": "los-angeles-fc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Los_Angeles_Football_Club_logo.svg/200px-Los_Angeles_Football_Club_logo.svg.png",
+            "country_id": "US",
+            "league": "MLS"
+        },
+        {
+            "id": 277,
+            "name": "Seattle Sounders FC",
+            "short_name": "SEA",
+            "slug": "seattle-sounders-fc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/Seattle_Sounders_FC_logo.svg/200px-Seattle_Sounders_FC_logo.svg.png",
+            "country_id": "US",
+            "league": "MLS"
+        },
+        {
+            "id": 278,
+            "name": "Atlanta United",
+            "short_name": "ATL",
+            "slug": "atlanta-united",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/10/Atlanta_United_FC_logo.svg/200px-Atlanta_United_FC_logo.svg.png",
+            "country_id": "US",
+            "league": "MLS"
+        },
+        {
+            "id": 279,
+            "name": "Al Hilal",
+            "short_name": "HIL",
+            "slug": "al-hilal",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Al_Hilal_SFC_Logo.svg/200px-Al_Hilal_SFC_Logo.svg.png",
+            "country_id": "SA",
+            "league": "Saudi Pro League"
+        },
+        {
+            "id": 280,
+            "name": "Al Nassr",
+            "short_name": "NAS",
+            "slug": "al-nassr",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Al-Nassr_FC_logo.svg/200px-Al-Nassr_FC_logo.svg.png",
+            "country_id": "SA",
+            "league": "Saudi Pro League"
+        },
+        {
+            "id": 281,
+            "name": "Al Ittihad",
+            "short_name": "ITT",
+            "slug": "al-ittihad",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Al-Ittihad_Club_logo.svg/200px-Al-Ittihad_Club_logo.svg.png",
+            "country_id": "SA",
+            "league": "Saudi Pro League"
+        },
+        {
+            "id": 282,
+            "name": "Al Ahli",
+            "short_name": "AHL",
+            "slug": "al-ahli",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/Al-Ahli_Saudi_FC_logo.svg/200px-Al-Ahli_Saudi_FC_logo.svg.png",
+            "country_id": "SA",
+            "league": "Saudi Pro League"
+        },
+        {
+            "id": 283,
+            "name": "Al Ahly SC",
+            "short_name": "ASC",
+            "slug": "al-ahly-sc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Al_Ahly_SC_logo.svg/200px-Al_Ahly_SC_logo.svg.png",
+            "country_id": "EG",
+            "league": "Egyptian Premier League"
+        },
+        {
+            "id": 284,
+            "name": "Zamalek SC",
+            "short_name": "ZAM",
+            "slug": "zamalek-sc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Zamalek_SC_logo.svg/200px-Zamalek_SC_logo.svg.png",
+            "country_id": "EG",
+            "league": "Egyptian Premier League"
+        },
+        {
+            "id": 285,
+            "name": "Wydad AC",
+            "short_name": "WYD",
+            "slug": "wydad-ac",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Wydad_Athletic_Club_logo.svg/200px-Wydad_Athletic_Club_logo.svg.png",
+            "country_id": "MA",
+            "league": "Botola Pro"
+        },
+        {
+            "id": 286,
+            "name": "Raja CA",
+            "short_name": "RCA",
+            "slug": "raja-ca",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/Raja_Casablanca_logo.svg/200px-Raja_Casablanca_logo.svg.png",
+            "country_id": "MA",
+            "league": "Botola Pro"
+        },
+        {
+            "id": 287,
+            "name": "Mamelodi Sundowns",
+            "short_name": "MSU",
+            "slug": "mamelodi-sundowns",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/71/Mamelodi_Sundowns_F.C._logo.svg/200px-Mamelodi_Sundowns_F.C._logo.svg.png",
+            "country_id": "ZA",
+            "league": "Premier Soccer League"
+        },
+        {
+            "id": 288,
+            "name": "Kaizer Chiefs",
+            "short_name": "KAI",
+            "slug": "kaizer-chiefs",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/Kaizer_Chiefs_logo.svg/200px-Kaizer_Chiefs_logo.svg.png",
+            "country_id": "ZA",
+            "league": "Premier Soccer League"
+        },
+        {
+            "id": 289,
+            "name": "Orlando Pirates",
+            "short_name": "ORL",
+            "slug": "orlando-pirates",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Orlando_Pirates_logo.svg/200px-Orlando_Pirates_logo.svg.png",
+            "country_id": "ZA",
+            "league": "Premier Soccer League"
+        },
+        {
+            "id": 290,
+            "name": "Urawa Red Diamonds",
+            "short_name": "URA",
+            "slug": "urawa-red-diamonds",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Urawa_Red_Diamonds_logo.svg/200px-Urawa_Red_Diamonds_logo.svg.png",
+            "country_id": "JP",
+            "league": "J1 League"
+        },
+        {
+            "id": 291,
+            "name": "Yokohama F. Marinos",
+            "short_name": "YFM",
+            "slug": "yokohama-f-marinos",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Yokohama_F._Marinos_logo.svg/200px-Yokohama_F._Marinos_logo.svg.png",
+            "country_id": "JP",
+            "league": "J1 League"
+        },
+        {
+            "id": 292,
+            "name": "Kawasaki Frontale",
+            "short_name": "KAW",
+            "slug": "kawasaki-frontale",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7f/Kawasaki_Frontale_logo.svg/200px-Kawasaki_Frontale_logo.svg.png",
+            "country_id": "JP",
+            "league": "J1 League"
+        },
+        {
+            "id": 293,
+            "name": "Jeonbuk Hyundai Motors",
+            "short_name": "JEO",
+            "slug": "jeonbuk-hyundai-motors",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Jeonbuk_Hyundai_Motors_logo.svg/200px-Jeonbuk_Hyundai_Motors_logo.svg.png",
+            "country_id": "KR",
+            "league": "K League 1"
+        },
+        {
+            "id": 294,
+            "name": "Ulsan HD",
+            "short_name": "ULS",
+            "slug": "ulsan-hd",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Ulsan_HD_FC_logo.svg/200px-Ulsan_HD_FC_logo.svg.png",
+            "country_id": "KR",
+            "league": "K League 1"
+        },
+        {
+            "id": 295,
+            "name": "FC Seoul",
+            "short_name": "SEO",
+            "slug": "fc-seoul",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/FC_Seoul_logo.svg/200px-FC_Seoul_logo.svg.png",
+            "country_id": "KR",
+            "league": "K League 1"
+        },
+        {
+            "id": 296,
+            "name": "Sydney FC",
+            "short_name": "SYD",
+            "slug": "sydney-fc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/Sydney_FC_logo.svg/200px-Sydney_FC_logo.svg.png",
+            "country_id": "AU",
+            "league": "A-League"
+        },
+        {
+            "id": 297,
+            "name": "Melbourne Victory",
+            "short_name": "MEL",
+            "slug": "melbourne-victory",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Melbourne_Victory_logo.svg/200px-Melbourne_Victory_logo.svg.png",
+            "country_id": "AU",
+            "league": "A-League"
+        },
+        {
+            "id": 298,
+            "name": "Esteghlal",
+            "short_name": "EST",
+            "slug": "esteghlal",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Esteghlal_FC_logo.svg/200px-Esteghlal_FC_logo.svg.png",
+            "country_id": "IR",
+            "league": "Persian Gulf Pro League"
+        },
+        {
+            "id": 299,
+            "name": "Persepolis",
+            "short_name": "PER",
+            "slug": "persepolis",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Persepolis_F.C._logo.svg/200px-Persepolis_F.C._logo.svg.png",
+            "country_id": "IR",
+            "league": "Persian Gulf Pro League"
+        },
+        {
+            "id": 300,
+            "name": "Al Sadd SC",
+            "short_name": "SAD",
+            "slug": "al-sadd-sc",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Al_Sadd_SC_logo.svg/200px-Al_Sadd_SC_logo.svg.png",
+            "country_id": "QA",
+            "league": "Qatar Stars League"
+        }
+    ]
+]
