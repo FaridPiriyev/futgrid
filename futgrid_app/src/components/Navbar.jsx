@@ -84,13 +84,13 @@ export default function Navbar() {
     <>
       <div
         aria-hidden={!scrolled}
-        className={`fixed inset-x-0 top-0 z-[60] bg-black shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-[transform,opacity,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+        className={`fixed inset-x-0 top-0 z-60 bg-black shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-[transform,opacity,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
           scrolled
             ? "visible translate-y-0 opacity-100"
             : "invisible -translate-y-full opacity-0"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-330 items-center justify-between px-4 md:h-[90px] md:px-6">
+        <div className="mx-auto flex h-16 max-w-330 items-center justify-between px-4 md:h-22.5 md:px-6">
           <a
             href="#"
             className={`block transition-all duration-500 motion-reduce:transition-none ${
@@ -152,7 +152,7 @@ export default function Navbar() {
 
         <span
           aria-hidden="true"
-          className={`absolute inset-x-0 bottom-0 h-[2px] origin-left bg-blue-500 transition-transform duration-700 motion-reduce:transition-none ${
+          className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-blue-500 transition-transform duration-700 motion-reduce:transition-none ${
             scrolled ? "scale-x-100 delay-300" : "scale-x-0"
           }`}
         />
@@ -180,14 +180,14 @@ export default function Navbar() {
 
         <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
           <div
-            className="absolute left-0 top-0 h-[130px] w-full bg-[#0b0909]"
+            className="absolute left-0 top-0 h-32.5 w-full bg-[#0b0909]"
             style={{
               clipPath:
                 "polygon(0 0, 100% 0, 100% 60px, calc(50% + 220px) 60px, 50% 130px, calc(50% - 220px) 60px, 0 60px)",
             }}
           />
           <div
-            className="absolute left-0 top-0 -z-10 h-[210px] w-full bg-[#000000] shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
+            className="absolute left-0 top-0 -z-10 h-52.5 w-full bg-[#000000] shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
             style={{
               clipPath:
                 "polygon(0 60px, calc(50% - 220px) 60px, 50% 130px, calc(50% + 220px) 60px, 100% 60px, 100% 140px, calc(50% + 220px) 140px, 50% 210px, calc(50% - 220px) 140px, 0 140px)",
@@ -195,7 +195,7 @@ export default function Navbar() {
           />
         </div>
 
-        <div className="relative z-20 h-14 bg-[#0b0909] md:h-[60px] md:bg-transparent">
+        <div className="relative z-20 h-14 bg-[#0b0909] md:h-15 md:bg-transparent">
           <div className="mx-auto flex h-full max-w-330 items-center justify-between px-4 md:px-6">
             <span className="hidden font-['Roboto',sans-serif] text-sm text-neutral-400 md:inline">
               Welcome to FutGrid tactical hub
@@ -219,7 +219,7 @@ export default function Navbar() {
                 </button>
 
                 {isLangOpen && (
-                  <ul className="absolute right-0 top-full z-50 mt-3 min-w-[72px] overflow-hidden rounded-lg border border-neutral-800 bg-[#0b0909] py-1 shadow-xl">
+                  <ul className="absolute right-0 top-full z-50 mt-3 min-w-18 overflow-hidden rounded-lg border border-neutral-800 bg-[#0b0909] py-1 shadow-xl">
                     {LANGUAGES.map((lang) => (
                       <li key={lang}>
                         <button
@@ -260,14 +260,14 @@ export default function Navbar() {
                   aria-label={label}
                   className="hidden text-white transition-opacity hover:opacity-70 md:block"
                 >
-                  <Icon className="h-[18px] w-[18px]" />
+                  <Icon className="h-4.5 w-4.5" />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="relative z-10 flex h-14 items-center bg-black md:h-[80px] md:bg-transparent">
+        <div className="relative z-10 flex h-14 items-center bg-black md:h-20 md:bg-transparent">
           <div className="mx-auto flex w-full max-w-330 items-center justify-between px-4 md:px-6">
             <nav className="hidden w-[40%] items-center justify-start gap-12 lg:gap-20 md:flex">
               {LEFT_LINKS.map((l) => (
@@ -295,7 +295,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-1/2 top-[6px] z-30 flex -translate-x-1/2 justify-center md:top-[35px]">
+        <div className="pointer-events-none absolute left-1/2 top-1.5 z-30 flex -translate-x-1/2 justify-center md:top-8.75">
           <a
             href="#"
             className="pointer-events-auto block transition-transform hover:scale-105"
@@ -303,7 +303,7 @@ export default function Navbar() {
             <img
               src="/logo3.png"
               alt="FutGrid Logo"
-              className="h-3 w-auto object-contain mix-blend-screen drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] md:h-[25px] lg:h-[40px]"
+              className="h-3 w-auto object-contain mix-blend-screen drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] md:h-6.25 lg:h-10"
             />
           </a>
         </div>
@@ -325,7 +325,7 @@ export default function Navbar() {
             <div className="mt-2 flex justify-center gap-6 text-white">
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a key={label} href={href} aria-label={label}>
-                  <Icon className="h-[18px] w-[18px]" />
+                  <Icon className="h-4.5 w-4.5" />
                 </a>
               ))}
             </div>

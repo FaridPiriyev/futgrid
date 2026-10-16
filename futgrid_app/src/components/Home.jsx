@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   ChevronLeft,
   ChevronRight,
@@ -9,13 +10,11 @@ import {
   MapPin,
   Send,
   Check,
-  ArrowUp,
 } from "lucide-react";
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
 const SLIDES = [
   {
-    image: "/public/images/slider1.jpg",
+    image: "/images/slider1.jpg",
     fallback: "linear-gradient(135deg,#1b0b3a 0%,#5b1f6e 50%,#0b2a4a 100%)",
     lines: ["FUTBOL TAKTİKANI", "GÖSTƏR"],
     subtitle: "Klubları və oyunçuları tanı, matçı qazan",
@@ -23,7 +22,7 @@ const SLIDES = [
     href: "#games",
   },
   {
-    image: "/public/images/slider2.jpg",
+    image: "/images/slider2.jpg",
     fallback: "linear-gradient(135deg,#071a33 0%,#0e4d6b 50%,#1b0b3a 100%)",
     lines: ["FƏRQLİ OYUNLAR"],
     subtitle: "Taktiki oyunların yeni formatını kəşf et",
@@ -31,7 +30,7 @@ const SLIDES = [
     href: "#games",
   },
   {
-    image: "/public/images/slider3.jpg",
+    image: "/images/slider3.jpg",
     fallback: "linear-gradient(135deg,#2a0b3a 0%,#6b1f4e 50%,#0b1a4a 100%)",
     lines: ["REYTİNQDƏ", "YÜKSƏL"],
     subtitle: "Xal topla və liderlər cədvəlinə qalx",
@@ -47,17 +46,17 @@ const ABOUT_BACKGROUND =
 
 const CARDS = [
   {
-    src: "/public/images/card1.jpg",
+    src: "/images/card1.jpg",
     alt: "Oyun zalı 1",
     title: "Oyun studiyası",
   },
   {
-    src: "/public/images/card2.jpg",
+    src: "/images/card2.jpg",
     alt: "Oyun zalı 2",
     title: "Taktika zalı",
   },
   {
-    src: "/public/images/card3.jpg",
+    src: "/images/card3.jpg",
     alt: "Oyun zalı 3",
     title: "Turnir arenası",
   },
@@ -66,25 +65,25 @@ const CARDS = [
 const NOISE =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
 
-const STREAMS_BACKGROUND = "/public/images/background_home_games.jpg";
+const STREAMS_BACKGROUND = "/images/background_home_games.jpg";
 
 const FEATURED_STREAM = {
-  image: "/public/images/game1.avif",
+  image: "/images/game1.avif",
   tag: "Klubların kəsişmə nöqtəsini tap, əfsanəvi oyunçuları yerləşdir və matçı qazan.",
   title: "FUTBOL X0X",
-  href: "#games",
+  href: "/oyunlar/futbol-x0x",
 };
 
 const SMALL_STREAMS = [
   {
-    image: "/public/images/game2.jpg",
+    image: "/images/game2.jpg",
     title: "ORTAQ OYUNÇU",
-    href: "#games",
+    href: "/oyunlar/ortaq-oyuncu",
   },
   {
-    image: "/public/images/game3.avif",
+    image: "/images/game3.avif",
     title: "Yüksək yoxsa Aşağı?",
-    href: "#games",
+    href: "/oyunlar/yuksek-asagi",
   },
 ];
 
@@ -173,8 +172,6 @@ const PLAYERS = [
   },
 ];
 
-
-
 const AVATAR_GRADIENTS = [
   "from-blue-500 to-cyan-400",
   "from-fuchsia-500 to-purple-600",
@@ -231,33 +228,6 @@ const CONTACT_INFO = [
   },
 ];
 
-const FOOTER_BACKGROUND =
-  "https://picsum.photos/seed/futgrid-footer/1920/1000?grayscale&blur=2";
-
-const FOOTER_FONT = "font-['Roboto_Condensed',sans-serif]";
-
-const FOOTER_NAV_LINKS = [
-  { label: "Ana Səhifə", href: "#" },
-  { label: "Haqqımızda", href: "#about" },
-  { label: "Oyunlar", href: "#games" },
-  { label: "Reytinq", href: "#leaderboard" },
-  { label: "Əlaqə", href: "#contact" },
-  { label: "Hesab", href: "#login" },
-];
-
-const FOOTER_GAME_LINKS = [
-  { label: "Futbol X0X", href: "#games" },
-  { label: "Ortaq oyunçu", href: "#games" },
-  { label: "Yüksək yoxsa Aşağı?", href: "#games" },
-  { label: "Canlı yayımlar", href: "#games" },
-];
-
-const FOOTER_SOCIALS = [
-  { Icon: FaInstagram, href: "#", label: "Instagram" },
-  { Icon: FaTiktok, href: "#", label: "TikTok" },
-  { Icon: FaYoutube, href: "#", label: "YouTube" },
-];
-
 const FIELD =
   "w-full border border-white/15 bg-white/5 px-4 py-3 font-['Roboto_Condensed',sans-serif] text-base text-white placeholder-neutral-500 outline-none transition-colors duration-300 focus:border-blue-500 focus:bg-white/10";
 
@@ -273,38 +243,7 @@ const SWEEP_BLUE =
 const SWEEP_WHITE =
   "absolute inset-0 -z-10 origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
 
-function FooterLink({ label, href }) {
-  return (
-    <li>
-      <a
-        href={href}
-        className={`group inline-flex items-center gap-2 ${FOOTER_FONT} text-base font-light text-neutral-400 transition-colors duration-300 hover:text-white`}
-      >
-        <span
-          aria-hidden="true"
-          className="h-[2px] w-0 bg-blue-500 transition-all duration-300 ease-out group-hover:w-4"
-        />
-        {label}
-      </a>
-    </li>
-  );
-}
-
-function FooterTitle({ children }) {
-  return (
-    <h3
-      className={`${FOOTER_FONT} text-xl font-bold uppercase tracking-wide text-white`}
-    >
-      {children}
-      <span
-        aria-hidden="true"
-        className="mt-2 block h-[2px] w-10 bg-blue-500"
-      />
-    </h3>
-  );
-}
-
-export default function HeroSlider() {
+export default function Home() {
   const [index, setIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [textIn, setTextIn] = useState(false);
@@ -450,12 +389,10 @@ export default function HeroSlider() {
 
   const rows = [...PLAYERS].sort((a, b) => b.points[period] - a.points[period]);
 
-  const year = new Date().getFullYear();
-
   return (
     <div ref={rootRef} className="w-full">
       <section
-        className="relative z-0 h-[500px] w-full overflow-hidden bg-black md:h-[790px]"
+        className="relative z-0 h-125 w-full overflow-hidden bg-black md:h-197.5"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >
@@ -468,7 +405,7 @@ export default function HeroSlider() {
             }`}
           >
             <div
-              className={`absolute inset-0 bg-cover bg-center transition-transform duration-[8000ms] ease-out motion-reduce:transition-none ${
+              className={`absolute inset-0 bg-cover bg-center transition-transform duration-8000 ease-out motion-reduce:transition-none ${
                 i === index && mounted ? "scale-110" : "scale-100"
               }`}
               style={{ backgroundImage: `url(${s.image}), ${s.fallback}` }}
@@ -485,7 +422,7 @@ export default function HeroSlider() {
                 <span
                   className={`block transition-all ease-out motion-reduce:transition-none ${
                     textIn
-                      ? "translate-y-0 opacity-100 duration-[900ms]"
+                      ? "translate-y-0 opacity-100 duration-900"
                       : "translate-y-full opacity-0 duration-0"
                   }`}
                   style={{
@@ -512,7 +449,7 @@ export default function HeroSlider() {
           <div
             className={`relative mt-5 inline-block transition-all ease-out motion-reduce:transition-none md:mt-8 ${
               textIn
-                ? "translate-y-0 scale-100 opacity-100 duration-[800ms]"
+                ? "translate-y-0 scale-100 opacity-100 duration-800"
                 : "translate-y-7 scale-90 opacity-0 duration-0"
             }`}
             style={{ transitionDelay: textIn ? `${btnDelay}ms` : "0ms" }}
@@ -520,7 +457,7 @@ export default function HeroSlider() {
             <span
               aria-hidden="true"
               className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${
-                textIn ? "opacity-100 delay-[1800ms]" : "opacity-0 duration-0"
+                textIn ? "opacity-100 delay-1800" : "opacity-0 duration-0"
               }`}
             >
               <span className="absolute -inset-1.5 animate-pulse bg-blue-500/30 [animation-duration:2.4s]" />
@@ -541,7 +478,7 @@ export default function HeroSlider() {
           aria-hidden="true"
           viewBox="0 0 520 60"
           preserveAspectRatio="none"
-          className="pointer-events-none absolute bottom-3 left-1/2 z-20 h-[34px] w-[240px] -translate-x-1/2 md:h-[42px] md:w-[300px]"
+          className="pointer-events-none absolute bottom-3 left-1/2 z-20 h-8.5 w-60 -translate-x-1/2 md:h-10.5 md:w-75"
         >
           <path
             fill="#000"
@@ -551,7 +488,7 @@ export default function HeroSlider() {
 
         <div
           aria-hidden="true"
-          className={`absolute bottom-0 left-0 z-30 h-[3px] bg-blue-500 transition-[width] ease-linear ${
+          className={`absolute bottom-0 left-0 z-30 h-0.75 bg-blue-500 transition-[width] ease-linear ${
             barFull ? "w-full" : "w-0 duration-0"
           }`}
           style={
@@ -576,7 +513,7 @@ export default function HeroSlider() {
           <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
         </button>
 
-        <div className="absolute bottom-[12px] left-1/2 z-30 flex -translate-x-1/2 items-center gap-3">
+        <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3">
           {SLIDES.map((_, i) => (
             <button
               key={i}
@@ -632,7 +569,7 @@ export default function HeroSlider() {
                 data-reveal
                 className={`${REVEAL} ${CARD_DELAYS[i]}`}
               >
-                <div className="group relative aspect-[11/10] overflow-hidden bg-neutral-900 transition-transform duration-500 ease-out hover:-translate-y-2">
+                <div className="group relative aspect-11/10 overflow-hidden bg-neutral-900 transition-transform duration-500 ease-out hover:-translate-y-2">
                   <img
                     src={card.src}
                     alt={card.alt}
@@ -704,9 +641,9 @@ export default function HeroSlider() {
 
           <div className="mt-10 grid grid-cols-1 gap-6 md:mt-14 lg:grid-cols-2 lg:grid-rows-2 lg:gap-6">
             <div data-reveal className={`${REVEAL} h-full lg:row-span-2`}>
-              <a
-                href={FEATURED_STREAM.href}
-                className="group relative block h-full min-h-[320px] overflow-hidden border border-white/10 bg-neutral-900"
+              <Link
+                to={FEATURED_STREAM.href}
+                className="group relative block h-full min-h-80 overflow-hidden border border-white/10 bg-neutral-900"
               >
                 <img
                   src={FEATURED_STREAM.image}
@@ -728,11 +665,11 @@ export default function HeroSlider() {
                   <p className="font-['Roboto_Condensed',sans-serif] text-xs uppercase tracking-[0.15em] text-blue-500">
                     {FEATURED_STREAM.tag}
                   </p>
-                  <h3 className="mt-1 max-w-[380px] font-['Roboto_Condensed',sans-serif] text-2xl font-bold uppercase leading-[1.1] text-white md:text-[32px]">
+                  <h3 className="mt-1 max-w-95 font-['Roboto_Condensed',sans-serif] text-2xl font-bold uppercase leading-[1.1] text-white md:text-[32px]">
                     {FEATURED_STREAM.title}
                   </h3>
                 </div>
-              </a>
+              </Link>
             </div>
 
             {SMALL_STREAMS.map((item, i) => (
@@ -741,9 +678,9 @@ export default function HeroSlider() {
                 data-reveal
                 className={`${REVEAL} ${STREAM_DELAYS[i]} h-full`}
               >
-                <a
-                  href={item.href}
-                  className="group relative block h-full min-h-[190px] overflow-hidden border border-white/10 bg-neutral-900 md:min-h-[220px]"
+                <Link
+                  to={item.href}
+                  className="group relative block h-full min-h-47.5 overflow-hidden border border-white/10 bg-neutral-900 md:min-h-55"
                 >
                   <img
                     src={item.image}
@@ -753,13 +690,13 @@ export default function HeroSlider() {
                   />
                   <div className="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-transparent" />
 
-                  <div className="absolute bottom-0 left-0 flex h-[60px] w-[58%] min-w-[190px] items-center gap-3 bg-blue-500/85 px-5 backdrop-blur-[2px] transition-all duration-300 group-hover:w-[70%] group-hover:bg-blue-500 md:h-[68px] md:px-8">
+                  <div className="absolute bottom-0 left-0 flex h-15 w-[58%] min-w-47.5 items-center gap-3 bg-blue-500/85 px-5 backdrop-blur-[2px] transition-all duration-300 group-hover:w-[70%] group-hover:bg-blue-500 md:h-17 md:px-8">
                     <Play className="h-4 w-4 shrink-0 fill-white text-white md:h-5 md:w-5" />
                     <span className="truncate font-['Roboto_Condensed',sans-serif] text-lg font-bold uppercase text-white md:text-xl">
                       {item.title}
                     </span>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -1093,166 +1030,6 @@ export default function HeroSlider() {
           </div>
         </div>
       </section>
-
-      <footer
-        id="footer"
-        className="relative z-0 mt-6 w-full bg-black md:mt-10"
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-[42px] left-0 z-20 hidden h-[42px] w-full md:block"
-        >
-          <div
-            className="absolute bottom-0 left-1/2 h-full w-[460px] -translate-x-1/2 bg-black"
-            style={{
-              clipPath:
-                "polygon(0 100%, 100% 100%, calc(50% + 90px) 0, calc(50% - 90px) 0)",
-            }}
-          />
-        </div>
-
-
-        <div className="relative w-full overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${FOOTER_BACKGROUND})` }}
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-black/90" />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
-            style={{ backgroundImage: NOISE }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-[#05060a] to-transparent"
-          />
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 h-[2px] bg-blue-500"
-          />
-
-          <div className="relative z-10 mx-auto max-w-330 px-4 pb-8 pt-14 md:px-6 md:pt-20">
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr] lg:gap-12">
-              <div className="sm:col-span-2 lg:col-span-1">
-                <a
-                  href="#"
-                  aria-label="FutGrid"
-                  className="mb-5 inline-block md:hidden"
-                >
-                  <img
-                    src="/logo3.png"
-                    alt="FutGrid Logo"
-                    className="h-8 w-auto object-contain mix-blend-screen"
-                  />
-                </a>
-
-                <p
-                  className={`${FOOTER_FONT} text-sm font-normal uppercase tracking-[0.2em] text-blue-500`}
-                >
-                  Futbol taktikanı göstər
-                </p>
-                <p
-                  className={`${FOOTER_FONT} mt-4 max-w-sm text-base font-light leading-8 text-neutral-400`}
-                >
-                  FutGrid taktiki oyunların, reytinq cədvəllərinin və
-                  turnirlərin bir yerdə toplandığı platformadır. Oyna, öyrən və
-                  liderlər cədvəlində yerini tut.
-                </p>
-
-                <div className="mt-6 flex items-center gap-3">
-                  {FOOTER_SOCIALS.map(({ Icon, href, label }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      aria-label={label}
-                      className="group/btn relative isolate flex h-11 w-11 items-center justify-center overflow-hidden border border-white/15 text-white transition-all duration-300 hover:-translate-y-1 hover:border-blue-500"
-                    >
-                      <span aria-hidden="true" className={SWEEP_BLUE} />
-                      <Icon className="h-[18px] w-[18px]" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <FooterTitle>Menyu</FooterTitle>
-                <ul className="mt-6 flex flex-col gap-3">
-                  {FOOTER_NAV_LINKS.map((l) => (
-                    <FooterLink key={l.label} {...l} />
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <FooterTitle>Oyunlar</FooterTitle>
-                <ul className="mt-6 flex flex-col gap-3">
-                  {FOOTER_GAME_LINKS.map((l) => (
-                    <FooterLink key={l.label} {...l} />
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <FooterTitle>Əlaqə</FooterTitle>
-                <div className="mt-6 flex flex-col gap-4">
-                  {CONTACT_INFO.map(({ Icon, value, href }) => (
-                    <a
-                      key={value}
-                      href={href}
-                      className="group flex items-center gap-4"
-                    >
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center bg-blue-500 text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-blue-400">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span
-                        className={`${FOOTER_FONT} text-base font-bold text-white transition-colors duration-300 group-hover:text-blue-400`}
-                      >
-                        {value}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-6 md:mt-16 md:flex-row">
-              <p
-                className={`${FOOTER_FONT} text-center text-sm font-light text-neutral-500 md:text-left`}
-              >
-                © {year} FutGrid. Bütün hüquqlar qorunur.
-              </p>
-
-              <div
-                className={`${FOOTER_FONT} flex items-center gap-6 text-sm font-light text-neutral-500`}
-              >
-                <a
-                  href="#"
-                  className="transition-colors duration-300 hover:text-white"
-                >
-                  Məxfilik siyasəti
-                </a>
-                <a
-                  href="#"
-                  className="transition-colors duration-300 hover:text-white"
-                >
-                  İstifadə şərtləri
-                </a>
-              </div>
-
-              <a
-                href="#"
-                className={`group/btn relative isolate inline-flex items-center gap-2 overflow-hidden bg-blue-500 px-6 py-2.5 ${FOOTER_FONT} text-sm font-bold uppercase tracking-wide text-white transition-colors duration-500 hover:text-blue-500`}
-              >
-                <span aria-hidden="true" className={SWEEP_WHITE} />
-                Yuxarı qalx
-                <ArrowUp className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
