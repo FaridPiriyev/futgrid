@@ -1,0 +1,843 @@
+[
+  {
+    "id": "premier-league",
+    "name": "Premier League",
+    "slug": "premier-league",
+    "country_code": "GB-ENG",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Premier League",
+    "club_keys": [
+      "Premier League|GB"
+    ]
+  },
+  {
+    "id": "championship",
+    "name": "Championship",
+    "slug": "championship",
+    "country_code": "GB-ENG",
+    "confederation": "UEFA",
+    "tier": 2,
+    "wikipedia": "EFL Championship",
+    "club_keys": [
+      "Championship|GB"
+    ]
+  },
+  {
+    "id": "scottish-premiership",
+    "name": "Scottish Premiership",
+    "slug": "scottish-premiership",
+    "country_code": "GB-SCT",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Scottish Premiership",
+    "club_keys": [
+      "Scottish Premiership|GB"
+    ]
+  },
+  {
+    "id": "la-liga",
+    "name": "La Liga",
+    "slug": "la-liga",
+    "country_code": "ES",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "La Liga",
+    "club_keys": [
+      "La Liga|ES"
+    ]
+  },
+  {
+    "id": "segunda-division",
+    "name": "Segunda División",
+    "slug": "segunda-division",
+    "country_code": "ES",
+    "confederation": "UEFA",
+    "tier": 2,
+    "wikipedia": "Segunda División",
+    "club_keys": [
+      "Segunda División|ES"
+    ]
+  },
+  {
+    "id": "bundesliga",
+    "name": "Bundesliga",
+    "slug": "bundesliga",
+    "country_code": "DE",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Bundesliga",
+    "club_keys": [
+      "Bundesliga|DE"
+    ]
+  },
+  {
+    "id": "2-bundesliga",
+    "name": "2. Bundesliga",
+    "slug": "2-bundesliga",
+    "country_code": "DE",
+    "confederation": "UEFA",
+    "tier": 2,
+    "wikipedia": "2. Bundesliga",
+    "club_keys": [
+      "2. Bundesliga|DE"
+    ]
+  },
+  {
+    "id": "serie-a",
+    "name": "Serie A",
+    "slug": "serie-a",
+    "country_code": "IT",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Serie A",
+    "club_keys": [
+      "Serie A|IT"
+    ]
+  },
+  {
+    "id": "serie-b",
+    "name": "Serie B",
+    "slug": "serie-b",
+    "country_code": "IT",
+    "confederation": "UEFA",
+    "tier": 2,
+    "wikipedia": "Serie B",
+    "club_keys": [
+      "Serie B|IT"
+    ]
+  },
+  {
+    "id": "ligue-1",
+    "name": "Ligue 1",
+    "slug": "ligue-1",
+    "country_code": "FR",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Ligue 1",
+    "club_keys": [
+      "Ligue 1|FR"
+    ]
+  },
+  {
+    "id": "ligue-2",
+    "name": "Ligue 2",
+    "slug": "ligue-2",
+    "country_code": "FR",
+    "confederation": "UEFA",
+    "tier": 2,
+    "wikipedia": "Ligue 2",
+    "club_keys": [
+      "Ligue 2|FR"
+    ]
+  },
+  {
+    "id": "primeira-liga",
+    "name": "Primeira Liga",
+    "slug": "primeira-liga",
+    "country_code": "PT",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Primeira Liga",
+    "club_keys": [
+      "Primeira Liga|PT"
+    ]
+  },
+  {
+    "id": "eredivisie",
+    "name": "Eredivisie",
+    "slug": "eredivisie",
+    "country_code": "NL",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Eredivisie",
+    "club_keys": [
+      "Eredivisie|NL"
+    ]
+  },
+  {
+    "id": "belgian-pro-league",
+    "name": "Belgian Pro League",
+    "slug": "belgian-pro-league",
+    "country_code": "BE",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Belgian Pro League",
+    "club_keys": [
+      "Belgian Pro League|BE"
+    ]
+  },
+  {
+    "id": "super-lig",
+    "name": "Süper Lig",
+    "slug": "super-lig",
+    "country_code": "TR",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Süper Lig",
+    "club_keys": [
+      "Süper Lig|TR"
+    ]
+  },
+  {
+    "id": "ukrainian-premier-league",
+    "name": "Ukrainian Premier League",
+    "slug": "ukrainian-premier-league",
+    "country_code": "UA",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Ukrainian Premier League",
+    "club_keys": [
+      "Ukrainian Premier League|UA"
+    ]
+  },
+  {
+    "id": "austrian-bundesliga",
+    "name": "Austrian Bundesliga",
+    "slug": "austrian-bundesliga",
+    "country_code": "AT",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Austrian Football Bundesliga",
+    "club_keys": [
+      "Austrian Bundesliga|AT"
+    ]
+  },
+  {
+    "id": "swiss-super-league",
+    "name": "Swiss Super League",
+    "slug": "swiss-super-league",
+    "country_code": "CH",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Swiss Super League",
+    "club_keys": [
+      "Swiss Super League|CH"
+    ]
+  },
+  {
+    "id": "danish-superliga",
+    "name": "Danish Superliga",
+    "slug": "danish-superliga",
+    "country_code": "DK",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Danish Superliga",
+    "club_keys": [
+      "Danish Superliga|DK"
+    ]
+  },
+  {
+    "id": "czech-first-league",
+    "name": "Czech First League",
+    "slug": "czech-first-league",
+    "country_code": "CZ",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Czech First League",
+    "club_keys": [
+      "Czech First League|CZ"
+    ]
+  },
+  {
+    "id": "prva-hnl",
+    "name": "Prva HNL",
+    "slug": "prva-hnl",
+    "country_code": "HR",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Croatian Football League",
+    "club_keys": [
+      "Prva HNL|HR"
+    ]
+  },
+  {
+    "id": "super-league-greece",
+    "name": "Super League Greece",
+    "slug": "super-league-greece",
+    "country_code": "GR",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Super League Greece",
+    "club_keys": [
+      "Super League Greece|GR"
+    ]
+  },
+  {
+    "id": "israeli-premier-league",
+    "name": "Israeli Premier League",
+    "slug": "israeli-premier-league",
+    "country_code": "IL",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Israeli Premier League",
+    "club_keys": [
+      "Israeli Premier League|IL"
+    ]
+  },
+  {
+    "id": "azerbaijan-premier-league",
+    "name": "Azerbaijan Premier League",
+    "slug": "azerbaijan-premier-league",
+    "country_code": "AZ",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Azerbaijan Premier League",
+    "club_keys": [
+      "Azerbaijan Premier League|AZ"
+    ]
+  },
+  {
+    "id": "eliteserien",
+    "name": "Eliteserien",
+    "slug": "eliteserien",
+    "country_code": "NO",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Eliteserien",
+    "club_keys": [
+      "Eliteserien|NO"
+    ]
+  },
+  {
+    "id": "allsvenskan",
+    "name": "Allsvenskan",
+    "slug": "allsvenskan",
+    "country_code": "SE",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Allsvenskan",
+    "club_keys": [
+      "Allsvenskan|SE"
+    ]
+  },
+  {
+    "id": "first-professional-football-league",
+    "name": "First Professional Football League",
+    "slug": "first-professional-football-league",
+    "country_code": "BG",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "First Professional Football League (Bulgaria)",
+    "club_keys": [
+      "First Professional Football League|BG"
+    ]
+  },
+  {
+    "id": "nemzeti-bajnoksag-i",
+    "name": "Nemzeti Bajnokság I",
+    "slug": "nemzeti-bajnoksag-i",
+    "country_code": "HU",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Nemzeti Bajnokság I",
+    "club_keys": [
+      "Nemzeti Bajnokság I|HU"
+    ]
+  },
+  {
+    "id": "serbian-superliga",
+    "name": "Serbian SuperLiga",
+    "slug": "serbian-superliga",
+    "country_code": "RS",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Serbian SuperLiga",
+    "club_keys": [
+      "Serbian SuperLiga|RS"
+    ]
+  },
+  {
+    "id": "ekstraklasa",
+    "name": "Ekstraklasa",
+    "slug": "ekstraklasa",
+    "country_code": "PL",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Ekstraklasa",
+    "club_keys": [
+      "Ekstraklasa|PL"
+    ]
+  },
+  {
+    "id": "liga-i",
+    "name": "Liga I",
+    "slug": "liga-i",
+    "country_code": "RO",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Liga I",
+    "club_keys": [
+      "Liga I|RO"
+    ]
+  },
+  {
+    "id": "moldovan-super-liga",
+    "name": "Moldovan Super Liga",
+    "slug": "moldovan-super-liga",
+    "country_code": "MD",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Moldovan Super Liga",
+    "club_keys": [
+      "Moldovan Super Liga|MD"
+    ]
+  },
+  {
+    "id": "veikkausliiga",
+    "name": "Veikkausliiga",
+    "slug": "veikkausliiga",
+    "country_code": "FI",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Veikkausliiga",
+    "club_keys": [
+      "Veikkausliiga|FI"
+    ]
+  },
+  {
+    "id": "slovak-first-football-league",
+    "name": "Slovak First Football League",
+    "slug": "slovak-first-football-league",
+    "country_code": "SK",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Slovak First Football League",
+    "club_keys": [
+      "Slovak First Football League|SK"
+    ]
+  },
+  {
+    "id": "cypriot-first-division",
+    "name": "Cypriot First Division",
+    "slug": "cypriot-first-division",
+    "country_code": "CY",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Cypriot First Division",
+    "club_keys": [
+      "Cypriot First Division|CY"
+    ]
+  },
+  {
+    "id": "slovenian-prvaliga",
+    "name": "Slovenian PrvaLiga",
+    "slug": "slovenian-prvaliga",
+    "country_code": "SI",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Slovenian PrvaLiga",
+    "club_keys": [
+      "Slovenian PrvaLiga|SI"
+    ]
+  },
+  {
+    "id": "kazakhstan-premier-league",
+    "name": "Kazakhstan Premier League",
+    "slug": "kazakhstan-premier-league",
+    "country_code": "KZ",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Kazakhstan Premier League",
+    "club_keys": [
+      "Kazakhstan Premier League|KZ"
+    ]
+  },
+  {
+    "id": "erovnuli-liga",
+    "name": "Erovnuli Liga",
+    "slug": "erovnuli-liga",
+    "country_code": "GE",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Erovnuli Liga",
+    "club_keys": [
+      "Erovnuli Liga|GE"
+    ]
+  },
+  {
+    "id": "league-of-ireland-premier-division",
+    "name": "League of Ireland Premier Division",
+    "slug": "league-of-ireland-premier-division",
+    "country_code": "IE",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "League of Ireland Premier Division",
+    "club_keys": [
+      "League of Ireland Premier Division|IE"
+    ]
+  },
+  {
+    "id": "russian-premier-league",
+    "name": "Russian Premier League",
+    "slug": "russian-premier-league",
+    "country_code": "RU",
+    "confederation": "UEFA",
+    "tier": 1,
+    "wikipedia": "Russian Premier League",
+    "club_keys": [
+      "Russian Premier League|RU"
+    ]
+  },
+  {
+    "id": "liga-profesional",
+    "name": "Liga Profesional",
+    "slug": "liga-profesional",
+    "country_code": "AR",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Argentine Primera División",
+    "club_keys": [
+      "Liga Profesional|AR"
+    ]
+  },
+  {
+    "id": "brasileirao-serie-a",
+    "name": "Brasileirão Série A",
+    "slug": "brasileirao-serie-a",
+    "country_code": "BR",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Campeonato Brasileiro Série A",
+    "club_keys": [
+      "Brasileirão Série A|BR"
+    ]
+  },
+  {
+    "id": "primera-division-uruguay",
+    "name": "Primera División (Uruqvay)",
+    "slug": "primera-division-uruguay",
+    "country_code": "UY",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Uruguayan Primera División",
+    "club_keys": [
+      "Primera División|UY"
+    ]
+  },
+  {
+    "id": "primera-division-chile",
+    "name": "Primera División (Çili)",
+    "slug": "primera-division-chile",
+    "country_code": "CL",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Chilean Primera División",
+    "club_keys": [
+      "Primera División|CL"
+    ]
+  },
+  {
+    "id": "primera-division-paraguay",
+    "name": "Primera División (Paraqvay)",
+    "slug": "primera-division-paraguay",
+    "country_code": "PY",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Paraguayan Primera División",
+    "club_keys": [
+      "Primera División|PY"
+    ]
+  },
+  {
+    "id": "categoria-primera-a",
+    "name": "Categoría Primera A",
+    "slug": "categoria-primera-a",
+    "country_code": "CO",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Categoría Primera A",
+    "club_keys": [
+      "Categoría Primera A|CO"
+    ]
+  },
+  {
+    "id": "ligapro",
+    "name": "LigaPro",
+    "slug": "ligapro",
+    "country_code": "EC",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Ecuadorian Serie A",
+    "club_keys": [
+      "LigaPro|EC"
+    ]
+  },
+  {
+    "id": "liga-1",
+    "name": "Liga 1",
+    "slug": "liga-1",
+    "country_code": "PE",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Liga 1 (Peru)",
+    "club_keys": [
+      "Liga 1|PE"
+    ]
+  },
+  {
+    "id": "division-profesional",
+    "name": "División Profesional",
+    "slug": "division-profesional",
+    "country_code": "BO",
+    "confederation": "CONMEBOL",
+    "tier": 1,
+    "wikipedia": "Bolivian Primera División",
+    "club_keys": [
+      "División Profesional|BO"
+    ]
+  },
+  {
+    "id": "liga-mx",
+    "name": "Liga MX",
+    "slug": "liga-mx",
+    "country_code": "MX",
+    "confederation": "CONCACAF",
+    "tier": 1,
+    "wikipedia": "Liga MX",
+    "club_keys": [
+      "Liga MX|MX"
+    ]
+  },
+  {
+    "id": "mls",
+    "name": "MLS",
+    "slug": "mls",
+    "country_code": "US",
+    "confederation": "CONCACAF",
+    "tier": 1,
+    "wikipedia": "Major League Soccer",
+    "club_keys": [
+      "MLS|US",
+      "MLS|CA"
+    ]
+  },
+  {
+    "id": "saudi-pro-league",
+    "name": "Saudi Pro League",
+    "slug": "saudi-pro-league",
+    "country_code": "SA",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "Saudi Pro League",
+    "club_keys": [
+      "Saudi Pro League|SA"
+    ]
+  },
+  {
+    "id": "persian-gulf-pro-league",
+    "name": "Persian Gulf Pro League",
+    "slug": "persian-gulf-pro-league",
+    "country_code": "IR",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "Persian Gulf Pro League",
+    "club_keys": [
+      "Persian Gulf Pro League|IR"
+    ]
+  },
+  {
+    "id": "qatar-stars-league",
+    "name": "Qatar Stars League",
+    "slug": "qatar-stars-league",
+    "country_code": "QA",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "Qatar Stars League",
+    "club_keys": [
+      "Qatar Stars League|QA"
+    ]
+  },
+  {
+    "id": "uae-pro-league",
+    "name": "UAE Pro League",
+    "slug": "uae-pro-league",
+    "country_code": "AE",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "UAE Pro League",
+    "club_keys": [
+      "UAE Pro League|AE"
+    ]
+  },
+  {
+    "id": "uzbekistan-super-league",
+    "name": "Uzbekistan Super League",
+    "slug": "uzbekistan-super-league",
+    "country_code": "UZ",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "Uzbekistan Super League",
+    "club_keys": [
+      "Uzbekistan Super League|UZ"
+    ]
+  },
+  {
+    "id": "chinese-super-league",
+    "name": "Chinese Super League",
+    "slug": "chinese-super-league",
+    "country_code": "CN",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "Chinese Super League",
+    "club_keys": [
+      "Chinese Super League|CN"
+    ]
+  },
+  {
+    "id": "indian-super-league",
+    "name": "Indian Super League",
+    "slug": "indian-super-league",
+    "country_code": "IN",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "Indian Super League",
+    "club_keys": [
+      "Indian Super League|IN"
+    ]
+  },
+  {
+    "id": "j1-league",
+    "name": "J1 League",
+    "slug": "j1-league",
+    "country_code": "JP",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "J1 League",
+    "club_keys": [
+      "J1 League|JP"
+    ]
+  },
+  {
+    "id": "k-league-1",
+    "name": "K League 1",
+    "slug": "k-league-1",
+    "country_code": "KR",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "K League 1",
+    "club_keys": [
+      "K League 1|KR"
+    ]
+  },
+  {
+    "id": "a-league",
+    "name": "A-League",
+    "slug": "a-league",
+    "country_code": "AU",
+    "confederation": "AFC",
+    "tier": 1,
+    "wikipedia": "A-League Men",
+    "club_keys": [
+      "A-League|AU"
+    ]
+  },
+  {
+    "id": "egyptian-premier-league",
+    "name": "Egyptian Premier League",
+    "slug": "egyptian-premier-league",
+    "country_code": "EG",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Egyptian Premier League",
+    "club_keys": [
+      "Egyptian Premier League|EG"
+    ]
+  },
+  {
+    "id": "botola-pro",
+    "name": "Botola Pro",
+    "slug": "botola-pro",
+    "country_code": "MA",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Botola",
+    "club_keys": [
+      "Botola Pro|MA"
+    ]
+  },
+  {
+    "id": "premier-soccer-league",
+    "name": "Premier Soccer League",
+    "slug": "premier-soccer-league",
+    "country_code": "ZA",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "South African Premiership",
+    "club_keys": [
+      "Premier Soccer League|ZA"
+    ]
+  },
+  {
+    "id": "tunisian-ligue-professionnelle-1",
+    "name": "Tunisian Ligue Professionnelle 1",
+    "slug": "tunisian-ligue-professionnelle-1",
+    "country_code": "TN",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Tunisian Ligue Professionnelle 1",
+    "club_keys": [
+      "Tunisian Ligue Professionnelle 1|TN"
+    ]
+  },
+  {
+    "id": "linafoot",
+    "name": "Linafoot",
+    "slug": "linafoot",
+    "country_code": "CD",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Linafoot",
+    "club_keys": [
+      "Linafoot|CD"
+    ]
+  },
+  {
+    "id": "tanzanian-premier-league",
+    "name": "Tanzanian Premier League",
+    "slug": "tanzanian-premier-league",
+    "country_code": "TZ",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Tanzanian Premier League",
+    "club_keys": [
+      "Tanzanian Premier League|TZ"
+    ]
+  },
+  {
+    "id": "nigeria-premier-football-league",
+    "name": "Nigeria Premier Football League",
+    "slug": "nigeria-premier-football-league",
+    "country_code": "NG",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Nigeria Premier Football League",
+    "club_keys": [
+      "Nigeria Premier Football League|NG"
+    ]
+  },
+  {
+    "id": "ligue-1-cote-d-ivoire",
+    "name": "Ligue 1 (Côte d'Ivoire)",
+    "slug": "ligue-1-cote-d-ivoire",
+    "country_code": "CI",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Ligue 1 (Ivory Coast)",
+    "club_keys": [
+      "Ligue 1 (Côte d'Ivoire)|CI"
+    ]
+  },
+  {
+    "id": "ligue-1-algeria",
+    "name": "Ligue 1 (Algeria)",
+    "slug": "ligue-1-algeria",
+    "country_code": "DZ",
+    "confederation": "CAF",
+    "tier": 1,
+    "wikipedia": "Algerian Ligue Professionnelle 1",
+    "club_keys": [
+      "Ligue 1 (Algeria)|DZ"
+    ]
+  }
+]

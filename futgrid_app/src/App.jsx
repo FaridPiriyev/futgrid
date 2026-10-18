@@ -3,9 +3,10 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
-import ComingSoon from "./components/common/ComingSoon";
+import ComingSoon from "./components/games/common/ComingSoon";
 
 const FutbolX0X = lazy(() => import("./components/games/x0x/FutbolX0X"));
+const OrtaqOyuncu = lazy(() => import("./components/games/ortaq/OrtaqOyuncu"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -35,10 +36,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/oyunlar/futbol-x0x" element={<FutbolX0X />} />
-          <Route
-            path="/oyunlar/ortaq-oyuncu"
-            element={<ComingSoon title="Ortaq oyunçu" />}
-          />
+          <Route path="/oyunlar/ortaq-oyuncu" element={<OrtaqOyuncu />} />
           <Route
             path="/oyunlar/yuksek-asagi"
             element={<ComingSoon title="Yüksək yoxsa Aşağı?" />}

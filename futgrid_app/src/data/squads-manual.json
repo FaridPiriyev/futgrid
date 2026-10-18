@@ -1,0 +1,153 @@
+[
+    {
+        "club": "neftci-pfk",
+        "source": "https://en.wikipedia.org/wiki/Neftçi_PFK",
+        "as_of": "2026-10-18",
+        "players": [
+            {
+                "number": 1,
+                "name": "Emil Balayev",
+                "position": "GK",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 3,
+                "name": "Rufat Abbasov",
+                "position": "DF",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 5,
+                "name": "Igor Ribeiro",
+                "position": "DF",
+                "nationality": "Brazil"
+            },
+            {
+                "number": 6,
+                "name": "Sessi D'Almeida",
+                "position": "MF",
+                "nationality": "Benin"
+            },
+            {
+                "number": 7,
+                "name": "Emil Safarov",
+                "position": "MF",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 8,
+                "name": "Emin Mahmudov",
+                "position": "MF",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 10,
+                "name": "Freddy Vargas",
+                "position": "MF",
+                "nationality": "Venezuela"
+            },
+            {
+                "number": 11,
+                "name": "Alen Skribek",
+                "position": "MF",
+                "nationality": "Hungary"
+            },
+            {
+                "number": 14,
+                "name": "Elvin Badalov",
+                "position": "DF",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 17,
+                "name": "Murad Khachayev",
+                "position": "DF",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 18,
+                "name": "Ifeanyi Mathew",
+                "position": "MF",
+                "nationality": "Nigeria"
+            },
+            {
+                "number": 20,
+                "name": "Gustavo Klismahn",
+                "position": "MF",
+                "nationality": "Brazil"
+            },
+            {
+                "number": 22,
+                "name": "Denzel Jubitana",
+                "position": "MF",
+                "nationality": "Suriname"
+            },
+            {
+                "number": 24,
+                "name": "Moustapha Seck",
+                "position": "DF",
+                "nationality": "Spain"
+            },
+            {
+                "number": 26,
+                "name": "Adeleke Akinyemi",
+                "position": "FW",
+                "nationality": "Nigeria"
+            },
+            {
+                "number": 27,
+                "name": "Dragoljub Savić",
+                "position": "MF",
+                "nationality": "Serbia"
+            },
+            {
+                "number": 29,
+                "name": "Ľubomír Tupta",
+                "position": "FW",
+                "nationality": "Slovakia"
+            },
+            {
+                "number": 33,
+                "name": "Breno Almeida",
+                "position": "MF",
+                "nationality": "Brazil"
+            },
+            {
+                "number": 55,
+                "name": "Andreaw Gravillon",
+                "position": "DF",
+                "nationality": "Guadeloupe"
+            },
+            {
+                "number": 70,
+                "name": "Andriy Shtohrin",
+                "position": "MF",
+                "nationality": "Ukraine"
+            },
+            {
+                "number": 77,
+                "name": "Falaye Sacko",
+                "position": "DF",
+                "nationality": "Mali"
+            },
+            {
+                "number": 88,
+                "name": "Vicko Ševelj",
+                "position": "MF",
+                "nationality": "Croatia"
+            },
+            {
+                "number": 93,
+                "name": "Rza Jafarov",
+                "position": "GK",
+                "nationality": "Azerbaijan"
+            },
+            {
+                "number": 97,
+                "name": "Bassala Sambou",
+                "position": "FW",
+                "nationality": "Senegal"
+            }
+        ]
+    }
+]

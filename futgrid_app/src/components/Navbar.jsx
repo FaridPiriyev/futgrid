@@ -100,9 +100,9 @@ export default function Navbar() {
             }`}
           >
             <img
-              src="/logo3.png"
+              src="/logo.png"
               alt="FutGrid Logo"
-              className="h-8 w-auto object-contain mix-blend-screen md:h-11"
+              className="h-8 w-auto object-contain mix-blend-screen md:h-19"
             />
           </a>
 
@@ -190,7 +190,7 @@ export default function Navbar() {
             className="absolute left-0 top-0 -z-10 h-52.5 w-full bg-[#000000] shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
             style={{
               clipPath:
-                "polygon(0 60px, calc(50% - 220px) 60px, 50% 130px, calc(50% + 220px) 60px, 100% 60px, 100% 140px, calc(50% + 220px) 140px, 50% 210px, calc(50% - 220px) 140px, 0 140px)",
+                "polygon(0 0, 100% 0, 100% 140px, calc(50% + 220px) 140px, 50% 210px, calc(50% - 220px) 140px, 0 140px)",
             }}
           />
         </div>
@@ -301,9 +301,9 @@ export default function Navbar() {
             className="pointer-events-auto block transition-transform hover:scale-105"
           >
             <img
-              src="/logo3.png"
+              src="/logo.png"
               alt="FutGrid Logo"
-              className="h-3 w-auto object-contain mix-blend-screen drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] md:h-6.25 lg:h-10"
+              className="h-10 w-auto object-contain mix-blend-screen drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] md:h-16 lg:h-23"
             />
           </a>
         </div>

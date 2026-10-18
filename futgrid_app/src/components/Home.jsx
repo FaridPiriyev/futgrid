@@ -14,7 +14,7 @@ import {
 
 const SLIDES = [
   {
-    image: "/images/slider1.jpg",
+    image: "/images/slider1.png",
     fallback: "linear-gradient(135deg,#1b0b3a 0%,#5b1f6e 50%,#0b2a4a 100%)",
     lines: ["FUTBOL TAKTİKANI", "GÖSTƏR"],
     subtitle: "Klubları və oyunçuları tanı, matçı qazan",
@@ -22,7 +22,7 @@ const SLIDES = [
     href: "#games",
   },
   {
-    image: "/images/slider2.jpg",
+    image: "/images/slider2.png",
     fallback: "linear-gradient(135deg,#071a33 0%,#0e4d6b 50%,#1b0b3a 100%)",
     lines: ["FƏRQLİ OYUNLAR"],
     subtitle: "Taktiki oyunların yeni formatını kəşf et",
@@ -30,7 +30,7 @@ const SLIDES = [
     href: "#games",
   },
   {
-    image: "/images/slider3.jpg",
+    image: "/images/slider3.png",
     fallback: "linear-gradient(135deg,#2a0b3a 0%,#6b1f4e 50%,#0b1a4a 100%)",
     lines: ["REYTİNQDƏ", "YÜKSƏL"],
     subtitle: "Xal topla və liderlər cədvəlinə qalx",
@@ -42,7 +42,7 @@ const SLIDES = [
 const AUTOPLAY_MS = 4500;
 
 const ABOUT_BACKGROUND =
-  "https://picsum.photos/seed/futgrid-texture/1920/1000?grayscale&blur=2";
+  "/images/background_home_about.png";
 
 const CARDS = [
   {
@@ -164,8 +164,8 @@ const PLAYERS = [
     points: { week: 1380, month: 5420, all: 21980 },
   },
   {
-    name: "Palatqa ",
-    team: "Ceyranbatan",
+    name: "Apo kerim sentarci ",
+    team: "kapital bank",
     matches: 76,
     winRate: 54,
     points: { week: 1210, month: 5150, all: 18640 },
@@ -541,7 +541,7 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${ABOUT_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#0b0909]/90" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[#0b0909]/80" />
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
