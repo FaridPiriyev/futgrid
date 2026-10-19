@@ -1,26 +1,3 @@
-#!/usr/bin/env node
-/**
- * Klublarımızın heyətlərini qurub public/data/players.json yaradır (oyun birbaşa bu faylı oxuyur).
- * Heyət mənbəyi: API-Football faylı olan klublar üçün API-Football, qalan klublar üçün
- * Transfermarkt-dakı hazırkı klub (current_club_id). API-Football olmadan da işləyir.
- * Node.js 18+ lazımdır. Heç bir npm paketi tələb olunmur.
- *
- * Lazım olanlar (futgrid_app qovluğunda):
- *   public/data/clubs.json
- *   data-raw/api-football/squads/*.json      (istəyə görə, fetch-squads.mjs yaradır)
- *   data-raw/transfermarkt/*.csv.gz          (Transfermarkt dataseti)
- *   src/data/players-manual.json             (istəyə görə: əl ilə yazılmış kuboklar)
- *
- * İşə salma:
- *   node scripts/build-players.mjs
- *
- * Nəticə:
- *   public/data/players.json                 oyunçular
- *   data-raw/player-photos.json              şəkil mənbələri (sonra yükləmək üçün)
- *   data-raw/build-report.json               uyğunlaşmayan oyunçular və klublar
- *
- * Transfermarkt dataseti hansı tarixə qədərdirsə, heyətlər də o tarixə uyğundur.
- */
 import { readFile, writeFile, readdir, access } from "node:fs/promises";
 import { createReadStream } from "node:fs";
 import { createGunzip } from "node:zlib";
@@ -50,7 +27,6 @@ async function readJson(p, emptyValue) {
   }
 }
 
-// ---------- CSV (gzip) oxuyucu: sətir-sətir, yaddaşa bütöv yükləmir ----------
 export async function eachRow(file, onRow) {
   const stream = createReadStream(file).pipe(createGunzip());
   stream.setEncoding("utf8");
@@ -100,7 +76,6 @@ export async function eachRow(file, onRow) {
   return count;
 }
 
-// ---------- adlar ----------
 export const norm = (s) =>
   String(s ?? "")
     .toLowerCase()
@@ -190,7 +165,6 @@ function clubScore(a, b) {
   if (!ta.size || !tb.size) return 0;
   const inter = [...ta].filter((t) => tb.has(t)).length;
   const jac = inter / new Set([...ta, ...tb]).size;
-  // bir ad o birinin içindədirsə: qısa adın uzun ada nisbəti nə qədər azdırsa, bal o qədər aşağı
   const contains =
     inter &&
     ([...ta].every((t) => tb.has(t)) || [...tb].every((t) => ta.has(t)));
@@ -204,7 +178,6 @@ const isReserveName = (ourName, otherName) => {
     .some((t) => RESERVE.test(t) && !ours.has(t));
 };
 
-// Transfermarkt-da başqa adla yazılan klublar (bizim slug -> TM adları / kodları)
 const TM_ALIASES = {
   "bayern-munich": ["Bayern Munich", "fc-bayern-munchen"],
   "inter-milan": ["Inter", "inter-mailand"],
@@ -252,7 +225,6 @@ const TM_ALIASES = {
   "al-ahli": ["Al-Ahli"],
 };
 
-// ---------- ölkələr: ad -> ISO kod ----------
 export function buildCountryCodes() {
   const dn = new Intl.DisplayNames(["en"], { type: "region" });
   const map = new Map();
@@ -330,7 +302,6 @@ export function buildCountryCodes() {
   return (name) => map.get(norm(name)) ?? null;
 }
 
-// ---------- köməkçilər ----------
 const POS_API = {
   Goalkeeper: "GK",
   Defender: "DF",
@@ -357,7 +328,6 @@ const ageOn = (dob, day) => {
 export const slugify = (s) => norm(s).replace(/ /g, "-");
 const num = (v) => (v === "" || v == null ? null : Number(v));
 
-// ---------- kuboklar ----------
 const days = (a, b) => (Date.parse(b) - Date.parse(a)) / 864e5;
 const endDate = (spec = "05-30", S) => {
   const y = Number(S.slice(0, 4));
@@ -388,7 +358,6 @@ async function computeTrophies({
   if (!(await exists(winnersPath))) return none;
   const W = (await readJson(winnersPath, { trophies: {} })).trophies ?? {};
 
-  // kubok -> Transfermarkt yarış id-ləri
   const compOf = new Map(),
     trophyReport = {};
   for (const [tid, t] of Object.entries(W)) {
@@ -403,9 +372,8 @@ async function computeTrophies({
       : "Transfermarkt-da yoxdur (transferlərlə hesablanır)";
   }
   const isNat = (comp) => W[compOf.get(comp)]?.type === "national";
-  const periodOf = (g) => (isNat(g.c) ? g.d.slice(0, 4) : g.s); // millilər: turnir ili, klublar: mövsüm
+  const periodOf = (g) => (isNat(g.c) ? g.d.slice(0, 4) : g.s);
 
-  // milli komandalar və klublarımızın TM id-ləri
   const natIdsOf = new Map();
   await eachRow(tm("national_teams.csv.gz"), (r) => {
     const c = countryCode(r.country_name);
@@ -420,7 +388,6 @@ async function computeTrophies({
   }
   const slugToId = new Map(clubs.map((c) => [c.slug, c.id]));
 
-  // klubun yarışdakı son oyunu
   const clubLast = new Map();
   for (const g of games.values()) {
     if (!compOf.has(g.c)) continue;
@@ -430,7 +397,6 @@ async function computeTrophies({
       if (!clubLast.has(k) || g.d > clubLast.get(k)) clubLast.set(k, g.d);
     }
   }
-  // oyun heyətləri (əsas + ehtiyat oyunçular)
   const hasData = new Set(),
     playerLast = new Map();
   await eachRow(tm("game_lineups.csv.gz"), (r) => {
@@ -444,7 +410,6 @@ async function computeTrophies({
   });
   log("oyun heyətləri oxundu");
 
-  // müəyyən tarixdə oyunçu hansı klubumuzda idi (transferlərə görə)
   const clubOn = (pid, date) => {
     const tr = transfersBy.get(pid) ?? [];
     if (!tr.length)
@@ -488,7 +453,6 @@ async function computeTrophies({
           if (ok) n++;
           continue;
         }
-        // klub kuboku
         const slug = typeof v === "string" ? v : v.club;
         const our = slugToId.get(slug),
           tids = tmIdsOf.get(our) ?? [];
@@ -498,7 +462,6 @@ async function computeTrophies({
         );
         let ok;
         if (covered) {
-          // o mövsüm həmin klubun heyətində olub və sona yaxın hələ orada idi
           ok = tids.some((id) =>
             t.resolved.some((c) => {
               const L = playerLast.get(`${pid}|${id}|${c}|${per}`);
@@ -508,7 +471,6 @@ async function computeTrophies({
             }),
           );
         } else {
-          // data yoxdur (məs. 2012-dən əvvəl): mövsümün sonunda o klubda idisə
           const date = (typeof v === "object" && v.date) || endDate(t.end, S);
           const end = careerEnd.get(pid);
           ok =
@@ -675,7 +637,6 @@ async function buildCoaches({
   return { coaches, coachIdsOf, natCodeOf };
 }
 
-// ---------- əsas iş ----------
 export async function build({
   clubsPath = "public/data/clubs.json",
   squadsDir = "data-raw/api-football/squads",
@@ -699,7 +660,6 @@ export async function build({
   const tm = (f) => path.join(tmDir, f);
   const countryCode = buildCountryCodes();
 
-  // 1) Bizim klublar və heyətlər
   const clubs = await readJson(clubsPath);
   const clubById = new Map(clubs.map((c) => [c.id, c]));
   const squadFiles = (await exists(squadsDir))
@@ -749,14 +709,13 @@ export async function build({
       : "API-Football heyəti yoxdur, heyətlər Transfermarkt-dan qurulacaq",
   );
 
-  // 2) Transfermarkt: ölkələr, yarışlar, klublar
   const compCountry = new Map(),
     compCodes = new Map();
   await eachRow(tm("competitions.csv.gz"), (r) => {
     compCountry.set(r.competition_id, r.country_name);
     compCodes.set(r.competition_id, r.competition_code);
   });
-  const tmClubs = new Map(); // tm id -> { names:Set, country }
+  const tmClubs = new Map();
   const addTmName = (id, name, country) => {
     if (!id || !name) return;
     let c = tmClubs.get(id);
@@ -773,7 +732,6 @@ export async function build({
     addTmName(r.club_id, r.club_code.replace(/-/g, " "), country);
   });
 
-  // 3) Transfermarkt oyunçuları
   const tmPlayers = new Map();
   await eachRow(tm("players.csv.gz"), (r) => {
     tmPlayers.set(r.player_id, r);
@@ -785,17 +743,15 @@ export async function build({
   });
   log(`${tmPlayers.size} Transfermarkt oyunçusu oxundu`);
 
-  // 4) Transferlər (klub tarixçəsi üçün) + transferlərdəki klub adları
   const transfersBy = new Map();
   await eachRow(tm("transfers.csv.gz"), (r) => {
-    if (!r.transfer_date || r.transfer_date > today) return; // gələcək tarixli (icarə sonu) qeydləri ötürürük
+    if (!r.transfer_date || r.transfer_date > today) return;
     if (!transfersBy.has(r.player_id)) transfersBy.set(r.player_id, []);
     transfersBy.get(r.player_id).push(r);
     addTmName(r.from_club_id, r.from_club_name);
     addTmName(r.to_club_id, r.to_club_name);
   });
 
-  // 5) TM klubu -> bizim klub
   const COUNTRY_NAME = {
     GB: null,
     ES: "Spain",
@@ -825,7 +781,6 @@ export async function build({
     CY: "Cyprus",
   };
   const ourNames = (c) => [c.name, ...(TM_ALIASES[c.slug] ?? [])];
-  // indeks: ad tokeni -> bizim klublar (yalnız ortaq sözü olanları müqayisə edirik)
   const tokenIndex = new Map();
   for (const c of clubs)
     for (const on of ourNames(c))
@@ -845,7 +800,6 @@ export async function build({
       second = 0;
     for (const c of cands) {
       if (info.country) {
-        // ölkəsi bilinən TM klubu yalnız eyni ölkədəki klubumuza uyğun gələ bilər
         if (c.country_id === "GB") {
           if (!["England", "Scotland"].includes(info.country)) continue;
         } else if (COUNTRY_NAME[c.country_id] !== info.country) continue;
@@ -864,7 +818,7 @@ export async function build({
         best = c;
       } else if (s > second) second = s;
     }
-    const need = info.country ? 0.6 : 0.8; // ölkəsi bilinməyən klub üçün daha sərt
+    const need = info.country ? 0.6 : 0.8;
     if (best && score >= need && score - second >= 0.1) {
       const prev = tmToOur.get(tmId);
       tmToOur.set(tmId, best.id);
@@ -877,12 +831,10 @@ export async function build({
         });
     }
   }
-  // Bir bizim klub bir neçə TM klubuna uyğunlaşa bilər (məs. adların variantları) — bu normaldır.
   log(
     `${new Set(tmToOur.values()).size}/${clubs.length} klub Transfermarkt-da tapıldı`,
   );
 
-  // 6) Heyət oyunçusu -> TM oyunçusu
   const byFull = new Map(),
     bySurname = new Map();
   for (const p of tmPlayers.values()) {
@@ -933,7 +885,7 @@ export async function build({
     const day = sq.fetched_at || today;
     for (const ap of sq.players ?? []) {
       let p = matchPlayer(ap, sq.club_id, day);
-      if (p && used.has(p.player_id)) p = null; // eyni TM oyunçusu iki dəfə olmasın
+      if (p && used.has(p.player_id)) p = null;
       if (p) used.add(p.player_id);
       else
         unmatched.push({
@@ -950,7 +902,6 @@ export async function build({
       `${entries.length} API-Football oyunçusu, ${used.size} Transfermarkt ilə uyğunlaşdı`,
     );
 
-  // 6b) API-Football heyəti olmayan klublar: Transfermarkt-dakı hazırkı klub
   const apiClubs = new Set(squads.map((sq) => sq.club_id));
   const lastVal = new Map();
   await eachRow(tm("player_valuations.csv.gz"), (r) => {
@@ -979,7 +930,6 @@ export async function build({
     `${fromTm} oyunçu Transfermarkt-dakı hazırkı klubuna görə əlavə olundu (data tarixi: ${dataDate.slice(0, 10) || "?"})`,
   );
 
-  // 6c) Karyerasını bitirmiş tanınmış oyunçular (bizim klublardan birində oynayıblarsa)
   const RETIRED_MIN_VALUE = 30_000_000,
     RETIRED_MIN_CAPS = 80;
   const playedForUs = (p) =>
@@ -1010,8 +960,7 @@ export async function build({
     if (end) careerEnd.set(p.player_id, end);
   }
 
-  // 7) Statistika: oyunların mövsümü + çıxışlar
-  const games = new Map(); // game_id -> { c: yarış, s: mövsüm, d: tarix, h, a }
+  const games = new Map();
   await eachRow(tm("games.csv.gz"), (r) =>
     games.set(r.game_id, {
       c: r.competition_id,
@@ -1064,7 +1013,6 @@ export async function build({
   });
   log("statistika hesablandı");
 
-  // 8) Bazar dəyərinin tarixi
   const valDate = new Map();
   await eachRow(tm("player_valuations.csv.gz"), (r) => {
     if (!used.has(r.player_id)) return;
@@ -1072,7 +1020,6 @@ export async function build({
       valDate.set(r.player_id, r.date);
   });
 
-  // 8b) Kuboklar
   const { trophiesOf, trophyReport } = await computeTrophies({
     winnersPath,
     tm,
@@ -1089,7 +1036,6 @@ export async function build({
     careerEnd,
   });
 
-  // 8c) Məşqçilər
   const imageMap = async (kind) =>
     (await exists(path.join(imagesDir, `${kind}.json`)))
       ? readJson(path.join(imagesDir, `${kind}.json`), {})
@@ -1109,13 +1055,11 @@ export async function build({
     log,
   });
 
-  // 9) Əl ilə yazılmış kuboklar
   const manual = new Map();
   if (await exists(manualPath)) {
     for (const p of await readJson(manualPath, [])) manual.set(norm(p.name), p);
   }
 
-  // 10) Nəticə: sabit id-lər (1, 2, 3...). Bir dəfə verilən id dəyişmir və başqasına verilmir.
   const ids = (await exists(idsPath)) ? await readJson(idsPath, {}) : {};
   let nextId = Math.max(0, ...Object.values(ids)) + 1;
   const idFor = (p, ap) => {
@@ -1161,7 +1105,6 @@ export async function build({
     if (clubId) o.current_club_id = clubId;
     if (retired && num(p.last_season)) o.retired_year = num(p.last_season) + 1;
 
-    // klub tarixçəsi: transferlər xronoloji, yalnız bizim siyahıdakı klublar
     const hist = [];
     const push = (id) => {
       if (id && hist.at(-1) !== id) hist.push(id);
@@ -1227,7 +1170,6 @@ export async function build({
           ...s,
         };
     }
-    // kuboklar: hesablanan + əl ilə yazılan (hər kubok üçün böyük olan say)
     const tro = new Map(p ? trophiesOf(p.player_id) : []);
     for (const t of manual.get(norm(name))?.trophies ?? [])
       tro.set(t.id, Math.max(tro.get(t.id) ?? 0, t.count));
@@ -1239,7 +1181,6 @@ export async function build({
     if (src) photos[slug] = src;
   }
 
-  // 11) Legendlər (src/data/legends.json): Transfermarkt-da olanlarla birləşir, olmayanlar əlavə olunur
   const legends = (await exists(legendsPath))
     ? await readJson(legendsPath, [])
     : [];

@@ -1,10 +1,3 @@
-#!/usr/bin/env node
-/**
- * Wikipedia/Wikidata-dan şəkilləri tapır.
- * İşə salma: node scripts/fetch-images.mjs trophies|leagues|coaches|players [--limit N] [--retry]
- * Oyunçular: əvvəl Wikidata-dan Transfermarkt ID-si ilə toplu axtarılır, qalanlar adla Wikipedia-da.
- * Oyunçu və məşqçi şəkilləri yüklənmir, Wikimedia-nın 250px linki birbaşa photo_url-a yazılır.
- */
 import { createHash } from "node:crypto";
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";

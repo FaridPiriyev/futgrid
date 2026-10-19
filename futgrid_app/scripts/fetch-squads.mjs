@@ -1,35 +1,12 @@
-#!/usr/bin/env node
-/**
- * API-Football-dan clubs.json-dakı bütün klubların indiki heyətlərini çəkir.
- * Node.js 18+ lazımdır. Heç bir npm paketi tələb olunmur.
- *
- * Quraşdırma:
- *   futgrid_app/.env faylına bir sətir yazın:
- *     API_FOOTBALL_KEY=sizin_acariniz
- *
- * İşə salma (futgrid_app qovluğundan):
- *   node scripts/fetch-squads.mjs          yalnız heyəti az olan klublar (public/data/players.json-a görə)
- *   node scripts/fetch-squads.mjs --all    bütün klublar
- *
- * Gündə bir dəfə işə salın. Gündəlik limit bitəndə skript özü dayanır,
- * növbəti gün qaldığı yerdən davam edir. Hər cavab diskdə saxlanılır,
- * ona görə heç bir sorğu iki dəfə xərclənmir.
- *
- * Nəticə (data-raw/api-football/ qovluğunda):
- *   team-map.json   bizim klub -> API-Football komandası (yoxlamaq üçün)
- *   squads/<slug>.json   hər klubun heyəti
- *   cache/               API cavabları (silməyin, sorğulara qənaət edir)
- */
 import { readFile, writeFile, mkdir, access, rename } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const API = "https://v3.football.api-sports.io";
 const OUT = "data-raw/api-football";
-const SEASONS = [2026, 2025, 2024, 2023]; // pulsuz plan bəzi mövsümləri bağlaya bilər
-const DELAY_MS = 7000; // pulsuz planda dəqiqəlik limit də var (~10/dəq)
+const SEASONS = [2026, 2025, 2024, 2023];
+const DELAY_MS = 7000;
 
-// Bizim liqa adlarımız -> API-Football-dakı ehtimal olunan adlar
 const LEAGUE_ALIASES = {
   "Premier League": ["Premier League"],
   Championship: ["Championship"],
@@ -101,7 +78,6 @@ const LEAGUE_ALIASES = {
   "Tanzanian Premier League": ["Ligi kuu Bara", "Premier League"],
 };
 
-// API-Football-da başqa adla yazılan klublar (slug -> API adları)
 const TEAM_ALIASES = {
   "inter-milan": ["Inter"],
   "bayern-munich": ["Bayern München", "Bayern Munchen"],
@@ -165,7 +141,6 @@ const TEAM_ALIASES = {
 };
 const namesOf = (c) => [c.name, ...(TEAM_ALIASES[c.slug] ?? [])];
 
-// Ehtiyat, gənclər və qadın komandalarını ayırmaq üçün
 const RESERVE =
   /^(w|ii|iii|b|u\d{2}|res|reserves?|women|fem|feminino|femenino|youth)$/;
 const isReserveOf = (club, apiName) => {
@@ -175,7 +150,6 @@ const isReserveOf = (club, apiName) => {
     .some((t) => RESERVE.test(t) && !ours.has(t));
 };
 
-// ISO kod -> API-Football ölkə adı
 const COUNTRY = {
   ES: "Spain",
   DE: "Germany",
@@ -249,7 +223,6 @@ const countryOf = (c) =>
       : "England"
     : COUNTRY[c.country_id];
 
-// ---------- köməkçilər ----------
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const exists = (p) =>
   access(p).then(
@@ -354,13 +327,11 @@ export function bestTeam(club, teams) {
       best = t;
     } else if (s > second) second = s;
   }
-  // zəif və ya ikimənalı uyğunluğu qəbul etmirik
   return score >= 0.5 && score - second >= 0.1
     ? { team: best.team, score }
     : null;
 }
 
-// ---------- API ----------
 class DailyLimit extends Error {}
 
 export function makeApi(key, cacheDir, fetchImpl = fetch, delay = DELAY_MS) {
@@ -394,7 +365,7 @@ export function makeApi(key, cacheDir, fetchImpl = fetch, delay = DELAY_MS) {
       if (errs.rateLimit) {
         await sleep(65000);
         continue;
-      } // dəqiqəlik limit
+      }
       if (
         errs.token ||
         /api key|not subscribed|application key/i.test(errText)
@@ -402,8 +373,7 @@ export function makeApi(key, cacheDir, fetchImpl = fetch, delay = DELAY_MS) {
         throw new Error(`API açarı problemi: ${errText}`);
       }
       const h = res.headers.get("x-ratelimit-requests-remaining");
-      const remaining = h === null || h === "" ? NaN : Number(h); // başlıq yoxdursa, 0 saymırıq
-      // xətalı cavabı (məs. mövsüm bağlıdır) da yadda saxlayırıq ki, təkrar xərclənməsin
+      const remaining = h === null || h === "" ? NaN : Number(h);
       await writeJson(file, body);
       await sleep(delay);
       if (remaining === 0)
@@ -411,7 +381,6 @@ export function makeApi(key, cacheDir, fetchImpl = fetch, delay = DELAY_MS) {
       return body;
     }
   }
-  // Hesabın vəziyyəti: /status gündəlik limitdən sayılmır
   async function status() {
     try {
       const res = await fetchImpl(`${API}/status`, {
@@ -456,7 +425,6 @@ async function loadEnvKey() {
   );
 }
 
-// ---------- əsas iş ----------
 const MIN_SQUAD = 15;
 
 async function squadCounts(playersPath) {
@@ -495,7 +463,7 @@ export async function run({
       `Heyəti ${MIN_SQUAD} oyunçudan az olan ${clubs.length} klub çəkiləcək (hamısı üçün: --all)`,
     );
   const mapPath = path.join(OUT, "team-map.json");
-  const map = await readJson(mapPath, {}); // slug -> { api_team_id, api_name, how }
+  const map = await readJson(mapPath, {});
   const saveMap = () => writeJson(mapPath, map);
 
   const st = await api.status();
@@ -520,7 +488,6 @@ export async function run({
     return;
   }
 
-  // Köhnə səhv uyğunlaşmaları təmizləyirik (ehtiyat/gənclər komandaları, tapılmayanlar)
   let cleaned = 0;
   for (const c of allClubs) {
     const m = map[c.slug];
@@ -531,7 +498,7 @@ export async function run({
       cleaned++;
       if (!clubs.includes(c)) clubs.push(c);
       const f = path.join(squadDir, `${c.slug}.json`);
-      if (reserve && (await exists(f))) await rename(f, f + ".wrong"); // səhv heyət build-players-ə düşməsin
+      if (reserve && (await exists(f))) await rename(f, f + ".wrong");
     }
   }
   if (cleaned) {
@@ -591,10 +558,8 @@ export async function run({
   };
 
   try {
-    // 1) Bütün liqalar: 1 sorğu (artıq yaddaşdadırsa, 0)
     const leagues = (await api.get("leagues")).response ?? [];
 
-    // 2) Hər liqa üçün komandalar, sonra klubları uyğunlaşdırmaq
     const groups = new Map();
     for (const c of clubs) {
       if (map[c.slug]) continue;
@@ -641,10 +606,8 @@ export async function run({
       }
     }
 
-    // 3) Uyğunlaşmış klubların heyətləri (klub başına 1 sorğu)
     await fetchSquads();
 
-    // 4) Uyğunlaşmayanlar üçün ad axtarışı (hər ad variantı üçün 1 sorğu)
     for (const c of clubs) {
       if (map[c.slug]) continue;
       const country = countryOf(c);
@@ -678,7 +641,6 @@ export async function run({
       );
     }
 
-    // 5) Axtarışla tapılanların heyətləri
     await fetchSquads();
     done = clubs.filter((c) => map[c.slug]?.api_team_id).length;
     report(clubs, map, done, api.used(), true);

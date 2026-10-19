@@ -1,13 +1,3 @@
-#!/usr/bin/env node
-/**
- * fetch-images.mjs-in tapdığı Wikimedia linklərini kompüterə endirir.
- * İşə salma (futgrid_app qovluğundan):
- *   node scripts/download-images.mjs players
- *   node scripts/download-images.mjs coaches
- * Şəkillər public/images/<növ>/ qovluğuna yazılır, data-raw/images/<növ>.json və
- * public/data/<növ>.json-dakı linklər yerli yolla (/images/...) əvəz olunur.
- * Yarıda dayansa, eyni əmri yenidən işə salın: endirilmişlər təkrar endirilmir.
- */
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";

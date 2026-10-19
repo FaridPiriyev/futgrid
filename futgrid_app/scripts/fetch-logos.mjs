@@ -1,16 +1,3 @@
-#!/usr/bin/env node
-/**
- * clubs.json-dakı hər klub üçün loqo linkini Wikipedia API-dən tapıb yazır.
- * Node.js 18+ lazımdır (daxili fetch). Heç bir npm paketi tələb olunmur.
- *
- * İstifadə:
- *   node fetch-logos.mjs clubs.json
- *     -> clubs_with_logos.json + logo_report.csv
- *
- *   node fetch-logos.mjs clubs.json --download public/logos --base-url /logos
- *     -> loqoları public/logos/<slug>.png kimi yükləyir,
- *        logo_url-u "/logos/<slug>.png" edir (React/Vite/Next public qovluğu üçün)
- */
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -19,7 +6,6 @@ const API = "https://en.wikipedia.org/w/api.php";
 const UA = "FutgridLogoFetcher/1.0 (futgrid.az; logo sync script)";
 const THUMB = 200;
 
-// Adı qısa/çoxmənalı olan klublar üçün dəqiq Wikipedia səhifə adları (slug -> title)
 export const TITLES = {
   arsenal: "Arsenal F.C.", liverpool: "Liverpool F.C.", chelsea: "Chelsea F.C.",
   everton: "Everton F.C.", fulham: "Fulham F.C.", brentford: "Brentford F.C.",
@@ -60,7 +46,6 @@ export let api = async (params, retries = 3) => {
   return await res.json();
 };
 
-// 429 (çox sorğu) və ya 5xx gələndə gözləyib yenidən cəhd edir
 async function politeFetch(url, retries = 7) {
   for (let attempt = 0; ; attempt++) {
     let res;
@@ -145,7 +130,6 @@ async function main() {
   const clubs = JSON.parse(await readFile(a.clubs, "utf8"));
   if (a.download) await mkdir(a.download, { recursive: true });
 
-  // Artıq yüklənmiş loqolar (yenidən işə salanda təkrar yüklənmir)
   const existing = new Map();
   if (a.download) {
     for (const f of await readdir(a.download)) {
@@ -193,7 +177,7 @@ async function main() {
     c.logo_url = url ?? null;
     rows.push([c.id, c.name, title ?? "", how, c.logo_url ?? ""]);
     console.log(`[${i + 1}/${clubs.length}] ${c.name.padEnd(32)} ${how.padEnd(10)} ${title || "-"}`);
-    if ((i + 1) % 10 === 0) await save(); // hər 10 klubdan bir yadda saxla
+    if ((i + 1) % 10 === 0) await save();
   }
 
   await save();

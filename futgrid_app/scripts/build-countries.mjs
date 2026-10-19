@@ -1,16 +1,3 @@
-#!/usr/bin/env node
-/**
- * Ölkələr faylını hazırlayır: src/data/countries.json + Transfermarkt-dakı FIFA reytinqi + bayraqlar.
- * Node.js 18+ lazımdır. Heç bir npm paketi tələb olunmur.
- *
- * İşə salma (futgrid_app qovluğundan):
- *   node scripts/build-countries.mjs
- *   node scripts/build-countries.mjs --no-flags     bayraqları yükləmədən
- *
- * Nəticə:
- *   public/data/countries.json   oyunun oxuduğu fayl (fifa_rank ilə)
- *   public/flags/<kod>.svg       bayraqlar (artıq yüklənənlər təkrar yüklənmir)
- */
 import { mkdir, readFile, readdir, writeFile, access } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
