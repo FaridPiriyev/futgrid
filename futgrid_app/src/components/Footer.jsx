@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
@@ -5,10 +6,17 @@ import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 const FOOTER_BACKGROUND =
   "https://picsum.photos/seed/futgrid-footer/1920/1000?grayscale&blur=2";
 
-const FOOTER_FONT = "font-['Roboto_Condensed',sans-serif]";
+const HEAD = "font-['Roboto_Condensed',sans-serif]";
+const BODY = "font-['Roboto',sans-serif]";
 
 const NOISE =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
+
+const FOOTER_STYLE = `
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Condensed:wght@400;700&display=swap");
+@keyframes fgBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes fgRise { 0% { transform: translateY(0); opacity: 1; } 45% { transform: translateY(-26px); opacity: 0; } 46% { transform: translateY(26px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+`;
 
 const SWEEP_BLUE =
   "absolute inset-0 -z-10 origin-left scale-x-0 bg-blue-500 transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
@@ -39,21 +47,60 @@ const FOOTER_SOCIALS = [
 ];
 
 const FOOTER_CONTACT = [
-  { Icon: Mail, value: "info@futgrid.az", href: "mailto:info@futgrid.az" },
-  { Icon: Phone, value: "+994 50 000 00 00", href: "tel:+994500000000" },
-  { Icon: MapPin, value: "Bakı, Azərbaycan", href: "/#contact" },
+  {
+    Icon: Mail,
+    label: "E-poçt",
+    value: "info@futgrid.az",
+    href: "mailto:info@futgrid.az",
+  },
+  {
+    Icon: Phone,
+    label: "Telefon",
+    value: "+994 50 000 00 00",
+    href: "tel:+994500000000",
+  },
+  {
+    Icon: MapPin,
+    label: "Ünvan",
+    value: "Bakı, Azərbaycan",
+    href: "/#contact",
+  },
 ];
+
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
+  return progress;
+}
 
 function FooterLink({ label, to }) {
   return (
     <li>
       <Link
         to={to}
-        className={`group inline-flex items-center gap-2 ${FOOTER_FONT} text-base font-light text-neutral-400 transition-colors duration-300 hover:text-white`}
+        className={`group inline-flex items-center ${BODY} text-[15px] text-neutral-400 transition-colors duration-300 hover:text-white`}
       >
         <span
           aria-hidden="true"
-          className="h-0.5 w-0 bg-blue-500 transition-all duration-300 ease-out group-hover:w-4"
+          className="mr-0 h-0.5 w-0 bg-blue-500 transition-all duration-300 ease-out group-hover:mr-2 group-hover:w-4"
         />
         {label}
       </Link>
@@ -64,21 +111,58 @@ function FooterLink({ label, to }) {
 function FooterTitle({ children }) {
   return (
     <h3
-      className={`${FOOTER_FONT} text-xl font-bold uppercase tracking-wide text-white`}
+      className={`${HEAD} text-lg font-bold uppercase tracking-[0.12em] text-white`}
     >
       {children}
-      <span aria-hidden="true" className="mt-2 block h-0.5 w-10 bg-blue-500" />
+      <span aria-hidden="true" className="mt-3 block h-0.5 w-8 bg-blue-500" />
     </h3>
+  );
+}
+
+function BackToTop() {
+  const progress = useScrollProgress();
+  const [launch, setLaunch] = useState(false);
+
+  const scrollTop = () => {
+    setLaunch(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => setLaunch(false), 900);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={scrollTop}
+      aria-label="Səhifənin yuxarısına qalx"
+      className={`group/btn relative isolate inline-flex items-stretch overflow-hidden bg-blue-500 ${HEAD} text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_-12px_rgba(59,130,246,0.9)] transition-[color,transform] duration-500 hover:-translate-y-0.5 hover:text-blue-500 active:scale-95`}
+    >
+      <span aria-hidden="true" className={SWEEP_WHITE} />
+      <span className="flex items-center px-5 py-3">Yuxarı qalx</span>
+      <span className="relative flex w-11 items-center justify-center overflow-hidden border-l border-white/25 bg-black/10">
+        <ArrowUp
+          className={`h-4.5 w-4.5 ${
+            launch
+              ? "animate-[fgRise_0.6s_ease-in-out_1]"
+              : "animate-[fgBob_1.6s_ease-in-out_infinite] group-hover/btn:animate-[fgRise_0.8s_ease-in-out_infinite]"
+          }`}
+        />
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 h-0.5 bg-white/70 transition-[width] duration-150 group-hover/btn:bg-blue-500"
+        style={{ width: `${progress * 100}%` }}
+      />
+    </button>
   );
 }
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
   return (
-    <footer id="footer" className="relative z-0 mt-6 w-full bg-black md:mt-10">
+    <footer id="footer" className="relative z-0 w-full bg-black">
+      <style>{FOOTER_STYLE}</style>
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-10.5 left-0 z-20 hidden h-10.5 w-full md:block"
@@ -129,12 +213,12 @@ export default function Footer() {
               </Link>
 
               <p
-                className={`${FOOTER_FONT} text-sm font-normal uppercase tracking-[0.2em] text-blue-500`}
+                className={`${HEAD} text-sm font-bold uppercase tracking-[0.25em] text-blue-500`}
               >
                 Futbol taktikanı göstər
               </p>
               <p
-                className={`${FOOTER_FONT} mt-4 max-w-sm text-base font-light leading-8 text-neutral-400`}
+                className={`${BODY} mt-4 max-w-sm text-[15px] leading-7 text-neutral-400`}
               >
                 FutGrid taktiki oyunların, reytinq cədvəllərinin və turnirlərin
                 bir yerdə toplandığı platformadır. Oyna, öyrən və liderlər
@@ -177,7 +261,7 @@ export default function Footer() {
             <div>
               <FooterTitle>Əlaqə</FooterTitle>
               <div className="mt-6 flex flex-col gap-4">
-                {FOOTER_CONTACT.map(({ Icon, value, href }) => (
+                {FOOTER_CONTACT.map(({ Icon, label, value, href }) => (
                   <a
                     key={value}
                     href={href}
@@ -186,10 +270,17 @@ export default function Footer() {
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center bg-blue-500 text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-blue-400">
                       <Icon className="h-5 w-5" />
                     </span>
-                    <span
-                      className={`${FOOTER_FONT} text-base font-bold text-white transition-colors duration-300 group-hover:text-blue-400`}
-                    >
-                      {value}
+                    <span className="min-w-0">
+                      <span
+                        className={`block ${HEAD} text-[11px] uppercase tracking-[0.18em] text-neutral-500`}
+                      >
+                        {label}
+                      </span>
+                      <span
+                        className={`block ${BODY} text-[15px] font-medium text-white transition-colors duration-300 group-hover:text-blue-400`}
+                      >
+                        {value}
+                      </span>
                     </span>
                   </a>
                 ))}
@@ -199,13 +290,13 @@ export default function Footer() {
 
           <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-6 md:mt-16 md:flex-row">
             <p
-              className={`${FOOTER_FONT} text-center text-sm font-light text-neutral-500 md:text-left`}
+              className={`${BODY} text-center text-[13px] text-neutral-500 md:text-left`}
             >
               © {year} FutGrid. Bütün hüquqlar qorunur.
             </p>
 
             <div
-              className={`${FOOTER_FONT} flex items-center gap-6 text-sm font-light text-neutral-500`}
+              className={`${BODY} flex items-center gap-6 text-[13px] text-neutral-500`}
             >
               <a
                 href="#"
@@ -221,15 +312,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <button
-              type="button"
-              onClick={scrollTop}
-              className={`group/btn relative isolate inline-flex items-center gap-2 overflow-hidden bg-blue-500 px-6 py-2.5 ${FOOTER_FONT} text-sm font-bold uppercase tracking-wide text-white transition-colors duration-500 hover:text-blue-500`}
-            >
-              <span aria-hidden="true" className={SWEEP_WHITE} />
-              Yuxarı qalx
-              <ArrowUp className="h-4 w-4" />
-            </button>
+            <BackToTop />
           </div>
         </div>
       </div>
