@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { readFile, writeFile, mkdir, access, rename } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -86,6 +87,7 @@ const TEAM_ALIASES = {
   "olympique-lyonnais": ["Lyon"],
   "olympique-de-marseille": ["Marseille"],
   "paris-saint-germain": ["Paris Saint Germain"],
+  "paris-fc": ["Paris FC"],
   "ogc-nice": ["Nice"],
   "slavia-prague": ["Slavia Praha"],
   "sparta-prague": ["Sparta Praha"],
@@ -436,10 +438,27 @@ async function squadCounts(playersPath) {
   return counts;
 }
 
+async function clubValues(playersPath) {
+  const values = new Map();
+  if (!(await exists(playersPath))) return values;
+  for (const p of JSON.parse(await readFile(playersPath, "utf8"))) {
+    if (!p.current_club_id) continue;
+    values.set(
+      p.current_club_id,
+      (values.get(p.current_club_id) ?? 0) + (p.market_value?.amount_eur ?? 0),
+    );
+  }
+  return values;
+}
+
+const todayStr = () => new Date().toISOString().slice(0, 10);
+const daysSince = (d) => (Date.parse(todayStr()) - Date.parse(d)) / 864e5;
+
 export async function run({
   clubsPath = "public/data/clubs.json",
   playersPath = "public/data/players.json",
   all = false,
+  refreshDays = 0,
   key,
   fetchImpl,
   delay,
@@ -452,19 +471,72 @@ export async function run({
   const api = makeApi(key, cacheDir, fetchImpl, delay);
 
   const allClubs = JSON.parse(await readFile(clubsPath, "utf8"));
-  const counts = all ? null : await squadCounts(playersPath);
-  const clubs = counts
-    ? allClubs
-        .filter((c) => (counts.get(c.id) ?? 0) < MIN_SQUAD)
-        .sort((a, b) => (counts.get(a.id) ?? 0) - (counts.get(b.id) ?? 0))
-    : allClubs;
-  if (counts)
-    console.log(
-      `Heyəti ${MIN_SQUAD} oyunçudan az olan ${clubs.length} klub çəkiləcək (hamısı üçün: --all)`,
+  let clubs;
+  if (refreshDays) {
+    const values = await clubValues(playersPath);
+    clubs = [...allClubs].sort(
+      (a, b) => (values.get(b.id) ?? 0) - (values.get(a.id) ?? 0),
     );
+    console.log(
+      `Yeniləmə rejimi: ${refreshDays} gündən köhnə və ya heç çəkilməmiş heyətlər, ən dəyərli klublardan başlayaraq`,
+    );
+  } else if (all) {
+    clubs = [...allClubs];
+  } else {
+    const counts = await squadCounts(playersPath);
+    clubs = counts
+      ? allClubs
+          .filter((c) => (counts.get(c.id) ?? 0) < MIN_SQUAD)
+          .sort((a, b) => (counts.get(a.id) ?? 0) - (counts.get(b.id) ?? 0))
+      : [...allClubs];
+    if (counts)
+      console.log(
+        `Heyəti ${MIN_SQUAD} oyunçudan az olan ${clubs.length} klub çəkiləcək (hamısı üçün: --refresh)`,
+      );
+  }
   const mapPath = path.join(OUT, "team-map.json");
   const map = await readJson(mapPath, {});
   const saveMap = () => writeJson(mapPath, map);
+
+  const bestFit = (c, apiName) =>
+    Math.max(...namesOf(c).map((n) => nameScore(n, apiName)));
+  const owner = new Map();
+  for (const c of allClubs) {
+    const m = map[c.slug];
+    if (!m?.api_team_id) continue;
+    const prev = owner.get(m.api_team_id);
+    if (!prev || bestFit(c, m.api_name) > bestFit(prev, m.api_name))
+      owner.set(m.api_team_id, c);
+  }
+  let cleaned = 0;
+  for (const c of allClubs) {
+    const m = map[c.slug];
+    if (!m) continue;
+    const reserve = m.api_name && isReserveOf(c, m.api_name);
+    const duplicate = m.api_team_id && owner.get(m.api_team_id) !== c;
+    if (duplicate)
+      console.log(
+        `   ${c.name} səhvən "${m.api_name}" komandasına bağlanmışdı (o, ${owner.get(m.api_team_id).name}-a aiddir)`,
+      );
+    if (reserve || duplicate || (m.how === "not_found" && clubs.includes(c))) {
+      delete map[c.slug];
+      cleaned++;
+      if (!clubs.includes(c)) clubs.push(c);
+      const f = path.join(squadDir, `${c.slug}.json`);
+      if ((reserve || duplicate) && (await exists(f)))
+        await rename(f, f + ".wrong");
+    }
+  }
+  if (cleaned) {
+    await saveMap();
+    console.log(`${cleaned} köhnə/səhv uyğunlaşma yenidən yoxlanacaq`);
+  }
+  const taken = () =>
+    new Set(
+      Object.values(map)
+        .map((m) => m.api_team_id)
+        .filter(Boolean),
+    );
 
   const st = await api.status();
   if (st.error && /limit|reached/i.test(st.error)) {
@@ -488,183 +560,172 @@ export async function run({
     return;
   }
 
-  let cleaned = 0;
-  for (const c of allClubs) {
-    const m = map[c.slug];
-    if (!m) continue;
-    const reserve = m.api_name && isReserveOf(c, m.api_name);
-    if (reserve || (m.how === "not_found" && clubs.includes(c))) {
-      delete map[c.slug];
-      cleaned++;
-      if (!clubs.includes(c)) clubs.push(c);
-      const f = path.join(squadDir, `${c.slug}.json`);
-      if (reserve && (await exists(f))) await rename(f, f + ".wrong");
-    }
-  }
-  if (cleaned) {
-    await saveMap();
-    console.log(`${cleaned} köhnə/səhv uyğunlaşma yenidən yoxlanacaq`);
-  }
+  const fileOf = (c) => path.join(squadDir, `${c.slug}.json`);
+  const needsFetch = async (c) => {
+    const id = map[c.slug]?.api_team_id;
+    if (map[c.slug]?.how === "not_found") return false;
+    if (!id || !(await exists(fileOf(c)))) return true;
+    const old = JSON.parse(await readFile(fileOf(c), "utf8"));
+    if (old.api_team_id !== id) return true;
+    if (!old.players?.length) return old.fetched_at !== todayStr();
+    return (
+      Boolean(refreshDays) &&
+      (!old.fetched_at || daysSince(old.fetched_at) >= refreshDays)
+    );
+  };
 
   let done = 0;
-  const fetchSquads = async () => {
-    for (const c of clubs) {
-      const file = path.join(squadDir, `${c.slug}.json`);
-      const id = map[c.slug]?.api_team_id;
-      if (!id) continue;
-      let retryEmpty = false;
-      if (await exists(file)) {
-        const old = JSON.parse(await readFile(file, "utf8"));
-        if (old.api_team_id === id) {
-          if (
-            old.players?.length ||
-            old.fetched_at === new Date().toISOString().slice(0, 10)
-          )
-            continue;
-          retryEmpty = true;
-        }
-      }
-      const body = await api.get(
-        "players/squads",
-        { team: id },
-        { fresh: retryEmpty },
+  const fetchSquad = async (c) => {
+    const id = map[c.slug].api_team_id;
+    let fresh = false;
+    if (await exists(fileOf(c))) {
+      const old = JSON.parse(await readFile(fileOf(c), "utf8"));
+      fresh = old.api_team_id === id;
+    }
+    const body = await api.get("players/squads", { team: id }, { fresh });
+    const players = body.response?.[0]?.players ?? [];
+    if (!players.length)
+      console.log(
+        `   ${c.name}: API boş heyət qaytardı, sabah yenidən yoxlanacaq`,
       );
-      const players = body.response?.[0]?.players ?? [];
-      if (!players.length)
-        console.log(
-          `   ${c.name}: API boş heyət qaytardı, sabah yenidən yoxlanacaq`,
-        );
-      await writeJson(file, {
-        club_id: c.id,
-        club_slug: c.slug,
-        api_team_id: id,
-        api_name: map[c.slug].api_name,
-        fetched_at: new Date().toISOString().slice(0, 10),
-        players,
-      });
-      done++;
-      console.log(`[heyət] ${c.name}: ${players.length} oyunçu`);
-      if (c.slug === "fc-barcelona") {
-        const rodri = players.some((p) => /rodri\b/i.test(p.name));
-        const lewa = players.some((p) => /lewandowski/i.test(p.name));
-        console.log(
-          `   Yoxlama: Rodri ${rodri ? "var" : "yoxdur"}, Lewandowski ${lewa ? "var" : "yoxdur"} -> ` +
-            (rodri && !lewa
-              ? "heyətlər 2026-27 mövsümünə aiddir ✓"
-              : "heyətlər KÖHNƏ ola bilər, bunu Claude-a göstərin"),
-        );
-      }
+    await writeJson(fileOf(c), {
+      club_id: c.id,
+      club_slug: c.slug,
+      api_team_id: id,
+      api_name: map[c.slug].api_name,
+      fetched_at: todayStr(),
+      players,
+    });
+    done++;
+    console.log(`[heyət] ${c.name}: ${players.length} oyunçu`);
+    if (c.slug === "fc-barcelona") {
+      const ferran = players.some((p) => /ferran torres/i.test(p.name));
+      console.log(
+        `   Yoxlama: Ferran Torres ${ferran ? "hələ də Barselonada görünür" : "Barselona heyətində yoxdur ✓ (PSG-yə keçib)"}`,
+      );
     }
   };
 
-  try {
-    const leagues = (await api.get("leagues")).response ?? [];
-
-    const groups = new Map();
-    for (const c of clubs) {
-      if (map[c.slug]) continue;
-      const k = `${countryOf(c)}|${c.league}`;
-      if (!groups.has(k)) groups.set(k, []);
-      groups.get(k).push(c);
+  let leagues = null;
+  const triedLeagues = new Set();
+  const mapByLeague = async (c) => {
+    const k = `${countryOf(c)}|${c.league}`;
+    if (triedLeagues.has(k)) return;
+    triedLeagues.add(k);
+    leagues ??= (await api.get("leagues")).response ?? [];
+    const [country, ourLeague] = k.split("|");
+    const aliases = (LEAGUE_ALIASES[ourLeague] ?? [ourLeague]).map(norm);
+    const candidates = leagues.filter(
+      (l) => l.country?.name === country && l.league?.type === "League",
+    );
+    const league = aliases
+      .map((a) => candidates.find((l) => norm(l.league.name) === a))
+      .find(Boolean);
+    if (!league) return;
+    let teams = [];
+    for (const season of SEASONS) {
+      const body = await api.get("teams", { league: league.league.id, season });
+      if (body.response?.length) {
+        teams = body.response;
+        break;
+      }
     }
-    for (const [k, list] of groups) {
-      const [country, ourLeague] = k.split("|");
-      const aliases = (LEAGUE_ALIASES[ourLeague] ?? [ourLeague]).map(norm);
-      const candidates = leagues.filter(
-        (l) => l.country?.name === country && l.league?.type === "League",
+    let n = 0;
+    for (const other of allClubs) {
+      if (map[other.slug] || `${countryOf(other)}|${other.league}` !== k)
+        continue;
+      const used = taken();
+      const m = bestTeam(
+        other,
+        teams.filter((t) => !used.has(t.team.id)),
       );
-      const league = aliases
-        .map((a) => candidates.find((l) => norm(l.league.name) === a))
-        .find(Boolean);
-      if (!league) continue;
-      let teams = [];
-      for (const season of SEASONS) {
-        const body = await api.get("teams", {
-          league: league.league.id,
-          season,
-        });
-        if (body.response?.length) {
-          teams = body.response;
-          break;
-        }
-      }
-      let n = 0;
-      for (const c of list) {
-        const m = bestTeam(c, teams);
-        if (m) {
-          map[c.slug] = {
-            api_team_id: m.team.id,
-            api_name: m.team.name,
-            how: `league:${league.league.name}`,
-          };
-          n++;
-        }
-      }
-      if (n) {
-        await saveMap();
-        console.log(`✓ ${ourLeague} (${country}): +${n} klub uyğunlaşdı`);
+      if (m) {
+        map[other.slug] = {
+          api_team_id: m.team.id,
+          api_name: m.team.name,
+          how: `league:${league.league.name}`,
+        };
+        n++;
       }
     }
-
-    await fetchSquads();
-
-    for (const c of clubs) {
-      if (map[c.slug]) continue;
-      const country = countryOf(c);
-      let m = null;
-      const queries = [];
-      for (const name of namesOf(c)) {
-        const words = norm(name)
-          .split(" ")
-          .filter((t) => !STOP_WORDS.has(t));
-        queries.push(words.join(" ") || norm(name));
-      }
-      const longest = queries
-        .flatMap((q) => q.split(" "))
-        .sort((a, b) => b.length - a.length)[0];
-      if (longest && longest.length >= 5) queries.push(longest);
-      for (const q of [...new Set(queries)]) {
-        if (q.length < 3) continue;
-        const body = await api.get("teams", { search: q.slice(0, 40) });
-        const pool = (body.response ?? []).filter(
-          (t) => !country || t.team.country === country,
-        );
-        m = bestTeam(c, pool);
-        if (m) break;
-      }
-      map[c.slug] = m
-        ? { api_team_id: m.team.id, api_name: m.team.name, how: "search" }
-        : { api_team_id: null, api_name: null, how: "not_found" };
+    if (n) {
       await saveMap();
-      console.log(
-        `${m ? "✓" : "✗"} axtarış: ${c.name} -> ${m ? m.team.name : "tapılmadı"}`,
-      );
+      console.log(`✓ ${ourLeague} (${country}): +${n} klub uyğunlaşdı`);
     }
+  };
 
-    await fetchSquads();
-    done = clubs.filter((c) => map[c.slug]?.api_team_id).length;
-    report(clubs, map, done, api.used(), true);
+  const mapBySearch = async (c) => {
+    const country = countryOf(c);
+    let m = null;
+    const queries = [];
+    for (const name of namesOf(c)) {
+      const words = norm(name)
+        .split(" ")
+        .filter((t) => !STOP_WORDS.has(t));
+      queries.push(words.join(" ") || norm(name));
+    }
+    const longest = queries
+      .flatMap((q) => q.split(" "))
+      .sort((a, b) => b.length - a.length)[0];
+    if (longest && longest.length >= 5) queries.push(longest);
+    for (const q of [...new Set(queries)]) {
+      if (q.length < 3) continue;
+      const body = await api.get("teams", { search: q.slice(0, 40) });
+      const used = taken();
+      const pool = (body.response ?? []).filter(
+        (t) => (!country || t.team.country === country) && !used.has(t.team.id),
+      );
+      m = bestTeam(c, pool);
+      if (m) break;
+    }
+    map[c.slug] = m
+      ? { api_team_id: m.team.id, api_name: m.team.name, how: "search" }
+      : { api_team_id: null, api_name: null, how: "not_found" };
+    await saveMap();
+    console.log(
+      `${m ? "✓" : "✗"} axtarış: ${c.name} -> ${m ? m.team.name : "tapılmadı"}`,
+    );
+  };
+
+  const remaining = async () => {
+    let n = 0;
+    for (const c of clubs) if (await needsFetch(c)) n++;
+    return n;
+  };
+
+  try {
+    for (const c of clubs) {
+      if (!(await needsFetch(c))) continue;
+      if (!map[c.slug]) await mapByLeague(c);
+      if (!map[c.slug]) await mapBySearch(c);
+      if (map[c.slug]?.api_team_id && (await needsFetch(c)))
+        await fetchSquad(c);
+    }
+    await saveMap();
+    report(clubs, map, done, api.used(), true, await remaining());
   } catch (e) {
     if (!(e instanceof DailyLimit)) throw e;
     await saveMap();
-    const done = clubs.filter((c) => map[c.slug]?.api_team_id).length;
     console.log(
       `\nDayandı (${api.used()} sorğudan sonra). API-nin cavabı: ${e.message}`,
     );
     console.log(
       "Sabah eyni əmri yenidən işə salın, qaldığı yerdən davam edəcək.",
     );
-    report(clubs, map, null, api.used(), false);
+    report(clubs, map, done, api.used(), false, await remaining());
   }
 }
 
-function report(clubs, map, done, used, finished) {
+function report(clubs, map, done, used, finished, left) {
   const notFound = clubs
     .filter((c) => map[c.slug]?.how === "not_found")
     .map((c) => c.name);
-  console.log(`\nBu dəfə istifadə olunan sorğu: ${used}`);
-  if (finished)
-    console.log(`Hazırdır: ${done} klubun heyəti ${OUT}/squads qovluğundadır.`);
+  console.log(
+    `\nBu dəfə istifadə olunan sorğu: ${used} · bu gün çəkilən heyət: ${done}`,
+  );
+  console.log(
+    left ? `Hələ çəkilməli klub: ${left}` : "Bütün heyətlər hazırdır ✓",
+  );
   if (notFound.length) {
     console.log(
       `API-Football-da tapılmayan klublar (${notFound.length}): ${notFound.join(", ")}`,
@@ -680,10 +741,15 @@ if (
   import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
 ) {
   const args = process.argv.slice(2);
-  const clubsPath = args.find((a) => !a.startsWith("--"));
+  const ri = args.indexOf("--refresh");
+  const refreshDays = ri >= 0 ? Number(args[ri + 1]) || 30 : 0;
+  const clubsPath = args.find(
+    (a, i) => !a.startsWith("--") && !(ri >= 0 && i === ri + 1),
+  );
   run({
     ...(clubsPath ? { clubsPath } : {}),
     all: args.includes("--all"),
+    refreshDays,
   }).catch((e) => {
     console.error(e.message);
     process.exit(1);
