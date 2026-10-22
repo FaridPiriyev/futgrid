@@ -87,7 +87,7 @@ export const norm = (s) =>
     .replace(/đ/g, "d")
     .replace(/ł/g, "l")
     .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 
@@ -350,6 +350,7 @@ async function computeTrophies({
   today,
   log,
   careerEnd = new Map(),
+  careerClubOn = () => undefined,
 }) {
   const none = {
     trophiesOf: () => [],
@@ -412,6 +413,10 @@ async function computeTrophies({
 
   const clubOn = (pid, date) => {
     const tr = transfersBy.get(pid) ?? [];
+    if (!tr.length || date < tr[0].transfer_date) {
+      const wd = careerClubOn(pid, date);
+      if (wd !== undefined) return wd;
+    }
     if (!tr.length)
       return tmToOur.get(tmPlayers.get(pid)?.current_club_id) ?? null;
     if (date < tr[0].transfer_date)
@@ -648,6 +653,7 @@ export async function build({
   outPath = "public/data/players.json",
   coachesPath = "public/data/coaches.json",
   legendsPath = "src/data/legends.json",
+  careersPath = "data-raw/wikidata/careers.json",
   idsPath = "src/data/player-ids.json",
   imagesDir = "data-raw/images",
   photosPath = "data-raw/player-photos.json",
@@ -835,6 +841,43 @@ export async function build({
     `${new Set(tmToOur.values()).size}/${clubs.length} klub Transfermarkt-da tapıldı`,
   );
 
+  const careers = (await exists(careersPath))
+    ? ((await readJson(careersPath, {})).players ?? {})
+    : {};
+  const careerCache = new Map();
+  const careerOf = (pid) => {
+    if (!pid) return [];
+    if (careerCache.has(pid)) return careerCache.get(pid);
+    const out = (careers[pid]?.s ?? []).map(([clubTm, , label, from, to]) => ({
+      id: (clubTm && tmToOur.get(String(clubTm))) || null,
+      label,
+      from,
+      to,
+    }));
+    careerCache.set(pid, out);
+    return out;
+  };
+  const currentOf = (pid) =>
+    careerOf(pid)
+      .filter((s) => s.from && !s.to)
+      .sort((a, b) => a.from.localeCompare(b.from))
+      .at(-1) ?? null;
+  const careerClubOn = (pid, date) => {
+    const list = careerOf(pid).filter((s) => s.from);
+    if (!list.length) return undefined;
+    const d = date.slice(0, 10);
+    const here = list
+      .filter((s) => s.from <= d && (!s.to || d <= s.to))
+      .sort((a, b) => a.from.localeCompare(b.from));
+    return here.at(-1)?.id ?? null;
+  };
+  const careerCount = Object.values(careers).filter((c) => c.s?.length).length;
+  log(
+    careerCount
+      ? `${careerCount} oyunçunun Wikidata klub karyerası oxundu`
+      : "Wikidata klub karyerası yoxdur (əvvəlcə: node scripts/fetch-careers.mjs)",
+  );
+
   const byFull = new Map(),
     bySurname = new Map();
   for (const p of tmPlayers.values()) {
@@ -922,6 +965,9 @@ export async function build({
     if (used.has(p.player_id)) continue;
     const clubId = tmToOur.get(p.current_club_id);
     if (!clubId || apiClubs.has(clubId) || !active(p)) continue;
+    const moved = currentOf(p.player_id);
+    if (moved && moved.id !== clubId && moved.from >= dataDate.slice(0, 10))
+      continue;
     used.add(p.player_id);
     entries.push({ ap: { name: p.name }, tm: p, clubId });
     fromTm++;
@@ -936,7 +982,8 @@ export async function build({
     Boolean(tmToOur.get(p.current_club_id)) ||
     (transfersBy.get(p.player_id) ?? []).some(
       (t) => tmToOur.get(t.to_club_id) || tmToOur.get(t.from_club_id),
-    );
+    ) ||
+    careerOf(p.player_id).some((s) => s.id);
   let retiredCount = 0;
   for (const p of tmPlayers.values()) {
     if (used.has(p.player_id) || active(p)) continue;
@@ -949,6 +996,28 @@ export async function build({
     retiredCount++;
   }
   log(`${retiredCount} karyerasını bitirmiş tanınmış oyunçu əlavə olundu`);
+
+  const STAR_MIN_VALUE = 10_000_000,
+    STAR_MIN_CAPS = 40;
+  let starCount = 0,
+    starOutside = 0;
+  for (const p of tmPlayers.values()) {
+    if (used.has(p.player_id) || !active(p)) continue;
+    const notable =
+      (num(p.highest_market_value_in_eur) ?? 0) >= STAR_MIN_VALUE ||
+      (num(p.international_caps) ?? 0) >= STAR_MIN_CAPS;
+    if (!notable || !playedForUs(p)) continue;
+    const cur = currentOf(p.player_id);
+    const clubId = cur?.id && !apiClubs.has(cur.id) ? cur.id : null;
+    const clubLabel = !cur?.id && cur?.label ? cur.label : null;
+    used.add(p.player_id);
+    entries.push({ ap: { name: p.name }, tm: p, clubId, clubLabel });
+    starCount++;
+    if (!clubId) starOutside++;
+  }
+  log(
+    `${starCount} tanınmış aktiv oyunçu heyətlərdən kənarda tapılıb əlavə olundu (${starOutside} nəfərin klubu siyahımızda deyil)`,
+  );
   const careerEnd = new Map();
   for (const e of entries) {
     if (!e.retired) continue;
@@ -1034,6 +1103,7 @@ export async function build({
     today,
     log,
     careerEnd,
+    careerClubOn,
   });
 
   const imageMap = async (kind) =>
@@ -1077,7 +1147,7 @@ export async function build({
   const players = [],
     photos = {},
     slugs = new Set();
-  for (const { ap, tm: p, clubId, retired } of entries) {
+  for (const { ap, tm: p, clubId, clubLabel, retired } of entries) {
     const name = p?.name || ap.name;
     let slug = slugify(name);
     if (slugs.has(slug))
@@ -1103,7 +1173,17 @@ export async function build({
     if (p && ["left", "right", "both"].includes(p.foot))
       o.preferred_foot = p.foot;
     if (clubId) o.current_club_id = clubId;
-    if (retired && num(p.last_season)) o.retired_year = num(p.last_season) + 1;
+    else if (clubLabel) o.current_club_name = clubLabel;
+    const wd = careerOf(p?.player_id);
+    if (retired) {
+      const tmYear = num(p.last_season) ? num(p.last_season) + 1 : null;
+      const wdYear = Math.max(
+        0,
+        ...wd.filter((s) => s.to).map((s) => Number(s.to.slice(0, 4))),
+      );
+      const year = Math.max(tmYear ?? 0, wdYear);
+      if (year) o.retired_year = year;
+    }
 
     const hist = [];
     const push = (id) => {
@@ -1111,8 +1191,38 @@ export async function build({
     };
     const tr = (p && transfersBy.get(p.player_id)) || [];
     tr.sort((a, b) => a.transfer_date.localeCompare(b.transfer_date));
-    if (tr.length) push(tmToOur.get(tr[0].from_club_id));
-    for (const t of tr) push(tmToOur.get(t.to_club_id));
+    const tmSeq = [];
+    if (tr.length)
+      tmSeq.push({
+        d: tr[0].transfer_date.slice(0, 10),
+        id: tmToOur.get(tr[0].from_club_id),
+        keep: true,
+      });
+    for (const t of tr)
+      tmSeq.push({
+        d: t.transfer_date.slice(0, 10),
+        id: tmToOur.get(t.to_club_id),
+      });
+    const tmStays = tmSeq.filter(
+      (e, i) =>
+        e.keep || i === tmSeq.length - 1 || days(e.d, tmSeq[i + 1].d) >= 30,
+    );
+    const tmClubSet = new Set(tmStays.map((e) => e.id).filter(Boolean));
+    const firstTm = tr.length ? tr[0].transfer_date.slice(0, 10) : "9999-12-31";
+    const events = tmStays.map((e, i) => [
+      e.d,
+      i === 0 && e.keep ? 0 : 1,
+      e.id,
+    ]);
+    for (const s of wd) {
+      if (!s.id) continue;
+      const d = s.from ?? s.to ?? "9999-12-30";
+      if (d < firstTm || !tmClubSet.has(s.id)) events.push([d, 0, s.id]);
+    }
+    if (!tr.length && !wd.some((s) => s.id))
+      events.push(["0000-00-00", 0, p && tmToOur.get(p.current_club_id)]);
+    events.sort((a, b) => a[0].localeCompare(b[0]) || a[1] - b[1]);
+    for (const [, , id] of events) push(id);
     push(clubId);
     o.club_history = hist;
 
@@ -1137,6 +1247,15 @@ export async function build({
         (o.retired_year ? `${o.retired_year}-06-30` : null);
       if (end) stints.at(-1).to = end;
     }
+    const tmStintClubs = new Set(stints.map((s) => s.club_id));
+    for (const s of wd) {
+      if (!s.id || tmStintClubs.has(s.id)) continue;
+      const x = { club_id: s.id };
+      if (s.from) x.from = s.from;
+      if (s.to) x.to = s.to;
+      stints.push(x);
+    }
+    stints.sort((a, b) => (a.from ?? "").localeCompare(b.from ?? ""));
     if (stints.length) o.club_stints = stints;
 
     const caps = num(p?.international_caps);

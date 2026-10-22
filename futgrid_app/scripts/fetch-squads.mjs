@@ -140,6 +140,14 @@ const TEAM_ALIASES = {
   ],
   "esperance-de-tunis": ["Esperance Tunis", "Esperance de Tunis", "ES Tunis"],
   "rs-berkane": ["RS Berkane", "Berkane"],
+  "aris-thessaloniki": ["Aris Thessalonikis", "Aris"],
+  "austria-wien": ["Austria Vienna"],
+  "sint-truidense-vv": ["St. Truiden", "Sint-Truiden", "Truiden"],
+};
+
+const FIXED_TEAMS = {
+  "aris-thessaloniki": { id: 1123, name: "Aris Thessalonikis" },
+  "austria-wien": { id: 601, name: "Austria Vienna" },
 };
 const namesOf = (c) => [c.name, ...(TEAM_ALIASES[c.slug] ?? [])];
 
@@ -655,6 +663,17 @@ export async function run({
   };
 
   const mapBySearch = async (c) => {
+    const fixed = FIXED_TEAMS[c.slug];
+    if (fixed) {
+      map[c.slug] = {
+        api_team_id: fixed.id,
+        api_name: fixed.name,
+        how: "manual",
+      };
+      await saveMap();
+      console.log(`✓ əl ilə: ${c.name} -> ${fixed.name}`);
+      return;
+    }
     const country = countryOf(c);
     let m = null;
     const queries = [];
