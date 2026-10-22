@@ -844,16 +844,79 @@ export async function build({
   const careers = (await exists(careersPath))
     ? ((await readJson(careersPath, {})).players ?? {})
     : {};
+  const labelKey = (x) =>
+    clubTokens(x)
+      .filter((t) => t.length > 1)
+      .sort()
+      .join(" ");
+  const byLabel = new Map();
+  for (const c of clubs)
+    for (const on of ourNames(c)) {
+      const k = labelKey(on);
+      if (k.split(" ").length < 2) continue;
+      const prev = byLabel.get(k);
+      byLabel.set(k, prev === undefined || prev === c.id ? c.id : null);
+    }
+  const GENERIC = new Set([
+    "regatas",
+    "esporte",
+    "esportiva",
+    "sociedade",
+    "futebol",
+    "associacao",
+    "clube",
+    "club",
+    "sport",
+    "sports",
+    "deportivo",
+    "football",
+    "soccer",
+  ]);
+  const cleanLabel = (x) =>
+    String(x ?? "").replace(/\b(?:[A-Za-z]\.\s?){2,}/g, " ");
+  const isReserveLabel = (x) =>
+    norm(cleanLabel(x))
+      .split(" ")
+      .some((t) => RESERVE.test(t) || t === "2" || t === "3");
+  const tokSet = (x) =>
+    new Set(clubTokens(cleanLabel(x)).filter((t) => t.length > 1));
+  const byCountry = new Map();
+  for (const c of clubs)
+    for (const on of ourNames(c)) {
+      const toks = tokSet(on);
+      if (!toks.size) continue;
+      if (!byCountry.has(c.country_id)) byCountry.set(c.country_id, []);
+      byCountry.get(c.country_id).push({ id: c.id, toks });
+    }
+  const labelCountryMatch = (label, cc) => {
+    if (!label || !cc || isReserveLabel(label)) return null;
+    const lt = tokSet(label);
+    if (!lt.size) return null;
+    const cands = new Set();
+    for (const { id, toks } of byCountry.get(cc) ?? []) {
+      const inside = [...toks].every((t) => lt.has(t));
+      const rest = [...lt].every((t) => toks.has(t) || GENERIC.has(t));
+      if (inside && rest) cands.add(id);
+    }
+    return cands.size === 1 ? [...cands][0] : null;
+  };
+  const wdUnmapped = new Map();
   const careerCache = new Map();
   const careerOf = (pid) => {
     if (!pid) return [];
     if (careerCache.has(pid)) return careerCache.get(pid);
-    const out = (careers[pid]?.s ?? []).map(([clubTm, , label, from, to]) => ({
-      id: (clubTm && tmToOur.get(String(clubTm))) || null,
-      label,
-      from,
-      to,
-    }));
+    const out = (careers[pid]?.s ?? []).map(
+      ([clubTm, , label, from, to, cc]) => {
+        const id =
+          (clubTm && tmToOur.get(String(clubTm))) ||
+          labelCountryMatch(label, cc) ||
+          (label && !isReserveLabel(label) && byLabel.get(labelKey(label))) ||
+          null;
+        if (!id && label)
+          wdUnmapped.set(label, (wdUnmapped.get(label) ?? 0) + 1);
+        return { id, label, from, to };
+      },
+    );
     careerCache.set(pid, out);
     return out;
   };
@@ -877,6 +940,45 @@ export async function build({
       ? `${careerCount} oyunçunun Wikidata klub karyerası oxundu`
       : "Wikidata klub karyerası yoxdur (əvvəlcə: node scripts/fetch-careers.mjs)",
   );
+
+  const wdClubs = new Map();
+  for (const c of Object.values(careers))
+    for (const [clubTm, , label, , , cc] of c.s ?? []) {
+      if (!clubTm || !cc || !label) continue;
+      const k = String(clubTm);
+      if (!wdClubs.has(k)) wdClubs.set(k, { cc: new Map(), labels: new Set() });
+      const w = wdClubs.get(k);
+      w.cc.set(cc, (w.cc.get(cc) ?? 0) + 1);
+      w.labels.add(label);
+    }
+  let wdFixed = 0,
+    wdAdded = 0;
+  for (const [tmId, w] of wdClubs) {
+    const [cc] = [...w.cc].sort((a, b) => b[1] - a[1])[0];
+    const cur = tmToOur.get(tmId);
+    if (cur && clubById.get(cur)?.country_id === cc) continue;
+    const hits = new Set(
+      [...w.labels].map((l) => labelCountryMatch(l, cc)).filter(Boolean),
+    );
+    if (hits.size !== 1) continue;
+    const [fix] = hits;
+    if (fix === cur) continue;
+    tmToOur.set(tmId, fix);
+    clubMapReport.push({
+      tm_id: tmId,
+      tm_names: [...w.labels].slice(0, 3),
+      our: clubById.get(fix).name,
+      score: cur
+        ? `Wikidata düzəlişi (əvvəl: ${clubById.get(cur).name})`
+        : `Wikidata adı + ölkə (${cc})`,
+    });
+    if (cur) wdFixed++;
+    else wdAdded++;
+  }
+  if (wdFixed || wdAdded)
+    log(
+      `Wikidata ilə: ${wdAdded} klub əlavə tanındı, ${wdFixed} səhv bağlantı düzəldildi`,
+    );
 
   const byFull = new Map(),
     bySurname = new Map();
@@ -924,25 +1026,120 @@ export async function build({
   const used = new Set(),
     entries = [],
     unmatched = [];
+  const newest = new Map();
+  for (const sq of squads)
+    for (const ap of sq.players ?? []) {
+      if (ap.id == null) continue;
+      const prev = newest.get(ap.id);
+      if (!prev || (sq.fetched_at || "") > (prev.fetched_at || ""))
+        newest.set(ap.id, sq);
+    }
+  const twice = [],
+    claims = new Map();
   for (const sq of squads) {
     const day = sq.fetched_at || today;
     for (const ap of sq.players ?? []) {
-      let p = matchPlayer(ap, sq.club_id, day);
-      if (p && used.has(p.player_id)) p = null;
-      if (p) used.add(p.player_id);
-      else
-        unmatched.push({
-          club: clubById.get(sq.club_id)?.name,
-          name: ap.name,
-          age: ap.age,
-          api_id: ap.id,
-        });
-      entries.push({ ap, tm: p, clubId: sq.club_id });
+      if (ap.id != null && newest.get(ap.id) !== sq) {
+        twice.push(
+          `${ap.name}: ${clubById.get(sq.club_id)?.name} -> ${clubById.get(newest.get(ap.id).club_id)?.name}`,
+        );
+        continue;
+      }
+      const e = { ap, tm: null, clubId: sq.club_id, day };
+      entries.push(e);
+      const p = matchPlayer(ap, sq.club_id, day);
+      if (!p) continue;
+      if (!claims.has(p.player_id)) claims.set(p.player_id, []);
+      claims.get(p.player_id).push([e, p]);
     }
+  }
+  const claimScore = ([e, p]) =>
+    (tmToOur.get(p.current_club_id) === e.clubId ? 2 : 0) +
+    (norm(e.ap.name) === norm(p.name) ? 1 : 0);
+  const dropped = new Set();
+  for (const list of claims.values()) {
+    list.sort(
+      (a, b) =>
+        claimScore(b) - claimScore(a) ||
+        (b[0].day || "").localeCompare(a[0].day || ""),
+    );
+    const [[win, p], ...rest] = list;
+    win.tm = p;
+    used.add(p.player_id);
+    for (const [e] of rest) {
+      if (norm(e.ap.name) !== norm(p.name)) continue;
+      dropped.add(e);
+      twice.push(
+        `${e.ap.name}: ${clubById.get(e.clubId)?.name} -> ${clubById.get(win.clubId)?.name}`,
+      );
+    }
+  }
+  if (dropped.size) {
+    const keep = entries.filter((e) => !dropped.has(e));
+    entries.length = 0;
+    entries.push(...keep);
+  }
+  for (const e of entries)
+    if (!e.tm)
+      unmatched.push({
+        club: clubById.get(e.clubId)?.name,
+        name: e.ap.name,
+        age: e.ap.age,
+        api_id: e.ap.id,
+      });
+
+  const votes = new Map();
+  for (const e of entries) {
+    const tmId = e.tm?.current_club_id;
+    if (!tmId || tmToOur.has(tmId)) continue;
+    if (!votes.has(tmId)) votes.set(tmId, new Map());
+    const m = votes.get(tmId);
+    m.set(e.clubId, (m.get(e.clubId) ?? 0) + 1);
+  }
+  let voted = 0;
+  for (const [tmId, m] of votes) {
+    const total = [...m.values()].reduce((a, b) => a + b, 0);
+    const [best, n] = [...m].sort((a, b) => b[1] - a[1])[0];
+    if (n < 3 || n / total < 0.6) continue;
+    const our = clubById.get(best);
+    const names = [...(tmClubs.get(tmId)?.names ?? [])];
+    if (names.some((tn) => ourNames(our).some((on) => isReserveName(on, tn))))
+      continue;
+    tmToOur.set(tmId, best);
+    clubMapReport.push({
+      tm_id: tmId,
+      tm_names: names.slice(0, 3),
+      our: our.name,
+      score: `heyət səsi: ${n}/${total}`,
+    });
+    voted++;
+  }
+  let secondPass = 0;
+  if (voted) {
+    const nowMatched = new Set();
+    for (const e of entries) {
+      if (e.tm) continue;
+      const p = matchPlayer(e.ap, e.clubId, e.day);
+      if (!p || used.has(p.player_id)) continue;
+      e.tm = p;
+      used.add(p.player_id);
+      nowMatched.add(e.ap.id);
+      secondPass++;
+    }
+    const still = unmatched.filter((u) => !nowMatched.has(u.api_id));
+    unmatched.length = 0;
+    unmatched.push(...still);
   }
   if (squads.length)
     log(
-      `${entries.length} API-Football oyunçusu, ${used.size} Transfermarkt ilə uyğunlaşdı`,
+      `${entries.length} API-Football oyunçusu, ${used.size} Transfermarkt ilə uyğunlaşdı` +
+        (voted
+          ? ` (${voted} klub heyətə görə tanındı, +${secondPass} oyunçu)`
+          : ""),
+    );
+  if (twice.length)
+    log(
+      `${twice.length} oyunçu 2 klubun heyətində idi, biri saxlanıldı (siyahı: ${reportPath} -> players_in_two_squads)`,
     );
 
   const apiClubs = new Set(squads.map((sq) => sq.club_id));
@@ -976,8 +1173,8 @@ export async function build({
     `${fromTm} oyunçu Transfermarkt-dakı hazırkı klubuna görə əlavə olundu (data tarixi: ${dataDate.slice(0, 10) || "?"})`,
   );
 
-  const RETIRED_MIN_VALUE = 30_000_000,
-    RETIRED_MIN_CAPS = 80;
+  const RETIRED_MIN_VALUE = 10_000_000,
+    RETIRED_MIN_CAPS = 50;
   const playedForUs = (p) =>
     Boolean(tmToOur.get(p.current_club_id)) ||
     (transfersBy.get(p.player_id) ?? []).some(
@@ -1132,14 +1329,27 @@ export async function build({
 
   const ids = (await exists(idsPath)) ? await readJson(idsPath, {}) : {};
   let nextId = Math.max(0, ...Object.values(ids)) + 1;
+  const reserved = new Set();
+  for (const e of entries) {
+    const own = e.tm && ids[`tm:${e.tm.player_id}`];
+    if (own) reserved.add(own);
+  }
+  const given = new Set();
   const idFor = (p, ap) => {
-    const keys = [
-      p && `tm:${p.player_id}`,
-      ap.id != null && `api:${ap.id}`,
-    ].filter(Boolean);
-    let id = keys.map((k) => ids[k]).find(Boolean);
+    const own = p && ids[`tm:${p.player_id}`];
+    const apiId = ap.id != null ? ids[`api:${ap.id}`] : null;
+    let id = null;
+    if (own && !given.has(own)) id = own;
+    else if (
+      apiId &&
+      !given.has(apiId) &&
+      (!reserved.has(apiId) || apiId === own)
+    )
+      id = apiId;
     if (!id) id = nextId++;
-    for (const k of keys) ids[k] = id;
+    given.add(id);
+    if (p) ids[`tm:${p.player_id}`] = id;
+    if (ap.id != null) ids[`api:${ap.id}`] = id;
     return id;
   };
   const value = (e) => (e.retired ? 0 : Number(e.tm?.market_value_in_eur) || 0);
@@ -1321,10 +1531,16 @@ export async function build({
         tro.set(t.id, Math.max(tro.get(t.id) ?? 0, t.count));
       if (tro.size)
         found.trophies = [...tro].map(([id, count]) => ({ id, count }));
+      const legendHist = [];
       for (const cs of L.clubs ?? []) {
         const cid = clubBySlug.get(cs);
-        if (cid && !found.club_history.includes(cid))
-          found.club_history.push(cid);
+        if (cid && legendHist.at(-1) !== cid) legendHist.push(cid);
+      }
+      if (legendHist.length) {
+        const merged = [...legendHist];
+        for (const id of found.club_history)
+          if (!legendHist.includes(id) && merged.at(-1) !== id) merged.push(id);
+        found.club_history = merged;
       }
       if (!found.is_active && L.retired_year)
         found.retired_year = L.retired_year;
@@ -1336,7 +1552,8 @@ export async function build({
       slug = `${slug}-${L.birth_date?.slice(0, 4) ?? "legend"}`;
     slugs.add(slug);
     const keyId = `legend:${slug}`;
-    if (!ids[keyId]) ids[keyId] = nextId++;
+    if (!ids[keyId] || given.has(ids[keyId])) ids[keyId] = nextId++;
+    given.add(ids[keyId]);
     const o = { id: ids[keyId], name: L.name, slug };
     if (L.photo_url || playerPhotos[slug])
       o.photo_url = L.photo_url || playerPhotos[slug];
@@ -1384,7 +1601,12 @@ export async function build({
     players: players.length,
     matched: used.size,
     unmatched_players: unmatched,
+    players_in_two_squads: twice,
     tm_club_map: clubMapReport,
+    wikidata_unmapped_clubs: [...wdUnmapped]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 150)
+      .map(([label, n]) => `${label} (${n})`),
     trophy_competitions: trophyReport,
     squad_sizes: Object.fromEntries(
       clubs.map((c) => [c.name, squadSize.get(c.id) ?? 0]),

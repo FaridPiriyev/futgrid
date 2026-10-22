@@ -12,6 +12,7 @@ const ACTIVE_RECHECK_DAYS = 14;
 const MISSING_RECHECK_DAYS = 60;
 const RETIRED_MIN_VALUE = 5_000_000;
 const RETIRED_MIN_CAPS = 20;
+const FORMAT = 2;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const exists = (p) =>
@@ -37,7 +38,7 @@ export const setFetch = (fn) => {
   fetchImpl = fn;
 };
 
-async function sparql(query) {
+async function sparql(query, retries = 5) {
   for (let attempt = 0; ; attempt++) {
     let res;
     try {
@@ -51,12 +52,15 @@ async function sparql(query) {
         body: new URLSearchParams({ query }).toString(),
       });
     } catch (e) {
-      if (attempt >= 5) throw e;
+      if (attempt >= retries) throw e;
       await sleep(5000 * (attempt + 1));
       continue;
     }
     if (res.ok) return (await res.json()).results?.bindings ?? [];
-    if ((res.status === 429 || res.status >= 500) && attempt < 5) {
+    if (
+      (res.status === 429 && attempt < 10) ||
+      (res.status >= 500 && attempt < retries)
+    ) {
       const wait = Math.max(
         (Number(res.headers.get("retry-after")) || 0) * 1000,
         20000 * (attempt + 1),
@@ -73,7 +77,7 @@ async function sparql(query) {
 
 const careerQuery = (
   ids,
-) => `SELECT ?tm ?p ?club ?clubTm ?clubLabel ?start ?end WHERE {
+) => `SELECT ?tm ?p ?club ?clubTm ?clubLabel ?cc ?start ?end WHERE {
   VALUES ?tm { ${ids.map((id) => JSON.stringify(String(id))).join(" ")} }
   ?p wdt:P2446 ?tm .
   OPTIONAL {
@@ -84,6 +88,7 @@ const careerQuery = (
     OPTIONAL { ?st pq:P582 ?end }
     OPTIONAL { ?club wdt:P7223 ?clubTm }
     OPTIONAL { ?club rdfs:label ?clubLabel FILTER(LANG(?clubLabel) = "en") }
+    OPTIONAL { ?club wdt:P17 ?country . ?country wdt:P297 ?cc }
   }
 }`;
 
@@ -100,18 +105,34 @@ export function parseBindings(rows) {
     const start = day(b.start?.value);
     const end = day(b.end?.value);
     const clubTm = b.clubTm?.value ?? null;
+    const cc = b.cc?.value ?? null;
     const dup = entry.s.find(
       (x) => x[1] === q && x[3] === start && x[4] === end,
     );
     if (dup) {
       if (!dup[0] && clubTm) dup[0] = clubTm;
+      if (!dup[5] && cc) dup[5] = cc;
       continue;
     }
-    entry.s.push([clubTm, q, b.clubLabel?.value ?? null, start, end]);
+    entry.s.push([clubTm, q, b.clubLabel?.value ?? null, start, end, cc]);
   }
   for (const e of out.values())
     e.s.sort((a, b) => (a[3] ?? a[4] ?? "").localeCompare(b[3] ?? b[4] ?? ""));
   return out;
+}
+
+async function fetchGroup(ids) {
+  try {
+    return parseBindings(
+      await sparql(careerQuery(ids), ids.length > 10 ? 1 : 5),
+    );
+  } catch (e) {
+    if (ids.length <= 10) throw e;
+    const half = Math.ceil(ids.length / 2);
+    const a = await fetchGroup(ids.slice(0, half));
+    const b = await fetchGroup(ids.slice(half));
+    return new Map([...a, ...b]);
+  }
 }
 
 export async function run({
@@ -143,7 +164,7 @@ export async function run({
   );
   const todo = wanted.filter((p) => {
     const c = cache.players[p.player_id];
-    if (refresh || !c) return true;
+    if (refresh || !c || (c.q && c.v !== FORMAT)) return true;
     if (!c.q) return daysSince(c.t, today) >= MISSING_RECHECK_DAYS;
     return isActive(p) && daysSince(c.t, today) >= ACTIVE_RECHECK_DAYS;
   });
@@ -155,11 +176,11 @@ export async function run({
     found = 0;
   for (const group of chunk(todo, BATCH)) {
     const ids = group.map((p) => p.player_id);
-    const parsed = parseBindings(await sparql(careerQuery(ids)));
+    const parsed = await fetchGroup(ids);
     for (const id of ids) {
       const e = parsed.get(String(id));
       cache.players[id] = e
-        ? { q: e.q, s: e.s, t: today }
+        ? { q: e.q, s: e.s, t: today, v: FORMAT }
         : { q: null, t: today };
       if (e?.s.length) found++;
     }
