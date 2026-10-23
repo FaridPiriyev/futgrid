@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Globe, Sun, Moon, ChevronDown, ChevronRight } from "lucide-react";
+import { Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import ThemeToggle from "./ThemeToggle";
 
 const LEFT_LINKS = [
   { key: "home", label: "Ana Səhifə", id: null },
@@ -136,7 +137,7 @@ function Burger({ open, onClick, className = "" }) {
   );
 }
 
-function MenuExtras({ open, language, setLanguage, isDarkMode, toggleTheme }) {
+function MenuExtras({ open, language, setLanguage }) {
   const tab = open ? 0 : -1;
   return (
     <div className="mt-4 flex items-center justify-between gap-3">
@@ -176,19 +177,10 @@ function MenuExtras({ open, language, setLanguage, isDarkMode, toggleTheme }) {
             </button>
           ))}
         </div>
-        <button
-          type="button"
+        <ThemeToggle
           tabIndex={tab}
-          onClick={toggleTheme}
-          aria-label={isDarkMode ? "Light rejim" : "Dark rejim"}
-          className="flex h-8 w-8 items-center justify-center rounded-md border border-white/10 transition-colors hover:bg-white/5"
-        >
-          {isDarkMode ? (
-            <Sun className="h-4 w-4 text-amber-400" />
-          ) : (
-            <Moon className="h-4 w-4 text-indigo-400" />
-          )}
-        </button>
+          className="h-8 w-8 rounded-md border border-white/10 hover:bg-white/5"
+        />
       </div>
     </div>
   );
@@ -295,13 +287,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const active = useActiveSection(pathname);
   const [language, setLanguage] = useState("AZ");
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -344,21 +331,6 @@ export default function Navbar() {
   );
 
   const toggleMenu = () => setIsMobileMenuOpen((v) => !v);
-
-  const themeButton = (
-    <button
-      type="button"
-      onClick={() => setIsDarkMode(!isDarkMode)}
-      className="text-neutral-400 transition-colors hover:text-white"
-      aria-label={isDarkMode ? "Light rejim" : "Dark rejim"}
-    >
-      {isDarkMode ? (
-        <Sun className="h-4 w-4 text-amber-400" />
-      ) : (
-        <Moon className="h-4 w-4 text-indigo-400" />
-      )}
-    </button>
-  );
 
   const logoLink = (className, imgClassName) => (
     <a
@@ -451,8 +423,6 @@ export default function Navbar() {
               open={isMobileMenuOpen && scrolled}
               language={language}
               setLanguage={setLanguage}
-              isDarkMode={isDarkMode}
-              toggleTheme={() => setIsDarkMode(!isDarkMode)}
             />
           }
         />
@@ -500,7 +470,7 @@ export default function Navbar() {
             <div className="flex items-center gap-5 md:gap-7">
               <LanguageMenu language={language} setLanguage={setLanguage} />
               <span className="h-4 w-px bg-white/10 md:hidden" />
-              {themeButton}
+              <ThemeToggle className="h-6 w-6" />
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a
                   key={label}

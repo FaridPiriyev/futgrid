@@ -192,17 +192,17 @@ const AVATAR_GRADIENTS = [
 const PODIUM = [
   {
     ring: "from-amber-200 via-amber-400 to-amber-600",
-    text: "text-amber-300",
+    text: "text-amber-300 light:text-amber-600",
     card: "border-amber-400/60 bg-amber-400/10 shadow-[0_0_40px_-12px_rgba(251,191,36,0.7)]",
   },
   {
     ring: "from-white via-slate-300 to-slate-500",
-    text: "text-slate-200",
-    card: "border-slate-300/40 bg-slate-300/[0.07]",
+    text: "text-slate-200 light:text-slate-500",
+    card: "border-slate-300/40 bg-slate-300/[0.07] light:border-slate-400/50 light:bg-white/70",
   },
   {
     ring: "from-orange-300 via-orange-500 to-orange-800",
-    text: "text-orange-300",
+    text: "text-orange-300 light:text-orange-600",
     card: "border-orange-400/40 bg-orange-400/[0.08]",
   },
 ];
@@ -438,7 +438,7 @@ function SectionHeading({ kicker, title }) {
         <span className="h-px w-8 origin-left scale-x-0 bg-blue-500 transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
       </div>
       <h2
-        className={`mt-1 overflow-hidden py-[0.1em] ${FONT} text-4xl font-bold uppercase leading-tight text-white md:text-[56px]`}
+        className={`mt-1 overflow-hidden py-[0.1em] ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
       >
         <span className="block translate-y-full transition-transform delay-150 duration-900 ease-out motion-reduce:translate-y-0 group-data-in/h:translate-y-0">
           {title}
@@ -975,7 +975,7 @@ function TopCard({ player, rank, run }) {
       </span>
       <span className={`shrink-0 rounded-full bg-linear-to-br p-0.5 ${s.ring}`}>
         <span
-          className={`flex items-center justify-center rounded-full border-2 border-[#0b0909] bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-white ${
+          className={`flex items-center justify-center rounded-full border-2 border-page-2 bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-white ${
             first
               ? "h-14 w-14 text-lg md:h-16 md:w-16 md:text-xl"
               : "h-11 w-11 text-sm md:h-12 md:w-12 md:text-base"
@@ -986,13 +986,13 @@ function TopCard({ player, rank, run }) {
       </span>
       <div className="min-w-0 flex-1">
         <p
-          className={`truncate ${FONT} font-bold uppercase tracking-wide text-white ${
+          className={`truncate ${FONT} font-bold uppercase tracking-wide text-ink ${
             first ? "text-lg md:text-2xl" : "text-base md:text-xl"
           }`}
         >
           {player.name}
         </p>
-        <p className={`truncate ${BODY} text-xs text-neutral-400`}>
+        <p className={`truncate ${BODY} text-xs text-muted`}>
           {player.team} · {player.winRate}% qələbə
         </p>
       </div>
@@ -1019,14 +1019,14 @@ function ContactField({
     <label className="group/field relative block">
       <Tag
         placeholder=" "
-        className={`peer block w-full border-b-2 border-white/10 bg-white/3 pb-3 pl-12 pr-10 pt-7 ${BODY} text-base text-white outline-none transition-colors duration-300 hover:bg-white/5 focus:border-transparent focus:bg-white/6 ${
+        className={`peer block w-full border-b-2 border-line/10 bg-line/3 pb-3 pl-12 pr-10 pt-7 ${BODY} text-base text-ink outline-none transition-colors duration-300 hover:bg-line/5 focus:border-transparent focus:bg-line/6 ${
           textarea ? "min-h-40 resize-none" : ""
         }`}
         {...props}
       />
-      <Icon className="pointer-events-none absolute left-4 top-5.5 h-5 w-5 text-neutral-500 transition-colors duration-300 peer-focus:text-blue-400" />
+      <Icon className="pointer-events-none absolute left-4 top-5.5 h-5 w-5 text-faint transition-colors duration-300 peer-focus:text-blue-400" />
       <span
-        className={`pointer-events-none absolute left-12 top-5 ${FONT} text-base tracking-wide text-neutral-500 transition-all duration-200 peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-blue-400 peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]`}
+        className={`pointer-events-none absolute left-12 top-5 ${FONT} text-base tracking-wide text-faint transition-all duration-200 peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-blue-400 peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]`}
       >
         {label}
       </span>
@@ -1108,12 +1108,12 @@ function ContactForm() {
           <Check className="h-9 w-9" />
         </span>
         <h3
-          className={`mt-6 ${FONT} text-3xl font-bold uppercase tracking-wide text-white`}
+          className={`mt-6 ${FONT} text-3xl font-bold uppercase tracking-wide text-ink`}
         >
           Mesajın göndərildi!
         </h3>
         <p
-          className={`mt-2 max-w-sm ${BODY} text-[15px] leading-relaxed text-neutral-400`}
+          className={`mt-2 max-w-sm ${BODY} text-[15px] leading-relaxed text-muted`}
         >
           Təşəkkürlər. Mesajını aldıq, ən qısa zamanda e-poçtuna cavab
           yazacağıq.
@@ -1121,7 +1121,7 @@ function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden border border-blue-500 px-8 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-white`}
+          className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden border border-blue-500 px-8 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-500 hover:text-white`}
         >
           <span aria-hidden="true" className={SWEEP_BLUE} />
           Yeni mesaj yaz
@@ -1142,31 +1142,31 @@ function ContactForm() {
             Forma
           </p>
           <h3
-            className={`mt-1 ${FONT} text-3xl font-bold uppercase leading-none text-white md:text-4xl`}
+            className={`mt-1 ${FONT} text-3xl font-bold uppercase leading-none text-ink md:text-4xl`}
           >
             Bizə yaz
           </h3>
         </div>
         <div className="text-right">
           <p
-            className={`${FONT} text-[11px] uppercase tracking-[0.2em] text-neutral-500`}
+            className={`${FONT} text-[11px] uppercase tracking-[0.2em] text-faint`}
           >
             Hazırdır
           </p>
-          <p className={`${FONT} text-xl font-bold text-white`}>
+          <p className={`${FONT} text-xl font-bold text-ink`}>
             <span
               className={ready === 3 ? "text-emerald-400" : "text-blue-400"}
             >
               {ready}
             </span>
-            <span className="text-neutral-600"> / 3</span>
+            <span className="text-faint"> / 3</span>
           </p>
         </div>
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-1.5" aria-hidden="true">
         {[0, 1, 2].map((i) => (
-          <span key={i} className="h-1 overflow-hidden bg-white/10">
+          <span key={i} className="h-1 overflow-hidden bg-line/10">
             <span
               className={`block h-full origin-left transition-transform duration-500 ease-out ${
                 ready === 3 ? "bg-emerald-400" : "bg-blue-500"
@@ -1229,7 +1229,7 @@ function ContactForm() {
           className={`pointer-events-none absolute bottom-3 right-3 ${FONT} text-xs tracking-wider ${
             values.message.length > MESSAGE_MAX * 0.9
               ? "text-amber-400"
-              : "text-neutral-600"
+              : "text-faint"
           }`}
         >
           {values.message.length}/{MESSAGE_MAX}
@@ -1237,9 +1237,7 @@ function ContactForm() {
       </div>
 
       <div className="mt-7 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p
-          className={`max-w-xs ${BODY} text-xs leading-relaxed text-neutral-500`}
-        >
+        <p className={`max-w-xs ${BODY} text-xs leading-relaxed text-faint`}>
           Məlumatların yalnız sənə cavab vermək üçün istifadə olunur.
         </p>
         <button
@@ -1322,7 +1320,7 @@ export default function Home() {
 
       <section
         id="about"
-        className="relative w-full overflow-hidden bg-[#0b0909] py-16 md:py-24"
+        className="relative w-full overflow-hidden bg-page-2 py-16 md:py-24"
       >
         <div
           aria-hidden="true"
@@ -1330,7 +1328,10 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center will-change-transform"
           style={{ backgroundImage: `url(${ABOUT_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#0b0909]/80" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-page-2/80 light:bg-page-2/90"
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
@@ -1365,7 +1366,7 @@ export default function Home() {
               <div
                 key={s.label}
                 data-reveal
-                className={`${REVEAL.zoom} group relative overflow-hidden border border-white/10 bg-white/3 px-4 py-5 text-center backdrop-blur-sm transition-colors duration-300 hover:border-blue-500/50 md:py-7`}
+                className={`${REVEAL.zoom} group relative overflow-hidden border border-line/10 bg-line/3 px-4 py-5 light:bg-surface/80 light:shadow-sm text-center backdrop-blur-sm transition-colors duration-300 hover:border-blue-500/50 md:py-7`}
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <span
@@ -1373,13 +1374,13 @@ export default function Home() {
                   className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-blue-500 transition-transform delay-300 duration-700 group-data-in:scale-x-100"
                 />
                 <p
-                  className={`${FONT} text-3xl font-bold text-white md:text-5xl`}
+                  className={`${FONT} text-3xl font-bold text-ink md:text-5xl`}
                 >
                   <CountUp value={s.value} run={statsIn} duration={1600} />
                   <span className="text-blue-500">{s.suffix}</span>
                 </p>
                 <p
-                  className={`mt-1 ${FONT} text-xs uppercase tracking-[0.2em] text-neutral-400 md:text-sm`}
+                  className={`mt-1 ${FONT} text-xs uppercase tracking-[0.2em] text-muted md:text-sm`}
                 >
                   {s.label}
                 </p>
@@ -1390,7 +1391,7 @@ export default function Home() {
           <div className="mx-auto mt-10 max-w-3xl text-center md:mt-14">
             <div data-reveal className={REVEAL.up}>
               <p
-                className={`${FONT} text-base font-light leading-8 text-neutral-400 md:text-lg md:leading-9`}
+                className={`${FONT} text-base font-light leading-8 text-muted md:text-lg md:leading-9`}
               >
                 FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq
                 cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır.
@@ -1420,7 +1421,7 @@ export default function Home() {
 
       <section
         id="games"
-        className="relative w-full overflow-hidden bg-[#05060a] py-14 md:py-20"
+        className="relative w-full overflow-hidden bg-page py-14 md:py-20"
       >
         <div
           aria-hidden="true"
@@ -1428,7 +1429,10 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center will-change-transform"
           style={{ backgroundImage: `url(${GAMES_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#05060a]/85" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-page/85 light:bg-page/92"
+        />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 animate-[fgGrid_2.5s_linear_infinite] opacity-25 mask-[linear-gradient(to_top,black,transparent)]"
@@ -1442,7 +1446,7 @@ export default function Home() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-[#0b0909] to-transparent"
+          className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-page-2 to-transparent"
         />
 
         <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
@@ -1463,7 +1467,7 @@ export default function Home() {
 
       <section
         id="leaderboard"
-        className="relative w-full overflow-hidden bg-[#0b0909] py-14 md:py-20"
+        className="relative w-full overflow-hidden bg-page-2 py-14 md:py-20"
       >
         <div
           aria-hidden="true"
@@ -1471,10 +1475,13 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center will-change-transform"
           style={{ backgroundImage: `url(${LEADERBOARD_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#05060a]/45" />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-[#05060a] to-transparent"
+          className="absolute inset-0 bg-page/45 light:bg-page/85"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-page to-transparent"
         />
         <div
           aria-hidden="true"
@@ -1483,7 +1490,7 @@ export default function Home() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-[#05060a] to-transparent"
+          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-page to-transparent"
         />
         <span
           aria-hidden="true"
@@ -1499,7 +1506,7 @@ export default function Home() {
             style={{ transitionDelay: "200ms" }}
           >
             <div
-              className="relative grid grid-cols-3 border border-white/15 bg-black/40 p-1 backdrop-blur-sm"
+              className="relative grid grid-cols-3 border border-line/15 bg-page/40 p-1 backdrop-blur-sm"
               role="tablist"
             >
               <span
@@ -1517,7 +1524,7 @@ export default function Home() {
                   className={`relative z-10 px-3 py-2 ${FONT} text-xs font-bold uppercase tracking-wide transition-colors duration-300 sm:px-5 md:px-7 md:text-base ${
                     period === p.key
                       ? "text-white"
-                      : "text-neutral-400 hover:text-white"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   {p.label}
@@ -1541,9 +1548,9 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="overflow-hidden border border-white/10 bg-[#0b0e14]/85 backdrop-blur-sm">
+            <div className="overflow-hidden border border-line/10 bg-surface/85 backdrop-blur-sm">
               <div
-                className={`grid grid-cols-[28px_1fr_auto] items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400 md:grid-cols-[32px_1fr_120px_70px]`}
+                className={`grid grid-cols-[28px_1fr_auto] items-center gap-3 border-b border-line/10 bg-line/5 px-4 py-3 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted md:grid-cols-[32px_1fr_120px_70px]`}
               >
                 <span>#</span>
                 <span>Oyunçu</span>
@@ -1556,7 +1563,7 @@ export default function Home() {
                 return (
                   <div
                     key={player.name}
-                    className={`border-b border-white/5 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
+                    className={`border-b border-line/5 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
                       rowsIn
                         ? "translate-x-0 opacity-100 duration-500"
                         : "translate-x-4 opacity-0 duration-0"
@@ -1567,7 +1574,7 @@ export default function Home() {
                   >
                     <div className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 border-l-2 border-l-transparent px-4 py-2.5 transition-colors duration-300 hover:border-l-blue-500 hover:bg-blue-500/10 md:grid-cols-[32px_1fr_120px_70px]">
                       <span
-                        className={`text-center ${FONT} text-sm font-bold text-neutral-500 transition-colors duration-300 group-hover:text-blue-400`}
+                        className={`text-center ${FONT} text-sm font-bold text-faint transition-colors duration-300 group-hover:text-blue-400`}
                       >
                         {i + 1}
                       </span>
@@ -1579,24 +1586,24 @@ export default function Home() {
                         </span>
                         <div className="min-w-0">
                           <p
-                            className={`truncate ${FONT} text-base font-bold uppercase tracking-wide text-white`}
+                            className={`truncate ${FONT} text-base font-bold uppercase tracking-wide text-ink`}
                           >
                             {player.name}
                           </p>
                           <p
-                            className={`truncate ${BODY} text-xs text-neutral-400 md:hidden`}
+                            className={`truncate ${BODY} text-xs text-muted md:hidden`}
                           >
                             {player.team}
                           </p>
                         </div>
                       </div>
                       <span
-                        className={`hidden truncate ${FONT} text-sm text-neutral-400 md:block`}
+                        className={`hidden truncate ${FONT} text-sm text-muted md:block`}
                       >
                         {player.team}
                       </span>
                       <span
-                        className={`text-right ${FONT} text-lg font-bold text-white`}
+                        className={`text-right ${FONT} text-lg font-bold text-ink`}
                       >
                         <CountUp
                           value={player.points.value}
@@ -1612,7 +1619,7 @@ export default function Home() {
           </div>
 
           <p
-            className={`mt-4 flex items-center justify-center gap-2 ${BODY} text-xs text-neutral-500`}
+            className={`mt-4 flex items-center justify-center gap-2 ${BODY} text-xs text-faint`}
           >
             <Trophy className="h-3.5 w-3.5 text-amber-400" />
             Reytinq hər həftə bazar ertəsi yenilənir
@@ -1622,7 +1629,7 @@ export default function Home() {
 
       <section
         id="contact"
-        className="relative w-full overflow-hidden bg-[#05060a] py-14 md:py-20"
+        className="relative w-full overflow-hidden bg-page py-14 md:py-20"
       >
         <div
           aria-hidden="true"
@@ -1630,7 +1637,10 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center will-change-transform"
           style={{ backgroundImage: `url(${CONTACT_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#05060a]/40" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-page/40 light:bg-page/85"
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
@@ -1638,7 +1648,7 @@ export default function Home() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-[#0b0909] to-transparent"
+          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-page-2 to-transparent"
         />
         <span
           aria-hidden="true"
@@ -1653,7 +1663,7 @@ export default function Home() {
             className={`${REVEAL.up} mt-10 md:mt-14`}
             style={{ transitionDelay: "150ms" }}
           >
-            <div className="grid overflow-hidden border border-white/10 bg-[#0a0d14]/95 shadow-[0_40px_90px_-40px_rgba(59,130,246,0.55)] lg:grid-cols-[0.85fr_1.4fr]">
+            <div className="grid overflow-hidden border border-line/10 bg-surface/95 shadow-[0_40px_90px_-40px_rgba(59,130,246,0.55)] lg:grid-cols-[0.85fr_1.4fr]">
               <aside className="relative flex flex-col overflow-hidden bg-linear-to-br from-blue-600 via-blue-700 to-[#1a0933] p-6 md:p-10">
                 <div
                   aria-hidden="true"

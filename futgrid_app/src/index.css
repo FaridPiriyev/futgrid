@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+@theme inline {
+  --color-page: var(--fg-page);
+  --color-page-2: var(--fg-page-2);
+  --color-surface: var(--fg-surface);
+  --color-ink: var(--fg-ink);
+  --color-muted: var(--fg-muted);
+  --color-faint: var(--fg-faint);
+  --color-line: var(--fg-line);
+}
+
+:root {
+  color-scheme: dark;
+  --fg-page: #05060a;
+  --fg-page-2: #0b0909;
+  --fg-surface: #0b0e14;
+  --fg-ink: #ffffff;
+  --fg-muted: #a3a3a3;
+  --fg-faint: #737373;
+  --fg-line: #ffffff;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --fg-page: #f3f5fa;
+  --fg-page-2: #e9edf5;
+  --fg-surface: #ffffff;
+  --fg-ink: #0b1220;
+  --fg-muted: #475569;
+  --fg-faint: #64748b;
+  --fg-line: #0b1220;
+}
+
+body {
+  background-color: var(--fg-page);
+  color: var(--fg-ink);
+}

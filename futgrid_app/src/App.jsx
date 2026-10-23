@@ -32,7 +32,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollManager />
       <Navbar />
-      <Suspense fallback={<div className="min-h-screen bg-[#05060a]" />}>
+      <Suspense fallback={<div className="min-h-screen bg-page" />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/oyunlar/futbol-x0x" element={<FutbolX0X />} />
