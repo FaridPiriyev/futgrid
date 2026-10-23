@@ -267,6 +267,42 @@ for (const l of doubled.slice(0, 10))
   console.log(
     `   ${l[0].name}: ${l.map((p) => clubName.get(p.current_club_id) ?? p.current_club_name ?? "-").join(" | ")}`,
   );
+const leavers = new Map();
+for (const p of players) {
+  if (
+    !p.birth_date ||
+    !p.is_active ||
+    p.current_club_id ||
+    !p.club_history?.length
+  )
+    continue;
+  const k = `${p.club_history.at(-1)}|${p.position ?? ""}|${p.nationality_code ?? ""}`;
+  leavers.set(k, [...(leavers.get(k) ?? []), p]);
+}
+const maybeDup = [];
+for (const p of players) {
+  if (p.birth_date || p.source === "manual" || !p.current_club_id) continue;
+  const l = leavers.get(
+    `${p.current_club_id}|${p.position ?? ""}|${p.nationality_code ?? ""}`,
+  );
+  if (l?.length)
+    maybeDup.push({
+      api: p.name,
+      club: clubName.get(p.current_club_id) ?? "-",
+      tm: l.map((x) => `${x.name} (${x.birth_date.slice(0, 4)})`),
+    });
+}
+console.log(
+  `\nEhtimal olunan dublikat (API-də datasız oyunçu ↔ eyni klubdan ayrılmış, eyni mövqe və ölkəli TM oyunçusu): ${maybeDup.length}`,
+);
+for (const d of maybeDup.slice(0, 15))
+  console.log(`   ${d.api} (API, ${d.club}) ↔ ${d.tm.join(" / ")}`);
+const report = JSON.parse(
+  fs.readFileSync("data-raw/audit-report.json", "utf8"),
+);
+report.possible_duplicates = maybeDup;
+fs.writeFileSync("data-raw/audit-report.json", JSON.stringify(report, null, 2));
+
 const idCount = new Map();
 for (const p of players)
   idCount.set(p.id, [...(idCount.get(p.id) ?? []), p.name]);

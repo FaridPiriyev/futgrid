@@ -1157,6 +1157,48 @@ export async function build({
     Number(p.last_season) >= maxSeason - 1 ||
     (lastVal.has(p.player_id) &&
       days(lastVal.get(p.player_id), dataDate) <= 400);
+  const poolOf = new Map();
+  for (const p of tmPlayers.values()) {
+    if (used.has(p.player_id) || !active(p)) continue;
+    const c = tmToOur.get(p.current_club_id);
+    if (!c || !apiClubs.has(c)) continue;
+    if (!poolOf.has(c)) poolOf.set(c, []);
+    poolOf.get(c).push(p);
+  }
+  const nameToks = (x) =>
+    new Set(
+      norm(x)
+        .split(" ")
+        .filter((t) => t.length > 2),
+    );
+  let clubPass = 0;
+  for (const e of entries) {
+    if (e.tm || !e.ap.age) continue;
+    const pool = poolOf.get(e.clubId);
+    if (!pool) continue;
+    const toks = nameToks(e.ap.name);
+    const hits = pool.filter(
+      (p) =>
+        !used.has(p.player_id) &&
+        p.date_of_birth &&
+        Math.abs(ageOn(p.date_of_birth, e.day) - e.ap.age) <= 1 &&
+        [...nameToks(p.name)].some((t) => toks.has(t)),
+    );
+    if (hits.length !== 1) continue;
+    e.tm = hits[0];
+    used.add(hits[0].player_id);
+    clubPass++;
+  }
+  if (clubPass) {
+    const still = entries.filter((e) => !e.tm && e.ap.id != null);
+    const ids = new Set(still.map((e) => e.ap.id));
+    const keep = unmatched.filter((u) => ids.has(u.api_id));
+    unmatched.length = 0;
+    unmatched.push(...keep);
+    log(
+      `${clubPass} oyunçu eyni klub + yaş + ad hissəsinə görə əlavə uyğunlaşdı`,
+    );
+  }
   let fromTm = 0;
   for (const p of tmPlayers.values()) {
     if (used.has(p.player_id)) continue;
@@ -1197,13 +1239,16 @@ export async function build({
   const STAR_MIN_VALUE = 10_000_000,
     STAR_MIN_CAPS = 40;
   let starCount = 0,
-    starOutside = 0;
+    starOutside = 0,
+    leftCount = 0;
   for (const p of tmPlayers.values()) {
     if (used.has(p.player_id) || !active(p)) continue;
     const notable =
       (num(p.highest_market_value_in_eur) ?? 0) >= STAR_MIN_VALUE ||
       (num(p.international_caps) ?? 0) >= STAR_MIN_CAPS;
-    if (!notable || !playedForUs(p)) continue;
+    const left = apiClubs.has(tmToOur.get(p.current_club_id));
+    if (!(notable || left) || !playedForUs(p)) continue;
+    if (!notable) leftCount++;
     const cur = currentOf(p.player_id);
     const clubId = cur?.id && !apiClubs.has(cur.id) ? cur.id : null;
     const clubLabel = !cur?.id && cur?.label ? cur.label : null;
@@ -1213,7 +1258,7 @@ export async function build({
     if (!clubId) starOutside++;
   }
   log(
-    `${starCount} tanınmış aktiv oyunçu heyətlərdən kənarda tapılıb əlavə olundu (${starOutside} nəfərin klubu siyahımızda deyil)`,
+    `${starCount} aktiv oyunçu heyətlərdən kənarda tapılıb əlavə olundu (${leftCount} nəfər iyundan sonra klubumuzun heyətindən çıxıb, ${starOutside} nəfərin hazırkı klubu siyahımızda deyil)`,
   );
   const careerEnd = new Map();
   for (const e of entries) {
