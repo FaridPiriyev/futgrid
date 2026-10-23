@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
-const FOOTER_BACKGROUND =
-  "https://picsum.photos/seed/futgrid-footer/1920/1000?grayscale&blur=2";
-
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
@@ -16,6 +13,8 @@ const FOOTER_STYLE = `
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Condensed:wght@400;700&display=swap");
 @keyframes fgBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 @keyframes fgRise { 0% { transform: translateY(0); opacity: 1; } 45% { transform: translateY(-26px); opacity: 0; } 46% { transform: translateY(26px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+@keyframes fgSpin { to { transform: rotate(360deg); } }
+@keyframes fgPulse { 0%,100% { opacity: 0.35; } 50% { opacity: 0.8; } }
 `;
 
 const SWEEP_BLUE =
@@ -156,6 +155,21 @@ function BackToTop() {
   );
 }
 
+function FooterDecor() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+      <div className="absolute inset-0 bg-[#07090f]" />
+      <div className="absolute left-1/2 top-0 h-112 w-240 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[110px]" />
+      <div className="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 md:block bg-linear-to-b from-blue-500/40 via-blue-500/5 to-transparent" />
+      <div className="absolute inset-0 [background-image:radial-gradient(rgba(96,150,255,0.3)_1px,transparent_1.3px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_75%_at_0%_100%,black,transparent)]" />
+      <div className="absolute -right-56 top-1/2 h-176 w-176 -translate-y-1/2 rounded-full border border-white/8" />
+      <div className="absolute -right-32 top-1/2 h-128 w-128 -translate-y-1/2 rounded-full border border-dashed border-blue-500/30 animate-[fgSpin_80s_linear_infinite] motion-reduce:animate-none" />
+      <div className="absolute -right-8 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full border border-white/8" />
+      <div className="absolute right-32 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_18px_4px_rgba(59,130,246,0.6)] animate-[fgPulse_3s_ease-in-out_infinite] motion-reduce:animate-none" />
+    </div>
+  );
+}
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -177,12 +191,7 @@ export default function Footer() {
       </div>
 
       <div className="relative w-full overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${FOOTER_BACKGROUND})` }}
-        />
-        <div aria-hidden="true" className="absolute inset-0 bg-black/90" />
+        <FooterDecor />
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] mix-blend-overlay"

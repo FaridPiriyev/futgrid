@@ -35,10 +35,12 @@ const SLIDES = [
     lines: ["FƏRQLİ OYUNLAR"],
     subtitle: "Taktiki oyunların yeni formatını kəşf et",
     button: "OYUNLARA BAX",
+    mobilePosition: "35% 70%",
     href: "#games",
   },
   {
     image: "/images/slider3.png",
+    mobileAspect: "16 / 9",
     fallback: "linear-gradient(135deg,#2a0b3a 0%,#6b1f4e 50%,#0b1a4a 100%)",
     lines: ["REYTİNQDƏ", "YÜKSƏL"],
     subtitle: "Xal topla və liderlər cədvəlinə qalx",
@@ -52,9 +54,9 @@ const AUTOPLAY_MS = 4500;
 const ABOUT_BACKGROUND = "/images/background_home_about.png";
 
 const CARDS = [
-  { src: "/images/card1.jpg", alt: "Oyun zalı 1", title: "Oyun studiyası" },
-  { src: "/images/card2.jpg", alt: "Oyun zalı 2", title: "Taktika zalı" },
-  { src: "/images/card3.jpg", alt: "Oyun zalı 3", title: "Turnir arenası" },
+  { src: "/images/card1.webp", alt: "Oyun zalı 1", title: "Oyun studiyası" },
+  { src: "/images/card2.webp", alt: "Oyun zalı 2", title: "Taktika zalı" },
+  { src: "/images/card3.webp", alt: "Oyun zalı 3", title: "Turnir arenası" },
 ];
 
 const STATS = [
@@ -67,12 +69,12 @@ const STATS = [
 const NOISE =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
 
-const GAMES_BACKGROUND = "/images/background_home_games.jpg";
+const GAMES_BACKGROUND = "/images/background_games.jpg";
 
 const GAMES = [
   {
     key: "x0x",
-    image: "/images/game1.avif",
+    image: "/images/game1.jpg",
     title: "Futbol X0X",
     description:
       "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
@@ -97,8 +99,7 @@ const GAMES = [
   },
 ];
 
-const LEADERBOARD_BACKGROUND =
-  "https://picsum.photos/seed/futgrid-leaderboard/1920/1000?grayscale&blur=2";
+const LEADERBOARD_BACKGROUND = "/images/background_reyting.png";
 
 const PERIODS = [
   { key: "week", label: "Həftəlik" },
@@ -190,36 +191,26 @@ const AVATAR_GRADIENTS = [
 
 const PODIUM = [
   {
-    height: "h-24 md:h-36",
     ring: "from-amber-200 via-amber-400 to-amber-600",
     text: "text-amber-300",
-    block: "border-amber-400 from-amber-400/30 to-amber-400/0",
-    glow: "shadow-[0_0_34px_-4px_rgba(251,191,36,0.75)]",
+    card: "border-amber-400/60 bg-amber-400/10 shadow-[0_0_40px_-12px_rgba(251,191,36,0.7)]",
   },
   {
-    height: "h-16 md:h-26",
     ring: "from-white via-slate-300 to-slate-500",
     text: "text-slate-200",
-    block: "border-slate-300 from-slate-300/25 to-slate-300/0",
-    glow: "",
+    card: "border-slate-300/40 bg-slate-300/[0.07]",
   },
   {
-    height: "h-11 md:h-18",
     ring: "from-orange-300 via-orange-500 to-orange-800",
     text: "text-orange-300",
-    block: "border-orange-500 from-orange-500/25 to-orange-500/0",
-    glow: "",
+    card: "border-orange-400/40 bg-orange-400/[0.08]",
   },
 ];
-
-const PODIUM_ORDER = [1, 0, 2];
-const PODIUM_DELAY = [150, 0, 300];
 
 const FORMSPREE_ID = "xeaeyrkp";
 const CONTACT_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
 
-const CONTACT_BACKGROUND =
-  "https://picsum.photos/seed/futgrid-contact/1920/1000?grayscale&blur=2";
+const CONTACT_BACKGROUND = "/images/contact.png";
 
 const CONTACT_INFO = [
   {
@@ -722,22 +713,30 @@ function MobileHero() {
             key={i}
             aria-roledescription="slayd"
             aria-label={`${i + 1} / ${SLIDES.length}`}
-            className="relative h-[72svh] max-h-150 min-h-110 w-full shrink-0 snap-center snap-always overflow-hidden bg-neutral-900"
+            className="relative flex w-full shrink-0 snap-center snap-always flex-col overflow-hidden bg-black"
           >
             <div
-              className={`absolute inset-0 bg-cover bg-center transition-transform duration-6000 ease-out motion-reduce:transition-none ${
-                active === i ? "scale-110" : "scale-100"
-              }`}
-              style={{ backgroundImage: `url(${s.image}), ${s.fallback}` }}
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/20" />
-            <span
-              className={`absolute right-5 top-5 ${FONT} text-xs font-bold tracking-[0.25em] text-white/70`}
+              className="relative w-full overflow-hidden bg-neutral-900"
+              style={{ aspectRatio: s.mobileAspect ?? "4 / 3" }}
             >
-              0{i + 1} / 0{SLIDES.length}
-            </span>
+              <div
+                className={`absolute inset-0 bg-cover transition-transform duration-6000 ease-out motion-reduce:transition-none ${
+                  active === i ? "scale-105" : "scale-100"
+                }`}
+                style={{
+                  backgroundImage: `url(${s.mobileImage ?? s.image}), ${s.fallback}`,
+                  backgroundPosition: s.mobilePosition ?? "center",
+                }}
+              />
+              <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent via-60% to-black" />
+              <span
+                className={`absolute right-5 top-5 ${FONT} text-xs font-bold tracking-[0.25em] text-white/80`}
+              >
+                0{i + 1} / 0{SLIDES.length}
+              </span>
+            </div>
             <div
-              className={`absolute inset-x-0 bottom-0 px-5 pb-8 transition-all duration-700 ease-out ${
+              className={`relative -mt-8 flex flex-1 flex-col items-start justify-end px-5 pb-8 transition-all duration-700 ease-out ${
                 active === i
                   ? "translate-y-0 opacity-100"
                   : "translate-y-6 opacity-0"
@@ -745,7 +744,7 @@ function MobileHero() {
             >
               <span className="mb-3 block h-0.5 w-10 bg-blue-500" />
               <h2
-                className={`${FONT} text-[38px] font-bold uppercase leading-[1.02] text-white`}
+                className={`${FONT} text-[34px] font-bold uppercase leading-[1.02] text-white`}
               >
                 {s.lines.map((line) => (
                   <span key={line} className="block">
@@ -949,60 +948,61 @@ function GameCard({ game, featured, index }) {
   );
 }
 
-function PodiumSpot({ player, rank, run }) {
+function TopCard({ player, rank, run }) {
   const s = PODIUM[rank];
-  const delay = PODIUM_DELAY[PODIUM_ORDER.indexOf(rank)];
   const first = rank === 0;
   return (
-    <div className="flex min-w-0 flex-col items-center">
-      <div
-        className={`flex w-full min-w-0 flex-col items-center transition-all duration-700 ease-out motion-reduce:transition-none ${
-          run ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-        }`}
-        style={{ transitionDelay: `${delay + 350}ms` }}
-      >
-        {first && (
-          <Crown className="mb-1 h-6 w-6 animate-[fgFloat_2.4s_ease-in-out_infinite] text-amber-300 md:h-8 md:w-8" />
-        )}
+    <div
+      className={`relative flex items-center gap-3 border px-4 transition-all duration-700 ease-out motion-reduce:transition-none sm:gap-4 md:px-5 ${s.card} ${
+        first ? "py-5 md:py-6" : "py-3.5 md:py-4"
+      } ${run ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"}`}
+      style={{ transitionDelay: `${rank * 120}ms` }}
+    >
+      {first && (
         <span
-          className={`rounded-full bg-linear-to-br p-0.75 ${s.ring} ${s.glow}`}
+          className={`absolute -top-3 left-4 flex items-center gap-1 bg-amber-400 px-2 py-0.5 ${FONT} text-[11px] font-bold uppercase tracking-[0.18em] text-black`}
         >
-          <span
-            className={`flex items-center justify-center rounded-full border-2 border-[#0b0909] bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-white ${
-              first
-                ? "h-16 w-16 text-xl md:h-22 md:w-22 md:text-3xl"
-                : "h-12 w-12 text-base md:h-16 md:w-16 md:text-xl"
-            }`}
-          >
-            {initials(player.name)}
-          </span>
+          <Crown className="h-3.5 w-3.5" />
+          Lider
         </span>
+      )}
+      <span
+        className={`w-8 shrink-0 text-center ${FONT} font-bold leading-none ${s.text} ${
+          first ? "text-5xl md:text-6xl" : "text-4xl md:text-5xl"
+        }`}
+      >
+        {rank + 1}
+      </span>
+      <span className={`shrink-0 rounded-full bg-linear-to-br p-0.5 ${s.ring}`}>
+        <span
+          className={`flex items-center justify-center rounded-full border-2 border-[#0b0909] bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-white ${
+            first
+              ? "h-14 w-14 text-lg md:h-16 md:w-16 md:text-xl"
+              : "h-11 w-11 text-sm md:h-12 md:w-12 md:text-base"
+          }`}
+        >
+          {initials(player.name)}
+        </span>
+      </span>
+      <div className="min-w-0 flex-1">
         <p
-          className={`mt-2 line-clamp-2 w-full px-1 text-center ${FONT} text-xs font-bold uppercase leading-tight tracking-wide text-white sm:text-sm md:text-lg`}
+          className={`truncate ${FONT} font-bold uppercase tracking-wide text-white ${
+            first ? "text-lg md:text-2xl" : "text-base md:text-xl"
+          }`}
         >
           {player.name}
         </p>
-        <p
-          className={`w-full truncate px-1 text-center ${BODY} text-[11px] text-neutral-400 md:text-xs`}
-        >
-          {player.team}
-        </p>
-        <p className={`mt-1 ${FONT} text-lg font-bold md:text-2xl ${s.text}`}>
-          <CountUp value={player.points.value} run={run} />
+        <p className={`truncate ${BODY} text-xs text-neutral-400`}>
+          {player.team} · {player.winRate}% qələbə
         </p>
       </div>
-      <div
-        className={`mt-3 flex w-full origin-bottom justify-center border-t-2 bg-linear-to-b ${s.block} ${s.height} transition-transform duration-700 ease-out motion-reduce:transition-none ${
-          run ? "scale-y-100" : "scale-y-0"
+      <span
+        className={`shrink-0 ${FONT} font-bold ${s.text} ${
+          first ? "text-2xl md:text-4xl" : "text-xl md:text-3xl"
         }`}
-        style={{ transitionDelay: `${delay}ms` }}
       >
-        <span
-          className={`mt-1 ${FONT} text-3xl font-bold opacity-80 md:mt-2 md:text-5xl ${s.text}`}
-        >
-          {rank + 1}
-        </span>
-      </div>
+        <CountUp value={player.points.value} run={run} />
+      </span>
     </div>
   );
 }
@@ -1471,7 +1471,11 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center will-change-transform"
           style={{ backgroundImage: `url(${LEADERBOARD_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#0b0909]/90" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[#05060a]/45" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-[#05060a] to-transparent"
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
@@ -1486,7 +1490,7 @@ export default function Home() {
           className="pointer-events-none absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 animate-[fgDrift_16s_ease-in-out_infinite] rounded-full bg-amber-500/10 blur-3xl"
         />
 
-        <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6">
+        <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
           <SectionHeading kicker="Ən yaxşılar" title="Reytinq cədvəli" />
 
           <div
@@ -1524,108 +1528,87 @@ export default function Home() {
 
           <div
             ref={panelRef}
-            className="mx-auto mt-10 grid max-w-3xl grid-cols-3 items-end gap-2 sm:gap-4 md:mt-14"
+            className="mt-10 grid gap-6 md:mt-12 lg:grid-cols-[1fr_1.1fr] lg:items-start"
           >
-            {PODIUM_ORDER.map((rank) => (
-              <PodiumSpot
-                key={rank}
-                player={rows[rank]}
-                rank={rank}
-                run={rowsIn}
-              />
-            ))}
-          </div>
-
-          <div className="mt-6 overflow-hidden border border-white/10 bg-[#0b0e14]/85 backdrop-blur-sm">
-            <div
-              className={`grid grid-cols-[36px_1fr_auto] items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400 md:grid-cols-[56px_1.6fr_1.2fr_80px_190px_100px] md:px-6`}
-            >
-              <span>#</span>
-              <span>Oyunçu</span>
-              <span className="hidden md:block">Komanda</span>
-              <span className="hidden md:block">Matç</span>
-              <span className="hidden md:block">Qələbə %</span>
-              <span className="text-right">Xal</span>
+            <div className="flex flex-col gap-4 pt-3">
+              {rows.slice(0, 3).map((player, rank) => (
+                <TopCard
+                  key={player.name}
+                  player={player}
+                  rank={rank}
+                  run={rowsIn}
+                />
+              ))}
             </div>
 
-            {rows.slice(3).map((player, j) => {
-              const i = j + 3;
-              return (
-                <div
-                  key={player.name}
-                  className={`border-b border-white/5 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
-                    rowsIn
-                      ? "translate-x-0 opacity-100 duration-500"
-                      : "-translate-x-4 opacity-0 duration-0"
-                  }`}
-                  style={{
-                    transitionDelay: rowsIn ? `${700 + j * 70}ms` : "0ms",
-                  }}
-                >
-                  <div className="group grid grid-cols-[36px_1fr_auto] items-center gap-3 border-l-2 border-l-transparent px-4 py-3 transition-colors duration-300 hover:border-l-blue-500 hover:bg-blue-500/10 md:grid-cols-[56px_1.6fr_1.2fr_80px_190px_100px] md:px-6">
-                    <span
-                      className={`flex h-8 w-8 items-center justify-center bg-white/5 ${FONT} text-sm font-bold text-neutral-400 transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white`}
-                    >
-                      {i + 1}
-                    </span>
-                    <div className="flex min-w-0 items-center gap-3">
+            <div className="overflow-hidden border border-white/10 bg-[#0b0e14]/85 backdrop-blur-sm">
+              <div
+                className={`grid grid-cols-[28px_1fr_auto] items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400 md:grid-cols-[32px_1fr_120px_70px]`}
+              >
+                <span>#</span>
+                <span>Oyunçu</span>
+                <span className="hidden md:block">Komanda</span>
+                <span className="text-right">Xal</span>
+              </div>
+
+              {rows.slice(3).map((player, j) => {
+                const i = j + 3;
+                return (
+                  <div
+                    key={player.name}
+                    className={`border-b border-white/5 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
+                      rowsIn
+                        ? "translate-x-0 opacity-100 duration-500"
+                        : "translate-x-4 opacity-0 duration-0"
+                    }`}
+                    style={{
+                      transitionDelay: rowsIn ? `${400 + j * 70}ms` : "0ms",
+                    }}
+                  >
+                    <div className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 border-l-2 border-l-transparent px-4 py-2.5 transition-colors duration-300 hover:border-l-blue-500 hover:bg-blue-500/10 md:grid-cols-[32px_1fr_120px_70px]">
                       <span
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br ${FONT} text-sm font-bold text-white md:h-10 md:w-10 ${avatarOf(player)}`}
+                        className={`text-center ${FONT} text-sm font-bold text-neutral-500 transition-colors duration-300 group-hover:text-blue-400`}
                       >
-                        {initials(player.name)}
+                        {i + 1}
                       </span>
-                      <div className="min-w-0">
-                        <p
-                          className={`truncate ${FONT} text-base font-bold uppercase tracking-wide text-white md:text-lg`}
+                      <div className="flex min-w-0 items-center gap-3">
+                        <span
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br ${FONT} text-xs font-bold text-white ${avatarOf(player)}`}
                         >
-                          {player.name}
-                        </p>
-                        <p
-                          className={`truncate ${BODY} text-xs text-neutral-400 md:hidden`}
-                        >
-                          {player.team}
-                        </p>
+                          {initials(player.name)}
+                        </span>
+                        <div className="min-w-0">
+                          <p
+                            className={`truncate ${FONT} text-base font-bold uppercase tracking-wide text-white`}
+                          >
+                            {player.name}
+                          </p>
+                          <p
+                            className={`truncate ${BODY} text-xs text-neutral-400 md:hidden`}
+                          >
+                            {player.team}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <span
-                      className={`hidden truncate ${FONT} text-base font-light text-neutral-300 md:block`}
-                    >
-                      {player.team}
-                    </span>
-                    <span
-                      className={`hidden ${FONT} text-base text-neutral-300 md:block`}
-                    >
-                      {player.matches}
-                    </span>
-                    <div className="hidden items-center gap-3 md:flex">
-                      <div className="h-1.5 w-28 overflow-hidden rounded-full bg-white/10">
-                        <div
-                          className={`h-full rounded-full bg-linear-to-r from-blue-600 to-cyan-400 transition-[width] ease-out motion-reduce:transition-none ${rowsIn ? "duration-700" : "duration-0"}`}
-                          style={{
-                            width: rowsIn ? `${player.winRate}%` : "0%",
-                            transitionDelay: rowsIn
-                              ? `${900 + j * 70}ms`
-                              : "0ms",
-                          }}
+                      <span
+                        className={`hidden truncate ${FONT} text-sm text-neutral-400 md:block`}
+                      >
+                        {player.team}
+                      </span>
+                      <span
+                        className={`text-right ${FONT} text-lg font-bold text-white`}
+                      >
+                        <CountUp
+                          value={player.points.value}
+                          run={rowsIn}
+                          duration={900}
                         />
-                      </div>
-                      <span className={`${FONT} text-sm text-neutral-300`}>
-                        {player.winRate}%
                       </span>
                     </div>
-                    <span
-                      className={`text-right ${FONT} text-lg font-bold text-white md:text-xl`}
-                    >
-                      <CountUp
-                        value={player.points.value}
-                        run={rowsIn}
-                        duration={900}
-                      />
-                    </span>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
           <p
@@ -1647,7 +1630,7 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center will-change-transform"
           style={{ backgroundImage: `url(${CONTACT_BACKGROUND})` }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[#05060a]/90" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[#05060a]/40" />
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
