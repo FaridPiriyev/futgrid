@@ -3,7 +3,7 @@ import { FONT } from "./ui";
 
 export function Segmented({ options, value, onChange, label }) {
   return (
-    <div role="radiogroup" aria-label={label} className="flex overflow-hidden border border-white/10">
+    <div role="radiogroup" aria-label={label} className="flex overflow-hidden border border-line/10">
       {options.map((o) => {
         const active = o.value === value;
         return (
@@ -13,13 +13,13 @@ export function Segmented({ options, value, onChange, label }) {
             role="radio"
             aria-checked={active}
             onClick={() => onChange(o.value)}
-            className={`flex-1 border-r border-white/10 px-3 py-2.5 text-left transition-colors duration-200 last:border-r-0 ${
-              active ? "bg-blue-500 text-white" : "bg-white/5 text-neutral-300 hover:bg-white/10"
+            className={`flex-1 border-r border-line/10 px-3 py-2.5 text-left transition-colors duration-200 last:border-r-0 ${
+              active ? "bg-accent text-white" : "bg-line/5 text-soft hover:bg-line/10"
             }`}
           >
             <span className={`block ${FONT} text-sm font-bold uppercase tracking-wide md:text-base`}>{o.label}</span>
             {o.sub && (
-              <span className={`block ${FONT} text-xs ${active ? "text-blue-100" : "text-neutral-500"}`}>{o.sub}</span>
+              <span className={`block ${FONT} text-xs ${active ? "text-white/80" : "text-faint"}`}>{o.sub}</span>
             )}
           </button>
         );
@@ -38,17 +38,17 @@ export function Toggle({ checked, onChange, label, sub, Icon }) {
       className="flex w-full items-center gap-3 py-2 text-left"
     >
       {Icon && (
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-white/5 text-blue-400">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-line/5 text-accent-hi">
           <Icon className="h-5 w-5" />
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className={`block ${FONT} text-base font-bold uppercase tracking-wide text-white`}>{label}</span>
-        {sub && <span className={`block ${FONT} text-sm text-neutral-500`}>{sub}</span>}
+        <span className={`block ${FONT} text-base font-bold uppercase tracking-wide text-ink`}>{label}</span>
+        {sub && <span className={`block ${FONT} text-sm text-faint`}>{sub}</span>}
       </span>
       <span
         className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
-          checked ? "bg-blue-500" : "bg-white/15"
+          checked ? "bg-accent" : "bg-line/15"
         }`}
       >
         <span
@@ -73,21 +73,21 @@ export function Checkbox({ checked, onChange, label, disabled = false }) {
     >
       <span
         className={`flex h-5 w-5 shrink-0 items-center justify-center border transition-colors duration-200 ${
-          checked ? "border-blue-500 bg-blue-500" : "border-white/25 bg-white/5"
+          checked ? "border-accent bg-accent" : "border-line/25 bg-line/5"
         }`}
       >
-        {checked && <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />}
+        {checked && <Check className="h-3.5 w-3.5 text-ink" strokeWidth={3} />}
       </span>
-      <span className={`${FONT} text-base text-neutral-200`}>{label}</span>
+      <span className={`${FONT} text-base text-ink-soft`}>{label}</span>
     </button>
   );
 }
 
 export function Panel({ title, sub, children, className = "" }) {
   return (
-    <section className={`border border-white/10 bg-[#0b0e14]/85 p-4 backdrop-blur-sm md:p-6 ${className}`}>
-      {title && <h2 className={`${FONT} text-xl font-bold uppercase tracking-wide text-white md:text-2xl`}>{title}</h2>}
-      {sub && <p className={`${FONT} text-sm text-neutral-500`}>{sub}</p>}
+    <section className={`border border-line/10 bg-surface/85 p-4 backdrop-blur-sm md:p-6 ${className}`}>
+      {title && <h2 className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink md:text-2xl`}>{title}</h2>}
+      {sub && <p className={`${FONT} text-sm text-faint`}>{sub}</p>}
       <div className={title || sub ? "mt-4" : ""}>{children}</div>
     </section>
   );

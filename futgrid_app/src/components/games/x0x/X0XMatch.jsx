@@ -173,12 +173,12 @@ export default function X0XMatch({ data, settings, onSettings }) {
     () => (
       <span className="text-center">
         <span
-          className={`block ${FONT} text-xl font-bold uppercase leading-none text-white md:text-3xl`}
+          className={`block ${FONT} text-xl font-bold uppercase leading-none text-ink md:text-3xl`}
         >
           X0X
         </span>
         <span
-          className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-blue-100 md:text-xs`}
+          className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-accent-hi md:text-xs`}
         >
           Raund {round}
         </span>
@@ -213,7 +213,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
         />
 
         <p
-          className={`text-center ${FONT} text-xs uppercase tracking-[0.15em] text-neutral-500`}
+          className={`text-center ${FONT} text-xs uppercase tracking-[0.15em] text-faint`}
         >
           {settings.bestOf === "unlimited"
             ? "Limitsiz seriya"
@@ -243,10 +243,10 @@ export default function X0XMatch({ data, settings, onSettings }) {
           aria-live="polite"
           className={`min-h-11 border-l-2 px-4 py-2.5 ${FONT} text-sm md:text-base ${
             feedback?.type === "ok"
-              ? "border-l-emerald-400 bg-emerald-500/10 text-emerald-300"
+              ? "border-l-good bg-good-lo/10 text-good-hi"
               : feedback?.type === "wrong"
-                ? "border-l-rose-500 bg-rose-500/10 text-rose-300"
-                : "border-l-white/20 bg-white/5 text-neutral-400"
+                ? "border-l-bad-lo bg-bad-lo/10 text-bad-hi"
+                : "border-l-line/20 bg-line/5 text-muted"
           }`}
         >
           {feedback?.text ?? `Raundu ${names[starter]} başlayır.`}
@@ -352,13 +352,13 @@ export default function X0XMatch({ data, settings, onSettings }) {
           </>
         }
       >
-        <p className={`${FONT} text-base text-neutral-400`}>
+        <p className={`${FONT} text-base text-muted`}>
           Hesab:{" "}
-          <span className="font-bold text-blue-400">
+          <span className="font-bold text-accent-hi">
             {names.X} {wins.X}
           </span>{" "}
           –{" "}
-          <span className="font-bold text-amber-300">
+          <span className="font-bold text-gold-hi">
             {wins.O} {names.O}
           </span>
         </p>

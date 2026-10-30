@@ -27,15 +27,15 @@ export const AUCTION_KEYFRAMES = `
 @keyframes auBlink { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 @keyframes auBump { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
 @keyframes auDot { 0%,80%,100% { opacity: .2; } 40% { opacity: 1; } }
-@keyframes auSlot { 0%,100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12); } 50% { box-shadow: inset 0 0 0 1px var(--au-slot); } }
+@keyframes auSlot { 0%,100% { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg-line) 12%, transparent); } 50% { box-shadow: inset 0 0 0 1px var(--au-slot); } }
 @keyframes auIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes auGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 `;
 
 const TIER_STYLE = {
-  star: "border-amber-300/60 text-amber-300",
+  star: "border-gold-hi/60 text-gold-hi",
   good: "border-sky-300/50 text-sky-300",
-  base: "border-white/20 text-neutral-300",
+  base: "border-line/20 text-soft",
 };
 
 export function PosBadge({ pos, className = "h-6 w-10 text-[10px]" }) {
@@ -76,23 +76,24 @@ export function LotCard({ data, lot, phase, outcome, names }) {
   return (
     <div
       key={lot.id}
-      className="relative w-full overflow-hidden border border-sky-300/20 bg-[linear-gradient(160deg,#16203a_0%,#0b0f1c_55%,#0a0d16_100%)] p-4 shadow-[0_30px_80px_-30px_rgba(37,99,235,0.55)] animate-[auLot_0.55s_cubic-bezier(.2,.8,.2,1)_both] md:p-5"
+      data-theme="dark"
+      className="relative w-full overflow-hidden border border-sky-300/20 bg-[linear-gradient(160deg,#16203a_0%,#0b0f1c_55%,#0a0d16_100%)] p-4 shadow-[0_30px_80px_-30px_color-mix(in_srgb,var(--fg-accent-lo)_55%,transparent)] animate-[auLot_0.55s_cubic-bezier(.2,.8,.2,1)_both] md:p-5"
     >
       <div
         aria-hidden="true"
         className={`pointer-events-none absolute -right-16 -top-20 h-56 w-72 rounded-full blur-3xl ${
-          lot.tier.key === "star" ? "bg-amber-400/20" : "bg-blue-500/15"
+          lot.tier.key === "star" ? "bg-gold/20" : "bg-accent/15"
         }`}
       />
       <div className="relative flex items-start justify-between">
         <div>
           <p
-            className={`${FONT} text-5xl font-bold leading-none text-amber-200 md:text-6xl`}
+            className={`${FONT} text-5xl font-bold leading-none text-gold-hi md:text-6xl`}
           >
             {lot.rating}
           </p>
           <p
-            className={`mt-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.25em] text-amber-400`}
+            className={`mt-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.25em] text-gold`}
           >
             Reytinq
           </p>
@@ -116,12 +117,12 @@ export function LotCard({ data, lot, phase, outcome, names }) {
         />
       </div>
       <h3
-        className={`relative mt-2 text-center ${FONT} text-2xl font-bold uppercase leading-tight text-white md:text-[28px]`}
+        className={`relative mt-2 text-center ${FONT} text-2xl font-bold uppercase leading-tight text-ink md:text-[28px]`}
       >
         {p.name}
       </h3>
       <div
-        className={`relative mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 ${FONT} text-sm text-neutral-400`}
+        className={`relative mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 ${FONT} text-sm text-muted`}
       >
         {country && (
           <span className="inline-flex items-center gap-1.5">
@@ -129,22 +130,22 @@ export function LotCard({ data, lot, phase, outcome, names }) {
             {country.name}
           </span>
         )}
-        {country && club && <span className="text-neutral-600">·</span>}
+        {country && club && <span className="text-dim">·</span>}
         {club && (
           <span className="inline-flex items-center gap-1.5">
             <ClubLogo key={club.name} club={club} />
             {club.name}
           </span>
         )}
-        <span className="text-neutral-600">·</span>
+        <span className="text-dim">·</span>
         <span>{POS_NAME[lot.pos]}</span>
       </div>
-      <div className="relative mt-3 grid grid-cols-3 border-t border-white/10 pt-2.5">
+      <div className="relative mt-3 grid grid-cols-3 border-t border-line/10 pt-2.5">
         {stats.map((s) => (
           <div key={s.label} className="text-center">
-            <p className={`${FONT} text-lg font-bold text-white`}>{s.value}</p>
+            <p className={`${FONT} text-lg font-bold text-ink`}>{s.value}</p>
             <p
-              className={`${FONT} text-[11px] uppercase tracking-[0.15em] text-neutral-500`}
+              className={`${FONT} text-[11px] uppercase tracking-[0.15em] text-faint`}
             >
               {s.label}
             </p>
@@ -158,14 +159,14 @@ export function LotCard({ data, lot, phase, outcome, names }) {
             className={`border-4 px-6 py-3 text-center animate-[auStamp_0.5s_cubic-bezier(.2,.8,.2,1)_both] ${
               outcome.winner
                 ? `${SIDES[outcome.winner].border} ${SIDES[outcome.winner].text}`
-                : "border-neutral-500 text-neutral-400"
+                : "border-faint text-muted"
             }`}
           >
             <p className={`${FONT} text-3xl font-bold uppercase tracking-widest md:text-4xl`}>
               {outcome.winner ? "Satıldı" : "Satılmadı"}
             </p>
             {outcome.winner && (
-              <p className={`${FONT} mt-1 text-base font-bold uppercase text-white`}>
+              <p className={`${FONT} mt-1 text-base font-bold uppercase text-ink`}>
                 {names[outcome.winner]} · {money(outcome.price)}
               </p>
             )}
@@ -184,13 +185,13 @@ export function TimerRing({ remaining, total }) {
   return (
     <div className="relative h-20 w-20 shrink-0">
       <svg viewBox="0 0 80 80" className="h-full w-full -rotate-90">
-        <circle cx="40" cy="40" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="7" />
+        <circle cx="40" cy="40" r={r} fill="none" style={{ stroke: "color-mix(in srgb, var(--fg-line) 10%, transparent)" }} strokeWidth="7" />
         <circle
           cx="40"
           cy="40"
           r={r}
           fill="none"
-          stroke={urgent ? "#f87171" : "#fbbf24"}
+          style={{ stroke: urgent ? "var(--fg-bad)" : "var(--fg-gold)" }}
           strokeWidth="7"
           strokeLinecap="round"
           strokeDasharray={c}
@@ -200,7 +201,7 @@ export function TimerRing({ remaining, total }) {
       </svg>
       <span
         className={`absolute inset-0 grid place-items-center ${FONT} text-2xl font-bold ${
-          urgent ? "text-red-400 animate-[auBlink_0.6s_ease-in-out_infinite]" : "text-white"
+          urgent ? "text-bad animate-[auBlink_0.6s_ease-in-out_infinite]" : "text-ink"
         }`}
       >
         {Math.ceil(remaining / 1000)}
@@ -217,18 +218,18 @@ export function PriceRow({ state, names, now, timerMs }) {
     <div className="flex items-center justify-center gap-6 md:gap-8">
       <div className="text-center">
         <p
-          className={`${FONT} text-[11px] font-bold uppercase tracking-[0.24em] text-neutral-500`}
+          className={`${FONT} text-[11px] font-bold uppercase tracking-[0.24em] text-faint`}
         >
           {leader ? "Cari təklif" : "Başlanğıc qiymət"}
         </p>
         <p
           key={`${lot.id}-${lot.price}-${leader}`}
-          className={`${FONT} text-5xl font-bold leading-tight text-white animate-[auBump_0.35s_ease-out]`}
+          className={`${FONT} text-5xl font-bold leading-tight text-ink animate-[auBump_0.35s_ease-out]`}
         >
           {money(leader ? lot.price : lot.start)}
         </p>
         <p
-          className={`${FONT} text-sm font-bold ${leader ? SIDES[leader].text : "text-neutral-500"}`}
+          className={`${FONT} text-sm font-bold ${leader ? SIDES[leader].text : "text-faint"}`}
         >
           {leader ? (
             <span className="inline-flex items-center gap-1.5">
@@ -273,7 +274,7 @@ export function BidControls({ side, state, names, onBid, onPass, showName, showK
             </span>
           )}
           {status && (
-            <span className={`ml-auto ${FONT} text-xs uppercase tracking-wider text-neutral-400`}>
+            <span className={`ml-auto ${FONT} text-xs uppercase tracking-wider text-muted`}>
               {status}
             </span>
           )}
@@ -292,7 +293,7 @@ export function BidControls({ side, state, names, onBid, onPass, showName, showK
               className={`relative flex h-13 flex-col items-center justify-center border ${FONT} font-bold transition-[transform,background-color,opacity] duration-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-35 ${
                 i === 0
                   ? `${SIDES[side].solid} border-transparent text-base md:text-lg`
-                  : "border-white/12 bg-white/5 text-base text-white enabled:hover:bg-white/10"
+                  : "border-line/12 bg-line/5 text-base text-ink enabled:hover:bg-line/10"
               }`}
             >
               {money(amount)}
@@ -308,7 +309,7 @@ export function BidControls({ side, state, names, onBid, onPass, showName, showK
           type="button"
           disabled={!can}
           onClick={() => onPass(side)}
-          className={`relative h-13 border border-white/12 bg-transparent ${FONT} text-base font-bold uppercase text-neutral-400 transition-colors duration-200 enabled:hover:border-red-400/60 enabled:hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-35`}
+          className={`relative h-13 border border-line/12 bg-transparent ${FONT} text-base font-bold uppercase text-muted transition-colors duration-200 enabled:hover:border-bad/60 enabled:hover:text-bad-hi disabled:cursor-not-allowed disabled:opacity-35`}
         >
           Keç
           {showKeys && (
@@ -326,15 +327,15 @@ function Thinking({ state, side }) {
   const lot = state.lot;
   if (state.phase !== "bid" || !lot) return null;
   if (lot.passed[side])
-    return <span className={`${FONT} text-xs uppercase tracking-wider text-neutral-500`}>Keçdi</span>;
+    return <span className={`${FONT} text-xs uppercase tracking-wider text-faint`}>Keçdi</span>;
   if (!canBid(state, side)) return null;
   return (
-    <span className={`inline-flex items-center gap-1 ${FONT} text-xs uppercase tracking-wider text-neutral-400`}>
+    <span className={`inline-flex items-center gap-1 ${FONT} text-xs uppercase tracking-wider text-muted`}>
       Düşünür
       {[0, 1, 2].map((i) => (
         <span
           key={i}
-          className="h-1 w-1 rounded-full bg-neutral-400 animate-[auDot_1.2s_ease-in-out_infinite]"
+          className="h-1 w-1 rounded-full bg-muted animate-[auDot_1.2s_ease-in-out_infinite]"
           style={{ animationDelay: `${i * 0.2}s` }}
         />
       ))}
@@ -352,37 +353,37 @@ export function TeamPanel({ data, side, name, state, isBot }) {
 
   return (
     <div
-      className={`border bg-[#0b0e14]/85 p-4 transition-[box-shadow,border-color] duration-500 ${
-        leading ? `border-transparent ${SIDES[side].shadow}` : "border-white/10"
+      className={`border bg-surface/85 p-4 transition-[box-shadow,border-color] duration-500 ${
+        leading ? `border-transparent ${SIDES[side].shadow}` : "border-line/10"
       }`}
     >
       <div className="flex items-center justify-between gap-2">
         <span className="flex min-w-0 items-center gap-2.5">
           <SideMark side={side} isBot={isBot} />
-          <span className={`truncate ${FONT} text-lg font-bold uppercase text-white`}>{name}</span>
+          <span className={`truncate ${FONT} text-lg font-bold uppercase text-ink`}>{name}</span>
         </span>
         {isBot ? (
           <Thinking state={state} side={side} />
         ) : (
-          <span className={`${FONT} text-xs uppercase tracking-wider text-neutral-500`}>
+          <span className={`${FONT} text-xs uppercase tracking-wider text-faint`}>
             {open ? `${open} yer boş` : "Heyət tamdır"}
           </span>
         )}
       </div>
-      <p className={`mt-4 ${FONT} text-3xl font-bold text-white`}>
+      <p className={`mt-4 ${FONT} text-3xl font-bold text-ink`}>
         {money(team.money)}
-        <span className="ml-1.5 text-sm font-normal text-neutral-500">/ {money(BUDGET)}</span>
+        <span className="ml-1.5 text-sm font-normal text-faint">/ {money(BUDGET)}</span>
       </p>
-      <div className="mt-2 h-1.5 overflow-hidden bg-white/8">
+      <div className="mt-2 h-1.5 overflow-hidden bg-line/8">
         <span
           className={`block h-full transition-[width] duration-700 ease-out ${SIDES[side].bar}`}
           style={{ width: `${(team.money / BUDGET) * 100}%` }}
         />
       </div>
-      <p className={`mt-2 ${FONT} text-xs text-neutral-500`}>
+      <p className={`mt-2 ${FONT} text-xs text-faint`}>
         {open ? (
           <>
-            Maksimum təklif: <span className="font-bold text-white">{money(cap)}</span>
+            Maksimum təklif: <span className="font-bold text-ink">{money(cap)}</span>
           </>
         ) : (
           "Bütün yerlər doludur"
@@ -395,8 +396,8 @@ export function TeamPanel({ data, side, name, state, isBot }) {
             style={{ "--au-slot": SIDES[side].ring }}
             className={`flex h-13 items-center gap-2.5 px-2.5 ${
               s.pick
-                ? "bg-white/4 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] animate-[auIn_0.4s_ease-out_both]"
-                : `shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] ${
+                ? "bg-line/4 shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--fg-line)_8%,transparent)] animate-[auIn_0.4s_ease-out_both]"
+                : `shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--fg-line)_10%,transparent)] ${
                     i === target ? "animate-[auSlot_1.4s_ease-in-out_infinite]" : ""
                   }`
             }`}
@@ -405,22 +406,22 @@ export function TeamPanel({ data, side, name, state, isBot }) {
             {s.pick ? (
               <>
                 <span className="min-w-0 flex-1">
-                  <span className={`block truncate ${FONT} text-sm font-bold text-white`}>
+                  <span className={`block truncate ${FONT} text-sm font-bold text-ink`}>
                     {shortName(s.pick.player.name)}
                   </span>
-                  <span className={`block truncate ${FONT} text-[11px] text-neutral-500`}>
+                  <span className={`block truncate ${FONT} text-[11px] text-faint`}>
                     {s.pick.auto ? "avtomatik" : clubOf(data, s.pick.player)?.name}
                   </span>
                 </span>
-                <span className={`bg-white/10 px-1.5 py-0.5 ${FONT} text-xs font-bold text-white`}>
+                <span className={`bg-line/10 px-1.5 py-0.5 ${FONT} text-xs font-bold text-ink`}>
                   {s.pick.rating}
                 </span>
-                <span className={`w-11 text-right ${FONT} text-xs font-bold text-neutral-300`}>
+                <span className={`w-11 text-right ${FONT} text-xs font-bold text-soft`}>
                   {money(s.pick.price)}
                 </span>
               </>
             ) : (
-              <span className={`${FONT} text-xs text-neutral-600`}>Boş</span>
+              <span className={`${FONT} text-xs text-dim`}>Boş</span>
             )}
           </div>
         ))}
@@ -435,16 +436,16 @@ export function MiniTeam({ side, name, state, isBot }) {
   const leading = lot?.leader === side;
   return (
     <div
-      className={`border bg-[#0b0e14]/85 p-2.5 transition-[box-shadow,border-color] duration-500 ${
-        leading ? `border-transparent ${SIDES[side].shadow}` : "border-white/10"
+      className={`border bg-surface/85 p-2.5 transition-[box-shadow,border-color] duration-500 ${
+        leading ? `border-transparent ${SIDES[side].shadow}` : "border-line/10"
       }`}
     >
       <div className="flex items-center justify-between gap-1.5">
         <span className="flex min-w-0 items-center gap-1.5">
           <SideMark side={side} isBot={isBot} className="h-6 w-6" />
-          <span className={`truncate ${FONT} text-sm font-bold uppercase text-white`}>{name}</span>
+          <span className={`truncate ${FONT} text-sm font-bold uppercase text-ink`}>{name}</span>
         </span>
-        <span className={`${FONT} text-base font-bold text-white`}>{money(team.money)}</span>
+        <span className={`${FONT} text-base font-bold text-ink`}>{money(team.money)}</span>
       </div>
       <div className="mt-2 grid grid-cols-5 gap-1">
         {team.slots.map((s, i) => (
@@ -452,7 +453,7 @@ export function MiniTeam({ side, name, state, isBot }) {
             key={i}
             title={s.pick?.player.name}
             className={`grid h-6 place-items-center ${FONT} text-[9px] font-bold ${
-              s.pick ? POS_STYLE[s.pos] : "text-neutral-600 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)]"
+              s.pick ? POS_STYLE[s.pos] : "text-dim shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--fg-line)_12%,transparent)]"
             }`}
           >
             {s.pick ? s.pick.rating : POS_SHORT[s.pos]}
@@ -472,8 +473,8 @@ export function Feed({ state, names }) {
       {rows.map((h, i) => (
         <div
           key={`${lot.id}-${lot.history.length - i}`}
-          className={`flex items-center justify-between border-b border-white/5 pb-1.5 ${FONT} text-sm ${
-            i === 0 ? "text-neutral-200 animate-[auIn_0.3s_ease-out_both]" : "text-neutral-500"
+          className={`flex items-center justify-between border-b border-line/5 pb-1.5 ${FONT} text-sm ${
+            i === 0 ? "text-ink-soft animate-[auIn_0.3s_ease-out_both]" : "text-faint"
           }`}
         >
           <span>
@@ -482,7 +483,7 @@ export function Feed({ state, names }) {
           <span className="font-bold">{money(h.amount)}</span>
         </div>
       ))}
-      <div className={`flex items-center justify-between ${FONT} text-sm text-neutral-600`}>
+      <div className={`flex items-center justify-between ${FONT} text-sm text-dim`}>
         <span>Başlanğıc qiymət</span>
         <span>{money(lot.start)}</span>
       </div>

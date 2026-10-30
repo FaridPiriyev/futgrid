@@ -27,7 +27,7 @@ function ScorePanel({ name, score, side, status, active, compact }) {
     <div
       className={`relative flex min-w-0 flex-col items-center justify-center gap-1 overflow-hidden rounded-2xl border px-3 text-center transition-all duration-500 ${
         compact ? "flex-1 py-2" : "w-28 py-5 xl:w-32"
-      } ${active ? `${side.border} ${side.bg} scale-105` : "border-white/10 bg-white/[0.03]"}`}
+      } ${active ? `${side.border} ${side.bg} scale-105` : "border-line/10 bg-white/[0.03]"}`}
       style={active ? { boxShadow: `0 0 30px -8px ${side.glow}` } : undefined}
     >
       <span
@@ -36,12 +36,12 @@ function ScorePanel({ name, score, side, status, active, compact }) {
         {name}
       </span>
       <span
-        className={`${FONT} font-bold leading-none text-white ${compact ? "text-3xl" : "text-5xl"}`}
+        className={`${FONT} font-bold leading-none text-ink ${compact ? "text-3xl" : "text-5xl"}`}
       >
         {score}
       </span>
       <span
-        className={`h-4 ${FONT} text-[10px] uppercase tracking-[0.2em] text-neutral-400`}
+        className={`h-4 ${FONT} text-[10px] uppercase tracking-[0.2em] text-muted`}
       >
         {status}
       </span>
@@ -52,7 +52,7 @@ function ScorePanel({ name, score, side, status, active, compact }) {
 function Curtain({ picker, other, onReady }) {
   return (
     <div
-      className="absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-[#05060a]/90 backdrop-blur-xl"
+      className="absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-page/90 backdrop-blur-xl"
       style={{ animation: "ortaqDeal 350ms ease-out both" }}
     >
       <div className="flex max-w-md flex-col items-center gap-4 px-6 text-center">
@@ -63,11 +63,11 @@ function Curtain({ picker, other, onReady }) {
           <EyeOff className="h-8 w-8" />
         </span>
         <p
-          className={`${FONT} text-2xl font-bold uppercase tracking-wide text-white md:text-3xl`}
+          className={`${FONT} text-2xl font-bold uppercase tracking-wide text-ink md:text-3xl`}
         >
           Növbə: {picker.name}
         </p>
-        <p className={`${FONT} text-base text-neutral-400`}>
+        <p className={`${FONT} text-base text-muted`}>
           <span className={`font-bold ${other.side.text}`}>{other.name}</span>,
           ekrana baxma! {picker.name} seçimini gizli edəcək.
         </p>
@@ -91,10 +91,10 @@ function Feedback({ feedback }) {
       aria-live="polite"
       className={`rounded-xl border-l-2 px-4 py-2.5 text-center ${FONT} text-sm md:text-base ${
         feedback.type === "ok"
-          ? "border-l-emerald-400 bg-emerald-500/10 text-emerald-300"
+          ? "border-l-good bg-good-lo/10 text-good-hi"
           : feedback.type === "wrong"
-            ? "border-l-rose-500 bg-rose-500/10 text-rose-300"
-            : "border-l-white/20 bg-white/5 text-neutral-300"
+            ? "border-l-bad-lo bg-bad-lo/10 text-bad-hi"
+            : "border-l-line/20 bg-line/5 text-soft"
       }`}
     >
       {feedback.text}
@@ -243,7 +243,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
         {panel("B", true)}
       </div>
 
-      <div className="relative rounded-3xl border border-white/5 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)] px-2 py-5 md:px-6">
+      <div className="relative rounded-3xl border border-line/5 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--fg-accent)_8%,transparent),transparent_70%)] px-2 py-5 md:px-6">
         <div className="flex items-center justify-center gap-3 md:gap-6">
           <div className="hidden md:block">{panel("A")}</div>
           <PokerCard
@@ -256,12 +256,12 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
           />
           <div className="flex flex-col items-center gap-1">
             <span
-              className={`flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#0b0e14] ${FONT} text-sm font-bold text-neutral-300`}
+              className={`flex h-11 w-11 items-center justify-center rounded-full border border-line/15 bg-surface ${FONT} text-sm font-bold text-soft`}
             >
               VS
             </span>
             <span
-              className={`${FONT} text-[10px] uppercase tracking-[0.2em] text-neutral-500`}
+              className={`${FONT} text-[10px] uppercase tracking-[0.2em] text-faint`}
             >
               R{round}
             </span>
@@ -278,7 +278,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
         </div>
 
         <p
-          className={`mt-3 text-center ${FONT} text-[11px] uppercase tracking-[0.2em] text-neutral-500`}
+          className={`mt-3 text-center ${FONT} text-[11px] uppercase tracking-[0.2em] text-faint`}
         >
           {target === Infinity ? "Limitsiz oyun" : `${target} xala qədər`}
         </p>
@@ -346,7 +346,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
                   className={`rounded-xl border-2 px-4 py-3 ${FONT} text-base font-bold uppercase tracking-wide transition-all duration-200 ${
                     answerer === s
                       ? `${SIDES[s].border} ${SIDES[s].solid} scale-[1.02]`
-                      : `border-white/10 bg-white/5 ${SIDES[s].text} hover:bg-white/10`
+                      : `border-line/10 bg-line/5 ${SIDES[s].text} hover:bg-line/10`
                   }`}
                 >
                   {names[s]} deyir
@@ -444,13 +444,13 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
           </button>
         }
       >
-        <p className={`${FONT} text-base text-neutral-400`}>
+        <p className={`${FONT} text-base text-muted`}>
           Hesab:{" "}
-          <span className="font-bold text-blue-400">
+          <span className="font-bold text-accent-hi">
             {names.A} {score.A}
           </span>{" "}
           –{" "}
-          <span className="font-bold text-amber-300">
+          <span className="font-bold text-gold-hi">
             {score.B} {names.B}
           </span>
         </p>

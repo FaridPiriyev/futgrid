@@ -18,7 +18,7 @@ const FOOTER_STYLE = `
 `;
 
 const SWEEP_BLUE =
-  "absolute inset-0 -z-10 origin-left scale-x-0 bg-blue-500 transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
+  "absolute inset-0 -z-10 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
 
 const SWEEP_WHITE =
   "absolute inset-0 -z-10 origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
@@ -95,11 +95,11 @@ function FooterLink({ label, to }) {
     <li>
       <Link
         to={to}
-        className={`group inline-flex items-center ${BODY} text-[15px] text-neutral-400 transition-colors duration-300 hover:text-white`}
+        className={`group inline-flex items-center ${BODY} text-[15px] text-muted transition-colors duration-300 hover:text-ink`}
       >
         <span
           aria-hidden="true"
-          className="mr-0 h-0.5 w-0 bg-blue-500 transition-all duration-300 ease-out group-hover:mr-2 group-hover:w-4"
+          className="mr-0 h-0.5 w-0 bg-accent transition-all duration-300 ease-out group-hover:mr-2 group-hover:w-4"
         />
         {label}
       </Link>
@@ -110,10 +110,10 @@ function FooterLink({ label, to }) {
 function FooterTitle({ children }) {
   return (
     <h3
-      className={`${HEAD} text-lg font-bold uppercase tracking-[0.12em] text-white`}
+      className={`${HEAD} text-lg font-bold uppercase tracking-[0.12em] text-ink`}
     >
       {children}
-      <span aria-hidden="true" className="mt-3 block h-0.5 w-8 bg-blue-500" />
+      <span aria-hidden="true" className="mt-3 block h-0.5 w-8 bg-accent" />
     </h3>
   );
 }
@@ -133,11 +133,11 @@ function BackToTop() {
       type="button"
       onClick={scrollTop}
       aria-label="Səhifənin yuxarısına qalx"
-      className={`group/btn relative isolate inline-flex items-stretch overflow-hidden bg-blue-500 ${HEAD} text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_-12px_rgba(59,130,246,0.9)] transition-[color,transform] duration-500 hover:-translate-y-0.5 hover:text-blue-500 active:scale-95`}
+      className={`group/btn relative isolate inline-flex items-stretch overflow-hidden bg-accent ${HEAD} text-sm font-bold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_-12px_color-mix(in_srgb,var(--fg-accent)_90%,transparent)] transition-[color,transform] duration-500 hover:-translate-y-0.5 hover:text-accent active:scale-95`}
     >
       <span aria-hidden="true" className={SWEEP_WHITE} />
       <span className="flex items-center px-5 py-3">Yuxarı qalx</span>
-      <span className="relative flex w-11 items-center justify-center overflow-hidden border-l border-white/25 bg-black/10">
+      <span className="relative flex w-11 items-center justify-center overflow-hidden border-l border-line/25 bg-black/10">
         <ArrowUp
           className={`h-4.5 w-4.5 ${
             launch
@@ -148,7 +148,7 @@ function BackToTop() {
       </span>
       <span
         aria-hidden="true"
-        className="absolute bottom-0 left-0 h-0.5 bg-white/70 transition-[width] duration-150 group-hover/btn:bg-blue-500"
+        className="absolute bottom-0 left-0 h-0.5 bg-line/70 transition-[width] duration-150 group-hover/btn:bg-accent"
         style={{ width: `${progress * 100}%` }}
       />
     </button>
@@ -159,13 +159,13 @@ function FooterDecor() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0">
       <div className="absolute inset-0 bg-[#07090f]" />
-      <div className="absolute left-1/2 top-0 h-112 w-240 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[110px]" />
-      <div className="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 md:block bg-linear-to-b from-blue-500/40 via-blue-500/5 to-transparent" />
-      <div className="absolute inset-0 [background-image:radial-gradient(rgba(96,150,255,0.3)_1px,transparent_1.3px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_75%_at_0%_100%,black,transparent)]" />
-      <div className="absolute -right-56 top-1/2 h-176 w-176 -translate-y-1/2 rounded-full border border-white/8" />
-      <div className="absolute -right-32 top-1/2 h-128 w-128 -translate-y-1/2 rounded-full border border-dashed border-blue-500/30 animate-[fgSpin_80s_linear_infinite] motion-reduce:animate-none" />
-      <div className="absolute -right-8 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full border border-white/8" />
-      <div className="absolute right-32 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_18px_4px_rgba(59,130,246,0.6)] animate-[fgPulse_3s_ease-in-out_infinite] motion-reduce:animate-none" />
+      <div className="absolute left-1/2 top-0 h-112 w-240 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-lo/20 blur-[110px]" />
+      <div className="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 md:block bg-linear-to-b from-accent/40 via-accent/5 to-transparent" />
+      <div className="absolute inset-0 [background-image:radial-gradient(color-mix(in_srgb,var(--fg-accent-hi)_30%,transparent)_1px,transparent_1.3px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_75%_at_0%_100%,black,transparent)]" />
+      <div className="absolute -right-56 top-1/2 h-176 w-176 -translate-y-1/2 rounded-full border border-line/8" />
+      <div className="absolute -right-32 top-1/2 h-128 w-128 -translate-y-1/2 rounded-full border border-dashed border-accent/30 animate-[fgSpin_80s_linear_infinite] motion-reduce:animate-none" />
+      <div className="absolute -right-8 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full border border-line/8" />
+      <div className="absolute right-32 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_18px_4px_color-mix(in_srgb,var(--fg-accent)_60%,transparent)] animate-[fgPulse_3s_ease-in-out_infinite] motion-reduce:animate-none" />
     </div>
   );
 }
@@ -174,7 +174,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer id="footer" className="relative z-0 w-full bg-black">
+    <footer id="footer" data-theme="dark" className="relative z-0 w-full bg-black">
       <style>{FOOTER_STYLE}</style>
 
       <div
@@ -199,11 +199,11 @@ export default function Footer() {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-[#05060a] to-transparent"
+          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-page to-transparent"
         />
         <span
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-0.5 bg-blue-500"
+          className="absolute inset-x-0 top-0 h-0.5 bg-accent"
         />
 
         <div className="relative z-10 mx-auto max-w-330 px-4 pb-8 pt-14 md:px-6 md:pt-20">
@@ -222,12 +222,12 @@ export default function Footer() {
               </Link>
 
               <p
-                className={`${HEAD} text-sm font-bold uppercase tracking-[0.25em] text-blue-500`}
+                className={`${HEAD} text-sm font-bold uppercase tracking-[0.25em] text-accent`}
               >
                 Futbol taktikanı göstər
               </p>
               <p
-                className={`${BODY} mt-4 max-w-sm text-[15px] leading-7 text-neutral-400`}
+                className={`${BODY} mt-4 max-w-sm text-[15px] leading-7 text-muted`}
               >
                 FutGrid taktiki oyunların, reytinq cədvəllərinin və turnirlərin
                 bir yerdə toplandığı platformadır. Oyna, öyrən və liderlər
@@ -240,7 +240,7 @@ export default function Footer() {
                     key={label}
                     href={href}
                     aria-label={label}
-                    className="group/btn relative isolate flex h-11 w-11 items-center justify-center overflow-hidden border border-white/15 text-white transition-all duration-300 hover:-translate-y-1 hover:border-blue-500"
+                    className="group/btn relative isolate flex h-11 w-11 items-center justify-center overflow-hidden border border-line/15 text-ink transition-all duration-300 hover:-translate-y-1 hover:border-accent"
                   >
                     <span aria-hidden="true" className={SWEEP_BLUE} />
                     <Icon className="h-4.5 w-4.5" />
@@ -276,17 +276,17 @@ export default function Footer() {
                     href={href}
                     className="group flex items-center gap-4"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center bg-blue-500 text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-blue-400">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center bg-accent text-white transition-all duration-300 group-hover:scale-105 group-hover:bg-accent-hi">
                       <Icon className="h-5 w-5" />
                     </span>
                     <span className="min-w-0">
                       <span
-                        className={`block ${HEAD} text-[11px] uppercase tracking-[0.18em] text-neutral-500`}
+                        className={`block ${HEAD} text-[11px] uppercase tracking-[0.18em] text-faint`}
                       >
                         {label}
                       </span>
                       <span
-                        className={`block ${BODY} text-[15px] font-medium text-white transition-colors duration-300 group-hover:text-blue-400`}
+                        className={`block ${BODY} text-[15px] font-medium text-ink transition-colors duration-300 group-hover:text-accent-hi`}
                       >
                         {value}
                       </span>
@@ -297,25 +297,25 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-6 md:mt-16 md:flex-row">
+          <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-line/10 pt-6 md:mt-16 md:flex-row">
             <p
-              className={`${BODY} text-center text-[13px] text-neutral-500 md:text-left`}
+              className={`${BODY} text-center text-[13px] text-faint md:text-left`}
             >
               © {year} FutGrid. Bütün hüquqlar qorunur.
             </p>
 
             <div
-              className={`${BODY} flex items-center gap-6 text-[13px] text-neutral-500`}
+              className={`${BODY} flex items-center gap-6 text-[13px] text-faint`}
             >
               <a
                 href="#"
-                className="transition-colors duration-300 hover:text-white"
+                className="transition-colors duration-300 hover:text-ink"
               >
                 Məxfilik siyasəti
               </a>
               <a
                 href="#"
-                className="transition-colors duration-300 hover:text-white"
+                className="transition-colors duration-300 hover:text-ink"
               >
                 İstifadə şərtləri
               </a>

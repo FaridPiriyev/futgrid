@@ -7,13 +7,13 @@ function Caption({ label, sub }) {
   return (
     <>
       <span
-        className={`line-clamp-2 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-wide text-neutral-200 md:text-sm`}
+        className={`line-clamp-2 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-wide text-ink-soft md:text-sm`}
       >
         {label}
       </span>
       {sub && (
         <span
-          className={`line-clamp-1 ${FONT} text-[10px] uppercase leading-tight text-neutral-500 md:text-xs`}
+          className={`line-clamp-1 ${FONT} text-[10px] uppercase leading-tight text-faint md:text-xs`}
         >
           {sub}
         </span>
@@ -58,7 +58,7 @@ function Visual({ cat }) {
         <Picture
           src={cat.image}
           className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
-          fallback={<Trophy className={`${ICON} text-amber-300`} />}
+          fallback={<Trophy className={`${ICON} text-gold-hi`} />}
         />
         {cat.min > 1 && (
           <span

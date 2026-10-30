@@ -12,7 +12,8 @@ export default function PlayerAvatar({
   const show = src && broken !== src;
   return (
     <span
-      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border border-white/10 bg-[radial-gradient(circle_at_50%_30%,#334155,#0b1220_70%)] ${className}`}
+      data-theme="dark"
+      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border border-line/10 bg-[radial-gradient(circle_at_50%_30%,#334155,#0b1220_70%)] ${className}`}
     >
       {show ? (
         <img
@@ -23,7 +24,7 @@ export default function PlayerAvatar({
           className="h-full w-full object-cover object-top"
         />
       ) : (
-        <span className={`${FONT} font-bold text-white/60 ${textClass}`}>
+        <span className={`${FONT} font-bold text-ink/60 ${textClass}`}>
           {initials(player?.name)}
         </span>
       )}

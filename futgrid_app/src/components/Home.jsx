@@ -184,19 +184,19 @@ const PLAYERS = [
 ];
 
 const AVATAR_GRADIENTS = [
-  "from-blue-500 to-cyan-400",
+  "from-accent to-cyan-400",
   "from-fuchsia-500 to-purple-600",
-  "from-emerald-400 to-teal-600",
-  "from-amber-400 to-orange-600",
-  "from-rose-500 to-pink-600",
+  "from-good to-teal-600",
+  "from-gold to-orange-600",
+  "from-bad-lo to-pink-600",
   "from-indigo-500 to-sky-400",
 ];
 
 const PODIUM = [
   {
-    ring: "from-amber-200 via-amber-400 to-amber-600",
-    text: "text-amber-300 light:text-amber-600",
-    card: "border-amber-400/60 bg-amber-400/10 shadow-[0_0_40px_-12px_rgba(251,191,36,0.7)]",
+    ring: "from-gold-hi via-gold to-gold-lo",
+    text: "text-gold-hi light:text-gold-lo",
+    card: "border-gold/60 bg-gold/10 shadow-[0_0_40px_-12px_color-mix(in_srgb,var(--fg-gold)_70%,transparent)]",
   },
   {
     ring: "from-white via-slate-300 to-slate-500",
@@ -262,13 +262,13 @@ const REVEAL = {
 };
 
 const SWEEP_BLUE =
-  "absolute inset-0 -z-10 origin-left scale-x-0 bg-blue-500 transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
+  "absolute inset-0 -z-10 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
 
 const SWEEP_WHITE =
   "absolute inset-0 -z-10 origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
 
 const SHINE =
-  "pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/25 to-transparent opacity-0";
+  "pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-line/25 to-transparent opacity-0";
 
 const initials = (name) =>
   name
@@ -432,13 +432,13 @@ function SectionHeading({ kicker, title }) {
   return (
     <div data-reveal className="group/h text-center">
       <div className="flex items-center justify-center gap-3">
-        <span className="h-px w-8 origin-right scale-x-0 bg-blue-500 transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
+        <span className="h-px w-8 origin-right scale-x-0 bg-accent transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
         <p
-          className={`${FONT} text-base uppercase tracking-wider text-blue-500 opacity-0 transition-opacity duration-700 group-data-in/h:opacity-100 md:text-xl`}
+          className={`${FONT} text-base uppercase tracking-wider text-accent opacity-0 transition-opacity duration-700 group-data-in/h:opacity-100 md:text-xl`}
         >
           {kicker}
         </p>
-        <span className="h-px w-8 origin-left scale-x-0 bg-blue-500 transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
+        <span className="h-px w-8 origin-left scale-x-0 bg-accent transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
       </div>
       <h2
         className={`mt-1 overflow-hidden py-[0.1em] ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
@@ -534,6 +534,7 @@ function DesktopHero({ enabled }) {
 
   return (
     <section
+      data-theme="dark"
       className="relative z-0 hidden h-197.5 w-full overflow-hidden bg-black md:block"
       onPointerDown={(e) => (touchStartX.current = e.clientX)}
       onPointerUp={(e) => {
@@ -564,7 +565,7 @@ function DesktopHero({ enabled }) {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 pb-10 text-center">
         <h2
-          className={`${FONT} text-5xl font-bold uppercase leading-[1.05] text-white lg:text-[72px]`}
+          className={`${FONT} text-5xl font-bold uppercase leading-[1.05] text-ink lg:text-[72px]`}
         >
           {slide.lines.map((line, i) => (
             <span key={line} className="block overflow-hidden pt-[0.12em]">
@@ -585,7 +586,7 @@ function DesktopHero({ enabled }) {
         </h2>
 
         <p
-          className={`mt-4 ${FONT} text-xl uppercase tracking-[0.2em] text-blue-500 transition-all ease-out motion-reduce:transition-none ${
+          className={`mt-4 ${FONT} text-xl uppercase tracking-[0.2em] text-accent transition-all ease-out motion-reduce:transition-none ${
             textIn
               ? "translate-y-0 opacity-100 duration-700"
               : "translate-y-4 opacity-0 duration-0"
@@ -609,12 +610,12 @@ function DesktopHero({ enabled }) {
               textIn ? "opacity-100 delay-1800" : "opacity-0 duration-0"
             }`}
           >
-            <span className="absolute -inset-1.5 animate-pulse bg-blue-500/30 [animation-duration:2.4s]" />
+            <span className="absolute -inset-1.5 animate-pulse bg-accent/30 [animation-duration:2.4s]" />
           </span>
           <a
             href={slide.href}
             onClick={(e) => jumpTo(e, slide.href)}
-            className={`group/btn relative isolate inline-block overflow-hidden bg-blue-500 px-10 py-3.5 ${FONT} text-base font-bold uppercase tracking-wide text-white transition-colors duration-500 hover:text-blue-500`}
+            className={`group/btn relative isolate inline-block overflow-hidden bg-accent px-10 py-3.5 ${FONT} text-base font-bold uppercase tracking-wide text-white transition-colors duration-500 hover:text-accent`}
           >
             <span aria-hidden="true" className={SWEEP_WHITE} />
             {slide.button}
@@ -637,7 +638,7 @@ function DesktopHero({ enabled }) {
 
       <div
         aria-hidden="true"
-        className={`absolute bottom-0 left-0 z-30 h-0.75 bg-blue-500 transition-[width] ease-linear ${
+        className={`absolute bottom-0 left-0 z-30 h-0.75 bg-accent transition-[width] ease-linear ${
           barFull ? "w-full" : "w-0 duration-0"
         }`}
         style={barFull ? { transitionDuration: `${AUTOPLAY_MS}ms` } : undefined}
@@ -646,7 +647,7 @@ function DesktopHero({ enabled }) {
       <button
         onClick={() => go(-1)}
         aria-label="Əvvəlki slayd"
-        className="group/btn absolute left-8 top-1/2 z-30 isolate flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-blue-500"
+        className="group/btn absolute left-8 top-1/2 z-30 isolate flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-line/20 bg-black/40 text-ink backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-accent"
       >
         <span aria-hidden="true" className={SWEEP_BLUE} />
         <ChevronLeft className="h-6 w-6" />
@@ -654,7 +655,7 @@ function DesktopHero({ enabled }) {
       <button
         onClick={() => go(1)}
         aria-label="Növbəti slayd"
-        className="group/btn absolute right-8 top-1/2 z-30 isolate flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-blue-500"
+        className="group/btn absolute right-8 top-1/2 z-30 isolate flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-line/20 bg-black/40 text-ink backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-accent"
       >
         <span aria-hidden="true" className={SWEEP_BLUE} />
         <ChevronRight className="h-6 w-6" />
@@ -670,7 +671,7 @@ function DesktopHero({ enabled }) {
             aria-label={`Slayd ${i + 1}`}
             aria-current={i === index}
             className={`group/btn relative isolate h-3 w-3 overflow-hidden rounded-full transition-all duration-300 ${
-              i === index ? "scale-110 bg-blue-500" : "bg-neutral-600"
+              i === index ? "scale-110 bg-accent" : "bg-dim"
             }`}
           >
             <span aria-hidden="true" className={SWEEP_BLUE} />
@@ -702,6 +703,7 @@ function MobileHero() {
 
   return (
     <section
+      data-theme="dark"
       className="relative bg-black md:hidden"
       aria-roledescription="karusel"
       aria-label="Əsas slaydlar"
@@ -719,7 +721,7 @@ function MobileHero() {
             className="relative flex w-full shrink-0 snap-center snap-always flex-col overflow-hidden bg-black"
           >
             <div
-              className="relative w-full overflow-hidden bg-neutral-900"
+              className="relative w-full overflow-hidden bg-deep"
               style={{ aspectRatio: s.mobileAspect ?? "4 / 3" }}
             >
               <div
@@ -733,7 +735,7 @@ function MobileHero() {
               />
               <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent via-60% to-black" />
               <span
-                className={`absolute right-5 top-5 ${FONT} text-xs font-bold tracking-[0.25em] text-white/80`}
+                className={`absolute right-5 top-5 ${FONT} text-xs font-bold tracking-[0.25em] text-ink/80`}
               >
                 0{i + 1} / 0{SLIDES.length}
               </span>
@@ -745,9 +747,9 @@ function MobileHero() {
                   : "translate-y-6 opacity-0"
               }`}
             >
-              <span className="mb-3 block h-0.5 w-10 bg-blue-500" />
+              <span className="mb-3 block h-0.5 w-10 bg-accent" />
               <h2
-                className={`${FONT} text-[34px] font-bold uppercase leading-[1.02] text-white`}
+                className={`${FONT} text-[34px] font-bold uppercase leading-[1.02] text-ink`}
               >
                 {s.lines.map((line) => (
                   <span key={line} className="block">
@@ -756,7 +758,7 @@ function MobileHero() {
                 ))}
               </h2>
               <p
-                className={`mt-3 ${FONT} text-sm uppercase tracking-[0.12em] text-blue-400`}
+                className={`mt-3 ${FONT} text-sm uppercase tracking-[0.12em] text-accent-hi`}
               >
                 {s.subtitle}
               </p>
@@ -764,7 +766,7 @@ function MobileHero() {
                 href={s.href}
                 onClick={(e) => jumpTo(e, s.href)}
                 tabIndex={active === i ? 0 : -1}
-                className={`mt-5 inline-flex items-center gap-2 bg-blue-500 px-6 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-white transition-transform active:scale-95`}
+                className={`mt-5 inline-flex items-center gap-2 bg-accent px-6 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-white transition-transform active:scale-95`}
               >
                 {s.button}
                 <ArrowRight className="h-4 w-4" />
@@ -774,7 +776,7 @@ function MobileHero() {
         ))}
       </div>
 
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+      <div className="flex items-center justify-between border-b border-line/10 px-5 py-3">
         <div className="flex items-center gap-2">
           {SLIDES.map((_, i) => (
             <button
@@ -787,7 +789,7 @@ function MobileHero() {
             >
               <span
                 className={`block h-1.5 rounded-full transition-all duration-300 ${
-                  active === i ? "w-8 bg-blue-500" : "w-3 bg-white/25"
+                  active === i ? "w-8 bg-accent" : "w-3 bg-line/25"
                 }`}
               />
             </button>
@@ -795,19 +797,19 @@ function MobileHero() {
         </div>
         <div className="relative h-6 w-32">
           <span
-            className={`absolute inset-0 flex items-center justify-end gap-1.5 ${FONT} text-xs uppercase tracking-[0.2em] text-neutral-400 transition-opacity duration-500 ${
+            className={`absolute inset-0 flex items-center justify-end gap-1.5 ${FONT} text-xs uppercase tracking-[0.2em] text-muted transition-opacity duration-500 ${
               touched ? "opacity-0" : "opacity-100"
             }`}
           >
-            <ChevronLeft className="h-4 w-4 animate-[fgSwipe_1.4s_ease-in-out_infinite] text-blue-400" />
+            <ChevronLeft className="h-4 w-4 animate-[fgSwipe_1.4s_ease-in-out_infinite] text-accent-hi" />
             Sürüşdür
           </span>
           <span
-            className={`absolute inset-0 flex items-center justify-end ${FONT} text-xs font-bold tracking-[0.25em] text-neutral-400 transition-opacity duration-500 ${
+            className={`absolute inset-0 flex items-center justify-end ${FONT} text-xs font-bold tracking-[0.25em] text-muted transition-opacity duration-500 ${
               touched ? "opacity-100" : "opacity-0"
             }`}
           >
-            <span className="text-white">0{active + 1}</span>&nbsp;/ 0
+            <span className="text-ink">0{active + 1}</span>&nbsp;/ 0
             {SLIDES.length}
           </span>
         </div>
@@ -821,11 +823,12 @@ function AboutCard({ card, index }) {
   return (
     <div
       data-reveal
+      data-theme="dark"
       className={`group/card ${REVEAL.up} ${wide ? "col-span-2 lg:col-span-1" : ""}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <TiltCard
-        className={`overflow-hidden bg-neutral-900 ${
+        className={`overflow-hidden bg-deep ${
           wide ? "aspect-16/9 lg:aspect-11/10" : "aspect-square lg:aspect-11/10"
         }`}
       >
@@ -840,13 +843,13 @@ function AboutCard({ card, index }) {
           className="pointer-events-none absolute inset-0 hidden opacity-0 transition-opacity duration-500 group-hover/tilt:opacity-100 lg:block"
           style={{
             background:
-              "radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(59,130,246,0.35), transparent 60%)",
+              "radial-gradient(circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--fg-accent) 35%, transparent), transparent 60%)",
           }}
         />
         <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/40 to-transparent px-4 pb-4 pt-12 lg:hidden">
-          <span className="mb-2 block h-0.5 w-0 bg-blue-500 transition-all delay-500 duration-700 group-data-in/card:w-8" />
+          <span className="mb-2 block h-0.5 w-0 bg-accent transition-all delay-500 duration-700 group-data-in/card:w-8" />
           <h3
-            className={`translate-y-3 opacity-0 transition-all delay-300 duration-700 ease-out group-data-in/card:translate-y-0 group-data-in/card:opacity-100 ${FONT} font-bold uppercase leading-tight text-white ${
+            className={`translate-y-3 opacity-0 transition-all delay-300 duration-700 ease-out group-data-in/card:translate-y-0 group-data-in/card:opacity-100 ${FONT} font-bold uppercase leading-tight text-ink ${
               wide ? "text-2xl" : "text-lg"
             }`}
           >
@@ -855,7 +858,7 @@ function AboutCard({ card, index }) {
         </div>
         <div className="absolute inset-0 hidden items-center justify-center bg-linear-to-br from-black/70 via-[#1a0933]/65 to-black/70 px-6 opacity-0 transition-opacity duration-500 group-hover/tilt:opacity-100 lg:flex">
           <h3
-            className={`translate-y-4 text-center ${FONT} text-4xl font-bold uppercase leading-tight text-white/90 transition-transform duration-500 ease-out group-hover/tilt:translate-y-0`}
+            className={`translate-y-4 text-center ${FONT} text-4xl font-bold uppercase leading-tight text-ink/90 transition-transform duration-500 ease-out group-hover/tilt:translate-y-0`}
           >
             {card.title}
           </h3>
@@ -873,12 +876,13 @@ function GameCard({ game, featured, index }) {
   return (
     <div
       data-reveal
+      data-theme="dark"
       className={`group/card h-full ${featured ? `${REVEAL.left} col-span-2 lg:col-span-1 lg:row-span-2` : `${REVEAL.right} col-span-1`}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <Link
         to={game.href}
-        className={`group/game relative flex h-full flex-col justify-end overflow-hidden border border-white/10 bg-neutral-900 transition-[border-color,box-shadow,transform] duration-500 hover:border-blue-500/60 hover:shadow-[0_0_44px_-12px_rgba(59,130,246,0.7)] active:scale-[0.98] ${
+        className={`group/game relative flex h-full flex-col justify-end overflow-hidden border border-line/10 bg-deep transition-[border-color,box-shadow,transform] duration-500 hover:border-accent/60 hover:shadow-[0_0_44px_-12px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] active:scale-[0.98] ${
           featured
             ? "min-h-95 md:min-h-110 lg:min-h-full"
             : "min-h-60 md:min-h-64"
@@ -901,13 +905,13 @@ function GameCard({ game, featured, index }) {
         />
 
         <span
-          className={`absolute left-4 top-4 z-10 flex items-center justify-center bg-blue-500 text-white transition-transform duration-300 group-hover/game:scale-110 md:left-6 md:top-6 ${
+          className={`absolute left-4 top-4 z-10 flex items-center justify-center bg-accent text-white transition-transform duration-300 group-hover/game:scale-110 md:left-6 md:top-6 ${
             featured ? "h-12 w-12 md:h-14 md:w-14" : "h-10 w-10"
           }`}
         >
           <span
             aria-hidden="true"
-            className="absolute inset-0 animate-[fgPulseRing_2.2s_ease-out_infinite] bg-blue-500/60"
+            className="absolute inset-0 animate-[fgPulseRing_2.2s_ease-out_infinite] bg-accent/60"
           />
           <Play
             className={`relative fill-white ${featured ? "h-5 w-5" : "h-4 w-4"}`}
@@ -921,21 +925,21 @@ function GameCard({ game, featured, index }) {
             {game.tags.map((tag) => (
               <span
                 key={tag}
-                className={`border border-white/15 bg-black/40 px-2 py-0.5 ${FONT} text-[10px] uppercase tracking-wider text-neutral-200 backdrop-blur-sm md:text-[11px]`}
+                className={`border border-line/15 bg-black/40 px-2 py-0.5 ${FONT} text-[10px] uppercase tracking-wider text-ink-soft backdrop-blur-sm md:text-[11px]`}
               >
                 {tag}
               </span>
             ))}
           </div>
           <h3
-            className={`mt-2 ${FONT} font-bold uppercase leading-[1.05] text-white ${
+            className={`mt-2 ${FONT} font-bold uppercase leading-[1.05] text-ink ${
               featured ? "text-3xl md:text-[42px]" : "text-lg md:text-2xl"
             }`}
           >
             {game.title}
           </h3>
           <p
-            className={`mt-2 ${BODY} leading-relaxed text-neutral-300 ${
+            className={`mt-2 ${BODY} leading-relaxed text-soft ${
               featured
                 ? "max-w-md text-sm md:text-base"
                 : "hidden text-sm md:line-clamp-2 md:block"
@@ -944,7 +948,7 @@ function GameCard({ game, featured, index }) {
             {game.description}
           </p>
           <span
-            className={`mt-3 inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-blue-400 md:mt-4`}
+            className={`mt-3 inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-accent-hi md:mt-4`}
           >
             Oyna
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/game:translate-x-1.5" />
@@ -967,7 +971,7 @@ function TopCard({ player, rank, run }) {
     >
       {first && (
         <span
-          className={`absolute -top-3 left-4 flex items-center gap-1 bg-amber-400 px-2 py-0.5 ${FONT} text-[11px] font-bold uppercase tracking-[0.18em] text-black`}
+          className={`absolute -top-3 left-4 flex items-center gap-1 bg-gold px-2 py-0.5 ${FONT} text-[11px] font-bold uppercase tracking-[0.18em] text-black`}
         >
           <Crown className="h-3.5 w-3.5" />
           Lider
@@ -982,7 +986,7 @@ function TopCard({ player, rank, run }) {
       </span>
       <span className={`shrink-0 rounded-full bg-linear-to-br p-0.5 ${s.ring}`}>
         <span
-          className={`flex items-center justify-center rounded-full border-2 border-page-2 bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-white ${
+          className={`flex items-center justify-center rounded-full border-2 border-page-2 bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-ink ${
             first
               ? "h-14 w-14 text-lg md:h-16 md:w-16 md:text-xl"
               : "h-11 w-11 text-sm md:h-12 md:w-12 md:text-base"
@@ -1031,15 +1035,15 @@ function ContactField({
         }`}
         {...props}
       />
-      <Icon className="pointer-events-none absolute left-4 top-5.5 h-5 w-5 text-faint transition-colors duration-300 peer-focus:text-blue-400" />
+      <Icon className="pointer-events-none absolute left-4 top-5.5 h-5 w-5 text-faint transition-colors duration-300 peer-focus:text-accent-hi" />
       <span
-        className={`pointer-events-none absolute left-12 top-5 ${FONT} text-base tracking-wide text-faint transition-all duration-200 peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-blue-400 peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]`}
+        className={`pointer-events-none absolute left-12 top-5 ${FONT} text-base tracking-wide text-faint transition-all duration-200 peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-accent-hi peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]`}
       >
         {label}
       </span>
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute right-3 top-5.5 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white transition-all duration-300 ${
+        className={`pointer-events-none absolute right-3 top-5.5 flex h-5 w-5 items-center justify-center rounded-full bg-good-lo text-white transition-all duration-300 ${
           valid ? "scale-100 opacity-100" : "scale-50 opacity-0"
         }`}
       >
@@ -1047,7 +1051,7 @@ function ContactField({
       </span>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-linear-to-r from-blue-500 to-cyan-400 transition-transform duration-500 ease-out peer-focus:scale-x-100"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-linear-to-r from-accent to-cyan-400 transition-transform duration-500 ease-out peer-focus:scale-x-100"
       />
     </label>
   );
@@ -1107,10 +1111,10 @@ function ContactForm() {
         role="status"
         className="flex h-full animate-[fgPop_0.5s_ease-out_both] flex-col items-center justify-center py-12 text-center"
       >
-        <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
+        <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-good-lo/15 text-good">
           <span
             aria-hidden="true"
-            className="absolute inset-0 animate-[fgPulseRing_1.8s_ease-out_infinite] rounded-full border-2 border-emerald-400/60"
+            className="absolute inset-0 animate-[fgPulseRing_1.8s_ease-out_infinite] rounded-full border-2 border-good/60"
           />
           <Check className="h-9 w-9" />
         </span>
@@ -1128,7 +1132,7 @@ function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden border border-blue-500 px-8 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-500 hover:text-white`}
+          className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden border border-accent px-8 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-500 hover:text-white`}
         >
           <span aria-hidden="true" className={SWEEP_BLUE} />
           Yeni mesaj yaz
@@ -1144,7 +1148,7 @@ function ContactForm() {
       <div className="flex items-end justify-between gap-4">
         <div>
           <p
-            className={`${FONT} text-xs uppercase tracking-[0.25em] text-blue-400`}
+            className={`${FONT} text-xs uppercase tracking-[0.25em] text-accent-hi`}
           >
             Forma
           </p>
@@ -1162,7 +1166,7 @@ function ContactForm() {
           </p>
           <p className={`${FONT} text-xl font-bold text-ink`}>
             <span
-              className={ready === 3 ? "text-emerald-400" : "text-blue-400"}
+              className={ready === 3 ? "text-good" : "text-accent-hi"}
             >
               {ready}
             </span>
@@ -1176,7 +1180,7 @@ function ContactForm() {
           <span key={i} className="h-1 overflow-hidden bg-line/10">
             <span
               className={`block h-full origin-left transition-transform duration-500 ease-out ${
-                ready === 3 ? "bg-emerald-400" : "bg-blue-500"
+                ready === 3 ? "bg-good" : "bg-accent"
               } ${i < ready ? "scale-x-100" : "scale-x-0"}`}
             />
           </span>
@@ -1235,7 +1239,7 @@ function ContactForm() {
         <span
           className={`pointer-events-none absolute bottom-3 right-3 ${FONT} text-xs tracking-wider ${
             values.message.length > MESSAGE_MAX * 0.9
-              ? "text-amber-400"
+              ? "text-gold"
               : "text-faint"
           }`}
         >
@@ -1251,13 +1255,13 @@ function ContactForm() {
           type="submit"
           disabled={sending}
           aria-busy={sending}
-          className={`group/btn relative isolate inline-flex w-full shrink-0 items-stretch justify-between overflow-hidden bg-blue-500 ${FONT} text-base font-bold uppercase tracking-wide text-white shadow-[0_12px_30px_-12px_rgba(59,130,246,0.9)] transition-[color,transform] duration-500 hover:text-blue-500 active:scale-[0.98] disabled:cursor-wait sm:w-auto sm:min-w-64`}
+          className={`group/btn relative isolate inline-flex w-full shrink-0 items-stretch justify-between overflow-hidden bg-accent ${FONT} text-base font-bold uppercase tracking-wide text-white shadow-[0_12px_30px_-12px_color-mix(in_srgb,var(--fg-accent)_90%,transparent)] transition-[color,transform] duration-500 hover:text-accent active:scale-[0.98] disabled:cursor-wait sm:w-auto sm:min-w-64`}
         >
           <span aria-hidden="true" className={SWEEP_WHITE} />
           <span className="flex items-center whitespace-nowrap px-8 py-4">
             {sending ? "Göndərilir..." : "Mesajı göndər"}
           </span>
-          <span className="relative flex w-14 items-center justify-center overflow-hidden border-l border-white/25 bg-black/10">
+          <span className="relative flex w-14 items-center justify-center overflow-hidden border-l border-line/25 bg-black/10">
             <Send
               className={`h-5 w-5 ${
                 sending
@@ -1272,7 +1276,7 @@ function ContactForm() {
       {status === "error" && (
         <p
           role="alert"
-          className={`mt-5 border-l-2 border-rose-500 bg-rose-500/10 px-4 py-3 ${BODY} text-sm leading-relaxed text-rose-300`}
+          className={`mt-5 border-l-2 border-bad-lo bg-bad-lo/10 px-4 py-3 ${BODY} text-sm leading-relaxed text-bad-hi`}
         >
           {error}
         </p>
@@ -1346,7 +1350,7 @@ export default function Home() {
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -left-32 top-24 h-80 w-80 animate-[fgDrift_14s_ease-in-out_infinite] rounded-full bg-blue-600/20 blur-3xl"
+          className="pointer-events-none absolute -left-32 top-24 h-80 w-80 animate-[fgDrift_14s_ease-in-out_infinite] rounded-full bg-accent-lo/20 blur-3xl"
         />
         <span
           aria-hidden="true"
@@ -1373,18 +1377,18 @@ export default function Home() {
               <div
                 key={s.label}
                 data-reveal
-                className={`${REVEAL.zoom} group relative overflow-hidden border border-line/10 bg-line/3 px-4 py-5 light:bg-surface/80 light:shadow-sm text-center backdrop-blur-sm transition-colors duration-300 hover:border-blue-500/50 md:py-7`}
+                className={`${REVEAL.zoom} group relative overflow-hidden border border-line/10 bg-line/3 px-4 py-5 light:bg-surface/80 light:shadow-sm text-center backdrop-blur-sm transition-colors duration-300 hover:border-accent/50 md:py-7`}
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-blue-500 transition-transform delay-300 duration-700 group-data-in:scale-x-100"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform delay-300 duration-700 group-data-in:scale-x-100"
                 />
                 <p
                   className={`${FONT} text-3xl font-bold text-ink md:text-5xl`}
                 >
                   <CountUp value={s.value} run={statsIn} duration={1600} />
-                  <span className="text-blue-500">{s.suffix}</span>
+                  <span className="text-accent">{s.suffix}</span>
                 </p>
                 <p
                   className={`mt-1 ${FONT} text-xs uppercase tracking-[0.2em] text-muted md:text-sm`}
@@ -1415,7 +1419,7 @@ export default function Home() {
               <a
                 href="#games"
                 onClick={(e) => jumpTo(e, "#games")}
-                className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden bg-blue-500 px-10 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-white transition-[color,transform] duration-500 hover:-translate-y-0.5 hover:text-blue-500 md:mt-10 md:px-12 md:text-base`}
+                className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden bg-accent px-10 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-white transition-[color,transform] duration-500 hover:-translate-y-0.5 hover:text-accent md:mt-10 md:px-12 md:text-base`}
               >
                 <span aria-hidden="true" className={SWEEP_WHITE} />
                 Oyunlara bax
@@ -1445,7 +1449,7 @@ export default function Home() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 animate-[fgGrid_2.5s_linear_infinite] opacity-25 mask-[linear-gradient(to_top,black,transparent)]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(59,130,246,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.45) 1px, transparent 1px)",
+              "linear-gradient(color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
             transform: "perspective(420px) rotateX(58deg)",
             transformOrigin: "bottom",
@@ -1477,7 +1481,7 @@ export default function Home() {
           >
             <Link
               to="/oyunlar"
-              className={`group/btn relative isolate inline-flex items-center gap-3 overflow-hidden border border-blue-500/60 bg-page/50 px-8 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-ink backdrop-blur-sm transition-[color,transform,border-color] duration-500 hover:-translate-y-0.5 hover:border-blue-500 hover:text-white md:px-10 md:text-base`}
+              className={`group/btn relative isolate inline-flex items-center gap-3 overflow-hidden border border-accent/60 bg-page/50 px-8 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-ink backdrop-blur-sm transition-[color,transform,border-color] duration-500 hover:-translate-y-0.5 hover:border-accent hover:text-white md:px-10 md:text-base`}
             >
               <span aria-hidden="true" className={SWEEP_BLUE} />
               Daha çox oyun
@@ -1516,7 +1520,7 @@ export default function Home() {
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 animate-[fgDrift_16s_ease-in-out_infinite] rounded-full bg-amber-500/10 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 animate-[fgDrift_16s_ease-in-out_infinite] rounded-full bg-gold/10 blur-3xl"
         />
 
         <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
@@ -1533,7 +1537,7 @@ export default function Home() {
             >
               <span
                 aria-hidden="true"
-                className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] bg-blue-500 shadow-[0_0_24px_-6px_rgba(59,130,246,0.9)] transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.3,1.15)]"
+                className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] bg-accent shadow-[0_0_24px_-6px_color-mix(in_srgb,var(--fg-accent)_90%,transparent)] transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.3,1.15)]"
                 style={{ transform: `translateX(${periodIndex * 100}%)` }}
               />
               {PERIODS.map((p) => (
@@ -1545,7 +1549,7 @@ export default function Home() {
                   onClick={() => changePeriod(p.key)}
                   className={`relative z-10 px-3 py-2 ${FONT} text-xs font-bold uppercase tracking-wide transition-colors duration-300 sm:px-5 md:px-7 md:text-base ${
                     period === p.key
-                      ? "text-white"
+                      ? "text-ink"
                       : "text-muted hover:text-ink"
                   }`}
                 >
@@ -1594,15 +1598,15 @@ export default function Home() {
                       transitionDelay: rowsIn ? `${400 + j * 70}ms` : "0ms",
                     }}
                   >
-                    <div className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 border-l-2 border-l-transparent px-4 py-2.5 transition-colors duration-300 hover:border-l-blue-500 hover:bg-blue-500/10 md:grid-cols-[32px_1fr_120px_70px]">
+                    <div className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 border-l-2 border-l-transparent px-4 py-2.5 transition-colors duration-300 hover:border-l-accent hover:bg-accent/10 md:grid-cols-[32px_1fr_120px_70px]">
                       <span
-                        className={`text-center ${FONT} text-sm font-bold text-faint transition-colors duration-300 group-hover:text-blue-400`}
+                        className={`text-center ${FONT} text-sm font-bold text-faint transition-colors duration-300 group-hover:text-accent-hi`}
                       >
                         {i + 1}
                       </span>
                       <div className="flex min-w-0 items-center gap-3">
                         <span
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br ${FONT} text-xs font-bold text-white ${avatarOf(player)}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br ${FONT} text-xs font-bold text-ink ${avatarOf(player)}`}
                         >
                           {initials(player.name)}
                         </span>
@@ -1643,7 +1647,7 @@ export default function Home() {
           <p
             className={`mt-4 flex items-center justify-center gap-2 ${BODY} text-xs text-faint`}
           >
-            <Trophy className="h-3.5 w-3.5 text-amber-400" />
+            <Trophy className="h-3.5 w-3.5 text-gold" />
             Reytinq hər həftə bazar ertəsi yenilənir
           </p>
         </div>
@@ -1674,7 +1678,7 @@ export default function Home() {
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 animate-[fgDrift_15s_ease-in-out_infinite] rounded-full bg-blue-600/15 blur-3xl"
+          className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 animate-[fgDrift_15s_ease-in-out_infinite] rounded-full bg-accent-lo/15 blur-3xl"
         />
 
         <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
@@ -1685,39 +1689,39 @@ export default function Home() {
             className={`${REVEAL.up} mt-10 md:mt-14`}
             style={{ transitionDelay: "150ms" }}
           >
-            <div className="grid overflow-hidden border border-line/10 bg-surface/95 shadow-[0_40px_90px_-40px_rgba(59,130,246,0.55)] lg:grid-cols-[0.85fr_1.4fr]">
-              <aside className="relative flex flex-col overflow-hidden bg-linear-to-br from-blue-600 via-blue-700 to-[#1a0933] p-6 md:p-10">
+            <div className="grid overflow-hidden border border-line/10 bg-surface/95 shadow-[0_40px_90px_-40px_color-mix(in_srgb,var(--fg-accent)_55%,transparent)] lg:grid-cols-[0.85fr_1.4fr]">
+              <aside data-theme="dark" className="relative flex flex-col overflow-hidden bg-linear-to-br from-accent-lo via-accent-lo to-[#1a0933] p-6 md:p-10">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 opacity-20"
                   style={{
                     backgroundImage:
-                      "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
+                      "radial-gradient(color-mix(in srgb, var(--fg-line) 60%, transparent) 1px, transparent 1px)",
                     backgroundSize: "18px 18px",
                   }}
                 />
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 animate-[fgDrift_12s_ease-in-out_infinite] rounded-full border-2 border-white/15"
+                  className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 animate-[fgDrift_12s_ease-in-out_infinite] rounded-full border-2 border-line/15"
                 />
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 animate-[fgDrift_9s_ease-in-out_infinite_reverse] rounded-full bg-white/10"
+                  className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 animate-[fgDrift_9s_ease-in-out_infinite_reverse] rounded-full bg-line/10"
                 />
 
                 <div className="relative">
                   <p
-                    className={`${FONT} text-xs uppercase tracking-[0.25em] text-white/70`}
+                    className={`${FONT} text-xs uppercase tracking-[0.25em] text-ink/70`}
                   >
                     Əlaqə
                   </p>
                   <h3
-                    className={`mt-1 ${FONT} text-3xl font-bold uppercase leading-none text-white md:text-4xl`}
+                    className={`mt-1 ${FONT} text-3xl font-bold uppercase leading-none text-ink md:text-4xl`}
                   >
                     Anketini yolla
                   </h3>
                   <p
-                    className={`mt-4 ${BODY} text-[15px] leading-7 text-white/80`}
+                    className={`mt-4 ${BODY} text-[15px] leading-7 text-ink/80`}
                   >
                     Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı
                     oxuyub cavab veririk.
@@ -1730,19 +1734,19 @@ export default function Home() {
                         <Tag
                           key={label}
                           href={href}
-                          className="group flex items-center gap-4 p-2 transition-all duration-300 hover:translate-x-1 hover:bg-white/10"
+                          className="group flex items-center gap-4 p-2 transition-all duration-300 hover:translate-x-1 hover:bg-line/10"
                         >
-                          <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/25 bg-white/10 text-white transition-colors duration-300 group-hover:bg-white group-hover:text-blue-600">
+                          <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-line/25 bg-line/10 text-ink transition-colors duration-300 group-hover:bg-white group-hover:text-accent-lo">
                             <Icon className="h-5 w-5" />
                           </span>
                           <span className="min-w-0">
                             <span
-                              className={`block ${FONT} text-[11px] uppercase tracking-[0.18em] text-white/60`}
+                              className={`block ${FONT} text-[11px] uppercase tracking-[0.18em] text-ink/60`}
                             >
                               {label}
                             </span>
                             <span
-                              className={`block truncate ${FONT} text-lg font-bold text-white`}
+                              className={`block truncate ${FONT} text-lg font-bold text-ink`}
                             >
                               {value}
                             </span>
@@ -1756,11 +1760,11 @@ export default function Home() {
                 <div className="relative mt-8 flex flex-wrap items-center justify-between gap-4 lg:mt-auto lg:pt-10">
                   <div className="inline-flex items-center gap-2.5 bg-black/25 px-3 py-1.5">
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-good opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-good" />
                     </span>
                     <span
-                      className={`${FONT} text-xs uppercase tracking-wider text-white`}
+                      className={`${FONT} text-xs uppercase tracking-wider text-ink`}
                     >
                       24 saat ərzində cavab
                     </span>
@@ -1771,7 +1775,7 @@ export default function Home() {
                         key={label}
                         href={href}
                         aria-label={label}
-                        className="flex h-9 w-9 items-center justify-center border border-white/25 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-blue-600"
+                        className="flex h-9 w-9 items-center justify-center border border-line/25 text-ink transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-accent-lo"
                       >
                         <Icon className="h-4 w-4" />
                       </a>
@@ -1783,7 +1787,7 @@ export default function Home() {
               <div className="relative p-6 md:p-10">
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-blue-500/15 blur-3xl"
+                  className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent/15 blur-3xl"
                 />
                 <div className="relative h-full">
                   <ContactForm />

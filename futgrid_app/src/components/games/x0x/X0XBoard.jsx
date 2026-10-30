@@ -18,14 +18,14 @@ export default function X0XBoard({
   corner,
 }) {
   return (
-    <div className="grid grid-cols-4 overflow-hidden border border-white/10 bg-[#0b0e14]">
-      <div className="flex items-center justify-center border-b border-r border-white/10 bg-blue-500 p-2">
+    <div className="grid grid-cols-4 overflow-hidden border border-line/10 bg-surface">
+      <div className="flex items-center justify-center border-b border-r border-line/10 bg-accent p-2">
         {corner}
       </div>
       {grid.cols.map((c) => (
         <div
           key={c.key}
-          className="border-b border-r border-white/10 bg-[#0e1524] last:border-r-0"
+          className="border-b border-r border-line/10 bg-cell-2 last:border-r-0"
         >
           <CategoryHeader cat={c} />
         </div>
@@ -67,7 +67,7 @@ function Row({
   return (
     <>
       <div
-        className={`border-r border-white/10 bg-[#0e1524] ${ri < 2 ? "border-b" : ""}`}
+        className={`border-r border-line/10 bg-cell-2 ${ri < 2 ? "border-b" : ""}`}
       >
         <CategoryHeader cat={row} />
       </div>
@@ -122,9 +122,9 @@ function PhotoCell({
       disabled={!pickable}
       onClick={() => onPick(cell)}
       aria-label={`${value.mark === "solo" ? "" : value.mark} ${value.name}`.trim()}
-      className={`group relative aspect-square overflow-hidden bg-[#0c1422] ${last.right ? "" : "border-r"} ${
+      className={`group relative aspect-square overflow-hidden bg-cell ${last.right ? "" : "border-r"} ${
         last.bottom ? "" : "border-b"
-      } border-white/10 ${pickable ? "cursor-pointer" : "cursor-default"}`}
+      } border-line/10 ${pickable ? "cursor-pointer" : "cursor-default"}`}
     >
       <img
         src={photo}
@@ -140,7 +140,7 @@ function PhotoCell({
       />
       <span
         aria-hidden="true"
-        className={`absolute inset-0 ring-inset ${active ? "ring-4 ring-white" : inLine ? `ring-4 ${mark.ring}` : `ring-2 ${mark.ring}`}`}
+        className={`absolute inset-0 ring-inset ${active ? "ring-4 ring-line" : inLine ? `ring-4 ${mark.ring}` : `ring-2 ${mark.ring}`}`}
       />
       <span
         className={`absolute left-1.5 top-1.5 flex h-7 w-7 items-center justify-center ${mark.solid} ${FONT} text-lg font-bold leading-none shadow-lg md:h-9 md:w-9 md:text-2xl`}
@@ -148,7 +148,7 @@ function PhotoCell({
         {markLabel(value)}
       </span>
       <span
-        className={`absolute inset-x-1 bottom-1.5 line-clamp-2 text-center ${FONT} text-[10px] font-bold uppercase leading-tight text-white md:text-xs`}
+        className={`absolute inset-x-1 bottom-1.5 line-clamp-2 text-center ${FONT} text-[10px] font-bold uppercase leading-tight text-ink md:text-xs`}
       >
         {value.name}
       </span>
@@ -188,35 +188,35 @@ function Cell(props) {
       }
       className={`group relative flex aspect-square flex-col items-center justify-center overflow-hidden p-1.5 transition-colors duration-200 ${
         last.right ? "" : "border-r"
-      } ${last.bottom ? "" : "border-b"} border-white/10 ${
+      } ${last.bottom ? "" : "border-b"} border-line/10 ${
         active
-          ? "bg-blue-500/20 ring-2 ring-inset ring-blue-500"
+          ? "bg-accent/20 ring-2 ring-inset ring-accent"
           : inLine
             ? `${mark.bg} ring-2 ring-inset ${mark.ring}`
             : value
               ? mark.bg
               : striped
-                ? "bg-[#101a2c]"
-                : "bg-[#0c1422]"
-      } ${pickable ? "cursor-pointer enabled:hover:bg-blue-500/15" : "cursor-default"}`}
+                ? "bg-cell-hi"
+                : "bg-cell"
+      } ${pickable ? "cursor-pointer enabled:hover:bg-accent/15" : "cursor-default"}`}
     >
       <span className="relative flex h-3/5 w-3/5 items-center justify-center">
         <Shirt
           className={`absolute inset-0 h-full w-full transition-colors duration-200 ${
             value
               ? mark.shirt
-              : "text-white/[0.06] group-enabled:group-hover:text-white/10"
+              : "text-ink/[0.06] group-enabled:group-hover:text-ink/10"
           }`}
         />
         {value ? (
           <span
-            className={`relative mt-2 ${FONT} text-2xl font-bold leading-none text-white md:text-4xl`}
+            className={`relative mt-2 ${FONT} text-2xl font-bold leading-none text-ink md:text-4xl`}
           >
             {markLabel(value)}
           </span>
         ) : samples.length ? null : (
           <span
-            className={`relative mt-2 ${FONT} text-2xl font-light leading-none text-white/25 group-enabled:group-hover:text-blue-300 md:text-4xl`}
+            className={`relative mt-2 ${FONT} text-2xl font-light leading-none text-ink/25 group-enabled:group-hover:text-accent-hi md:text-4xl`}
           >
             +
           </span>
@@ -225,13 +225,13 @@ function Cell(props) {
 
       {value ? (
         <span
-          className={`mt-1 line-clamp-2 text-center ${FONT} text-[10px] font-bold uppercase leading-tight text-white md:text-xs`}
+          className={`mt-1 line-clamp-2 text-center ${FONT} text-[10px] font-bold uppercase leading-tight text-ink md:text-xs`}
         >
           {value.name}
         </span>
       ) : samples.length ? (
         <span
-          className={`absolute inset-x-1 bottom-1.5 text-center ${FONT} text-[9px] leading-tight text-neutral-300 md:text-[11px]`}
+          className={`absolute inset-x-1 bottom-1.5 text-center ${FONT} text-[9px] leading-tight text-soft md:text-[11px]`}
         >
           {samples.map((p) => (
             <span key={p.id} className="block truncate">
@@ -241,7 +241,7 @@ function Cell(props) {
         </span>
       ) : (
         <span
-          className={`mt-1 ${FONT} text-[9px] font-bold uppercase tracking-wide text-white/20 md:text-[11px]`}
+          className={`mt-1 ${FONT} text-[9px] font-bold uppercase tracking-wide text-ink/20 md:text-[11px]`}
         >
           Oyunçu tap
         </span>

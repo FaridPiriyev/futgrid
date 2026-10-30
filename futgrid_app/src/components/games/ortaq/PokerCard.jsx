@@ -39,12 +39,12 @@ const FACE = {
 
 function Back({ owner, side }) {
   return (
-    <div style={FACE} className={`overflow-hidden rounded-2xl border-2 ${side.border} bg-[#0c1426] shadow-[0_18px_40px_-12px_rgba(0,0,0,0.9)]`}>
+    <div style={FACE} data-theme="dark" className={`overflow-hidden rounded-2xl border-2 ${side.border} bg-[#0c1426] shadow-[0_18px_40px_-12px_rgba(0,0,0,0.9)]`}>
       <div
-        className="absolute inset-2.5 rounded-xl border border-white/10"
+        className="absolute inset-2.5 rounded-xl border border-line/10"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 14px), repeating-linear-gradient(-45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 14px), radial-gradient(circle at 50% 50%, rgba(59,130,246,0.25), transparent 65%)",
+            "repeating-linear-gradient(45deg, color-mix(in srgb, var(--fg-line) 5%, transparent) 0 2px, transparent 2px 14px), repeating-linear-gradient(-45deg, color-mix(in srgb, var(--fg-line) 5%, transparent) 0 2px, transparent 2px 14px), radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--fg-accent) 25%, transparent), transparent 65%)",
         }}
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
@@ -54,8 +54,8 @@ function Back({ owner, side }) {
           <span className={`-rotate-45 ${FONT} text-3xl font-bold md:text-4xl`}>?</span>
         </span>
       </div>
-      <span className={`absolute left-3 top-2.5 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-white/50`}>FutGrid</span>
-      <span className={`absolute bottom-2.5 right-3 rotate-180 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-white/50`}>FutGrid</span>
+      <span className={`absolute left-3 top-2.5 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50`}>FutGrid</span>
+      <span className={`absolute bottom-2.5 right-3 rotate-180 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50`}>FutGrid</span>
       <span className={`absolute inset-x-0 bottom-8 text-center ${FONT} text-xs font-bold uppercase tracking-[0.2em] ${side.text}`}>{owner}</span>
     </div>
   );
@@ -66,24 +66,25 @@ function Front({ entity, owner, side, shineDelay }) {
   return (
     <div
       style={{ ...FACE, transform: "rotateY(180deg)" }}
+      data-theme="dark"
       className={`overflow-hidden rounded-2xl border-2 ${side.border} bg-[linear-gradient(160deg,#141c2e,#0a0d14)] shadow-[0_18px_40px_-12px_rgba(0,0,0,0.9)]`}
     >
       <div className="absolute left-3 top-2.5 hidden text-left leading-none sm:block">
-        <span className={`block ${FONT} text-sm font-bold text-white`}>{corner}</span>
-        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-neutral-500`}>{entity.type === "club" ? "klub" : "ölkə"}</span>
+        <span className={`block ${FONT} text-sm font-bold text-ink`}>{corner}</span>
+        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-faint`}>{entity.type === "club" ? "klub" : "ölkə"}</span>
       </div>
       <div className="absolute bottom-2.5 right-3 hidden rotate-180 text-left leading-none sm:block">
-        <span className={`block ${FONT} text-sm font-bold text-white`}>{corner}</span>
-        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-neutral-500`}>{entity.type === "club" ? "klub" : "ölkə"}</span>
+        <span className={`block ${FONT} text-sm font-bold text-ink`}>{corner}</span>
+        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-faint`}>{entity.type === "club" ? "klub" : "ölkə"}</span>
       </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-3 text-center">
         <EntityBadge entity={entity} size="h-14 w-14 sm:h-20 sm:w-20 md:h-24 md:w-24" flagSize="w-20 sm:w-24 md:w-28" />
-        <span className={`${FONT} text-sm font-bold uppercase leading-tight tracking-wide text-white sm:text-base md:text-lg`}>{entity.label}</span>
+        <span className={`${FONT} text-sm font-bold uppercase leading-tight tracking-wide text-ink sm:text-base md:text-lg`}>{entity.label}</span>
         <span className={`px-2 py-0.5 ${side.solid} ${FONT} text-[10px] font-bold uppercase tracking-wider`}>{owner}</span>
       </div>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent)]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--fg-line)_35%,transparent),transparent)]"
         style={{ animation: `ortaqShine 900ms ease-out ${shineDelay}ms both` }}
       />
     </div>
@@ -96,7 +97,7 @@ export default function PokerCard({ entity, state, owner, side, delay = 0, glow 
     return (
       <div
         className={`${SIZE} relative flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed text-center transition-all duration-500 ${
-          waiting ? `${side.border} bg-white/[0.04]` : "border-white/10 bg-white/[0.015] opacity-40"
+          waiting ? `${side.border} bg-white/[0.04]` : "border-line/10 bg-white/[0.015] opacity-40"
         }`}
         style={{
           ...RATIO,
@@ -104,12 +105,12 @@ export default function PokerCard({ entity, state, owner, side, delay = 0, glow 
         }}
       >
         <span
-          className={`flex h-12 w-12 items-center justify-center rounded-full border ${waiting ? `${side.border} ${side.text}` : "border-white/15 text-white/20"} ${FONT} text-2xl font-bold`}
+          className={`flex h-12 w-12 items-center justify-center rounded-full border ${waiting ? `${side.border} ${side.text}` : "border-line/15 text-ink/20"} ${FONT} text-2xl font-bold`}
           style={waiting ? { animation: "ortaqFloat 1.8s ease-in-out infinite" } : undefined}
         >
           ?
         </span>
-        <span className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] ${waiting ? "text-white" : "text-neutral-500"}`}>
+        <span className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] ${waiting ? "text-ink" : "text-faint"}`}>
           {waiting ? `${owner} seçir` : owner}
         </span>
         {waiting && (

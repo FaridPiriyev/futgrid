@@ -8,9 +8,9 @@
     <script>
       try {
         document.documentElement.dataset.theme =
-          localStorage.getItem("fg-theme") === "light" ? "light" : "dark";
+          localStorage.getItem("fg-theme-v2") === "dark" ? "dark" : "light";
       } catch (e) {
-        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.theme = "light";
       }
     </script>
   </head>

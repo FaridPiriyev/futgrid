@@ -15,15 +15,15 @@ import AnswerList, { FoundPlayer } from "./AnswerList";
 import PokerCard from "./PokerCard";
 import { SIDES } from "./settings";
 
-function Stat({ label, value, sub, tone = "text-white", compact }) {
+function Stat({ label, value, sub, tone = "text-ink", compact }) {
   return (
     <div
-      className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl border border-white/10 bg-white/[0.03] px-3 text-center ${
+      className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl border border-line/10 bg-white/[0.03] px-3 text-center ${
         compact ? "flex-1 py-2" : "w-28 py-5 xl:w-32"
       }`}
     >
       <span
-        className={`${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400`}
+        className={`${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
       >
         {label}
       </span>
@@ -33,7 +33,7 @@ function Stat({ label, value, sub, tone = "text-white", compact }) {
         {value}
       </span>
       <span
-        className={`h-4 ${FONT} text-[10px] uppercase tracking-[0.2em] text-neutral-500`}
+        className={`h-4 ${FONT} text-[10px] uppercase tracking-[0.2em] text-faint`}
       >
         {sub}
       </span>
@@ -139,11 +139,11 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
           label="Xal"
           value={score}
           sub={`${stats.correct} düz · ${stats.wrong} səhv`}
-          tone={score < 0 ? "text-rose-400" : "text-white"}
+          tone={score < 0 ? "text-bad" : "text-ink"}
         />
       </div>
 
-      <div className="relative rounded-3xl border border-white/5 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)] px-2 py-5 md:px-6">
+      <div className="relative rounded-3xl border border-line/5 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--fg-accent)_8%,transparent),transparent_70%)] px-2 py-5 md:px-6">
         <div className="flex items-center justify-center gap-3 md:gap-6">
           <div className="hidden md:block">
             <Stat label="Sual" value={index} sub={`${total} sualdan`} />
@@ -157,7 +157,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
             delay={0}
           />
           <span
-            className={`flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#0b0e14] ${FONT} text-sm font-bold text-neutral-300`}
+            className={`flex h-11 w-11 items-center justify-center rounded-full border border-line/15 bg-surface ${FONT} text-sm font-bold text-soft`}
           >
             +
           </span>
@@ -174,7 +174,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
               label="Xal"
               value={score}
               sub={`${stats.correct} düz · ${stats.wrong} səhv`}
-              tone={score < 0 ? "text-rose-400" : "text-white"}
+              tone={score < 0 ? "text-bad" : "text-ink"}
             />
           </div>
         </div>
@@ -201,10 +201,10 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
             aria-live="polite"
             className={`min-h-11 rounded-xl border-l-2 px-4 py-2.5 text-center ${FONT} text-sm md:text-base ${
               feedback?.type === "ok"
-                ? "border-l-emerald-400 bg-emerald-500/10 text-emerald-300"
+                ? "border-l-good bg-good-lo/10 text-good-hi"
                 : feedback?.type === "wrong"
-                  ? "border-l-rose-500 bg-rose-500/10 text-rose-300"
-                  : "border-l-white/20 bg-white/5 text-neutral-400"
+                  ? "border-l-bad-lo bg-bad-lo/10 text-bad-hi"
+                  : "border-l-line/20 bg-line/5 text-muted"
             }`}
           >
             {feedback?.text ??
@@ -247,7 +247,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
           </button>
         }
       >
-        <p className={`${FONT} text-base text-neutral-400`}>
+        <p className={`${FONT} text-base text-muted`}>
           {total} sualdan {stats.correct} düz, {stats.wrong} səhv cavab,{" "}
           {stats.skipped} keçid.
         </p>

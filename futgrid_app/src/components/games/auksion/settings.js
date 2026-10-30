@@ -26,22 +26,22 @@ export const OPTIONS = {
 
 export const SIDES = {
   A: {
-    text: "text-blue-400",
-    border: "border-blue-500",
-    soft: "bg-blue-500/10",
-    solid: "bg-blue-500 text-white",
-    bar: "bg-blue-500",
-    ring: "#3b82f6",
-    shadow: "shadow-[0_0_0_1px_rgba(59,130,246,0.45),0_20px_60px_-30px_rgba(59,130,246,0.7)]",
+    text: "text-accent-hi",
+    border: "border-accent",
+    soft: "bg-accent/10",
+    solid: "bg-accent text-white",
+    bar: "bg-accent",
+    ring: "var(--fg-accent)",
+    shadow: "shadow-[0_0_0_1px_color-mix(in_srgb,var(--fg-accent)_45%,transparent),0_20px_60px_-30px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)]",
   },
   B: {
-    text: "text-amber-300",
-    border: "border-amber-400",
-    soft: "bg-amber-400/10",
-    solid: "bg-amber-400 text-black",
-    bar: "bg-amber-400",
-    ring: "#fbbf24",
-    shadow: "shadow-[0_0_0_1px_rgba(251,191,36,0.45),0_20px_60px_-30px_rgba(251,191,36,0.6)]",
+    text: "text-gold-hi",
+    border: "border-gold",
+    soft: "bg-gold/10",
+    solid: "bg-gold text-black",
+    bar: "bg-gold",
+    ring: "var(--fg-gold)",
+    shadow: "shadow-[0_0_0_1px_color-mix(in_srgb,var(--fg-gold)_45%,transparent),0_20px_60px_-30px_color-mix(in_srgb,var(--fg-gold)_60%,transparent)]",
   },
 };
 

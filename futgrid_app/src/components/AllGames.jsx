@@ -24,7 +24,7 @@ const STYLE = `
 `;
 
 const SHINE =
-  "pointer-events-none absolute inset-y-0 -left-1/3 z-10 w-1/3 bg-linear-to-r from-transparent via-white/25 to-transparent opacity-0";
+  "pointer-events-none absolute inset-y-0 -left-1/3 z-10 w-1/3 bg-linear-to-r from-transparent via-line/25 to-transparent opacity-0";
 
 const canTilt = () =>
   window.matchMedia(
@@ -93,18 +93,18 @@ function GameTile({ game, index }) {
         to={game.href}
         onMouseMove={onMove}
         onMouseLeave={onLeave}
-        className="group/tile relative flex h-full flex-col overflow-hidden border border-line/10 bg-surface transition-[transform,border-color,box-shadow] duration-300 ease-out will-change-transform hover:border-blue-500/60 hover:shadow-[0_24px_60px_-28px_rgba(59,130,246,0.75)] active:scale-[0.98]"
+        className="group/tile relative flex h-full flex-col overflow-hidden border border-line/10 bg-surface transition-[transform,border-color,box-shadow] duration-300 ease-out will-change-transform hover:border-accent/60 hover:shadow-[0_24px_60px_-28px_color-mix(in_srgb,var(--fg-accent)_75%,transparent)] active:scale-[0.98]"
       >
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300 group-hover/tile:opacity-100"
           style={{
             background:
-              "radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(59,130,246,0.14), transparent 45%)",
+              "radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--fg-accent) 14%, transparent), transparent 45%)",
           }}
         />
 
-        <div className="relative aspect-16/10 shrink-0 overflow-hidden bg-[#070a12]">
+        <div data-theme="dark" className="relative aspect-16/10 shrink-0 overflow-hidden bg-surface-2">
           <Cover game={game} soon={soon} />
           <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
           <span
@@ -114,15 +114,15 @@ function GameTile({ game, index }) {
           <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-1.5 md:left-4 md:top-4">
             {soon && (
               <span
-                className={`inline-flex items-center gap-1.5 border border-amber-300/40 bg-black/60 px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-wider text-amber-200 backdrop-blur-sm`}
+                className={`inline-flex items-center gap-1.5 border border-gold-hi/40 bg-black/60 px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-wider text-gold-hi backdrop-blur-sm`}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-300 animate-[agBlink_1.6s_ease-in-out_infinite]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold-hi animate-[agBlink_1.6s_ease-in-out_infinite]" />
                 Tezliklə
               </span>
             )}
             {game.isNew && (
               <span
-                className={`inline-flex items-center gap-1 bg-blue-500 px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-wider text-white`}
+                className={`inline-flex items-center gap-1 bg-accent px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-wider text-white`}
               >
                 <Sparkles className="h-3 w-3" />
                 Yeni
@@ -132,14 +132,14 @@ function GameTile({ game, index }) {
           <span
             className={`absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center transition-transform duration-300 group-hover/tile:scale-110 md:right-4 md:top-4 ${
               soon
-                ? "border border-white/20 bg-black/50 text-white backdrop-blur-sm"
-                : "bg-blue-500 text-white"
+                ? "border border-line/20 bg-black/50 text-ink backdrop-blur-sm"
+                : "bg-accent text-white"
             }`}
           >
             {!soon && (
               <span
                 aria-hidden="true"
-                className="absolute inset-0 bg-blue-500/60 animate-[agPulse_2.2s_ease-out_infinite] motion-reduce:hidden"
+                className="absolute inset-0 bg-accent/60 animate-[agPulse_2.2s_ease-out_infinite] motion-reduce:hidden"
               />
             )}
             {soon ? (
@@ -151,7 +151,7 @@ function GameTile({ game, index }) {
         </div>
 
         <div className="relative z-10 flex flex-1 flex-col p-5 md:p-6">
-          <p className={`${FONT} text-xs uppercase tracking-[0.2em] text-blue-500`}>
+          <p className={`${FONT} text-xs uppercase tracking-[0.2em] text-accent`}>
             {game.genre}
           </p>
           <h3
@@ -184,7 +184,7 @@ function GameTile({ game, index }) {
                 </span>
               ) : (
                 <span
-                  className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-blue-500`}
+                  className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-accent`}
                 >
                   Oyna
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/tile:translate-x-1.5" />
@@ -210,7 +210,7 @@ function Header() {
       <div aria-hidden="true" className="absolute inset-0 bg-page/80 light:bg-page/90" />
       <div
         aria-hidden="true"
-        className="absolute -left-24 top-10 h-80 w-80 rounded-full bg-blue-600/25 blur-[90px] animate-[agDrift_14s_ease-in-out_infinite] motion-reduce:animate-none"
+        className="absolute -left-24 top-10 h-80 w-80 rounded-full bg-accent-lo/25 blur-[90px] animate-[agDrift_14s_ease-in-out_infinite] motion-reduce:animate-none"
       />
       <div
         aria-hidden="true"
@@ -221,13 +221,13 @@ function Header() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 animate-[agGrid_2.5s_linear_infinite] opacity-25 mask-[linear-gradient(to_top,black,transparent)] motion-reduce:animate-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(59,130,246,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.45) 1px, transparent 1px)",
+            "linear-gradient(color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
           transform: "perspective(420px) rotateX(58deg)",
           transformOrigin: "bottom",
         }}
       />
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-blue-500" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-accent" />
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-page"
@@ -241,14 +241,14 @@ function Header() {
           <Link to="/" className="transition-colors duration-300 hover:text-ink">
             Ana səhifə
           </Link>
-          <span className="text-blue-500">/</span>
+          <span className="text-accent">/</span>
           <span className="text-muted">Oyunlar</span>
         </nav>
 
         <div className="mt-6 flex items-center gap-3 md:mt-8">
-          <span className="h-px w-10 origin-left bg-blue-500 animate-[agLine_0.8s_ease-out_0.1s_both] md:w-16" />
+          <span className="h-px w-10 origin-left bg-accent animate-[agLine_0.8s_ease-out_0.1s_both] md:w-16" />
           <p
-            className={`${FONT} text-base uppercase tracking-wider text-blue-500 animate-[agFade_0.6s_ease-out_0.2s_both] md:text-xl`}
+            className={`${FONT} text-base uppercase tracking-wider text-accent animate-[agFade_0.6s_ease-out_0.2s_both] md:text-xl`}
           >
             Oyun kolleksiyası
           </p>
@@ -287,7 +287,7 @@ export default function AllGames() {
 
       <section className="relative pb-16 md:pb-24">
         <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
-          <label className="relative flex h-12 w-full items-center border border-line/10 bg-surface/70 backdrop-blur-sm transition-colors duration-300 animate-[agFade_0.6s_ease-out_0.45s_both] focus-within:border-blue-500 md:max-w-md">
+          <label className="relative flex h-12 w-full items-center border border-line/10 bg-surface/70 backdrop-blur-sm transition-colors duration-300 animate-[agFade_0.6s_ease-out_0.45s_both] focus-within:border-accent md:max-w-md">
             <Search className="pointer-events-none absolute left-4 h-4 w-4 text-faint" />
             <input
               value={query}

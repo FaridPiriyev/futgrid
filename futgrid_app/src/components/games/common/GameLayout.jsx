@@ -6,7 +6,7 @@ function BackLink() {
   return (
     <Link
       to="/oyunlar"
-      className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-300 hover:text-white`}
+      className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-muted transition-colors duration-300 hover:text-ink`}
     >
       <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
       Oyunlara qayıt
@@ -23,7 +23,7 @@ export default function GameLayout({
 }) {
   return (
     <section
-      className={`relative w-full overflow-hidden bg-[#05060a] ${
+      className={`relative w-full overflow-hidden bg-page ${
         compact
           ? "min-h-[calc(100svh-7rem)] pb-6 pt-4 md:min-h-[calc(100svh-8.75rem)] md:pt-20"
           : "min-h-screen pb-16 pt-28 md:pt-32"
@@ -31,11 +31,11 @@ export default function GameLayout({
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.18),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,color-mix(in_srgb,var(--fg-accent)_18%,transparent),transparent_60%)]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-0.5 bg-blue-500"
+        className="absolute inset-x-0 top-0 h-0.5 bg-accent"
       />
 
       <div
@@ -45,7 +45,7 @@ export default function GameLayout({
           <div className="flex items-center justify-between gap-4">
             <BackLink />
             <span
-              className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-blue-500`}
+              className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-accent`}
             >
               {title}
             </span>
@@ -56,19 +56,19 @@ export default function GameLayout({
             <header className="mt-6 text-center">
               {eyebrow && (
                 <p
-                  className={`${FONT} text-base uppercase tracking-wider text-blue-500 md:text-xl`}
+                  className={`${FONT} text-base uppercase tracking-wider text-accent md:text-xl`}
                 >
                   {eyebrow}
                 </p>
               )}
               <h1
-                className={`mt-1 ${FONT} text-4xl font-bold uppercase leading-tight text-white md:text-[56px]`}
+                className={`mt-1 ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
               >
                 {title}
               </h1>
               {description && (
                 <p
-                  className={`mx-auto mt-3 max-w-2xl ${FONT} text-base font-light leading-7 text-neutral-400 md:text-lg`}
+                  className={`mx-auto mt-3 max-w-2xl ${FONT} text-base font-light leading-7 text-muted md:text-lg`}
                 >
                   {description}
                 </p>

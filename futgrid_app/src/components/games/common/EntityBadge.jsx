@@ -21,5 +21,5 @@ export default function EntityBadge({ entity, size = "h-20 w-20 md:h-28 md:w-28"
     );
   }
   if (entity.type === "country") return <span className="text-6xl leading-none md:text-7xl">{entity.flag}</span>;
-  return <span className={`flex ${size} items-center justify-center bg-white/10 ${FONT} text-xl font-bold text-white`}>{entity.short}</span>;
+  return <span className={`flex ${size} items-center justify-center bg-line/10 ${FONT} text-xl font-bold text-ink`}>{entity.short}</span>;
 }

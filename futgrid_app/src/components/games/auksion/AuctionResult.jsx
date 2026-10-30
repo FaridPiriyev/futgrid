@@ -42,10 +42,10 @@ function useCount(target, run, duration = 1200) {
 function Pitch({ team, side }) {
   const used = { GK: 0, DF: 0, MF: 0, FW: 0 };
   return (
-    <div className="relative h-80 overflow-hidden border border-white/8 bg-linear-to-b from-[#0d2a1c] to-[#0a1f16] md:h-96">
-      <span className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/12" />
-      <span className="absolute bottom-0 left-1/2 h-12 w-32 -translate-x-1/2 border border-b-0 border-white/12" />
-      <span className="absolute inset-x-0 top-0 h-px bg-white/12" />
+    <div data-theme="dark" className="relative h-80 overflow-hidden border border-line/8 bg-linear-to-b from-[#0d2a1c] to-[#0a1f16] md:h-96">
+      <span className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-line/12" />
+      <span className="absolute bottom-0 left-1/2 h-12 w-32 -translate-x-1/2 border border-b-0 border-line/12" />
+      <span className="absolute inset-x-0 top-0 h-px bg-line/12" />
       {team.slots.map((s, i) => {
         if (!s.pick) return null;
         const [x, y] = SPOTS[s.pos][used[s.pos]++] ?? [50, 50];
@@ -61,16 +61,16 @@ function Pitch({ team, side }) {
                 className={`h-11 w-11 border-2 ${SIDES[side].border}`}
                 textClass="text-sm"
               />
-              <span className="absolute -bottom-1.5 -right-2.5 bg-amber-400 px-1 text-[10px] font-bold text-black">
+              <span className="absolute -bottom-1.5 -right-2.5 bg-gold px-1 text-[10px] font-bold text-black">
                 {s.pick.rating}
               </span>
             </span>
             <span
-              className={`mt-1.5 block truncate ${FONT} text-[11px] font-bold text-white [text-shadow:0_1px_4px_#000]`}
+              className={`mt-1.5 block truncate ${FONT} text-[11px] font-bold text-ink [text-shadow:0_1px_4px_#000]`}
             >
               {shortName(s.pick.player.name)}
             </span>
-            <span className={`block ${FONT} text-[10px] text-neutral-400`}>
+            <span className={`block ${FONT} text-[10px] text-muted`}>
               {s.pick.auto ? "avtomatik" : money(s.pick.price)}
             </span>
           </div>
@@ -83,11 +83,11 @@ function Pitch({ team, side }) {
 function Bar({ label, value, width, color }) {
   return (
     <div>
-      <div className={`flex justify-between ${FONT} text-sm text-neutral-300`}>
+      <div className={`flex justify-between ${FONT} text-sm text-soft`}>
         <span>{label}</span>
-        <span className="font-bold text-white">{value}</span>
+        <span className="font-bold text-ink">{value}</span>
       </div>
-      <div className="mt-1.5 h-1.5 overflow-hidden bg-white/8">
+      <div className="mt-1.5 h-1.5 overflow-hidden bg-line/8">
         <span
           className={`block h-full origin-left animate-[auGrow_1s_ease-out_0.4s_both] ${color}`}
           style={{ width: `${Math.max(0, Math.min(100, width))}%` }}
@@ -111,8 +111,8 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
 
   return (
     <div
-      className={`grid gap-5 border bg-[#0b0e14]/85 p-4 animate-[auIn_0.6s_ease-out_both] md:grid-cols-[240px_1fr] md:p-5 ${
-        place === 1 ? `border-transparent ${SIDES[side].shadow}` : "border-white/10"
+      className={`grid gap-5 border bg-surface/85 p-4 animate-[auIn_0.6s_ease-out_both] md:grid-cols-[240px_1fr] md:p-5 ${
+        place === 1 ? `border-transparent ${SIDES[side].shadow}` : "border-line/10"
       }`}
       style={{ animationDelay: delay }}
     >
@@ -122,27 +122,27 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
           <span className={`${FONT} text-xl font-bold uppercase ${SIDES[side].text}`}>{name}</span>
           {place === 1 && (
             <span
-              className={`inline-flex items-center gap-1.5 bg-amber-400/15 px-2.5 py-1 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-amber-300`}
+              className={`inline-flex items-center gap-1.5 bg-gold/15 px-2.5 py-1 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-gold-hi`}
             >
               <Trophy className="h-3.5 w-3.5" />
               Qalib
             </span>
           )}
         </div>
-        <p className={`mt-2 ${FONT} text-5xl font-bold text-white`}>
+        <p className={`mt-2 ${FONT} text-5xl font-bold text-ink`}>
           {total}
-          <span className="ml-2 text-sm font-normal text-neutral-500">güc xalı</span>
+          <span className="ml-2 text-sm font-normal text-faint">güc xalı</span>
         </p>
         <div className="mt-4 space-y-3">
           <Bar label="Reytinq cəmi" value={res.ratings} width={(res.ratings / 495) * 100} color={SIDES[side].bar} />
-          <Bar label="Kimya (eyni klub / ölkə)" value={`+${res.chem}`} width={res.chem * 10} color="bg-emerald-400" />
+          <Bar label="Kimya (eyni klub / ölkə)" value={`+${res.chem}`} width={res.chem * 10} color="bg-good" />
           <Bar label="Xərclənən" value={money(res.spent)} width={(res.spent / BUDGET) * 100} color="bg-violet-400" />
         </div>
-        <div className={`mt-4 space-y-1 border-t border-white/8 pt-3 ${FONT} text-sm leading-relaxed text-neutral-400`}>
+        <div className={`mt-4 space-y-1 border-t border-line/8 pt-3 ${FONT} text-sm leading-relaxed text-muted`}>
           {best && (
             <p>
               Ən sərfəli alış:{" "}
-              <span className="font-bold text-amber-200">
+              <span className="font-bold text-gold-hi">
                 {shortName(best.player.name)} · {money(best.price)}
               </span>{" "}
               ({best.rating})
@@ -176,18 +176,18 @@ export default function AuctionResult({ data, state, names, solo, onAgain, onSet
   return (
     <div>
       <div className="text-center animate-[auIn_0.5s_ease-out_both]">
-        <p className={`${FONT} text-sm font-bold uppercase tracking-[0.28em] text-amber-400`}>
+        <p className={`${FONT} text-sm font-bold uppercase tracking-[0.28em] text-gold`}>
           Hərrac bitdi
         </p>
-        <h2 className={`mt-2 ${FONT} text-3xl font-bold uppercase text-white md:text-5xl`}>
+        <h2 className={`mt-2 ${FONT} text-3xl font-bold uppercase text-ink md:text-5xl`}>
           {title}
         </h2>
-        <p className={`mt-2 ${FONT} text-sm text-neutral-400`}>
+        <p className={`mt-2 ${FONT} text-sm text-muted`}>
           Reytinqlərin cəmi + kimya bonusu (eyni klub +2, eyni ölkə +1, maksimum +10)
         </p>
         <div className={`mt-4 flex items-center justify-center gap-6 ${FONT} font-bold`}>
           <span className={`text-5xl md:text-6xl ${SIDES.A.text}`}>{a}</span>
-          <span className="text-sm tracking-[0.3em] text-neutral-600">VS</span>
+          <span className="text-sm tracking-[0.3em] text-dim">VS</span>
           <span className={`text-5xl md:text-6xl ${SIDES.B.text}`}>{b}</span>
         </div>
       </div>

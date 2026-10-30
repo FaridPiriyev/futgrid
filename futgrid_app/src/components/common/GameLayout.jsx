@@ -4,20 +4,20 @@ import { FONT } from "./ui";
 
 export default function GameLayout({ eyebrow, title, description, children }) {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#05060a] pb-16 pt-28 md:pt-32">
+    <section className="relative min-h-screen w-full overflow-hidden bg-page pb-16 pt-28 md:pt-32">
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.18),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,color-mix(in_srgb,var(--fg-accent)_18%,transparent),transparent_60%)]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-0.5 bg-blue-500"
+        className="absolute inset-x-0 top-0 h-0.5 bg-accent"
       />
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6">
         <Link
           to="/#games"
-          className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-300 hover:text-white`}
+          className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-muted transition-colors duration-300 hover:text-ink`}
         >
           <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
           Oyunlara qayıt
@@ -26,19 +26,19 @@ export default function GameLayout({ eyebrow, title, description, children }) {
         <header className="mt-6 text-center">
           {eyebrow && (
             <p
-              className={`${FONT} text-base uppercase tracking-wider text-blue-500 md:text-xl`}
+              className={`${FONT} text-base uppercase tracking-wider text-accent md:text-xl`}
             >
               {eyebrow}
             </p>
           )}
           <h1
-            className={`mt-1 ${FONT} text-4xl font-bold uppercase leading-tight text-white md:text-[56px]`}
+            className={`mt-1 ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
           >
             {title}
           </h1>
           {description && (
             <p
-              className={`mx-auto mt-3 max-w-2xl ${FONT} text-base font-light leading-7 text-neutral-400 md:text-lg`}
+              className={`mx-auto mt-3 max-w-2xl ${FONT} text-base font-light leading-7 text-muted md:text-lg`}
             >
               {description}
             </p>

@@ -28,7 +28,7 @@ const SOCIALS = [
 const LANGUAGES = ["AZ", "EN", "RU"];
 
 const linkBase =
-  "font-['Roboto_Condensed',sans-serif] text-[15px] font-bold uppercase tracking-wide transition-colors duration-300";
+  "font-['Roboto_Condensed',sans-serif] whitespace-nowrap text-[13px] font-bold uppercase tracking-wide transition-colors duration-300 xl:text-[15px]";
 
 const stickyLink =
   "font-['Roboto',sans-serif] text-[17px] font-medium transition-colors duration-300";
@@ -95,9 +95,7 @@ function NavLink({ link, active, onGo }) {
       onClick={(e) => onGo(link, e)}
       aria-current={active ? "page" : undefined}
       className={`${linkBase} ${
-        active
-          ? "text-blue-500 [text-shadow:0_0_14px_rgba(59,130,246,0.55)]"
-          : "text-neutral-400 hover:text-white"
+        active ? "text-accent" : "text-nav-ink hover:text-accent"
       }`}
     >
       {link.label}
@@ -105,16 +103,16 @@ function NavLink({ link, active, onGo }) {
   );
 }
 
-function Burger({ open, onClick, className = "" }) {
+function Burger({ open, onClick, className = "", hideAt = "md:hidden" }) {
   const bar =
-    "absolute right-0 h-0.5 rounded-full bg-blue-500 transition-all duration-300 ease-out motion-reduce:transition-none";
+    "absolute right-0 h-0.5 rounded-full bg-accent transition-all duration-300 ease-out motion-reduce:transition-none";
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={open ? "Menyunu bağla" : "Menyunu aç"}
       aria-expanded={open}
-      className={`relative flex h-11 w-11 items-center justify-center md:hidden ${className}`}
+      className={`relative flex h-11 w-11 items-center justify-center ${hideAt} ${className}`}
     >
       <span className="relative block h-4.5 w-7">
         <span
@@ -148,7 +146,7 @@ function MenuExtras({ open, language, setLanguage }) {
             href={href}
             aria-label={label}
             tabIndex={tab}
-            className="text-neutral-400 transition-colors hover:text-white"
+            className="text-nav-soft transition-colors hover:text-nav-ink"
           >
             <Icon className="h-4.5 w-4.5" />
           </a>
@@ -156,7 +154,7 @@ function MenuExtras({ open, language, setLanguage }) {
       </div>
       <div className="flex items-center gap-2">
         <div
-          className="flex overflow-hidden rounded-md border border-white/10"
+          className="flex overflow-hidden rounded-md border border-nav-line"
           role="group"
           aria-label="Dil"
         >
@@ -169,8 +167,8 @@ function MenuExtras({ open, language, setLanguage }) {
               aria-pressed={lang === language}
               className={`px-2.5 py-1.5 font-['Roboto_Condensed',sans-serif] text-xs font-bold transition-colors ${
                 lang === language
-                  ? "bg-blue-500 text-white"
-                  : "text-neutral-400 hover:bg-white/5 hover:text-white"
+                  ? "bg-accent text-white"
+                  : "text-nav-soft hover:bg-line/5 hover:text-nav-ink"
               }`}
             >
               {lang}
@@ -179,23 +177,29 @@ function MenuExtras({ open, language, setLanguage }) {
         </div>
         <ThemeToggle
           tabIndex={tab}
-          className="h-8 w-8 rounded-md border border-white/10 hover:bg-white/5"
+          className="h-8 w-8 rounded-md border border-nav-line hover:bg-line/5"
         />
       </div>
     </div>
   );
 }
 
-function MobileMenu({ open, active, onGo, extras = null }) {
+function MobileMenu({
+  open,
+  active,
+  onGo,
+  extras = null,
+  hideAt = "md:hidden",
+}) {
   return (
     <div
-      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none md:hidden ${
+      className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${hideAt} ${
         open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
       }`}
       aria-hidden={!open}
     >
       <div className="overflow-hidden">
-        <nav className="border-t border-white/10 bg-black px-4 pb-4 pt-1">
+        <nav className="border-t border-nav-line bg-nav px-4 pb-4 pt-1 shadow-[0_12px_24px_rgba(15,23,42,0.08)]">
           {ALL_LINKS.map((link) => {
             const on = active === link.key;
             return (
@@ -205,20 +209,20 @@ function MobileMenu({ open, active, onGo, extras = null }) {
                 tabIndex={open ? 0 : -1}
                 onClick={(e) => onGo(link, e)}
                 aria-current={on ? "page" : undefined}
-                className={`flex items-center justify-between border-b border-white/5 py-3.5 font-['Roboto_Condensed',sans-serif] text-lg font-bold uppercase tracking-wide transition-colors duration-200 ${
-                  on ? "text-blue-500" : "text-neutral-300 hover:text-white"
+                className={`flex items-center justify-between border-b border-nav-line py-3.5 font-['Roboto_Condensed',sans-serif] text-lg font-bold uppercase tracking-wide transition-colors duration-200 ${
+                  on ? "text-accent" : "text-ink hover:text-accent"
                 }`}
               >
                 <span className="flex items-center gap-3">
                   <span
                     className={`h-5 w-0.5 rounded-full transition-colors duration-200 ${
-                      on ? "bg-blue-500" : "bg-white/10"
+                      on ? "bg-accent" : "bg-nav-line"
                     }`}
                   />
                   {link.label}
                 </span>
                 <ChevronRight
-                  className={`h-4 w-4 ${on ? "text-blue-500" : "text-neutral-600"}`}
+                  className={`h-4 w-4 ${on ? "text-accent" : "text-nav-soft"}`}
                 />
               </a>
             );
@@ -247,7 +251,7 @@ function LanguageMenu({ language, setLanguage }) {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 text-xs font-semibold text-neutral-400 transition-colors hover:text-white"
+        className="flex items-center gap-1 text-xs font-semibold text-nav-soft transition-colors hover:text-nav-ink"
         aria-label="Dili dəyiş"
         aria-expanded={open}
       >
@@ -259,7 +263,7 @@ function LanguageMenu({ language, setLanguage }) {
       </button>
 
       {open && (
-        <ul className="absolute right-0 top-full z-70 mt-3 min-w-18 overflow-hidden rounded-lg border border-neutral-800 bg-[#0b0909] py-1 shadow-xl">
+        <ul className="absolute right-0 top-full z-70 mt-3 min-w-18 overflow-hidden rounded-lg border border-nav-line bg-nav py-1 shadow-xl">
           {LANGUAGES.map((lang) => (
             <li key={lang}>
               <button
@@ -268,8 +272,8 @@ function LanguageMenu({ language, setLanguage }) {
                   setLanguage(lang);
                   setOpen(false);
                 }}
-                className={`block w-full px-4 py-1.5 text-left text-xs font-semibold transition-colors hover:bg-neutral-800 hover:text-white ${
-                  lang === language ? "text-blue-400" : "text-neutral-400"
+                className={`block w-full px-4 py-1.5 text-left text-xs font-semibold transition-colors hover:bg-line/5 hover:text-ink ${
+                  lang === language ? "text-accent" : "text-nav-soft"
                 }`}
               >
                 {lang}
@@ -342,7 +346,7 @@ export default function Navbar() {
       <img
         src="/logo.png"
         alt="FutGrid Logo"
-        className={`w-auto object-contain mix-blend-screen ${imgClassName}`}
+        className={`w-auto object-contain mix-blend-screen light:mix-blend-multiply light:invert light:hue-rotate-180 ${imgClassName}`}
       />
     </a>
   );
@@ -351,7 +355,7 @@ export default function Navbar() {
     <>
       <div
         aria-hidden={!scrolled}
-        className={`fixed inset-x-0 top-0 z-60 bg-black shadow-[0_4px_20px_rgba(0,0,0,0.6)] transition-[transform,opacity,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+        className={`fixed inset-x-0 top-0 z-60 bg-nav shadow-[0_4px_20px_rgba(15,23,42,0.1)] transition-[transform,opacity,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
           scrolled
             ? "visible translate-y-0 opacity-100"
             : "invisible -translate-y-full opacity-0"
@@ -359,12 +363,12 @@ export default function Navbar() {
       >
         <div className="mx-auto flex h-16 max-w-330 items-center justify-between px-4 md:h-22.5 md:px-6">
           {logoLink(
-            `block transition-all duration-500 motion-reduce:transition-none ${
+            `block rounded-lg bg-shield px-2.5 py-1 transition-all duration-500 motion-reduce:transition-none ${
               scrolled
                 ? "translate-x-0 opacity-100 delay-150"
                 : "-translate-x-4 opacity-0"
             }`,
-            "h-15 md:h-19",
+            "h-12 md:h-15",
           )}
 
           <nav className="hidden items-center gap-10 md:flex">
@@ -386,8 +390,8 @@ export default function Navbar() {
                   aria-current={active === l.key ? "page" : undefined}
                   className={`${stickyLink} ${
                     active === l.key
-                      ? "text-blue-500"
-                      : "text-white hover:text-blue-400"
+                      ? "text-accent"
+                      : "text-ink hover:text-accent"
                   }`}
                 >
                   {l.label}
@@ -409,7 +413,7 @@ export default function Navbar() {
 
         <span
           aria-hidden="true"
-          className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-blue-500 transition-transform duration-700 motion-reduce:transition-none ${
+          className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-accent transition-transform duration-700 motion-reduce:transition-none ${
             scrolled ? "scale-x-100 delay-300" : "scale-x-0"
           }`}
         />
@@ -431,52 +435,54 @@ export default function Navbar() {
       <header className="relative z-50 w-full select-none">
         <style>{`@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500&display=swap');`}</style>
 
-        <div className="pointer-events-none absolute inset-0 z-0 hidden md:block">
+        <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+          <div className="absolute inset-x-0 top-0 h-15 border-b border-nav-line bg-nav-top" />
+          <div className="absolute inset-x-0 top-15 h-20 border-b border-nav-line bg-nav shadow-[0_8px_24px_rgba(15,23,42,0.06)]" />
           <div
-            className="absolute left-0 top-0 h-32.5 w-full bg-[#0b0909]"
+            className="absolute left-0 top-0 h-52.5 w-full bg-shield [--sh:185px]"
             style={{
               clipPath:
-                "polygon(0 0, 100% 0, 100% 60px, calc(50% + 220px) 60px, 50% 130px, calc(50% - 220px) 60px, 0 60px)",
+                "polygon(calc(50% - var(--sh) - 26px) 0, calc(50% + var(--sh) + 26px) 0, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px)",
             }}
           />
           <div
-            className="absolute left-0 top-0 -z-10 h-52.5 w-full bg-[#000000] shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
+            className="absolute left-0 top-0 h-52.5 w-full bg-accent [--sh:185px]"
             style={{
               clipPath:
-                "polygon(0 0, 100% 0, 100% 140px, calc(50% + 220px) 140px, 50% 210px, calc(50% - 220px) 140px, 0 140px)",
+                "polygon(calc(50% + var(--sh)) 137px, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px, calc(50% - var(--sh)) 137px, 50% 207px)",
             }}
           />
         </div>
 
-        <div className="relative z-20 h-11 border-b border-white/5 bg-[#0b0909] md:h-15 md:border-0 md:bg-transparent">
+        <div className="relative z-20 h-11 border-b border-nav-line bg-nav-top lg:h-15 lg:border-0 lg:bg-transparent">
           <div className="mx-auto flex h-full max-w-330 items-center justify-between px-4 md:px-6">
-            <span className="hidden font-['Roboto',sans-serif] text-sm text-neutral-400 md:inline">
+            <span className="hidden font-['Roboto',sans-serif] text-sm text-nav-soft lg:inline">
               Welcome to FutGrid tactical hub
             </span>
 
-            <div className="flex items-center gap-4 md:hidden">
+            <div className="flex items-center gap-4 lg:hidden">
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="text-neutral-400 transition-colors hover:text-white"
+                  className="text-nav-soft transition-colors hover:text-nav-ink"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
 
-            <div className="flex items-center gap-5 md:gap-7">
+            <div className="flex items-center gap-5 lg:gap-7">
               <LanguageMenu language={language} setLanguage={setLanguage} />
-              <span className="h-4 w-px bg-white/10 md:hidden" />
+              <span className="h-4 w-px bg-nav-line lg:hidden" />
               <ThemeToggle className="h-6 w-6" />
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="hidden text-white transition-opacity hover:opacity-70 md:block"
+                  className="hidden text-ink transition-colors hover:text-accent lg:block"
                 >
                   <Icon className="h-4.5 w-4.5" />
                 </a>
@@ -485,11 +491,14 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="relative z-10 flex h-18 items-center bg-black md:h-20 md:bg-transparent">
+        <div className="relative z-10 flex h-18 items-center border-b border-nav-line bg-nav lg:h-20 lg:border-0 lg:bg-transparent">
           <div className="mx-auto flex w-full max-w-330 items-center justify-between px-4 md:px-6">
-            {logoLink("block md:hidden", "h-15")}
+            {logoLink(
+              "block rounded-lg bg-shield px-2 py-0.5 lg:hidden",
+              "h-13",
+            )}
 
-            <nav className="hidden w-[40%] items-center justify-start gap-12 md:flex lg:gap-20">
+            <nav className="hidden min-w-0 flex-1 items-center justify-start gap-5 lg:flex xl:gap-12 2xl:gap-16">
               {LEFT_LINKS.map((l) => (
                 <NavLink
                   key={l.key}
@@ -500,7 +509,12 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <nav className="hidden w-[40%] items-center justify-end gap-12 md:flex lg:gap-20">
+            <span
+              aria-hidden="true"
+              className="hidden w-100 shrink-0 lg:block"
+            />
+
+            <nav className="hidden min-w-0 flex-1 items-center justify-end gap-5 lg:flex xl:gap-12 2xl:gap-16">
               {RIGHT_LINKS.map((l) => (
                 <NavLink
                   key={l.key}
@@ -515,18 +529,15 @@ export default function Navbar() {
               open={isMobileMenuOpen && !scrolled}
               onClick={toggleMenu}
               className="-mr-2"
+              hideAt="lg:hidden"
             />
           </div>
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-blue-500/60 to-transparent md:hidden"
-          />
         </div>
 
-        <div className="pointer-events-none absolute left-1/2 top-8.75 z-30 hidden -translate-x-1/2 justify-center md:flex">
+        <div className="pointer-events-none absolute left-1/2 top-8.75 z-30 hidden -translate-x-1/2 justify-center lg:flex">
           {logoLink(
             "pointer-events-auto block transition-transform hover:scale-105",
-            "drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] md:h-16 lg:h-23",
+            "drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] light:drop-shadow-none lg:h-20 xl:h-23",
           )}
         </div>
 
@@ -535,6 +546,7 @@ export default function Navbar() {
             open={isMobileMenuOpen && !scrolled}
             active={active}
             onGo={go}
+            hideAt="lg:hidden"
           />
         </div>
       </header>

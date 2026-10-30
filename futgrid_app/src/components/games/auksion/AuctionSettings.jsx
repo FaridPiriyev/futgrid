@@ -7,7 +7,7 @@ function Field({ label, children }) {
   return (
     <div>
       <p
-        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400`}
+        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
       >
         {label}
       </p>
@@ -19,7 +19,7 @@ function Field({ label, children }) {
 function NameInput({ side, value, onChange, placeholder }) {
   return (
     <label
-      className={`flex items-center border bg-white/5 transition-colors duration-200 focus-within:bg-white/10 ${SIDES[side].border}`}
+      className={`flex items-center border bg-line/5 transition-colors duration-200 focus-within:bg-line/10 ${SIDES[side].border}`}
     >
       <span
         className={`flex h-11 w-11 shrink-0 items-center justify-center ${SIDES[side].solid} ${FONT} text-lg font-bold`}
@@ -33,7 +33,7 @@ function NameInput({ side, value, onChange, placeholder }) {
         maxLength={16}
         autoComplete="off"
         spellCheck={false}
-        className={`h-11 min-w-0 flex-1 bg-transparent px-3 ${FONT} text-base text-white placeholder-neutral-500 outline-none`}
+        className={`h-11 min-w-0 flex-1 bg-transparent px-3 ${FONT} text-base text-ink placeholder-faint outline-none`}
       />
     </label>
   );
@@ -54,18 +54,18 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
   const versus = mode === "same";
 
   return (
-    <section className="mx-auto max-w-5xl border border-white/10 bg-[#0b0e14]/85 p-4 backdrop-blur-sm md:p-6">
+    <section className="mx-auto max-w-5xl border border-line/10 bg-surface/85 p-4 backdrop-blur-sm md:p-6">
       <h2
-        className={`${FONT} text-xl font-bold uppercase tracking-wide text-white md:text-2xl`}
+        className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink md:text-2xl`}
       >
         {versus ? "Eyni ekran" : "Bota qarşı"}
-        <span className="text-neutral-500"> · parametrlər</span>
+        <span className="text-faint"> · parametrlər</span>
       </h2>
 
       <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
         {RULES.map((r) => (
-          <li key={r} className={`flex gap-2 ${FONT} text-sm text-neutral-400`}>
-            <span className="mt-2 h-1 w-1 shrink-0 bg-blue-500" />
+          <li key={r} className={`flex gap-2 ${FONT} text-sm text-muted`}>
+            <span className="mt-2 h-1 w-1 shrink-0 bg-accent" />
             {r}
           </li>
         ))}
@@ -118,16 +118,16 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
         </Field>
         {versus && (
           <Field label="Klaviatura">
-            <p className={`${FONT} text-sm leading-6 text-neutral-400`}>
-              <span className="text-blue-400">Oyunçu 1:</span> 1 · 2 · 3 təklif, Q keç
+            <p className={`${FONT} text-sm leading-6 text-muted`}>
+              <span className="text-accent-hi">Oyunçu 1:</span> 1 · 2 · 3 təklif, Q keç
               <br />
-              <span className="text-amber-300">Oyunçu 2:</span> 8 · 9 · 0 təklif, P keç
+              <span className="text-gold-hi">Oyunçu 2:</span> 8 · 9 · 0 təklif, P keç
             </p>
           </Field>
         )}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-3 border-t border-white/10 pt-4">
+      <div className="mt-5 flex flex-wrap gap-3 border-t border-line/10 pt-4">
         <button type="button" onClick={onStart} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
           <Play className="h-4 w-4" />

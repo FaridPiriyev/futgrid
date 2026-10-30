@@ -28,22 +28,22 @@ export const OPTIONS = {
 
 export const SIDES = {
   A: {
-    text: "text-blue-400",
-    border: "border-blue-500",
-    bg: "bg-blue-500/15",
-    solid: "bg-blue-500 text-white",
-    ring: "ring-blue-500",
-    dot: "bg-blue-400",
-    glow: "rgba(59,130,246,0.65)",
+    text: "text-accent-hi",
+    border: "border-accent",
+    bg: "bg-accent/15",
+    solid: "bg-accent text-white",
+    ring: "ring-accent",
+    dot: "bg-accent-hi",
+    glow: "color-mix(in srgb, var(--fg-accent) 65%, transparent)",
   },
   B: {
-    text: "text-amber-300",
-    border: "border-amber-400",
-    bg: "bg-amber-400/10",
-    solid: "bg-amber-400 text-black",
-    ring: "ring-amber-400",
-    dot: "bg-amber-300",
-    glow: "rgba(251,191,36,0.6)",
+    text: "text-gold-hi",
+    border: "border-gold",
+    bg: "bg-gold/10",
+    solid: "bg-gold text-black",
+    ring: "ring-gold",
+    dot: "bg-gold-hi",
+    glow: "color-mix(in srgb, var(--fg-gold) 60%, transparent)",
   },
 };
 

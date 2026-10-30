@@ -10,20 +10,20 @@ export default function X0XChoices({ options, onSelect }) {
           key={p.id}
           type="button"
           onClick={() => onSelect(p)}
-          className="group flex items-center gap-3 border border-white/10 bg-white/5 px-3 py-2 text-left transition-colors duration-200 hover:border-blue-500 hover:bg-blue-500/15"
+          className="group flex items-center gap-3 border border-line/10 bg-line/5 px-3 py-2 text-left transition-colors duration-200 hover:border-accent hover:bg-accent/15"
         >
           <span
-            className={`flex h-8 w-8 shrink-0 items-center justify-center bg-blue-500 ${FONT} text-sm font-bold text-white`}
+            className={`flex h-8 w-8 shrink-0 items-center justify-center bg-accent ${FONT} text-sm font-bold text-white`}
           >
             {String.fromCharCode(65 + i)}
           </span>
           <span className="min-w-0">
             <span
-              className={`block truncate ${FONT} text-base font-bold uppercase tracking-wide text-white`}
+              className={`block truncate ${FONT} text-base font-bold uppercase tracking-wide text-ink`}
             >
               {p.name}
             </span>
-            <span className={`block ${FONT} text-xs text-neutral-500`}>
+            <span className={`block ${FONT} text-xs text-faint`}>
               {[birthYear(p), p.position, p.nationality_code]
                 .filter(Boolean)
                 .join(" · ")}

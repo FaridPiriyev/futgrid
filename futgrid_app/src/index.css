@@ -1,37 +1,43 @@
 @import "tailwindcss";
+@import "./colors.css";
 
-@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *):not(:where([data-theme="dark"], [data-theme="dark"] *)));
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
   --color-page: var(--fg-page);
   --color-page-2: var(--fg-page-2);
   --color-surface: var(--fg-surface);
+  --color-surface-2: var(--fg-surface-2);
+  --color-deep: var(--fg-deep);
   --color-ink: var(--fg-ink);
+  --color-ink-soft: var(--fg-ink-soft);
+  --color-soft: var(--fg-soft);
   --color-muted: var(--fg-muted);
   --color-faint: var(--fg-faint);
+  --color-dim: var(--fg-dim);
   --color-line: var(--fg-line);
-}
-
-:root {
-  color-scheme: dark;
-  --fg-page: #05060a;
-  --fg-page-2: #0b0909;
-  --fg-surface: #0b0e14;
-  --fg-ink: #ffffff;
-  --fg-muted: #a3a3a3;
-  --fg-faint: #737373;
-  --fg-line: #ffffff;
-}
-
-[data-theme="light"] {
-  color-scheme: light;
-  --fg-page: #f3f5fa;
-  --fg-page-2: #e9edf5;
-  --fg-surface: #ffffff;
-  --fg-ink: #0b1220;
-  --fg-muted: #475569;
-  --fg-faint: #64748b;
-  --fg-line: #0b1220;
+  --color-accent: var(--fg-accent);
+  --color-accent-hi: var(--fg-accent-hi);
+  --color-accent-lo: var(--fg-accent-lo);
+  --color-gold: var(--fg-gold);
+  --color-gold-hi: var(--fg-gold-hi);
+  --color-gold-lo: var(--fg-gold-lo);
+  --color-good: var(--fg-good);
+  --color-good-hi: var(--fg-good-hi);
+  --color-good-lo: var(--fg-good-lo);
+  --color-bad: var(--fg-bad);
+  --color-bad-hi: var(--fg-bad-hi);
+  --color-bad-lo: var(--fg-bad-lo);
+  --color-cell: var(--fg-cell);
+  --color-cell-2: var(--fg-cell-2);
+  --color-cell-hi: var(--fg-cell-hi);
+  --color-nav: var(--fg-nav);
+  --color-nav-top: var(--fg-nav-top);
+  --color-nav-line: var(--fg-nav-line);
+  --color-nav-ink: var(--fg-nav-ink);
+  --color-nav-soft: var(--fg-nav-soft);
+  --color-shield: var(--fg-shield);
 }
 
 body {

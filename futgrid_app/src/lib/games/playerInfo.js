@@ -8,10 +8,10 @@ export const POS_NAME = {
   FW: "Hücumçu",
 };
 export const POS_STYLE = {
-  GK: "bg-amber-400/15 text-amber-300",
-  DF: "bg-emerald-400/15 text-emerald-300",
-  MF: "bg-sky-400/15 text-sky-300",
-  FW: "bg-rose-400/15 text-rose-300",
+  GK: "bg-gold/15 text-gold-hi",
+  DF: "bg-good/15 text-good-hi",
+  MF: "bg-accent/15 text-accent-hi",
+  FW: "bg-bad/15 text-bad-hi",
 };
 
 export function clubOf(data, p) {

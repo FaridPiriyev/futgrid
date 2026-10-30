@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
-const KEY = "fg-theme";
+const KEY = "fg-theme-v2";
 
 const readTheme = () => {
-  if (typeof document === "undefined") return "dark";
-  const current = document.documentElement.dataset.theme;
-  if (current) return current === "light" ? "light" : "dark";
   try {
-    return localStorage.getItem(KEY) === "light" ? "light" : "dark";
+    return localStorage.getItem(KEY) === "dark" ? "dark" : "light";
   } catch {
-    return "dark";
+    return "light";
   }
 };
 
@@ -43,14 +40,14 @@ export default function ThemeToggle({ className = "h-9 w-9", tabIndex }) {
       className={`relative flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-110 active:scale-95 ${className}`}
     >
       <Sun
-        className={`absolute h-5 w-5 text-amber-400 transition-all duration-500 ease-out ${
+        className={`absolute h-5 w-5 text-gold transition-all duration-500 ease-out ${
           light
             ? "rotate-90 scale-0 opacity-0"
             : "rotate-0 scale-100 opacity-100"
         }`}
       />
       <Moon
-        className={`absolute h-5 w-5 text-sky-300 transition-all duration-500 ease-out ${
+        className={`absolute h-5 w-5 text-accent transition-all duration-500 ease-out ${
           light
             ? "rotate-0 scale-100 opacity-100"
             : "-rotate-90 scale-0 opacity-0"

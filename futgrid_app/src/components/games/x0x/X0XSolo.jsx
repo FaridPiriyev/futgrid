@@ -139,12 +139,12 @@ export default function X0XSolo({ data, settings, onSettings }) {
   const corner = (
     <span className="text-center">
       <span
-        className={`block ${FONT} text-3xl font-bold leading-none text-white md:text-5xl`}
+        className={`block ${FONT} text-3xl font-bold leading-none text-ink md:text-5xl`}
       >
         {left}
       </span>
       <span
-        className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-blue-100 md:text-xs`}
+        className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-accent-hi md:text-xs`}
       >
         cəhd qalıb
       </span>
@@ -197,10 +197,10 @@ export default function X0XSolo({ data, settings, onSettings }) {
           aria-live="polite"
           className={`min-h-11 border-l-2 px-4 py-2.5 ${FONT} text-sm md:text-base ${
             feedback?.type === "ok"
-              ? "border-l-emerald-400 bg-emerald-500/10 text-emerald-300"
+              ? "border-l-good bg-good-lo/10 text-good-hi"
               : feedback?.type === "wrong"
-                ? "border-l-rose-500 bg-rose-500/10 text-rose-300"
-                : "border-l-white/20 bg-white/5 text-neutral-400"
+                ? "border-l-bad-lo bg-bad-lo/10 text-bad-hi"
+                : "border-l-line/20 bg-line/5 text-muted"
           }`}
         >
           {feedback?.text ??
@@ -300,10 +300,10 @@ export default function X0XSolo({ data, settings, onSettings }) {
           </>
         }
       >
-        <p className={`${FONT} text-base text-neutral-400`}>
-          Nadirlik xalı: <span className="font-bold text-white">{rarity}</span>
+        <p className={`${FONT} text-base text-muted`}>
+          Nadirlik xalı: <span className="font-bold text-ink">{rarity}</span>
         </p>
-        <p className={`mt-1 ${FONT} text-sm text-neutral-500`}>
+        <p className={`mt-1 ${FONT} text-sm text-faint`}>
           Mümkün cavablar: {grid.answers.reduce((a, b) => a + b, 0)}
         </p>
       </ResultModal>
@@ -313,15 +313,15 @@ export default function X0XSolo({ data, settings, onSettings }) {
 
 function Stat({ Icon, label, value }) {
   return (
-    <div className="min-w-0 border border-white/10 bg-white/5 px-3 py-2">
+    <div className="min-w-0 border border-line/10 bg-line/5 px-3 py-2">
       <span
-        className={`flex items-center gap-1.5 ${FONT} text-[10px] uppercase tracking-[0.15em] text-neutral-500 md:text-xs`}
+        className={`flex items-center gap-1.5 ${FONT} text-[10px] uppercase tracking-[0.15em] text-faint md:text-xs`}
       >
-        <Icon className="h-3.5 w-3.5 text-blue-400" />
+        <Icon className="h-3.5 w-3.5 text-accent-hi" />
         {label}
       </span>
       <span
-        className={`mt-0.5 block truncate ${FONT} text-lg font-bold text-white md:text-xl`}
+        className={`mt-0.5 block truncate ${FONT} text-lg font-bold text-ink md:text-xl`}
       >
         {value}
       </span>

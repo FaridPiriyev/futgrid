@@ -149,11 +149,11 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-neutral-400`}>
-          Lot <span className="font-bold text-white">{state.lotNo}</span>
-          <span className="mx-2 text-neutral-600">·</span>
+        <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-muted`}>
+          Lot <span className="font-bold text-ink">{state.lotNo}</span>
+          <span className="mx-2 text-dim">·</span>
           Satılan{" "}
-          <span className="font-bold text-white">
+          <span className="font-bold text-ink">
             {state.log.filter((l) => l.winner).length}
           </span>
           /10

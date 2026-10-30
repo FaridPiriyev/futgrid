@@ -15,7 +15,7 @@ function Field({ label, children }) {
   return (
     <div>
       <p
-        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400`}
+        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
       >
         {label}
       </p>
@@ -27,7 +27,7 @@ function Field({ label, children }) {
 function NameInput({ mark, value, onChange, placeholder }) {
   return (
     <label
-      className={`flex items-center border bg-white/5 transition-colors duration-200 focus-within:bg-white/10 ${MARKS[mark].border}`}
+      className={`flex items-center border bg-line/5 transition-colors duration-200 focus-within:bg-line/10 ${MARKS[mark].border}`}
     >
       <span
         className={`flex h-11 w-11 shrink-0 items-center justify-center ${MARKS[mark].bg} ${FONT} text-2xl font-bold ${MARKS[mark].text}`}
@@ -41,7 +41,7 @@ function NameInput({ mark, value, onChange, placeholder }) {
         maxLength={16}
         autoComplete="off"
         spellCheck={false}
-        className={`h-11 min-w-0 flex-1 bg-transparent px-3 ${FONT} text-base text-white placeholder-neutral-500 outline-none`}
+        className={`h-11 min-w-0 flex-1 bg-transparent px-3 ${FONT} text-base text-ink placeholder-faint outline-none`}
       />
     </label>
   );
@@ -68,7 +68,7 @@ export default function X0XSettings({
   const categories = (
     <div>
       <p
-        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400`}
+        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
       >
         Kateqoriyalar
       </p>
@@ -89,16 +89,16 @@ export default function X0XSettings({
   );
 
   return (
-    <section className="mx-auto max-w-5xl border border-white/10 bg-[#0b0e14]/85 p-4 backdrop-blur-sm md:p-6">
+    <section className="mx-auto max-w-5xl border border-line/10 bg-surface/85 p-4 backdrop-blur-sm md:p-6">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h2
-            className={`${FONT} text-xl font-bold uppercase tracking-wide text-white md:text-2xl`}
+            className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink md:text-2xl`}
           >
             {versus ? "Eyni ekran" : "Tək oyunçu"}
-            <span className="text-neutral-500"> · parametrlər</span>
+            <span className="text-faint"> · parametrlər</span>
           </h2>
-          <p className={`${FONT} text-sm text-neutral-500`}>
+          <p className={`${FONT} text-sm text-faint`}>
             {versus ? "İki oyunçu, bir cihaz" : "9 cəhdlə cədvəli doldur"}
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function X0XSettings({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-3 border-t border-white/10 pt-4">
+      <div className="mt-5 flex flex-wrap gap-3 border-t border-line/10 pt-4">
         <button type="button" onClick={onStart} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
           <Play className="h-4 w-4" />

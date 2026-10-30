@@ -14,7 +14,7 @@ export function PlayerChip({ player, highlight = "" }) {
   const [broken, setBroken] = useState(false);
   return (
     <span
-      className={`flex min-w-0 items-center gap-2 border border-white/10 bg-white/5 py-0.5 pl-0.5 pr-3 ${highlight}`}
+      className={`flex min-w-0 items-center gap-2 border border-line/10 bg-line/5 py-0.5 pl-0.5 pr-3 ${highlight}`}
     >
       {player.photo_url && !broken ? (
         <img
@@ -25,13 +25,13 @@ export function PlayerChip({ player, highlight = "" }) {
         />
       ) : (
         <span
-          className={`flex h-7 w-7 shrink-0 items-center justify-center bg-white/10 ${FONT} text-[10px] font-bold text-neutral-300`}
+          className={`flex h-7 w-7 shrink-0 items-center justify-center bg-line/10 ${FONT} text-[10px] font-bold text-soft`}
         >
           {initials(player.name)}
         </span>
       )}
       <span
-        className={`truncate ${FONT} text-sm font-bold uppercase tracking-wide text-white`}
+        className={`truncate ${FONT} text-sm font-bold uppercase tracking-wide text-ink`}
       >
         {player.name}
       </span>
@@ -43,7 +43,7 @@ export function FoundPlayer({ player, title, side }) {
   const [broken, setBroken] = useState(false);
   return (
     <div
-      className={`flex items-center gap-4 border-l-2 bg-emerald-500/10 p-2 ${side ? side.border : "border-l-emerald-400"}`}
+      className={`flex items-center gap-4 border-l-2 bg-good-lo/10 p-2 ${side ? side.border : "border-l-good"}`}
     >
       {player.photo_url && !broken ? (
         <img
@@ -54,19 +54,19 @@ export function FoundPlayer({ player, title, side }) {
         />
       ) : (
         <span
-          className={`flex h-14 w-14 shrink-0 items-center justify-center bg-white/10 ${FONT} text-xl font-bold text-white`}
+          className={`flex h-14 w-14 shrink-0 items-center justify-center bg-line/10 ${FONT} text-xl font-bold text-ink`}
         >
           {initials(player.name)}
         </span>
       )}
       <div className="min-w-0">
         <p
-          className={`${FONT} text-xs uppercase tracking-[0.15em] text-emerald-300`}
+          className={`${FONT} text-xs uppercase tracking-[0.15em] text-good-hi`}
         >
           {title}
         </p>
         <p
-          className={`truncate ${FONT} text-xl font-bold uppercase tracking-wide text-white`}
+          className={`truncate ${FONT} text-xl font-bold uppercase tracking-wide text-ink`}
         >
           {player.name}
         </p>
@@ -81,7 +81,7 @@ export default function AnswerList({ answers, exclude, limit = 8 }) {
   return (
     <div>
       <p
-        className={`mb-2 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-neutral-400`}
+        className={`mb-2 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
       >
         Mümkün cavablar: {answers.length}
       </p>

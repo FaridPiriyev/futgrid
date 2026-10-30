@@ -22,14 +22,14 @@ export default function ClubBadge({ club, compact = false }) {
           />
         ) : (
           <span
-            className={`flex h-full w-full items-center justify-center bg-white/10 ${FONT} text-sm font-bold text-white`}
+            className={`flex h-full w-full items-center justify-center bg-line/10 ${FONT} text-sm font-bold text-ink`}
           >
             {club.short_name}
           </span>
         )}
       </div>
       <span
-        className={`line-clamp-2 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-wide text-neutral-300 md:text-sm`}
+        className={`line-clamp-2 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-wide text-soft md:text-sm`}
       >
         {club.name}
       </span>
