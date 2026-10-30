@@ -1,0 +1,186 @@
+[
+  {
+    "id": "bra-ger-2014",
+    "competition": "Dünya Kuboku 2014 · Yarımfinal",
+    "date": "2014-07-08",
+    "venue": "Belo Horizonte",
+    "home": {
+      "name": "Braziliya",
+      "score": 1,
+      "formation": "4-2-3-1",
+      "players": [
+        { "name": "Júlio César" },
+        { "name": "Maicon" },
+        { "name": "David Luiz" },
+        { "name": "Dante" },
+        { "name": "Marcelo" },
+        { "name": "Luiz Gustavo" },
+        { "name": "Fernandinho" },
+        { "name": "Hulk" },
+        { "name": "Oscar" },
+        { "name": "Bernard" },
+        { "name": "Fred" }
+      ]
+    },
+    "away": {
+      "name": "Almaniya",
+      "score": 7,
+      "formation": "4-3-3",
+      "players": [
+        { "name": "Manuel Neuer" },
+        { "name": "Philipp Lahm" },
+        { "name": "Jérôme Boateng" },
+        { "name": "Mats Hummels" },
+        { "name": "Benedikt Höwedes" },
+        { "name": "Sami Khedira" },
+        { "name": "Bastian Schweinsteiger" },
+        { "name": "Toni Kroos" },
+        { "name": "Thomas Müller" },
+        { "name": "Miroslav Klose" },
+        { "name": "Mesut Özil" }
+      ]
+    }
+  },
+  {
+    "id": "rma-atm-2014",
+    "competition": "Çempionlar Liqası 2014 · Final",
+    "date": "2014-05-24",
+    "venue": "Lissabon",
+    "note": "əlavə vaxtda",
+    "home": {
+      "name": "Real Madrid",
+      "score": 4,
+      "formation": "4-3-3",
+      "players": [
+        { "name": "Iker Casillas" },
+        { "name": "Dani Carvajal" },
+        { "name": "Raphaël Varane" },
+        { "name": "Sergio Ramos" },
+        { "name": "Fábio Coentrão" },
+        { "name": "Sami Khedira" },
+        { "name": "Luka Modrić" },
+        { "name": "Ángel Di María" },
+        { "name": "Gareth Bale" },
+        { "name": "Karim Benzema" },
+        { "name": "Cristiano Ronaldo" }
+      ]
+    },
+    "away": {
+      "name": "Atlético Madrid",
+      "score": 1,
+      "formation": "4-4-2",
+      "players": [
+        { "name": "Thibaut Courtois" },
+        { "name": "Juanfran" },
+        { "name": "Miranda" },
+        { "name": "Diego Godín" },
+        { "name": "Filipe Luís" },
+        { "name": "Raúl García" },
+        { "name": "Gabi" },
+        { "name": "Tiago" },
+        { "name": "Koke" },
+        { "name": "Diego Costa" },
+        { "name": "David Villa" }
+      ]
+    }
+  },
+  {
+    "id": "arg-fra-2022",
+    "competition": "Dünya Kuboku 2022 · Final",
+    "date": "2022-12-18",
+    "venue": "Lusail",
+    "note": "penaltilərdə 4–2 Argentina",
+    "home": {
+      "name": "Argentina",
+      "score": 3,
+      "formation": "4-3-3",
+      "players": [
+        { "name": "Emiliano Martínez", "aliases": ["dibu"] },
+        { "name": "Nahuel Molina" },
+        { "name": "Cristian Romero", "aliases": ["cuti"] },
+        { "name": "Nicolás Otamendi" },
+        { "name": "Nicolás Tagliafico" },
+        { "name": "Rodrigo De Paul" },
+        { "name": "Enzo Fernández" },
+        { "name": "Alexis Mac Allister" },
+        { "name": "Lionel Messi" },
+        { "name": "Julián Álvarez" },
+        { "name": "Ángel Di María" }
+      ]
+    },
+    "away": {
+      "name": "Fransa",
+      "score": 3,
+      "formation": "4-2-3-1",
+      "players": [
+        { "name": "Hugo Lloris" },
+        { "name": "Jules Koundé" },
+        { "name": "Raphaël Varane" },
+        { "name": "Dayot Upamecano" },
+        { "name": "Theo Hernández" },
+        { "name": "Aurélien Tchouaméni" },
+        { "name": "Adrien Rabiot" },
+        { "name": "Ousmane Dembélé" },
+        { "name": "Antoine Griezmann" },
+        { "name": "Kylian Mbappé" },
+        { "name": "Olivier Giroud" }
+      ]
+    }
+  },
+  {
+    "id": "bar-psg-2017",
+    "competition": "Çempionlar Liqası 2016/17 · 1/8 final, cavab oyunu",
+    "date": "2017-03-08",
+    "venue": "Barselona, Kamp Nou",
+    "home": {
+      "name": "Barselona",
+      "score": 6,
+      "formation": "3-4-3",
+      "players": [
+        { "name": "Marc-André ter Stegen" },
+        { "name": "Gerard Piqué" },
+        { "name": "Javier Mascherano" },
+        { "name": "Samuel Umtiti" },
+        { "name": "Rafinha" },
+        { "name": "Ivan Rakitić" },
+        { "name": "Sergio Busquets" },
+        { "name": "Andrés Iniesta" },
+        { "name": "Lionel Messi" },
+        { "name": "Luis Suárez" },
+        { "name": "Neymar" }
+      ]
+    },
+    "away": {
+      "name": "PSJ",
+      "score": 1
+    }
+  },
+  {
+    "id": "liv-bar-2019",
+    "competition": "Çempionlar Liqası 2018/19 · Yarımfinal, cavab oyunu",
+    "date": "2019-05-07",
+    "venue": "Liverpul, Enfild",
+    "home": {
+      "name": "Liverpul",
+      "score": 4,
+      "formation": "4-3-3",
+      "players": [
+        { "name": "Alisson" },
+        { "name": "Trent Alexander-Arnold", "aliases": ["trent", "taa"] },
+        { "name": "Joël Matip" },
+        { "name": "Virgil van Dijk" },
+        { "name": "Andrew Robertson", "aliases": ["robbo", "andy robertson"] },
+        { "name": "Jordan Henderson" },
+        { "name": "Fabinho" },
+        { "name": "James Milner" },
+        { "name": "Xherdan Shaqiri" },
+        { "name": "Divock Origi" },
+        { "name": "Sadio Mané" }
+      ]
+    },
+    "away": {
+      "name": "Barselona",
+      "score": 0
+    }
+  }
+]

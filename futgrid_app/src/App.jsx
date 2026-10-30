@@ -9,6 +9,10 @@ const FutbolX0X = lazy(() => import("./components/games/x0x/FutbolX0X"));
 const OrtaqOyuncu = lazy(() => import("./components/games/ortaq/OrtaqOyuncu"));
 const YuksekAsagi = lazy(() => import("./components/games/yuksek/YuksekAsagi"));
 const Auksion = lazy(() => import("./components/games/auksion/Auksion"));
+const FutbolWordle = lazy(() => import("./components/games/wordle/FutbolWordle"));
+const KaryeraYolu = lazy(() => import("./components/games/karyera/KaryeraYolu"));
+const HeyetXatirla = lazy(() => import("./components/games/heyet/HeyetXatirla"));
+const BesKlub = lazy(() => import("./components/games/besklub/BesKlub"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -42,6 +46,10 @@ export default function App() {
           <Route path="/oyunlar/ortaq-oyuncu" element={<OrtaqOyuncu />} />
           <Route path="/oyunlar/yuksek-asagi" element={<YuksekAsagi />} />
           <Route path="/oyunlar/auksion" element={<Auksion />} />
+          <Route path="/oyunlar/futbol-wordle" element={<FutbolWordle />} />
+          <Route path="/oyunlar/karyera-yolu" element={<KaryeraYolu />} />
+          <Route path="/oyunlar/heyeti-xatirla" element={<HeyetXatirla />} />
+          <Route path="/oyunlar/5-klub" element={<BesKlub />} />
         </Routes>
       </Suspense>
       <Footer />

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Bell, Play, Search, Sparkles, User, Users, X } from "lucide-react";
+import { ArrowRight, Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2 } from "lucide-react";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { norm } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
@@ -48,16 +48,28 @@ function ModeIcons({ modes }) {
   );
 }
 
+const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2 };
+
 function Cover({ game, soon }) {
+  const [broken, setBroken] = useState(false);
   if (game.art === "auction")
     return (
       <AuctionArt className="transition-transform duration-700 ease-out group-hover/tile:scale-105" />
     );
+  if (!game.image || broken) {
+    const Icon = COVER_ICONS[game.key] ?? Play;
+    return (
+      <div className="absolute inset-0 grid place-items-center bg-surface-2">
+        <Icon className="h-14 w-14 text-accent/70 transition-transform duration-500 group-hover/tile:scale-110" strokeWidth={1.5} />
+      </div>
+    );
+  }
   return (
     <img
       src={game.image}
       alt=""
       loading="lazy"
+      onError={() => setBroken(true)}
       className={`absolute inset-0 h-full w-full object-cover transition-[transform,filter] duration-700 ease-out group-hover/tile:scale-110 ${
         soon ? "brightness-75 grayscale-[0.7] group-hover/tile:grayscale-0" : ""
       }`}

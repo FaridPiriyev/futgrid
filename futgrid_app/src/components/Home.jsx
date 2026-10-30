@@ -16,7 +16,6 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
-import { GAME_CATALOG } from "../lib/games/catalog";
 import AuctionArt from "./games/common/AuctionArt";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
