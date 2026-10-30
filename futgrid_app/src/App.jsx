@@ -3,10 +3,12 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
-import ComingSoon from "./components/games/common/ComingSoon";
 
+const AllGames = lazy(() => import("./components/AllGames"));
 const FutbolX0X = lazy(() => import("./components/games/x0x/FutbolX0X"));
 const OrtaqOyuncu = lazy(() => import("./components/games/ortaq/OrtaqOyuncu"));
+const YuksekAsagi = lazy(() => import("./components/games/yuksek/YuksekAsagi"));
+const Auksion = lazy(() => import("./components/games/auksion/Auksion"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -35,12 +37,11 @@ export default function App() {
       <Suspense fallback={<div className="min-h-screen bg-page" />}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/oyunlar" element={<AllGames />} />
           <Route path="/oyunlar/futbol-x0x" element={<FutbolX0X />} />
           <Route path="/oyunlar/ortaq-oyuncu" element={<OrtaqOyuncu />} />
-          <Route
-            path="/oyunlar/yuksek-asagi"
-            element={<ComingSoon title="Yüksək yoxsa Aşağı?" />}
-          />
+          <Route path="/oyunlar/yuksek-asagi" element={<YuksekAsagi />} />
+          <Route path="/oyunlar/auksion" element={<Auksion />} />
         </Routes>
       </Suspense>
       <Footer />

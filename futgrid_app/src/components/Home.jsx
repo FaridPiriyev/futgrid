@@ -16,6 +16,8 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { GAME_CATALOG } from "../lib/games/catalog";
+import AuctionArt from "./games/common/AuctionArt";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
@@ -90,12 +92,13 @@ const GAMES = [
     href: "/oyunlar/ortaq-oyuncu",
   },
   {
-    key: "yuksek",
-    image: "/images/game3.avif",
-    title: "Yüksək yoxsa Aşağı?",
-    description: "Futbolçuların rəqəmlərini müqayisə et və seriyanı qır.",
-    tags: ["Tək oyunçu", "Seriya"],
-    href: "/oyunlar/yuksek-asagi",
+    key: "auksion",
+    art: "auction",
+    title: "Açıq Artırma",
+    description:
+      "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
+    tags: ["Bota qarşı", "2 oyunçu", "20 ₼ büdcə"],
+    href: "/oyunlar/auksion",
   },
 ];
 
@@ -881,12 +884,16 @@ function GameCard({ game, featured, index }) {
             : "min-h-60 md:min-h-64"
         }`}
       >
-        <img
-          src={game.image}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-2000 ease-out group-data-in/card:scale-110 md:duration-700 md:group-data-in/card:scale-100 md:group-hover/game:scale-110"
-        />
+        {game.art === "auction" ? (
+          <AuctionArt className="transition-transform duration-700 ease-out md:group-hover/game:scale-105" />
+        ) : (
+          <img
+            src={game.image}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-2000 ease-out group-data-in/card:scale-110 md:duration-700 md:group-data-in/card:scale-100 md:group-hover/game:scale-110"
+          />
+        )}
         <div className="absolute inset-0 bg-linear-to-t from-black via-black/55 to-black/10 transition-opacity duration-500" />
         <span
           aria-hidden="true"
@@ -1461,6 +1468,21 @@ export default function Home() {
                 index={i}
               />
             ))}
+          </div>
+
+          <div
+            data-reveal
+            className={`${REVEAL.up} mt-10 flex justify-center md:mt-14`}
+            style={{ transitionDelay: "450ms" }}
+          >
+            <Link
+              to="/oyunlar"
+              className={`group/btn relative isolate inline-flex items-center gap-3 overflow-hidden border border-blue-500/60 bg-page/50 px-8 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-ink backdrop-blur-sm transition-[color,transform,border-color] duration-500 hover:-translate-y-0.5 hover:border-blue-500 hover:text-white md:px-10 md:text-base`}
+            >
+              <span aria-hidden="true" className={SWEEP_BLUE} />
+              Daha çox oyun
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            </Link>
           </div>
         </div>
       </section>

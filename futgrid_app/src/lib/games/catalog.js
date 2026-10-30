@@ -1,0 +1,51 @@
+export const GAME_CATALOG = [
+  {
+    key: "x0x",
+    title: "Futbol X0X",
+    genre: "Bilik · Strategiya",
+    description:
+      "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
+    image: "/images/game1.jpg",
+    href: "/oyunlar/futbol-x0x",
+    tags: ["2 oyunçu", "Tək oyunçu", "3 səviyyə"],
+    modes: ["solo", "duo"],
+    status: "live",
+  },
+  {
+    key: "ortaq",
+    title: "Ortaq Oyunçu",
+    genre: "Kart dueli",
+    description: "Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.",
+    image: "/images/game2.jpg",
+    href: "/oyunlar/ortaq-oyuncu",
+    tags: ["Kart dueli", "2 oyunçu", "Tək oyunçu"],
+    modes: ["solo", "duo"],
+    status: "live",
+  },
+  {
+    key: "auksion",
+    title: "Açıq Artırma",
+    genre: "Hərrac · Komanda qur",
+    description:
+      "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
+    art: "auction",
+    href: "/oyunlar/auksion",
+    tags: ["Bota qarşı", "2 oyunçu", "20 ₼ büdcə"],
+    modes: ["solo", "duo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "yuksek",
+    title: "Yüksək yoxsa Aşağı?",
+    genre: "Seriya",
+    description:
+      "İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat.",
+    image: "/images/game3.avif",
+    href: "/oyunlar/yuksek-asagi",
+    tags: ["Tək oyunçu", "Seriya", "Bazar dəyəri"],
+    modes: ["solo"],
+    status: "live",
+    isNew: true,
+  },
+];

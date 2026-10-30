@@ -5,7 +5,7 @@ import { FONT } from "./ui";
 function BackLink() {
   return (
     <Link
-      to="/#games"
+      to="/oyunlar"
       className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-300 hover:text-white`}
     >
       <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
