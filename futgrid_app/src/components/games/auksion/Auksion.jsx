@@ -8,6 +8,7 @@ import { AUCTION_KEYFRAMES } from "./AuctionParts";
 import AuctionSettings from "./AuctionSettings";
 import { loadSettings, saveSettings } from "./settings";
 
+import { tr } from "../../../i18n";
 export default function Auksion() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -32,8 +33,8 @@ export default function Auksion() {
   };
 
   let body;
-  if (error) body = <Notice title="Data yüklənmədi" text={error} />;
-  else if (!data) body = <Loader text="Oyunçular yüklənir..." />;
+  if (error) body = <Notice title={tr("Data yüklənmədi")} text={error} />;
+  else if (!data) body = <Loader text={tr("Oyunçular yüklənir...")} />;
   else if (screen === "modes")
     body = (
       <ModeSelect
@@ -42,8 +43,8 @@ export default function Auksion() {
           setScreen("settings");
         }}
         texts={{
-          same: "Dostunla eyni ekranda hərraca gir",
-          solo: "Bota qarşı komanda yığ",
+          same: tr("Dostunla eyni ekranda hərraca gir"),
+          solo: tr("Bota qarşı komanda yığ"),
         }}
       />
     );
@@ -73,9 +74,9 @@ export default function Auksion() {
 
   return (
     <GameLayout
-      eyebrow="Hərrac oyunu"
-      title="Açıq Artırma"
-      description="20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur."
+      eyebrow={tr("Hərrac oyunu")}
+      title={tr("Açıq Artırma")}
+      description={tr("20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.")}
       compact={Boolean(data) && screen !== "modes"}
     >
       <style>{AUCTION_KEYFRAMES}</style>

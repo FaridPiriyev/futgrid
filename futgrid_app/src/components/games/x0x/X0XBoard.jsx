@@ -5,6 +5,7 @@ import CategoryHeader from "./CategoryHeader";
 import Shirt from "./Shirt";
 import { MARKS } from "./marks";
 
+import { tr } from "../../../i18n";
 export default function X0XBoard({
   data,
   grid,
@@ -184,7 +185,7 @@ function Cell(props) {
       aria-label={
         value
           ? `${value.mark === "solo" ? "" : value.mark} ${value.name}`.trim()
-          : "Boş xana"
+          : tr("Boş xana")
       }
       className={`group relative flex aspect-square flex-col items-center justify-center overflow-hidden p-1.5 transition-colors duration-200 ${
         last.right ? "" : "border-r"
@@ -243,7 +244,7 @@ function Cell(props) {
         <span
           className={`mt-1 ${FONT} text-[9px] font-bold uppercase tracking-wide text-ink/20 md:text-[11px]`}
         >
-          Oyunçu tap
+          {tr("Oyunçu tap")}
         </span>
       )}
     </button>

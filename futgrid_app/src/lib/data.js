@@ -1,3 +1,4 @@
+import { tr } from "../i18n";
 const BASE = "/data";
 
 let cache = null;
@@ -22,7 +23,7 @@ const getJson = async (file, optional = false) => {
   const text = res.ok ? await res.text() : "";
   if (!res.ok || text.trimStart().startsWith("<")) {
     if (optional) return null;
-    throw new Error(`${file} tapılmadı`);
+    throw new Error(tr("{file} tapılmadı", { file }));
   }
   return JSON.parse(text);
 };

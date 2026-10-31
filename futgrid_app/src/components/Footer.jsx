@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
-
+
+import { tr } from "../i18n";
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
@@ -14,42 +15,70 @@ const FOOTER_STYLE = `
 `;
 
 const FOOTER_NAV_LINKS = [
-  { label: "Ana Səhifə", to: "/" },
-  { label: "Haqqımızda", to: "/#about" },
-  { label: "Oyunlar", to: "/#games" },
-  { label: "Reytinq", to: "/#leaderboard" },
-  { label: "Əlaqə", to: "/#contact" },
-  { label: "Hesab", to: "/#login" },
+  { get label() {
+    return tr("Ana Səhifə");
+  }, to: "/" },
+  { get label() {
+    return tr("Haqqımızda");
+  }, to: "/#about" },
+  { get label() {
+    return tr("Oyunlar");
+  }, to: "/#games" },
+  { get label() {
+    return tr("Reytinq");
+  }, to: "/#leaderboard" },
+  { get label() {
+    return tr("Əlaqə");
+  }, to: "/#contact" },
+  { get label() {
+    return tr("Hesab");
+  }, to: "/#login" },
 ];
 
 const FOOTER_GAME_LINKS = [
   ...GAME_CATALOG.slice(0, 5).map((g) => ({ label: g.title, to: g.href })),
-  { label: "Bütün oyunlar", to: "/oyunlar" },
+  { get label() {
+    return tr("Bütün oyunlar");
+  }, to: "/oyunlar" },
 ];
 
 const FOOTER_SOCIALS = [
-  { Icon: FaInstagram, href: "#", label: "Instagram" },
-  { Icon: FaTiktok, href: "#", label: "TikTok" },
-  { Icon: FaYoutube, href: "#", label: "YouTube" },
+  { Icon: FaInstagram, href: "#", get label() {
+    return tr("Instagram");
+  } },
+  { Icon: FaTiktok, href: "#", get label() {
+    return tr("TikTok");
+  } },
+  { Icon: FaYoutube, href: "#", get label() {
+    return tr("YouTube");
+  } },
 ];
 
 const FOOTER_CONTACT = [
   {
     Icon: Mail,
-    label: "E-poçt",
+    get label() {
+    return tr("E-poçt");
+  },
     value: "info@futgrid.az",
     href: "mailto:info@futgrid.az",
   },
   {
     Icon: Phone,
-    label: "Telefon",
+    get label() {
+    return tr("Telefon");
+  },
     value: "+994 50 000 00 00",
     href: "tel:+994500000000",
   },
   {
     Icon: MapPin,
-    label: "Ünvan",
-    value: "Bakı, Azərbaycan",
+    get label() {
+    return tr("Ünvan");
+  },
+    get value() {
+    return tr("Bakı, Azərbaycan");
+  },
     href: "/#contact",
   },
 ];
@@ -119,10 +148,10 @@ function BackToTop() {
     <button
       type="button"
       onClick={scrollTop}
-      aria-label="Səhifənin yuxarısına qalx"
+      aria-label={tr("Səhifənin yuxarısına qalx")}
       className={`group/btn relative inline-flex items-stretch overflow-hidden bg-white ${HEAD} text-sm font-extrabold uppercase tracking-[0.12em] text-navy transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-yellow active:translate-y-0`}
     >
-      <span className="flex items-center px-5 py-3">Yuxarı qalx</span>
+      <span className="flex items-center px-5 py-3">{tr("Yuxarı qalx")}</span>
       <span className="relative flex w-11 items-center justify-center overflow-hidden bg-accent text-white">
         <ArrowUp
           className={`h-4.5 w-4.5 ${
@@ -160,10 +189,10 @@ export default function Footer() {
       <div className="relative mx-auto max-w-330 px-4 pb-8 pt-14 md:px-6 md:pt-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr] lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link to="/" aria-label="FutGrid" className="inline-block">
+            <Link to="/" aria-label={tr("FutGrid")} className="inline-block">
               <img
                 src="/logo.png"
-                alt="FutGrid Logo"
+                alt={tr("FutGrid Logo")}
                 className="h-14 w-auto object-contain mix-blend-lighten contrast-[1.35] md:h-16"
               />
             </Link>
@@ -171,14 +200,12 @@ export default function Footer() {
             <p
               className={`mt-5 ${HEAD} text-sm font-extrabold uppercase tracking-[0.22em] text-yellow`}
             >
-              Futbol taktikanı göstər
+              {tr("Futbol taktikanı göstər")}
             </p>
             <p
               className={`${BODY} mt-3 max-w-sm text-[15px] leading-7 text-navy-soft`}
             >
-              FutGrid taktiki oyunların, reytinq cədvəllərinin və turnirlərin
-              bir yerdə toplandığı platformadır. Oyna, öyrən və liderlər
-              cədvəlində yerini tut.
+              {tr("FutGrid taktiki oyunların, reytinq cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır. Oyna, öyrən və liderlər cədvəlində yerini tut.")}
             </p>
 
             <div className="mt-6 flex items-center gap-3">
@@ -196,7 +223,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <FooterTitle>Menyu</FooterTitle>
+            <FooterTitle>{tr("Menyu")}</FooterTitle>
             <ul className="mt-5 flex flex-col gap-3">
               {FOOTER_NAV_LINKS.map((l) => (
                 <FooterLink key={l.label} {...l} />
@@ -205,7 +232,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <FooterTitle>Oyunlar</FooterTitle>
+            <FooterTitle>{tr("Oyunlar")}</FooterTitle>
             <ul className="mt-5 flex flex-col gap-3">
               {FOOTER_GAME_LINKS.map((l) => (
                 <FooterLink key={l.label} {...l} />
@@ -214,7 +241,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <FooterTitle>Əlaqə</FooterTitle>
+            <FooterTitle>{tr("Əlaqə")}</FooterTitle>
             <div className="mt-5 flex flex-col gap-4">
               {FOOTER_CONTACT.map(({ Icon, label, value, href }) => (
                 <a
@@ -243,35 +270,28 @@ export default function Footer() {
           </div>
         </div>
 
-        <p
-          aria-hidden="true"
-          className={`fg-outline-w fg-wipe-w mt-12 select-none whitespace-nowrap ${HEAD} text-[clamp(72px,17vw,232px)] font-black leading-[0.8] tracking-[-0.01em] md:mt-16`}
-        >
-          FUTGRID
-        </p>
-
-        <div className="mt-6 flex flex-col items-center justify-between gap-5 border-t border-white/12 pt-6 md:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-5 border-t border-white/12 pt-6 md:flex-row">
           <p
             className={`${BODY} text-center text-[13px] text-navy-soft md:text-left`}
           >
-            © {year} FutGrid. Bütün hüquqlar qorunur.
+            © {year} {tr("FutGrid. Bütün hüquqlar qorunur.")}
           </p>
 
           <div
             className={`${BODY} flex items-center gap-6 text-[13px] text-navy-soft`}
           >
-            <a
-              href="#"
+            <Link
+              to="/mexfilik-siyaseti"
               className="transition-colors duration-300 hover:text-yellow"
             >
-              Məxfilik siyasəti
-            </a>
-            <a
-              href="#"
+              {tr("Məxfilik siyasəti")}
+            </Link>
+            <Link
+              to="/istifade-sertleri"
               className="transition-colors duration-300 hover:text-yellow"
             >
-              İstifadə şərtləri
-            </a>
+              {tr("İstifadə şərtləri")}
+            </Link>
           </div>
 
           <BackToTop />

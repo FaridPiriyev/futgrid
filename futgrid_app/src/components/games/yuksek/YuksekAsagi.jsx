@@ -6,6 +6,7 @@ import HLGame, { HL_KEYFRAMES } from "./HLGame";
 import HLSettings from "./HLSettings";
 import { loadSettings, saveSettings } from "./settings";
 
+import { tr } from "../../../i18n";
 export default function YuksekAsagi() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -29,8 +30,8 @@ export default function YuksekAsagi() {
   };
 
   let body;
-  if (error) body = <Notice title="Data yüklənmədi" text={error} />;
-  else if (!data) body = <Loader text="Oyunçular yüklənir..." />;
+  if (error) body = <Notice title={tr("Data yüklənmədi")} text={error} />;
+  else if (!data) body = <Loader text={tr("Oyunçular yüklənir...")} />;
   else if (screen === "settings")
     body = (
       <HLSettings
@@ -54,9 +55,9 @@ export default function YuksekAsagi() {
 
   return (
     <GameLayout
-      eyebrow="Seriya oyunu"
-      title="Yüksək yoxsa Aşağı?"
-      description="İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat və rekordunu qır."
+      eyebrow={tr("Seriya oyunu")}
+      title={tr("Yüksək yoxsa Aşağı?")}
+      description={tr("İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat və rekordunu qır.")}
       compact={Boolean(data) && screen === "game"}
     >
       <style>{HL_KEYFRAMES}</style>

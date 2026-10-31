@@ -4,6 +4,7 @@ import { searchEntities } from "../../../lib/games/common";
 import EntityBadge from "./EntityBadge";
 import { FONT } from "./ui";
 
+import { tr } from "../../../i18n";
 export default function EntitySearch({ data, types = ["club", "country"], onSelect, disabled = false, focusKey, placeholder, accent = "border-accent", secret = false }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -83,7 +84,7 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
                   <EntityBadge entity={e} size="h-8 w-8" flagSize="w-9" />
                 </span>
                 <span className={`min-w-0 flex-1 truncate ${FONT} text-base font-bold uppercase tracking-wide text-ink`}>{e.label}</span>
-                <span className={`shrink-0 ${FONT} text-xs uppercase tracking-wider text-faint`}>{e.type === "club" ? "Klub" : "Ölkə"}</span>
+                <span className={`shrink-0 ${FONT} text-xs uppercase tracking-wider text-faint`}>{e.type === "club" ? tr("Klub") : tr("Ölkə")}</span>
               </button>
             </li>
           ))}
@@ -92,7 +93,7 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
 
       {!disabled && query.trim().length >= 2 && results.length === 0 && (
         <p className={`absolute inset-x-0 top-full z-30 mt-1 border border-line/10 bg-surface px-4 py-3 ${FONT} text-sm text-faint`}>
-          Tapılmadı.
+          {tr("Tapılmadı.")}
         </p>
       )}
     </div>

@@ -1,3 +1,4 @@
+import { tr } from "../../../i18n";
 export const MARKS = {
   X: {
     text: "text-accent-hi",

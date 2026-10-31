@@ -2,16 +2,17 @@ import { Link } from "react-router-dom";
 import GameLayout from "./GameLayout";
 import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "./ui";
 
+import { tr } from "../../../i18n";
 export default function ComingSoon({ title }) {
   return (
-    <GameLayout eyebrow="Tezliklə" title={title}>
+    <GameLayout eyebrow={tr("Tezliklə")} title={title}>
       <div className="mx-auto max-w-xl border border-line/10 bg-surface/85 p-8 text-center">
         <p className={`${FONT} text-lg font-light text-muted`}>
-          Bu oyun hazırlanır. Hələlik Futbol X0X-da gücünü sına.
+          {tr("Bu oyun hazırlanır. Hələlik Futbol X0X-da gücünü sına.")}
         </p>
         <Link to="/oyunlar/futbol-x0x" className={`${BTN_PRIMARY} mt-6`}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
-          Futbol X0X oyna
+          {tr("Futbol X0X oyna")}
         </Link>
       </div>
     </GameLayout>

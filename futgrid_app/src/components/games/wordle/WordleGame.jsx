@@ -16,6 +16,7 @@ import { POS_NAME, clubOf, countryOf } from "../../../lib/games/playerInfo";
 import PlayerAvatar, { ClubLogo, Flag } from "../common/PlayerAvatar";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 
+import { tr } from "../../../i18n";
 export const WORDLE_KEYFRAMES = `
 @keyframes wdFlip { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
 @keyframes wdPop { 0% { transform: scale(1); } 50% { transform: scale(1.12); } 100% { transform: scale(1); } }
@@ -55,14 +56,20 @@ function Tile({ letter, mark, index, typing }) {
   );
 }
 
+const HINT_AT = { get 3() {
+    return tr("3-cü səhvdən sonra");
+  }, get 4() {
+    return tr("4-cü səhvdən sonra");
+  } };
+
 function hintsFor(data, p, misses) {
   const country = countryOf(data, p);
   const club = clubOf(data, p);
   const list = [
-    { at: 1, label: "Mövqe", value: POS_NAME[p.position] ?? "—" },
+    { at: 0, label: tr("Mövqe"), value: POS_NAME[p.position] ?? "—" },
     {
-      at: 2,
-      label: "Ölkə",
+      at: 3,
+      label: tr("Ölkə"),
       value: country ? (
         <span className="inline-flex items-center gap-1.5">
           <Flag key={country.code} country={country} />
@@ -73,8 +80,8 @@ function hintsFor(data, p, misses) {
       ),
     },
     {
-      at: 3,
-      label: p.is_active === false ? "Son klub" : "Klub",
+      at: 4,
+      label: p.is_active === false ? tr("Son klub") : tr("Klub"),
       value: club ? (
         <span className="inline-flex items-center gap-1.5">
           <ClubLogo key={club.name} club={club} className="h-4 w-4" />
@@ -84,13 +91,11 @@ function hintsFor(data, p, misses) {
         "—"
       ),
     },
-    { at: 4, label: "Doğum ili", value: p.birth_date?.slice(0, 4) ?? "—" },
-    { at: 5, label: "Adın ilk hərfi", value: p.name.trim()[0]?.toUpperCase() ?? "—" },
   ];
   return list.map((h) => ({ ...h, open: misses >= h.at }));
 }
 
-export default function WordleGame({ data, mode, difficulty }) {
+export default function WordleGame({ data, mode, difficulty, showHints = true }) {
   const { dict, targets } = useMemo(() => wordlePool(data, difficulty), [data, difficulty]);
   const [target, setTarget] = useState(() =>
     mode === "daily" ? dailyTarget(targets, difficulty) : randomTarget(targets),
@@ -130,8 +135,8 @@ export default function WordleGame({ data, mode, difficulty }) {
     (key) => {
       if (done) return;
       if (key === "enter") {
-        if (current.length < answer.length) return fail(`${answer.length} hərf lazımdır`);
-        if (!dict.has(current)) return fail("Bazada belə ad yoxdur");
+        if (current.length < answer.length) return fail(tr("{n} hərf lazımdır", { n: answer.length }));
+        if (!dict.has(current)) return fail(tr("Bazada belə ad yoxdur"));
         setRows((r) => [...r, { word: current, marks: evaluate(current, answer) }]);
         setCurrent("");
         return;
@@ -172,10 +177,12 @@ export default function WordleGame({ data, mode, difficulty }) {
   const club = clubOf(data, target);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_300px] lg:items-start">
+    <div
+      className={`grid gap-6 lg:items-start ${showHints ? "lg:grid-cols-[1fr_300px]" : ""}`}
+    >
       <div className="mx-auto w-full max-w-md">
         <p className={`text-center ${FONT} text-sm uppercase tracking-[0.2em] text-muted`}>
-          Futbolçunun soyadı · <span className="font-bold text-ink">{answer.length} hərf</span>
+          {tr("Futbolçunun soyadı ·")}{" "} <span className="font-bold text-ink">{tr("{n} hərf", { n: answer.length })}</span>
         </p>
         <div className="relative mt-4 space-y-1.5">
           {Array.from({ length: MAX_TRIES }, (_, r) => {
@@ -212,7 +219,7 @@ export default function WordleGame({ data, mode, difficulty }) {
         {done ? (
           <div className="mt-6 border border-line/10 bg-surface p-5 text-center animate-[wdIn_0.4s_ease-out_both]">
             <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] ${won ? "text-good" : "text-bad"}`}>
-              {won ? `Tapdın! ${rows.length}/${MAX_TRIES}` : "Tapa bilmədin"}
+              {won ? tr("Tapdın! {n}/{MAX_TRIES}", { n: rows.length, MAX_TRIES }) : tr("Tapa bilmədin")}
             </p>
             <div className="mt-3 flex items-center justify-center gap-3">
               <PlayerAvatar player={target} className="h-14 w-14" textClass="text-lg" />
@@ -226,15 +233,15 @@ export default function WordleGame({ data, mode, difficulty }) {
                 <button type="button" onClick={next} className={BTN_PRIMARY}>
                   <span aria-hidden="true" className={SWEEP_WHITE} />
                   <RotateCcw className="h-4 w-4" />
-                  Növbəti oyunçu
+                  {tr("Növbəti oyunçu")}
                 </button>
               ) : (
-                <p className={`w-full ${FONT} text-sm text-muted`}>Yeni oyunçu sabah gələcək.</p>
+                <p className={`w-full ${FONT} text-sm text-muted`}>{tr("Yeni oyunçu sabah gələcək.")}</p>
               )}
               <button type="button" onClick={share} className={BTN_GHOST}>
                 <span aria-hidden="true" className={SWEEP_BLUE} />
                 <Copy className="h-4 w-4" />
-                {copied ? "Kopyalandı" : "Nəticəni kopyala"}
+                {copied ? tr("Kopyalandı") : tr("Nəticəni kopyala")}
               </button>
             </div>
           </div>
@@ -248,7 +255,7 @@ export default function WordleGame({ data, mode, difficulty }) {
                     onClick={() => press("enter")}
                     className={`h-13 rounded-md bg-accent px-3 ${FONT} text-xs font-bold uppercase text-white active:scale-95`}
                   >
-                    Yoxla
+                    {tr("Yoxla")}
                   </button>
                 )}
                 {[...row].map((k) => (
@@ -267,7 +274,7 @@ export default function WordleGame({ data, mode, difficulty }) {
                 {i === 2 && (
                   <button
                     type="button"
-                    aria-label="Sil"
+                    aria-label={tr("Sil")}
                     onClick={() => press("back")}
                     className="grid h-13 place-items-center rounded-md bg-line/10 px-3 text-ink active:scale-95"
                   >
@@ -280,30 +287,32 @@ export default function WordleGame({ data, mode, difficulty }) {
         )}
       </div>
 
-      <aside className="border border-line/10 bg-surface p-4 md:p-5">
-        <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-ink`}>İpuçları</p>
-        <p className={`mt-1 ${FONT} text-xs text-faint`}>Hər səhv cavabdan sonra biri açılır.</p>
+      {showHints && (
+      <aside className="rounded-2xl border border-edge bg-surface p-4 md:p-5">
+        <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-ink`}>{tr("İpuçları")}</p>
+        <p className={`mt-1 ${FONT} text-xs text-faint`}>{tr("Mövqe əvvəldən açıqdır, ölkə 3-cü, klub 4-cü səhvdən sonra açılır.")}</p>
         <ul className="mt-4 space-y-2">
           {hints.map((h) => (
             <li
               key={h.label}
-              className={`flex items-center justify-between gap-3 border px-3 py-2.5 ${FONT} text-sm ${
+              className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2.5 ${FONT} text-sm ${
                 h.open ? "border-accent/30 bg-accent/5 animate-[wdIn_0.3s_ease-out_both]" : "border-line/10"
               }`}
             >
               <span className="text-muted">{h.label}</span>
               <span className={h.open ? "font-bold text-ink" : "text-dim"}>
-                {h.open ? h.value : `${h.at} səhvdən sonra`}
+                {h.open ? h.value : HINT_AT[h.at]}
               </span>
             </li>
           ))}
         </ul>
         <div className={`mt-5 grid grid-cols-3 gap-2 ${FONT} text-[11px] text-muted`}>
-          <span className="flex items-center gap-1.5"><span className="h-3 w-3 bg-good-lo" />Yerində</span>
-          <span className="flex items-center gap-1.5"><span className="h-3 w-3 bg-gold" />Var, başqa yerdə</span>
-          <span className="flex items-center gap-1.5"><span className="h-3 w-3 bg-dim" />Yoxdur</span>
+          <span className="flex items-center gap-1.5"><span className="h-3 w-3 bg-good-lo" />{tr("Yerində")}</span>
+          <span className="flex items-center gap-1.5"><span className="h-3 w-3 bg-gold" />{tr("Var, başqa yerdə")}</span>
+          <span className="flex items-center gap-1.5"><span className="h-3 w-3 bg-dim" />{tr("Yoxdur")}</span>
         </div>
       </aside>
+      )}
     </div>
   );
 }

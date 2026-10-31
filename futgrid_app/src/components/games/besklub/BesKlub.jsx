@@ -1,24 +1,43 @@
 import { useEffect, useState } from "react";
 import { Play } from "lucide-react";
 import { loadData } from "../../../lib/data";
-import { Segmented } from "../common/controls";
+import { Field, Segmented, SETTINGS_CARD, SettingsHeader } from "../common/controls";
 import GameLayout from "../common/GameLayout";
 import { Loader, Notice } from "../common/GameStatus";
-import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
+import { BTN_PRIMARY, SWEEP_WHITE } from "../common/ui";
 import FiveClubsGame, { FIVE_KEYFRAMES } from "./FiveClubsGame";
 
+import { tr } from "../../../i18n";
 const KEY = "futgrid:besklub:settings";
 
 const LEVELS = [
-  { value: "easy", label: "Asan", sub: "top klublar" },
-  { value: "normal", label: "Normal", sub: "ilk 60 klub" },
-  { value: "hard", label: "Çətin", sub: "ilk 140 klub" },
+  { value: "easy", get label() {
+    return tr("Asan");
+  }, get sub() {
+    return tr("ən məşhur klublar");
+  } },
+  { value: "normal", get label() {
+    return tr("Normal");
+  }, get sub() {
+    return tr("tanınmış klublar");
+  } },
+  { value: "hard", get label() {
+    return tr("Çətin");
+  }, get sub() {
+    return tr("bütün klublar");
+  } },
 ];
 
 const TIMES = [
-  { value: 60, label: "1 dəq" },
-  { value: 120, label: "2 dəq" },
-  { value: 180, label: "3 dəq" },
+  { value: 60, get label() {
+    return tr("1 dəq");
+  } },
+  { value: 120, get label() {
+    return tr("2 dəq");
+  } },
+  { value: 180, get label() {
+    return tr("3 dəq");
+  } },
 ];
 
 function load() {
@@ -50,33 +69,29 @@ export default function BesKlub() {
   };
 
   let body;
-  if (error) body = <Notice title="Data yüklənmədi" text={error} />;
-  else if (!data) body = <Loader text="Oyunçular yüklənir..." />;
+  if (error) body = <Notice title={tr("Data yüklənmədi")} text={error} />;
+  else if (!data) body = <Loader text={tr("Oyunçular yüklənir...")} />;
   else if (!game)
     body = (
-      <section className="mx-auto max-w-3xl border border-line/10 bg-surface/85 p-4 md:p-6">
-        <h2 className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink md:text-2xl`}>
-          Tək oyunçu<span className="text-faint"> · parametrlər</span>
-        </h2>
-        <p className={`mt-1 ${FONT} text-sm text-faint`}>
-          Ekrana 5 klub gəlir. Vaxt bitənə qədər bu klublardan ən azı ikisində oynamış futbolçuları yaz.
-          2 klub = 2 xal, 3 klub = 3 xal və s.
-        </p>
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
-          <div>
-            <p className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}>Çətinlik</p>
-            <Segmented label="Çətinlik" options={LEVELS} value={settings.difficulty} onChange={change("difficulty")} />
-          </div>
-          <div>
-            <p className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}>Vaxt</p>
-            <Segmented label="Vaxt" options={TIMES} value={settings.seconds} onChange={change("seconds")} />
-          </div>
+      <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
+        <SettingsHeader
+          title={tr("Tək oyunçu")}
+          accent={tr("parametrlər")}
+          sub={tr("Ekrana 5 klub gəlir. Əvvəl futbolçunun oynadığı klubları seç (ən azı 2), sonra adını yaz. Seçdiyin klubların hamısında oynayıbsa, seçdiyin klub sayı qədər xal alırsan: 2 klub = 2 xal, 3 klub = 3 xal.")}
+        />
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <Field label={tr("Çətinlik")}>
+            <Segmented label={tr("Çətinlik")} options={LEVELS} value={settings.difficulty} onChange={change("difficulty")} />
+          </Field>
+          <Field label={tr("Vaxt")}>
+            <Segmented label={tr("Vaxt")} options={TIMES} value={settings.seconds} onChange={change("seconds")} />
+          </Field>
         </div>
-        <div className="mt-5 border-t border-line/10 pt-4">
+        <div className="mt-7 border-t border-edge pt-5">
           <button type="button" onClick={() => setGame(1)} className={BTN_PRIMARY}>
             <span aria-hidden="true" className={SWEEP_WHITE} />
             <Play className="h-4 w-4" />
-            Oyuna başla
+            {tr("Oyuna başla")}
           </button>
         </div>
       </section>
@@ -93,9 +108,9 @@ export default function BesKlub() {
 
   return (
     <GameLayout
-      eyebrow="Sürət oyunu"
-      title="5 klub"
-      description="Beş klubu birləşdirən futbolçuları tap. Nə qədər çox klubu birləşdirsən, o qədər çox xal."
+      eyebrow={tr("Sürət oyunu")}
+      title={tr("5 klub")}
+      description={tr("Ortaq klubları seç, onları birləşdirən futbolçunu yaz. Nə qədər çox klubu birləşdirsən, o qədər çox xal.")}
       compact={Boolean(data) && game > 0}
     >
       <style>{FIVE_KEYFRAMES}</style>

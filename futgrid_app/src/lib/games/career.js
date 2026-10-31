@@ -1,6 +1,8 @@
 export const ROUNDS = 10;
 export const MAX_WRONG = 3;
-export const POOL = { easy: 250, normal: 1200, hard: 5000 };
+import { byFame } from "./fame";
+
+export const POOL = { easy: 150, normal: 900, hard: 5000 };
 
 const popularity = (p) =>
   Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
@@ -35,7 +37,7 @@ export function careerPath(data, p) {
 export function careerPool(data, difficulty) {
   data._career ??= data.players
     .filter((p) => popularity(p) > 0 && pathIds(data, p).length >= 3)
-    .sort((a, b) => popularity(b) - popularity(a));
+    .sort(byFame);
   return data._career.slice(0, POOL[difficulty] ?? POOL.normal);
 }
 

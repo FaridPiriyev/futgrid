@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FONT } from "../common/ui";
 
+import { tr } from "../../../i18n";
 const initials = (name) =>
   name
     .split(" ")
@@ -83,7 +84,7 @@ export default function AnswerList({ answers, exclude, limit = 8 }) {
       <p
         className={`mb-2 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
       >
-        Mümkün cavablar: {answers.length}
+        {tr("Mümkün cavablar:")}{" "} {answers.length}
       </p>
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
         {list.map((p) => (

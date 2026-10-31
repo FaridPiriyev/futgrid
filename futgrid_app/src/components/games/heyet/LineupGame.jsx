@@ -4,6 +4,7 @@ import { buildMatcher, dateLabel, layout } from "../../../lib/games/lineups";
 import { POS_SHORT, initials } from "../../../lib/games/playerInfo";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 
+import { tr } from "../../../i18n";
 export const LINEUP_KEYFRAMES = `
 @keyframes luIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes luPop { 0% { transform: translate(-50%,-50%) scale(.6); } 60% { transform: translate(-50%,-50%) scale(1.15); } 100% { transform: translate(-50%,-50%) scale(1); } }
@@ -16,7 +17,7 @@ function Pitch({ match, side, found, revealed, lastHit }) {
   return (
     <div>
       <p className={`mb-2 flex items-baseline justify-between ${FONT} text-lg font-bold uppercase text-ink`}>
-        {team.name}
+        {tr(team.name)}
         <span className="text-sm font-normal text-muted">{team.formation}</span>
       </p>
       <div
@@ -97,7 +98,7 @@ export default function LineupGame({ match, sides, onBack }) {
       setMessage({ ok: true, text: `${match[slot.side].players[slot.index].name} ✓` });
     } else {
       const again = matcher(guess, new Set());
-      setMessage({ ok: false, text: again ? "Bu oyunçu artıq tapılıb" : `“${guess}” bu heyətdə yoxdur` });
+      setMessage({ ok: false, text: again ? tr("Bu oyunçu artıq tapılıb") : tr("“{guess}” bu heyətdə yoxdur", { guess }) });
       if (!again) setMisses((m) => m + 1);
       setShake((s) => s + 1);
     }
@@ -109,25 +110,25 @@ export default function LineupGame({ match, sides, onBack }) {
     <div>
       <button type="button" onClick={onBack} className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-muted hover:text-ink`}>
         <ArrowLeft className="h-4 w-4" />
-        Oyunlar siyahısı
+        {tr("Oyunlar siyahısı")}
       </button>
 
       <div className="mt-4 border border-line/10 bg-surface p-4 text-center md:p-5">
-        <p className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] text-accent`}>{match.competition}</p>
+        <p className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] text-accent`}>{tr(match.competition)}</p>
         <p className={`mt-1 ${FONT} text-2xl font-bold uppercase text-ink md:text-3xl`}>
-          {match.home.name} <span className="text-accent">{match.home.score}–{match.away.score}</span> {match.away.name}
+          {tr(match.home.name)} <span className="text-accent">{match.home.score}–{match.away.score}</span> {tr(match.away.name)}
         </p>
         <p className={`${FONT} text-sm text-muted`}>
-          {dateLabel(match.date)} · {match.venue}
-          {match.note ? ` · ${match.note}` : ""}
+          {dateLabel(match.date)} · {tr(match.venue)}
+          {match.note ? ` · ${tr(match.note)}` : ""}
         </p>
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-muted`}>
-          Tapılan <span className="text-2xl font-bold text-ink">{found.size}</span> / {total}
+          {tr("Tapılan")}{" "} <span className="text-2xl font-bold text-ink">{found.size}</span> / {total}
           <span className="mx-2 text-dim">·</span>
-          Səhv <span className="font-bold text-ink">{misses}</span>
+          {tr("Səhv")}{" "} <span className="font-bold text-ink">{misses}</span>
         </p>
         <div className="h-1.5 w-full overflow-hidden bg-line/10 sm:w-60">
           <span className="block h-full bg-accent transition-[width] duration-500" style={{ width: `${(found.size / total) * 100}%` }} />
@@ -142,15 +143,15 @@ export default function LineupGame({ match, sides, onBack }) {
               autoFocus
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="Oyunçunun adını və ya soyadını yaz..."
+              placeholder={tr("Oyunçunun adını və ya soyadını yaz...")}
               autoComplete="off"
               spellCheck={false}
               className={`min-w-0 flex-1 border-2 border-accent bg-line/5 px-4 py-3 ${FONT} text-base text-ink placeholder-faint outline-none focus:bg-line/10 md:text-lg`}
             />
-            <button type="submit" className={BTN_PRIMARY} aria-label="Yoxla">
+            <button type="submit" className={BTN_PRIMARY} aria-label={tr("Yoxla")}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <Send className="h-4 w-4" />
-              <span className="hidden sm:inline">Yoxla</span>
+              <span className="hidden sm:inline">{tr("Yoxla")}</span>
             </button>
           </div>
           <div className="mt-2 flex min-h-6 items-center justify-between gap-3">
@@ -163,7 +164,7 @@ export default function LineupGame({ match, sides, onBack }) {
             )}
             <button type="button" onClick={() => setRevealed(true)} className={`inline-flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase text-muted hover:text-ink`}>
               <Eye className="h-4 w-4" />
-              Təslim ol
+              {tr("Təslim ol")}
             </button>
           </div>
         </form>
@@ -171,12 +172,12 @@ export default function LineupGame({ match, sides, onBack }) {
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border border-line/10 bg-surface p-4 animate-[luIn_0.4s_ease-out_both]">
           <p className={`flex items-center gap-2 ${FONT} text-lg font-bold uppercase ${found.size === total ? "text-good" : "text-ink"}`}>
             {found.size === total && <Check className="h-5 w-5" />}
-            {found.size === total ? "Bütün heyəti tapdın!" : `${found.size} / ${total} tapdın`}
+            {found.size === total ? tr("Bütün heyəti tapdın!") : tr("{n} / {total} tapdın", { n: found.size, total })}
           </p>
           <div className="flex gap-2">
             <button type="button" onClick={onBack} className={BTN_GHOST}>
               <span aria-hidden="true" className={SWEEP_BLUE} />
-              Başqa oyun
+              {tr("Başqa oyun")}
             </button>
           </div>
         </div>

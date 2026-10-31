@@ -29,6 +29,7 @@ import X0XBoard from "./X0XBoard";
 import X0XChoices from "./X0XChoices";
 import { catText } from "./CategoryHeader";
 
+import { tr } from "../../../i18n";
 const GUESSES = 9;
 const emptyBoard = () => Array(9).fill(null);
 
@@ -120,14 +121,14 @@ export default function X0XSolo({ data, settings, onSettings }) {
       next = [...board];
       next[cell] = { mark: "solo", playerId: player.id, name: player.name };
       setBoard(next);
-      setFeedback({ type: "ok", text: `${player.name} düzgündür!` });
+      setFeedback({ type: "ok", text: tr("{name} düzgündür!", { name: player.name }) });
     } else {
       setFeedback({
         type: "wrong",
         text:
           status === "used"
-            ? `${player.name} artıq istifadə olunub.`
-            : `${player.name} bu xanaya uyğun deyil.`,
+            ? tr("{name} artıq istifadə olunub.", { name: player.name })
+            : tr("{name} bu xanaya uyğun deyil.", { name: player.name }),
       });
     }
     if (isFull(next) || remaining <= 0) finish();
@@ -146,7 +147,7 @@ export default function X0XSolo({ data, settings, onSettings }) {
       <span
         className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-accent-hi md:text-xs`}
       >
-        cəhd qalıb
+        {tr("cəhd qalıb")}
       </span>
     </span>
   );
@@ -154,8 +155,8 @@ export default function X0XSolo({ data, settings, onSettings }) {
   if (grid === null) {
     return (
       <Notice
-        title="Cədvəl yaradılmadı"
-        text="Bu parametrlərlə uyğun cədvəl tapılmadı. Çətinliyi və ya kateqoriyaları dəyiş."
+        title={tr("Cədvəl yaradılmadı")}
+        text={tr("Bu parametrlərlə uyğun cədvəl tapılmadı. Çətinliyi və ya kateqoriyaları dəyiş.")}
       />
     );
   }
@@ -167,11 +168,11 @@ export default function X0XSolo({ data, settings, onSettings }) {
         <div className="grid grid-cols-3 gap-2">
           <Stat
             Icon={daily ? CalendarDays : Shuffle}
-            label={daily ? "Günün cədvəli" : "Təsadüfi"}
-            value={daily ? todayKey().slice(5) : "Məşq"}
+            label={daily ? tr("Günün cədvəli") : tr("Təsadüfi")}
+            value={daily ? todayKey().slice(5) : tr("Məşq")}
           />
-          <Stat Icon={Target} label="Xal" value={`${score} / 9`} />
-          <Stat Icon={Eye} label="Nadirlik" value={rarity} />
+          <Stat Icon={Target} label={tr("Xal")} value={`${score} / 9`} />
+          <Stat Icon={Eye} label={tr("Nadirlik")} value={rarity} />
         </div>
 
         <PlayerSearch
@@ -182,8 +183,8 @@ export default function X0XSolo({ data, settings, onSettings }) {
             activeCell !== null
               ? `${catText(rowCat)} × ${catText(colCat)}`
               : over
-                ? "Oyun bitdi"
-                : "Əvvəlcə xana seç"
+                ? tr("Oyun bitdi")
+                : tr("Əvvəlcə xana seç")
           }
           onSelect={answer}
           onCancel={() => setActiveCell(null)}
@@ -204,7 +205,7 @@ export default function X0XSolo({ data, settings, onSettings }) {
           }`}
         >
           {feedback?.text ??
-            "Hər cavab bir cəhd aparır. Az adamın tapdığı xanalar daha çox nadirlik xalı verir."}
+            tr("Hər cavab bir cəhd aparır. Az adamın tapdığı xanalar daha çox nadirlik xalı verir.")}
         </div>
       </div>
 
@@ -231,7 +232,7 @@ export default function X0XSolo({ data, settings, onSettings }) {
           >
             <span aria-hidden="true" className={SWEEP_BLUE} />
             <Eye className="h-4 w-4" />
-            {reveal ? "Gizlət" : "Cavablar"}
+            {reveal ? tr("Gizlət") : tr("Cavablar")}
           </button>
         )}
         <button
@@ -244,7 +245,7 @@ export default function X0XSolo({ data, settings, onSettings }) {
             className={over ? SWEEP_WHITE : SWEEP_BLUE}
           />
           <Shuffle className="h-4 w-4" />
-          Təsadüfi
+          {tr("Təsadüfi")}
         </button>
         {!daily && (
           <button
@@ -254,28 +255,28 @@ export default function X0XSolo({ data, settings, onSettings }) {
           >
             <span aria-hidden="true" className={SWEEP_BLUE} />
             <CalendarDays className="h-4 w-4" />
-            Günün cədvəli
+            {tr("Günün cədvəli")}
           </button>
         )}
         {!over && (
           <button type="button" onClick={finish} className={BTN_PRIMARY}>
             <span aria-hidden="true" className={SWEEP_WHITE} />
             <Flag className="h-4 w-4" />
-            Təslim ol
+            {tr("Təslim ol")}
           </button>
         )}
         <button type="button" onClick={onSettings} className={BTN_GHOST}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <Settings2 className="h-4 w-4" />
-          Parametrlər
+          {tr("Parametrlər")}
         </button>
       </div>
 
       <ResultModal
         open={showResult}
         onClose={() => setShowResult(false)}
-        eyebrow={daily ? "Günün cədvəli" : "Təsadüfi cədvəl"}
-        title={score === 9 ? "Mükəmməl cədvəl!" : `${score} / 9 xana`}
+        eyebrow={daily ? tr("Günün cədvəli") : tr("Təsadüfi cədvəl")}
+        title={score === 9 ? tr("Mükəmməl cədvəl!") : `${score} / 9 xana`}
         actions={
           <>
             <button
@@ -287,7 +288,7 @@ export default function X0XSolo({ data, settings, onSettings }) {
               className={BTN_PRIMARY}
             >
               <span aria-hidden="true" className={SWEEP_WHITE} />
-              Cavablara bax
+              {tr("Cavablara bax")}
             </button>
             <button
               type="button"
@@ -295,16 +296,16 @@ export default function X0XSolo({ data, settings, onSettings }) {
               className={BTN_GHOST}
             >
               <span aria-hidden="true" className={SWEEP_BLUE} />
-              Təsadüfi cədvəl
+              {tr("Təsadüfi cədvəl")}
             </button>
           </>
         }
       >
         <p className={`${FONT} text-base text-muted`}>
-          Nadirlik xalı: <span className="font-bold text-ink">{rarity}</span>
+          {tr("Nadirlik xalı:")}{" "} <span className="font-bold text-ink">{rarity}</span>
         </p>
         <p className={`mt-1 ${FONT} text-sm text-faint`}>
-          Mümkün cavablar: {grid.answers.reduce((a, b) => a + b, 0)}
+          {tr("Mümkün cavablar:")}{" "} {grid.answers.reduce((a, b) => a + b, 0)}
         </p>
       </ResultModal>
     </div>

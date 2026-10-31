@@ -7,6 +7,7 @@ import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common
 import { shortName } from "./AuctionParts";
 import { SIDES } from "./settings";
 
+import { tr } from "../../../i18n";
 const SPOTS = {
   GK: [[50, 86]],
   DF: [[50, 63]],
@@ -125,23 +126,23 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
               className={`inline-flex items-center gap-1.5 bg-gold/15 px-2.5 py-1 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-gold-hi`}
             >
               <Trophy className="h-3.5 w-3.5" />
-              Qalib
+              {tr("Qalib")}
             </span>
           )}
         </div>
         <p className={`mt-2 ${FONT} text-5xl font-bold text-ink`}>
           {total}
-          <span className="ml-2 text-sm font-normal text-faint">güc xalı</span>
+          <span className="ml-2 text-sm font-normal text-faint">{tr("güc xalı")}</span>
         </p>
         <div className="mt-4 space-y-3">
-          <Bar label="Reytinq cəmi" value={res.ratings} width={(res.ratings / 495) * 100} color={SIDES[side].bar} />
-          <Bar label="Kimya (eyni klub / ölkə)" value={`+${res.chem}`} width={res.chem * 10} color="bg-good" />
-          <Bar label="Xərclənən" value={money(res.spent)} width={(res.spent / BUDGET) * 100} color="bg-violet-400" />
+          <Bar label={tr("Reytinq cəmi")} value={res.ratings} width={(res.ratings / 495) * 100} color={SIDES[side].bar} />
+          <Bar label={tr("Kimya (eyni klub / ölkə)")} value={`+${res.chem}`} width={res.chem * 10} color="bg-good" />
+          <Bar label={tr("Xərclənən")} value={money(res.spent)} width={(res.spent / BUDGET) * 100} color="bg-violet-400" />
         </div>
         <div className={`mt-4 space-y-1 border-t border-line/8 pt-3 ${FONT} text-sm leading-relaxed text-muted`}>
           {best && (
             <p>
-              Ən sərfəli alış:{" "}
+              {tr("Ən sərfəli alış:")}{" "}
               <span className="font-bold text-gold-hi">
                 {shortName(best.player.name)} · {money(best.price)}
               </span>{" "}
@@ -149,9 +150,9 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
             </p>
           )}
           {chemNotes.length ? (
-            chemNotes.map((n) => <p key={n}>Kimya: {n}</p>)
+            chemNotes.map((n) => <p key={n}>{tr("Kimya:")}{" "} {n}</p>)
           ) : (
-            <p>Kimya bonusu yoxdur.</p>
+            <p>{tr("Kimya bonusu yoxdur.")}</p>
           )}
         </div>
       </div>
@@ -164,12 +165,12 @@ export default function AuctionResult({ data, state, names, solo, onAgain, onSet
   const winner =
     res.A.total === res.B.total ? null : res.A.total > res.B.total ? "A" : "B";
   const title = !winner
-    ? "Bərabərlik!"
+    ? tr("Bərabərlik!")
     : solo
       ? winner === "A"
-        ? "Sənin komandan daha güclüdür"
-        : "Bot daha güclü komanda qurdu"
-      : `${names[winner]} qalib gəldi`;
+        ? tr("Sənin komandan daha güclüdür")
+        : tr("Bot daha güclü komanda qurdu")
+      : tr("{winner} qalib gəldi", { winner: names[winner] });
   const a = useCount(res.A.total, true);
   const b = useCount(res.B.total, true);
 
@@ -177,17 +178,17 @@ export default function AuctionResult({ data, state, names, solo, onAgain, onSet
     <div>
       <div className="text-center animate-[auIn_0.5s_ease-out_both]">
         <p className={`${FONT} text-sm font-bold uppercase tracking-[0.28em] text-gold`}>
-          Hərrac bitdi
+          {tr("Hərrac bitdi")}
         </p>
         <h2 className={`mt-2 ${FONT} text-3xl font-bold uppercase text-ink md:text-5xl`}>
           {title}
         </h2>
         <p className={`mt-2 ${FONT} text-sm text-muted`}>
-          Reytinqlərin cəmi + kimya bonusu (eyni klub +2, eyni ölkə +1, maksimum +10)
+          {tr("Reytinqlərin cəmi + kimya bonusu (eyni klub +2, eyni ölkə +1, maksimum +10)")}
         </p>
         <div className={`mt-4 flex items-center justify-center gap-6 ${FONT} font-bold`}>
           <span className={`text-5xl md:text-6xl ${SIDES.A.text}`}>{a}</span>
-          <span className="text-sm tracking-[0.3em] text-dim">VS</span>
+          <span className="text-sm tracking-[0.3em] text-dim">{"VS"}</span>
           <span className={`text-5xl md:text-6xl ${SIDES.B.text}`}>{b}</span>
         </div>
       </div>
@@ -217,12 +218,12 @@ export default function AuctionResult({ data, state, names, solo, onAgain, onSet
         <button type="button" onClick={onAgain} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
           <RotateCcw className="h-4 w-4" />
-          Yenidən oyna
+          {tr("Yenidən oyna")}
         </button>
         <button type="button" onClick={onSettings} className={BTN_GHOST}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <Settings2 className="h-4 w-4" />
-          Parametrlər
+          {tr("Parametrlər")}
         </button>
       </div>
     </div>

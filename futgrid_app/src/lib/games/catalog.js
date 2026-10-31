@@ -1,99 +1,157 @@
+import { tr } from "../../i18n";
 export const GAME_CATALOG = [
   {
     key: "x0x",
-    title: "Futbol X0X",
-    genre: "Bilik · Strategiya",
-    description:
-      "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
+    get title() {
+    return tr("Futbol X0X");
+  },
+    get genre() {
+    return tr("Bilik · Strategiya");
+  },
+    get description() {
+    return tr("Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.");
+  },
     image: "/images/game1.jpg",
     href: "/oyunlar/futbol-x0x",
-    tags: ["2 oyunçu", "Tək oyunçu", "3 səviyyə"],
+    get tags() {
+    return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
+  },
     modes: ["solo", "duo"],
     status: "live",
   },
   {
     key: "ortaq",
-    title: "Ortaq Oyunçu",
-    genre: "Kart dueli",
-    description: "Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.",
+    get title() {
+    return tr("Ortaq Oyunçu");
+  },
+    get genre() {
+    return tr("Kart dueli");
+  },
+    get description() {
+    return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
+  },
     image: "/images/game2.jpg",
     href: "/oyunlar/ortaq-oyuncu",
-    tags: ["Kart dueli", "2 oyunçu", "Tək oyunçu"],
+    get tags() {
+    return ["Kart dueli", "2 oyunçu", "Tək oyunçu"].map((s) => tr(s));
+  },
     modes: ["solo", "duo"],
     status: "live",
   },
   {
     key: "auksion",
-    title: "Açıq Artırma",
-    genre: "Hərrac · Komanda qur",
-    description:
-      "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
+    get title() {
+    return tr("Açıq Artırma");
+  },
+    get genre() {
+    return tr("Hərrac · Komanda qur");
+  },
+    get description() {
+    return tr("20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.");
+  },
     image: "/images/game3.png",
     href: "/oyunlar/auksion",
-    tags: ["Bota qarşı", "2 oyunçu", "20 ₼ büdcə"],
+    get tags() {
+    return ["Bota qarşı", "2 oyunçu", "20 ₼ büdcə"].map((s) => tr(s));
+  },
     modes: ["solo", "duo"],
     status: "live",
   },
   {
     key: "yuksek",
-    title: "Yüksək yoxsa Aşağı?",
-    genre: "Seriya",
-    description:
-      "İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat.",
+    get title() {
+    return tr("Yüksək yoxsa Aşağı?");
+  },
+    get genre() {
+    return tr("Seriya");
+  },
+    get description() {
+    return tr("İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat.");
+  },
     image: "/images/game4.jpg",
     href: "/oyunlar/yuksek-asagi",
-    tags: ["Tək oyunçu", "Seriya", "Bazar dəyəri"],
+    get tags() {
+    return ["Tək oyunçu", "Seriya", "Bazar dəyəri"].map((s) => tr(s));
+  },
     modes: ["solo"],
     status: "live",
   },
   {
     key: "wordle",
-    title: "Futbol Wordle",
-    genre: "Söz oyunu",
-    description:
-      "Futbolçunun soyadını 6 cəhddə tap. Hərflər yaşıl, sarı və ya boz yanır, hər səhvdən sonra ipucu açılır.",
+    get title() {
+    return tr("Futbol Wordle");
+  },
+    get genre() {
+    return tr("Söz oyunu");
+  },
+    get description() {
+    return tr("Futbolçunun soyadını 6 cəhddə tap. Hərflər yaşıl, sarı və ya boz yanır, hər səhvdən sonra ipucu açılır.");
+  },
     image: "/images/game5.png",
     href: "/oyunlar/futbol-wordle",
-    tags: ["Tək oyunçu", "Günün oyunçusu", "Sonsuz"],
+    get tags() {
+    return ["Tək oyunçu", "Günün oyunçusu", "Sonsuz"].map((s) => tr(s));
+  },
     modes: ["solo"],
     status: "live",
     isNew: true,
   },
   {
     key: "karyera",
-    title: "Karyera yolu",
-    genre: "Bilik oyunu",
-    description:
-      "Klubların ardıcıllığına bax, məsələn Barcelona → PSG → Inter Miami, və bu yolu keçən futbolçunu tap.",
+    get title() {
+    return tr("Karyera yolu");
+  },
+    get genre() {
+    return tr("Bilik oyunu");
+  },
+    get description() {
+    return tr("Klubların ardıcıllığına bax, məsələn Barcelona → PSG → Inter Miami, və bu yolu keçən futbolçunu tap.");
+  },
     image: "/images/game6.png",
     href: "/oyunlar/karyera-yolu",
-    tags: ["Tək oyunçu", "10 raund", "İpuçları"],
+    get tags() {
+    return ["Tək oyunçu", "10 raund", "İpuçları"].map((s) => tr(s));
+  },
     modes: ["solo"],
     status: "live",
     isNew: true,
   },
   {
     key: "heyet",
-    title: "Heyəti xatırla",
-    genre: "Yaddaş oyunu",
-    description:
-      "Tarixi oyunları seç və meydana çıxan başlanğıc heyəti xatırla. Boş yerləri adlarla doldur.",
+    get title() {
+    return tr("Heyəti xatırla");
+  },
+    get genre() {
+    return tr("Yaddaş oyunu");
+  },
+    get description() {
+    return tr("Tarixi oyunları seç və meydana çıxan başlanğıc heyəti xatırla. Boş yerləri adlarla doldur.");
+  },
     image: "/images/game7.jpg",
     href: "/oyunlar/heyeti-xatirla",
-    tags: ["Tək oyunçu", "Məşhur oyunlar"],
+    get tags() {
+    return ["Tək oyunçu", "Məşhur oyunlar"].map((s) => tr(s));
+  },
     modes: ["solo"],
     status: "live",
     isNew: true,
   },
   {
     key: "besklub",
-    title: "5 klub",
-    genre: "Sürət oyunu",
-    description:
-      "5 klub gəlir. Vaxt bitənə qədər ən azı ikisində oynamış futbolçuları yaz: 2 klub 2 xal, 3 klub 3 xal.",
+    get title() {
+    return tr("5 klub");
+  },
+    get genre() {
+    return tr("Sürət oyunu");
+  },
+    get description() {
+    return tr("5 klub gəlir. Ortaq klubları seç və onların hamısında oynamış futbolçunu yaz: 2 klub 2 xal, 3 klub 3 xal.");
+  },
     image: "/images/game8.jpg",
     href: "/oyunlar/5-klub",
-    tags: ["Tək oyunçu", "Vaxta qarşı"],
+    get tags() {
+    return ["Tək oyunçu", "Vaxta qarşı"].map((s) => tr(s));
+  },
     modes: ["solo"],
     status: "live",
     isNew: true,

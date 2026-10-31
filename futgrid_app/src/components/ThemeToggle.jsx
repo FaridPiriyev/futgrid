@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
-
+
+import { tr } from "../i18n";
 const KEY = "fg-theme-v2";
 
 const readTheme = () => {
@@ -35,8 +36,8 @@ export default function ThemeToggle({ className = "h-9 w-9", tabIndex }) {
       type="button"
       tabIndex={tabIndex}
       onClick={() => setTheme(light ? "dark" : "light")}
-      aria-label={light ? "Tünd rejimə keç" : "Açıq rejimə keç"}
-      title={light ? "Tünd rejim" : "Açıq rejim"}
+      aria-label={light ? tr("Tünd rejimə keç") : tr("Açıq rejimə keç")}
+      title={light ? tr("Tünd rejim") : tr("Açıq rejim")}
       className={`relative flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-110 active:scale-95 ${className}`}
     >
       <Sun

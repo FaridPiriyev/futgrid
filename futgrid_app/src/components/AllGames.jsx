@@ -5,6 +5,7 @@ import { GAME_CATALOG } from "../lib/games/catalog";
 import { norm } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
 
+import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
@@ -35,12 +36,12 @@ function ModeIcons({ modes }) {
   return (
     <span className="flex items-center gap-1.5 text-faint">
       {modes.includes("solo") && (
-        <span title="Tək oyunçu" className="grid h-7 w-7 place-items-center border border-line/10">
+        <span title={tr("Tək oyunçu")} className="grid h-7 w-7 place-items-center border border-line/10">
           <User className="h-3.5 w-3.5" />
         </span>
       )}
       {modes.includes("duo") && (
-        <span title="2 oyunçu" className="grid h-7 w-7 place-items-center border border-line/10">
+        <span title={tr("2 oyunçu")} className="grid h-7 w-7 place-items-center border border-line/10">
           <Users className="h-3.5 w-3.5" />
         </span>
       )}
@@ -129,7 +130,7 @@ function GameTile({ game, index }) {
                 className={`inline-flex items-center gap-1.5 border border-gold-hi/40 bg-black/60 px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-wider text-gold-hi backdrop-blur-sm`}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-gold-hi animate-[agBlink_1.6s_ease-in-out_infinite]" />
-                Tezliklə
+                {tr("Tezliklə")}
               </span>
             )}
             {game.isNew && (
@@ -137,7 +138,7 @@ function GameTile({ game, index }) {
                 className={`inline-flex items-center gap-1 bg-accent px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-wider text-white`}
               >
                 <Sparkles className="h-3 w-3" />
-                Yeni
+                {tr("Yeni")}
               </span>
             )}
           </div>
@@ -192,13 +193,13 @@ function GameTile({ game, index }) {
                 <span
                   className={`${FONT} text-sm font-bold uppercase tracking-wide text-faint`}
                 >
-                  Hazırlanır
+                  {tr("Hazırlanır")}
                 </span>
               ) : (
                 <span
                   className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-accent`}
                 >
-                  Oyna
+                  {tr("Oyna")}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/tile:translate-x-1.5" />
                 </span>
               )}
@@ -247,14 +248,14 @@ function Header() {
 
       <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
         <nav
-          aria-label="Səhifə yolu"
+          aria-label={tr("Səhifə yolu")}
           className={`flex items-center gap-2 ${FONT} text-xs uppercase tracking-[0.18em] text-faint animate-[agFade_0.6s_ease-out_both] md:text-sm`}
         >
           <Link to="/" className="transition-colors duration-300 hover:text-ink">
-            Ana səhifə
+            {tr("Ana səhifə")}
           </Link>
           <span className="text-accent">/</span>
-          <span className="text-muted">Oyunlar</span>
+          <span className="text-muted">{tr("Oyunlar")}</span>
         </nav>
 
         <div className="mt-6 flex items-center gap-3 md:mt-8">
@@ -262,21 +263,20 @@ function Header() {
           <p
             className={`${FONT} text-base uppercase tracking-wider text-accent animate-[agFade_0.6s_ease-out_0.2s_both] md:text-xl`}
           >
-            Oyun kolleksiyası
+            {tr("Oyun kolleksiyası")}
           </p>
         </div>
         <h1
           className={`mt-1 overflow-hidden py-[0.08em] ${FONT} text-5xl font-bold uppercase leading-none text-ink md:text-[84px]`}
         >
           <span className="block animate-[agUp_0.9s_cubic-bezier(.2,.8,.2,1)_0.15s_both] motion-reduce:animate-none">
-            Bütün oyunlar
+            {tr("Bütün oyunlar")}
           </span>
         </h1>
         <p
           className={`mt-4 max-w-2xl ${FONT} text-base font-light leading-7 text-muted animate-[agFade_0.7s_ease-out_0.35s_both] md:text-lg md:leading-8`}
         >
-          Futbol biliyini fərqli formatlarda sına: tək oyna, dostunla yarış, yeni
-          oyunlar gəldikcə ilk sən kəşf et.
+          {tr("Futbol biliyini fərqli formatlarda sına: tək oyna, dostunla yarış, yeni oyunlar gəldikcə ilk sən kəşf et.")}
         </p>
       </div>
     </section>
@@ -304,14 +304,14 @@ export default function AllGames() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Oyun axtar..."
-              aria-label="Oyun axtar"
+              placeholder={tr("Oyun axtar...")}
+              aria-label={tr("Oyun axtar")}
               className={`h-full w-full bg-transparent pl-11 pr-11 ${BODY} text-sm text-ink outline-none placeholder:text-faint`}
             />
             {query && (
               <button
                 type="button"
-                aria-label="Axtarışı təmizlə"
+                aria-label={tr("Axtarışı təmizlə")}
                 onClick={() => setQuery("")}
                 className="absolute right-2 grid h-8 w-8 place-items-center text-faint transition-colors duration-300 hover:text-ink"
               >
@@ -333,10 +333,10 @@ export default function AllGames() {
             <div className="mt-10 flex flex-col items-center border border-dashed border-line/15 px-6 py-16 text-center animate-[agFade_0.5s_ease-out_both]">
               <Search className="h-8 w-8 text-faint" />
               <p className={`mt-4 ${FONT} text-xl font-bold uppercase text-ink`}>
-                Heç nə tapılmadı
+                {tr("Heç nə tapılmadı")}
               </p>
               <p className={`mt-2 ${BODY} text-sm text-muted`}>
-                “{query}” üzrə oyun yoxdur. Başqa söz yoxla.
+                {tr("“{query}” üzrə oyun yoxdur. Başqa söz yoxla.", { query })}
               </p>
             </div>
           )}

@@ -1,3 +1,4 @@
+import { tr } from "../../../i18n";
 const KEY = "futgrid:auksion:settings";
 
 export const DEFAULT_SETTINGS = {
@@ -9,18 +10,44 @@ export const DEFAULT_SETTINGS = {
 
 export const OPTIONS = {
   pool: [
-    { value: "stars", label: "Ulduzlar", sub: "ən güclü oyunçular" },
-    { value: "wide", label: "Geniş", sub: "daha çox sürpriz" },
+    { value: "stars", get label() {
+    return tr("Ulduzlar");
+  }, get sub() {
+    return tr("ən güclü oyunçular");
+  } },
+    { value: "wide", get label() {
+    return tr("Geniş");
+  }, get sub() {
+    return tr("daha çox sürpriz");
+  } },
   ],
   timer: [
-    { value: 10, label: "10 san" },
-    { value: 15, label: "15 san" },
-    { value: 20, label: "20 san" },
+    { value: 10, get label() {
+    return tr("10 san");
+  } },
+    { value: 15, get label() {
+    return tr("15 san");
+  } },
+    { value: 20, get label() {
+    return tr("20 san");
+  } },
   ],
   bot: [
-    { value: "easy", label: "Asan", sub: "tez-tez güzəştə gedir" },
-    { value: "normal", label: "Orta", sub: "ağıllı alıcı" },
-    { value: "hard", label: "Çətin", sub: "pulunu dəqiq xərcləyir" },
+    { value: "easy", get label() {
+    return tr("Asan");
+  }, get sub() {
+    return tr("tez-tez güzəştə gedir");
+  } },
+    { value: "normal", get label() {
+    return tr("Orta");
+  }, get sub() {
+    return tr("ağıllı alıcı");
+  } },
+    { value: "hard", get label() {
+    return tr("Çətin");
+  }, get sub() {
+    return tr("pulunu dəqiq xərcləyir");
+  } },
   ],
 };
 
@@ -70,9 +97,9 @@ export function saveSettings(s) {
 }
 
 export function sideNames(mode, settings) {
-  if (mode === "solo") return { A: "Sən", B: "Bot" };
+  if (mode === "solo") return { A: tr("Sən"), B: "Bot" };
   return {
-    A: settings.names?.A?.trim() || "Oyunçu 1",
-    B: settings.names?.B?.trim() || "Oyunçu 2",
+    A: settings.names?.A?.trim() || tr("Oyunçu 1"),
+    B: settings.names?.B?.trim() || tr("Oyunçu 2"),
   };
 }

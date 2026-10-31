@@ -2,6 +2,7 @@ import { Timer, Zap } from "lucide-react";
 import { FONT } from "../common/ui";
 import { MARKS } from "./marks";
 
+import { tr } from "../../../i18n";
 export default function X0XScoreboard({
   names,
   turn,
@@ -41,7 +42,7 @@ export default function X0XScoreboard({
                     <span
                       className={`block ${FONT} text-[11px] uppercase tracking-[0.15em] text-muted`}
                     >
-                      Növbə
+                      {tr("Növbə")}
                     </span>
                   )}
                   <span
@@ -58,7 +59,7 @@ export default function X0XScoreboard({
                         className={`inline-flex items-center gap-1 ${timeLeft <= 5 ? "text-bad" : ""}`}
                       >
                         <Timer className="h-3 w-3" />
-                        {timeLeft} san.
+                        {timeLeft} {tr("san.")}
                       </span>
                     )}
                   </span>

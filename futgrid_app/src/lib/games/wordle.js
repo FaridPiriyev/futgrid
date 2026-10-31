@@ -1,8 +1,10 @@
 import { norm } from "../data";
 import { seedFrom, todayKey } from "../random";
+import { byFame } from "./fame";
 
+import { tr } from "../../i18n";
 export const MAX_TRIES = 6;
-export const POOL = { easy: 150, normal: 600, hard: 2500 };
+export const POOL = { easy: 120, normal: 500, hard: 2500 };
 
 const PARTICLES = new Set([
   "van", "de", "di", "da", "dos", "das", "der", "den", "le", "la", "el", "ben", "al", "von", "du", "mac", "del",
@@ -28,7 +30,7 @@ function index(data) {
     for (const t of norm(p.name).split(" ")) if (isWord(t)) dict.add(t);
   const ranked = data.players
     .filter((p) => surnameOf(p) && popularity(p) > 0)
-    .sort((a, b) => popularity(b) - popularity(a));
+    .sort(byFame);
   const seen = new Set();
   const targets = [];
   for (const p of ranked) {
@@ -89,7 +91,7 @@ export function keyStates(rows) {
 
 export function shareText(rows, won, length) {
   const map = { hit: "🟩", near: "🟨", miss: "⬛" };
-  const head = `FutGrid Wordle ${todayKey()} ${won ? rows.length : "X"}/${MAX_TRIES} (${length} hərf)`;
+  const head = tr("FutGrid Wordle {v1} {v2}/{MAX_TRIES} ({n} hərf)", { v1: todayKey(), v2: won ? rows.length : "X", MAX_TRIES, n: length });
   return [head, ...rows.map((r) => r.marks.map((m) => map[m]).join(""))].join("\n");
 }
 

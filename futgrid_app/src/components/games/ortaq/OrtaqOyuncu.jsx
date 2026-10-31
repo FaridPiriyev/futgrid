@@ -9,6 +9,7 @@ import OrtaqVersus from "./OrtaqVersus";
 import { CARD_KEYFRAMES } from "./PokerCard";
 import { loadSettings, saveSettings } from "./settings";
 
+import { tr } from "../../../i18n";
 const TITLE = "Ortaq oyunçu";
 
 export default function OrtaqOyuncu() {
@@ -45,8 +46,8 @@ export default function OrtaqOyuncu() {
   };
 
   let body;
-  if (error) body = <Notice title="Data yüklənmədi" text={error} />;
-  else if (!data) body = <Loader text="Oyunçular yüklənir..." />;
+  if (error) body = <Notice title={tr("Data yüklənmədi")} text={error} />;
+  else if (!data) body = <Loader text={tr("Oyunçular yüklənir...")} />;
   else if (screen === "modes")
     body = (
       <ModeSelect
@@ -55,8 +56,8 @@ export default function OrtaqOyuncu() {
           setScreen("settings");
         }}
         texts={{
-          same: "Klubunu gizli seç, kartlar birlikdə açılsın",
-          solo: "Sistemin verdiyi cütün ortaq oyunçusunu tap",
+          same: tr("Klubunu gizli seç, kartlar birlikdə açılsın"),
+          solo: tr("Sistemin verdiyi cütün ortaq oyunçusunu tap"),
         }}
       />
     );
@@ -91,9 +92,9 @@ export default function OrtaqOyuncu() {
 
   return (
     <GameLayout
-      eyebrow="Futbol bilik oyunu"
+      eyebrow={tr("Futbol bilik oyunu")}
       title={TITLE}
-      description="İki klubda və ya klub və ölkədə ortaq olan oyunçunu tap."
+      description={tr("İki klubda və ya klub və ölkədə ortaq olan oyunçunu tap.")}
       compact={Boolean(data) && screen !== "modes"}
     >
       <style>{CARD_KEYFRAMES}</style>

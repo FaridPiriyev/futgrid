@@ -1,3 +1,4 @@
+import { tr } from "../../../i18n";
 const KEY = "futgrid:x0x:settings";
 
 export const DEFAULT_SETTINGS = {
@@ -13,30 +14,88 @@ export const DEFAULT_SETTINGS = {
 
 export const OPTIONS = {
   era: [
-    { value: "active", label: "Aktiv", sub: "indiki heyətlər" },
-    { value: "all", label: "Bütün zamanlar", sub: "legendlər daxil" },
+    { value: "active", get label() {
+    return tr("Aktiv");
+  }, get sub() {
+    return tr("indiki heyətlər");
+  } },
+    { value: "all", get label() {
+    return tr("Bütün zamanlar");
+  }, get sub() {
+    return tr("legendlər daxil");
+  } },
   ],
   difficulty: [
-    { value: "easy", label: "Asan", sub: "top klublar, FIFA ilk 40" },
-    { value: "normal", label: "Normal", sub: "FIFA ilk 100" },
-    { value: "hard", label: "Çətin", sub: "hamısı" },
+    { value: "easy", get label() {
+    return tr("Asan");
+  }, get sub() {
+    return tr("ən məşhurlar");
+  } },
+    { value: "normal", get label() {
+    return tr("Normal");
+  }, get sub() {
+    return tr("tanınmışlar");
+  } },
+    { value: "hard", get label() {
+    return tr("Çətin");
+  }, get sub() {
+    return tr("hamısı");
+  } },
   ],
   steals: [
-    { value: "none", label: "Oğurlama yox" },
-    { value: 3, label: "3 oğurlama" },
-    { value: "unlimited", label: "Limitsiz" },
+    { value: "none", get label() {
+    return tr("Oğurlama yox");
+  } },
+    { value: 3, get label() {
+    return tr("3 oğurlama");
+  } },
+    { value: "unlimited", get label() {
+    return tr("Limitsiz");
+  } },
   ],
   bestOf: [
-    { value: 3, label: "3 raund", sub: "2 qələbə" },
-    { value: 5, label: "5 raund", sub: "3 qələbə" },
-    { value: 7, label: "7 raund", sub: "4 qələbə" },
-    { value: "unlimited", label: "Limitsiz", sub: "sonsuz" },
+    { value: 3, get label() {
+    return tr("3 raund");
+  }, get sub() {
+    return tr("2 qələbə");
+  } },
+    { value: 5, get label() {
+    return tr("5 raund");
+  }, get sub() {
+    return tr("3 qələbə");
+  } },
+    { value: 7, get label() {
+    return tr("7 raund");
+  }, get sub() {
+    return tr("4 qələbə");
+  } },
+    { value: "unlimited", get label() {
+    return tr("Limitsiz");
+  }, get sub() {
+    return tr("sonsuz");
+  } },
   ],
   timer: [
-    { value: 15, label: "Sürətli", sub: "15 san." },
-    { value: 40, label: "Normal", sub: "40 san." },
-    { value: 60, label: "Taktik", sub: "60 san." },
-    { value: 0, label: "Limitsiz", sub: "vaxt yoxdur" },
+    { value: 15, get label() {
+    return tr("Sürətli");
+  }, get sub() {
+    return tr("15 san.");
+  } },
+    { value: 40, get label() {
+    return tr("Normal");
+  }, get sub() {
+    return tr("40 san.");
+  } },
+    { value: 60, get label() {
+    return tr("Taktik");
+  }, get sub() {
+    return tr("60 san.");
+  } },
+    { value: 0, get label() {
+    return tr("Limitsiz");
+  }, get sub() {
+    return tr("vaxt yoxdur");
+  } },
   ],
 };
 
@@ -69,4 +128,4 @@ export const winsNeeded = (bestOf) =>
   bestOf === "unlimited" ? Infinity : Math.ceil(bestOf / 2);
 
 export const playerName = (settings, mark) =>
-  settings.names?.[mark]?.trim() || (mark === "X" ? "Oyunçu 1" : "Oyunçu 2");
+  settings.names?.[mark]?.trim() || (mark === "X" ? tr("Oyunçu 1") : tr("Oyunçu 2"));

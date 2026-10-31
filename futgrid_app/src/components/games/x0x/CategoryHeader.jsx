@@ -3,6 +3,7 @@ import { ClipboardList, Trophy } from "lucide-react";
 import ClubBadge from "../common/ClubBadge";
 import { FONT } from "../common/ui";
 
+import { tr } from "../../../i18n";
 function Caption({ label, sub }) {
   return (
     <>
@@ -85,7 +86,7 @@ export default function CategoryHeader({ cat }) {
   const sub =
     cat.type === "trophy"
       ? cat.min > 1
-        ? `${cat.min} dəfə qalib`
+        ? tr("{min} dəfə qalib", { min: cat.min })
         : "qalibi"
       : cat.sub;
   return (
@@ -100,7 +101,9 @@ export default function CategoryHeader({ cat }) {
 
 export const catText = (cat) =>
   cat.type === "trophy"
-    ? `${cat.label} ${cat.min > 1 ? `(${cat.min}+ dəfə)` : "qalibi"}`
+    ? cat.min > 1
+      ? tr("{label} ({n}+ dəfə)", { label: cat.label, n: cat.min })
+      : tr("{label} qalibi", { label: cat.label })
     : cat.sub
       ? `${cat.label} (${cat.sub})`
       : cat.label;

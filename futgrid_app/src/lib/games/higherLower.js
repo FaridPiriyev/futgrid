@@ -1,19 +1,25 @@
 import { euro } from "./playerInfo";
+import { byFame } from "./fame";
 
+import { tr } from "../../i18n";
 export const METRIC = {
-  label: "Bazar dəyəri",
-  question: "Kimin bazar dəyəri daha yüksəkdir?",
+  get label() {
+    return tr("Bazar dəyəri");
+  },
+  get question() {
+    return tr("Kimin bazar dəyəri daha yüksəkdir?");
+  },
   get: (p) => (p.is_active !== false ? p.market_value?.amount_eur : undefined),
   format: euro,
 };
 
-export const POOL_SIZE = { easy: 300, normal: 1200, hard: 5000 };
+export const POOL_SIZE = { easy: 200, normal: 900, hard: 5000 };
 
 export function buildPool(data, difficulty) {
   const size = POOL_SIZE[difficulty] ?? POOL_SIZE.normal;
   return data.players
     .filter((p) => METRIC.get(p) > 0)
-    .sort((a, b) => METRIC.get(b) - METRIC.get(a))
+    .sort(byFame)
     .slice(0, size);
 }
 

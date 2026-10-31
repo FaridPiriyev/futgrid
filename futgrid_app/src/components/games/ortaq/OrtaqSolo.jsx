@@ -15,6 +15,7 @@ import AnswerList, { FoundPlayer } from "./AnswerList";
 import PokerCard from "./PokerCard";
 import { SIDES } from "./settings";
 
+import { tr } from "../../../i18n";
 function Stat({ label, value, sub, tone = "text-ink", compact }) {
   return (
     <div
@@ -89,13 +90,13 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
       setStats((s) => ({ ...s, correct: s.correct + 1 }));
       setFound(player);
       setPhase("done");
-      setFeedback({ type: "ok", text: "Düzdür! +1 xal" });
+      setFeedback({ type: "ok", text: tr("Düzdür! +1 xal") });
     } else {
       setScore((s) => s - 1);
       setStats((s) => ({ ...s, wrong: s.wrong + 1 }));
       setFeedback({
         type: "wrong",
-        text: `${player.name} ortaq oyunçu deyil. −1 xal`,
+        text: tr("{name} ortaq oyunçu deyil. −1 xal", { name: player.name }),
       });
     }
   };
@@ -103,7 +104,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
   const skip = () => {
     setStats((s) => ({ ...s, skipped: s.skipped + 1 }));
     setPhase("done");
-    setFeedback({ type: "info", text: "Keçdin. Cavablar aşağıdadır." });
+    setFeedback({ type: "info", text: tr("Keçdin. Cavablar aşağıdadır.") });
   };
 
   const next = () => {
@@ -124,8 +125,8 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
   if (pair === null)
     return (
       <Notice
-        title="Cüt tapılmadı"
-        text="Bu səviyyədə uyğun klub və ölkə cütü qalmadı. Səviyyəni dəyiş."
+        title={tr("Cüt tapılmadı")}
+        text={tr("Bu səviyyədə uyğun klub və ölkə cütü qalmadı. Səviyyəni dəyiş.")}
       />
     );
   if (!pair) return null;
@@ -133,12 +134,12 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
   return (
     <div className="relative mx-auto max-w-6xl">
       <div className="mb-3 flex gap-3 md:hidden">
-        <Stat compact label="Sual" value={`${index}/${total}`} sub="" />
+        <Stat compact label={tr("Sual")} value={`${index}/${total}`} sub="" />
         <Stat
           compact
-          label="Xal"
+          label={tr("Xal")}
           value={score}
-          sub={`${stats.correct} düz · ${stats.wrong} səhv`}
+          sub={tr("{correct} düz · {wrong} səhv", { correct: stats.correct, wrong: stats.wrong })}
           tone={score < 0 ? "text-bad" : "text-ink"}
         />
       </div>
@@ -146,7 +147,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
       <div className="relative rounded-3xl border border-line/5 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--fg-accent)_8%,transparent),transparent_70%)] px-2 py-5 md:px-6">
         <div className="flex items-center justify-center gap-3 md:gap-6">
           <div className="hidden md:block">
-            <Stat label="Sual" value={index} sub={`${total} sualdan`} />
+            <Stat label={tr("Sual")} value={index} sub={`${total} sualdan`} />
           </div>
           <PokerCard
             key={`a-${pair.key}`}
@@ -171,9 +172,9 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
           />
           <div className="hidden md:block">
             <Stat
-              label="Xal"
+              label={tr("Xal")}
               value={score}
-              sub={`${stats.correct} düz · ${stats.wrong} səhv`}
+              sub={tr("{correct} düz · {wrong} səhv", { correct: stats.correct, wrong: stats.wrong })}
               tone={score < 0 ? "text-bad" : "text-ink"}
             />
           </div>
@@ -185,12 +186,12 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
           <PlayerSearch
             data={data}
             focusKey={`${index}-${phase}`}
-            placeholder={`${pair.a.label} və ${pair.b.label} ilə bağlı oyunçunu yaz...`}
+            placeholder={tr("{label} və {label2} ilə bağlı oyunçunu yaz...", { label: pair.a.label, label2: pair.b.label })}
             onSelect={guess}
           />
         )}
         {phase === "done" && found && (
-          <FoundPlayer player={found} title="Düzgün cavab" />
+          <FoundPlayer player={found} title={tr("Düzgün cavab")} />
         )}
         {phase === "done" && (
           <AnswerList answers={answers} exclude={found?.id} />
@@ -208,7 +209,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
             }`}
           >
             {feedback?.text ??
-              "Hər iki karta uyğun oyunçunu tap. Düz cavab +1, səhv cavab −1 xal."}
+              tr("Hər iki karta uyğun oyunçunu tap. Düz cavab +1, səhv cavab −1 xal.")}
           </div>
         )}
 
@@ -217,19 +218,19 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
             <button type="button" onClick={skip} className={BTN_GHOST}>
               <span aria-hidden="true" className={SWEEP_BLUE} />
               <Flag className="h-4 w-4" />
-              Keç
+              {tr("Keç")}
             </button>
           ) : (
             <button type="button" onClick={next} className={BTN_PRIMARY}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <ArrowRight className="h-4 w-4" />
-              {last ? "Nəticə" : "Növbəti sual"}
+              {last ? tr("Nəticə") : tr("Növbəti sual")}
             </button>
           )}
           <button type="button" onClick={onSettings} className={BTN_GHOST}>
             <span aria-hidden="true" className={SWEEP_BLUE} />
             <Settings2 className="h-4 w-4" />
-            Parametrlər
+            {tr("Parametrlər")}
           </button>
         </div>
       </div>
@@ -237,19 +238,23 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
       <ResultModal
         open={showModal}
         onClose={() => setShowModal(false)}
-        eyebrow="Oyun bitdi"
+        eyebrow={tr("Oyun bitdi")}
         title={`${score} xal`}
         actions={
           <button type="button" onClick={restart} className={BTN_PRIMARY}>
             <span aria-hidden="true" className={SWEEP_WHITE} />
             <RotateCcw className="h-4 w-4" />
-            Yenidən oyna
+            {tr("Yenidən oyna")}
           </button>
         }
       >
         <p className={`${FONT} text-base text-muted`}>
-          {total} sualdan {stats.correct} düz, {stats.wrong} səhv cavab,{" "}
-          {stats.skipped} keçid.
+          {tr("{total} sualdan {correct} düz, {wrong} səhv cavab, {skipped} keçid.", {
+            total,
+            correct: stats.correct,
+            wrong: stats.wrong,
+            skipped: stats.skipped,
+          })}
         </p>
       </ResultModal>
     </div>

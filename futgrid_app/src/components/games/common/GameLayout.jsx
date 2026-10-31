@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { FONT } from "./ui";
 
+import { tr } from "../../../i18n";
 function BackLink() {
   return (
     <Link
@@ -9,7 +10,7 @@ function BackLink() {
       className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-muted transition-colors duration-300 hover:text-ink`}
     >
       <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
-      Oyunlara qayıt
+      {tr("Oyunlara qayıt")}
     </Link>
   );
 }
@@ -31,11 +32,7 @@ export default function GameLayout({
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,color-mix(in_srgb,var(--fg-accent)_18%,transparent),transparent_60%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-0.5 bg-accent"
+        className="fg-pitch absolute inset-x-0 top-0 h-80 opacity-80 [mask-image:linear-gradient(to_bottom,black,transparent)]"
       />
 
       <div
@@ -47,7 +44,7 @@ export default function GameLayout({
             <span
               className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-accent`}
             >
-              {title}
+              {tr(title)}
             </span>
           </div>
         ) : (
@@ -58,19 +55,19 @@ export default function GameLayout({
                 <p
                   className={`${FONT} text-base uppercase tracking-wider text-accent md:text-xl`}
                 >
-                  {eyebrow}
+                  {tr(eyebrow)}
                 </p>
               )}
               <h1
                 className={`mt-1 ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
               >
-                {title}
+                {tr(title)}
               </h1>
               {description && (
                 <p
                   className={`mx-auto mt-3 max-w-2xl ${FONT} text-base font-light leading-7 text-muted md:text-lg`}
                 >
-                  {description}
+                  {tr(description)}
                 </p>
               )}
             </header>

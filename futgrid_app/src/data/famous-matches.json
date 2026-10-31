@@ -1,186 +1,1641 @@
 [
-  {
-    "id": "bra-ger-2014",
-    "competition": "Dünya Kuboku 2014 · Yarımfinal",
-    "date": "2014-07-08",
-    "venue": "Belo Horizonte",
-    "home": {
-      "name": "Braziliya",
-      "score": 1,
-      "formation": "4-2-3-1",
-      "players": [
-        { "name": "Júlio César" },
-        { "name": "Maicon" },
-        { "name": "David Luiz" },
-        { "name": "Dante" },
-        { "name": "Marcelo" },
-        { "name": "Luiz Gustavo" },
-        { "name": "Fernandinho" },
-        { "name": "Hulk" },
-        { "name": "Oscar" },
-        { "name": "Bernard" },
-        { "name": "Fred" }
-      ]
+    {
+        "id": "bra-ger-2014",
+        "competition": "Dünya Kuboku 2014 · Yarımfinal",
+        "date": "2014-07-08",
+        "venue": "Belo Horizonte",
+        "home": {
+            "name": "Braziliya",
+            "score": 1,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Júlio César"
+                },
+                {
+                    "name": "Maicon"
+                },
+                {
+                    "name": "David Luiz"
+                },
+                {
+                    "name": "Dante"
+                },
+                {
+                    "name": "Marcelo"
+                },
+                {
+                    "name": "Luiz Gustavo"
+                },
+                {
+                    "name": "Fernandinho"
+                },
+                {
+                    "name": "Hulk"
+                },
+                {
+                    "name": "Oscar"
+                },
+                {
+                    "name": "Bernard"
+                },
+                {
+                    "name": "Fred"
+                }
+            ]
+        },
+        "away": {
+            "name": "Almaniya",
+            "score": 7,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Manuel Neuer"
+                },
+                {
+                    "name": "Philipp Lahm"
+                },
+                {
+                    "name": "Jérôme Boateng"
+                },
+                {
+                    "name": "Mats Hummels"
+                },
+                {
+                    "name": "Benedikt Höwedes"
+                },
+                {
+                    "name": "Sami Khedira"
+                },
+                {
+                    "name": "Bastian Schweinsteiger"
+                },
+                {
+                    "name": "Toni Kroos"
+                },
+                {
+                    "name": "Thomas Müller"
+                },
+                {
+                    "name": "Miroslav Klose"
+                },
+                {
+                    "name": "Mesut Özil"
+                }
+            ]
+        }
     },
-    "away": {
-      "name": "Almaniya",
-      "score": 7,
-      "formation": "4-3-3",
-      "players": [
-        { "name": "Manuel Neuer" },
-        { "name": "Philipp Lahm" },
-        { "name": "Jérôme Boateng" },
-        { "name": "Mats Hummels" },
-        { "name": "Benedikt Höwedes" },
-        { "name": "Sami Khedira" },
-        { "name": "Bastian Schweinsteiger" },
-        { "name": "Toni Kroos" },
-        { "name": "Thomas Müller" },
-        { "name": "Miroslav Klose" },
-        { "name": "Mesut Özil" }
-      ]
-    }
-  },
-  {
-    "id": "rma-atm-2014",
-    "competition": "Çempionlar Liqası 2014 · Final",
-    "date": "2014-05-24",
-    "venue": "Lissabon",
-    "note": "əlavə vaxtda",
-    "home": {
-      "name": "Real Madrid",
-      "score": 4,
-      "formation": "4-3-3",
-      "players": [
-        { "name": "Iker Casillas" },
-        { "name": "Dani Carvajal" },
-        { "name": "Raphaël Varane" },
-        { "name": "Sergio Ramos" },
-        { "name": "Fábio Coentrão" },
-        { "name": "Sami Khedira" },
-        { "name": "Luka Modrić" },
-        { "name": "Ángel Di María" },
-        { "name": "Gareth Bale" },
-        { "name": "Karim Benzema" },
-        { "name": "Cristiano Ronaldo" }
-      ]
+    {
+        "id": "rma-atm-2014",
+        "competition": "Çempionlar Liqası 2014 · Final",
+        "date": "2014-05-24",
+        "venue": "Lissabon",
+        "note": "əlavə vaxtda",
+        "home": {
+            "name": "Real Madrid",
+            "score": 4,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Iker Casillas"
+                },
+                {
+                    "name": "Dani Carvajal"
+                },
+                {
+                    "name": "Raphaël Varane"
+                },
+                {
+                    "name": "Sergio Ramos"
+                },
+                {
+                    "name": "Fábio Coentrão"
+                },
+                {
+                    "name": "Sami Khedira"
+                },
+                {
+                    "name": "Luka Modrić"
+                },
+                {
+                    "name": "Ángel Di María"
+                },
+                {
+                    "name": "Gareth Bale"
+                },
+                {
+                    "name": "Karim Benzema"
+                },
+                {
+                    "name": "Cristiano Ronaldo"
+                }
+            ]
+        },
+        "away": {
+            "name": "Atlético Madrid",
+            "score": 1,
+            "formation": "4-4-2",
+            "players": [
+                {
+                    "name": "Thibaut Courtois"
+                },
+                {
+                    "name": "Juanfran"
+                },
+                {
+                    "name": "Miranda"
+                },
+                {
+                    "name": "Diego Godín"
+                },
+                {
+                    "name": "Filipe Luís"
+                },
+                {
+                    "name": "Raúl García"
+                },
+                {
+                    "name": "Gabi"
+                },
+                {
+                    "name": "Tiago"
+                },
+                {
+                    "name": "Koke"
+                },
+                {
+                    "name": "Diego Costa"
+                },
+                {
+                    "name": "David Villa"
+                }
+            ]
+        }
     },
-    "away": {
-      "name": "Atlético Madrid",
-      "score": 1,
-      "formation": "4-4-2",
-      "players": [
-        { "name": "Thibaut Courtois" },
-        { "name": "Juanfran" },
-        { "name": "Miranda" },
-        { "name": "Diego Godín" },
-        { "name": "Filipe Luís" },
-        { "name": "Raúl García" },
-        { "name": "Gabi" },
-        { "name": "Tiago" },
-        { "name": "Koke" },
-        { "name": "Diego Costa" },
-        { "name": "David Villa" }
-      ]
-    }
-  },
-  {
-    "id": "arg-fra-2022",
-    "competition": "Dünya Kuboku 2022 · Final",
-    "date": "2022-12-18",
-    "venue": "Lusail",
-    "note": "penaltilərdə 4–2 Argentina",
-    "home": {
-      "name": "Argentina",
-      "score": 3,
-      "formation": "4-3-3",
-      "players": [
-        { "name": "Emiliano Martínez", "aliases": ["dibu"] },
-        { "name": "Nahuel Molina" },
-        { "name": "Cristian Romero", "aliases": ["cuti"] },
-        { "name": "Nicolás Otamendi" },
-        { "name": "Nicolás Tagliafico" },
-        { "name": "Rodrigo De Paul" },
-        { "name": "Enzo Fernández" },
-        { "name": "Alexis Mac Allister" },
-        { "name": "Lionel Messi" },
-        { "name": "Julián Álvarez" },
-        { "name": "Ángel Di María" }
-      ]
+    {
+        "id": "arg-fra-2022",
+        "competition": "Dünya Kuboku 2022 · Final",
+        "date": "2022-12-18",
+        "venue": "Lusail",
+        "note": "penaltilərdə 4–2 Argentina",
+        "home": {
+            "name": "Argentina",
+            "score": 3,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Emiliano Martínez",
+                    "aliases": [
+                        "dibu"
+                    ]
+                },
+                {
+                    "name": "Nahuel Molina"
+                },
+                {
+                    "name": "Cristian Romero",
+                    "aliases": [
+                        "cuti"
+                    ]
+                },
+                {
+                    "name": "Nicolás Otamendi"
+                },
+                {
+                    "name": "Nicolás Tagliafico"
+                },
+                {
+                    "name": "Rodrigo De Paul"
+                },
+                {
+                    "name": "Enzo Fernández"
+                },
+                {
+                    "name": "Alexis Mac Allister"
+                },
+                {
+                    "name": "Lionel Messi"
+                },
+                {
+                    "name": "Julián Álvarez"
+                },
+                {
+                    "name": "Ángel Di María"
+                }
+            ]
+        },
+        "away": {
+            "name": "Fransa",
+            "score": 3,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Hugo Lloris"
+                },
+                {
+                    "name": "Jules Koundé"
+                },
+                {
+                    "name": "Raphaël Varane"
+                },
+                {
+                    "name": "Dayot Upamecano"
+                },
+                {
+                    "name": "Theo Hernández"
+                },
+                {
+                    "name": "Aurélien Tchouaméni"
+                },
+                {
+                    "name": "Adrien Rabiot"
+                },
+                {
+                    "name": "Ousmane Dembélé"
+                },
+                {
+                    "name": "Antoine Griezmann"
+                },
+                {
+                    "name": "Kylian Mbappé"
+                },
+                {
+                    "name": "Olivier Giroud"
+                }
+            ]
+        }
     },
-    "away": {
-      "name": "Fransa",
-      "score": 3,
-      "formation": "4-2-3-1",
-      "players": [
-        { "name": "Hugo Lloris" },
-        { "name": "Jules Koundé" },
-        { "name": "Raphaël Varane" },
-        { "name": "Dayot Upamecano" },
-        { "name": "Theo Hernández" },
-        { "name": "Aurélien Tchouaméni" },
-        { "name": "Adrien Rabiot" },
-        { "name": "Ousmane Dembélé" },
-        { "name": "Antoine Griezmann" },
-        { "name": "Kylian Mbappé" },
-        { "name": "Olivier Giroud" }
-      ]
-    }
-  },
-  {
-    "id": "bar-psg-2017",
-    "competition": "Çempionlar Liqası 2016/17 · 1/8 final, cavab oyunu",
-    "date": "2017-03-08",
-    "venue": "Barselona, Kamp Nou",
-    "home": {
-      "name": "Barselona",
-      "score": 6,
-      "formation": "3-4-3",
-      "players": [
-        { "name": "Marc-André ter Stegen" },
-        { "name": "Gerard Piqué" },
-        { "name": "Javier Mascherano" },
-        { "name": "Samuel Umtiti" },
-        { "name": "Rafinha" },
-        { "name": "Ivan Rakitić" },
-        { "name": "Sergio Busquets" },
-        { "name": "Andrés Iniesta" },
-        { "name": "Lionel Messi" },
-        { "name": "Luis Suárez" },
-        { "name": "Neymar" }
-      ]
+    {
+        "id": "bar-psg-2017",
+        "competition": "Çempionlar Liqası 2016/17 · 1/8 final, cavab oyunu",
+        "date": "2017-03-08",
+        "venue": "Barselona, Kamp Nou",
+        "home": {
+            "name": "Barselona",
+            "score": 6,
+            "formation": "3-4-3",
+            "players": [
+                {
+                    "name": "Marc-André ter Stegen"
+                },
+                {
+                    "name": "Gerard Piqué"
+                },
+                {
+                    "name": "Javier Mascherano"
+                },
+                {
+                    "name": "Samuel Umtiti"
+                },
+                {
+                    "name": "Rafinha"
+                },
+                {
+                    "name": "Ivan Rakitić"
+                },
+                {
+                    "name": "Sergio Busquets"
+                },
+                {
+                    "name": "Andrés Iniesta"
+                },
+                {
+                    "name": "Lionel Messi"
+                },
+                {
+                    "name": "Luis Suárez"
+                },
+                {
+                    "name": "Neymar"
+                }
+            ]
+        },
+        "away": {
+            "name": "PSJ",
+            "score": 1
+        }
     },
-    "away": {
-      "name": "PSJ",
-      "score": 1
-    }
-  },
-  {
-    "id": "liv-bar-2019",
-    "competition": "Çempionlar Liqası 2018/19 · Yarımfinal, cavab oyunu",
-    "date": "2019-05-07",
-    "venue": "Liverpul, Enfild",
-    "home": {
-      "name": "Liverpul",
-      "score": 4,
-      "formation": "4-3-3",
-      "players": [
-        { "name": "Alisson" },
-        { "name": "Trent Alexander-Arnold", "aliases": ["trent", "taa"] },
-        { "name": "Joël Matip" },
-        { "name": "Virgil van Dijk" },
-        { "name": "Andrew Robertson", "aliases": ["robbo", "andy robertson"] },
-        { "name": "Jordan Henderson" },
-        { "name": "Fabinho" },
-        { "name": "James Milner" },
-        { "name": "Xherdan Shaqiri" },
-        { "name": "Divock Origi" },
-        { "name": "Sadio Mané" }
-      ]
+    {
+        "id": "liv-bar-2019",
+        "competition": "Çempionlar Liqası 2018/19 · Yarımfinal, cavab oyunu",
+        "date": "2019-05-07",
+        "venue": "Liverpul, Enfild",
+        "home": {
+            "name": "Liverpul",
+            "score": 4,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Alisson"
+                },
+                {
+                    "name": "Trent Alexander-Arnold",
+                    "aliases": [
+                        "trent",
+                        "taa"
+                    ]
+                },
+                {
+                    "name": "Joël Matip"
+                },
+                {
+                    "name": "Virgil van Dijk"
+                },
+                {
+                    "name": "Andrew Robertson",
+                    "aliases": [
+                        "robbo",
+                        "andy robertson"
+                    ]
+                },
+                {
+                    "name": "Jordan Henderson"
+                },
+                {
+                    "name": "Fabinho"
+                },
+                {
+                    "name": "James Milner"
+                },
+                {
+                    "name": "Xherdan Shaqiri"
+                },
+                {
+                    "name": "Divock Origi"
+                },
+                {
+                    "name": "Sadio Mané"
+                }
+            ]
+        },
+        "away": {
+            "name": "Barselona",
+            "score": 0
+        }
     },
-    "away": {
-      "name": "Barselona",
-      "score": 0
+    {
+        "id": "mil-liv-2005",
+        "competition": "Çempionlar Liqası 2005 · Final",
+        "date": "2005-05-25",
+        "venue": "İstanbul, Atatürk",
+        "note": "penaltilərdə 3–2 Liverpul",
+        "home": {
+            "name": "Milan",
+            "score": 3,
+            "formation": "4-3-1-2",
+            "players": [
+                {
+                    "name": "Dida"
+                },
+                {
+                    "name": "Cafu"
+                },
+                {
+                    "name": "Jaap Stam"
+                },
+                {
+                    "name": "Alessandro Nesta"
+                },
+                {
+                    "name": "Paolo Maldini"
+                },
+                {
+                    "name": "Gennaro Gattuso"
+                },
+                {
+                    "name": "Andrea Pirlo"
+                },
+                {
+                    "name": "Clarence Seedorf"
+                },
+                {
+                    "name": "Kaká",
+                    "aliases": [
+                        "kaka"
+                    ]
+                },
+                {
+                    "name": "Hernán Crespo"
+                },
+                {
+                    "name": "Andriy Shevchenko",
+                    "aliases": [
+                        "sheva",
+                        "shevchenko"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Liverpul",
+            "score": 3,
+            "formation": "4-4-1-1",
+            "players": [
+                {
+                    "name": "Jerzy Dudek"
+                },
+                {
+                    "name": "Steve Finnan"
+                },
+                {
+                    "name": "Jamie Carragher"
+                },
+                {
+                    "name": "Sami Hyypiä",
+                    "aliases": [
+                        "hyypia"
+                    ]
+                },
+                {
+                    "name": "Djimi Traoré",
+                    "aliases": [
+                        "traore"
+                    ]
+                },
+                {
+                    "name": "Luis García",
+                    "aliases": [
+                        "luis garcia"
+                    ]
+                },
+                {
+                    "name": "Steven Gerrard"
+                },
+                {
+                    "name": "Xabi Alonso"
+                },
+                {
+                    "name": "John Arne Riise"
+                },
+                {
+                    "name": "Harry Kewell"
+                },
+                {
+                    "name": "Milan Baroš",
+                    "aliases": [
+                        "baros"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": "mun-bay-1999",
+        "competition": "Çempionlar Liqası 1999 · Final",
+        "date": "1999-05-26",
+        "venue": "Barselona, Kamp Nou",
+        "home": {
+            "name": "Mançester Yunayted",
+            "score": 2,
+            "formation": "4-4-2",
+            "players": [
+                {
+                    "name": "Peter Schmeichel"
+                },
+                {
+                    "name": "Gary Neville",
+                    "aliases": [
+                        "neville"
+                    ]
+                },
+                {
+                    "name": "Jaap Stam"
+                },
+                {
+                    "name": "Ronny Johnsen"
+                },
+                {
+                    "name": "Denis Irwin"
+                },
+                {
+                    "name": "Ryan Giggs"
+                },
+                {
+                    "name": "David Beckham"
+                },
+                {
+                    "name": "Nicky Butt"
+                },
+                {
+                    "name": "Jesper Blomqvist"
+                },
+                {
+                    "name": "Dwight Yorke",
+                    "aliases": [
+                        "yorke"
+                    ]
+                },
+                {
+                    "name": "Andy Cole",
+                    "aliases": [
+                        "andrew cole",
+                        "cole"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Bavariya",
+            "score": 1,
+            "formation": "3-3-1-3",
+            "players": [
+                {
+                    "name": "Oliver Kahn"
+                },
+                {
+                    "name": "Thomas Linke"
+                },
+                {
+                    "name": "Lothar Matthäus",
+                    "aliases": [
+                        "matthaus",
+                        "matthaeus"
+                    ]
+                },
+                {
+                    "name": "Samuel Kuffour"
+                },
+                {
+                    "name": "Markus Babbel"
+                },
+                {
+                    "name": "Jens Jeremies"
+                },
+                {
+                    "name": "Michael Tarnat"
+                },
+                {
+                    "name": "Stefan Effenberg"
+                },
+                {
+                    "name": "Mario Basler"
+                },
+                {
+                    "name": "Carsten Jancker"
+                },
+                {
+                    "name": "Alexander Zickler"
+                }
+            ]
+        }
+    },
+    {
+        "id": "ita-fra-2006",
+        "competition": "Dünya Kuboku 2006 · Final",
+        "date": "2006-07-09",
+        "venue": "Berlin, Olimpiya stadionu",
+        "note": "penaltilərdə 5–3 İtaliya",
+        "home": {
+            "name": "İtaliya",
+            "score": 1,
+            "formation": "4-4-1-1",
+            "players": [
+                {
+                    "name": "Gianluigi Buffon"
+                },
+                {
+                    "name": "Gianluca Zambrotta"
+                },
+                {
+                    "name": "Fabio Cannavaro"
+                },
+                {
+                    "name": "Marco Materazzi"
+                },
+                {
+                    "name": "Fabio Grosso"
+                },
+                {
+                    "name": "Mauro Camoranesi"
+                },
+                {
+                    "name": "Gennaro Gattuso"
+                },
+                {
+                    "name": "Andrea Pirlo"
+                },
+                {
+                    "name": "Simone Perrotta"
+                },
+                {
+                    "name": "Francesco Totti"
+                },
+                {
+                    "name": "Luca Toni"
+                }
+            ]
+        },
+        "away": {
+            "name": "Fransa",
+            "score": 1,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Fabien Barthez"
+                },
+                {
+                    "name": "Willy Sagnol"
+                },
+                {
+                    "name": "Lilian Thuram"
+                },
+                {
+                    "name": "William Gallas"
+                },
+                {
+                    "name": "Eric Abidal"
+                },
+                {
+                    "name": "Claude Makélélé",
+                    "aliases": [
+                        "makelele"
+                    ]
+                },
+                {
+                    "name": "Patrick Vieira"
+                },
+                {
+                    "name": "Franck Ribéry",
+                    "aliases": [
+                        "ribery"
+                    ]
+                },
+                {
+                    "name": "Zinedine Zidane",
+                    "aliases": [
+                        "zizou"
+                    ]
+                },
+                {
+                    "name": "Florent Malouda"
+                },
+                {
+                    "name": "Thierry Henry"
+                }
+            ]
+        }
+    },
+    {
+        "id": "ned-esp-2010",
+        "competition": "Dünya Kuboku 2010 · Final",
+        "date": "2010-07-11",
+        "venue": "Yohannesburq, Soccer City",
+        "note": "əlavə vaxtda",
+        "home": {
+            "name": "Niderland",
+            "score": 0,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Maarten Stekelenburg"
+                },
+                {
+                    "name": "Gregory van der Wiel",
+                    "aliases": [
+                        "van der wiel"
+                    ]
+                },
+                {
+                    "name": "John Heitinga"
+                },
+                {
+                    "name": "Joris Mathijsen"
+                },
+                {
+                    "name": "Giovanni van Bronckhorst",
+                    "aliases": [
+                        "van bronckhorst",
+                        "gio"
+                    ]
+                },
+                {
+                    "name": "Mark van Bommel",
+                    "aliases": [
+                        "van bommel"
+                    ]
+                },
+                {
+                    "name": "Nigel de Jong",
+                    "aliases": [
+                        "de jong"
+                    ]
+                },
+                {
+                    "name": "Arjen Robben"
+                },
+                {
+                    "name": "Wesley Sneijder",
+                    "aliases": [
+                        "sneijder"
+                    ]
+                },
+                {
+                    "name": "Dirk Kuyt"
+                },
+                {
+                    "name": "Robin van Persie",
+                    "aliases": [
+                        "van persie",
+                        "rvp"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "İspaniya",
+            "score": 1,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Iker Casillas"
+                },
+                {
+                    "name": "Sergio Ramos"
+                },
+                {
+                    "name": "Gerard Piqué",
+                    "aliases": [
+                        "pique"
+                    ]
+                },
+                {
+                    "name": "Carles Puyol"
+                },
+                {
+                    "name": "Joan Capdevila"
+                },
+                {
+                    "name": "Sergio Busquets"
+                },
+                {
+                    "name": "Xabi Alonso"
+                },
+                {
+                    "name": "Pedro"
+                },
+                {
+                    "name": "Xavi",
+                    "aliases": [
+                        "xavi hernandez"
+                    ]
+                },
+                {
+                    "name": "Andrés Iniesta",
+                    "aliases": [
+                        "iniesta"
+                    ]
+                },
+                {
+                    "name": "David Villa"
+                }
+            ]
+        }
+    },
+    {
+        "id": "bay-che-2012",
+        "competition": "Çempionlar Liqası 2012 · Final",
+        "date": "2012-05-19",
+        "venue": "Münhen, Allianz Arena",
+        "note": "penaltilərdə 4–3 Çelsi",
+        "home": {
+            "name": "Bavariya",
+            "score": 1,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Manuel Neuer"
+                },
+                {
+                    "name": "Philipp Lahm"
+                },
+                {
+                    "name": "Jérôme Boateng",
+                    "aliases": [
+                        "boateng"
+                    ]
+                },
+                {
+                    "name": "Anatoliy Tymoshchuk",
+                    "aliases": [
+                        "timoschtschuk",
+                        "tymoschuk",
+                        "tymoshchuk"
+                    ]
+                },
+                {
+                    "name": "Diego Contento"
+                },
+                {
+                    "name": "Bastian Schweinsteiger"
+                },
+                {
+                    "name": "Toni Kroos"
+                },
+                {
+                    "name": "Arjen Robben"
+                },
+                {
+                    "name": "Thomas Müller",
+                    "aliases": [
+                        "muller",
+                        "mueller"
+                    ]
+                },
+                {
+                    "name": "Franck Ribéry",
+                    "aliases": [
+                        "ribery"
+                    ]
+                },
+                {
+                    "name": "Mario Gómez",
+                    "aliases": [
+                        "gomez"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Çelsi",
+            "score": 1,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Petr Čech",
+                    "aliases": [
+                        "cech"
+                    ]
+                },
+                {
+                    "name": "José Bosingwa",
+                    "aliases": [
+                        "bosingwa"
+                    ]
+                },
+                {
+                    "name": "David Luiz"
+                },
+                {
+                    "name": "Gary Cahill"
+                },
+                {
+                    "name": "Ashley Cole"
+                },
+                {
+                    "name": "John Obi Mikel",
+                    "aliases": [
+                        "mikel"
+                    ]
+                },
+                {
+                    "name": "Frank Lampard"
+                },
+                {
+                    "name": "Salomon Kalou"
+                },
+                {
+                    "name": "Juan Mata"
+                },
+                {
+                    "name": "Ryan Bertrand"
+                },
+                {
+                    "name": "Didier Drogba"
+                }
+            ]
+        }
+    },
+    {
+        "id": "bvb-bay-2013",
+        "competition": "Çempionlar Liqası 2013 · Final",
+        "date": "2013-05-25",
+        "venue": "London, Uembli",
+        "home": {
+            "name": "Borussiya Dortmund",
+            "score": 1,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Roman Weidenfeller"
+                },
+                {
+                    "name": "Łukasz Piszczek",
+                    "aliases": [
+                        "piszczek"
+                    ]
+                },
+                {
+                    "name": "Neven Subotić",
+                    "aliases": [
+                        "subotic"
+                    ]
+                },
+                {
+                    "name": "Mats Hummels"
+                },
+                {
+                    "name": "Marcel Schmelzer"
+                },
+                {
+                    "name": "Sven Bender"
+                },
+                {
+                    "name": "İlkay Gündoğan",
+                    "aliases": [
+                        "gundogan",
+                        "ilkay"
+                    ]
+                },
+                {
+                    "name": "Jakub Błaszczykowski",
+                    "aliases": [
+                        "blaszczykowski",
+                        "kuba"
+                    ]
+                },
+                {
+                    "name": "Marco Reus"
+                },
+                {
+                    "name": "Kevin Großkreutz",
+                    "aliases": [
+                        "grosskreutz",
+                        "grobkreutz"
+                    ]
+                },
+                {
+                    "name": "Robert Lewandowski",
+                    "aliases": [
+                        "lewa"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Bavariya",
+            "score": 2,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Manuel Neuer"
+                },
+                {
+                    "name": "Philipp Lahm"
+                },
+                {
+                    "name": "Jérôme Boateng",
+                    "aliases": [
+                        "boateng"
+                    ]
+                },
+                {
+                    "name": "Dante"
+                },
+                {
+                    "name": "David Alaba"
+                },
+                {
+                    "name": "Javi Martínez",
+                    "aliases": [
+                        "javi martinez",
+                        "martinez"
+                    ]
+                },
+                {
+                    "name": "Bastian Schweinsteiger"
+                },
+                {
+                    "name": "Arjen Robben"
+                },
+                {
+                    "name": "Thomas Müller",
+                    "aliases": [
+                        "muller",
+                        "mueller"
+                    ]
+                },
+                {
+                    "name": "Franck Ribéry",
+                    "aliases": [
+                        "ribery"
+                    ]
+                },
+                {
+                    "name": "Mario Mandžukić",
+                    "aliases": [
+                        "mandzukic"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": "ger-arg-2014",
+        "competition": "Dünya Kuboku 2014 · Final",
+        "date": "2014-07-13",
+        "venue": "Rio-de-Janeyro, Marakana",
+        "note": "əlavə vaxtda",
+        "home": {
+            "name": "Almaniya",
+            "score": 1,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Manuel Neuer"
+                },
+                {
+                    "name": "Philipp Lahm"
+                },
+                {
+                    "name": "Jérôme Boateng",
+                    "aliases": [
+                        "boateng"
+                    ]
+                },
+                {
+                    "name": "Mats Hummels"
+                },
+                {
+                    "name": "Benedikt Höwedes",
+                    "aliases": [
+                        "howedes",
+                        "hoewedes"
+                    ]
+                },
+                {
+                    "name": "Christoph Kramer"
+                },
+                {
+                    "name": "Bastian Schweinsteiger"
+                },
+                {
+                    "name": "Toni Kroos"
+                },
+                {
+                    "name": "Thomas Müller",
+                    "aliases": [
+                        "muller",
+                        "mueller"
+                    ]
+                },
+                {
+                    "name": "Miroslav Klose"
+                },
+                {
+                    "name": "Mesut Özil",
+                    "aliases": [
+                        "ozil"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Argentina",
+            "score": 0,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Sergio Romero"
+                },
+                {
+                    "name": "Pablo Zabaleta"
+                },
+                {
+                    "name": "Martín Demichelis"
+                },
+                {
+                    "name": "Ezequiel Garay"
+                },
+                {
+                    "name": "Marcos Rojo"
+                },
+                {
+                    "name": "Enzo Pérez",
+                    "aliases": [
+                        "perez"
+                    ]
+                },
+                {
+                    "name": "Javier Mascherano"
+                },
+                {
+                    "name": "Lucas Biglia"
+                },
+                {
+                    "name": "Lionel Messi",
+                    "aliases": [
+                        "leo messi"
+                    ]
+                },
+                {
+                    "name": "Gonzalo Higuaín",
+                    "aliases": [
+                        "higuain"
+                    ]
+                },
+                {
+                    "name": "Ezequiel Lavezzi"
+                }
+            ]
+        }
+    },
+    {
+        "id": "por-fra-2016",
+        "competition": "Avropa Çempionatı 2016 · Final",
+        "date": "2016-07-10",
+        "venue": "Paris, Stad de Frans",
+        "note": "əlavə vaxtda",
+        "home": {
+            "name": "Portuqaliya",
+            "score": 1,
+            "formation": "4-1-3-2",
+            "players": [
+                {
+                    "name": "Rui Patrício",
+                    "aliases": [
+                        "rui patricio",
+                        "patricio"
+                    ]
+                },
+                {
+                    "name": "Cédric Soares",
+                    "aliases": [
+                        "cedric"
+                    ]
+                },
+                {
+                    "name": "Pepe"
+                },
+                {
+                    "name": "José Fonte",
+                    "aliases": [
+                        "fonte"
+                    ]
+                },
+                {
+                    "name": "Raphaël Guerreiro",
+                    "aliases": [
+                        "guerreiro"
+                    ]
+                },
+                {
+                    "name": "William Carvalho"
+                },
+                {
+                    "name": "Renato Sanches"
+                },
+                {
+                    "name": "Adrien Silva"
+                },
+                {
+                    "name": "João Mário",
+                    "aliases": [
+                        "joao mario"
+                    ]
+                },
+                {
+                    "name": "Nani"
+                },
+                {
+                    "name": "Cristiano Ronaldo",
+                    "aliases": [
+                        "ronaldo",
+                        "cr7"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Fransa",
+            "score": 0,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Hugo Lloris"
+                },
+                {
+                    "name": "Bacary Sagna"
+                },
+                {
+                    "name": "Laurent Koscielny"
+                },
+                {
+                    "name": "Samuel Umtiti"
+                },
+                {
+                    "name": "Patrice Evra",
+                    "aliases": [
+                        "evra"
+                    ]
+                },
+                {
+                    "name": "Paul Pogba"
+                },
+                {
+                    "name": "Blaise Matuidi"
+                },
+                {
+                    "name": "Moussa Sissoko"
+                },
+                {
+                    "name": "Antoine Griezmann"
+                },
+                {
+                    "name": "Dimitri Payet"
+                },
+                {
+                    "name": "Olivier Giroud"
+                }
+            ]
+        }
+    },
+    {
+        "id": "rma-bar-2017",
+        "competition": "La Liqa 2016/17 · 33-cü tur",
+        "date": "2017-04-23",
+        "venue": "Madrid, Santyaqo Bernabeu",
+        "home": {
+            "name": "Real Madrid",
+            "score": 2,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Keylor Navas"
+                },
+                {
+                    "name": "Dani Carvajal",
+                    "aliases": [
+                        "carvajal"
+                    ]
+                },
+                {
+                    "name": "Nacho Fernández",
+                    "aliases": [
+                        "nacho"
+                    ]
+                },
+                {
+                    "name": "Sergio Ramos"
+                },
+                {
+                    "name": "Marcelo"
+                },
+                {
+                    "name": "Luka Modrić",
+                    "aliases": [
+                        "modric"
+                    ]
+                },
+                {
+                    "name": "Casemiro"
+                },
+                {
+                    "name": "Toni Kroos"
+                },
+                {
+                    "name": "Gareth Bale"
+                },
+                {
+                    "name": "Karim Benzema"
+                },
+                {
+                    "name": "Cristiano Ronaldo",
+                    "aliases": [
+                        "ronaldo",
+                        "cr7"
+                    ]
+                }
+            ]
+        },
+        "away": {
+            "name": "Barselona",
+            "score": 3,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Marc-André ter Stegen",
+                    "aliases": [
+                        "ter stegen"
+                    ]
+                },
+                {
+                    "name": "Sergi Roberto"
+                },
+                {
+                    "name": "Gerard Piqué",
+                    "aliases": [
+                        "pique"
+                    ]
+                },
+                {
+                    "name": "Samuel Umtiti"
+                },
+                {
+                    "name": "Jordi Alba"
+                },
+                {
+                    "name": "Ivan Rakitić",
+                    "aliases": [
+                        "rakitic"
+                    ]
+                },
+                {
+                    "name": "Sergio Busquets"
+                },
+                {
+                    "name": "Andrés Iniesta",
+                    "aliases": [
+                        "iniesta"
+                    ]
+                },
+                {
+                    "name": "Lionel Messi",
+                    "aliases": [
+                        "leo messi"
+                    ]
+                },
+                {
+                    "name": "Luis Suárez",
+                    "aliases": [
+                        "suarez"
+                    ]
+                },
+                {
+                    "name": "Paco Alcácer",
+                    "aliases": [
+                        "alcacer"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": "fra-cro-2018",
+        "competition": "Dünya Kuboku 2018 · Final",
+        "date": "2018-07-15",
+        "venue": "Moskva, Lujniki",
+        "home": {
+            "name": "Fransa",
+            "score": 4,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Hugo Lloris"
+                },
+                {
+                    "name": "Benjamin Pavard"
+                },
+                {
+                    "name": "Raphaël Varane",
+                    "aliases": [
+                        "varane"
+                    ]
+                },
+                {
+                    "name": "Samuel Umtiti"
+                },
+                {
+                    "name": "Lucas Hernández",
+                    "aliases": [
+                        "lucas hernandez",
+                        "hernandez"
+                    ]
+                },
+                {
+                    "name": "N'Golo Kanté",
+                    "aliases": [
+                        "kante",
+                        "ngolo kante"
+                    ]
+                },
+                {
+                    "name": "Paul Pogba"
+                },
+                {
+                    "name": "Kylian Mbappé",
+                    "aliases": [
+                        "mbappe"
+                    ]
+                },
+                {
+                    "name": "Antoine Griezmann"
+                },
+                {
+                    "name": "Blaise Matuidi"
+                },
+                {
+                    "name": "Olivier Giroud"
+                }
+            ]
+        },
+        "away": {
+            "name": "Xorvatiya",
+            "score": 2,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Danijel Subašić",
+                    "aliases": [
+                        "subasic"
+                    ]
+                },
+                {
+                    "name": "Šime Vrsaljko",
+                    "aliases": [
+                        "vrsaljko"
+                    ]
+                },
+                {
+                    "name": "Dejan Lovren"
+                },
+                {
+                    "name": "Domagoj Vida",
+                    "aliases": [
+                        "vida"
+                    ]
+                },
+                {
+                    "name": "Ivan Strinić",
+                    "aliases": [
+                        "strinic"
+                    ]
+                },
+                {
+                    "name": "Luka Modrić",
+                    "aliases": [
+                        "modric"
+                    ]
+                },
+                {
+                    "name": "Ivan Rakitić",
+                    "aliases": [
+                        "rakitic"
+                    ]
+                },
+                {
+                    "name": "Marcelo Brozović",
+                    "aliases": [
+                        "brozovic"
+                    ]
+                },
+                {
+                    "name": "Ante Rebić",
+                    "aliases": [
+                        "rebic"
+                    ]
+                },
+                {
+                    "name": "Mario Mandžukić",
+                    "aliases": [
+                        "mandzukic"
+                    ]
+                },
+                {
+                    "name": "Ivan Perišić",
+                    "aliases": [
+                        "perisic"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": "tot-liv-2019",
+        "competition": "Çempionlar Liqası 2019 · Final",
+        "date": "2019-06-01",
+        "venue": "Madrid, Vanda Metropolitano",
+        "home": {
+            "name": "Tottenhem",
+            "score": 0,
+            "formation": "4-2-3-1",
+            "players": [
+                {
+                    "name": "Hugo Lloris"
+                },
+                {
+                    "name": "Kieran Trippier",
+                    "aliases": [
+                        "trippier"
+                    ]
+                },
+                {
+                    "name": "Toby Alderweireld"
+                },
+                {
+                    "name": "Jan Vertonghen"
+                },
+                {
+                    "name": "Danny Rose"
+                },
+                {
+                    "name": "Moussa Sissoko",
+                    "aliases": [
+                        "sissoko"
+                    ]
+                },
+                {
+                    "name": "Harry Winks"
+                },
+                {
+                    "name": "Heung-min Son",
+                    "aliases": [
+                        "son",
+                        "son heung min"
+                    ]
+                },
+                {
+                    "name": "Dele Alli",
+                    "aliases": [
+                        "dele",
+                        "alli"
+                    ]
+                },
+                {
+                    "name": "Christian Eriksen",
+                    "aliases": [
+                        "eriksen"
+                    ]
+                },
+                {
+                    "name": "Harry Kane"
+                }
+            ]
+        },
+        "away": {
+            "name": "Liverpul",
+            "score": 2,
+            "formation": "4-3-3",
+            "players": [
+                {
+                    "name": "Alisson",
+                    "aliases": [
+                        "alisson becker"
+                    ]
+                },
+                {
+                    "name": "Trent Alexander-Arnold",
+                    "aliases": [
+                        "trent",
+                        "taa"
+                    ]
+                },
+                {
+                    "name": "Joël Matip",
+                    "aliases": [
+                        "matip"
+                    ]
+                },
+                {
+                    "name": "Virgil van Dijk",
+                    "aliases": [
+                        "van dijk",
+                        "vvd"
+                    ]
+                },
+                {
+                    "name": "Andrew Robertson",
+                    "aliases": [
+                        "robbo",
+                        "andy robertson"
+                    ]
+                },
+                {
+                    "name": "Jordan Henderson",
+                    "aliases": [
+                        "hendo"
+                    ]
+                },
+                {
+                    "name": "Fabinho"
+                },
+                {
+                    "name": "Georginio Wijnaldum",
+                    "aliases": [
+                        "wijnaldum",
+                        "gini"
+                    ]
+                },
+                {
+                    "name": "Mohamed Salah",
+                    "aliases": [
+                        "salah",
+                        "mo salah"
+                    ]
+                },
+                {
+                    "name": "Roberto Firmino",
+                    "aliases": [
+                        "firmino",
+                        "bobby"
+                    ]
+                },
+                {
+                    "name": "Sadio Mané",
+                    "aliases": [
+                        "mane"
+                    ]
+                }
+            ]
+        }
     }
-  }
 ]

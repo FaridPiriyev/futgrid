@@ -15,6 +15,7 @@ import ResultModal from "../common/ResultModal";
 import { Notice } from "../common/GameStatus";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 
+import { tr } from "../../../i18n";
 export const HL_KEYFRAMES = `
 @keyframes hlIn { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
 @keyframes hlShift { from { opacity: .3; transform: translateX(28px); } to { opacity: 1; transform: none; } }
@@ -118,7 +119,7 @@ function PlayerCard({ data, player, side, phase, correct, onGuess, animate }) {
                 className={`group flex h-13 items-center justify-center gap-2 bg-good-lo/15 ${FONT} text-base font-bold uppercase tracking-wide text-good-hi ring-1 ring-good/40 transition-[background-color,transform] duration-200 hover:bg-good-lo hover:text-white active:scale-95`}
               >
                 <ArrowUp className="h-5 w-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
-                Daha çox
+                {tr("Daha çox")}
               </button>
               <button
                 type="button"
@@ -126,7 +127,7 @@ function PlayerCard({ data, player, side, phase, correct, onGuess, animate }) {
                 className={`group flex h-13 items-center justify-center gap-2 bg-bad-lo/15 ${FONT} text-base font-bold uppercase tracking-wide text-bad-hi ring-1 ring-bad/40 transition-[background-color,transform] duration-200 hover:bg-bad-lo hover:text-white active:scale-95`}
               >
                 <ArrowDown className="h-5 w-5 transition-transform duration-200 group-hover:translate-y-0.5" />
-                Daha az
+                {tr("Daha az")}
               </button>
             </div>
           </>
@@ -148,7 +149,7 @@ function Badge({ phase, correct, streak }) {
   if (phase === "guess")
     return (
       <span className={`grid h-14 w-14 place-items-center rounded-full border border-line/15 bg-page ${FONT} text-lg font-bold text-soft`}>
-        VS
+        {"VS"}
       </span>
     );
   return correct ? (
@@ -244,8 +245,8 @@ export default function HLGame({ data, settings, onSettings }) {
   if (!game)
     return (
       <Notice
-        title="Oyunçu tapılmadı"
-        text="Bazar dəyəri olan kifayət qədər oyunçu yoxdur."
+        title={tr("Oyunçu tapılmadı")}
+        text={tr("Bazar dəyəri olan kifayət qədər oyunçu yoxdur.")}
       />
     );
 
@@ -258,7 +259,7 @@ export default function HLGame({ data, settings, onSettings }) {
         <div className="flex items-center gap-5">
           <div className="flex items-center gap-2">
             <Flame className="h-5 w-5 text-orange-400" />
-            <span className={`${FONT} text-xs uppercase tracking-[0.2em] text-faint`}>Seriya</span>
+            <span className={`${FONT} text-xs uppercase tracking-[0.2em] text-faint`}>{tr("Seriya")}</span>
             <span
               key={shownStreak}
               className={`${FONT} text-2xl font-bold text-ink animate-[hlPop_0.4s_ease-out]`}
@@ -268,7 +269,7 @@ export default function HLGame({ data, settings, onSettings }) {
           </div>
           <div className="flex items-center gap-2">
             <Trophy className="h-4 w-4 text-gold-hi" />
-            <span className={`${FONT} text-xs uppercase tracking-[0.2em] text-faint`}>Rekord</span>
+            <span className={`${FONT} text-xs uppercase tracking-[0.2em] text-faint`}>{tr("Rekord")}</span>
             <span className={`${FONT} text-2xl font-bold text-gold-hi`}>
               {Math.max(best, shownStreak)}
             </span>
@@ -277,7 +278,7 @@ export default function HLGame({ data, settings, onSettings }) {
         <button type="button" onClick={onSettings} className={`${BTN_GHOST} px-4! py-2!`}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <Settings2 className="h-4 w-4" />
-          <span className="hidden sm:inline">Parametrlər</span>
+          <span className="hidden sm:inline">{tr("Parametrlər")}</span>
         </button>
       </div>
 
@@ -312,25 +313,25 @@ export default function HLGame({ data, settings, onSettings }) {
       </div>
 
       <p className={`mt-4 hidden text-center ${FONT} text-xs uppercase tracking-[0.2em] text-dim md:block`}>
-        Klaviatura: ↑ daha çox · ↓ daha az
+        {tr("Klaviatura: ↑ daha çox · ↓ daha az")}
       </p>
 
       <ResultModal
         open={game.phase === "over"}
         onClose={restart}
-        eyebrow={newRecord ? "Yeni rekord!" : "Seriya bitdi"}
-        title={`${game.streak} düzgün cavab`}
+        eyebrow={newRecord ? tr("Yeni rekord!") : tr("Seriya bitdi")}
+        title={tr("{streak} düzgün cavab", { streak: game.streak })}
         actions={
           <>
             <button type="button" onClick={restart} className={BTN_PRIMARY}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <RotateCcw className="h-4 w-4" />
-              Yenidən oyna
+              {tr("Yenidən oyna")}
             </button>
             <button type="button" onClick={onSettings} className={BTN_GHOST}>
               <span aria-hidden="true" className={SWEEP_BLUE} />
               <Settings2 className="h-4 w-4" />
-              Parametrlər
+              {tr("Parametrlər")}
             </button>
           </>
         }
@@ -341,7 +342,7 @@ export default function HLGame({ data, settings, onSettings }) {
           {game.a.name}: <span className="font-bold text-ink">{METRIC.format(METRIC.get(game.a))}</span>
         </p>
         <p className={`mt-2 ${FONT} text-base text-muted`}>
-          Rekord: <span className="font-bold text-gold-hi">{best}</span>
+          {tr("Rekord:")}{" "} <span className="font-bold text-gold-hi">{best}</span>
         </p>
       </ResultModal>
     </div>

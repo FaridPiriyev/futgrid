@@ -1,3 +1,4 @@
+import { tr } from "../../../i18n";
 const KEY = "futgrid:ortaq:settings";
 
 export const DEFAULT_SETTINGS = {
@@ -10,19 +11,45 @@ export const DEFAULT_SETTINGS = {
 
 export const OPTIONS = {
   era: [
-    { value: "active", label: "Aktiv", sub: "indiki heyətlər" },
-    { value: "all", label: "Bütün zamanlar", sub: "legendlər daxil" },
+    { value: "active", get label() {
+    return tr("Aktiv");
+  }, get sub() {
+    return tr("indiki heyətlər");
+  } },
+    { value: "all", get label() {
+    return tr("Bütün zamanlar");
+  }, get sub() {
+    return tr("legendlər daxil");
+  } },
   ],
   difficulty: [
-    { value: "easy", label: "Asan", sub: "top klublar, FIFA ilk 40" },
-    { value: "normal", label: "Normal", sub: "FIFA ilk 100" },
-    { value: "hard", label: "Çətin", sub: "hamısı" },
+    { value: "easy", get label() {
+    return tr("Asan");
+  }, get sub() {
+    return tr("ən məşhurlar");
+  } },
+    { value: "normal", get label() {
+    return tr("Normal");
+  }, get sub() {
+    return tr("tanınmışlar");
+  } },
+    { value: "hard", get label() {
+    return tr("Çətin");
+  }, get sub() {
+    return tr("hamısı");
+  } },
   ],
   targetPresets: [1, 3, 5, 10],
   rounds: [
-    { value: 5, label: "5 sual" },
-    { value: 10, label: "10 sual" },
-    { value: 20, label: "20 sual" },
+    { value: 5, get label() {
+    return tr("5 sual");
+  } },
+    { value: 10, get label() {
+    return tr("10 sual");
+  } },
+    { value: 20, get label() {
+    return tr("20 sual");
+  } },
   ],
 };
 
@@ -76,4 +103,4 @@ export function saveSettings(s) {
 }
 
 export const sideName = (settings, side) =>
-  settings.names?.[side]?.trim() || (side === "A" ? "Oyunçu 1" : "Oyunçu 2");
+  settings.names?.[side]?.trim() || (side === "A" ? tr("Oyunçu 1") : tr("Oyunçu 2"));

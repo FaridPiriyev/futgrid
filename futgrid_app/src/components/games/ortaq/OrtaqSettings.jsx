@@ -1,5 +1,10 @@
 import { ArrowLeft, Minus, Play, Plus } from "lucide-react";
-import { Segmented } from "../common/controls";
+import {
+  Field,
+  Segmented,
+  SETTINGS_CARD,
+  SettingsHeader,
+} from "../common/controls";
 import {
   BTN_GHOST,
   BTN_PRIMARY,
@@ -9,23 +14,11 @@ import {
 } from "../common/ui";
 import { OPTIONS, SIDES } from "./settings";
 
-function Field({ label, children }) {
-  return (
-    <div>
-      <p
-        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
-      >
-        {label}
-      </p>
-      {children}
-    </div>
-  );
-}
-
+import { tr } from "../../../i18n";
 function NameInput({ side, value, onChange, placeholder }) {
   return (
     <label
-      className={`flex items-center border bg-line/5 transition-colors duration-200 focus-within:bg-line/10 ${SIDES[side].border}`}
+      className={`flex items-center overflow-hidden rounded-xl border-2 bg-surface transition-colors duration-200 focus-within:bg-page ${SIDES[side].border}`}
     >
       <span
         className={`flex h-11 w-11 shrink-0 items-center justify-center ${SIDES[side].solid} ${FONT} text-lg font-bold`}
@@ -50,19 +43,19 @@ function TargetPicker({ value, onChange }) {
   const n = unlimited ? 5 : value;
   const set = (v) => onChange(Math.max(1, Math.min(99, Math.round(v) || 1)));
   const chip = (active) =>
-    `h-11 min-w-11 px-3 ${FONT} text-sm font-bold uppercase tracking-wide transition-colors duration-200 ${
+    `h-11 min-w-11 rounded-xl border-2 px-3.5 ${FONT} text-sm font-extrabold uppercase tracking-wide transition-colors duration-200 ${
       active
-        ? "bg-accent text-white"
-        : "bg-line/5 text-soft hover:bg-line/10"
+        ? "border-accent bg-accent text-white"
+        : "border-edge bg-surface text-ink hover:border-accent/40"
     }`;
   return (
     <div className="flex flex-wrap items-center gap-2">
       <div
-        className={`flex items-center border ${unlimited ? "border-line/10 opacity-50" : "border-accent"}`}
+        className={`flex items-center overflow-hidden rounded-xl border-2 bg-surface ${unlimited ? "border-edge opacity-50" : "border-accent"}`}
       >
         <button
           type="button"
-          aria-label="Azalt"
+          aria-label={tr("Azalt")}
           onClick={() => set(n - 1)}
           disabled={unlimited || n <= 1}
           className="flex h-11 w-11 items-center justify-center text-soft hover:bg-line/10 disabled:opacity-30"
@@ -81,7 +74,7 @@ function TargetPicker({ value, onChange }) {
         />
         <button
           type="button"
-          aria-label="Artır"
+          aria-label={tr("Artır")}
           onClick={() => set(n + 1)}
           disabled={unlimited || n >= 99}
           className="flex h-11 w-11 items-center justify-center text-soft hover:bg-line/10 disabled:opacity-30"
@@ -104,7 +97,7 @@ function TargetPicker({ value, onChange }) {
         onClick={() => onChange(unlimited ? 5 : "unlimited")}
         className={chip(unlimited)}
       >
-        Limitsiz
+        {tr("Limitsiz")}
       </button>
     </div>
   );
@@ -123,63 +116,61 @@ export default function OrtaqSettings({
   const versus = mode === "same";
 
   return (
-    <section className="mx-auto max-w-5xl border border-line/10 bg-surface/85 p-4 backdrop-blur-sm md:p-6">
-      <h2
-        className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink md:text-2xl`}
-      >
-        {versus ? "Eyni ekran" : "Tək oyunçu"}
-        <span className="text-faint"> · parametrlər</span>
-      </h2>
-      <p className={`${FONT} text-sm text-faint`}>
-        {versus
-          ? "Hər oyunçu gizli olaraq klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci tapan +1 xal alır, səhv deyən −1."
-          : "Sistem bir klub və bir klub və ya ölkə verir. Hər ikisində oynamış oyunçunu tap."}
-      </p>
+    <section className={`mx-auto max-w-5xl ${SETTINGS_CARD}`}>
+      <SettingsHeader
+        title={versus ? tr("Eyni ekran") : tr("Tək oyunçu")}
+        accent={tr("parametrlər")}
+        sub={
+          versus
+            ? tr("Hər oyunçu gizli olaraq klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci tapan +1 xal alır, səhv deyən −1.")
+            : tr("Sistem bir klub və bir klub və ya ölkə verir. Hər ikisində oynamış oyunçunu tap.")
+        }
+      />
 
-      <div className="mt-4 grid gap-x-8 gap-y-4 lg:grid-cols-2">
+      <div className="mt-6 grid gap-x-10 gap-y-6 lg:grid-cols-2">
         {versus && (
-          <Field label="Oyunçuların adları">
+          <Field label={tr("Oyunçuların adları")}>
             <div className="grid gap-2 sm:grid-cols-2">
               <NameInput
                 side="A"
                 value={settings.names?.A ?? ""}
                 onChange={setName("A")}
-                placeholder="Oyunçu 1"
+                placeholder={tr("Oyunçu 1")}
               />
               <NameInput
                 side="B"
                 value={settings.names?.B ?? ""}
                 onChange={setName("B")}
-                placeholder="Oyunçu 2"
+                placeholder={tr("Oyunçu 2")}
               />
             </div>
           </Field>
         )}
-        <Field label="Oyunçular">
+        <Field label={tr("Oyunçular")}>
           <Segmented
-            label="Oyunçular"
+            label={tr("Oyunçular")}
             options={OPTIONS.era}
             value={settings.era}
             onChange={set("era")}
           />
         </Field>
         {versus ? (
-          <Field label="Neçə xala qədər">
+          <Field label={tr("Neçə xala qədər")}>
             <TargetPicker value={settings.target} onChange={set("target")} />
           </Field>
         ) : (
           <>
-            <Field label="Çətinlik">
+            <Field label={tr("Çətinlik")}>
               <Segmented
-                label="Çətinlik"
+                label={tr("Çətinlik")}
                 options={OPTIONS.difficulty}
                 value={settings.difficulty}
                 onChange={set("difficulty")}
               />
             </Field>
-            <Field label="Sual sayı">
+            <Field label={tr("Sual sayı")}>
               <Segmented
-                label="Sual sayı"
+                label={tr("Sual sayı")}
                 options={OPTIONS.rounds}
                 value={settings.rounds}
                 onChange={set("rounds")}
@@ -189,16 +180,16 @@ export default function OrtaqSettings({
         )}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-3 border-t border-line/10 pt-4">
+      <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
         <button type="button" onClick={onStart} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
           <Play className="h-4 w-4" />
-          Oyuna başla
+          {tr("Oyuna başla")}
         </button>
         <button type="button" onClick={onBack} className={BTN_GHOST}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <ArrowLeft className="h-4 w-4" />
-          Rejimlər
+          {tr("Rejimlər")}
         </button>
       </div>
     </section>

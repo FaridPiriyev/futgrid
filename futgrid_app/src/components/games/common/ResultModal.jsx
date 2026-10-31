@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { X } from "lucide-react";
 import { FONT } from "./ui";
 
+import { tr } from "../../../i18n";
 export default function ResultModal({ open, onClose, eyebrow, title, children, actions }) {
   useEffect(() => {
     if (!open) return;
@@ -28,7 +29,7 @@ export default function ResultModal({ open, onClose, eyebrow, title, children, a
           <button
             type="button"
             onClick={onClose}
-            aria-label="Bağla"
+            aria-label={tr("Bağla")}
             className="absolute right-4 top-4 text-faint transition-colors duration-300 hover:text-ink"
           >
             <X className="h-5 w-5" />
@@ -36,11 +37,11 @@ export default function ResultModal({ open, onClose, eyebrow, title, children, a
         )}
 
         {eyebrow && (
-          <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-accent`}>{eyebrow}</p>
+          <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-accent`}>{tr(eyebrow)}</p>
         )}
         {title && (
           <h2 className={`mt-1 pr-8 ${FONT} text-2xl font-bold uppercase leading-tight text-ink md:text-3xl`}>
-            {title}
+            {tr(title)}
           </h2>
         )}
         {children && <div className="mt-5">{children}</div>}

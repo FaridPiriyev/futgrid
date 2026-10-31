@@ -1,5 +1,14 @@
 import { useMemo, useState } from "react";
-import { Eye, EyeOff, Flag, RotateCcw, Settings2, Undo2 } from "lucide-react";
+import {
+  ArrowRight,
+  Eye,
+  EyeOff,
+  Flag,
+  Hand,
+  RotateCcw,
+  Settings2,
+  Undo2,
+} from "lucide-react";
 import {
   commonPlayers,
   isCommon,
@@ -19,6 +28,7 @@ import AnswerList, { FoundPlayer } from "./AnswerList";
 import PokerCard from "./PokerCard";
 import { SIDES, otherSide, sideName } from "./settings";
 
+import { tr } from "../../../i18n";
 const CLUB_ONLY = ["club"];
 const ANY = ["club", "country"];
 
@@ -49,36 +59,104 @@ function ScorePanel({ name, score, side, status, active, compact }) {
   );
 }
 
-function Curtain({ picker, other, onReady }) {
+function Curtain({ picker, other, step, round, onReady }) {
+  const steps = [
+    step === 1 ? picker.name : other.name,
+    step === 1 ? other.name : picker.name,
+  ];
   return (
     <div
-      className="absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-page/90 backdrop-blur-xl"
+      className="absolute inset-0 z-20 flex items-center justify-center overflow-y-auto rounded-3xl bg-page/95 p-3 backdrop-blur-xl md:p-6"
       style={{ animation: "ortaqDeal 350ms ease-out both" }}
     >
-      <div className="flex max-w-md flex-col items-center gap-4 px-6 text-center">
+      <div className="flex w-full max-w-2xl flex-col items-center text-center">
         <span
-          className={`flex h-16 w-16 items-center justify-center rounded-full ${picker.side.solid}`}
-          style={{ animation: "ortaqFloat 2s ease-in-out infinite" }}
+          className={`rounded-full bg-ink px-3 py-1 ${FONT} text-[11px] font-black uppercase tracking-[0.18em] text-page`}
         >
-          <EyeOff className="h-8 w-8" />
+          {tr("Raund {round} · Addım {step} / 2", { round, step })}
         </span>
         <p
-          className={`${FONT} text-2xl font-bold uppercase tracking-wide text-ink md:text-3xl`}
+          className={`mt-3 ${FONT} text-sm font-bold uppercase tracking-[0.2em] text-muted`}
         >
-          Növbə: {picker.name}
+          {tr("İndi seçim edir")}
         </p>
-        <p className={`${FONT} text-base text-muted`}>
-          <span className={`font-bold ${other.side.text}`}>{other.name}</span>,
-          ekrana baxma! {picker.name} seçimini gizli edəcək.
+        <p
+          className={`${FONT} text-4xl font-black uppercase leading-none md:text-5xl ${picker.side.text}`}
+        >
+          {picker.name}
         </p>
+
+        <div className="mt-5 grid w-full gap-3 sm:grid-cols-2">
+          <div
+            className={`rounded-2xl border-2 p-4 text-left ${picker.side.border} ${picker.side.bg}`}
+          >
+            <span className="flex items-center gap-2.5">
+              <span
+                className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${picker.side.solid}`}
+              >
+                <Hand className="h-4.5 w-4.5" />
+              </span>
+              <span className={`${FONT} text-base font-black uppercase text-ink`}>
+                {picker.name}
+              </span>
+            </span>
+            <p className={`mt-2.5 ${FONT} text-[15px] leading-snug text-ink-soft`}>
+              {step === 1
+                ? tr("Cihazı götür və bir klub seç. Seçimin kart açılana qədər gizli qalacaq.")
+                : tr("Cihazı götür və bir klub və ya ölkə seç. Seçimin kart açılana qədər gizli qalacaq.")}
+            </p>
+          </div>
+          <div className="rounded-2xl border-2 border-edge bg-surface p-4 text-left">
+            <span className="flex items-center gap-2.5">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-page-2 text-ink">
+                <EyeOff className="h-4.5 w-4.5" />
+              </span>
+              <span className={`${FONT} text-base font-black uppercase ${other.side.text}`}>
+                {other.name}
+              </span>
+            </span>
+            <p className={`mt-2.5 ${FONT} text-[15px] leading-snug text-ink-soft`}>
+              {tr("Ekrana baxma, üzünü çevir.")}{" "}
+              {step === 1
+                ? tr("{name} seçəndən sonra növbə sənə keçəcək.", { name: picker.name })
+                : tr("Seçimdən sonra kartlar birlikdə açılacaq.")}
+            </p>
+          </div>
+        </div>
+
         <button
           type="button"
           onClick={onReady}
-          className={`${BTN_PRIMARY} mt-2`}
+          className={`mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 ${FONT} text-base font-black uppercase tracking-wide transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 sm:w-auto md:text-lg ${picker.side.solid}`}
         >
-          <span aria-hidden="true" className={SWEEP_WHITE} />
-          {picker.name} hazırdır
+          {tr("{name} hazırdır, seçimə başla", { name: picker.name })}
+          <ArrowRight className="h-5 w-5" />
         </button>
+
+        <ol className="mt-5 flex flex-wrap items-center justify-center gap-2">
+          {[
+            tr("{v1} seçir", { v1: steps[0] }),
+            tr("{v1} seçir", { v1: steps[1] }),
+            tr("Kartlar açılır"),
+          ].map((label, i) => {
+            const state = i + 1 < step ? "done" : i + 1 === step ? "now" : "next";
+            return (
+              <li
+                key={i}
+                className={`flex items-center gap-1.5 rounded-full px-3 py-1 ${FONT} text-xs font-bold uppercase tracking-wide ${
+                  state === "now"
+                    ? "bg-accent text-white"
+                    : state === "done"
+                      ? "bg-good/15 text-good-hi"
+                      : "bg-page-2 text-muted"
+                }`}
+              >
+                <span>{state === "done" ? "✓" : i + 1}</span>
+                {label}
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </div>
   );
@@ -139,13 +217,13 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
         : "idle";
   const status = (s) =>
     picker === s
-      ? "seçir"
+      ? tr("seçir")
       : answerer === s
-        ? "cavab verir"
+        ? tr("cavab verir")
         : result?.by === s
           ? "+1"
           : phase === "ready" && picks[s]
-            ? "hazır"
+            ? tr("hazır")
             : "";
 
   const pick = (entity) => {
@@ -169,13 +247,13 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
       setResult({ none: true });
       setFeedback({
         type: "info",
-        text: "Bu cütün ortaq oyunçusu yoxdur. Xal verilmir.",
+        text: tr("Bu cütün ortaq oyunçusu yoxdur. Xal verilmir."),
       });
       return;
     }
     setFeedback({
       type: "info",
-      text: "Kim birinci deyirsə, adını seçsin və oyunçunu yazsın.",
+      text: tr("Kim birinci deyirsə, adını seçsin və oyunçunu yazsın."),
     });
   };
 
@@ -192,7 +270,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
       setScore((s) => ({ ...s, [answerer]: s[answerer] - 1 }));
       setFeedback({
         type: "wrong",
-        text: `${names[answerer]}: ${player.name} ortaq oyunçu deyil. −1 xal`,
+        text: tr("{answerer}: {name} ortaq oyunçu deyil. −1 xal", { answerer: names[answerer], name: player.name }),
       });
       setAnswerer(null);
     }
@@ -202,7 +280,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
     setPhase("done");
     setResult({ none: false });
     setShowAnswers(true);
-    setFeedback({ type: "info", text: "Heç kim tapmadı. Xal verilmir." });
+    setFeedback({ type: "info", text: tr("Heç kim tapmadı. Xal verilmir.") });
   };
 
   const startRound = (no, first) => {
@@ -243,7 +321,9 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
         {panel("B", true)}
       </div>
 
-      <div className="relative rounded-3xl border border-line/5 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--fg-accent)_8%,transparent),transparent_70%)] px-2 py-5 md:px-6">
+      <div
+        className={`relative rounded-3xl border border-edge bg-surface px-2 py-5 md:px-6 ${picker && curtain ? "min-h-[26rem] sm:min-h-96" : ""}`}
+      >
         <div className="flex items-center justify-center gap-3 md:gap-6">
           <div className="hidden md:block">{panel("A")}</div>
           <PokerCard
@@ -258,12 +338,12 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
             <span
               className={`flex h-11 w-11 items-center justify-center rounded-full border border-line/15 bg-surface ${FONT} text-sm font-bold text-soft`}
             >
-              VS
+              {"VS"}
             </span>
             <span
               className={`${FONT} text-[10px] uppercase tracking-[0.2em] text-faint`}
             >
-              R{round}
+              {"R"}{round}
             </span>
           </div>
           <PokerCard
@@ -280,7 +360,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
         <p
           className={`mt-3 text-center ${FONT} text-[11px] uppercase tracking-[0.2em] text-faint`}
         >
-          {target === Infinity ? "Limitsiz oyun" : `${target} xala qədər`}
+          {target === Infinity ? tr("Limitsiz oyun") : tr("{target} xala qədər", { target })}
         </p>
 
         {picker && curtain && (
@@ -290,6 +370,8 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
               name: names[otherSide(picker)],
               side: SIDES[otherSide(picker)],
             }}
+            step={phase === "pick1" ? 1 : 2}
+            round={round}
             onReady={() => setCurtain(false)}
           />
         )}
@@ -302,10 +384,15 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
             className="relative z-20 flex flex-col gap-2"
           >
             <p
-              className={`text-center ${FONT} text-sm font-bold uppercase tracking-[0.15em] ${SIDES[picker].text}`}
+              className={`flex items-center justify-center gap-2 text-center ${FONT} text-sm font-bold uppercase tracking-[0.15em] ${SIDES[picker].text}`}
             >
+              <span
+                className={`rounded-full px-2.5 py-0.5 text-[11px] ${SIDES[picker].solid}`}
+              >
+                {phase === "pick1" ? "1 / 2" : "2 / 2"}
+              </span>
               {names[picker]},{" "}
-              {phase === "pick1" ? "klub seç" : "klub və ya ölkə seç"}
+              {phase === "pick1" ? tr("klub seç") : tr("klub və ya ölkə seç")}
             </p>
             <EntitySearch
               data={data}
@@ -316,8 +403,8 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
               accent={SIDES[picker].border}
               placeholder={
                 phase === "pick1"
-                  ? "Klubun adını yaz..."
-                  : "Klub və ya ölkə yaz..."
+                  ? tr("Klubun adını yaz...")
+                  : tr("Klub və ya ölkə yaz...")
               }
             />
           </div>
@@ -331,7 +418,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
           >
             <span aria-hidden="true" className={SWEEP_WHITE} />
             <Eye className="h-5 w-5" />
-            Kartları aç
+            {tr("Kartları aç")}
           </button>
         )}
 
@@ -349,7 +436,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
                       : `border-line/10 bg-line/5 ${SIDES[s].text} hover:bg-line/10`
                   }`}
                 >
-                  {names[s]} deyir
+                  {tr("{name} deyir", { name: names[s] })}
                 </button>
               ))}
             </div>
@@ -359,8 +446,8 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
               focusKey={`${round}-${answerer}`}
               placeholder={
                 answerer
-                  ? `${names[answerer]}, ortaq oyunçunu yaz...`
-                  : "Əvvəlcə kimin cavab verdiyini seç"
+                  ? tr("{answerer}, ortaq oyunçunu yaz...", { answerer: names[answerer] })
+                  : tr("Əvvəlcə kimin cavab verdiyini seç")
               }
               onSelect={answer}
               onCancel={() => setAnswerer(null)}
@@ -371,7 +458,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
         {phase === "done" && result?.player && (
           <FoundPlayer
             player={result.player}
-            title={`${names[result.by]} tapdı · +1`}
+            title={tr("{by} tapdı · +1", { by: names[result.by] })}
             side={SIDES[result.by]}
           />
         )}
@@ -386,21 +473,21 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
             <button type="button" onClick={giveUp} className={BTN_GHOST}>
               <span aria-hidden="true" className={SWEEP_BLUE} />
               <Flag className="h-4 w-4" />
-              Tapa bilmədik
+              {tr("Tapa bilmədik")}
             </button>
           )}
           {problem && (
             <button type="button" onClick={repick} className={BTN_PRIMARY}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <Undo2 className="h-4 w-4" />
-              Yenidən seçin
+              {tr("Yenidən seçin")}
             </button>
           )}
           {phase === "done" && !winner && (
             <button type="button" onClick={nextRound} className={BTN_PRIMARY}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <RotateCcw className="h-4 w-4" />
-              Növbəti raund
+              {tr("Növbəti raund")}
             </button>
           )}
           {phase === "done" &&
@@ -414,20 +501,20 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
               >
                 <span aria-hidden="true" className={SWEEP_BLUE} />
                 <Eye className="h-4 w-4" />
-                Cavablar
+                {tr("Cavablar")}
               </button>
             )}
           {winner && (
             <button type="button" onClick={newMatch} className={BTN_PRIMARY}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <RotateCcw className="h-4 w-4" />
-              Yeni oyun
+              {tr("Yeni oyun")}
             </button>
           )}
           <button type="button" onClick={onSettings} className={BTN_GHOST}>
             <span aria-hidden="true" className={SWEEP_BLUE} />
             <Settings2 className="h-4 w-4" />
-            Parametrlər
+            {tr("Parametrlər")}
           </button>
         </div>
       </div>
@@ -435,17 +522,17 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
       <ResultModal
         open={showModal}
         onClose={() => setShowModal(false)}
-        eyebrow="Oyun bitdi"
-        title={winner ? `${names[winner]} qazandı!` : ""}
+        eyebrow={tr("Oyun bitdi")}
+        title={winner ? tr("{winner} qazandı!", { winner: names[winner] }) : ""}
         actions={
           <button type="button" onClick={newMatch} className={BTN_PRIMARY}>
             <span aria-hidden="true" className={SWEEP_WHITE} />
-            Yeni oyun
+            {tr("Yeni oyun")}
           </button>
         }
       >
         <p className={`${FONT} text-base text-muted`}>
-          Hesab:{" "}
+          {tr("Hesab:")}{" "}
           <span className="font-bold text-accent-hi">
             {names.A} {score.A}
           </span>{" "}

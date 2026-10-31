@@ -1,16 +1,29 @@
 import { useEffect, useState } from "react";
 import { loadData } from "../../../lib/data";
-import { Segmented } from "../common/controls";
+import { Field, Segmented, SETTINGS_CARD } from "../common/controls";
 import GameLayout from "../common/GameLayout";
 import { Loader, Notice } from "../common/GameStatus";
 import CareerGame, { CAREER_KEYFRAMES } from "./CareerGame";
 
+import { tr } from "../../../i18n";
 const KEY = "futgrid:karyera:difficulty";
 
 const LEVELS = [
-  { value: "easy", label: "Asan", sub: "ən məşhur 250" },
-  { value: "normal", label: "Normal", sub: "ilk 1200" },
-  { value: "hard", label: "Çətin", sub: "ilk 5000" },
+  { value: "easy", get label() {
+    return tr("Asan");
+  }, get sub() {
+    return tr("ən məşhurlar");
+  } },
+  { value: "normal", get label() {
+    return tr("Normal");
+  }, get sub() {
+    return tr("tanınmışlar");
+  } },
+  { value: "hard", get label() {
+    return tr("Çətin");
+  }, get sub() {
+    return tr("hamısı");
+  } },
 ];
 
 const read = () => {
@@ -40,13 +53,15 @@ export default function KaryeraYolu() {
   };
 
   let body;
-  if (error) body = <Notice title="Data yüklənmədi" text={error} />;
-  else if (!data) body = <Loader text="Oyunçular yüklənir..." />;
+  if (error) body = <Notice title={tr("Data yüklənmədi")} text={error} />;
+  else if (!data) body = <Loader text={tr("Oyunçular yüklənir...")} />;
   else
     body = (
       <>
-        <div className="mx-auto mb-6 max-w-2xl">
-          <Segmented label="Çətinlik" options={LEVELS} value={difficulty} onChange={change} />
+        <div className={`mx-auto mb-6 max-w-2xl ${SETTINGS_CARD} md:p-6`}>
+          <Field label={tr("Çətinlik")}>
+            <Segmented label={tr("Çətinlik")} options={LEVELS} value={difficulty} onChange={change} />
+          </Field>
         </div>
         <CareerGame key={difficulty} data={data} difficulty={difficulty} />
       </>
@@ -54,9 +69,9 @@ export default function KaryeraYolu() {
 
   return (
     <GameLayout
-      eyebrow="Bilik oyunu"
-      title="Karyera yolu"
-      description="Klubların ardıcıllığına bax və bu yolu keçən futbolçunu tap. 10 raund, hər raundda 3 cəhd."
+      eyebrow={tr("Bilik oyunu")}
+      title={tr("Karyera yolu")}
+      description={tr("Klubların ardıcıllığına bax və bu yolu keçən futbolçunu tap. 10 raund, hər raundda 3 cəhd.")}
       compact={Boolean(data)}
     >
       <style>{CAREER_KEYFRAMES}</style>

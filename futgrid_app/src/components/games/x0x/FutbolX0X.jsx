@@ -9,6 +9,7 @@ import X0XSettings from "./X0XSettings";
 import X0XSolo from "./X0XSolo";
 import { loadSettings, saveSettings } from "./settings";
 
+import { tr } from "../../../i18n";
 const TITLE = "Futbol X0X";
 
 export default function FutbolX0X() {
@@ -69,8 +70,8 @@ export default function FutbolX0X() {
   const toSettings = () => setScreen("settings");
 
   let body;
-  if (error) body = <Notice title="Data yüklənmədi" text={error} />;
-  else if (!data) body = <Loader text="Oyunçular yüklənir..." />;
+  if (error) body = <Notice title={tr("Data yüklənmədi")} text={error} />;
+  else if (!data) body = <Loader text={tr("Oyunçular yüklənir...")} />;
   else if (screen === "modes") body = <X0XModeSelect onPick={pickMode} />;
   else if (screen === "settings")
     body = (
@@ -104,9 +105,9 @@ export default function FutbolX0X() {
 
   return (
     <GameLayout
-      eyebrow="Futbol bilik oyunu"
+      eyebrow={tr("Futbol bilik oyunu")}
       title={TITLE}
-      description="Rejim seç, parametrləri qur və oyuna başla."
+      description={tr("Rejim seç, parametrləri qur və oyuna başla.")}
       compact={Boolean(data) && screen !== "modes"}
     >
       {body}

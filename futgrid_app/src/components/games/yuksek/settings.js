@@ -1,3 +1,4 @@
+import { tr } from "../../../i18n";
 const KEY = "futgrid:yuksek:settings";
 
 export const DEFAULT_SETTINGS = {
@@ -6,9 +7,21 @@ export const DEFAULT_SETTINGS = {
 
 export const OPTIONS = {
   difficulty: [
-    { value: "easy", label: "Asan", sub: "ən bahalı 300 oyunçu" },
-    { value: "normal", label: "Normal", sub: "ilk 1200 oyunçu" },
-    { value: "hard", label: "Çətin", sub: "hamısı" },
+    { value: "easy", get label() {
+    return tr("Asan");
+  }, get sub() {
+    return tr("ən məşhurlar");
+  } },
+    { value: "normal", get label() {
+    return tr("Normal");
+  }, get sub() {
+    return tr("tanınmışlar");
+  } },
+    { value: "hard", get label() {
+    return tr("Çətin");
+  }, get sub() {
+    return tr("hamısı");
+  } },
   ],
 };
 

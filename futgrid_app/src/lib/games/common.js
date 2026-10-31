@@ -2,6 +2,7 @@ import { norm } from "../data";
 import { shuffle } from "../random";
 import { buildCategoryPool, countryFlag, countryName } from "./x0xCategories";
 
+import { tr } from "../../i18n";
 export const DIFFICULTY = {
   easy: { maxTier: 1, minAnswers: 5 },
   normal: { maxTier: 2, minAnswers: 3 },
@@ -41,14 +42,17 @@ export function entityIndex(data) {
       key: `country:${code}`,
       type: "country",
       code,
-      label: countryName(code, data),
+      get label() {
+        return countryName(code, data);
+      },
+      search: [countryName(code, data, "az"), countryName(code, data, "en"), countryName(code, data, "ru")].join(" "),
       flag: countryFlag(code, data),
       images: [info?.flag_url, `https://flagcdn.com/${code.toLowerCase()}.svg`].filter(Boolean),
       ids,
     };
   });
 
-  for (const e of [...clubs, ...countries]) e._name = norm(e.label);
+  for (const e of [...clubs, ...countries]) e._name = norm(e.search ?? e.label);
   const all = [...clubs, ...countries];
   data._entities = { clubs, countries, all, byKey: new Map(all.map((e) => [e.key, e])) };
   return data._entities;
@@ -81,8 +85,8 @@ export const isCommon = (a, b, player) => a.ids.has(player.id) && b.ids.has(play
 
 export function pairProblem(a, b) {
   if (!a || !b) return null;
-  if (a.key === b.key) return "Hər iki oyunçu eyni şeyi seçib.";
-  if (a.type === "country" && b.type === "country") return "İki ölkə ola bilməz: ən azı biri klub olmalıdır.";
+  if (a.key === b.key) return tr("Hər iki oyunçu eyni şeyi seçib.");
+  if (a.type === "country" && b.type === "country") return tr("İki ölkə ola bilməz: ən azı biri klub olmalıdır.");
   return null;
 }
 

@@ -1,5 +1,6 @@
 import MATCHES from "../../data/famous-matches.json";
 import { norm } from "../data";
+import { getLang } from "../../i18n";
 
 export const playableSides = (m) =>
   ["home", "away"].filter((s) => m[s]?.players?.length === 11);
@@ -50,8 +51,14 @@ export function buildMatcher(match, sides) {
   };
 }
 
+const MONTHS = {
+  az: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avqust", "sentyabr", "oktyabr", "noyabr", "dekabr"],
+  en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  ru: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
+};
+
 export const dateLabel = (d) => {
   const [y, m, day] = d.split("-");
-  const months = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avqust", "sentyabr", "oktyabr", "noyabr", "dekabr"];
+  const months = MONTHS[getLang()] ?? MONTHS.az;
   return `${Number(day)} ${months[Number(m) - 1]} ${y}`;
 };

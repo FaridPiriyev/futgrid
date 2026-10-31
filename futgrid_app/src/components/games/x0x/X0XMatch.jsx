@@ -26,6 +26,7 @@ import { other } from "./marks";
 import { playerName, winsNeeded } from "./settings";
 import useTurnTimer from "./useTurnTimer";
 
+import { tr } from "../../../i18n";
 const emptyBoard = () => Array(9).fill(null);
 const stealPool = (s) =>
   s === "none" ? null : s === "unlimited" ? Infinity : s;
@@ -91,7 +92,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
     settings.timer,
     turnId,
     !roundOver && grid,
-    () => nextTurn(`Vaxt bitdi. Növbə: ${names[other(turn)]}.`, "wrong"),
+    () => nextTurn(tr("Vaxt bitdi. Növbə: {v1}.", { v1: names[other(turn)] }), "wrong"),
   );
 
   const endRound = (result) => {
@@ -113,7 +114,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
       board[cell]
         ? {
             type: "info",
-            text: `${names[turn]}, oğurlama: ${board[cell].name} əvəzinə başqa düzgün oyunçu yaz.`,
+            text: tr("{turn}, oğurlama: {name} əvəzinə başqa düzgün oyunçu yaz.", { turn: names[turn], name: board[cell].name }),
           }
         : null,
     );
@@ -130,8 +131,8 @@ export default function X0XMatch({ data, settings, onSettings }) {
     if (status !== "ok") {
       nextTurn(
         status === "used"
-          ? `${player.name} artıq lövhədədir. Növbə: ${names[other(turn)]}.`
-          : `${player.name} bu xanaya uyğun deyil. Növbə: ${names[other(turn)]}.`,
+          ? tr("{name} artıq lövhədədir. Növbə: {v2}.", { name: player.name, v2: names[other(turn)] })
+          : tr("{name} bu xanaya uyğun deyil. Növbə: {v2}.", { name: player.name, v2: names[other(turn)] }),
         "wrong",
       );
       return;
@@ -147,8 +148,8 @@ export default function X0XMatch({ data, settings, onSettings }) {
     if (isFull(next)) return endRound({ type: "draw" });
     nextTurn(
       stealing
-        ? `${names[turn]} xananı oğurladı: ${player.name}!`
-        : `${player.name} düzgündür!`,
+        ? tr("{turn} xananı oğurladı: {name}!", { turn: names[turn], name: player.name })
+        : tr("{name} düzgündür!", { name: player.name }),
       "ok",
     );
   };
@@ -175,12 +176,12 @@ export default function X0XMatch({ data, settings, onSettings }) {
         <span
           className={`block ${FONT} text-xl font-bold uppercase leading-none text-ink md:text-3xl`}
         >
-          X0X
+          {"X0X"}
         </span>
         <span
           className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-accent-hi md:text-xs`}
         >
-          Raund {round}
+          {tr("Raund")}{" "} {round}
         </span>
       </span>
     ),
@@ -190,8 +191,8 @@ export default function X0XMatch({ data, settings, onSettings }) {
   if (grid === null) {
     return (
       <Notice
-        title="Cədvəl yaradılmadı"
-        text="Bu parametrlərlə uyğun cədvəl tapılmadı. Çətinliyi və ya kateqoriyaları dəyiş."
+        title={tr("Cədvəl yaradılmadı")}
+        text={tr("Bu parametrlərlə uyğun cədvəl tapılmadı. Çətinliyi və ya kateqoriyaları dəyiş.")}
       />
     );
   }
@@ -216,8 +217,8 @@ export default function X0XMatch({ data, settings, onSettings }) {
           className={`text-center ${FONT} text-xs uppercase tracking-[0.15em] text-faint`}
         >
           {settings.bestOf === "unlimited"
-            ? "Limitsiz seriya"
-            : `${settings.bestOf} raundluq seriya · ${target} qələbə lazımdır`}
+            ? tr("Limitsiz seriya")
+            : tr("{bestOf} raundluq seriya · {target} qələbə lazımdır", { bestOf: settings.bestOf, target })}
         </p>
 
         <PlayerSearch
@@ -228,8 +229,8 @@ export default function X0XMatch({ data, settings, onSettings }) {
             activeCell !== null
               ? `${catText(rowCat)} × ${catText(colCat)}`
               : roundOver
-                ? "Raund bitdi"
-                : `${names[turn]}: xana seç`
+                ? tr("Raund bitdi")
+                : tr("{turn}: xana seç", { turn: names[turn] })
           }
           onSelect={answer}
           onCancel={() => setActiveCell(null)}
@@ -249,7 +250,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
                 : "border-l-line/20 bg-line/5 text-muted"
           }`}
         >
-          {feedback?.text ?? `Raundu ${names[starter]} başlayır.`}
+          {feedback?.text ?? tr("Raundu {starter} başlayır.", { starter: names[starter] })}
         </div>
       </div>
 
@@ -272,12 +273,12 @@ export default function X0XMatch({ data, settings, onSettings }) {
         {!roundOver ? (
           <button
             type="button"
-            onClick={() => nextTurn(`${names[turn]} növbəni ötürdü.`)}
+            onClick={() => nextTurn(tr("{turn} növbəni ötürdü.", { turn: names[turn] }))}
             className={BTN_GHOST}
           >
             <span aria-hidden="true" className={SWEEP_BLUE} />
             <SkipForward className="h-4 w-4" />
-            Növbəni ötür
+            {tr("Növbəni ötür")}
           </button>
         ) : (
           <>
@@ -288,7 +289,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
             >
               <span aria-hidden="true" className={SWEEP_WHITE} />
               <RotateCcw className="h-4 w-4" />
-              {matchOver ? "Yeni matç" : "Növbəti raund"}
+              {matchOver ? tr("Yeni matç") : tr("Növbəti raund")}
             </button>
             <button
               type="button"
@@ -297,7 +298,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
             >
               <span aria-hidden="true" className={SWEEP_BLUE} />
               <Eye className="h-4 w-4" />
-              {reveal ? "Gizlət" : "Cavablar"}
+              {reveal ? tr("Gizlət") : tr("Cavablar")}
             </button>
           </>
         )}
@@ -305,28 +306,28 @@ export default function X0XMatch({ data, settings, onSettings }) {
           <button type="button" onClick={giveUp} className={BTN_PRIMARY}>
             <span aria-hidden="true" className={SWEEP_WHITE} />
             <Flag className="h-4 w-4" />
-            Təslim ol
+            {tr("Təslim ol")}
           </button>
         )}
         <button type="button" onClick={onSettings} className={BTN_GHOST}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <Settings2 className="h-4 w-4" />
-          Parametrlər
+          {tr("Parametrlər")}
         </button>
       </div>
 
       <ResultModal
         open={showResult}
         onClose={() => setShowResult(false)}
-        eyebrow={matchOver ? "Matç bitdi" : `Raund ${round} bitdi`}
+        eyebrow={matchOver ? tr("Matç bitdi") : `Raund ${round} bitdi`}
         title={
           roundResult?.type === "draw"
-            ? "Heç-heçə"
+            ? tr("Heç-heçə")
             : matchOver
-              ? `Matçı ${winnerName} qazandı!`
+              ? tr("Matçı {winnerName} qazandı!", { winnerName })
               : roundResult?.gaveUp
-                ? `${names[roundResult.gaveUp]} təslim oldu`
-                : `Raundu ${winnerName} qazandı!`
+                ? tr("{gaveUp} təslim oldu", { gaveUp: names[roundResult.gaveUp] })
+                : tr("Raundu {winnerName} qazandı!", { winnerName })
         }
         actions={
           <>
@@ -336,7 +337,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
               className={BTN_PRIMARY}
             >
               <span aria-hidden="true" className={SWEEP_WHITE} />
-              {matchOver ? "Yeni matç" : "Növbəti raund"}
+              {matchOver ? tr("Yeni matç") : tr("Növbəti raund")}
             </button>
             <button
               type="button"
@@ -347,13 +348,13 @@ export default function X0XMatch({ data, settings, onSettings }) {
               className={BTN_GHOST}
             >
               <span aria-hidden="true" className={SWEEP_BLUE} />
-              Cavablara bax
+              {tr("Cavablara bax")}
             </button>
           </>
         }
       >
         <p className={`${FONT} text-base text-muted`}>
-          Hesab:{" "}
+          {tr("Hesab:")}{" "}
           <span className="font-bold text-accent-hi">
             {names.X} {wins.X}
           </span>{" "}

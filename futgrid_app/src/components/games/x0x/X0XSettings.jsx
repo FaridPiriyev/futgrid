@@ -1,6 +1,13 @@
 import { ArrowLeft, ListChecks, Play } from "lucide-react";
 import { CATEGORY_TYPES } from "../../../lib/games/x0xCategories";
-import { Checkbox, Segmented, Toggle } from "../common/controls";
+import {
+  Checkbox,
+  Field,
+  Segmented,
+  SETTINGS_CARD,
+  SettingsHeader,
+  Toggle,
+} from "../common/controls";
 import {
   BTN_GHOST,
   BTN_PRIMARY,
@@ -11,26 +18,14 @@ import {
 import { MARKS } from "./marks";
 import { OPTIONS } from "./settings";
 
-function Field({ label, children }) {
-  return (
-    <div>
-      <p
-        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
-      >
-        {label}
-      </p>
-      {children}
-    </div>
-  );
-}
-
+import { tr } from "../../../i18n";
 function NameInput({ mark, value, onChange, placeholder }) {
   return (
     <label
-      className={`flex items-center border bg-line/5 transition-colors duration-200 focus-within:bg-line/10 ${MARKS[mark].border}`}
+      className={`flex items-center overflow-hidden rounded-xl border-2 bg-surface transition-colors duration-200 focus-within:bg-page ${MARKS[mark].border}`}
     >
       <span
-        className={`flex h-11 w-11 shrink-0 items-center justify-center ${MARKS[mark].bg} ${FONT} text-2xl font-bold ${MARKS[mark].text}`}
+        className={`flex h-11 w-11 shrink-0 items-center justify-center ${MARKS[mark].bg} ${FONT} text-2xl font-black ${MARKS[mark].text}`}
       >
         {mark}
       </span>
@@ -66,16 +61,12 @@ export default function X0XSettings({
   const versus = mode === "same";
 
   const categories = (
-    <div>
-      <p
-        className={`mb-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted`}
-      >
-        Kateqoriyalar
-      </p>
-      <div className="grid grid-cols-2 gap-x-4 sm:grid-cols-3">
+    <Field label={tr("Kateqoriyalar")}>
+      <div className="flex flex-wrap gap-2">
         {CATEGORY_TYPES.map((c) => (
           <Checkbox
             key={c.key}
+            locked={c.locked}
             label={c.label}
             checked={
               c.locked || (settings.categories[c.key] && available[c.key])
@@ -85,56 +76,48 @@ export default function X0XSettings({
           />
         ))}
       </div>
-    </div>
+    </Field>
   );
 
   return (
-    <section className="mx-auto max-w-5xl border border-line/10 bg-surface/85 p-4 backdrop-blur-sm md:p-6">
-      <div className="flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <h2
-            className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink md:text-2xl`}
-          >
-            {versus ? "Eyni ekran" : "Tək oyunçu"}
-            <span className="text-faint"> · parametrlər</span>
-          </h2>
-          <p className={`${FONT} text-sm text-faint`}>
-            {versus ? "İki oyunçu, bir cihaz" : "9 cəhdlə cədvəli doldur"}
-          </p>
-        </div>
-      </div>
+    <section className={`mx-auto max-w-5xl ${SETTINGS_CARD}`}>
+      <SettingsHeader
+        title={versus ? tr("Eyni ekran") : tr("Tək oyunçu")}
+        accent={tr("parametrlər")}
+        sub={versus ? tr("İki oyunçu, bir cihaz") : tr("9 cəhdlə cədvəli doldur")}
+      />
 
-      <div className="mt-4 grid gap-x-8 gap-y-4 lg:grid-cols-2">
-        <div className="space-y-4">
+      <div className="mt-6 grid gap-x-10 gap-y-6 lg:grid-cols-2">
+        <div className="space-y-6">
           {versus && (
-            <Field label="Oyunçuların adları">
+            <Field label={tr("Oyunçuların adları")}>
               <div className="grid gap-2 sm:grid-cols-2">
                 <NameInput
                   mark="X"
                   value={settings.names?.X ?? ""}
                   onChange={setName("X")}
-                  placeholder="Oyunçu 1"
+                  placeholder={tr("Oyunçu 1")}
                 />
                 <NameInput
                   mark="O"
                   value={settings.names?.O ?? ""}
                   onChange={setName("O")}
-                  placeholder="Oyunçu 2"
+                  placeholder={tr("Oyunçu 2")}
                 />
               </div>
             </Field>
           )}
-          <Field label="Oyunçular">
+          <Field label={tr("Oyunçular")}>
             <Segmented
-              label="Oyunçular"
+              label={tr("Oyunçular")}
               options={OPTIONS.era}
               value={settings.era}
               onChange={set("era")}
             />
           </Field>
-          <Field label="Çətinlik">
+          <Field label={tr("Çətinlik")}>
             <Segmented
-              label="Çətinlik"
+              label={tr("Çətinlik")}
               options={OPTIONS.difficulty}
               value={settings.difficulty}
               onChange={set("difficulty")}
@@ -144,33 +127,33 @@ export default function X0XSettings({
             Icon={ListChecks}
             checked={settings.multipleChoice}
             onChange={set("multipleChoice")}
-            label="Çoxseçimli"
-            sub="Cavabı 4 variantdan seç"
+            label={tr("Çoxseçimli")}
+            sub={tr("Cavabı 4 variantdan seç")}
           />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {versus && (
             <>
-              <Field label="Oğurlama">
+              <Field label={tr("Oğurlama")}>
                 <Segmented
-                  label="Oğurlama"
+                  label={tr("Oğurlama")}
                   options={OPTIONS.steals}
                   value={settings.steals}
                   onChange={set("steals")}
                 />
               </Field>
-              <Field label="Seriya">
+              <Field label={tr("Seriya", null, "series")}>
                 <Segmented
-                  label="Seriya"
+                  label={tr("Seriya", null, "series")}
                   options={OPTIONS.bestOf}
                   value={settings.bestOf}
                   onChange={set("bestOf")}
                 />
               </Field>
-              <Field label="Növbə vaxtı">
+              <Field label={tr("Növbə vaxtı")}>
                 <Segmented
-                  label="Növbə vaxtı"
+                  label={tr("Növbə vaxtı")}
                   options={OPTIONS.timer}
                   value={settings.timer}
                   onChange={set("timer")}
@@ -182,16 +165,16 @@ export default function X0XSettings({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-3 border-t border-line/10 pt-4">
+      <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
         <button type="button" onClick={onStart} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
           <Play className="h-4 w-4" />
-          Oyuna başla
+          {tr("Oyuna başla")}
         </button>
         <button type="button" onClick={onBack} className={BTN_GHOST}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <ArrowLeft className="h-4 w-4" />
-          Rejimlər
+          {tr("Rejimlər")}
         </button>
       </div>
     </section>

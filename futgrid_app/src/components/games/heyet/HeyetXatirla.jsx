@@ -5,11 +5,12 @@ import GameLayout from "../common/GameLayout";
 import { FONT } from "../common/ui";
 import LineupGame, { LINEUP_KEYFRAMES } from "./LineupGame";
 
+import { tr } from "../../../i18n";
 function SidePicker({ match, onPick }) {
   const sides = playableSides(match);
   const options = [
-    ...(sides.length === 2 ? [{ key: "both", label: "Hər iki komanda", sub: "22 oyunçu", sides }] : []),
-    ...sides.map((s) => ({ key: s, label: match[s].name, sub: "11 oyunçu", sides: [s] })),
+    ...(sides.length === 2 ? [{ key: "both", label: tr("Hər iki komanda"), sub: tr("22 oyunçu"), sides }] : []),
+    ...sides.map((s) => ({ key: s, label: tr(match[s].name), sub: tr("11 oyunçu"), sides: [s] })),
   ];
   return (
     <div className="mt-3 grid gap-2 sm:grid-cols-3">
@@ -37,9 +38,9 @@ export default function HeyetXatirla() {
 
   return (
     <GameLayout
-      eyebrow="Yaddaş oyunu"
-      title="Heyəti xatırla"
-      description="Məşhur oyunları seç və meydana çıxan başlanğıc heyəti xatırla. Ad və ya soyad yazmaq kifayətdir."
+      eyebrow={tr("Yaddaş oyunu")}
+      title={tr("Heyəti xatırla")}
+      description={tr("Məşhur oyunları seç və meydana çıxan başlanğıc heyəti xatırla. Ad və ya soyad yazmaq kifayətdir.")}
       compact={Boolean(game)}
     >
       <style>{LINEUP_KEYFRAMES}</style>
@@ -51,7 +52,7 @@ export default function HeyetXatirla() {
           onBack={() => setGame(null)}
         />
       ) : (
-        <div className="mx-auto max-w-3xl space-y-3">
+        <div className="mx-auto grid max-w-5xl gap-3 md:grid-cols-2">
           {matches.map((m, i) => (
             <div
               key={m.id}
@@ -65,13 +66,13 @@ export default function HeyetXatirla() {
               >
                 <span>
                   <span className={`block ${FONT} text-xs font-bold uppercase tracking-[0.18em] text-accent`}>
-                    {m.competition}
+                    {tr(m.competition)}
                   </span>
                   <span className={`mt-1 block ${FONT} text-xl font-bold uppercase text-ink md:text-2xl`}>
-                    {m.home.name} <span className="text-accent">{m.home.score}–{m.away.score}</span> {m.away.name}
+                    {tr(m.home.name)} <span className="text-accent">{m.home.score}–{m.away.score}</span> {tr(m.away.name)}
                   </span>
                   <span className={`block ${FONT} text-sm text-muted`}>
-                    {dateLabel(m.date)} · {m.venue}
+                    {dateLabel(m.date)} · {tr(m.venue)}
                   </span>
                 </span>
                 <span className={`inline-flex shrink-0 items-center gap-1.5 ${FONT} text-sm font-bold text-faint`}>

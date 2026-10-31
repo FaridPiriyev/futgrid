@@ -1,11 +1,33 @@
 import { countryName } from "./x0xCategories";
+import { tr } from "../../i18n";
 
-export const POS_SHORT = { GK: "QAP", DF: "MÜD", MF: "YAR", FW: "HÜC" };
+export const POS_SHORT = {
+  get GK() {
+    return tr("QAP");
+  },
+  get DF() {
+    return tr("MÜD");
+  },
+  get MF() {
+    return tr("YAR");
+  },
+  get FW() {
+    return tr("HÜC");
+  },
+};
 export const POS_NAME = {
-  GK: "Qapıçı",
-  DF: "Müdafiəçi",
-  MF: "Yarımmüdafiəçi",
-  FW: "Hücumçu",
+  get GK() {
+    return tr("Qapıçı");
+  },
+  get DF() {
+    return tr("Müdafiəçi");
+  },
+  get MF() {
+    return tr("Yarımmüdafiəçi");
+  },
+  get FW() {
+    return tr("Hücumçu");
+  },
 };
 export const POS_STYLE = {
   GK: "bg-gold/15 text-gold-hi",

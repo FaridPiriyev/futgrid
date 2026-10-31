@@ -23,6 +23,7 @@ import {
 } from "./AuctionParts";
 import { KEYS, sideNames } from "./settings";
 
+import { tr } from "../../../i18n";
 const BOT_DELAY = {
   easy: [1200, 3600],
   normal: [700, 2600],
@@ -150,9 +151,9 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
         <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-muted`}>
-          Lot <span className="font-bold text-ink">{state.lotNo}</span>
+          {tr("Lot")}{" "} <span className="font-bold text-ink">{state.lotNo}</span>
           <span className="mx-2 text-dim">·</span>
-          Satılan{" "}
+          {tr("Satılan")}{" "}
           <span className="font-bold text-ink">
             {state.log.filter((l) => l.winner).length}
           </span>
@@ -161,7 +162,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
         <button type="button" onClick={onSettings} className={`${BTN_GHOST} px-4! py-2!`}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
           <Settings2 className="h-4 w-4" />
-          <span className="hidden sm:inline">Parametrlər</span>
+          <span className="hidden sm:inline">{tr("Parametrlər")}</span>
         </button>
       </div>
 

@@ -14,11 +14,25 @@ import PlayerAvatar, { Flag } from "../common/PlayerAvatar";
 import PlayerSearch from "../common/PlayerSearch";
 import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 
+import { tr } from "../../../i18n";
 export const CAREER_KEYFRAMES = `
 @keyframes kyIn { from { opacity: 0; transform: translateY(16px) scale(.95); } to { opacity: 1; transform: none; } }
 @keyframes kyLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes kyShake { 0%,100% { transform: translateX(0); } 25%,75% { transform: translateX(-6px); } 50% { transform: translateX(6px); } }
 `;
+
+const birthDate = (d) => {
+  if (!d) return "—";
+  const [y, m, day] = d.split("-");
+  return day && m ? `${day}.${m}.${y}` : y;
+};
+
+const initialsOf = (name) =>
+  name
+    .trim()
+    .split(/\s+/)
+    .map((w) => `${w[0]?.toUpperCase() ?? ""}.`)
+    .join(" ");
 
 function Chain({ path, roundKey }) {
   return (
@@ -53,7 +67,7 @@ function Chain({ path, roundKey }) {
 function Summary({ results, score, onAgain }) {
   return (
     <div className="mx-auto max-w-2xl border border-line/10 bg-surface p-5 text-center animate-[kyIn_0.4s_ease-out_both] md:p-8">
-      <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-accent`}>Oyun bitdi</p>
+      <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-accent`}>{tr("Oyun bitdi")}</p>
       <p className={`mt-2 ${FONT} text-5xl font-bold text-ink`}>
         {score}
         <span className="text-xl text-faint"> / {results.length * 3}</span>
@@ -74,7 +88,7 @@ function Summary({ results, score, onAgain }) {
       <button type="button" onClick={onAgain} className={`${BTN_PRIMARY} mt-6`}>
         <span aria-hidden="true" className={SWEEP_WHITE} />
         <RotateCcw className="h-4 w-4" />
-        Yenidən oyna
+        {tr("Yenidən oyna")}
       </button>
     </div>
   );
@@ -108,8 +122,9 @@ export default function CareerGame({ data, difficulty }) {
   const key = pathKey(data, target);
   const country = countryOf(data, target);
   const hintList = [
+    { label: tr("Doğum tarixi"), value: birthDate(target.birth_date) },
     {
-      label: "Ölkə",
+      label: tr("Ölkə"),
       value: country ? (
         <span className="inline-flex items-center gap-1.5">
           <Flag key={country.code} country={country} />
@@ -119,8 +134,8 @@ export default function CareerGame({ data, difficulty }) {
         "—"
       ),
     },
-    { label: "Mövqe", value: POS_NAME[target.position] ?? "—" },
-    { label: "Doğum ili", value: target.birth_date?.slice(0, 4) ?? "—" },
+    { label: tr("Mövqe"), value: POS_NAME[target.position] ?? "—" },
+    { label: tr("Baş hərflər"), value: initialsOf(target.name) },
   ];
 
   const finish = (points) => {
@@ -148,11 +163,11 @@ export default function CareerGame({ data, difficulty }) {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-muted`}>
-          Raund <span className="font-bold text-ink">{idx + 1}</span> / {rounds.length}
+          {tr("Raund")}{" "} <span className="font-bold text-ink">{idx + 1}</span> / {rounds.length}
           <span className="mx-2 text-dim">·</span>
-          Xal <span className="font-bold text-ink">{score}</span>
+          {tr("Xal")}{" "} <span className="font-bold text-ink">{score}</span>
         </p>
-        <div className="flex items-center gap-1.5" aria-label="Qalan cəhd">
+        <div className="flex items-center gap-1.5" aria-label={tr("Qalan cəhd")}>
           {Array.from({ length: MAX_WRONG }, (_, i) => (
             <span key={i} className={`h-2.5 w-6 ${i < MAX_WRONG - wrong.length ? "bg-accent" : "bg-line/15"}`} />
           ))}
@@ -160,7 +175,7 @@ export default function CareerGame({ data, difficulty }) {
       </div>
 
       <h2 className={`mt-5 text-center ${FONT} text-xl font-bold uppercase text-ink md:text-2xl`}>
-        Bu karyera kimindir?
+        {tr("Bu karyera kimindir?")}
       </h2>
       <div className="mt-5">
         <Chain path={path} roundKey={idx} />
@@ -170,7 +185,7 @@ export default function CareerGame({ data, difficulty }) {
         {status === "play" ? (
           <>
             <div key={shake} className={shake ? "animate-[kyShake_0.35s_ease-out]" : ""}>
-              <PlayerSearch data={data} onSelect={guess} focusKey={idx} placeholder="Futbolçunun adını yaz..." />
+              <PlayerSearch data={data} onSelect={guess} focusKey={idx} placeholder={tr("Futbolçunun adını yaz...")} />
             </div>
             {wrong.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
@@ -181,10 +196,10 @@ export default function CareerGame({ data, difficulty }) {
                 ))}
               </div>
             )}
-            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+            <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-4">
               {hintList.map((h, i) =>
                 i < hints ? (
-                  <div key={h.label} className={`border border-accent/30 bg-accent/5 px-3 py-2.5 ${FONT} text-sm animate-[kyIn_0.3s_ease-out_both]`}>
+                  <div key={h.label} className={`rounded-xl border border-accent/30 bg-accent/5 px-3 py-2.5 ${FONT} text-sm animate-[kyIn_0.3s_ease-out_both]`}>
                     <span className="block text-xs uppercase tracking-wider text-muted">{h.label}</span>
                     <span className="font-bold text-ink">{h.value}</span>
                   </div>
@@ -194,7 +209,7 @@ export default function CareerGame({ data, difficulty }) {
                     type="button"
                     disabled={i !== hints}
                     onClick={() => setHints((n) => n + 1)}
-                    className={`flex items-center justify-center gap-2 border border-dashed border-line/20 px-3 py-2.5 ${FONT} text-sm font-bold uppercase tracking-wide text-muted transition-colors duration-200 enabled:hover:border-accent enabled:hover:text-accent disabled:opacity-40`}
+                    className={`flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-edge px-3 py-2.5 ${FONT} text-sm font-bold uppercase tracking-wide text-muted transition-colors duration-200 enabled:hover:border-accent enabled:hover:text-accent disabled:opacity-40`}
                   >
                     <Lightbulb className="h-4 w-4" />
                     {h.label}
@@ -204,11 +219,11 @@ export default function CareerGame({ data, difficulty }) {
             </div>
             <div className="mt-4 flex justify-between gap-3">
               <p className={`${FONT} text-sm text-faint`}>
-                İndi düzgün cavab: <span className="font-bold text-ink">+{roundPoints(hints)} xal</span>
+                {tr("İndi düzgün cavab:")}{" "} <span className="font-bold text-ink">{tr("+{n} xal", { n: roundPoints(hints) })}</span>
               </p>
               <button type="button" onClick={() => finish(0)} className={`inline-flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase tracking-wide text-muted hover:text-ink`}>
                 <SkipForward className="h-4 w-4" />
-                Bilmirəm
+                {tr("Bilmirəm")}
               </button>
             </div>
           </>
@@ -217,13 +232,13 @@ export default function CareerGame({ data, difficulty }) {
             <PlayerAvatar player={target} className="h-16 w-16" textClass="text-xl" />
             <div className="flex-1">
               <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] ${status === "right" ? "text-good" : "text-bad"}`}>
-                {status === "right" ? `Düzdür! +${results[results.length - 1]?.points} xal` : "Cavab"}
+                {status === "right" ? tr("Düzdür! +{points} xal", { points: results[results.length - 1]?.points }) : tr("Cavab")}
               </p>
               <p className={`${FONT} text-2xl font-bold uppercase text-ink`}>{target.name}</p>
             </div>
             <button type="button" onClick={next} className={BTN_PRIMARY}>
               <span aria-hidden="true" className={SWEEP_WHITE} />
-              {idx + 1 < rounds.length ? "Növbəti" : "Nəticə"}
+              {idx + 1 < rounds.length ? tr("Növbəti") : tr("Nəticə")}
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>

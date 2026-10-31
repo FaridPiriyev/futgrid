@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import { birthYear, searchPlayers } from "../../../lib/data";
 import { FONT } from "./ui";
 
+import { tr } from "../../../i18n";
 export default function PlayerSearch({
   data,
   onSelect,
@@ -59,7 +60,7 @@ export default function PlayerSearch({
             disabled={disabled}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder={placeholder}
+            placeholder={tr(placeholder)}
             autoComplete="off"
             spellCheck={false}
             role="combobox"
@@ -102,7 +103,7 @@ export default function PlayerSearch({
 
       {!disabled && query.trim().length >= 2 && results.length === 0 && (
         <p className={`absolute inset-x-0 top-full z-30 mt-1 border border-line/10 bg-surface px-4 py-3 ${FONT} text-sm text-faint`}>
-          Bu adla oyunçu tapılmadı.
+          {tr("Bu adla oyunçu tapılmadı.")}
         </p>
       )}
     </div>

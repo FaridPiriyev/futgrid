@@ -3,29 +3,49 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
-
+import { LANGS, useLang } from "../i18n";
+
+import { tr } from "../i18n";
 const LEFT_LINKS = [
-  { key: "home", label: "Ana Səhifə", id: null },
-  { key: "about", label: "Haqqımızda", id: "about" },
-  { key: "games", label: "Oyunlar", id: "games" },
+  { key: "home", get label() {
+    return tr("Ana Səhifə");
+  }, id: null },
+  { key: "about", get label() {
+    return tr("Haqqımızda");
+  }, id: "about" },
+  { key: "games", get label() {
+    return tr("Oyunlar");
+  }, id: "games" },
 ];
 
 const RIGHT_LINKS = [
-  { key: "leaderboard", label: "Reytinq", id: "leaderboard" },
-  { key: "contact", label: "Əlaqə", id: "contact" },
-  { key: "login", label: "Hesab", id: "login" },
+  { key: "leaderboard", get label() {
+    return tr("Reytinq");
+  }, id: "leaderboard" },
+  { key: "contact", get label() {
+    return tr("Əlaqə");
+  }, id: "contact" },
+  { key: "login", get label() {
+    return tr("Hesab");
+  }, id: "login" },
 ];
 
 const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
 const SECTION_IDS = ["about", "games", "leaderboard", "contact"];
 
 const SOCIALS = [
-  { Icon: FaInstagram, href: "#", label: "Instagram" },
-  { Icon: FaTiktok, href: "#", label: "TikTok" },
-  { Icon: FaYoutube, href: "#", label: "YouTube" },
+  { Icon: FaInstagram, href: "#", get label() {
+    return tr("Instagram");
+  } },
+  { Icon: FaTiktok, href: "#", get label() {
+    return tr("TikTok");
+  } },
+  { Icon: FaYoutube, href: "#", get label() {
+    return tr("YouTube");
+  } },
 ];
 
-const LANGUAGES = ["AZ", "EN", "RU"];
+const LANGUAGES = LANGS.map((l) => l.label);
 
 const linkBase =
   "font-['Roboto_Condensed',sans-serif] whitespace-nowrap text-[13px] font-bold uppercase tracking-wide transition-colors duration-300 xl:text-[15px]";
@@ -111,7 +131,7 @@ function Burger({ open, onClick, className = "", hideAt = "md:hidden" }) {
     <button
       type="button"
       onClick={onClick}
-      aria-label={open ? "Menyunu bağla" : "Menyunu aç"}
+      aria-label={open ? tr("Menyunu bağla") : tr("Menyunu aç")}
       aria-expanded={open}
       className={`relative flex h-11 w-11 items-center justify-center ${hideAt} ${className}`}
     >
@@ -157,7 +177,7 @@ function MenuExtras({ open, language, setLanguage }) {
         <div
           className="flex overflow-hidden rounded-md border border-nav-line"
           role="group"
-          aria-label="Dil"
+          aria-label={tr("Dil")}
         >
           {LANGUAGES.map((lang) => (
             <button
@@ -253,7 +273,7 @@ function LanguageMenu({ language, setLanguage }) {
         type="button"
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1 text-xs font-semibold text-nav-soft transition-colors hover:text-nav-ink"
-        aria-label="Dili dəyiş"
+        aria-label={tr("Dili dəyiş")}
         aria-expanded={open}
       >
         <Globe className="h-4 w-4" />
@@ -291,7 +311,10 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const active = useActiveSection(pathname);
-  const [language, setLanguage] = useState("AZ");
+  const { lang, setLang } = useLang();
+  const language = LANGS.find((l) => l.code === lang)?.label ?? "AZ";
+  const setLanguage = (label) =>
+    setLang(LANGS.find((l) => l.label === label)?.code ?? "az");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
@@ -346,11 +369,11 @@ export default function Navbar() {
       href="/"
       onClick={(e) => go(LEFT_LINKS[0], e)}
       className={className}
-      aria-label="FutGrid ana səhifə"
+      aria-label={tr("FutGrid ana səhifə")}
     >
       <img
         src="/logo.png"
-        alt="FutGrid Logo"
+        alt={tr("FutGrid Logo")}
         className={`w-auto object-contain mix-blend-lighten contrast-[1.35] ${imgClassName}`}
       />
     </a>
@@ -465,7 +488,7 @@ export default function Navbar() {
         <div className="relative z-20 h-11 border-b border-nav-line bg-nav-top lg:h-15 lg:border-0 lg:bg-transparent">
           <div className="mx-auto flex h-full max-w-330 items-center justify-between px-4 md:px-6">
             <span className="hidden font-['Roboto',sans-serif] text-sm text-nav-soft lg:inline">
-              Welcome to FutGrid tactical hub
+              {tr("Welcome to FutGrid tactical hub")}
             </span>
 
             <div className="flex items-center gap-4 lg:hidden">

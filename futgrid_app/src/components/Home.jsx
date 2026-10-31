@@ -18,30 +18,49 @@ import {
 } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
-
+
+import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
 const SLIDES = [
   {
     image: "/images/slider1.png",
-    lines: ["Futbol", "Taktikanı", "Göstər"],
-    subtitle: "Klubları və oyunçuları tanı, matçı qazan",
-    button: "Daha ətraflı",
+    get lines() {
+    return tr("Futbol|Taktikanı|Göstər").split("|");
+  },
+    get subtitle() {
+    return tr("Klubları və oyunçuları tanı, matçı qazan");
+  },
+    get button() {
+    return tr("Daha ətraflı");
+  },
     href: "#games",
   },
   {
     image: "/images/slider2.png",
-    lines: ["Fərqli", "oyunları", "kəşf et"],
-    subtitle: "Taktiki oyunların yeni formatını kəşf et",
-    button: "Oyunlara bax",
+    get lines() {
+    return tr("Fərqli|oyunları|kəşf et").split("|");
+  },
+    get subtitle() {
+    return tr("Taktiki oyunların yeni formatını kəşf et");
+  },
+    get button() {
+    return tr("Oyunlara bax");
+  },
     href: "#games",
   },
   {
     image: "/images/slider3.png",
-    lines: ["Reytinqdə", "zirvəyə", "yüksəl"],
-    subtitle: "Xal topla və liderlər cədvəlinə qalx",
-    button: "Reytinqə bax",
+    get lines() {
+    return tr("Reytinqdə|zirvəyə|yüksəl").split("|");
+  },
+    get subtitle() {
+    return tr("Xal topla və liderlər cədvəlinə qalx");
+  },
+    get button() {
+    return tr("Reytinqə bax");
+  },
     href: "#leaderboard",
   },
 ];
@@ -54,15 +73,27 @@ const TAPE_CLUBS = [
   "Liverpool",
   "Qarabağ",
   "Bayern",
-  "İnter",
+  "Inter",
   "PSG",
   "Arsenal",
 ];
 
 const CARDS = [
-  { src: "/images/card1.webp", alt: "Oyun zalı 1", title: "Oyun studiyası" },
-  { src: "/images/card2.webp", alt: "Oyun zalı 2", title: "Taktika zalı" },
-  { src: "/images/card3.webp", alt: "Oyun zalı 3", title: "Turnir arenası" },
+  { src: "/images/card1.webp", get alt() {
+    return tr("Oyun zalı 1");
+  }, get title() {
+    return tr("Oyun studiyası");
+  } },
+  { src: "/images/card2.webp", get alt() {
+    return tr("Oyun zalı 2");
+  }, get title() {
+    return tr("Taktika zalı");
+  } },
+  { src: "/images/card3.webp", get alt() {
+    return tr("Oyun zalı 3");
+  }, get title() {
+    return tr("Turnir arenası");
+  } },
 ];
 
 const CARD_TILT = ["-rotate-2", "rotate-[1.5deg]", "-rotate-1"];
@@ -74,42 +105,72 @@ const CARD_TAPE = [
 ];
 
 const STATS = [
-  { value: 15900, suffix: "+", label: "Oyunçu" },
-  { value: 433, suffix: "", label: "Klub" },
-  { value: 220, suffix: "", label: "Ölkə" },
-  { value: 1800, suffix: "+", label: "Məşqçi" },
+  { value: 15900, suffix: "+", get label() {
+    return tr("Oyunçu");
+  } },
+  { value: 433, suffix: "", get label() {
+    return tr("Klub");
+  } },
+  { value: 220, suffix: "", get label() {
+    return tr("Ölkə");
+  } },
+  { value: 1800, suffix: "+", get label() {
+    return tr("Məşqçi");
+  } },
 ];
 
 const GAMES = [
   {
     key: "x0x",
-    title: "Futbol X0X",
-    description:
-      "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
-    tags: ["2 oyunçu", "Tək oyunçu", "3 səviyyə"],
+    get title() {
+    return tr("Futbol X0X");
+  },
+    get description() {
+    return tr("Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.");
+  },
+    get tags() {
+    return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
+  },
     href: "/oyunlar/futbol-x0x",
   },
   {
     key: "ortaq",
-    title: "Ortaq Oyunçu",
-    description: "Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.",
-    tags: ["Kart dueli", "2 oyunçu"],
+    get title() {
+    return tr("Ortaq Oyunçu");
+  },
+    get description() {
+    return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
+  },
+    get tags() {
+    return ["Kart dueli", "2 oyunçu"].map((s) => tr(s));
+  },
     href: "/oyunlar/ortaq-oyuncu",
   },
   {
     key: "auksion",
-    title: "Açıq Artırma",
-    description:
-      "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
-    tags: ["Hərrac", "20 ₼ büdcə"],
+    get title() {
+    return tr("Açıq Artırma");
+  },
+    get description() {
+    return tr("20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.");
+  },
+    get tags() {
+    return ["Hərrac", "20 ₼ büdcə"].map((s) => tr(s));
+  },
     href: "/oyunlar/auksion",
   },
 ];
 
 const PERIODS = [
-  { key: "week", label: "Həftəlik" },
-  { key: "month", label: "Aylıq" },
-  { key: "all", label: "Bütün zamanlar" },
+  { key: "week", get label() {
+    return tr("Həftəlik");
+  } },
+  { key: "month", get label() {
+    return tr("Aylıq");
+  } },
+  { key: "all", get label() {
+    return tr("Bütün zamanlar");
+  } },
 ];
 
 const PLAYERS = [
@@ -142,14 +203,18 @@ const PLAYERS = [
     points: { week: 1980, month: 8120, all: 33400 },
   },
   {
-    name: "İsfendiyare memmedova",
+    get name() {
+    return tr("İsfendiyare memmedova");
+  },
     team: "Efqanistan",
     matches: 110,
     winRate: 69,
     points: { week: 2050, month: 7430, all: 29870 },
   },
   {
-    name: "Elcin İbrahmov",
+    get name() {
+    return tr("Elcin İbrahmov");
+  },
     team: "Yasildere",
     matches: 137,
     winRate: 66,
@@ -170,7 +235,9 @@ const PLAYERS = [
     points: { week: 1490, month: 6890, all: 26720 },
   },
   {
-    name: "İdris Muellim",
+    get name() {
+    return tr("İdris Muellim");
+  },
     team: "UNEC",
     matches: 89,
     winRate: 57,
@@ -220,23 +287,37 @@ const CONTACT_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
 const CONTACT_INFO = [
   {
     Icon: Mail,
-    label: "E-poçt",
+    get label() {
+    return tr("E-poçt");
+  },
     value: "info@futgrid.az",
     href: "mailto:info@futgrid.az",
   },
   {
     Icon: Phone,
-    label: "Telefon",
+    get label() {
+    return tr("Telefon");
+  },
     value: "+994 50 000 00 00",
     href: "tel:+994500000000",
   },
-  { Icon: MapPin, label: "Ünvan", value: "Bakı, Azərbaycan" },
+  { Icon: MapPin, get label() {
+    return tr("Ünvan");
+  }, get value() {
+    return tr("Bakı, Azərbaycan");
+  } },
 ];
 
 const SOCIALS = [
-  { Icon: FaInstagram, href: "#", label: "Instagram" },
-  { Icon: FaTiktok, href: "#", label: "TikTok" },
-  { Icon: FaYoutube, href: "#", label: "YouTube" },
+  { Icon: FaInstagram, href: "#", get label() {
+    return tr("Instagram");
+  } },
+  { Icon: FaTiktok, href: "#", get label() {
+    return tr("TikTok");
+  } },
+  { Icon: FaYoutube, href: "#", get label() {
+    return tr("YouTube");
+  } },
 ];
 
 const MESSAGE_MAX = 1000;
@@ -463,22 +544,22 @@ function Marquee({ items, className, sep, sepClass, reverse = false }) {
 
 function Tapes() {
   return (
-    <div aria-hidden="true" className="relative h-30 md:h-38">
-      <div className="absolute -inset-x-10 top-12 z-1 rotate-2 overflow-hidden bg-navy py-2.5 md:top-14 md:py-3">
+    <div aria-hidden="true" className="relative h-36 md:h-38">
+      <div className="absolute -inset-x-10 top-[4.6rem] z-1 rotate-[4deg] overflow-hidden bg-navy py-2 sm:rotate-3 md:top-14 md:rotate-2 md:py-3">
         <Marquee
           reverse
           items={GAME_CATALOG.map((g) => g.title)}
           sep="★"
           sepClass="text-white/60"
-          className={`${FONT} text-sm font-extrabold uppercase tracking-[0.16em] text-yellow md:text-[17px]`}
+          className={`${FONT} text-xs font-extrabold uppercase tracking-[0.16em] text-yellow sm:text-sm md:text-[17px]`}
         />
       </div>
-      <div className="absolute -inset-x-10 top-9 z-2 -rotate-[1.6deg] overflow-hidden bg-accent py-3 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--fg-accent)_80%,transparent)] md:top-10 md:py-4">
+      <div className="absolute -inset-x-10 top-8 z-2 -rotate-[3.5deg] overflow-hidden bg-accent py-2.5 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--fg-accent)_80%,transparent)] sm:-rotate-[2.5deg] md:top-10 md:-rotate-[1.6deg] md:py-4">
         <Marquee
           items={TAPE_CLUBS}
           sep="●"
           sepClass="text-yellow"
-          className={`${FONT} text-xl font-black uppercase tracking-[0.06em] text-white md:text-[26px]`}
+          className={`${FONT} text-lg font-black uppercase tracking-[0.06em] text-white sm:text-xl md:text-[26px]`}
         />
       </div>
     </div>
@@ -515,7 +596,7 @@ function HeroCollage({ index }) {
 
       <Link
         to="/oyunlar/karyera-yolu"
-        aria-label="Günün oyunçusu: Karyera yolu oyunu"
+        aria-label={tr("Günün oyunçusu: Karyera yolu oyunu")}
         className="fg-pop-float absolute bottom-3 left-0 w-38 -rotate-4 rounded-2xl border-3 border-yellow bg-surface p-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:.95s] sm:bottom-5 sm:w-52 sm:p-3"
       >
         <span className="flex items-center justify-between">
@@ -527,7 +608,7 @@ function HeroCollage({ index }) {
           <span
             className={`${FONT} text-[9px] font-extrabold uppercase tracking-[0.14em] text-gold-hi sm:text-[11px]`}
           >
-            Günün oyunçusu
+            {tr("Günün oyunçusu")}
           </span>
         </span>
         <span className="fg-halftone mt-2 grid h-20 place-items-center rounded-[10px] bg-page-2 sm:h-30">
@@ -546,13 +627,13 @@ function HeroCollage({ index }) {
 
       <Link
         to="/oyunlar/futbol-wordle"
-        aria-label="Futbol Wordle oyununa keç"
+        aria-label={tr("Futbol Wordle oyununa keç")}
         className="fg-pop-float absolute right-0 top-0 rotate-5 rounded-2xl bg-surface px-3 py-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:1.1s] [--f:6s] sm:px-3.5 sm:py-3"
       >
         <span
           className={`block ${FONT} text-[10px] font-extrabold uppercase tracking-[0.14em] text-muted sm:text-[11px]`}
         >
-          Wordle · 4/6
+          {tr("Wordle · 4/6")}
         </span>
         <span
           className={`mt-2 flex gap-1.5 [perspective:300px] ${FONT} text-base font-black sm:text-xl`}
@@ -560,8 +641,8 @@ function HeroCollage({ index }) {
           {[
             ["S", "var(--fg-good-lo)"],
             ["A", "var(--fg-good-lo)"],
-            ["K", "var(--fg-gold)"],
-            ["E", "var(--fg-dim)"],
+            ["K", "var(--fg-good-lo)"],
+            ["A", "var(--fg-good-lo)"],
           ].map(([letter, color], i) => (
             <span
               key={i}
@@ -576,7 +657,7 @@ function HeroCollage({ index }) {
 
       <Link
         to="/oyunlar"
-        aria-label={`Bütün oyunlar: ${GAME_CATALOG.length}`}
+        aria-label={tr("Bütün oyunlar: {n}", { n: GAME_CATALOG.length })}
         className="fg-pop-float absolute bottom-0 right-2 grid h-24 w-24 place-items-center rounded-full bg-yellow text-center text-on-yellow shadow-[0_20px_40px_-20px_var(--fg-shadow)] [--d:1.25s] [--f:4.6s] sm:right-2.5 sm:h-30 sm:w-30"
       >
         <svg
@@ -599,7 +680,7 @@ function HeroCollage({ index }) {
             className="text-ink"
           >
             <textPath href="#fg-ring">
-              FUTGRID · OYNA · QAZAN · FUTGRID · OYNA · QAZAN ·
+              {tr("FUTGRID · OYNA · QAZAN · FUTGRID · OYNA · QAZAN ·")}
             </textPath>
           </text>
         </svg>
@@ -608,7 +689,7 @@ function HeroCollage({ index }) {
             {GAME_CATALOG.length}
           </span>
           <span className="block text-xs tracking-[0.12em] sm:text-sm">
-            OYUN
+            {tr("OYUN")}
           </span>
         </span>
       </Link>
@@ -643,12 +724,21 @@ function Hero() {
 
   const slide = SLIDES[index];
   const [first, middle, last] = slide.lines;
+  const longest = Math.max(...slide.lines.map((l) => l.length));
+  const titleSize =
+    longest <= 8
+      ? "text-[52px] sm:text-7xl xl:text-[104px]"
+      : longest <= 10
+        ? "text-[40px] sm:text-6xl xl:text-[86px]"
+        : longest <= 12
+          ? "text-[38px] sm:text-[52px] xl:text-[72px]"
+          : "text-[32px] sm:text-[44px] xl:text-[60px]";
 
   return (
     <section
       className="relative overflow-hidden bg-page pt-6 md:pt-10 lg:pt-16"
       aria-roledescription="karusel"
-      aria-label="Əsas slaydlar"
+      aria-label={tr("Əsas slaydlar")}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onPointerDown={(e) => (startX.current = e.clientX)}
@@ -684,7 +774,7 @@ function Hero() {
           </div>
 
           <h1
-            className={`mt-5 ${FONT} text-[52px] font-black uppercase leading-[0.92] text-ink sm:text-7xl xl:text-[104px]`}
+            className={`mt-5 ${FONT} ${titleSize} font-black uppercase leading-[0.92] text-ink`}
           >
             <span className="fg-mask">
               <span className="fg-rise [animation-delay:.15s]">{first}</span>
@@ -726,7 +816,7 @@ function Hero() {
             <button
               type="button"
               onClick={() => go(-1)}
-              aria-label="Əvvəlki slayd"
+              aria-label={tr("Əvvəlki slayd")}
               className="grid h-12 w-12 place-items-center border-2 border-ink text-ink sm:h-14 sm:w-14 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
             >
               <ChevronLeft className="h-5 w-5" strokeWidth={2.4} />
@@ -734,7 +824,7 @@ function Hero() {
             <button
               type="button"
               onClick={() => go(1)}
-              aria-label="Növbəti slayd"
+              aria-label={tr("Növbəti slayd")}
               className="grid h-12 w-12 place-items-center border-2 border-ink bg-ink sm:h-14 sm:w-14 text-page transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
             >
               <ChevronRight className="h-5 w-5" strokeWidth={2.4} />
@@ -754,7 +844,7 @@ function Polaroid({ card, index }) {
   return (
     <div
       data-reveal
-      className={`${REVEAL.up} ${index === 1 ? "sm:mt-6" : ""}`}
+      className={`${REVEAL.up} w-[74%] shrink-0 snap-center sm:w-auto ${index === 1 ? "sm:mt-6" : ""}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       <figure
@@ -878,7 +968,7 @@ function PlayLabel({ className = "" }) {
     <span
       className={`inline-flex items-center gap-2 ${FONT} text-base font-black uppercase tracking-[0.1em] ${className}`}
     >
-      Oyna
+      {tr("Oyna")}
       <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/game:translate-x-1.5" />
     </span>
   );
@@ -904,7 +994,7 @@ function FeatureCard({ game }) {
           <span
             className={`fg-bob absolute left-4 top-4 bg-yellow px-3 py-1.5 ${FONT} text-sm font-black uppercase text-on-yellow md:left-5 md:top-5 md:text-base`}
           >
-            #01 · Ən populyar
+            {tr("#01 · Ən populyar")}
           </span>
         </div>
         <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-2.5 md:px-7.5 lg:flex-none">
@@ -1081,7 +1171,7 @@ function TopCard({ player, rank, run }) {
               className={`absolute right-3 top-2 flex items-center gap-1 ${FONT} text-[11px] font-extrabold uppercase tracking-[0.14em] text-gold-hi`}
             >
               <Crown className="h-3.5 w-3.5" />
-              Lider
+              {tr("Lider")}
             </span>
           </>
         )}
@@ -1110,7 +1200,7 @@ function TopCard({ player, rank, run }) {
             {player.name}
           </span>
           <span className={`block truncate ${BODY} text-[13px] text-muted`}>
-            {player.team} · {player.winRate}% qələbə
+            {player.team} · {player.winRate}{tr("% qələbə")}
           </span>
         </span>
         <span
@@ -1198,7 +1288,7 @@ function ContactForm() {
       if (!res.ok) {
         throw new Error(
           data?.errors?.map((x) => x.message).join(", ") ||
-            "Mesaj göndərilmədi.",
+            tr("Mesaj göndərilmədi."),
         );
       }
       formEl.reset();
@@ -1206,7 +1296,7 @@ function ContactForm() {
       setStatus("success");
     } catch (err) {
       setError(
-        `${err.message || "Mesaj göndərilmədi."} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.`,
+        tr("{v1} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.", { v1: err.message || "Mesaj göndərilmədi." }),
       );
       setStatus("error");
     }
@@ -1228,20 +1318,19 @@ function ContactForm() {
         <h3
           className={`mt-6 ${FONT} text-3xl font-black uppercase tracking-wide text-ink`}
         >
-          Mesajın göndərildi!
+          {tr("Mesajın göndərildi!")}
         </h3>
         <p
           className={`mt-2 max-w-sm ${BODY} text-[15px] leading-relaxed text-muted`}
         >
-          Təşəkkürlər. Mesajını aldıq, ən qısa zamanda e-poçtuna cavab
-          yazacağıq.
+          {tr("Təşəkkürlər. Mesajını aldıq, ən qısa zamanda e-poçtuna cavab yazacağıq.")}
         </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
           className={`mt-8 inline-flex items-center gap-2 border-2 border-ink px-8 py-3 ${FONT} text-sm font-extrabold uppercase tracking-wide text-ink transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-white`}
         >
-          Yeni mesaj yaz
+          {tr("Yeni mesaj yaz")}
         </button>
       </div>
     );
@@ -1256,19 +1345,19 @@ function ContactForm() {
           <p
             className={`${FONT} text-xs font-extrabold uppercase tracking-[0.2em] text-accent`}
           >
-            Forma
+            {tr("Forma")}
           </p>
           <h3
             className={`mt-1 ${FONT} text-3xl font-black uppercase leading-none text-ink md:text-[34px]`}
           >
-            Bizə yaz
+            {tr("Bizə yaz")}
           </h3>
         </div>
         <div className="text-right">
           <p
             className={`${FONT} text-[11px] font-bold uppercase tracking-[0.2em] text-faint`}
           >
-            Hazırdır
+            {tr("Hazırdır")}
           </p>
           <p className={`${FONT} text-[22px] font-black text-ink`}>
             <span className={ready === 3 ? "text-good" : "text-accent"}>
@@ -1303,7 +1392,7 @@ function ContactForm() {
       <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <ContactField
           icon={User}
-          label="Ad və soyad"
+          label={tr("Ad və soyad")}
           type="text"
           name="name"
           required
@@ -1315,7 +1404,7 @@ function ContactForm() {
         />
         <ContactField
           icon={Mail}
-          label="E-poçt"
+          label={tr("E-poçt")}
           type="email"
           name="email"
           required
@@ -1329,7 +1418,7 @@ function ContactForm() {
       <div className="relative mt-4">
         <ContactField
           icon={MessageSquare}
-          label="Mesajın"
+          label={tr("Mesajın")}
           textarea
           name="message"
           required
@@ -1353,7 +1442,7 @@ function ContactForm() {
 
       <div className="mt-7 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className={`max-w-xs ${BODY} text-xs leading-relaxed text-muted`}>
-          Məlumatların yalnız sənə cavab vermək üçün istifadə olunur.
+          {tr("Məlumatların yalnız sənə cavab vermək üçün istifadə olunur.")}
         </p>
         <button
           type="submit"
@@ -1362,7 +1451,7 @@ function ContactForm() {
           className={`group/btn inline-flex w-full shrink-0 items-stretch justify-between bg-navy ${FONT} text-base font-extrabold uppercase tracking-[0.1em] text-white shadow-[0_16px_30px_-16px_var(--fg-shadow)] transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent active:translate-y-0 disabled:cursor-wait sm:w-auto sm:min-w-64`}
         >
           <span className="flex items-center whitespace-nowrap px-7 py-4">
-            {sending ? "Göndərilir..." : "Mesajı göndər"}
+            {sending ? tr("Göndərilir...") : tr("Mesajı göndər")}
           </span>
           <span className="relative flex w-14 items-center justify-center overflow-hidden bg-yellow text-on-yellow">
             <Send
@@ -1425,7 +1514,7 @@ export default function Home() {
   const periodIndex = PERIODS.findIndex((p) => p.key === period);
 
   return (
-    <div ref={rootRef} lang="az" className="w-full overflow-x-clip bg-page">
+    <div ref={rootRef} className="w-full overflow-x-clip bg-page">
       <style>{KEYFRAMES}</style>
 
       <Hero />
@@ -1437,12 +1526,12 @@ export default function Home() {
         <BigNumber n="01" side="-left-2.5" />
 
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker="Futbol bilikini sına">
-            Taktiki oyunlar <span className="text-accent">&amp;</span>{" "}
-            strategiya
+          <SectionHeading kicker={tr("Futbol bilikini sına")}>
+            {tr("Taktiki oyunlar")}{" "} <span className="text-accent">&amp;</span>{" "}
+            {tr("strategiya")}
           </SectionHeading>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-3 sm:gap-6 md:mt-14 lg:gap-7">
+          <div className="-mx-4 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-8 pt-5 [scrollbar-width:none] sm:mx-0 sm:mt-12 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 md:mt-14 lg:gap-7 [&::-webkit-scrollbar]:hidden">
             {CARDS.map((card, i) => (
               <Polaroid key={card.src} card={card} index={i} />
             ))}
@@ -1464,16 +1553,14 @@ export default function Home() {
             <p
               className={`${BODY} text-base leading-8 text-muted md:text-[19px] md:leading-9`}
             >
-              FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq
-              cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır.
-              Komandanı qur, rəqiblərinlə yarış və səviyyəni hər gün yüksəlt.
+              {tr("FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır. Komandanı qur, rəqiblərinlə yarış və səviyyəni hər gün yüksəlt.")}
             </p>
             <a
               href="#games"
               onClick={(e) => jumpTo(e, "#games")}
               className={`group/btn mt-7 inline-flex h-13.5 items-center gap-2.5 bg-navy px-8 ${FONT} text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent md:px-9 md:text-base`}
             >
-              Oyunlara bax
+              {tr("Oyunlara bax")}
               <ArrowRight className="h-4 w-4 text-yellow transition-transform duration-300 group-hover/btn:translate-x-1.5" />
             </a>
           </div>
@@ -1489,15 +1576,15 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
           <div className="flex flex-wrap items-end justify-between gap-5">
-            <SectionHeading kicker="İndi kəşf et" center={false}>
-              Populyar oyunlar
+            <SectionHeading kicker={tr("İndi kəşf et")} center={false}>
+              {tr("Populyar oyunlar")}
             </SectionHeading>
             <div data-reveal className={REVEAL.up}>
               <Link
                 to="/oyunlar"
                 className={`group/btn inline-flex h-13.5 items-center gap-3 bg-navy pl-6 pr-2.5 ${FONT} text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent md:text-base`}
               >
-                Daha çox oyun
+                {tr("Daha çox oyun")}
                 <span className="fg-ping-y grid h-8.5 min-w-8.5 place-items-center bg-yellow px-1 font-black text-on-yellow">
                   {GAME_CATALOG.length}
                 </span>
@@ -1522,7 +1609,7 @@ export default function Home() {
         <BigNumber n="03" side="-left-2.5" />
 
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker="Ən yaxşılar">Reytinq cədvəli</SectionHeading>
+          <SectionHeading kicker={tr("Ən yaxşılar")}>{tr("Reytinq cədvəli")}</SectionHeading>
 
           <div
             data-reveal
@@ -1532,7 +1619,7 @@ export default function Home() {
             <div
               className="relative grid grid-cols-3 border border-edge bg-surface p-1"
               role="tablist"
-              aria-label="Dövr"
+              aria-label={tr("Dövr")}
             >
               <span
                 aria-hidden="true"
@@ -1585,9 +1672,9 @@ export default function Home() {
                 className={`grid grid-cols-[32px_1fr_auto] items-center gap-3 border-b-2 border-ink px-4 py-3.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.16em] text-muted md:grid-cols-[44px_1fr_140px_80px] md:px-5.5`}
               >
                 <span>#</span>
-                <span>Oyunçu</span>
-                <span className="hidden md:block">Komanda</span>
-                <span className="text-right">Xal</span>
+                <span>{tr("Oyunçu")}</span>
+                <span className="hidden md:block">{tr("Komanda")}</span>
+                <span className="text-right">{tr("Xal")}</span>
               </div>
 
               {rows.slice(3).map((player, j) => {
@@ -1654,7 +1741,7 @@ export default function Home() {
             className={`mt-5 flex items-center justify-center gap-2 ${BODY} text-xs text-muted`}
           >
             <Trophy className="h-3.5 w-3.5 text-gold" />
-            Reytinq hər həftə bazar ertəsi yenilənir
+            {tr("Reytinq hər həftə bazar ertəsi yenilənir")}
           </p>
         </div>
       </section>
@@ -1664,7 +1751,7 @@ export default function Home() {
         className="relative w-full overflow-hidden bg-page pb-24 pt-8 md:pb-28 md:pt-10"
       >
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker="Bizimlə əlaqə">Mesaj göndər</SectionHeading>
+          <SectionHeading kicker={tr("Bizimlə əlaqə")}>{tr("Mesaj göndər")}</SectionHeading>
 
           <div
             data-reveal
@@ -1682,18 +1769,17 @@ export default function Home() {
                   <p
                     className={`${FONT} text-[13px] font-extrabold uppercase tracking-[0.2em] text-yellow`}
                   >
-                    Əlaqə
+                    {tr("Əlaqə")}
                   </p>
                   <h3
                     className={`mt-2 ${FONT} text-3xl font-black uppercase leading-none md:text-[40px]`}
                   >
-                    Anketini yolla
+                    {tr("Anketini yolla")}
                   </h3>
                   <p
                     className={`mt-3 max-w-xs ${BODY} text-[15px] leading-relaxed text-white/80`}
                   >
-                    Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı
-                    oxuyub cavab veririk.
+                    {tr("Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı oxuyub cavab veririk.")}
                   </p>
 
                   <div className="mt-7 flex flex-col gap-3">
@@ -1732,7 +1818,7 @@ export default function Home() {
                     <span
                       className={`${FONT} text-xs font-bold uppercase tracking-wider`}
                     >
-                      24 saat ərzində cavab
+                      {tr("24 saat ərzində cavab")}
                     </span>
                   </div>
                   <div className="flex gap-2">

@@ -21,6 +21,7 @@ import PlayerAvatar, { ClubLogo, Flag } from "../common/PlayerAvatar";
 import { FONT } from "../common/ui";
 import { KEYS, SIDES } from "./settings";
 
+import { tr } from "../../../i18n";
 export const AUCTION_KEYFRAMES = `
 @keyframes auLot { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; transform: none; } }
 @keyframes auStamp { 0% { opacity: 0; transform: rotate(-8deg) scale(1.8); } 60% { opacity: 1; transform: rotate(-8deg) scale(.94); } 100% { opacity: 1; transform: rotate(-8deg) scale(1); } }
@@ -68,9 +69,9 @@ export function LotCard({ data, lot, phase, outcome, names }) {
   const country = countryOf(data, p);
   const age = ageOf(p);
   const stats = [
-    { label: "Yaş", value: age ?? "—" },
-    { label: "Dəyər", value: euro(p.market_value?.amount_eur ?? 0) },
-    { label: "Yığma", value: p.international?.caps ?? 0 },
+    { label: tr("Yaş"), value: age ?? "—" },
+    { label: tr("Dəyər"), value: euro(p.market_value?.amount_eur ?? 0) },
+    { label: tr("Yığma"), value: p.international?.caps ?? 0 },
   ];
 
   return (
@@ -95,7 +96,7 @@ export function LotCard({ data, lot, phase, outcome, names }) {
           <p
             className={`mt-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.25em] text-gold`}
           >
-            Reytinq
+            {tr("Reytinq", null, "rating")}
           </p>
         </div>
         <div className="flex flex-col items-end gap-2">
@@ -163,7 +164,7 @@ export function LotCard({ data, lot, phase, outcome, names }) {
             }`}
           >
             <p className={`${FONT} text-3xl font-bold uppercase tracking-widest md:text-4xl`}>
-              {outcome.winner ? "Satıldı" : "Satılmadı"}
+              {outcome.winner ? tr("Satıldı") : tr("Satılmadı")}
             </p>
             {outcome.winner && (
               <p className={`${FONT} mt-1 text-base font-bold uppercase text-ink`}>
@@ -220,7 +221,7 @@ export function PriceRow({ state, names, now, timerMs }) {
         <p
           className={`${FONT} text-[11px] font-bold uppercase tracking-[0.24em] text-faint`}
         >
-          {leader ? "Cari təklif" : "Başlanğıc qiymət"}
+          {leader ? tr("Cari təklif") : tr("Başlanğıc qiymət")}
         </p>
         <p
           key={`${lot.id}-${lot.price}-${leader}`}
@@ -234,10 +235,10 @@ export function PriceRow({ state, names, now, timerMs }) {
           {leader ? (
             <span className="inline-flex items-center gap-1.5">
               <Crown className="h-3.5 w-3.5" />
-              {names[leader]} öndədir
+              {tr("{name} öndədir", { name: names[leader] })}
             </span>
           ) : (
-            "Hələ təklif yoxdur"
+            tr("Hələ təklif yoxdur")
           )}
         </p>
       </div>
@@ -249,10 +250,10 @@ export function PriceRow({ state, names, now, timerMs }) {
 function statusText(state, side) {
   const { lot, teams, phase } = state;
   if (phase !== "bid" || !lot) return null;
-  if (lot.leader === side) return "Öndəsən";
-  if (lot.passed[side]) return "Bu lotdan keçdin";
+  if (lot.leader === side) return tr("Öndəsən");
+  if (lot.passed[side]) return tr("Bu lotdan keçdin");
   if (!openCount(teams[side], lot.pos)) return `${POS_NAME[lot.pos]} yerin doludur`;
-  if (maxBid(teams[side]) < nextPrice(lot)) return "Büdcə çatmır";
+  if (maxBid(teams[side]) < nextPrice(lot)) return tr("Büdcə çatmır");
   return null;
 }
 
@@ -309,9 +310,9 @@ export function BidControls({ side, state, names, onBid, onPass, showName, showK
           type="button"
           disabled={!can}
           onClick={() => onPass(side)}
-          className={`relative h-13 border border-line/12 bg-transparent ${FONT} text-base font-bold uppercase text-muted transition-colors duration-200 enabled:hover:border-bad/60 enabled:hover:text-bad-hi disabled:cursor-not-allowed disabled:opacity-35`}
+          className={`relative h-13 border border-transparent bg-bad-lo ${FONT} text-base font-bold uppercase text-white shadow-[0_10px_22px_-12px_var(--fg-bad)] transition-[filter,transform] duration-200 active:scale-95 enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-35`}
         >
-          Keç
+          {tr("Keç")}
           {showKeys && (
             <span className="absolute right-1 top-0.5 text-[10px] font-normal uppercase opacity-60">
               {keys.pass}
@@ -327,11 +328,11 @@ function Thinking({ state, side }) {
   const lot = state.lot;
   if (state.phase !== "bid" || !lot) return null;
   if (lot.passed[side])
-    return <span className={`${FONT} text-xs uppercase tracking-wider text-faint`}>Keçdi</span>;
+    return <span className={`${FONT} text-xs uppercase tracking-wider text-faint`}>{tr("Keçdi")}</span>;
   if (!canBid(state, side)) return null;
   return (
     <span className={`inline-flex items-center gap-1 ${FONT} text-xs uppercase tracking-wider text-muted`}>
-      Düşünür
+      {tr("Düşünür")}
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -366,7 +367,7 @@ export function TeamPanel({ data, side, name, state, isBot }) {
           <Thinking state={state} side={side} />
         ) : (
           <span className={`${FONT} text-xs uppercase tracking-wider text-faint`}>
-            {open ? `${open} yer boş` : "Heyət tamdır"}
+            {open ? tr("{open} yer boş", { open }) : tr("Heyət tamdır")}
           </span>
         )}
       </div>
@@ -383,10 +384,10 @@ export function TeamPanel({ data, side, name, state, isBot }) {
       <p className={`mt-2 ${FONT} text-xs text-faint`}>
         {open ? (
           <>
-            Maksimum təklif: <span className="font-bold text-ink">{money(cap)}</span>
+            {tr("Maksimum təklif:")}{" "} <span className="font-bold text-ink">{money(cap)}</span>
           </>
         ) : (
-          "Bütün yerlər doludur"
+          tr("Bütün yerlər doludur")
         )}
       </p>
       <div className="mt-4 space-y-2">
@@ -421,7 +422,7 @@ export function TeamPanel({ data, side, name, state, isBot }) {
                 </span>
               </>
             ) : (
-              <span className={`${FONT} text-xs text-dim`}>Boş</span>
+              <span className={`${FONT} text-xs text-dim`}>{tr("Boş")}</span>
             )}
           </div>
         ))}
@@ -478,13 +479,13 @@ export function Feed({ state, names }) {
           }`}
         >
           <span>
-            <span className={`font-bold ${SIDES[h.side].text}`}>{names[h.side]}</span> təklif etdi
+            <span className={`font-bold ${SIDES[h.side].text}`}>{names[h.side]}</span> {tr("təklif etdi")}
           </span>
           <span className="font-bold">{money(h.amount)}</span>
         </div>
       ))}
       <div className={`flex items-center justify-between ${FONT} text-sm text-dim`}>
-        <span>Başlanğıc qiymət</span>
+        <span>{tr("Başlanğıc qiymət")}</span>
         <span>{money(lot.start)}</span>
       </div>
     </div>

@@ -1,5 +1,15 @@
-export const TIME = { 60: "1 dəq", 120: "2 dəq", 180: "3 dəq" };
+export const TIME = { get 60() {
+    return tr("1 dəq");
+  }, get 120() {
+    return tr("2 dəq");
+  }, get 180() {
+    return tr("3 dəq");
+  } };
+import { clubFameReady, clubFameTier, playerFame } from "./fame";
+
+import { tr } from "../../i18n";
 export const CLUB_POOL = { easy: 24, normal: 60, hard: 140 };
+const MAX_TIER = { easy: 1, normal: 2, hard: 3 };
 
 const popularity = (p) =>
   Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
@@ -28,11 +38,20 @@ export function answersFor(data, clubs) {
     .filter(([, n]) => n >= 2)
     .map(([id, n]) => ({ player: data.playersById.get(id), count: n }))
     .filter((a) => a.player)
-    .sort((a, b) => b.count - a.count || popularity(b.player) - popularity(a.player));
+    .sort((a, b) => b.count - a.count || playerFame(b.player) - playerFame(a.player));
+}
+
+function poolFor(data, difficulty) {
+  const ranked = rankedClubs(data);
+  const size = CLUB_POOL[difficulty] ?? CLUB_POOL.normal;
+  if (difficulty === "hard" || !clubFameReady(data)) return ranked.slice(0, size);
+  const max = MAX_TIER[difficulty] ?? 2;
+  const curated = ranked.filter((c) => clubFameTier(c) <= max);
+  return curated.length >= 10 ? curated : ranked.slice(0, size);
 }
 
 export function pickClubs(data, difficulty, random = Math.random) {
-  const pool = rankedClubs(data).slice(0, CLUB_POOL[difficulty] ?? CLUB_POOL.normal);
+  const pool = poolFor(data, difficulty);
   let best = null;
   for (let t = 0; t < 300; t++) {
     const set = [];

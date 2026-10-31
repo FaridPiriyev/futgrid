@@ -1,6 +1,7 @@
 import EntityBadge from "../common/EntityBadge";
 import { FONT } from "../common/ui";
 
+import { tr } from "../../../i18n";
 export const CARD_KEYFRAMES = `
 @keyframes ortaqDeal {
   0% { opacity: 0; transform: translateY(-70px) rotate(-14deg) scale(0.85); }
@@ -54,8 +55,8 @@ function Back({ owner, side }) {
           <span className={`-rotate-45 ${FONT} text-3xl font-bold md:text-4xl`}>?</span>
         </span>
       </div>
-      <span className={`absolute left-3 top-2.5 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50`}>FutGrid</span>
-      <span className={`absolute bottom-2.5 right-3 rotate-180 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50`}>FutGrid</span>
+      <span className={`absolute left-3 top-2.5 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50`}>{tr("FutGrid")}</span>
+      <span className={`absolute bottom-2.5 right-3 rotate-180 ${FONT} text-[10px] font-bold uppercase tracking-[0.2em] text-ink/50`}>{tr("FutGrid")}</span>
       <span className={`absolute inset-x-0 bottom-8 text-center ${FONT} text-xs font-bold uppercase tracking-[0.2em] ${side.text}`}>{owner}</span>
     </div>
   );
@@ -71,11 +72,11 @@ function Front({ entity, owner, side, shineDelay }) {
     >
       <div className="absolute left-3 top-2.5 hidden text-left leading-none sm:block">
         <span className={`block ${FONT} text-sm font-bold text-ink`}>{corner}</span>
-        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-faint`}>{entity.type === "club" ? "klub" : "ölkə"}</span>
+        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-faint`}>{entity.type === "club" ? "klub" : tr("ölkə")}</span>
       </div>
       <div className="absolute bottom-2.5 right-3 hidden rotate-180 text-left leading-none sm:block">
         <span className={`block ${FONT} text-sm font-bold text-ink`}>{corner}</span>
-        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-faint`}>{entity.type === "club" ? "klub" : "ölkə"}</span>
+        <span className={`block ${FONT} text-[9px] uppercase tracking-wider text-faint`}>{entity.type === "club" ? "klub" : tr("ölkə")}</span>
       </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-3 text-center">
         <EntityBadge entity={entity} size="h-14 w-14 sm:h-20 sm:w-20 md:h-24 md:w-24" flagSize="w-20 sm:w-24 md:w-28" />
@@ -111,7 +112,7 @@ export default function PokerCard({ entity, state, owner, side, delay = 0, glow 
           ?
         </span>
         <span className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] ${waiting ? "text-ink" : "text-faint"}`}>
-          {waiting ? `${owner} seçir` : owner}
+          {waiting ? tr("{owner} seçir", { owner }) : owner}
         </span>
         {waiting && (
           <span className="flex gap-1">

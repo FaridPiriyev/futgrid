@@ -1,5 +1,6 @@
 import { playerRating } from "./rating";
 
+import { tr } from "../../i18n";
 export const SLOTS = ["GK", "DF", "MF", "FW", "FW"];
 export const BUDGET = 40;
 export const MAX_LOTS = 30;
@@ -7,9 +8,15 @@ export const SOLD_MS = 1700;
 export const SIDE_KEYS = ["A", "B"];
 
 export const TIERS = [
-  { min: 89, key: "star", label: "Ulduz", start: 4 },
-  { min: 85, key: "good", label: "Yaxşı", start: 2 },
-  { min: 0, key: "base", label: "Adi", start: 1 },
+  { min: 89, key: "star", get label() {
+    return tr("Ulduz");
+  }, start: 4 },
+  { min: 85, key: "good", get label() {
+    return tr("Yaxşı");
+  }, start: 2 },
+  { min: 0, key: "base", get label() {
+    return tr("Adi");
+  }, start: 1 },
 ];
 
 const POOL_SIZES = {
