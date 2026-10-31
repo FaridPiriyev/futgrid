@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronLeft,
@@ -14,9 +14,10 @@ import {
   ArrowRight,
   User,
   MessageSquare,
+  Gavel,
 } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
-import AuctionArt from "./games/common/AuctionArt";
+import { GAME_CATALOG } from "../lib/games/catalog";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
@@ -24,40 +25,56 @@ const BODY = "font-['Roboto',sans-serif]";
 const SLIDES = [
   {
     image: "/images/slider1.png",
-    fallback: "linear-gradient(135deg,#1b0b3a 0%,#5b1f6e 50%,#0b2a4a 100%)",
-    lines: ["FUTBOL TAKTİKANI", "GÖSTƏR"],
+    lines: ["Futbol", "Taktikanı", "Göstər"],
     subtitle: "Klubları və oyunçuları tanı, matçı qazan",
-    button: "DAHA ƏTRAFLI",
+    button: "Daha ətraflı",
     href: "#games",
   },
   {
     image: "/images/slider2.png",
-    fallback: "linear-gradient(135deg,#071a33 0%,#0e4d6b 50%,#1b0b3a 100%)",
-    lines: ["FƏRQLİ OYUNLAR"],
+    lines: ["Fərqli", "oyunları", "kəşf et"],
     subtitle: "Taktiki oyunların yeni formatını kəşf et",
-    button: "OYUNLARA BAX",
-    mobilePosition: "35% 70%",
+    button: "Oyunlara bax",
     href: "#games",
   },
   {
     image: "/images/slider3.png",
-    mobileAspect: "16 / 9",
-    fallback: "linear-gradient(135deg,#2a0b3a 0%,#6b1f4e 50%,#0b1a4a 100%)",
-    lines: ["REYTİNQDƏ", "YÜKSƏL"],
+    lines: ["Reytinqdə", "zirvəyə", "yüksəl"],
     subtitle: "Xal topla və liderlər cədvəlinə qalx",
-    button: "REYTİNQƏ BAX",
+    button: "Reytinqə bax",
     href: "#leaderboard",
   },
 ];
 
-const AUTOPLAY_MS = 4500;
+const AUTOPLAY_MS = 5500;
 
-const ABOUT_BACKGROUND = "/images/background_home_about.png";
+const TAPE_CLUBS = [
+  "Real Madrid",
+  "Barcelona",
+  "Liverpool",
+  "Qarabağ",
+  "Bayern",
+  "İnter",
+  "PSG",
+  "Arsenal",
+];
 
 const CARDS = [
   { src: "/images/card1.webp", alt: "Oyun zalı 1", title: "Oyun studiyası" },
   { src: "/images/card2.webp", alt: "Oyun zalı 2", title: "Taktika zalı" },
   { src: "/images/card3.webp", alt: "Oyun zalı 3", title: "Turnir arenası" },
+];
+
+const CARD_TILT = [
+  "-rotate-2",
+  "rotate-[1.5deg]",
+  "-rotate-1",
+];
+
+const CARD_TAPE = [
+  "-rotate-3 bg-[var(--fg-tape)]",
+  "rotate-2 bg-[var(--fg-tape-2)]",
+  "rotate-4 bg-[var(--fg-tape)]",
 ];
 
 const STATS = [
@@ -66,11 +83,6 @@ const STATS = [
   { value: 220, suffix: "", label: "Ölkə" },
   { value: 1800, suffix: "+", label: "Məşqçi" },
 ];
-
-const NOISE =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
-
-const GAMES_BACKGROUND = "/images/background_games.jpg";
 
 const GAMES = [
   {
@@ -92,16 +104,13 @@ const GAMES = [
   },
   {
     key: "auksion",
-    art: "auction",
     title: "Açıq Artırma",
     description:
       "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
-    tags: ["Bota qarşı", "2 oyunçu", "20 ₼ büdcə"],
+    tags: ["Hərrac", "20 ₼ büdcə"],
     href: "/oyunlar/auksion",
   },
 ];
-
-const LEADERBOARD_BACKGROUND = "/images/background_reyting.png";
 
 const PERIODS = [
   { key: "week", label: "Həftəlik" },
@@ -182,37 +191,37 @@ const PLAYERS = [
   },
 ];
 
-const AVATAR_GRADIENTS = [
-  "from-accent to-cyan-400",
-  "from-fuchsia-500 to-purple-600",
-  "from-good to-teal-600",
-  "from-gold to-orange-600",
-  "from-bad-lo to-pink-600",
-  "from-indigo-500 to-sky-400",
+const AVATAR_COLORS = [
+  "bg-accent/12 text-accent",
+  "bg-yellow/30 text-ink",
+  "bg-navy text-white",
+  "bg-good/15 text-good-hi",
 ];
 
 const PODIUM = [
   {
-    ring: "from-gold-hi via-gold to-gold-lo",
-    text: "text-gold-hi light:text-gold-lo",
-    card: "border-gold/60 bg-gold/10 shadow-[0_0_40px_-12px_color-mix(in_srgb,var(--fg-gold)_70%,transparent)]",
+    card: "border-yellow shadow-[0_26px_50px_-30px_rgba(176,122,0,0.7)]",
+    num: "text-gold",
+    points: "text-gold-hi",
+    avatar: "fg-ping-gold bg-navy text-yellow",
   },
   {
-    ring: "from-white via-slate-300 to-slate-500",
-    text: "text-slate-200 light:text-slate-500",
-    card: "border-slate-300/40 bg-slate-300/[0.07] light:border-slate-400/50 light:bg-white/70",
+    card: "border-dim/60",
+    num: "text-dim",
+    points: "text-ink",
+    avatar: "bg-page-2 text-ink ring-3 ring-dim/60",
   },
   {
-    ring: "from-orange-300 via-orange-500 to-orange-800",
-    text: "text-orange-300 light:text-orange-600",
-    card: "border-orange-400/40 bg-orange-400/[0.08]",
+    card: "border-orange-400",
+    num: "text-orange-600 dark:text-orange-300",
+    points: "text-orange-700 dark:text-orange-300",
+    avatar:
+      "bg-orange-100 text-orange-800 ring-3 ring-orange-400 dark:bg-orange-400/15 dark:text-orange-200",
   },
 ];
 
 const FORMSPREE_ID = "xeaeyrkp";
 const CONTACT_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
-
-const CONTACT_BACKGROUND = "/images/contact.png";
 
 const CONTACT_INFO = [
   {
@@ -240,13 +249,8 @@ const MESSAGE_MAX = 1000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const KEYFRAMES = `
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
-@keyframes fgFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-@keyframes fgDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-20px) scale(1.1); } }
-@keyframes fgShine { 0% { transform: translateX(0) skewX(-14deg); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateX(480%) skewX(-14deg); opacity: 0; } }
-@keyframes fgSwipe { 0%,100% { transform: translateX(0); opacity: 1; } 50% { transform: translateX(-8px); opacity: .4; } }
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap");
 @keyframes fgPulseRing { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
-@keyframes fgGrid { from { background-position: 0 0; } to { background-position: 0 48px; } }
 @keyframes fgFly { 0% { transform: translate(0,0) rotate(0); opacity: 1; } 45% { transform: translate(34px,-26px) rotate(-12deg) scale(.6); opacity: 0; } 46% { transform: translate(-34px,26px) scale(.6); opacity: 0; } 100% { transform: translate(0,0) rotate(0); opacity: 1; } }
 @keyframes fgPop { 0% { transform: scale(.85); opacity: 0; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); } }
 `;
@@ -254,20 +258,14 @@ const KEYFRAMES = `
 const REVEAL_BASE =
   "transition-[opacity,translate,scale] duration-700 ease-out motion-reduce:transition-none";
 const REVEAL = {
-  up: `${REVEAL_BASE} translate-y-8 opacity-0 data-in:translate-y-0 data-in:opacity-100`,
-  left: `${REVEAL_BASE} -translate-x-10 opacity-0 data-in:translate-x-0 data-in:opacity-100`,
-  right: `${REVEAL_BASE} translate-x-10 opacity-0 data-in:translate-x-0 data-in:opacity-100`,
-  zoom: `${REVEAL_BASE} scale-90 opacity-0 data-in:scale-100 data-in:opacity-100`,
+  up: `${REVEAL_BASE} translate-y-10 opacity-0 data-in:translate-y-0 data-in:opacity-100`,
+  left: `${REVEAL_BASE} -translate-x-12 opacity-0 data-in:translate-x-0 data-in:opacity-100`,
+  right: `${REVEAL_BASE} translate-x-12 opacity-0 data-in:translate-x-0 data-in:opacity-100`,
 };
 
-const SWEEP_BLUE =
-  "absolute inset-0 -z-10 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
-
-const SWEEP_WHITE =
-  "absolute inset-0 -z-10 origin-left scale-x-0 bg-white transition-transform duration-500 ease-out group-hover/btn:scale-x-100";
-
-const SHINE =
-  "pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-line/25 to-transparent opacity-0";
+const CARD_SHADOW = "shadow-[0_30px_60px_-36px_var(--fg-shadow)]";
+const CARD_HOVER =
+  "transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--fg-accent)_55%,transparent)]";
 
 const initials = (name) =>
   name
@@ -279,12 +277,14 @@ const initials = (name) =>
     .toUpperCase();
 
 const avatarOf = (player) =>
-  AVATAR_GRADIENTS[
+  AVATAR_COLORS[
     Math.max(
       0,
       PLAYERS.findIndex((p) => p.name === player.name),
-    ) % AVATAR_GRADIENTS.length
+    ) % AVATAR_COLORS.length
   ];
+
+const pad = (n) => String(n).padStart(2, "0");
 
 const navOffset = () => (window.innerWidth >= 768 ? 90 : 64);
 
@@ -299,20 +299,6 @@ const jumpTo = (e, href) => {
   });
   window.history.replaceState(null, "", `/${href}`);
 };
-
-function useMedia(query) {
-  const [matches, setMatches] = useState(
-    () => typeof window !== "undefined" && window.matchMedia(query).matches,
-  );
-  useEffect(() => {
-    const mq = window.matchMedia(query);
-    const on = () => setMatches(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, [query]);
-  return matches;
-}
 
 function useInView(ref, threshold = 0.2) {
   const [inView, setInView] = useState(false);
@@ -344,14 +330,14 @@ function useReveal(rootRef) {
     if (!root) return;
     const els = root.querySelectorAll("[data-reveal]");
     if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => (el.dataset.in = "true"));
+      els.forEach((el) => el.setAttribute("data-in", "true"));
       return;
     }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.dataset.in = "true";
+          entry.target.setAttribute("data-in", "true");
           io.unobserve(entry.target);
         });
       },
@@ -381,9 +367,9 @@ function useParallax(rootRef) {
         }
         const box = el.parentElement.getBoundingClientRect();
         if (box.bottom < -200 || box.top > vh + 200) continue;
-        const speed = Number(el.dataset.parallax) || 0.12;
+        const speed = Number(el.dataset.parallax) || 0.15;
         const offset = (box.top + box.height / 2 - vh / 2) * -speed;
-        el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0) scale(1.18)`;
+        el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
       }
     };
     const schedule = () => {
@@ -427,531 +413,591 @@ function CountUp({ value, run, duration = 1200 }) {
   return String(shown).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-function SectionHeading({ kicker, title }) {
+function Kicker({ children, center = true, className = "" }) {
+  const line = "fg-ln h-0.5 w-10 bg-accent md:w-14";
   return (
-    <div data-reveal className="group/h text-center">
-      <div className="flex items-center justify-center gap-3">
-        <span className="h-px w-8 origin-right scale-x-0 bg-accent transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
-        <p
-          className={`${FONT} text-base uppercase tracking-wider text-accent opacity-0 transition-opacity duration-700 group-data-in/h:opacity-100 md:text-xl`}
-        >
-          {kicker}
-        </p>
-        <span className="h-px w-8 origin-left scale-x-0 bg-accent transition-transform duration-700 ease-out group-data-in/h:scale-x-100 md:w-16" />
-      </div>
+    <p
+      className={`flex items-center gap-3.5 ${center ? "justify-center" : ""} ${FONT} text-base font-bold uppercase tracking-widest text-accent md:text-lg ${className}`}
+    >
+      <span aria-hidden="true" className={line} />
+      {children}
+      {center && <span aria-hidden="true" className={line} />}
+    </p>
+  );
+}
+
+function SectionHeading({ kicker, children, center = true }) {
+  return (
+    <div data-reveal className={`${REVEAL.up} ${center ? "text-center" : ""}`}>
+      <Kicker center={center}>{kicker}</Kicker>
       <h2
-        className={`mt-1 overflow-hidden py-[0.1em] ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
+        className={`mt-2 ${FONT} text-4xl font-black uppercase leading-none text-ink sm:text-5xl md:text-6xl`}
       >
-        <span className="block translate-y-full transition-transform delay-150 duration-900 ease-out motion-reduce:translate-y-0 group-data-in/h:translate-y-0">
-          {title}
-        </span>
+        {children}
       </h2>
     </div>
   );
 }
 
-function TiltCard({ className = "", children }) {
-  const ref = useRef(null);
-  const onMove = (e) => {
-    if (!window.matchMedia("(hover: hover) and (min-width: 1024px)").matches)
-      return;
-    const el = ref.current;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(900px) rotateX(${(-y * 8).toFixed(2)}deg) rotateY(${(x * 10).toFixed(2)}deg) translateY(-6px)`;
-    el.style.setProperty("--mx", `${((x + 0.5) * 100).toFixed(1)}%`);
-    el.style.setProperty("--my", `${((y + 0.5) * 100).toFixed(1)}%`);
-  };
-  const onLeave = () => {
-    ref.current.style.transform = "";
-  };
+function BigNumber({ n, side }) {
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className={`group/tilt relative transition-transform duration-300 ease-out will-change-transform ${className}`}
+    <span
+      aria-hidden="true"
+      data-parallax="0.15"
+      className={`fg-outline-soft pointer-events-none absolute top-10 hidden select-none ${side} ${FONT} text-[300px] font-black leading-[0.8] md:block`}
     >
-      {children}
+      {n}
+    </span>
+  );
+}
+
+function Marquee({ items, className, sep, sepClass, reverse = false }) {
+  const row = [...items, ...items];
+  return (
+    <div className={`fg-marquee ${reverse ? "fg-marquee-rev" : ""} ${className}`}>
+      {row.map((item, i) => (
+        <span key={i} className="flex shrink-0 items-center gap-10 pr-10">
+          <span>{item}</span>
+          <span className={sepClass}>{sep}</span>
+        </span>
+      ))}
     </div>
   );
 }
 
-function DesktopHero({ enabled }) {
+function Tapes() {
+  return (
+    <div aria-hidden="true" className="relative h-30 md:h-38">
+      <div className="absolute -inset-x-10 top-12 z-1 rotate-2 overflow-hidden bg-navy py-2.5 md:top-14 md:py-3">
+        <Marquee
+          reverse
+          items={GAME_CATALOG.map((g) => g.title)}
+          sep="★"
+          sepClass="text-white/60"
+          className={`${FONT} text-sm font-extrabold uppercase tracking-[0.16em] text-yellow md:text-[17px]`}
+        />
+      </div>
+      <div className="absolute -inset-x-10 top-9 z-2 -rotate-[1.6deg] overflow-hidden bg-accent py-3 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--fg-accent)_80%,transparent)] md:top-10 md:py-4">
+        <Marquee
+          items={TAPE_CLUBS}
+          sep="●"
+          sepClass="text-yellow"
+          className={`${FONT} text-xl font-black uppercase tracking-[0.06em] text-white md:text-[26px]`}
+        />
+      </div>
+    </div>
+  );
+}
+
+function HeroCollage({ index }) {
+  return (
+    <div className="relative mx-auto h-85 w-full max-w-140 sm:h-115 lg:h-140">
+      <div
+        className="fg-frame-in absolute inset-[12px_16px_36px_36px] overflow-hidden bg-navy [animation-delay:.25s] sm:inset-[20px_30px_40px_60px]"
+        style={{ clipPath: "polygon(10% 0, 100% 0, 92% 100%, 0 100%)" }}
+      >
+        {SLIDES.map((s, i) => (
+          <div
+            key={s.image}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div
+              className="fg-kb absolute inset-0 bg-navy bg-cover bg-center"
+              style={{ backgroundImage: `url(${s.image})` }}
+            />
+          </div>
+        ))}
+        <div className="fg-halftone-w fg-drift absolute inset-y-0 left-0 w-2/5" />
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="fg-bar-in absolute left-4 top-16 h-[55%] w-4 -skew-x-10 bg-yellow sm:left-7.5 sm:top-22 sm:w-5.5"
+      />
+
+      <Link
+        to="/oyunlar/karyera-yolu"
+        aria-label="Günün oyunçusu: Karyera yolu oyunu"
+        className="fg-pop-float absolute bottom-3 left-0 w-38 -rotate-4 rounded-2xl border-3 border-yellow bg-surface p-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:.95s] sm:bottom-5 sm:w-52 sm:p-3"
+      >
+        <span className="flex items-center justify-between">
+          <span className={`${FONT} text-lg font-black text-accent sm:text-[22px]`}>
+            #07
+          </span>
+          <span
+            className={`${FONT} text-[9px] font-extrabold uppercase tracking-[0.14em] text-gold-hi sm:text-[11px]`}
+          >
+            Günün oyunçusu
+          </span>
+        </span>
+        <span className="fg-halftone mt-2 grid h-20 place-items-center rounded-[10px] bg-page-2 sm:h-30">
+          <span
+            className={`fg-ping-y grid h-12 w-12 place-items-center rounded-full bg-navy ${FONT} text-2xl font-black text-yellow sm:h-17.5 sm:w-17.5 sm:text-[34px]`}
+          >
+            ?
+          </span>
+        </span>
+        <span
+          className={`fg-qblink mt-2 block text-center ${FONT} text-base font-black tracking-[0.1em] text-ink sm:mt-2.5 sm:text-xl`}
+        >
+          ? ? ? ? ? ?
+        </span>
+      </Link>
+
+      <Link
+        to="/oyunlar/futbol-wordle"
+        aria-label="Futbol Wordle oyununa keç"
+        className="fg-pop-float absolute right-0 top-0 rotate-5 rounded-2xl bg-surface px-3 py-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:1.1s] [--f:6s] sm:px-3.5 sm:py-3"
+      >
+        <span
+          className={`block ${FONT} text-[10px] font-extrabold uppercase tracking-[0.14em] text-muted sm:text-[11px]`}
+        >
+          Wordle · 4/6
+        </span>
+        <span
+          className={`mt-2 flex gap-1.5 [perspective:300px] ${FONT} text-base font-black sm:text-xl`}
+        >
+          {[
+            ["S", "var(--fg-good-lo)"],
+            ["A", "var(--fg-good-lo)"],
+            ["K", "var(--fg-gold)"],
+            ["E", "var(--fg-dim)"],
+          ].map(([letter, color], i) => (
+            <span
+              key={i}
+              className="fg-tile fg-flip grid h-7 w-7 place-items-center rounded-md sm:h-8.5 sm:w-8.5"
+              style={{ "--c": color, animationDelay: `${1.6 + i * 0.25}s` }}
+            >
+              {letter}
+            </span>
+          ))}
+        </span>
+      </Link>
+
+      <Link
+        to="/oyunlar"
+        aria-label={`Bütün oyunlar: ${GAME_CATALOG.length}`}
+        className="fg-pop-float absolute bottom-0 right-2 grid h-24 w-24 place-items-center rounded-full bg-yellow text-center text-on-yellow shadow-[0_20px_40px_-20px_var(--fg-shadow)] [--d:1.25s] [--f:4.6s] sm:right-2.5 sm:h-30 sm:w-30"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 160 160"
+          className="fg-spin pointer-events-none absolute -inset-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] overflow-visible sm:-inset-5 sm:h-[calc(100%+2.5rem)] sm:w-[calc(100%+2.5rem)]"
+        >
+          <defs>
+            <path
+              id="fg-ring"
+              d="M80,80 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0"
+            />
+          </defs>
+          <text
+            fontFamily="Roboto Condensed, sans-serif"
+            fontWeight="800"
+            fontSize="11"
+            letterSpacing="2.6"
+            fill="currentColor"
+            className="text-ink"
+          >
+            <textPath href="#fg-ring">
+              FUTGRID · OYNA · QAZAN · FUTGRID · OYNA · QAZAN ·
+            </textPath>
+          </text>
+        </svg>
+        <span className={`relative ${FONT} font-black leading-[0.9]`}>
+          <span className="block text-4xl sm:text-[46px]">
+            {GAME_CATALOG.length}
+          </span>
+          <span className="block text-xs tracking-[0.12em] sm:text-sm">
+            OYUN
+          </span>
+        </span>
+      </Link>
+    </div>
+  );
+}
+
+function Hero() {
   const [index, setIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [textIn, setTextIn] = useState(false);
-  const [barFull, setBarFull] = useState(false);
-  const touchStartX = useRef(null);
+  const [paused, setPaused] = useState(false);
+  const startX = useRef(null);
 
-  const goTo = (updater) => {
-    setTextIn(false);
-    setBarFull(false);
-    setIndex(updater);
-  };
-  const go = (dir) => goTo((i) => (i + dir + SLIDES.length) % SLIDES.length);
+  const go = (dir) =>
+    setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length);
 
   useEffect(() => {
-    if (!enabled) return;
-    const id = setTimeout(
-      () => goTo((i) => (i + 1) % SLIDES.length),
-      AUTOPLAY_MS,
-    );
+    if (paused) return;
+    const id = setTimeout(() => go(1), AUTOPLAY_MS);
     return () => clearTimeout(id);
-  }, [index, enabled]);
+  }, [index, paused]);
 
   useEffect(() => {
-    let r2;
-    const r1 = requestAnimationFrame(() => {
-      r2 = requestAnimationFrame(() => {
-        setMounted(true);
-        setTextIn(true);
-        setBarFull(true);
-      });
-    });
-    return () => {
-      cancelAnimationFrame(r1);
-      cancelAnimationFrame(r2);
-    };
-  }, [index]);
-
-  useEffect(() => {
-    if (!enabled) return;
     const onKey = (e) => {
       if (e.target.closest?.("input, textarea")) return;
+      if (window.scrollY > window.innerHeight) return;
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "ArrowRight") go(1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [enabled]);
+  }, []);
 
   const slide = SLIDES[index];
-  const subDelay = 200 + slide.lines.length * 200;
-  const btnDelay = subDelay + 200;
+  const [first, middle, last] = slide.lines;
 
   return (
     <section
-      data-theme="dark"
-      className="relative z-0 hidden h-197.5 w-full overflow-hidden bg-black md:block"
-      onPointerDown={(e) => (touchStartX.current = e.clientX)}
-      onPointerUp={(e) => {
-        if (touchStartX.current === null) return;
-        const diff = e.clientX - touchStartX.current;
-        if (Math.abs(diff) > 60) go(diff < 0 ? 1 : -1);
-        touchStartX.current = null;
-      }}
-    >
-      {SLIDES.map((s, i) => (
-        <div
-          key={i}
-          aria-hidden="true"
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            i === index ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div
-            className={`absolute inset-0 bg-cover bg-center transition-transform duration-8000 ease-out motion-reduce:transition-none ${
-              i === index && mounted ? "scale-110" : "scale-100"
-            }`}
-            style={{ backgroundImage: `url(${s.image}), ${s.fallback}` }}
-          />
-        </div>
-      ))}
-
-      <div className="absolute inset-0 bg-linear-to-b from-black/45 via-[#1a0933]/50 to-black/70" />
-
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 pb-10 text-center">
-        <h2
-          className={`${FONT} text-5xl font-bold uppercase leading-[1.05] text-ink lg:text-[72px]`}
-        >
-          {slide.lines.map((line, i) => (
-            <span key={line} className="block overflow-hidden pt-[0.12em]">
-              <span
-                className={`block transition-all ease-out motion-reduce:transition-none ${
-                  textIn
-                    ? "translate-y-0 opacity-100 duration-900"
-                    : "translate-y-full opacity-0 duration-0"
-                }`}
-                style={{
-                  transitionDelay: textIn ? `${150 + i * 200}ms` : "0ms",
-                }}
-              >
-                {line}
-              </span>
-            </span>
-          ))}
-        </h2>
-
-        <p
-          className={`mt-4 ${FONT} text-xl uppercase tracking-[0.2em] text-accent transition-all ease-out motion-reduce:transition-none ${
-            textIn
-              ? "translate-y-0 opacity-100 duration-700"
-              : "translate-y-4 opacity-0 duration-0"
-          }`}
-          style={{ transitionDelay: textIn ? `${subDelay}ms` : "0ms" }}
-        >
-          {slide.subtitle}
-        </p>
-
-        <div
-          className={`relative mt-8 inline-block transition-all ease-out motion-reduce:transition-none ${
-            textIn
-              ? "translate-y-0 scale-100 opacity-100 duration-800"
-              : "translate-y-7 scale-90 opacity-0 duration-0"
-          }`}
-          style={{ transitionDelay: textIn ? `${btnDelay}ms` : "0ms" }}
-        >
-          <span
-            aria-hidden="true"
-            className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${
-              textIn ? "opacity-100 delay-1800" : "opacity-0 duration-0"
-            }`}
-          >
-            <span className="absolute -inset-1.5 animate-pulse bg-accent/30 [animation-duration:2.4s]" />
-          </span>
-          <a
-            href={slide.href}
-            onClick={(e) => jumpTo(e, slide.href)}
-            className={`group/btn relative isolate inline-block overflow-hidden bg-accent px-10 py-3.5 ${FONT} text-base font-bold uppercase tracking-wide text-white transition-colors duration-500 hover:text-accent`}
-          >
-            <span aria-hidden="true" className={SWEEP_WHITE} />
-            {slide.button}
-          </a>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute bottom-0 left-0 z-20 h-4 w-full bg-black" />
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 520 60"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute bottom-3 left-1/2 z-20 h-10.5 w-75 -translate-x-1/2"
-      >
-        <path
-          fill="#000"
-          d="M0,60 C120,60 170,0 260,0 C350,0 400,60 520,60 Z"
-        />
-      </svg>
-
-      <div
-        aria-hidden="true"
-        className={`absolute bottom-0 left-0 z-30 h-0.75 bg-accent transition-[width] ease-linear ${
-          barFull ? "w-full" : "w-0 duration-0"
-        }`}
-        style={barFull ? { transitionDuration: `${AUTOPLAY_MS}ms` } : undefined}
-      />
-
-      <button
-        onClick={() => go(-1)}
-        aria-label="Əvvəlki slayd"
-        className="group/btn absolute left-8 top-1/2 z-30 isolate flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-line/20 bg-black/40 text-ink backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-accent"
-      >
-        <span aria-hidden="true" className={SWEEP_BLUE} />
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-      <button
-        onClick={() => go(1)}
-        aria-label="Növbəti slayd"
-        className="group/btn absolute right-8 top-1/2 z-30 isolate flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-line/20 bg-black/40 text-ink backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-accent"
-      >
-        <span aria-hidden="true" className={SWEEP_BLUE} />
-        <ChevronRight className="h-6 w-6" />
-      </button>
-
-      <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              if (i !== index) goTo(() => i);
-            }}
-            aria-label={`Slayd ${i + 1}`}
-            aria-current={i === index}
-            className={`group/btn relative isolate h-3 w-3 overflow-hidden rounded-full transition-all duration-300 ${
-              i === index ? "scale-110 bg-accent" : "bg-dim"
-            }`}
-          >
-            <span aria-hidden="true" className={SWEEP_BLUE} />
-          </button>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function MobileHero() {
-  const ref = useRef(null);
-  const [active, setActive] = useState(0);
-  const [touched, setTouched] = useState(false);
-
-  const onScroll = () => {
-    const el = ref.current;
-    if (!el) return;
-    const i = Math.round(el.scrollLeft / el.clientWidth);
-    setActive(Math.max(0, Math.min(SLIDES.length - 1, i)));
-    if (el.scrollLeft > 8) setTouched(true);
-  };
-
-  const goTo = (i) => {
-    const el = ref.current;
-    if (!el) return;
-    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
-  };
-
-  return (
-    <section
-      data-theme="dark"
-      className="relative bg-black md:hidden"
+      className="relative overflow-hidden bg-page pt-6 md:pt-10 lg:pt-16"
       aria-roledescription="karusel"
       aria-label="Əsas slaydlar"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onPointerDown={(e) => (startX.current = e.clientX)}
+      onPointerUp={(e) => {
+        if (startX.current === null) return;
+        const diff = e.clientX - startX.current;
+        if (Math.abs(diff) > 60) go(diff < 0 ? 1 : -1);
+        startX.current = null;
+      }}
     >
       <div
-        ref={ref}
-        onScroll={onScroll}
-        className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {SLIDES.map((s, i) => (
-          <article
-            key={i}
-            aria-roledescription="slayd"
-            aria-label={`${i + 1} / ${SLIDES.length}`}
-            className="relative flex w-full shrink-0 snap-center snap-always flex-col overflow-hidden bg-black"
+        aria-hidden="true"
+        className="fg-pitch fg-stripes-move absolute right-0 top-0 hidden h-[calc(100%-9.5rem)] w-[56%] lg:block"
+        style={{ clipPath: "polygon(14% 0, 100% 0, 100% 100%, 0 100%)" }}
+      />
+
+      <div className="relative mx-auto grid max-w-330 items-center gap-8 px-4 pb-4 md:px-6 lg:grid-cols-2 lg:gap-10 lg:pb-14">
+        <div key={index} className="relative z-10 min-w-0">
+          <div
+            className={`fg-fade flex items-center gap-3.5 ${FONT} text-[15px] font-extrabold tracking-[0.2em]`}
           >
-            <div
-              className="relative w-full overflow-hidden bg-deep"
-              style={{ aspectRatio: s.mobileAspect ?? "4 / 3" }}
-            >
-              <div
-                className={`absolute inset-0 bg-cover transition-transform duration-6000 ease-out motion-reduce:transition-none ${
-                  active === i ? "scale-105" : "scale-100"
-                }`}
+            <span className="text-accent">{pad(index + 1)}</span>
+            <span className="relative h-0.75 w-28 bg-edge">
+              <span
+                className="fg-prog absolute inset-y-0 left-0 bg-accent"
                 style={{
-                  backgroundImage: `url(${s.mobileImage ?? s.image}), ${s.fallback}`,
-                  backgroundPosition: s.mobilePosition ?? "center",
+                  animationDuration: `${AUTOPLAY_MS}ms`,
+                  animationPlayState: paused ? "paused" : "running",
                 }}
               />
-              <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent via-60% to-black" />
-              <span
-                className={`absolute right-5 top-5 ${FONT} text-xs font-bold tracking-[0.25em] text-ink/80`}
-              >
-                0{i + 1} / 0{SLIDES.length}
+            </span>
+            <span className="text-muted">{pad(SLIDES.length)}</span>
+          </div>
+
+          <h1
+            className={`mt-5 ${FONT} text-[52px] font-black uppercase leading-[0.88] text-ink sm:text-7xl xl:text-[104px]`}
+          >
+            <span className="fg-mask">
+              <span className="fg-rise [animation-delay:.15s]">{first}</span>
+            </span>
+            <span className="fg-mask">
+              <span className="fg-outline fg-wipe">{middle}</span>
+            </span>
+            <span className="fg-mask pt-1">
+              <span className="fg-rise -skew-x-8 bg-accent px-3.5 text-white [animation-delay:.45s]">
+                <span className="inline-block skew-x-8">{last}</span>
               </span>
-            </div>
-            <div
-              className={`relative -mt-8 flex flex-1 flex-col items-start justify-end px-5 pb-8 transition-all duration-700 ease-out ${
-                active === i
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-6 opacity-0"
-              }`}
+            </span>
+          </h1>
+
+          <p
+            className={`fg-fade mt-6 ${FONT} text-sm font-bold uppercase tracking-[0.18em] text-accent [animation-delay:.65s] md:text-lg`}
+          >
+            {slide.subtitle}
+          </p>
+
+          <div className="fg-fade mt-8 flex flex-wrap items-center gap-2.5 [animation-delay:.8s] sm:gap-3.5">
+            <a
+              href={slide.href}
+              onClick={(e) => jumpTo(e, slide.href)}
+              className={`inline-flex h-12 items-stretch bg-accent ${FONT} text-sm font-extrabold sm:h-14 sm:text-base uppercase tracking-[0.08em] text-white shadow-[0_16px_30px_-14px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] transition-transform duration-200 hover:-translate-y-0.5`}
             >
-              <span className="mb-3 block h-0.5 w-10 bg-accent" />
-              <h2
-                className={`${FONT} text-[34px] font-bold uppercase leading-[1.02] text-ink`}
-              >
-                {s.lines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h2>
-              <p
-                className={`mt-3 ${FONT} text-sm uppercase tracking-[0.12em] text-accent-hi`}
-              >
-                {s.subtitle}
-              </p>
-              <a
-                href={s.href}
-                onClick={(e) => jumpTo(e, s.href)}
-                tabIndex={active === i ? 0 : -1}
-                className={`mt-5 inline-flex items-center gap-2 bg-accent px-6 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-white transition-transform active:scale-95`}
-              >
-                {s.button}
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-          </article>
-        ))}
+              <span className="flex items-center px-5 sm:px-7">{slide.button}</span>
+              <span className="grid w-12 place-items-center bg-yellow text-on-yellow sm:w-14">
+                <ArrowRight className="fg-nudge h-5 w-5" strokeWidth={2.6} />
+              </span>
+            </a>
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Əvvəlki slayd"
+              className="grid h-12 w-12 place-items-center border-2 border-ink text-ink sm:h-14 sm:w-14 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
+            >
+              <ChevronLeft className="h-5 w-5" strokeWidth={2.4} />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Növbəti slayd"
+              className="grid h-12 w-12 place-items-center border-2 border-ink bg-ink sm:h-14 sm:w-14 text-page transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={2.4} />
+            </button>
+          </div>
+        </div>
+
+        <HeroCollage index={index} />
       </div>
 
-      <div className="flex items-center justify-between border-b border-line/10 px-5 py-3">
-        <div className="flex items-center gap-2">
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Slayd ${i + 1}`}
-              aria-current={active === i}
-              className="flex h-6 items-center"
-            >
-              <span
-                className={`block h-1.5 rounded-full transition-all duration-300 ${
-                  active === i ? "w-8 bg-accent" : "w-3 bg-line/25"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-        <div className="relative h-6 w-32">
-          <span
-            className={`absolute inset-0 flex items-center justify-end gap-1.5 ${FONT} text-xs uppercase tracking-[0.2em] text-muted transition-opacity duration-500 ${
-              touched ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            <ChevronLeft className="h-4 w-4 animate-[fgSwipe_1.4s_ease-in-out_infinite] text-accent-hi" />
-            Sürüşdür
-          </span>
-          <span
-            className={`absolute inset-0 flex items-center justify-end ${FONT} text-xs font-bold tracking-[0.25em] text-muted transition-opacity duration-500 ${
-              touched ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <span className="text-ink">0{active + 1}</span>&nbsp;/ 0
-            {SLIDES.length}
-          </span>
-        </div>
-      </div>
+      <Tapes />
     </section>
   );
 }
 
-function AboutCard({ card, index }) {
-  const wide = index === 0;
+function Polaroid({ card, index }) {
   return (
     <div
       data-reveal
-      data-theme="dark"
-      className={`group/card ${REVEAL.up} ${wide ? "col-span-2 lg:col-span-1" : ""}`}
+      className={`${REVEAL.up} ${index === 1 ? "sm:mt-6" : ""}`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      <TiltCard
-        className={`overflow-hidden bg-deep ${
-          wide ? "aspect-16/9 lg:aspect-11/10" : "aspect-square lg:aspect-11/10"
-        }`}
+      <figure
+        className={`group/pol relative m-0 bg-surface p-3 pb-4 shadow-[0_24px_50px_-30px_var(--fg-shadow)] transition-[rotate,translate,box-shadow] duration-500 ease-out hover:-translate-y-3 hover:rotate-0 hover:shadow-[0_40px_60px_-30px_color-mix(in_srgb,var(--fg-accent)_55%,transparent)] ${CARD_TILT[index]}`}
       >
-        <img
-          src={card.src}
-          alt={card.alt}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-2000 ease-out group-data-in/card:scale-110 lg:duration-700 lg:group-data-in/card:scale-100 lg:group-hover/tilt:scale-110"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 hidden opacity-0 transition-opacity duration-500 group-hover/tilt:opacity-100 lg:block"
-          style={{
-            background:
-              "radial-gradient(circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--fg-accent) 35%, transparent), transparent 60%)",
-          }}
-        />
-        <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/40 to-transparent px-4 pb-4 pt-12 lg:hidden">
-          <span className="mb-2 block h-0.5 w-0 bg-accent transition-all delay-500 duration-700 group-data-in/card:w-8" />
-          <h3
-            className={`translate-y-3 opacity-0 transition-all delay-300 duration-700 ease-out group-data-in/card:translate-y-0 group-data-in/card:opacity-100 ${FONT} font-bold uppercase leading-tight text-ink ${
-              wide ? "text-2xl" : "text-lg"
-            }`}
-          >
-            {card.title}
-          </h3>
-        </div>
-        <div className="absolute inset-0 hidden items-center justify-center bg-linear-to-br from-black/70 via-[#1a0933]/65 to-black/70 px-6 opacity-0 transition-opacity duration-500 group-hover/tilt:opacity-100 lg:flex">
-          <h3
-            className={`translate-y-4 text-center ${FONT} text-4xl font-bold uppercase leading-tight text-ink/90 transition-transform duration-500 ease-out group-hover/tilt:translate-y-0`}
-          >
-            {card.title}
-          </h3>
-        </div>
         <span
           aria-hidden="true"
-          className={`${SHINE} group-data-in/card:animate-[fgShine_1.3s_ease-out_0.6s_1_both] lg:group-data-in/card:animate-none lg:group-hover/tilt:animate-[fgShine_0.9s_ease-out_1_both]`}
+          className={`absolute -top-3.5 left-1/2 z-10 h-7 w-28 -translate-x-1/2 ${CARD_TAPE[index]}`}
         />
-      </TiltCard>
+        <div className="aspect-4/3 overflow-hidden bg-deep">
+          <img
+            src={card.src}
+            alt={card.alt}
+            loading="lazy"
+            className="h-full w-full object-cover saturate-[.85] transition-[filter,scale] duration-500 group-hover/pol:scale-105 group-hover/pol:saturate-[1.2]"
+          />
+        </div>
+        <figcaption
+          className={`mt-3 flex items-center justify-between ${FONT} text-[15px] font-extrabold uppercase tracking-[0.08em] text-ink`}
+        >
+          <span>№ {pad(index + 1)}</span>
+          <span className="text-accent">{card.title}</span>
+        </figcaption>
+      </figure>
     </div>
   );
 }
 
-function GameCard({ game, featured, index }) {
+function StatCard({ stat, index, run }) {
+  const dark = index === 2;
   return (
     <div
       data-reveal
-      data-theme="dark"
-      className={`group/card h-full ${featured ? `${REVEAL.left} col-span-2 lg:col-span-1 lg:row-span-2` : `${REVEAL.right} col-span-1`}`}
-      style={{ transitionDelay: `${index * 150}ms` }}
+      className={REVEAL.up}
+      style={{ transitionDelay: `${index * 120}ms` }}
     >
-      <Link
-        to={game.href}
-        className={`group/game relative flex h-full flex-col justify-end overflow-hidden border border-line/10 bg-deep transition-[border-color,box-shadow,transform] duration-500 hover:border-accent/60 hover:shadow-[0_0_44px_-12px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] active:scale-[0.98] ${
-          featured
-            ? "min-h-95 md:min-h-110 lg:min-h-full"
-            : "min-h-60 md:min-h-64"
+      <div
+        className={`group relative h-full overflow-hidden border-t-5 px-5 pb-4.5 pt-5.5 transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_40px_-26px_var(--fg-shadow)] ${
+          dark ? "border-yellow bg-navy text-white" : "border-accent bg-surface text-ink"
         }`}
       >
-        {game.art === "auction" ? (
-          <AuctionArt className="transition-transform duration-700 ease-out md:group-hover/game:scale-105" />
+        {dark ? (
+          <span
+            aria-hidden="true"
+            className="fg-halftone-w fg-drift absolute inset-y-0 right-0 w-1/2"
+          />
         ) : (
+          <span
+            aria-hidden="true"
+            className={`absolute -right-1.5 -top-3.5 ${FONT} text-[92px] font-black leading-none text-page transition-[translate,color] duration-500 group-hover:-translate-x-3 group-hover:translate-y-2.5 group-hover:text-accent/10`}
+          >
+            {stat.label[0]}
+          </span>
+        )}
+        <p
+          className={`relative whitespace-nowrap ${FONT} text-[28px] font-black leading-none sm:text-4xl md:text-5xl lg:text-6xl`}
+        >
+          <CountUp value={stat.value} run={run} duration={1800} />
+          <span className={dark ? "text-yellow" : "text-accent"}>
+            {stat.suffix}
+          </span>
+        </p>
+        <p
+          className={`relative mt-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.24em] md:text-[13px] ${
+            dark ? "text-yellow" : "text-muted"
+          }`}
+        >
+          {stat.label}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function PitchLines() {
+  return (
+    <svg
+      aria-hidden="true"
+      data-reveal
+      viewBox="0 0 1440 900"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+    >
+      <g fill="none" stroke="var(--fg-pitch-line)" strokeWidth="3">
+        <line className="fg-draw" pathLength="1" x1="720" y1="0" x2="720" y2="900" />
+        <circle className="fg-draw" pathLength="1" cx="720" cy="450" r="130" />
+        <rect className="fg-draw" pathLength="1" x="-2" y="250" width="180" height="400" />
+        <rect className="fg-draw" pathLength="1" x="1262" y="250" width="180" height="400" />
+      </g>
+    </svg>
+  );
+}
+
+function PlayLabel({ className = "" }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-2 ${FONT} text-base font-black uppercase tracking-[0.1em] ${className}`}
+    >
+      Oyna
+      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/game:translate-x-1.5" />
+    </span>
+  );
+}
+
+function FeatureCard({ game }) {
+  return (
+    <div data-reveal className={`${REVEAL.left} h-full`}>
+      <Link
+        to={game.href}
+        className={`fg-sheen group/game flex h-full flex-col bg-surface text-ink ${CARD_SHADOW} ${CARD_HOVER}`}
+      >
+        <div
+          className="relative h-60 shrink-0 overflow-hidden bg-deep sm:h-80 lg:h-95"
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 86%, 0 100%)" }}
+        >
           <img
             src={game.image}
             alt=""
             loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-2000 ease-out group-data-in/card:scale-110 md:duration-700 md:group-data-in/card:scale-100 md:group-hover/game:scale-110"
+            className="h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
           />
-        )}
-        <div className="absolute inset-0 bg-linear-to-t from-black via-black/55 to-black/10 transition-opacity duration-500" />
-        <span
-          aria-hidden="true"
-          className={`${SHINE} group-data-in/card:animate-[fgShine_1.3s_ease-out_0.5s_1_both] md:group-data-in/card:animate-none md:group-hover/game:animate-[fgShine_0.9s_ease-out_1_both]`}
-        />
-
-        <span
-          className={`absolute left-4 top-4 z-10 flex items-center justify-center bg-accent text-white transition-transform duration-300 group-hover/game:scale-110 md:left-6 md:top-6 ${
-            featured ? "h-12 w-12 md:h-14 md:w-14" : "h-10 w-10"
-          }`}
-        >
           <span
-            aria-hidden="true"
-            className="absolute inset-0 animate-[fgPulseRing_2.2s_ease-out_infinite] bg-accent/60"
-          />
-          <Play
-            className={`relative fill-white ${featured ? "h-5 w-5" : "h-4 w-4"}`}
-          />
-        </span>
-
-        <div
-          className={`relative z-10 ${featured ? "p-5 md:p-8" : "p-4 md:p-6"}`}
-        >
-          <div className="flex flex-wrap gap-1.5">
+            className={`fg-bob absolute left-4 top-4 bg-yellow px-3 py-1.5 ${FONT} text-sm font-black uppercase text-on-yellow md:left-5 md:top-5 md:text-base`}
+          >
+            #01 · Ən populyar
+          </span>
+        </div>
+        <div className="flex flex-1 flex-col gap-3 px-5 pb-7 pt-2.5 md:px-7.5">
+          <div className="flex flex-wrap gap-2">
             {game.tags.map((tag) => (
               <span
                 key={tag}
-                className={`border border-line/15 bg-black/40 px-2 py-0.5 ${FONT} text-[10px] uppercase tracking-wider text-ink-soft backdrop-blur-sm md:text-[11px]`}
+                className={`border-[1.5px] border-ink px-2.5 py-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.1em] md:text-xs`}
               >
                 {tag}
               </span>
             ))}
           </div>
           <h3
-            className={`mt-2 ${FONT} font-bold uppercase leading-[1.05] text-ink ${
-              featured ? "text-3xl md:text-[42px]" : "text-lg md:text-2xl"
-            }`}
+            className={`${FONT} text-4xl font-black uppercase leading-none md:text-5xl`}
           >
             {game.title}
           </h3>
           <p
-            className={`mt-2 ${BODY} leading-relaxed text-soft ${
-              featured
-                ? "max-w-md text-sm md:text-base"
-                : "hidden text-sm md:line-clamp-2 md:block"
-            }`}
+            className={`max-w-lg ${BODY} text-[15px] leading-relaxed text-muted md:text-base`}
           >
             {game.description}
           </p>
-          <span
-            className={`mt-3 inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-accent-hi md:mt-4`}
-          >
-            Oyna
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/game:translate-x-1.5" />
+          <span className="mt-auto flex items-center gap-3 pt-1 text-accent">
+            <span className="fg-ping-b grid h-10 w-10 place-items-center bg-accent text-white">
+              <Play className="h-4 w-4 fill-current" />
+            </span>
+            <PlayLabel />
           </span>
+        </div>
+      </Link>
+    </div>
+  );
+}
+
+function RowCard({ game, index }) {
+  return (
+    <div
+      data-reveal
+      className={`${REVEAL.right} flex-1`}
+      style={{ transitionDelay: "120ms" }}
+    >
+      <Link
+        to={game.href}
+        className={`fg-sheen group/game flex h-full min-h-56 bg-surface text-ink md:min-h-60 ${CARD_SHADOW} ${CARD_HOVER}`}
+      >
+        <div
+          className="relative w-[42%] shrink-0 overflow-hidden bg-deep sm:w-[46%]"
+          style={{ clipPath: "polygon(0 0, 100% 0, 84% 100%, 0 100%)" }}
+        >
+          <img
+            src={game.image}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
+          />
+          <span
+            className={`absolute left-3 top-3 bg-surface px-2.5 py-1 ${FONT} text-sm font-black text-ink`}
+          >
+            #{pad(index + 1)}
+          </span>
+        </div>
+        <div className="flex flex-1 flex-col justify-center gap-2 py-5 pl-2 pr-5 md:pr-6">
+          <span
+            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-accent md:text-xs`}
+          >
+            {game.tags.join(" · ")}
+          </span>
+          <h3
+            className={`${FONT} text-2xl font-black uppercase leading-none md:text-[32px]`}
+          >
+            {game.title}
+          </h3>
+          <p className={`${BODY} text-sm leading-relaxed text-muted md:text-[15px]`}>
+            {game.description}
+          </p>
+          <PlayLabel className="text-accent" />
+        </div>
+      </Link>
+    </div>
+  );
+}
+
+function AuctionCard({ game }) {
+  return (
+    <div
+      data-reveal
+      className={`${REVEAL.right} flex-1`}
+      style={{ transitionDelay: "240ms" }}
+    >
+      <Link
+        to={game.href}
+        className={`fg-sheen group/game flex h-full min-h-56 bg-navy text-white md:min-h-60 ${CARD_SHADOW} ${CARD_HOVER}`}
+      >
+        <span
+          aria-hidden="true"
+          className="fg-halftone-w fg-drift absolute inset-y-0 right-0 w-[45%]"
+        />
+        <div className="relative grid w-[42%] shrink-0 place-items-center sm:w-[46%]">
+          <span className="fg-ping-y grid h-24 w-24 place-items-center rounded-full border-3 border-yellow md:h-30 md:w-30">
+            <Gavel
+              className="fg-gavel h-11 w-11 text-yellow md:h-14 md:w-14"
+              strokeWidth={1.8}
+            />
+          </span>
+        </div>
+        <div className="relative flex flex-1 flex-col justify-center gap-2 py-5 pl-2 pr-5 md:pr-6">
+          <span
+            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-yellow md:text-xs`}
+          >
+            {game.tags.join(" · ")}
+          </span>
+          <h3
+            className={`${FONT} text-2xl font-black uppercase leading-none md:text-[32px]`}
+          >
+            {game.title}
+          </h3>
+          <p
+            className={`${BODY} text-sm leading-relaxed text-navy-soft md:text-[15px]`}
+          >
+            {game.description}
+          </p>
+          <PlayLabel className="text-yellow" />
         </div>
       </Link>
     </div>
@@ -963,56 +1009,66 @@ function TopCard({ player, rank, run }) {
   const first = rank === 0;
   return (
     <div
-      className={`relative flex items-center gap-3 border px-4 transition-all duration-700 ease-out motion-reduce:transition-none sm:gap-4 md:px-5 ${s.card} ${
-        first ? "py-5 md:py-6" : "py-3.5 md:py-4"
-      } ${run ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"}`}
+      className={`transition-[opacity,translate] duration-700 ease-out motion-reduce:transition-none ${
+        run ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+      }`}
       style={{ transitionDelay: `${rank * 120}ms` }}
     >
-      {first && (
-        <span
-          className={`absolute -top-3 left-4 flex items-center gap-1 bg-gold px-2 py-0.5 ${FONT} text-[11px] font-bold uppercase tracking-[0.18em] text-black`}
-        >
-          <Crown className="h-3.5 w-3.5" />
-          Lider
-        </span>
-      )}
-      <span
-        className={`w-8 shrink-0 text-center ${FONT} font-bold leading-none ${s.text} ${
-          first ? "text-5xl md:text-6xl" : "text-4xl md:text-5xl"
+      <div
+        className={`relative flex items-center gap-3 overflow-hidden border-3 bg-surface px-4 transition-[translate] duration-300 hover:translate-x-2 sm:gap-4 md:px-5.5 ${s.card} ${
+          first ? "py-5" : "py-4"
         }`}
       >
-        {rank + 1}
-      </span>
-      <span className={`shrink-0 rounded-full bg-linear-to-br p-0.5 ${s.ring}`}>
+        {first && (
+          <>
+            <span
+              aria-hidden="true"
+              className="fg-shine-gold pointer-events-none absolute inset-y-0 -left-22 w-17.5 -skew-x-20 bg-yellow/35"
+            />
+            <span
+              className={`absolute right-3 top-2 flex items-center gap-1 ${FONT} text-[11px] font-extrabold uppercase tracking-[0.14em] text-gold-hi`}
+            >
+              <Crown className="h-3.5 w-3.5" />
+              Lider
+            </span>
+          </>
+        )}
         <span
-          className={`flex items-center justify-center rounded-full border-2 border-page-2 bg-linear-to-br ${avatarOf(player)} ${FONT} font-bold text-ink ${
+          className={`relative w-9 shrink-0 text-center ${FONT} font-black leading-[0.8] ${s.num} ${
+            first ? "fg-hop text-5xl md:text-[64px]" : "text-4xl md:text-[56px]"
+          }`}
+        >
+          {rank + 1}
+        </span>
+        <span
+          className={`relative grid shrink-0 place-items-center rounded-full ${FONT} font-black ${s.avatar} ${
             first
-              ? "h-14 w-14 text-lg md:h-16 md:w-16 md:text-xl"
-              : "h-11 w-11 text-sm md:h-12 md:w-12 md:text-base"
+              ? "h-13 w-13 text-lg md:h-14.5 md:w-14.5 md:text-xl"
+              : "h-11 w-11 text-base md:h-13 md:w-13 md:text-lg"
           }`}
         >
           {initials(player.name)}
         </span>
-      </span>
-      <div className="min-w-0 flex-1">
-        <p
-          className={`truncate ${FONT} font-bold uppercase tracking-wide text-ink ${
-            first ? "text-lg md:text-2xl" : "text-base md:text-xl"
+        <span className="relative min-w-0 flex-1">
+          <span
+            className={`block truncate ${FONT} font-black uppercase text-ink ${
+              first ? "text-lg md:text-2xl" : "text-base md:text-[22px]"
+            }`}
+          >
+            {player.name}
+          </span>
+          <span className={`block truncate ${BODY} text-[13px] text-muted`}>
+            {player.team} · {player.winRate}% qələbə
+          </span>
+        </span>
+        <span
+          className={`relative shrink-0 ${FONT} font-black ${s.points} ${
+            first ? "text-2xl md:text-[40px]" : "text-xl md:text-[34px]"
           }`}
         >
-          {player.name}
-        </p>
-        <p className={`truncate ${BODY} text-xs text-muted`}>
-          {player.team} · {player.winRate}% qələbə
-        </p>
+          <CountUp value={player.points.value} run={run} />
+        </span>
       </div>
-      <span
-        className={`shrink-0 ${FONT} font-bold ${s.text} ${
-          first ? "text-2xl md:text-4xl" : "text-xl md:text-3xl"
-        }`}
-      >
-        <CountUp value={player.points.value} run={run} />
-      </span>
     </div>
   );
 }
@@ -1029,14 +1085,14 @@ function ContactField({
     <label className="group/field relative block">
       <Tag
         placeholder=" "
-        className={`peer block w-full border-b-2 border-line/10 bg-line/3 pb-3 pl-12 pr-10 pt-7 ${BODY} text-base text-ink outline-none transition-colors duration-300 hover:bg-line/5 focus:border-transparent focus:bg-line/6 ${
+        className={`peer block w-full border-b-2 border-edge bg-page pb-3 pl-12 pr-10 pt-7 ${BODY} text-base text-ink outline-none transition-colors duration-300 hover:bg-page-2 focus:bg-surface focus:shadow-[0_0_0_1px_var(--fg-edge)] ${
           textarea ? "min-h-40 resize-none" : ""
         }`}
         {...props}
       />
-      <Icon className="pointer-events-none absolute left-4 top-5.5 h-5 w-5 text-faint transition-colors duration-300 peer-focus:text-accent-hi" />
+      <Icon className="pointer-events-none absolute left-4 top-5.5 h-5 w-5 text-faint transition-colors duration-300 peer-focus:text-accent" />
       <span
-        className={`pointer-events-none absolute left-12 top-5 ${FONT} text-base tracking-wide text-faint transition-all duration-200 peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-accent-hi peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]`}
+        className={`pointer-events-none absolute left-12 top-5 ${FONT} text-base tracking-wide text-faint transition-all duration-200 peer-focus:top-2 peer-focus:text-[11px] peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-accent peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-bold peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.18em]`}
       >
         {label}
       </span>
@@ -1050,7 +1106,7 @@ function ContactField({
       </span>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-linear-to-r from-accent to-cyan-400 transition-transform duration-500 ease-out peer-focus:scale-x-100"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out peer-focus:scale-x-100"
       />
     </label>
   );
@@ -1118,7 +1174,7 @@ function ContactForm() {
           <Check className="h-9 w-9" />
         </span>
         <h3
-          className={`mt-6 ${FONT} text-3xl font-bold uppercase tracking-wide text-ink`}
+          className={`mt-6 ${FONT} text-3xl font-black uppercase tracking-wide text-ink`}
         >
           Mesajın göndərildi!
         </h3>
@@ -1131,9 +1187,8 @@ function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden border border-accent px-8 py-3 ${FONT} text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-500 hover:text-white`}
+          className={`mt-8 inline-flex items-center gap-2 border-2 border-ink px-8 py-3 ${FONT} text-sm font-extrabold uppercase tracking-wide text-ink transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-white`}
         >
-          <span aria-hidden="true" className={SWEEP_BLUE} />
           Yeni mesaj yaz
         </button>
       </div>
@@ -1147,36 +1202,34 @@ function ContactForm() {
       <div className="flex items-end justify-between gap-4">
         <div>
           <p
-            className={`${FONT} text-xs uppercase tracking-[0.25em] text-accent-hi`}
+            className={`${FONT} text-xs font-extrabold uppercase tracking-[0.2em] text-accent`}
           >
             Forma
           </p>
           <h3
-            className={`mt-1 ${FONT} text-3xl font-bold uppercase leading-none text-ink md:text-4xl`}
+            className={`mt-1 ${FONT} text-3xl font-black uppercase leading-none text-ink md:text-[34px]`}
           >
             Bizə yaz
           </h3>
         </div>
         <div className="text-right">
           <p
-            className={`${FONT} text-[11px] uppercase tracking-[0.2em] text-faint`}
+            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.2em] text-faint`}
           >
             Hazırdır
           </p>
-          <p className={`${FONT} text-xl font-bold text-ink`}>
-            <span
-              className={ready === 3 ? "text-good" : "text-accent-hi"}
-            >
+          <p className={`${FONT} text-[22px] font-black text-ink`}>
+            <span className={ready === 3 ? "text-good" : "text-accent"}>
               {ready}
             </span>
-            <span className="text-faint"> / 3</span>
+            <span className="text-dim"> / 3</span>
           </p>
         </div>
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-1.5" aria-hidden="true">
         {[0, 1, 2].map((i) => (
-          <span key={i} className="h-1 overflow-hidden bg-line/10">
+          <span key={i} className="h-1 overflow-hidden bg-page-2">
             <span
               className={`block h-full origin-left transition-transform duration-500 ease-out ${
                 ready === 3 ? "bg-good" : "bg-accent"
@@ -1247,25 +1300,24 @@ function ContactForm() {
       </div>
 
       <div className="mt-7 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`max-w-xs ${BODY} text-xs leading-relaxed text-faint`}>
+        <p className={`max-w-xs ${BODY} text-xs leading-relaxed text-muted`}>
           Məlumatların yalnız sənə cavab vermək üçün istifadə olunur.
         </p>
         <button
           type="submit"
           disabled={sending}
           aria-busy={sending}
-          className={`group/btn relative isolate inline-flex w-full shrink-0 items-stretch justify-between overflow-hidden bg-accent ${FONT} text-base font-bold uppercase tracking-wide text-white shadow-[0_12px_30px_-12px_color-mix(in_srgb,var(--fg-accent)_90%,transparent)] transition-[color,transform] duration-500 hover:text-accent active:scale-[0.98] disabled:cursor-wait sm:w-auto sm:min-w-64`}
+          className={`group/btn inline-flex w-full shrink-0 items-stretch justify-between bg-navy ${FONT} text-base font-extrabold uppercase tracking-[0.1em] text-white shadow-[0_16px_30px_-16px_var(--fg-shadow)] transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent active:translate-y-0 disabled:cursor-wait sm:w-auto sm:min-w-64`}
         >
-          <span aria-hidden="true" className={SWEEP_WHITE} />
-          <span className="flex items-center whitespace-nowrap px-8 py-4">
+          <span className="flex items-center whitespace-nowrap px-7 py-4">
             {sending ? "Göndərilir..." : "Mesajı göndər"}
           </span>
-          <span className="relative flex w-14 items-center justify-center overflow-hidden border-l border-line/25 bg-black/10">
+          <span className="relative flex w-14 items-center justify-center overflow-hidden bg-yellow text-on-yellow">
             <Send
               className={`h-5 w-5 ${
                 sending
                   ? "animate-[fgFly_0.9s_ease-in-out_infinite]"
-                  : "transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 group-hover/btn:-rotate-12"
+                  : "group-hover/btn:animate-[fgFly_0.7s_ease-in-out_1]"
               }`}
             />
           </span>
@@ -1291,7 +1343,6 @@ export default function Home() {
   const rootRef = useRef(null);
   const statsRef = useRef(null);
   const panelRef = useRef(null);
-  const isDesktop = useMedia("(min-width: 768px)");
   const statsIn = useInView(statsRef, 0.3);
   const lbInView = useInView(panelRef, 0.15);
 
@@ -1322,247 +1373,151 @@ export default function Home() {
   const periodIndex = PERIODS.findIndex((p) => p.key === period);
 
   return (
-    <div ref={rootRef} lang="az" className="w-full">
+    <div ref={rootRef} lang="az" className="w-full overflow-x-clip bg-page">
       <style>{KEYFRAMES}</style>
 
-      <DesktopHero enabled={isDesktop} />
-      <MobileHero />
+      <Hero />
 
       <section
         id="about"
-        className="relative w-full overflow-hidden bg-page-2 py-16 md:py-24"
+        className="relative w-full overflow-hidden bg-page py-20 md:py-28"
       >
-        <div
-          aria-hidden="true"
-          data-parallax="0.12"
-          className="absolute inset-0 bg-cover bg-center will-change-transform"
-          style={{ backgroundImage: `url(${ABOUT_BACKGROUND})` }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-page-2/80 light:bg-page-2/90"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
-          style={{ backgroundImage: NOISE }}
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute -left-32 top-24 h-80 w-80 animate-[fgDrift_14s_ease-in-out_infinite] rounded-full bg-accent-lo/20 blur-3xl"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 animate-[fgDrift_18s_ease-in-out_infinite_reverse] rounded-full bg-fuchsia-600/15 blur-3xl"
-        />
+        <BigNumber n="01" side="-left-2.5" />
 
-        <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading
-            kicker="Futbol bilikini sına"
-            title="Taktiki oyunlar & strategiya"
-          />
+        <div className="relative mx-auto max-w-330 px-4 md:px-6">
+          <SectionHeading kicker="Futbol bilikini sına">
+            Taktiki oyunlar <span className="text-accent">&amp;</span>{" "}
+            strategiya
+          </SectionHeading>
 
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:mt-14 lg:grid-cols-3 lg:gap-9">
+          <div className="mt-12 grid gap-8 sm:grid-cols-3 sm:gap-6 md:mt-14 lg:gap-7">
             {CARDS.map((card, i) => (
-              <AboutCard key={card.src} card={card} index={i} />
+              <Polaroid key={card.src} card={card} index={i} />
             ))}
           </div>
 
           <div
             ref={statsRef}
-            className="mt-10 grid grid-cols-2 gap-3 md:mt-14 md:grid-cols-4 md:gap-6"
+            className="mt-16 grid grid-cols-2 gap-3 md:mt-20 md:grid-cols-4 md:gap-4.5"
           >
             {STATS.map((s, i) => (
-              <div
-                key={s.label}
-                data-reveal
-                className={`${REVEAL.zoom} group relative overflow-hidden border border-line/10 bg-line/3 px-4 py-5 light:bg-surface/80 light:shadow-sm text-center backdrop-blur-sm transition-colors duration-300 hover:border-accent/50 md:py-7`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform delay-300 duration-700 group-data-in:scale-x-100"
-                />
-                <p
-                  className={`${FONT} text-3xl font-bold text-ink md:text-5xl`}
-                >
-                  <CountUp value={s.value} run={statsIn} duration={1600} />
-                  <span className="text-accent">{s.suffix}</span>
-                </p>
-                <p
-                  className={`mt-1 ${FONT} text-xs uppercase tracking-[0.2em] text-muted md:text-sm`}
-                >
-                  {s.label}
-                </p>
-              </div>
+              <StatCard key={s.label} stat={s} index={i} run={statsIn} />
             ))}
           </div>
 
-          <div className="mx-auto mt-10 max-w-3xl text-center md:mt-14">
-            <div data-reveal className={REVEAL.up}>
-              <p
-                className={`${FONT} text-base font-light leading-8 text-muted md:text-lg md:leading-9`}
-              >
-                FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq
-                cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır.
-                Burada komandanı qura, rəqiblərinlə yarışa və öz səviyyəni hər
-                gün yüksəldə bilərsən. Sadəcə oyna, öyrən və liderlər cədvəlində
-                yerini tut.
-              </p>
-            </div>
-            <div
-              data-reveal
-              className={REVEAL.up}
-              style={{ transitionDelay: "150ms" }}
+          <div
+            data-reveal
+            className={`${REVEAL.up} mx-auto mt-12 max-w-3xl text-center md:mt-14`}
+          >
+            <p
+              className={`${BODY} text-base leading-8 text-muted md:text-[19px] md:leading-9`}
             >
-              <a
-                href="#games"
-                onClick={(e) => jumpTo(e, "#games")}
-                className={`group/btn relative isolate mt-8 inline-flex items-center gap-2 overflow-hidden bg-accent px-10 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-white transition-[color,transform] duration-500 hover:-translate-y-0.5 hover:text-accent md:mt-10 md:px-12 md:text-base`}
-              >
-                <span aria-hidden="true" className={SWEEP_WHITE} />
-                Oyunlara bax
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-              </a>
-            </div>
+              FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq
+              cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır.
+              Komandanı qur, rəqiblərinlə yarış və səviyyəni hər gün yüksəlt.
+            </p>
+            <a
+              href="#games"
+              onClick={(e) => jumpTo(e, "#games")}
+              className={`group/btn mt-7 inline-flex h-13.5 items-center gap-2.5 bg-navy px-8 ${FONT} text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent md:px-9 md:text-base`}
+            >
+              Oyunlara bax
+              <ArrowRight className="h-4 w-4 text-yellow transition-transform duration-300 group-hover/btn:translate-x-1.5" />
+            </a>
           </div>
         </div>
       </section>
 
       <section
         id="games"
-        className="relative w-full overflow-hidden bg-page py-14 md:py-20"
+        className="fg-pitch relative w-full overflow-hidden py-20 md:py-28"
       >
-        <div
-          aria-hidden="true"
-          data-parallax="0.1"
-          className="absolute inset-0 bg-cover bg-center will-change-transform"
-          style={{ backgroundImage: `url(${GAMES_BACKGROUND})` }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-page/85 light:bg-page/92"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 animate-[fgGrid_2.5s_linear_infinite] opacity-25 mask-[linear-gradient(to_top,black,transparent)]"
-          style={{
-            backgroundImage:
-              "linear-gradient(color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-            transform: "perspective(420px) rotateX(58deg)",
-            transformOrigin: "bottom",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-page-2 to-transparent"
-        />
+        <PitchLines />
+        <BigNumber n="02" side="-right-2.5" />
 
-        <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker="İndi kəşf et" title="Populyar oyunlar" />
-
-          <div className="mt-10 grid grid-cols-2 gap-3 md:mt-14 md:gap-6 lg:grid-rows-2">
-            {GAMES.map((game, i) => (
-              <GameCard
-                key={game.key}
-                game={game}
-                featured={i === 0}
-                index={i}
-              />
-            ))}
+        <div className="relative mx-auto max-w-330 px-4 md:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <SectionHeading kicker="İndi kəşf et" center={false}>
+              Populyar oyunlar
+            </SectionHeading>
+            <div data-reveal className={REVEAL.up}>
+              <Link
+                to="/oyunlar"
+                className={`group/btn inline-flex h-13.5 items-center gap-3 bg-navy pl-6 pr-2.5 ${FONT} text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent md:text-base`}
+              >
+                Daha çox oyun
+                <span className="fg-ping-y grid h-8.5 min-w-8.5 place-items-center bg-yellow px-1 font-black text-on-yellow">
+                  {GAME_CATALOG.length}
+                </span>
+              </Link>
+            </div>
           </div>
 
-          <div
-            data-reveal
-            className={`${REVEAL.up} mt-10 flex justify-center md:mt-14`}
-            style={{ transitionDelay: "450ms" }}
-          >
-            <Link
-              to="/oyunlar"
-              className={`group/btn relative isolate inline-flex items-center gap-3 overflow-hidden border border-accent/60 bg-page/50 px-8 py-3.5 ${FONT} text-sm font-bold uppercase tracking-wide text-ink backdrop-blur-sm transition-[color,transform,border-color] duration-500 hover:-translate-y-0.5 hover:border-accent hover:text-white md:px-10 md:text-base`}
-            >
-              <span aria-hidden="true" className={SWEEP_BLUE} />
-              Daha çox oyun
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-            </Link>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
+            <FeatureCard game={GAMES[0]} />
+            <div className="flex min-w-0 flex-col gap-6">
+              <RowCard game={GAMES[1]} index={1} />
+              <AuctionCard game={GAMES[2]} />
+            </div>
           </div>
         </div>
       </section>
 
       <section
         id="leaderboard"
-        className="relative w-full overflow-hidden bg-page-2 py-14 md:py-20"
+        className="relative w-full overflow-hidden bg-page py-20 md:py-28"
       >
-        <div
-          aria-hidden="true"
-          data-parallax="0.12"
-          className="absolute inset-0 bg-cover bg-center will-change-transform"
-          style={{ backgroundImage: `url(${LEADERBOARD_BACKGROUND})` }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-page/45 light:bg-page/85"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-page to-transparent"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
-          style={{ backgroundImage: NOISE }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-page to-transparent"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 animate-[fgDrift_16s_ease-in-out_infinite] rounded-full bg-gold/10 blur-3xl"
-        />
+        <BigNumber n="03" side="-left-2.5" />
 
-        <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
-          <SectionHeading kicker="Ən yaxşılar" title="Reytinq cədvəli" />
+        <div className="relative mx-auto max-w-330 px-4 md:px-6">
+          <SectionHeading kicker="Ən yaxşılar">Reytinq cədvəli</SectionHeading>
 
           <div
             data-reveal
-            className={`${REVEAL.up} mt-8 flex justify-center`}
+            className={`${REVEAL.up} mt-7 flex justify-center`}
             style={{ transitionDelay: "200ms" }}
           >
             <div
-              className="relative grid grid-cols-3 border border-line/15 bg-page/40 p-1 backdrop-blur-sm"
+              className="relative grid grid-cols-3 border border-edge bg-surface p-1"
               role="tablist"
+              aria-label="Dövr"
             >
               <span
                 aria-hidden="true"
-                className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] bg-accent shadow-[0_0_24px_-6px_color-mix(in_srgb,var(--fg-accent)_90%,transparent)] transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.3,1.15)]"
+                className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] bg-navy transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.3,1.15)]"
                 style={{ transform: `translateX(${periodIndex * 100}%)` }}
               />
-              {PERIODS.map((p) => (
-                <button
-                  key={p.key}
-                  type="button"
-                  role="tab"
-                  aria-selected={period === p.key}
-                  onClick={() => changePeriod(p.key)}
-                  className={`relative z-10 px-3 py-2 ${FONT} text-xs font-bold uppercase tracking-wide transition-colors duration-300 sm:px-5 md:px-7 md:text-base ${
-                    period === p.key
-                      ? "text-ink"
-                      : "text-muted hover:text-ink"
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
+              {PERIODS.map((p) => {
+                const on = period === p.key;
+                return (
+                  <button
+                    key={p.key}
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => changePeriod(p.key)}
+                    className={`relative z-10 flex items-center justify-center gap-2 px-3 py-2.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.08em] transition-colors duration-300 sm:px-5 md:px-6 md:text-base ${
+                      on ? "text-white" : "text-ink hover:bg-page"
+                    }`}
+                  >
+                    {on && (
+                      <span
+                        aria-hidden="true"
+                        className="fg-blink h-2 w-2 rounded-full bg-good"
+                      />
+                    )}
+                    {p.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <div
             ref={panelRef}
-            className="mt-10 grid gap-6 md:mt-12 lg:grid-cols-[1fr_1.1fr] lg:items-start"
+            className="mt-10 grid gap-6 md:mt-11 lg:grid-cols-[1fr_1.3fr] lg:items-start"
           >
-            <div className="flex flex-col gap-4 pt-3">
+            <div className="flex flex-col gap-4">
               {rows.slice(0, 3).map((player, rank) => (
                 <TopCard
                   key={player.name}
@@ -1573,9 +1528,9 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="overflow-hidden border border-line/10 bg-surface/85 backdrop-blur-sm">
+            <div className="overflow-hidden border border-edge bg-surface">
               <div
-                className={`grid grid-cols-[28px_1fr_auto] items-center gap-3 border-b border-line/10 bg-line/5 px-4 py-3 ${FONT} text-xs font-bold uppercase tracking-[0.15em] text-muted md:grid-cols-[32px_1fr_120px_70px]`}
+                className={`grid grid-cols-[32px_1fr_auto] items-center gap-3 border-b-2 border-ink px-4 py-3.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.16em] text-muted md:grid-cols-[44px_1fr_140px_80px] md:px-5.5`}
               >
                 <span>#</span>
                 <span>Oyunçu</span>
@@ -1588,30 +1543,30 @@ export default function Home() {
                 return (
                   <div
                     key={player.name}
-                    className={`border-b border-line/5 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
+                    className={`border-b border-page-2 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
                       rowsIn
                         ? "translate-x-0 opacity-100 duration-500"
-                        : "translate-x-4 opacity-0 duration-0"
+                        : "translate-x-6 opacity-0 duration-0"
                     }`}
                     style={{
                       transitionDelay: rowsIn ? `${400 + j * 70}ms` : "0ms",
                     }}
                   >
-                    <div className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 border-l-2 border-l-transparent px-4 py-2.5 transition-colors duration-300 hover:border-l-accent hover:bg-accent/10 md:grid-cols-[32px_1fr_120px_70px]">
+                    <div className="group grid grid-cols-[32px_1fr_auto] items-center gap-3 px-4 py-3 transition-[background-color,box-shadow] duration-200 hover:bg-accent/5 hover:shadow-[inset_4px_0_0_var(--fg-accent)] md:grid-cols-[44px_1fr_140px_80px] md:px-5.5">
                       <span
-                        className={`text-center ${FONT} text-sm font-bold text-faint transition-colors duration-300 group-hover:text-accent-hi`}
+                        className={`${FONT} text-sm font-black text-muted transition-colors duration-200 group-hover:text-accent`}
                       >
-                        {i + 1}
+                        {pad(i + 1)}
                       </span>
                       <div className="flex min-w-0 items-center gap-3">
                         <span
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br ${FONT} text-xs font-bold text-ink ${avatarOf(player)}`}
+                          className={`grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full ${FONT} text-[13px] font-black ${avatarOf(player)}`}
                         >
                           {initials(player.name)}
                         </span>
                         <div className="min-w-0">
                           <p
-                            className={`truncate ${FONT} text-base font-bold uppercase tracking-wide text-ink`}
+                            className={`truncate ${FONT} text-base font-extrabold uppercase text-ink md:text-[17px]`}
                           >
                             {player.name}
                           </p>
@@ -1623,12 +1578,12 @@ export default function Home() {
                         </div>
                       </div>
                       <span
-                        className={`hidden truncate ${FONT} text-sm text-muted md:block`}
+                        className={`hidden truncate ${BODY} text-sm text-muted md:block`}
                       >
                         {player.team}
                       </span>
                       <span
-                        className={`text-right ${FONT} text-lg font-bold text-ink`}
+                        className={`text-right ${FONT} text-lg font-black text-ink md:text-[19px]`}
                       >
                         <CountUp
                           value={player.points.value}
@@ -1644,7 +1599,7 @@ export default function Home() {
           </div>
 
           <p
-            className={`mt-4 flex items-center justify-center gap-2 ${BODY} text-xs text-faint`}
+            className={`mt-5 flex items-center justify-center gap-2 ${BODY} text-xs text-muted`}
           >
             <Trophy className="h-3.5 w-3.5 text-gold" />
             Reytinq hər həftə bazar ertəsi yenilənir
@@ -1654,98 +1609,61 @@ export default function Home() {
 
       <section
         id="contact"
-        className="relative w-full overflow-hidden bg-page py-14 md:py-20"
+        className="relative w-full overflow-hidden bg-page pb-24 pt-8 md:pb-28 md:pt-10"
       >
-        <div
-          aria-hidden="true"
-          data-parallax="0.12"
-          className="absolute inset-0 bg-cover bg-center will-change-transform"
-          style={{ backgroundImage: `url(${CONTACT_BACKGROUND})` }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-page/40 light:bg-page/85"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
-          style={{ backgroundImage: NOISE }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-page-2 to-transparent"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 animate-[fgDrift_15s_ease-in-out_infinite] rounded-full bg-accent-lo/15 blur-3xl"
-        />
-
-        <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
-          <SectionHeading kicker="Bizimlə əlaqə" title="Mesaj göndər" />
+        <div className="relative mx-auto max-w-330 px-4 md:px-6">
+          <SectionHeading kicker="Bizimlə əlaqə">Mesaj göndər</SectionHeading>
 
           <div
             data-reveal
-            className={`${REVEAL.up} mt-10 md:mt-14`}
+            className={`${REVEAL.up} mt-10 md:mt-11`}
             style={{ transitionDelay: "150ms" }}
           >
-            <div className="grid overflow-hidden border border-line/10 bg-surface/95 shadow-[0_40px_90px_-40px_color-mix(in_srgb,var(--fg-accent)_55%,transparent)] lg:grid-cols-[0.85fr_1.4fr]">
-              <aside data-theme="dark" className="relative flex flex-col overflow-hidden bg-linear-to-br from-accent-lo via-accent-lo to-[#1a0933] p-6 md:p-10">
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(color-mix(in srgb, var(--fg-line) 60%, transparent) 1px, transparent 1px)",
-                    backgroundSize: "18px 18px",
-                  }}
-                />
+            <div className="grid bg-surface shadow-[0_40px_80px_-50px_var(--fg-shadow)] lg:grid-cols-[0.85fr_1.4fr]">
+              <aside className="relative flex flex-col overflow-hidden bg-accent p-7 text-white md:p-10 lg:pr-16 lg:[clip-path:polygon(0_0,100%_0,92%_100%,0_100%)]">
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 animate-[fgDrift_12s_ease-in-out_infinite] rounded-full border-2 border-line/15"
-                />
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 animate-[fgDrift_9s_ease-in-out_infinite_reverse] rounded-full bg-line/10"
+                  className="fg-halftone-w fg-drift absolute bottom-0 right-0 h-3/5 w-[70%]"
                 />
 
                 <div className="relative">
                   <p
-                    className={`${FONT} text-xs uppercase tracking-[0.25em] text-ink/70`}
+                    className={`${FONT} text-[13px] font-extrabold uppercase tracking-[0.2em] text-yellow`}
                   >
                     Əlaqə
                   </p>
                   <h3
-                    className={`mt-1 ${FONT} text-3xl font-bold uppercase leading-none text-ink md:text-4xl`}
+                    className={`mt-2 ${FONT} text-3xl font-black uppercase leading-none md:text-[40px]`}
                   >
                     Anketini yolla
                   </h3>
                   <p
-                    className={`mt-4 ${BODY} text-[15px] leading-7 text-ink/80`}
+                    className={`mt-3 max-w-xs ${BODY} text-[15px] leading-relaxed text-white/80`}
                   >
                     Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı
                     oxuyub cavab veririk.
                   </p>
 
-                  <div className="mt-6 flex flex-col gap-2">
+                  <div className="mt-7 flex flex-col gap-3">
                     {CONTACT_INFO.map(({ Icon, label, value, href }) => {
                       const Tag = href ? "a" : "div";
                       return (
                         <Tag
                           key={label}
                           href={href}
-                          className="group flex items-center gap-4 p-2 transition-all duration-300 hover:translate-x-1 hover:bg-line/10"
+                          className="group flex items-center gap-3.5"
                         >
-                          <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-line/25 bg-line/10 text-ink transition-colors duration-300 group-hover:bg-white group-hover:text-accent-lo">
-                            <Icon className="h-5 w-5" />
+                          <span className="grid h-11 w-11 shrink-0 place-items-center bg-white/15 transition-[background-color,color,rotate] duration-300 group-hover:-rotate-8 group-hover:bg-yellow group-hover:text-on-yellow">
+                            <Icon className="h-4.5 w-4.5" />
                           </span>
                           <span className="min-w-0">
                             <span
-                              className={`block ${FONT} text-[11px] uppercase tracking-[0.18em] text-ink/60`}
+                              className={`block ${FONT} text-[11px] uppercase tracking-[0.2em] text-white/70`}
                             >
                               {label}
                             </span>
                             <span
-                              className={`block truncate ${FONT} text-lg font-bold text-ink`}
+                              className={`block truncate ${BODY} font-bold`}
                             >
                               {value}
                             </span>
@@ -1757,13 +1675,10 @@ export default function Home() {
                 </div>
 
                 <div className="relative mt-8 flex flex-wrap items-center justify-between gap-4 lg:mt-auto lg:pt-10">
-                  <div className="inline-flex items-center gap-2.5 bg-black/25 px-3 py-1.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-good opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-good" />
-                    </span>
+                  <div className="inline-flex items-center gap-2.5 bg-black/20 px-3 py-1.5">
+                    <span className="fg-blink h-2 w-2 rounded-full bg-good-hi" />
                     <span
-                      className={`${FONT} text-xs uppercase tracking-wider text-ink`}
+                      className={`${FONT} text-xs font-bold uppercase tracking-wider`}
                     >
                       24 saat ərzində cavab
                     </span>
@@ -1774,7 +1689,7 @@ export default function Home() {
                         key={label}
                         href={href}
                         aria-label={label}
-                        className="flex h-9 w-9 items-center justify-center border border-line/25 text-ink transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-accent-lo"
+                        className="grid h-9 w-9 place-items-center border border-white/30 transition-[translate,background-color,color] duration-300 hover:-translate-y-1 hover:bg-yellow hover:text-on-yellow"
                       >
                         <Icon className="h-4 w-4" />
                       </a>
@@ -1784,13 +1699,7 @@ export default function Home() {
               </aside>
 
               <div className="relative p-6 md:p-10">
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-accent/15 blur-3xl"
-                />
-                <div className="relative h-full">
-                  <ContactForm />
-                </div>
+                <ContactForm />
               </div>
             </div>
           </div>

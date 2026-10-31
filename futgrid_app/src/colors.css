@@ -2,23 +2,23 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --fg-page: #f4f6fb;
-  --fg-page-2: #eaeef5;
+  --fg-page: #f2f4f9;
+  --fg-page-2: #e8ecf5;
   --fg-surface: #ffffff;
-  --fg-surface-2: #f1f4f9;
-  --fg-deep: #e2e8f0;
+  --fg-surface-2: #f5f7fc;
+  --fg-deep: #e3e8f2;
 
-  --fg-ink: #0f172a;
-  --fg-ink-soft: #1e293b;
-  --fg-soft: #334155;
-  --fg-muted: #475569;
-  --fg-faint: #64748b;
-  --fg-dim: #94a3b8;
-  --fg-line: #0f172a;
+  --fg-ink: #0b1430;
+  --fg-ink-soft: #1a2342;
+  --fg-soft: #3a4562;
+  --fg-muted: #56607a;
+  --fg-faint: #6e7891;
+  --fg-dim: #9aa3b5;
+  --fg-line: #0b1430;
 
-  --fg-accent: #2563eb;
-  --fg-accent-hi: #2563eb;
-  --fg-accent-lo: #1d4ed8;
+  --fg-accent: #1e4bff;
+  --fg-accent-hi: #1e4bff;
+  --fg-accent-lo: #0b2a8c;
 
   --fg-gold: #d97706;
   --fg-gold-hi: #b45309;
@@ -37,11 +37,25 @@
   --fg-cell-hi: #e8eef8;
 
   --fg-nav: #ffffff;
-  --fg-nav-top: #f8fafc;
-  --fg-nav-line: #e2e8f0;
-  --fg-nav-ink: #0f172a;
-  --fg-nav-soft: #64748b;
-  --fg-shield: #ffffff;
+  --fg-nav-top: #e8ecf5;
+  --fg-nav-line: #d5dbe8;
+  --fg-nav-ink: #0b1430;
+  --fg-nav-soft: #56607a;
+  --fg-shield: #0b1430;
+
+  --fg-navy: #0b1430;
+  --fg-navy-soft: #b9c1d6;
+  --fg-yellow: #ffc23d;
+  --fg-on-yellow: #0b1430;
+  --fg-edge: #d5dbe8;
+  --fg-pitch: #e6efe8;
+  --fg-pitch-stripe: rgba(255, 255, 255, 0.55);
+  --fg-pitch-line: rgba(255, 255, 255, 0.9);
+  --fg-halftone: rgba(30, 75, 255, 0.9);
+  --fg-outline-soft: rgba(11, 20, 48, 0.08);
+  --fg-tape: rgba(255, 194, 61, 0.75);
+  --fg-tape-2: rgba(30, 75, 255, 0.35);
+  --fg-shadow: rgba(11, 20, 48, 0.45);
 }
 
 [data-theme="dark"] {
@@ -87,4 +101,18 @@
   --fg-nav-ink: #a3a3a3;
   --fg-nav-soft: #a3a3a3;
   --fg-shield: #0b0909;
+
+  --fg-navy: #0d1530;
+  --fg-navy-soft: #a3adc7;
+  --fg-yellow: #ffc23d;
+  --fg-on-yellow: #0b1430;
+  --fg-edge: rgba(255, 255, 255, 0.1);
+  --fg-pitch: #070d0b;
+  --fg-pitch-stripe: rgba(255, 255, 255, 0.025);
+  --fg-pitch-line: rgba(255, 255, 255, 0.08);
+  --fg-halftone: rgba(59, 130, 246, 0.6);
+  --fg-outline-soft: rgba(255, 255, 255, 0.06);
+  --fg-tape: rgba(255, 194, 61, 0.6);
+  --fg-tape-2: rgba(59, 130, 246, 0.4);
+  --fg-shadow: rgba(0, 0, 0, 0.8);
 }

@@ -35,6 +35,9 @@ const stickyLink =
 
 const SCROLL_THRESHOLD = 0;
 
+const SHIELD_CLIP =
+  "polygon(calc(50% - var(--sh) - 26px) 0, calc(50% + var(--sh) + 26px) 0, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px)";
+
 const hrefOf = (link) => (link.id ? `/#${link.id}` : "/");
 const navOffset = () => (window.innerWidth >= 768 ? 90 : 64);
 
@@ -94,7 +97,7 @@ function NavLink({ link, active, onGo }) {
       href={hrefOf(link)}
       onClick={(e) => onGo(link, e)}
       aria-current={active ? "page" : undefined}
-      className={`${linkBase} ${
+      className={`fg-navlink ${linkBase} ${
         active ? "text-accent" : "text-nav-ink hover:text-accent"
       }`}
     >
@@ -346,7 +349,7 @@ export default function Navbar() {
       <img
         src="/logo.png"
         alt="FutGrid Logo"
-        className={`w-auto object-contain mix-blend-screen light:mix-blend-multiply light:invert light:hue-rotate-180 ${imgClassName}`}
+        className={`w-auto object-contain mix-blend-lighten contrast-[1.35] ${imgClassName}`}
       />
     </a>
   );
@@ -437,21 +440,24 @@ export default function Navbar() {
 
         <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
           <div className="absolute inset-x-0 top-0 h-15 border-b border-nav-line bg-nav-top" />
-          <div className="absolute inset-x-0 top-15 h-20 border-b border-nav-line bg-nav shadow-[0_8px_24px_rgba(15,23,42,0.06)]" />
-          <div
-            className="absolute left-0 top-0 h-52.5 w-full bg-shield [--sh:185px]"
-            style={{
-              clipPath:
-                "polygon(calc(50% - var(--sh) - 26px) 0, calc(50% + var(--sh) + 26px) 0, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px)",
-            }}
-          />
-          <div
-            className="absolute left-0 top-0 h-52.5 w-full bg-accent [--sh:185px]"
-            style={{
-              clipPath:
-                "polygon(calc(50% + var(--sh)) 137px, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px, calc(50% - var(--sh)) 137px, 50% 207px)",
-            }}
-          />
+          <div className="absolute inset-x-0 top-15 h-20 border-b border-nav-line bg-nav shadow-[0_10px_30px_-20px_var(--fg-shadow)]" />
+          <div className="fg-drop absolute inset-x-0 top-0 h-52.5">
+            <div
+              className="absolute left-0 top-0 h-52.5 w-full bg-shield shadow-2xl [--sh:185px]"
+              style={{ clipPath: SHIELD_CLIP }}
+            />
+            <div
+              className="fg-halftone-w fg-drift absolute left-0 top-0 h-52.5 w-full opacity-40 [--sh:185px]"
+              style={{ clipPath: SHIELD_CLIP }}
+            />
+            <div
+              className="absolute left-0 top-0 h-52.5 w-full bg-yellow [--sh:185px]"
+              style={{
+                clipPath:
+                  "polygon(calc(50% + var(--sh)) 135px, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px, calc(50% - var(--sh)) 135px, 50% 205px)",
+              }}
+            />
+          </div>
         </div>
 
         <div className="relative z-20 h-11 border-b border-nav-line bg-nav-top lg:h-15 lg:border-0 lg:bg-transparent">
@@ -534,10 +540,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-1/2 top-8.75 z-30 hidden -translate-x-1/2 justify-center lg:flex">
+        <div className="fg-pop pointer-events-none absolute left-1/2 top-8.75 z-30 hidden -translate-x-1/2 justify-center mix-blend-lighten [animation-delay:.5s] lg:flex">
           {logoLink(
             "pointer-events-auto block transition-transform hover:scale-105",
-            "drop-shadow-[0_0_15px_rgba(0,229,255,0.4)] light:drop-shadow-none lg:h-20 xl:h-23",
+            "lg:h-20 xl:h-23",
           )}
         </div>
 

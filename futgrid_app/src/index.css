@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./colors.css";
+@import "./effects.css";
 
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *):not(:where([data-theme="dark"], [data-theme="dark"] *)));
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -38,6 +39,12 @@
   --color-nav-ink: var(--fg-nav-ink);
   --color-nav-soft: var(--fg-nav-soft);
   --color-shield: var(--fg-shield);
+  --color-navy: var(--fg-navy);
+  --color-navy-soft: var(--fg-navy-soft);
+  --color-yellow: var(--fg-yellow);
+  --color-on-yellow: var(--fg-on-yellow);
+  --color-edge: var(--fg-edge);
+  --color-pitch: var(--fg-pitch);
 }
 
 body {
