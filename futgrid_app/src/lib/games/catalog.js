@@ -28,7 +28,7 @@ export const GAME_CATALOG = [
     genre: "Hərrac · Komanda qur",
     description:
       "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
-    art: "auction",
+    image: "/images/game3.png",
     href: "/oyunlar/auksion",
     tags: ["Bota qarşı", "2 oyunçu", "20 ₼ büdcə"],
     modes: ["solo", "duo"],
@@ -40,7 +40,7 @@ export const GAME_CATALOG = [
     genre: "Seriya",
     description:
       "İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat.",
-    image: "/images/game3.avif",
+    image: "/images/game4.jpg",
     href: "/oyunlar/yuksek-asagi",
     tags: ["Tək oyunçu", "Seriya", "Bazar dəyəri"],
     modes: ["solo"],
@@ -52,7 +52,7 @@ export const GAME_CATALOG = [
     genre: "Söz oyunu",
     description:
       "Futbolçunun soyadını 6 cəhddə tap. Hərflər yaşıl, sarı və ya boz yanır, hər səhvdən sonra ipucu açılır.",
-    image: "/images/game5.jpg",
+    image: "/images/game5.png",
     href: "/oyunlar/futbol-wordle",
     tags: ["Tək oyunçu", "Günün oyunçusu", "Sonsuz"],
     modes: ["solo"],
@@ -65,7 +65,7 @@ export const GAME_CATALOG = [
     genre: "Bilik oyunu",
     description:
       "Klubların ardıcıllığına bax, məsələn Barcelona → PSG → Inter Miami, və bu yolu keçən futbolçunu tap.",
-    image: "/images/game6.jpg",
+    image: "/images/game6.png",
     href: "/oyunlar/karyera-yolu",
     tags: ["Tək oyunçu", "10 raund", "İpuçları"],
     modes: ["solo"],

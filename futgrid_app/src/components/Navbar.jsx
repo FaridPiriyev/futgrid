@@ -33,8 +33,6 @@ const linkBase =
 const stickyLink =
   "font-['Roboto',sans-serif] text-[17px] font-medium transition-colors duration-300";
 
-const SCROLL_THRESHOLD = 0;
-
 const SHIELD_CLIP =
   "polygon(calc(50% - var(--sh) - 26px) 0, calc(50% + var(--sh) + 26px) 0, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px)";
 
@@ -296,9 +294,13 @@ export default function Navbar() {
   const [language, setLanguage] = useState("AZ");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
+    const onScroll = () => {
+      const h = headerRef.current?.offsetHeight ?? 0;
+      setScrolled(window.scrollY > h);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -435,7 +437,7 @@ export default function Navbar() {
         />
       </div>
 
-      <header className="relative z-50 w-full select-none">
+      <header ref={headerRef} className="relative z-50 w-full select-none">
         <style>{`@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500&display=swap');`}</style>
 
         <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">

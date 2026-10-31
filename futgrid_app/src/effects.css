@@ -6,20 +6,38 @@
 
 @layer components {
   .fg-halftone {
-    background-image: radial-gradient(var(--fg-halftone) 1.3px, transparent 1.5px);
+    background-image: radial-gradient(
+      var(--fg-halftone) 1.3px,
+      transparent 1.5px
+    );
     background-size: 12px 12px;
   }
   .fg-halftone-w {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.32) 1.3px, transparent 1.5px);
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.32) 1.3px,
+      transparent 1.5px
+    );
     background-size: 12px 12px;
   }
   .fg-pitch {
     background-color: var(--fg-pitch);
-    background-image: repeating-linear-gradient(90deg, var(--fg-pitch-stripe) 0 90px, transparent 90px 180px);
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--fg-pitch-stripe) 0 90px,
+      transparent 90px 180px
+    );
   }
   .fg-outline {
-    color: transparent;
-    -webkit-text-stroke: 2px var(--fg-ink);
+    color: var(--fg-page);
+    text-shadow:
+      2px 0 0 var(--fg-ink),
+      -2px 0 0 var(--fg-ink),
+      0 2px 0 var(--fg-ink),
+      0 -2px 0 var(--fg-ink),
+      1.5px 1.5px 0 var(--fg-ink),
+      -1.5px 1.5px 0 var(--fg-ink),
+      1.5px -1.5px 0 var(--fg-ink),
+      -1.5px -1.5px 0 var(--fg-ink);
   }
   .fg-outline-soft {
     color: transparent;
@@ -30,7 +48,11 @@
     -webkit-text-stroke: 2px rgba(255, 255, 255, 0.14);
   }
   .fg-stripe-bar {
-    background: repeating-linear-gradient(90deg, var(--fg-accent) 0 60px, var(--fg-yellow) 60px 120px);
+    background: repeating-linear-gradient(
+      90deg,
+      var(--fg-accent) 0 60px,
+      var(--fg-yellow) 60px 120px
+    );
   }
   .fg-mask {
     display: block;
@@ -53,7 +75,12 @@
     inset: 0;
     z-index: 5;
     pointer-events: none;
-    background: linear-gradient(110deg, transparent 42%, rgba(255, 255, 255, 0.4) 50%, transparent 58%);
+    background: linear-gradient(
+      110deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 58%
+    );
     translate: -120% 0;
     transition: translate 0.9s ease;
   }
@@ -88,43 +115,103 @@
     stroke-dashoffset: 0;
   }
 
-  .fg-rise { animation: fg-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-  .fg-fade { animation: fg-fade 0.8s ease both; }
-  .fg-pop { animation: fg-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
-  .fg-float { animation: fg-float 5s ease-in-out infinite; }
-  .fg-drop { animation: fg-drop 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.15) both; }
-  .fg-frame-in { animation: fg-frame-in 1.1s cubic-bezier(0.7, 0, 0.2, 1) both; }
-  .fg-bar-in { transform-origin: top; animation: fg-bar-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.7s both; }
-  .fg-kb { animation: fg-kb 16s ease-in-out infinite alternate; }
-  .fg-drift { animation: fg-drift 4s linear infinite; }
-  .fg-stripes-move { animation: fg-stripes 24s linear infinite; }
-  .fg-prog { animation: fg-prog linear both; }
-  .fg-nudge { animation: fg-nudge 1.6s ease-in-out infinite; }
-  .fg-spin { animation: fg-spin 16s linear infinite; }
-  .fg-marquee { display: flex; width: max-content; animation: fg-marquee 38s linear infinite; }
-  .fg-marquee-rev { animation-direction: reverse; animation-duration: 30s; }
-  .fg-ln { animation: fg-ln 2.8s ease-in-out infinite; }
-  .fg-ping-y { animation: fg-ping-y 2s ease-out infinite; }
-  .fg-ping-b { animation: fg-ping-b 2s ease-out infinite; }
-  .fg-ping-gold { animation: fg-ping-gold 2.2s ease-out infinite; }
-  .fg-blink { animation: fg-blink 1.3s ease-in-out infinite; }
-  .fg-qblink { animation: fg-blink 1.6s steps(2) infinite; }
-  .fg-flip { animation: fg-flip 7s ease-in-out infinite both; }
-  .fg-bob { animation: fg-bob 2.4s ease-in-out infinite; }
-  .fg-gavel { transform-origin: 30% 75%; animation: fg-gavel 2.6s ease-in-out infinite; }
-  .fg-hop { animation: fg-hop 2.8s ease-in-out infinite; }
-  .fg-shine-gold { animation: fg-shine-gold 3.4s ease-in-out infinite; }
-  .fg-bar-run { animation: fg-bar-run 3s linear infinite; }
+  .fg-rise {
+    animation: fg-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .fg-fade {
+    animation: fg-fade 0.8s ease both;
+  }
+  .fg-pop {
+    animation: fg-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .fg-float {
+    animation: fg-float 5s ease-in-out infinite;
+  }
+  .fg-drop {
+    animation: fg-drop 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+  }
+  .fg-frame-in {
+    animation: fg-frame-in 1.1s cubic-bezier(0.7, 0, 0.2, 1) both;
+  }
+  .fg-bar-in {
+    transform-origin: top;
+    animation: fg-bar-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.7s both;
+  }
+  .fg-kb {
+    animation: fg-kb 16s ease-in-out infinite alternate;
+  }
+  .fg-drift {
+    animation: fg-drift 4s linear infinite;
+  }
+  .fg-stripes-move {
+    animation: fg-stripes 24s linear infinite;
+  }
+  .fg-prog {
+    animation: fg-prog linear both;
+  }
+  .fg-nudge {
+    animation: fg-nudge 1.6s ease-in-out infinite;
+  }
+  .fg-spin {
+    animation: fg-spin 16s linear infinite;
+  }
+  .fg-marquee {
+    display: flex;
+    width: max-content;
+    animation: fg-marquee 38s linear infinite;
+  }
+  .fg-marquee-rev {
+    animation-direction: reverse;
+    animation-duration: 30s;
+  }
+  .fg-ln {
+    animation: fg-ln 2.8s ease-in-out infinite;
+  }
+  .fg-ping-y {
+    animation: fg-ping-y 2s ease-out infinite;
+  }
+  .fg-ping-b {
+    animation: fg-ping-b 2s ease-out infinite;
+  }
+  .fg-ping-gold {
+    animation: fg-ping-gold 2.2s ease-out infinite;
+  }
+  .fg-blink {
+    animation: fg-blink 1.3s ease-in-out infinite;
+  }
+  .fg-qblink {
+    animation: fg-blink 1.6s steps(2) infinite;
+  }
+  .fg-flip {
+    animation: fg-flip 7s ease-in-out infinite both;
+  }
+  .fg-bob {
+    animation: fg-bob 2.4s ease-in-out infinite;
+  }
+  .fg-gavel {
+    transform-origin: 30% 75%;
+    animation: fg-gavel 2.6s ease-in-out infinite;
+  }
+  .fg-hop {
+    animation: fg-hop 2.8s ease-in-out infinite;
+  }
+  .fg-shine-gold {
+    animation: fg-shine-gold 3.4s ease-in-out infinite;
+  }
+  .fg-bar-run {
+    animation: fg-bar-run 3s linear infinite;
+  }
   .fg-wipe {
-    background: linear-gradient(90deg, var(--fg-accent) 0 50%, transparent 50% 100%);
-    background-size: 200% 100%;
-    background-position: 100% 0;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: fg-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both, fg-wipe 7s ease-in-out 1.6s infinite;
+    color: var(--fg-accent);
+    clip-path: inset(0 100% 0 0);
+    animation: fg-wipe-clip 7s ease-in-out 1.6s infinite;
   }
   .fg-wipe-w {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0 50%, transparent 50% 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1) 0 50%,
+      transparent 50% 100%
+    );
     background-size: 200% 100%;
     background-position: 100% 0;
     -webkit-background-clip: text;
@@ -133,84 +220,297 @@
   }
 }
 
-@keyframes fg-rise { from { opacity: 0; translate: 0 110%; } }
-@keyframes fg-fade { from { opacity: 0; translate: 0 24px; } }
-@keyframes fg-pop { from { opacity: 0; scale: 0.4; } }
-@keyframes fg-float { 50% { translate: 0 -10px; } }
-@keyframes fg-drop { from { translate: 0 -100%; } }
-@keyframes fg-frame-in { from { clip-path: polygon(10% 0, 10% 0, 0 100%, 0 100%); } }
-@keyframes fg-bar-in { from { scale: 1 0; } }
-@keyframes fg-kb { to { scale: 1.14; } }
-@keyframes fg-drift { to { background-position: 24px 24px; } }
-@keyframes fg-stripes { to { background-position: 360px 0; } }
-@keyframes fg-prog { from { width: 0; } to { width: 100%; } }
-@keyframes fg-nudge { 50% { translate: 5px 0; } }
-@keyframes fg-spin { to { rotate: 360deg; } }
-@keyframes fg-marquee { to { transform: translateX(-50%); } }
-@keyframes fg-ln { 50% { scale: 0.35 1; } }
+@keyframes fg-rise {
+  from {
+    opacity: 0;
+    translate: 0 110%;
+  }
+}
+@keyframes fg-fade {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+}
+@keyframes fg-pop {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+@keyframes fg-float {
+  50% {
+    translate: 0 -10px;
+  }
+}
+@keyframes fg-drop {
+  from {
+    translate: 0 -100%;
+  }
+}
+@keyframes fg-frame-in {
+  from {
+    clip-path: polygon(10% 0, 10% 0, 0 100%, 0 100%);
+  }
+}
+@keyframes fg-bar-in {
+  from {
+    scale: 1 0;
+  }
+}
+@keyframes fg-kb {
+  to {
+    scale: 1.14;
+  }
+}
+@keyframes fg-drift {
+  to {
+    background-position: 24px 24px;
+  }
+}
+@keyframes fg-stripes {
+  to {
+    background-position: 360px 0;
+  }
+}
+@keyframes fg-prog {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes fg-nudge {
+  50% {
+    translate: 5px 0;
+  }
+}
+@keyframes fg-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes fg-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes fg-ln {
+  50% {
+    scale: 0.35 1;
+  }
+}
 @keyframes fg-ping-y {
-  0% { box-shadow: 0 0 0 0 rgba(255, 194, 61, 0.7); }
-  100% { box-shadow: 0 0 0 18px rgba(255, 194, 61, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 194, 61, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgba(255, 194, 61, 0);
+  }
 }
 @keyframes fg-ping-b {
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fg-accent) 60%, transparent); }
-  100% { box-shadow: 0 0 0 14px color-mix(in srgb, var(--fg-accent) 0%, transparent); }
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--fg-accent) 60%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--fg-accent) 0%, transparent);
+  }
 }
 @keyframes fg-ping-gold {
-  0% { box-shadow: 0 0 0 3px var(--fg-yellow), 0 0 0 3px rgba(255, 194, 61, 0.7); }
-  100% { box-shadow: 0 0 0 3px var(--fg-yellow), 0 0 0 20px rgba(255, 194, 61, 0); }
+  0% {
+    box-shadow:
+      0 0 0 3px var(--fg-yellow),
+      0 0 0 3px rgba(255, 194, 61, 0.7);
+  }
+  100% {
+    box-shadow:
+      0 0 0 3px var(--fg-yellow),
+      0 0 0 20px rgba(255, 194, 61, 0);
+  }
 }
-@keyframes fg-blink { 50% { opacity: 0.3; } }
+@keyframes fg-blink {
+  50% {
+    opacity: 0.3;
+  }
+}
 @keyframes fg-flip {
-  0%, 8% { transform: rotateX(0); background: var(--fg-surface); color: var(--fg-ink); box-shadow: inset 0 0 0 2px var(--fg-edge); }
-  14% { transform: rotateX(90deg); background: var(--fg-surface); color: var(--fg-ink); box-shadow: inset 0 0 0 2px var(--fg-edge); }
-  15% { transform: rotateX(90deg); background: var(--c); color: #fff; box-shadow: none; }
-  21%, 86% { transform: rotateX(0); background: var(--c); color: #fff; box-shadow: none; }
-  93% { transform: rotateX(90deg); background: var(--c); color: #fff; box-shadow: none; }
-  94% { transform: rotateX(90deg); background: var(--fg-surface); color: var(--fg-ink); box-shadow: inset 0 0 0 2px var(--fg-edge); }
-  100% { transform: rotateX(0); background: var(--fg-surface); color: var(--fg-ink); box-shadow: inset 0 0 0 2px var(--fg-edge); }
+  0%,
+  8% {
+    transform: rotateX(0);
+    background: var(--fg-surface);
+    color: var(--fg-ink);
+    box-shadow: inset 0 0 0 2px var(--fg-edge);
+  }
+  14% {
+    transform: rotateX(90deg);
+    background: var(--fg-surface);
+    color: var(--fg-ink);
+    box-shadow: inset 0 0 0 2px var(--fg-edge);
+  }
+  15% {
+    transform: rotateX(90deg);
+    background: var(--c);
+    color: #fff;
+    box-shadow: none;
+  }
+  21%,
+  86% {
+    transform: rotateX(0);
+    background: var(--c);
+    color: #fff;
+    box-shadow: none;
+  }
+  93% {
+    transform: rotateX(90deg);
+    background: var(--c);
+    color: #fff;
+    box-shadow: none;
+  }
+  94% {
+    transform: rotateX(90deg);
+    background: var(--fg-surface);
+    color: var(--fg-ink);
+    box-shadow: inset 0 0 0 2px var(--fg-edge);
+  }
+  100% {
+    transform: rotateX(0);
+    background: var(--fg-surface);
+    color: var(--fg-ink);
+    box-shadow: inset 0 0 0 2px var(--fg-edge);
+  }
 }
-@keyframes fg-bob { 50% { translate: 0 -5px; } }
+@keyframes fg-bob {
+  50% {
+    translate: 0 -5px;
+  }
+}
 @keyframes fg-gavel {
-  0%, 55%, 100% { rotate: 0deg; }
-  68% { rotate: -30deg; }
-  78% { rotate: 10deg; }
-  86% { rotate: 0deg; }
+  0%,
+  55%,
+  100% {
+    rotate: 0deg;
+  }
+  68% {
+    rotate: -30deg;
+  }
+  78% {
+    rotate: 10deg;
+  }
+  86% {
+    rotate: 0deg;
+  }
 }
 @keyframes fg-hop {
-  0%, 70%, 100% { translate: 0 0; }
-  80% { translate: 0 -9px; }
-  90% { translate: 0 0; }
+  0%,
+  70%,
+  100% {
+    translate: 0 0;
+  }
+  80% {
+    translate: 0 -9px;
+  }
+  90% {
+    translate: 0 0;
+  }
 }
 @keyframes fg-shine-gold {
-  0% { left: -90px; }
-  55%, 100% { left: 110%; }
+  0% {
+    left: -90px;
+  }
+  55%,
+  100% {
+    left: 110%;
+  }
 }
-@keyframes fg-bar-run { to { background-position: 120px 0; } }
+@keyframes fg-bar-run {
+  to {
+    background-position: 120px 0;
+  }
+}
+@keyframes fg-wipe-clip {
+  0%,
+  12% {
+    clip-path: inset(-10% 100% -10% 0);
+  }
+  38%,
+  62% {
+    clip-path: inset(-10% 0 -10% 0);
+  }
+  88%,
+  100% {
+    clip-path: inset(-10% 0 -10% 100%);
+  }
+}
 @keyframes fg-wipe {
-  0%, 12% { background-position: 100% 0; }
-  38%, 62% { background-position: 0 0; }
-  88%, 100% { background-position: -100% 0; }
+  0%,
+  12% {
+    background-position: 100% 0;
+  }
+  38%,
+  62% {
+    background-position: 0 0;
+  }
+  88%,
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fg-rise, .fg-fade, .fg-pop, .fg-float, .fg-drop, .fg-frame-in, .fg-bar-in, .fg-kb,
-  .fg-drift, .fg-stripes-move, .fg-prog, .fg-nudge, .fg-spin, .fg-marquee, .fg-ln,
-  .fg-ping-y, .fg-ping-b, .fg-ping-gold, .fg-blink, .fg-qblink, .fg-flip, .fg-bob,
-  .fg-gavel, .fg-hop, .fg-shine-gold, .fg-bar-run, .fg-wipe, .fg-wipe-w {
+  .fg-rise,
+  .fg-fade,
+  .fg-pop,
+  .fg-float,
+  .fg-drop,
+  .fg-frame-in,
+  .fg-bar-in,
+  .fg-kb,
+  .fg-drift,
+  .fg-stripes-move,
+  .fg-prog,
+  .fg-nudge,
+  .fg-spin,
+  .fg-marquee,
+  .fg-ln,
+  .fg-ping-y,
+  .fg-ping-b,
+  .fg-ping-gold,
+  .fg-blink,
+  .fg-qblink,
+  .fg-flip,
+  .fg-bob,
+  .fg-gavel,
+  .fg-hop,
+  .fg-shine-gold,
+  .fg-bar-run,
+  .fg-wipe,
+  .fg-wipe-w {
     animation: none !important;
   }
-  .fg-draw { transition: none; stroke-dashoffset: 0; }
-  .fg-flip { background: var(--c); color: #fff; }
+  .fg-draw {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+  .fg-wipe {
+    clip-path: inset(0 100% 0 0);
+  }
+  .fg-flip {
+    background: var(--c);
+    color: #fff;
+  }
 }
 
 @layer components {
   .fg-pop-float {
-    animation: fg-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) both,
+    animation:
+      fg-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) both,
       fg-float var(--f, 5s) ease-in-out calc(var(--d, 0s) + 0.9s) infinite;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fg-pop-float { animation: none !important; }
+  .fg-pop-float {
+    animation: none !important;
+  }
 }

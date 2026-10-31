@@ -65,11 +65,7 @@ const CARDS = [
   { src: "/images/card3.webp", alt: "Oyun zalı 3", title: "Turnir arenası" },
 ];
 
-const CARD_TILT = [
-  "-rotate-2",
-  "rotate-[1.5deg]",
-  "-rotate-1",
-];
+const CARD_TILT = ["-rotate-2", "rotate-[1.5deg]", "-rotate-1"];
 
 const CARD_TAPE = [
   "-rotate-3 bg-[var(--fg-tape)]",
@@ -87,7 +83,6 @@ const STATS = [
 const GAMES = [
   {
     key: "x0x",
-    image: "/images/game1.jpg",
     title: "Futbol X0X",
     description:
       "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
@@ -96,7 +91,6 @@ const GAMES = [
   },
   {
     key: "ortaq",
-    image: "/images/game2.jpg",
     title: "Ortaq Oyunçu",
     description: "Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.",
     tags: ["Kart dueli", "2 oyunçu"],
@@ -454,7 +448,9 @@ function BigNumber({ n, side }) {
 function Marquee({ items, className, sep, sepClass, reverse = false }) {
   const row = [...items, ...items];
   return (
-    <div className={`fg-marquee ${reverse ? "fg-marquee-rev" : ""} ${className}`}>
+    <div
+      className={`fg-marquee ${reverse ? "fg-marquee-rev" : ""} ${className}`}
+    >
       {row.map((item, i) => (
         <span key={i} className="flex shrink-0 items-center gap-10 pr-10">
           <span>{item}</span>
@@ -523,7 +519,9 @@ function HeroCollage({ index }) {
         className="fg-pop-float absolute bottom-3 left-0 w-38 -rotate-4 rounded-2xl border-3 border-yellow bg-surface p-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:.95s] sm:bottom-5 sm:w-52 sm:p-3"
       >
         <span className="flex items-center justify-between">
-          <span className={`${FONT} text-lg font-black text-accent sm:text-[22px]`}>
+          <span
+            className={`${FONT} text-lg font-black text-accent sm:text-[22px]`}
+          >
             #07
           </span>
           <span
@@ -686,13 +684,18 @@ function Hero() {
           </div>
 
           <h1
-            className={`mt-5 ${FONT} text-[52px] font-black uppercase leading-[0.88] text-ink sm:text-7xl xl:text-[104px]`}
+            className={`mt-5 ${FONT} text-[52px] font-black uppercase leading-[0.92] text-ink sm:text-7xl xl:text-[104px]`}
           >
             <span className="fg-mask">
               <span className="fg-rise [animation-delay:.15s]">{first}</span>
             </span>
             <span className="fg-mask">
-              <span className="fg-outline fg-wipe">{middle}</span>
+              <span className="fg-rise relative [animation-delay:.3s]">
+                <span className="fg-outline">{middle}</span>
+                <span aria-hidden="true" className="fg-wipe absolute inset-0">
+                  {middle}
+                </span>
+              </span>
             </span>
             <span className="fg-mask pt-1">
               <span className="fg-rise -skew-x-8 bg-accent px-3.5 text-white [animation-delay:.45s]">
@@ -713,7 +716,9 @@ function Hero() {
               onClick={(e) => jumpTo(e, slide.href)}
               className={`inline-flex h-12 items-stretch bg-accent ${FONT} text-sm font-extrabold sm:h-14 sm:text-base uppercase tracking-[0.08em] text-white shadow-[0_16px_30px_-14px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] transition-transform duration-200 hover:-translate-y-0.5`}
             >
-              <span className="flex items-center px-5 sm:px-7">{slide.button}</span>
+              <span className="flex items-center px-5 sm:px-7">
+                {slide.button}
+              </span>
               <span className="grid w-12 place-items-center bg-yellow text-on-yellow sm:w-14">
                 <ArrowRight className="fg-nudge h-5 w-5" strokeWidth={2.6} />
               </span>
@@ -788,7 +793,9 @@ function StatCard({ stat, index, run }) {
     >
       <div
         className={`group relative h-full overflow-hidden border-t-5 px-5 pb-4.5 pt-5.5 transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_40px_-26px_var(--fg-shadow)] ${
-          dark ? "border-yellow bg-navy text-white" : "border-accent bg-surface text-ink"
+          dark
+            ? "border-yellow bg-navy text-white"
+            : "border-accent bg-surface text-ink"
         }`}
       >
         {dark ? (
@@ -824,6 +831,8 @@ function StatCard({ stat, index, run }) {
   );
 }
 
+const coverOf = (key) => GAME_CATALOG.find((g) => g.key === key)?.image;
+
 function PitchLines() {
   return (
     <svg
@@ -834,10 +843,31 @@ function PitchLines() {
       className="pointer-events-none absolute inset-0 h-full w-full"
     >
       <g fill="none" stroke="var(--fg-pitch-line)" strokeWidth="3">
-        <line className="fg-draw" pathLength="1" x1="720" y1="0" x2="720" y2="900" />
+        <line
+          className="fg-draw"
+          pathLength="1"
+          x1="720"
+          y1="0"
+          x2="720"
+          y2="900"
+        />
         <circle className="fg-draw" pathLength="1" cx="720" cy="450" r="130" />
-        <rect className="fg-draw" pathLength="1" x="-2" y="250" width="180" height="400" />
-        <rect className="fg-draw" pathLength="1" x="1262" y="250" width="180" height="400" />
+        <rect
+          className="fg-draw"
+          pathLength="1"
+          x="-2"
+          y="250"
+          width="180"
+          height="400"
+        />
+        <rect
+          className="fg-draw"
+          pathLength="1"
+          x="1262"
+          y="250"
+          width="180"
+          height="400"
+        />
       </g>
     </svg>
   );
@@ -862,14 +892,14 @@ function FeatureCard({ game }) {
         className={`fg-sheen group/game flex h-full flex-col bg-surface text-ink ${CARD_SHADOW} ${CARD_HOVER}`}
       >
         <div
-          className="relative h-60 shrink-0 overflow-hidden bg-deep sm:h-80 lg:h-95"
+          className="relative h-60 shrink-0 overflow-hidden bg-deep sm:h-80 lg:h-auto lg:min-h-0 lg:flex-1 lg:shrink"
           style={{ clipPath: "polygon(0 0, 100% 0, 100% 86%, 0 100%)" }}
         >
           <img
-            src={game.image}
+            src={coverOf(game.key)}
             alt=""
             loading="lazy"
-            className="h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
+            className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
           />
           <span
             className={`fg-bob absolute left-4 top-4 bg-yellow px-3 py-1.5 ${FONT} text-sm font-black uppercase text-on-yellow md:left-5 md:top-5 md:text-base`}
@@ -877,7 +907,7 @@ function FeatureCard({ game }) {
             #01 · Ən populyar
           </span>
         </div>
-        <div className="flex flex-1 flex-col gap-3 px-5 pb-7 pt-2.5 md:px-7.5">
+        <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-2.5 md:px-7.5 lg:flex-none">
           <div className="flex flex-wrap gap-2">
             {game.tags.map((tag) => (
               <span
@@ -914,22 +944,22 @@ function RowCard({ game, index }) {
   return (
     <div
       data-reveal
-      className={`${REVEAL.right} flex-1`}
+      className={`${REVEAL.right} min-h-0 flex-1`}
       style={{ transitionDelay: "120ms" }}
     >
       <Link
         to={game.href}
-        className={`fg-sheen group/game flex h-full min-h-56 bg-surface text-ink md:min-h-60 ${CARD_SHADOW} ${CARD_HOVER}`}
+        className={`fg-sheen group/game flex h-full min-h-56 bg-surface text-ink md:min-h-60 lg:min-h-0 ${CARD_SHADOW} ${CARD_HOVER}`}
       >
         <div
           className="relative w-[42%] shrink-0 overflow-hidden bg-deep sm:w-[46%]"
           style={{ clipPath: "polygon(0 0, 100% 0, 84% 100%, 0 100%)" }}
         >
           <img
-            src={game.image}
+            src={coverOf(game.key)}
             alt=""
             loading="lazy"
-            className="h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
+            className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
           />
           <span
             className={`absolute left-3 top-3 bg-surface px-2.5 py-1 ${FONT} text-sm font-black text-ink`}
@@ -948,7 +978,9 @@ function RowCard({ game, index }) {
           >
             {game.title}
           </h3>
-          <p className={`${BODY} text-sm leading-relaxed text-muted md:text-[15px]`}>
+          <p
+            className={`${BODY} text-sm leading-relaxed text-muted md:text-[15px]`}
+          >
             {game.description}
           </p>
           <PlayLabel className="text-accent" />
@@ -959,45 +991,65 @@ function RowCard({ game, index }) {
 }
 
 function AuctionCard({ game }) {
+  const [broken, setBroken] = useState(false);
+  const image = coverOf(game.key);
+  const hasImage = image && !broken;
   return (
     <div
       data-reveal
-      className={`${REVEAL.right} flex-1`}
+      className={`${REVEAL.right} min-h-0 flex-1`}
       style={{ transitionDelay: "240ms" }}
     >
       <Link
         to={game.href}
-        className={`fg-sheen group/game flex h-full min-h-56 bg-navy text-white md:min-h-60 ${CARD_SHADOW} ${CARD_HOVER}`}
+        className={`fg-sheen group/game flex h-full min-h-56 flex-col bg-navy text-white sm:flex-row md:min-h-60 lg:min-h-0 ${CARD_SHADOW} ${CARD_HOVER}`}
       >
-        <span
-          aria-hidden="true"
-          className="fg-halftone-w fg-drift absolute inset-y-0 right-0 w-[45%]"
-        />
-        <div className="relative grid w-[42%] shrink-0 place-items-center sm:w-[46%]">
-          <span className="fg-ping-y grid h-24 w-24 place-items-center rounded-full border-3 border-yellow md:h-30 md:w-30">
-            <Gavel
-              className="fg-gavel h-11 w-11 text-yellow md:h-14 md:w-14"
-              strokeWidth={1.8}
+        {hasImage ? (
+          <div className="relative aspect-16/10 w-full shrink-0 overflow-hidden bg-navy sm:aspect-auto sm:w-[56%] sm:[clip-path:polygon(0_0,100%_0,90%_100%,0_100%)]">
+            <img
+              src={image}
+              alt=""
+              loading="lazy"
+              onError={() => setBroken(true)}
+              className="absolute inset-0 h-full w-full object-cover object-[70%_50%] transition-[scale] duration-700 ease-out group-hover/game:scale-105"
             />
-          </span>
-        </div>
-        <div className="relative flex flex-1 flex-col justify-center gap-2 py-5 pl-2 pr-5 md:pr-6">
+            <span
+              className={`absolute left-3 top-3 bg-yellow px-2.5 py-1 ${FONT} text-sm font-black text-on-yellow`}
+            >
+              #03
+            </span>
+          </div>
+        ) : (
+          <div className="relative grid h-48 shrink-0 place-items-center sm:h-auto sm:w-[42%]">
+            <span className="fg-ping-y grid h-24 w-24 place-items-center rounded-full border-3 border-yellow md:h-30 md:w-30">
+              <Gavel
+                className="fg-gavel h-11 w-11 text-yellow md:h-14 md:w-14"
+                strokeWidth={1.8}
+              />
+            </span>
+          </div>
+        )}
+        <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-2 border-t-4 border-yellow px-5 py-5 sm:border-t-0 sm:py-5 sm:pl-2 sm:pr-5 md:pr-6">
           <span
-            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-yellow md:text-xs`}
+            aria-hidden="true"
+            className="fg-halftone-w fg-drift pointer-events-none absolute inset-y-0 right-0 w-[45%]"
+          />
+          <span
+            className={`relative ${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-yellow md:text-xs`}
           >
             {game.tags.join(" · ")}
           </span>
           <h3
-            className={`${FONT} text-2xl font-black uppercase leading-none md:text-[32px]`}
+            className={`relative ${FONT} text-2xl font-black uppercase leading-none md:text-[28px] xl:text-[32px]`}
           >
             {game.title}
           </h3>
           <p
-            className={`${BODY} text-sm leading-relaxed text-navy-soft md:text-[15px]`}
+            className={`relative ${BODY} text-sm leading-relaxed text-navy-soft sm:line-clamp-3 md:text-[15px]`}
           >
             {game.description}
           </p>
-          <PlayLabel className="text-yellow" />
+          <PlayLabel className="relative text-yellow" />
         </div>
       </Link>
     </div>
@@ -1430,7 +1482,7 @@ export default function Home() {
 
       <section
         id="games"
-        className="fg-pitch relative w-full overflow-hidden py-20 md:py-28"
+        className="fg-pitch relative w-full overflow-hidden py-16 md:py-20"
       >
         <PitchLines />
         <BigNumber n="02" side="-right-2.5" />
@@ -1455,7 +1507,7 @@ export default function Home() {
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
             <FeatureCard game={GAMES[0]} />
-            <div className="flex min-w-0 flex-col gap-6">
+            <div className="flex min-w-0 flex-col gap-6 lg:h-140">
               <RowCard game={GAMES[1]} index={1} />
               <AuctionCard game={GAMES[2]} />
             </div>
