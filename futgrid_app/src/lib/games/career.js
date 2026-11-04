@@ -1,6 +1,7 @@
 export const ROUNDS = 10;
 export const MAX_WRONG = 3;
 import { byFame } from "./fame";
+import { tr } from "../../i18n";
 
 export const POOL = { easy: 150, normal: 900, hard: 5000 };
 
@@ -26,7 +27,7 @@ export function careerPath(data, p) {
     const i = stints.findIndex((s) => s.club_id === id);
     const s = i >= 0 ? stints.splice(i, 1)[0] : null;
     const from = year(s?.from);
-    const to = s ? year(s.to) ?? (p.is_active === false ? null : "indi") : null;
+    const to = s ? year(s.to) ?? (p.is_active === false ? null : tr("indi")) : null;
     return {
       club: data.clubsById.get(id),
       years: from ? `${from}${to && to !== from ? `–${to}` : ""}` : null,

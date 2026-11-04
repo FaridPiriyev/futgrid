@@ -125,7 +125,7 @@ export const GAME_CATALOG = [
     return tr("Yaddaş oyunu");
   },
     get description() {
-    return tr("Tarixi oyunları seç və meydana çıxan başlanğıc heyəti xatırla. Boş yerləri adlarla doldur.");
+    return tr("Təsadüfi məşhur oyun və komanda gəlir. Başlanğıc heyəti xatırla, boş yerləri adlarla doldur.");
   },
     image: "/images/game7.jpg",
     href: "/oyunlar/heyeti-xatirla",
@@ -151,6 +151,46 @@ export const GAME_CATALOG = [
     href: "/oyunlar/5-klub",
     get tags() {
     return ["Tək oyunçu", "Vaxta qarşı"].map((s) => tr(s));
+  },
+    modes: ["solo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "sirala",
+    get title() {
+    return tr("Klubları sırala");
+  },
+    get genre() {
+    return tr("Bilik oyunu");
+  },
+    get description() {
+    return tr("Futbolçu gəlir, qutular onun klublarının sayı qədərdir. Qutuya toxun və klubları karyera sırası ilə düz.");
+  },
+    image: "/images/game9.png",
+    href: "/oyunlar/klublari-sirala",
+    get tags() {
+    return ["Tək oyunçu", "10 raund"].map((s) => tr(s));
+  },
+    modes: ["solo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "piramida",
+    get title() {
+    return tr("Piramida");
+  },
+    get genre() {
+    return tr("Sürət oyunu");
+  },
+    get description() {
+    return tr("5-4-3-2-1: hər səviyyədə iki şərtə uyğun futbolçuları vaxt bitməmiş yaz və zirvəyə qalx.");
+  },
+    image: "/images/game10.png",
+    href: "/oyunlar/piramida",
+    get tags() {
+    return ["Tək oyunçu", "Vaxta qarşı", "5 səviyyə"].map((s) => tr(s));
   },
     modes: ["solo"],
     status: "live",

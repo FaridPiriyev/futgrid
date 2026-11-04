@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2 } from "lucide-react";
+import { ArrowRight, Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2, ListOrdered, Triangle } from "lucide-react";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { norm } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
@@ -49,7 +49,7 @@ function ModeIcons({ modes }) {
   );
 }
 
-const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2 };
+const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle };
 
 function Cover({ game, soon }) {
   const [broken, setBroken] = useState(false);

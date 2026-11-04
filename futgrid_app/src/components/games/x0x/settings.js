@@ -2,10 +2,10 @@ import { tr } from "../../../i18n";
 const KEY = "futgrid:x0x:settings";
 
 export const DEFAULT_SETTINGS = {
-  era: "active",
+  era: "all",
   difficulty: "normal",
   steals: "none",
-  bestOf: 5,
+  bestOf: "unlimited",
   timer: 60,
   multipleChoice: false,
   categories: { club: true, country: true, trophy: true, coach: true },
@@ -13,18 +13,6 @@ export const DEFAULT_SETTINGS = {
 };
 
 export const OPTIONS = {
-  era: [
-    { value: "active", get label() {
-    return tr("Aktiv");
-  }, get sub() {
-    return tr("indiki heyətlər");
-  } },
-    { value: "all", get label() {
-    return tr("Bütün zamanlar");
-  }, get sub() {
-    return tr("legendlər daxil");
-  } },
-  ],
   difficulty: [
     { value: "easy", get label() {
     return tr("Asan");
@@ -51,28 +39,6 @@ export const OPTIONS = {
   } },
     { value: "unlimited", get label() {
     return tr("Limitsiz");
-  } },
-  ],
-  bestOf: [
-    { value: 3, get label() {
-    return tr("3 raund");
-  }, get sub() {
-    return tr("2 qələbə");
-  } },
-    { value: 5, get label() {
-    return tr("5 raund");
-  }, get sub() {
-    return tr("3 qələbə");
-  } },
-    { value: 7, get label() {
-    return tr("7 raund");
-  }, get sub() {
-    return tr("4 qələbə");
-  } },
-    { value: "unlimited", get label() {
-    return tr("Limitsiz");
-  }, get sub() {
-    return tr("sonsuz");
   } },
   ],
   timer: [
@@ -112,6 +78,8 @@ export function loadSettings() {
           club: true,
         },
         names: { ...DEFAULT_SETTINGS.names, ...saved.names },
+        era: "all",
+        bestOf: "unlimited",
       };
     }
   } catch {}

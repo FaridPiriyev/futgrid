@@ -114,7 +114,7 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
     const clubs = chosen;
     setFound((f) => [{ player: p, clubs, count: clubs.length }, ...f]);
     setSelected([]);
-    setMessage({ bad: false, text: `+${clubs.length} xal · ${p.name}` });
+    setMessage({ bad: false, text: `${tr("+{n} xal", { n: clubs.length })} · ${p.name}` });
     setFlash((fl) => {
       const n = { ...fl };
       for (const c of clubs) n[c.id] = (n[c.id] ?? 0) + 1;
@@ -207,7 +207,7 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
                   </button>
                 ))}
                 <span className={`ml-auto ${FONT} text-sm font-black text-accent`}>
-                  {chosen.length >= 2 ? `+${chosen.length} xal` : tr("1 klub da seç")}
+                  {chosen.length >= 2 ? tr("+{n} xal", { n: chosen.length }) : tr("1 klub da seç")}
                 </span>
               </>
             ) : (

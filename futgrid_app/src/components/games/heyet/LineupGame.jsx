@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { ArrowLeft, Check, Eye, Send } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Eye, Send, Shuffle } from "lucide-react";
 import { buildMatcher, dateLabel, layout } from "../../../lib/games/lineups";
 import { POS_SHORT, initials } from "../../../lib/games/playerInfo";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
@@ -70,7 +70,7 @@ function Pitch({ match, side, found, revealed, lastHit }) {
   );
 }
 
-export default function LineupGame({ match, sides, onBack }) {
+export default function LineupGame({ match, sides, onNext, onList }) {
   const matcher = useMemo(() => buildMatcher(match, sides), [match, sides]);
   const total = sides.length * 11;
   const [found, setFound] = useState(() => new Set());
@@ -108,10 +108,18 @@ export default function LineupGame({ match, sides, onBack }) {
 
   return (
     <div>
-      <button type="button" onClick={onBack} className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-muted hover:text-ink`}>
-        <ArrowLeft className="h-4 w-4" />
-        {tr("Oyunlar siyahısı")}
-      </button>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <button type="button" onClick={onList} className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wide text-muted hover:text-ink`}>
+          <ArrowLeft className="h-4 w-4" />
+          {tr("Oyunlar siyahısı")}
+        </button>
+        {!done && (
+          <button type="button" onClick={onNext} className={`inline-flex items-center gap-2 rounded-full border-2 border-edge px-4 py-1.5 ${FONT} text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-200 hover:border-accent hover:text-accent`}>
+            <Shuffle className="h-4 w-4" />
+            {tr("Başqa oyun")}
+          </button>
+        )}
+      </div>
 
       <div className="mt-4 border border-line/10 bg-surface p-4 text-center md:p-5">
         <p className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] text-accent`}>{tr(match.competition)}</p>
@@ -122,6 +130,11 @@ export default function LineupGame({ match, sides, onBack }) {
           {dateLabel(match.date)} · {tr(match.venue)}
           {match.note ? ` · ${tr(match.note)}` : ""}
         </p>
+        {sides.length === 1 && (
+          <p className={`mt-3 inline-flex items-center gap-2 rounded-full bg-yellow px-4 py-1.5 ${FONT} text-sm font-black uppercase tracking-wide text-on-yellow`}>
+            {tr("Xatırla: {team}", { team: tr(match[sides[0]].name) })}
+          </p>
+        )}
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
@@ -174,10 +187,15 @@ export default function LineupGame({ match, sides, onBack }) {
             {found.size === total && <Check className="h-5 w-5" />}
             {found.size === total ? tr("Bütün heyəti tapdın!") : tr("{n} / {total} tapdın", { n: found.size, total })}
           </p>
-          <div className="flex gap-2">
-            <button type="button" onClick={onBack} className={BTN_GHOST}>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={onNext} className={BTN_PRIMARY}>
+              <span aria-hidden="true" className={SWEEP_WHITE} />
+              {tr("Növbəti oyun")}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <button type="button" onClick={onList} className={BTN_GHOST}>
               <span aria-hidden="true" className={SWEEP_BLUE} />
-              {tr("Başqa oyun")}
+              {tr("Oyunlar siyahısı")}
             </button>
           </div>
         </div>

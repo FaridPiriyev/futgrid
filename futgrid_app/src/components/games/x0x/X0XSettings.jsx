@@ -107,14 +107,6 @@ export default function X0XSettings({
               </div>
             </Field>
           )}
-          <Field label={tr("Oyunçular")}>
-            <Segmented
-              label={tr("Oyunçular")}
-              options={OPTIONS.era}
-              value={settings.era}
-              onChange={set("era")}
-            />
-          </Field>
           <Field label={tr("Çətinlik")}>
             <Segmented
               label={tr("Çətinlik")}
@@ -141,14 +133,6 @@ export default function X0XSettings({
                   options={OPTIONS.steals}
                   value={settings.steals}
                   onChange={set("steals")}
-                />
-              </Field>
-              <Field label={tr("Seriya", null, "series")}>
-                <Segmented
-                  label={tr("Seriya", null, "series")}
-                  options={OPTIONS.bestOf}
-                  value={settings.bestOf}
-                  onChange={set("bestOf")}
                 />
               </Field>
               <Field label={tr("Növbə vaxtı")}>

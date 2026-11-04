@@ -216,9 +216,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
         <p
           className={`text-center ${FONT} text-xs uppercase tracking-[0.15em] text-faint`}
         >
-          {settings.bestOf === "unlimited"
-            ? tr("Limitsiz seriya")
-            : tr("{bestOf} raundluq seriya · {target} qələbə lazımdır", { bestOf: settings.bestOf, target })}
+          {tr("Raund {round} · oyun siz çıxana qədər davam edir", { round })}
         </p>
 
         <PlayerSearch
@@ -319,7 +317,7 @@ export default function X0XMatch({ data, settings, onSettings }) {
       <ResultModal
         open={showResult}
         onClose={() => setShowResult(false)}
-        eyebrow={matchOver ? tr("Matç bitdi") : `Raund ${round} bitdi`}
+        eyebrow={matchOver ? tr("Matç bitdi") : tr("Raund {round} bitdi", { round })}
         title={
           roundResult?.type === "draw"
             ? tr("Heç-heçə")
