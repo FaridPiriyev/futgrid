@@ -16,6 +16,7 @@ const HeyetXatirla = lazy(() => import("./components/games/heyet/HeyetXatirla"))
 const BesKlub = lazy(() => import("./components/games/besklub/BesKlub"));
 const KlublariSirala = lazy(() => import("./components/games/sirala/KlublariSirala"));
 const Piramida = lazy(() => import("./components/games/piramida/Piramida"));
+const TarixinEnYaxsisi = lazy(() => import("./components/games/goat/TarixinEnYaxsisi"));
 const Legal = lazy(() => import("./components/Legal"));
 
 function ScrollManager() {
@@ -65,6 +66,7 @@ function AppShell() {
           <Route path="/oyunlar/5-klub" element={<BesKlub />} />
           <Route path="/oyunlar/klublari-sirala" element={<KlublariSirala />} />
           <Route path="/oyunlar/piramida" element={<Piramida />} />
+          <Route path="/oyunlar/tarixin-en-yaxsisi" element={<TarixinEnYaxsisi />} />
           <Route
             path="/mexfilik-siyaseti"
             element={<Legal page="privacy" lang={lang} />}
