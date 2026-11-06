@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
+import { Wordmark } from "./Navbar";
 
 import { tr } from "../i18n";
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
@@ -190,11 +191,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr] lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" aria-label={tr("FutGrid")} className="inline-block">
-              <img
-                src="/logo.png"
-                alt={tr("FutGrid Logo")}
-                className="h-14 w-auto object-contain mix-blend-lighten contrast-[1.35] md:h-16"
-              />
+              <Wordmark tone="dark" className="h-8 md:h-9" />
             </Link>
 
             <p
