@@ -18,14 +18,18 @@ import {
 } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
-
+import { prefetchData } from "../lib/data";
+import slide2 from "../assets/slider2.webp";
+
+
 import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
 const SLIDES = [
   {
-    image: "/images/slider1.png",
+    image: "/images/slider1.webp",
+    fallback: "/images/slider1.png",
     get lines() {
     return tr("Futbol|Taktikanı|Göstər").split("|");
   },
@@ -38,7 +42,8 @@ const SLIDES = [
     href: "#games",
   },
   {
-    image: "/images/slider2.png",
+    image: slide2,
+    fallback: "/images/slider2.png",
     get lines() {
     return tr("Fərqli|oyunları|kəşf et").split("|");
   },
@@ -51,7 +56,8 @@ const SLIDES = [
     href: "#games",
   },
   {
-    image: "/images/slider3.png",
+    image: "/images/slider3.webp",
+    fallback: "/images/slider3.png",
     get lines() {
     return tr("Reytinqdə|zirvəyə|yüksəl").split("|");
   },
@@ -79,17 +85,17 @@ const TAPE_CLUBS = [
 ];
 
 const CARDS = [
-  { src: "/images/card1.webp", get alt() {
+  { src: "/images/card1.png", get alt() {
     return tr("Oyun zalı 1");
   }, get title() {
     return tr("Oyun studiyası");
   } },
-  { src: "/images/card2.webp", get alt() {
+  { src: "/images/card2.png", get alt() {
     return tr("Oyun zalı 2");
   }, get title() {
     return tr("Taktika zalı");
   } },
-  { src: "/images/card3.webp", get alt() {
+  { src: "/images/card3.png", get alt() {
     return tr("Oyun zalı 3");
   }, get title() {
     return tr("Turnir arenası");
@@ -324,7 +330,6 @@ const MESSAGE_MAX = 1000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const KEYFRAMES = `
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap");
 @keyframes fgPulseRing { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
 @keyframes fgFly { 0% { transform: translate(0,0) rotate(0); opacity: 1; } 45% { transform: translate(34px,-26px) rotate(-12deg) scale(.6); opacity: 0; } 46% { transform: translate(-34px,26px) scale(.6); opacity: 0; } 100% { transform: translate(0,0) rotate(0); opacity: 1; } }
 @keyframes fgPop { 0% { transform: scale(.85); opacity: 0; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); } }
@@ -567,6 +572,20 @@ function Tapes() {
 }
 
 function HeroCollage({ index }) {
+  const [loaded, setLoaded] = useState(() => new Set([0]));
+  const [failed, setFailed] = useState(() => new Set());
+  useEffect(() => {
+    const next = (index + 1) % SLIDES.length;
+    const t = setTimeout(
+      () =>
+        setLoaded((s) =>
+          s.has(index) && s.has(next) ? s : new Set([...s, index, next]),
+        ),
+      index === 0 ? 2500 : 0,
+    );
+    return () => clearTimeout(t);
+  }, [index]);
+
   return (
     <div className="relative mx-auto h-85 w-full max-w-140 sm:h-115 lg:h-140">
       <div
@@ -580,10 +599,18 @@ function HeroCollage({ index }) {
               i === index ? "opacity-100" : "opacity-0"
             }`}
           >
-            <div
-              className="fg-kb absolute inset-0 bg-navy bg-cover bg-center"
-              style={{ backgroundImage: `url(${s.image})` }}
-            />
+            {(i === index || loaded.has(i)) && (
+              <img
+                src={failed.has(i) ? s.fallback : s.image}
+                alt=""
+                decoding="async"
+                onError={() =>
+                  setFailed((f) => (f.has(i) ? f : new Set([...f, i])))
+                }
+                fetchpriority={i === 0 ? "high" : "low"}
+                className="fg-kb absolute inset-0 h-full w-full bg-navy object-cover"
+              />
+            )}
           </div>
         ))}
         <div className="fg-halftone-w fg-drift absolute inset-y-0 left-0 w-2/5" />
@@ -597,7 +624,7 @@ function HeroCollage({ index }) {
       <Link
         to="/oyunlar/karyera-yolu"
         aria-label={tr("Günün oyunçusu: Karyera yolu oyunu")}
-        className="fg-pop-float absolute bottom-3 left-0 w-38 -rotate-4 rounded-2xl border-3 border-yellow bg-surface p-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:.95s] sm:bottom-5 sm:w-52 sm:p-3"
+        className="fg-pop-float absolute bottom-3 left-0 w-40 -rotate-4 rounded-2xl border-3 border-yellow bg-surface p-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:.95s] sm:bottom-5 sm:w-52 sm:p-3"
       >
         <span className="flex items-center justify-between">
           <span
@@ -606,7 +633,7 @@ function HeroCollage({ index }) {
             #07
           </span>
           <span
-            className={`${FONT} text-[9px] font-extrabold uppercase tracking-[0.14em] text-gold-hi sm:text-[11px]`}
+            className={`whitespace-nowrap ${FONT} text-[9px] font-extrabold uppercase tracking-[0.04em] text-gold-hi sm:text-[11px] sm:tracking-[0.14em]`}
           >
             {tr("Günün oyunçusu")}
           </span>
@@ -1034,7 +1061,7 @@ function RowCard({ game, index }) {
   return (
     <div
       data-reveal
-      className={`${REVEAL.right} min-h-0 flex-1`}
+      className={`${REVEAL.right} lg:min-h-0 lg:flex-1`}
       style={{ transitionDelay: "120ms" }}
     >
       <Link
@@ -1087,7 +1114,7 @@ function AuctionCard({ game }) {
   return (
     <div
       data-reveal
-      className={`${REVEAL.right} min-h-0 flex-1`}
+      className={`${REVEAL.right} lg:min-h-0 lg:flex-1`}
       style={{ transitionDelay: "240ms" }}
     >
       <Link
@@ -1185,7 +1212,7 @@ function TopCard({ player, rank, run }) {
         <span
           className={`relative grid shrink-0 place-items-center rounded-full ${FONT} font-black ${s.avatar} ${
             first
-              ? "h-13 w-13 text-lg md:h-14.5 md:w-14.5 md:text-xl"
+              ? "h-11 w-11 text-base sm:h-13 sm:w-13 sm:text-lg md:h-14.5 md:w-14.5 md:text-xl"
               : "h-11 w-11 text-base md:h-13 md:w-13 md:text-lg"
           }`}
         >
@@ -1194,7 +1221,7 @@ function TopCard({ player, rank, run }) {
         <span className="relative min-w-0 flex-1">
           <span
             className={`block truncate ${FONT} font-black uppercase text-ink ${
-              first ? "text-lg md:text-2xl" : "text-base md:text-[22px]"
+              first ? "text-base sm:text-lg md:text-2xl" : "text-base md:text-[22px]"
             }`}
           >
             {player.name}
@@ -1478,6 +1505,7 @@ function ContactForm() {
 }
 
 export default function Home() {
+  useEffect(() => prefetchData(), []);
   const [period, setPeriod] = useState("week");
   const [rowsIn, setRowsIn] = useState(false);
 

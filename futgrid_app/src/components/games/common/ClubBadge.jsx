@@ -6,10 +6,14 @@ export default function ClubBadge({ club, compact = false }) {
   const showLogo = club.logo_url && !broken;
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-2 text-center">
+    <div
+      className={`flex h-full w-full flex-col items-center justify-center text-center ${
+        compact ? "gap-1 p-1 sm:gap-2 sm:p-2" : "gap-2 p-2"
+      }`}
+    >
       <div
         className={`flex items-center justify-center ${
-          compact ? "h-10 w-10" : "h-12 w-12 md:h-16 md:w-16"
+          compact ? "h-8 w-8 sm:h-10 sm:w-10" : "h-12 w-12 md:h-16 md:w-16"
         }`}
       >
         {showLogo ? (
@@ -18,7 +22,7 @@ export default function ClubBadge({ club, compact = false }) {
             alt=""
             loading="lazy"
             onError={() => setBroken(true)}
-            className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+            className="fg-logo h-full w-full object-contain"
           />
         ) : (
           <span
@@ -29,7 +33,11 @@ export default function ClubBadge({ club, compact = false }) {
         )}
       </div>
       <span
-        className={`line-clamp-2 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-wide text-soft md:text-sm`}
+        className={`line-clamp-2 ${FONT} font-bold uppercase leading-tight text-soft ${
+          compact
+            ? "text-[10px] [overflow-wrap:anywhere] sm:text-[11px] sm:tracking-wide md:text-xs"
+            : "text-[11px] tracking-wide md:text-sm"
+        }`}
       >
         {club.name}
       </span>

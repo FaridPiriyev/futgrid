@@ -35,6 +35,24 @@ function keysFor(player, shared) {
   return keys;
 }
 
+function distance(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    let best = i;
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      best = Math.min(best, cur[j]);
+    }
+    if (best > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+
+const fuzzyLimit = (len) => (len >= 8 ? 2 : len >= 5 ? 1 : 0);
+
 export function buildMatcher(match, sides) {
   const counts = new Map();
   for (const s of sides)
@@ -43,13 +61,52 @@ export function buildMatcher(match, sides) {
   const shared = new Set([...counts].filter(([, n]) => n > 1).map(([t]) => t));
   const slots = [];
   for (const s of sides)
-    match[s].players.forEach((p, i) => slots.push({ side: s, index: i, keys: keysFor(p, shared) }));
-  return (guess, found) => {
+    match[s].players.forEach((p, i) => slots.push({ side: s, index: i, id: `${s}:${i}`, keys: [...keysFor(p, shared)] }));
+
+  const unique = (list) => {
+    const ids = new Set(list.map((x) => x.id));
+    return ids.size === 1 ? list[0] : ids.size > 1 ? "many" : null;
+  };
+
+  return (guess, found, { live = false } = {}) => {
     const g = norm(guess);
     if (g.length < 3) return null;
-    return slots.find((slot) => !found.has(`${slot.side}:${slot.index}`) && slot.keys.has(g)) ?? null;
+    const open = slots.filter((slot) => !found.has(slot.id));
+    const exact = open.filter((slot) => slot.keys.includes(g));
+    if (exact.length) return exact[0];
+    if (g.length < 4) return null;
+    const prefix = unique(open.filter((slot) => slot.keys.some((k) => k.length > g.length && k.startsWith(g))));
+    if (prefix && prefix !== "many") return prefix;
+    if (live) return null;
+    const max = fuzzyLimit(g.length);
+    if (max) {
+      const near = unique(open.filter((slot) => slot.keys.some((k) => k.length >= 4 && distance(g, k, max) <= max)));
+      if (near && near !== "many") return near;
+      if (near === "many" || prefix === "many") return "many";
+    }
+    return prefix === "many" ? "many" : null;
   };
 }
+
+export const decadeOf = (m) => Math.floor(Number(m.date.slice(0, 4)) / 10) * 10;
+
+export function kindOf(m) {
+  const c = norm(m.competition);
+  if (c.includes("cempionlar liqasi")) return "ucl";
+  if (c.includes("dunya kuboku")) return "wc";
+  if (c.includes("avropa cempionati")) return "euro";
+  return "league";
+}
+
+export const DECADES = [...new Set(matches.map(decadeOf))].sort((a, b) => a - b);
+export const KINDS = ["ucl", "wc", "euro", "league"].filter((k) => matches.some((m) => kindOf(m) === k));
+
+export const filterMatches = (filter) =>
+  matches.filter(
+    (m) =>
+      (!filter?.decades?.length || filter.decades.includes(decadeOf(m))) &&
+      (!filter?.kinds?.length || filter.kinds.includes(kindOf(m))),
+  );
 
 const MONTHS = {
   az: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avqust", "sentyabr", "oktyabr", "noyabr", "dekabr"],

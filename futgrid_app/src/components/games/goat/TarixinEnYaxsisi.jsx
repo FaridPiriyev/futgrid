@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { loadData } from "../../../lib/data";
 import { SIZES, roundName } from "../../../lib/games/goat";
 import { Field, Segmented, SETTINGS_CARD, SettingsHeader } from "../common/controls";
 import GameLayout from "../common/GameLayout";
 import { Loader } from "../common/GameStatus";
-import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
+import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 import GoatGame, { GOAT_KEYFRAMES } from "./GoatGame";
 
 import { tr } from "../../../i18n";
@@ -90,18 +90,7 @@ export default function TarixinEnYaxsisi() {
       </section>
     );
   else
-    body = (
-      <>
-        <div className="mb-4 flex justify-end">
-          <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
-            <span aria-hidden="true" className={SWEEP_BLUE} />
-            <ArrowLeft className="h-4 w-4" />
-            {tr("Parametrlər")}
-          </button>
-        </div>
-        <GoatGame key={`${game}-${size}`} data={data} size={size} />
-      </>
-    );
+    body = <GoatGame key={`${game}-${size}`} data={data} size={size} onSettings={() => setGame(0)} />;
 
   return (
     <GameLayout

@@ -66,7 +66,7 @@ function Curtain({ picker, other, step, round, onReady }) {
   ];
   return (
     <div
-      className="absolute inset-0 z-20 flex items-center justify-center overflow-y-auto rounded-3xl bg-page/95 p-3 backdrop-blur-xl md:p-6"
+      className="absolute inset-0 z-20 flex items-start justify-center overflow-y-auto rounded-3xl bg-page/95 p-3 backdrop-blur-xl sm:items-center md:p-6"
       style={{ animation: "ortaqDeal 350ms ease-out both" }}
     >
       <div className="flex w-full max-w-2xl flex-col items-center text-center">
@@ -81,7 +81,7 @@ function Curtain({ picker, other, step, round, onReady }) {
           {tr("İndi seçim edir")}
         </p>
         <p
-          className={`${FONT} text-4xl font-black uppercase leading-none md:text-5xl ${picker.side.text}`}
+          className={`${FONT} text-3xl font-black uppercase leading-none md:text-5xl ${picker.side.text}`}
         >
           {picker.name}
         </p>
@@ -322,7 +322,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
       </div>
 
       <div
-        className={`relative rounded-3xl border border-edge bg-surface px-2 py-5 md:px-6 ${picker && curtain ? "min-h-[26rem] sm:min-h-96" : ""}`}
+        className={`relative rounded-3xl border border-edge bg-surface px-2 py-5 md:px-6 ${picker && curtain ? "min-h-[33rem] sm:min-h-96" : ""}`}
       >
         <div className="flex items-center justify-center gap-3 md:gap-6">
           <div className="hidden md:block">{panel("A")}</div>

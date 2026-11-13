@@ -57,7 +57,7 @@ export function ClubLogo({ club, className = "h-5 w-5" }) {
       alt=""
       loading="lazy"
       onError={() => setBroken(true)}
-      className={`shrink-0 object-contain ${className}`}
+      className={`fg-logo shrink-0 object-contain ${className}`}
     />
   );
 }

@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
-import { LanguageProvider, useLang } from "./i18n";
+import { LanguageProvider, tr, useLang } from "./i18n";
+import { GAME_CATALOG } from "./lib/games/catalog";
+import ogImage from "./assets/og-image.jpg";
 
 const AllGames = lazy(() => import("./components/AllGames"));
 const FutbolX0X = lazy(() => import("./components/games/x0x/FutbolX0X"));
@@ -17,6 +19,7 @@ const BesKlub = lazy(() => import("./components/games/besklub/BesKlub"));
 const KlublariSirala = lazy(() => import("./components/games/sirala/KlublariSirala"));
 const Piramida = lazy(() => import("./components/games/piramida/Piramida"));
 const TarixinEnYaxsisi = lazy(() => import("./components/games/goat/TarixinEnYaxsisi"));
+const IkiHerf = lazy(() => import("./components/games/ikiherf/IkiHerf"));
 const Legal = lazy(() => import("./components/Legal"));
 
 function ScrollManager() {
@@ -32,8 +35,87 @@ function ScrollManager() {
       );
       return () => clearTimeout(t);
     }
-    window.scrollTo(0, 0);
+    const top = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    top();
+    const frame = requestAnimationFrame(top);
+    const t = setTimeout(top, 120);
+    return () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(t);
+    };
   }, [pathname, hash]);
+
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+  }, []);
+
+  return null;
+}
+
+const SITE = "https://futgrid.az";
+const LOCALES = { az: "az_AZ", en: "en_US", ru: "ru_RU" };
+
+const PAGES = {
+  "/": () => [
+    tr("FutGrid — futbol bilik oyunları"),
+    tr("Futbol X0X, Futbol Wordle, Karyera yolu, Heyəti xatırla və daha çox futbol bilik oyunu. Pulsuz oyna, dostunla yarış, reytinqdə yüksəl."),
+  ],
+  "/oyunlar": () => [
+    tr("Bütün oyunlar"),
+    tr("FutGrid-in bütün futbol oyunları bir yerdə: tək oyna və ya dostunla eyni ekranda yarış."),
+  ],
+  "/mexfilik-siyaseti": () => [
+    tr("Məxfilik siyasəti"),
+    tr("FutGrid hansı məlumatları toplayır və onlardan necə istifadə edir."),
+  ],
+  "/istifade-sertleri": () => [
+    tr("İstifadə şərtləri"),
+    tr("FutGrid saytından istifadə qaydaları."),
+  ],
+};
+
+function setMeta(attr, key, content) {
+  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function RouteMeta() {
+  const { pathname } = useLocation();
+  const { lang } = useLang();
+
+  useEffect(() => {
+    const path = pathname.replace(/\/+$/, "") || "/";
+    const game = GAME_CATALOG.find((g) => g.href === path);
+    const [title, description] = game
+      ? [game.title, game.description]
+      : (PAGES[path] ?? PAGES["/"])();
+    const full = path === "/" ? title : `${title} | FutGrid`;
+    const url = SITE + (path === "/" ? "/" : path);
+
+    document.title = full;
+    setMeta("name", "description", description);
+    setMeta("property", "og:title", full);
+    setMeta("property", "og:description", description);
+    setMeta("property", "og:url", url);
+    setMeta("property", "og:type", "website");
+    setMeta("property", "og:site_name", "FutGrid");
+    setMeta("property", "og:image", new URL(ogImage, window.location.origin).href);
+    setMeta("property", "og:locale", LOCALES[lang] ?? LOCALES.az);
+    setMeta("name", "twitter:card", "summary_large_image");
+
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = url;
+  }, [pathname, lang]);
 
   return null;
 }
@@ -51,6 +133,7 @@ function AppShell() {
   return (
     <BrowserRouter>
       <ScrollManager />
+      <RouteMeta />
       <Navbar />
       <Suspense fallback={<div className="min-h-screen bg-page" />}>
         <Routes>
@@ -67,6 +150,7 @@ function AppShell() {
           <Route path="/oyunlar/klublari-sirala" element={<KlublariSirala />} />
           <Route path="/oyunlar/piramida" element={<Piramida />} />
           <Route path="/oyunlar/tarixin-en-yaxsisi" element={<TarixinEnYaxsisi />} />
+          <Route path="/oyunlar/iki-herf" element={<IkiHerf />} />
           <Route
             path="/mexfilik-siyaseti"
             element={<Legal page="privacy" lang={lang} />}

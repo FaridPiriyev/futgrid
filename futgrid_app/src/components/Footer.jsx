@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
-import { Wordmark } from "./Navbar";
+import { SiteLogo } from "./Navbar";
 
 import { tr } from "../i18n";
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
 const FOOTER_STYLE = `
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Condensed:wght@400;700;800;900&display=swap");
 @keyframes fgBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 @keyframes fgRise { 0% { transform: translateY(0); opacity: 1; } 45% { transform: translateY(-26px); opacity: 0; } 46% { transform: translateY(26px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 `;
@@ -188,10 +187,10 @@ export default function Footer() {
       />
 
       <div className="relative mx-auto max-w-330 px-4 pb-8 pt-14 md:px-6 md:pt-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr] lg:gap-12">
-          <div className="sm:col-span-2 lg:col-span-1">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.4fr_0.8fr_1fr_1.1fr] lg:gap-12">
+          <div className="col-span-2 lg:col-span-1">
             <Link to="/" aria-label={tr("FutGrid")} className="inline-block">
-              <Wordmark tone="dark" className="h-8 md:h-9" />
+              <SiteLogo className="h-14 md:h-16" />
             </Link>
 
             <p
@@ -237,7 +236,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <FooterTitle>{tr("Əlaqə")}</FooterTitle>
             <div className="mt-5 flex flex-col gap-4">
               {FOOTER_CONTACT.map(({ Icon, label, value, href }) => (

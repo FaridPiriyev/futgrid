@@ -26,6 +26,10 @@ export default function FutbolX0X() {
       .catch((e) => setError(e.message));
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [screen]);
+
   const gameData = useMemo(
     () => (data ? datasetFor(data, settings.era) : null),
     [data, settings.era],

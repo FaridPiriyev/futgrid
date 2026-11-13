@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { birthYear, searchPlayers } from "../../../lib/data";
-import { FONT } from "./ui";
+import { FONT, listPlacement, useMobileInput } from "./ui";
 
 import { tr } from "../../../i18n";
 export default function PlayerSearch({
@@ -16,6 +16,7 @@ export default function PlayerSearch({
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const inputRef = useRef(null);
+  const box = useMobileInput(inputRef);
 
   const results = useMemo(() => (disabled ? [] : searchPlayers(data, query)), [data, query, disabled]);
 
@@ -66,7 +67,7 @@ export default function PlayerSearch({
             role="combobox"
             aria-expanded={results.length > 0}
             aria-controls="player-search-list"
-            className={`w-full border-2 bg-line/5 py-3 pl-12 pr-4 ${FONT} text-base text-ink placeholder-faint outline-none transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 md:text-lg ${
+            className={`w-full border-2 bg-line/5 py-2.5 pl-11 pr-3 md:py-3 md:pl-12 md:pr-4 ${FONT} text-base text-ink placeholder-faint outline-none transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 md:text-lg ${
               disabled ? "border-line/10" : "border-accent focus:bg-line/10"
             }`}
           />
@@ -78,7 +79,8 @@ export default function PlayerSearch({
         <ul
           id="player-search-list"
           role="listbox"
-          className="absolute inset-x-0 top-full z-30 mt-1 max-h-80 overflow-y-auto border border-line/10 bg-surface shadow-2xl"
+          style={box.maxHeight ? { maxHeight: box.maxHeight } : undefined}
+          className={`absolute inset-x-0 z-40 max-h-80 overflow-y-auto overscroll-contain border border-line/10 bg-surface shadow-2xl ${listPlacement(box)}`}
         >
           {results.map((p, i) => (
             <li key={p.id} role="option" aria-selected={i === active}>
@@ -87,12 +89,12 @@ export default function PlayerSearch({
                 onMouseEnter={() => setActive(i)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => pick(p)}
-                className={`flex w-full items-center justify-between gap-3 border-l-2 px-4 py-3 text-left transition-colors duration-150 ${
+                className={`flex w-full items-center justify-between gap-3 border-l-2 px-3 py-2.5 text-left md:px-4 md:py-3 transition-colors duration-150 ${
                   i === active ? "border-l-accent bg-accent/15" : "border-l-transparent hover:bg-line/5"
                 }`}
               >
-                <span className={`truncate ${FONT} text-base font-bold uppercase tracking-wide text-ink`}>{p.name}</span>
-                <span className={`shrink-0 ${FONT} text-sm text-muted`}>
+                <span className={`truncate ${FONT} text-sm font-bold uppercase tracking-wide text-ink md:text-base`}>{p.name}</span>
+                <span className={`shrink-0 ${FONT} text-xs text-muted md:text-sm`}>
                   {[birthYear(p), p.position, p.nationality_code].filter(Boolean).join(" · ")}
                 </span>
               </button>
@@ -102,7 +104,7 @@ export default function PlayerSearch({
       )}
 
       {!disabled && query.trim().length >= 2 && results.length === 0 && (
-        <p className={`absolute inset-x-0 top-full z-30 mt-1 border border-line/10 bg-surface px-4 py-3 ${FONT} text-sm text-faint`}>
+        <p className={`absolute inset-x-0 z-40 border border-line/10 bg-surface px-4 py-3 ${listPlacement(box)} ${FONT} text-sm text-faint`}>
           {tr("Bu adla oyunçu tapılmadı.")}
         </p>
       )}

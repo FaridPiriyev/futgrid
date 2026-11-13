@@ -28,24 +28,28 @@ const DEFAULT_MODES = [
 export default function ModeSelect({ onPick, texts = {} }) {
   return (
     <div>
-      <h2 className={`${FONT} text-lg font-bold uppercase tracking-wide text-soft`}>{tr("Rejim seç")}</h2>
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {DEFAULT_MODES.map(({ key, Icon, title, text, soon }) => (
+      <h2 className={`${FONT} text-sm font-bold uppercase tracking-wide text-soft md:text-lg`}>{tr("Rejim seç")}</h2>
+      <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 md:mt-4 lg:grid-cols-4">
+        {[...DEFAULT_MODES].sort((a, b) => Number(Boolean(a.soon)) - Number(Boolean(b.soon))).map(({ key, Icon, title, text, soon }) => (
           <button
             key={key}
             type="button"
             disabled={soon}
             onClick={() => onPick(key)}
-            className="group relative flex flex-col items-center gap-3 border border-line/10 bg-surface/85 px-5 py-8 text-center transition-all duration-300 enabled:hover:-translate-y-1 enabled:hover:border-accent enabled:hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50"
+            className="group relative flex items-center gap-3.5 rounded-xl border border-line/10 bg-surface/85 px-4 py-3.5 text-left transition-all duration-300 sm:flex-col sm:gap-3 sm:rounded-none sm:px-5 sm:py-8 sm:text-center sm:order-none enabled:hover:-translate-y-1 enabled:hover:border-accent enabled:hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {soon && (
-              <span className={`absolute right-3 top-3 bg-line/10 px-2 py-0.5 ${FONT} text-[10px] font-bold uppercase tracking-wider text-soft`}>
+              <span className={`absolute right-3 top-1/2 -translate-y-1/2 bg-line/10 px-2 py-0.5 sm:top-3 sm:translate-y-0 ${FONT} text-[10px] font-bold uppercase tracking-wider text-soft`}>
                 {tr("Tezliklə")}
               </span>
             )}
-            <Icon className="h-9 w-9 text-accent-hi transition-transform duration-300 group-enabled:group-hover:scale-110" strokeWidth={1.6} />
-            <span className={`${FONT} text-xl font-bold uppercase tracking-wide text-ink`}>{title}</span>
-            <span className={`${FONT} text-sm font-light text-muted`}>{texts[key] ?? text}</span>
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-accent/10 sm:h-auto sm:w-auto sm:bg-transparent">
+              <Icon className="h-6 w-6 text-accent-hi transition-transform duration-300 group-enabled:group-hover:scale-110 sm:h-9 sm:w-9" strokeWidth={1.6} />
+            </span>
+            <span className="min-w-0 sm:contents">
+              <span className={`block ${FONT} text-base font-bold uppercase tracking-wide text-ink sm:text-xl`}>{title}</span>
+              <span className={`block ${FONT} text-xs font-light text-muted sm:text-sm`}>{texts[key] ?? text}</span>
+            </span>
           </button>
         ))}
       </div>

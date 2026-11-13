@@ -167,7 +167,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Futbolçu gəlir, qutular onun klublarının sayı qədərdir. Qutuya toxun və klubları karyera sırası ilə düz.");
   },
-    image: "/images/game9.jpg",
+    image: "/images/game9.png",
     href: "/oyunlar/klublari-sirala",
     get tags() {
     return ["Tək oyunçu", "10 raund"].map((s) => tr(s));
@@ -187,7 +187,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("5-4-3-2-1: hər səviyyədə iki şərtə uyğun futbolçuları vaxt bitməmiş yaz və zirvəyə qalx.");
   },
-    image: "/images/game10.jpg",
+    image: "/images/game10.png",
     href: "/oyunlar/piramida",
     get tags() {
     return ["Tək oyunçu", "Vaxta qarşı", "5 səviyyə"].map((s) => tr(s));
@@ -207,12 +207,32 @@ export const GAME_CATALOG = [
     get description() {
     return tr("128 ikonik futbolçu, hər turda ikisindən biri. 64, 32, 16… sonda tək bir əfsanə qalır.");
   },
-    image: "/images/game11.jpg",
+    image: "/images/game11.png",
     href: "/oyunlar/tarixin-en-yaxsisi",
     get tags() {
     return ["Tək oyunçu", "128 əfsanə", "Turnir"].map((s) => tr(s));
   },
     modes: ["solo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "ikiherf",
+    get title() {
+    return tr("İki hərf");
+  },
+    get genre() {
+    return tr("Duel oyunu");
+  },
+    get description() {
+    return tr("İki oyunçu, iki hərf. Adında hər iki hərf olan futbolçunu növbə ilə tap, vaxtı bitən uduzur.");
+  },
+    image: "/images/game12.png",
+    href: "/oyunlar/iki-herf",
+    get tags() {
+    return ["2 oyunçu", "Botla", "Vaxta qarşı"].map((s) => tr(s));
+  },
+    modes: ["solo", "duo"],
     status: "live",
     isNew: true,
   },

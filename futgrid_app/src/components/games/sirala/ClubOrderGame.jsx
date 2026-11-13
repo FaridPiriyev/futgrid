@@ -32,7 +32,7 @@ function Slot({ step, index, state, active, showYears, onPick, roundKey }) {
         onClick={onPick}
         aria-pressed={active}
         aria-label={tr("Qutu {n}", { n: index + 1 })}
-        className={`relative flex w-[4.6rem] flex-col items-center overflow-hidden rounded-xl border-2 bg-surface pb-1.5 transition-[border-color,translate,background-color] duration-200 sm:w-24 md:w-28 ${
+        className={`relative flex w-[4.1rem] flex-col items-center overflow-hidden rounded-xl border-2 bg-surface pb-1.5 transition-[border-color,translate,background-color] duration-200 sm:w-24 md:w-28 ${
           state === "hit"
             ? "border-good animate-[coHit_0.4s_ease-out]"
             : state === "lost"
@@ -43,7 +43,7 @@ function Slot({ step, index, state, active, showYears, onPick, roundKey }) {
         }`}
       >
         <span
-          className={`absolute left-1.5 top-1.5 grid h-5 w-5 place-items-center rounded-full ${FONT} text-[11px] font-black ${
+          className={`absolute left-1 top-1 z-10 grid h-4 w-4 place-items-center rounded-full ${FONT} text-[10px] font-black sm:left-1.5 sm:top-1.5 sm:h-5 sm:w-5 sm:text-[11px] ${
             state === "hit"
               ? "bg-good text-white"
               : state === "lost"

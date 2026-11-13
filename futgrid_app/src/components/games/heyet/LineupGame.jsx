@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Eye, Send, Shuffle } from "lucide-react";
 import { buildMatcher, dateLabel, layout } from "../../../lib/games/lineups";
 import { POS_SHORT, initials } from "../../../lib/games/playerInfo";
-import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
+import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE, useMobileInput } from "../common/ui";
 
 import { tr } from "../../../i18n";
 export const LINEUP_KEYFRAMES = `
@@ -81,28 +81,44 @@ export default function LineupGame({ match, sides, onNext, onList }) {
   const [shake, setShake] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const inputRef = useRef(null);
+  useMobileInput(inputRef);
 
   const done = revealed || found.size === total;
+
+  const accept = (slot) => {
+    const key = `${slot.side}:${slot.index}`;
+    const next = new Set(found);
+    next.add(key);
+    setFound(next);
+    setLastHit(key);
+    setMessage({ ok: true, text: `${match[slot.side].players[slot.index].name} ✓` });
+    setValue("");
+  };
+
+  const change = (text) => {
+    setValue(text);
+    if (done) return;
+    const slot = matcher(text, found, { live: true });
+    if (slot && slot !== "many") accept(slot);
+  };
 
   const submit = (e) => {
     e.preventDefault();
     const guess = value.trim();
     if (!guess || done) return;
     const slot = matcher(guess, found);
-    if (slot) {
-      const key = `${slot.side}:${slot.index}`;
-      const next = new Set(found);
-      next.add(key);
-      setFound(next);
-      setLastHit(key);
-      setMessage({ ok: true, text: `${match[slot.side].players[slot.index].name} ✓` });
+    if (slot && slot !== "many") accept(slot);
+    else if (slot === "many") {
+      setMessage({ ok: false, text: tr("Bir neçə oyunçuya uyğun gəlir, bir az da yaz") });
+      setShake((s) => s + 1);
+      return;
     } else {
       const again = matcher(guess, new Set());
       setMessage({ ok: false, text: again ? tr("Bu oyunçu artıq tapılıb") : tr("“{guess}” bu heyətdə yoxdur", { guess }) });
       if (!again) setMisses((m) => m + 1);
       setShake((s) => s + 1);
+      setValue("");
     }
-    setValue("");
     inputRef.current?.focus();
   };
 
@@ -155,11 +171,11 @@ export default function LineupGame({ match, sides, onNext, onList }) {
               ref={inputRef}
               autoFocus
               value={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => change(e.target.value)}
               placeholder={tr("Oyunçunun adını və ya soyadını yaz...")}
               autoComplete="off"
               spellCheck={false}
-              className={`min-w-0 flex-1 border-2 border-accent bg-line/5 px-4 py-3 ${FONT} text-base text-ink placeholder-faint outline-none focus:bg-line/10 md:text-lg`}
+              className={`min-w-0 flex-1 border-2 border-accent bg-line/5 px-3 py-2.5 md:px-4 md:py-3 ${FONT} text-base text-ink placeholder-faint outline-none focus:bg-line/10 md:text-lg`}
             />
             <button type="submit" className={BTN_PRIMARY} aria-label={tr("Yoxla")}>
               <span aria-hidden="true" className={SWEEP_WHITE} />

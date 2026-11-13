@@ -514,3 +514,12 @@
     animation: none !important;
   }
 }
+
+@layer components {
+  .fg-logo {
+    filter: drop-shadow(0 0 0.75px rgb(15 23 42 / 0.4)) drop-shadow(0 2px 6px rgb(15 23 42 / 0.18));
+  }
+  .fg-logo:where([data-theme="dark"] *) {
+    filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.95)) drop-shadow(0 0 1.5px rgb(255 255 255 / 0.55)) drop-shadow(0 3px 8px rgb(0 0 0 / 0.5));
+  }
+}

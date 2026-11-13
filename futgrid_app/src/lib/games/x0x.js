@@ -13,9 +13,9 @@ export const LINES = [
 ];
 
 export const DIFFICULTY = {
-  easy: { minAnswers: 5, maxTier: 1 },
-  normal: { minAnswers: 3, maxTier: 2 },
-  hard: { minAnswers: 1, maxTier: 3 },
+  easy: { minAnswers: 6, rowTier: 1, colTier: 1 },
+  normal: { minAnswers: 4, rowTier: 1, colTier: 2 },
+  hard: { minAnswers: 1, rowTier: 3, colTier: 3 },
 };
 
 const intersectCount = (a, b) => {
@@ -32,17 +32,18 @@ const intersect = (a, b) => {
   return out;
 };
 
-function attempt(pool, maxTier, minAnswers, extraTypes, random, tries) {
-  const within = (list) => list.filter((c) => c.tier <= maxTier);
+function attempt(pool, rowTier, colTier, minAnswers, extraTypes, random, tries) {
+  const within = (list) => list.filter((c) => c.tier <= colTier);
+  const rowClubs = pool.club.filter((c) => c.tier <= rowTier);
   const clubs = within(pool.club);
-  if (clubs.length < 6) return null;
+  if (clubs.length < 6 || rowClubs.length < 3) return null;
   const extras = Object.fromEntries(
     extraTypes.map((t) => [t, within(pool[t])]),
   );
   const types = extraTypes.filter((t) => extras[t].length);
 
   for (let t = 0; t < tries; t++) {
-    const rows = shuffle(clubs, random).slice(0, 3);
+    const rows = shuffle(rowClubs, random).slice(0, 3);
     const cols = [];
     const wanted = types.length ? Math.min(3, 1 + Math.floor(random() * 3)) : 0;
     const slots = shuffle(
@@ -89,12 +90,20 @@ export function generateGrid(
   } = {},
 ) {
   const pool = buildCategoryPool(data);
-  const { minAnswers, maxTier } = DIFFICULTY[difficulty] ?? DIFFICULTY.normal;
+  const { minAnswers, rowTier, colTier } = DIFFICULTY[difficulty] ?? DIFFICULTY.normal;
   const extraTypes = ["country", "trophy", "coach"].filter(
     (t) => categories[t] && pool[t]?.length,
   );
-  for (let tier = maxTier; tier <= 3; tier++) {
-    const grid = attempt(pool, tier, minAnswers, extraTypes, random, tries);
+  for (let step = 0; step <= 2; step++) {
+    const grid = attempt(
+      pool,
+      Math.min(3, rowTier + step),
+      Math.min(3, colTier + step),
+      Math.max(1, minAnswers - step),
+      extraTypes,
+      random,
+      tries,
+    );
     if (grid) return grid;
   }
   return null;

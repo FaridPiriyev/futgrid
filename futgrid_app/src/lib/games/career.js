@@ -3,7 +3,7 @@ export const MAX_WRONG = 3;
 import { byFame } from "./fame";
 import { tr } from "../../i18n";
 
-export const POOL = { easy: 150, normal: 900, hard: 5000 };
+export const POOL = { easy: 150, normal: 380, hard: 5000 };
 
 const popularity = (p) =>
   Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);

@@ -13,7 +13,7 @@ export const METRIC = {
   format: euro,
 };
 
-export const POOL_SIZE = { easy: 200, normal: 900, hard: 5000 };
+export const POOL_SIZE = { easy: 200, normal: 450, hard: 5000 };
 
 export function buildPool(data, difficulty) {
   const size = POOL_SIZE[difficulty] ?? POOL_SIZE.normal;

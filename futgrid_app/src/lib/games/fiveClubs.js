@@ -8,8 +8,9 @@ export const TIME = { get 60() {
 import { clubFameReady, clubFameTier, playerFame } from "./fame";
 
 import { tr } from "../../i18n";
-export const CLUB_POOL = { easy: 24, normal: 60, hard: 140 };
+export const CLUB_POOL = { easy: 24, normal: 45, hard: 140 };
 const MAX_TIER = { easy: 1, normal: 2, hard: 3 };
+const CORE = { easy: 5, normal: 3, hard: 0 };
 
 const popularity = (p) =>
   Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
@@ -44,21 +45,29 @@ export function answersFor(data, clubs) {
 function poolFor(data, difficulty) {
   const ranked = rankedClubs(data);
   const size = CLUB_POOL[difficulty] ?? CLUB_POOL.normal;
-  if (difficulty === "hard" || !clubFameReady(data)) return ranked.slice(0, size);
+  if (difficulty === "hard") return { core: [], wide: ranked.slice(0, size) };
+  if (!clubFameReady(data)) {
+    const wide = ranked.slice(0, size);
+    return { core: ranked.slice(0, Math.min(size, 20)), wide };
+  }
   const max = MAX_TIER[difficulty] ?? 2;
-  const curated = ranked.filter((c) => clubFameTier(c) <= max);
-  return curated.length >= 10 ? curated : ranked.slice(0, size);
+  const wide = ranked.filter((c) => clubFameTier(c) <= max);
+  const core = ranked.filter((c) => clubFameTier(c) === 1);
+  return wide.length >= 10 ? { core, wide } : { core: ranked.slice(0, 20), wide: ranked.slice(0, size) };
 }
 
 export function pickClubs(data, difficulty, random = Math.random) {
-  const pool = poolFor(data, difficulty);
+  const { core, wide } = poolFor(data, difficulty);
+  const coreCount = core.length >= 5 ? CORE[difficulty] ?? 3 : 0;
   let best = null;
   for (let t = 0; t < 300; t++) {
     const set = [];
     const used = new Set();
-    while (set.length < 5 && used.size < pool.length) {
-      const c = pool[Math.floor(random() * pool.length)];
-      if (used.has(c.id)) continue;
+    let guard = 0;
+    while (set.length < 5 && guard++ < 400) {
+      const list = set.length < coreCount ? core : wide;
+      const c = list[Math.floor(random() * list.length)];
+      if (!c || used.has(c.id)) continue;
       used.add(c.id);
       set.push(c);
     }

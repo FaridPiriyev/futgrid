@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2, ListOrdered, Triangle, Crown } from "lucide-react";
+import { Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2, ListOrdered, Triangle, Crown, Keyboard } from "lucide-react";
 import { GAME_CATALOG } from "../lib/games/catalog";
-import { norm } from "../lib/data";
+import { norm, prefetchData } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
 
 import { tr } from "../i18n";
@@ -12,7 +12,6 @@ const BODY = "font-['Roboto',sans-serif]";
 const BACKGROUND = "/images/background_games.jpg";
 
 const STYLE = `
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 @keyframes agIn { from { opacity: 0; transform: translateY(28px) scale(.97); } to { opacity: 1; transform: none; } }
 @keyframes agUp { from { transform: translateY(105%); } to { transform: none; } }
 @keyframes agFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -49,7 +48,7 @@ function ModeIcons({ modes }) {
   );
 }
 
-const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle, goat: Crown };
+const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle, goat: Crown, ikiherf: Keyboard };
 
 function Cover({ game, soon }) {
   const [broken, setBroken] = useState(false);
@@ -161,7 +160,7 @@ function GameTile({ game, index }) {
 
 function Header() {
   return (
-    <section className="relative overflow-hidden bg-page-2 pb-10 pt-28 md:pb-14 md:pt-36">
+    <section className="relative overflow-hidden bg-page-2 pb-10 pt-8 md:pb-14 md:pt-16 lg:pt-36">
       <div
         aria-hidden="true"
         className="absolute inset-0 scale-110 bg-cover bg-center"
@@ -231,6 +230,7 @@ function Header() {
 }
 
 export default function AllGames() {
+  useEffect(() => prefetchData(), []);
   const [query, setQuery] = useState("");
   const q = norm(query.trim());
   const list = GAME_CATALOG.filter(
@@ -270,7 +270,7 @@ export default function AllGames() {
           {list.length ? (
             <div
               key={q}
-              className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-8 md:gap-4 lg:grid-cols-4 xl:grid-cols-5"
+              className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-8 md:gap-4 lg:grid-cols-4"
             >
               {list.map((g, i) => (
                 <GameTile key={g.key} game={g} index={i} />

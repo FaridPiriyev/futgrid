@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
+import logoUrl from "../assets/futgrid-logo.webp";
 import { LANGS, useLang } from "../i18n";
 
 import { tr } from "../i18n";
@@ -364,14 +365,14 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsMobileMenuOpen((v) => !v);
 
-  const logoLink = (className, imgClassName, tone = "auto") => (
+  const logoLink = (className, imgClassName) => (
     <a
       href="/"
       onClick={(e) => go(LEFT_LINKS[0], e)}
       className={className}
       aria-label={tr("FutGrid ana səhifə")}
     >
-      <Wordmark tone={tone} className={imgClassName} />
+      <SiteLogo className={imgClassName} />
     </a>
   );
 
@@ -392,7 +393,7 @@ export default function Navbar() {
                 ? "translate-x-0 opacity-100 delay-150"
                 : "-translate-x-4 opacity-0"
             }`,
-            "h-6 md:h-7",
+            "h-12 md:h-17",
           )}
 
           <nav className="hidden items-center gap-10 md:flex">
@@ -457,7 +458,6 @@ export default function Navbar() {
       </div>
 
       <header ref={headerRef} className="relative z-50 w-full select-none">
-        <style>{`@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;500&display=swap');`}</style>
 
         <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
           <div className="absolute inset-x-0 top-0 h-15 border-b border-nav-line bg-nav-top" />
@@ -522,7 +522,7 @@ export default function Navbar() {
           <div className="mx-auto flex w-full max-w-330 items-center justify-between px-4 md:px-6">
             {logoLink(
               "block lg:hidden",
-              "h-6 sm:h-7",
+              "h-12 sm:h-13",
             )}
 
             <nav className="hidden min-w-0 flex-1 items-center justify-start gap-5 lg:flex xl:gap-12 2xl:gap-16">
@@ -563,9 +563,8 @@ export default function Navbar() {
 
         <div className="fg-pop pointer-events-none absolute left-1/2 top-8.75 z-30 hidden -translate-x-1/2 justify-center [animation-delay:.5s] lg:flex">
           {logoLink(
-            "pointer-events-auto block px-4 pt-5 transition-transform hover:scale-105",
-            "lg:h-10 xl:h-11",
-            "dark",
+            "pointer-events-auto block px-3 pt-3 transition-transform hover:scale-105",
+            "lg:h-19 xl:h-22",
           )}
         </div>
 
@@ -582,25 +581,14 @@ export default function Navbar() {
   );
 }
 
-const WM_FUT =
-  "M0,0 L26,0 L26,9 L9,9 L9,16 L22,16 L22,25 L9,25 L9,40 L0,40Z M31,0 L40,0 L40,31 L48,31 L48,0 L57,0 L57,34 L51,40 L37,40 L31,34Z M62,0 L88,0 L88,9 L79.5,9 L79.5,40 L70.5,40 L70.5,9 L62,9Z";
-const WM_GRID =
-  "M99,0 L119,0 L119,9 L102,9 L102,31 L110,31 L110,27 L106,27 L106,19 L119,19 L119,34 L113,40 L99,40 L93,34 L93,6Z M124,0 L144,0 L150,6 L150,19 L145,23.5 L150.5,40 L141,40 L136.5,25.5 L133,25.5 L133,40 L124,40Z M133,8.5 L141,8.5 L141,17 L133,17Z M155.5,0 L164.5,0 L164.5,40 L155.5,40Z M169.5,0 L189.5,0 L195.5,6 L195.5,34 L189.5,40 L169.5,40Z M178.5,9 L186.5,9 L186.5,31 L178.5,31Z";
-
-export function Wordmark({ className = "", tone = "auto" }) {
-  const fut = tone === "dark" ? "#ffffff" : "var(--fg-ink)";
-  const grid = tone === "dark" ? "#3b7bff" : "var(--fg-accent)";
+export function SiteLogo({ className = "" }) {
   return (
-    <svg
-      viewBox="0 0 205 40"
-      role="img"
-      aria-label="FutGrid"
-      className={`block w-auto ${className}`}
-    >
-      <g transform="translate(8.5 0) skewX(-12)">
-        <path d={WM_FUT} fill={fut} fillRule="evenodd" />
-        <path d={WM_GRID} fill={grid} fillRule="evenodd" />
-      </g>
-    </svg>
+    <img
+      src={logoUrl}
+      alt="FutGrid"
+      width={800}
+      height={225}
+      className={`block w-auto object-contain ${className}`}
+    />
   );
 }

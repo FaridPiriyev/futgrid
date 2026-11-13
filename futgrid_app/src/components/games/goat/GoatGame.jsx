@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Crown, RotateCcw, Share2, Undo2 } from "lucide-react";
+import { ArrowLeft, Crown, RotateCcw, Share2, Undo2 } from "lucide-react";
 import { matchesIn, pairOf, photoIndex, pick, roundName, saveResult, standings, startBracket } from "../../../lib/games/goat";
 import { GOAT_PLAYERS } from "../../../lib/games/goatPlayers";
 import { countryFlag } from "../../../lib/games/x0xCategories";
@@ -32,7 +32,7 @@ function Chip({ player, photos, data, tone = "default" }) {
   );
 }
 
-function Result({ result, size, photos, data, onAgain }) {
+function Result({ result, size, photos, data, onAgain, onSettings }) {
   const [copied, setCopied] = useState(false);
   const { champion, final, semi, quarter } = result;
   const runnerUp = final[0];
@@ -111,6 +111,13 @@ function Result({ result, size, photos, data, onAgain }) {
               <Share2 className="h-4 w-4" />
               {copied ? tr("Kopyalandı!") : tr("Paylaş")}
             </button>
+            {onSettings && (
+              <button type="button" onClick={onSettings} className={BTN_GHOST}>
+                <span aria-hidden="true" className={SWEEP_BLUE} />
+                <ArrowLeft className="h-4 w-4" />
+                {tr("Parametrlər")}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -118,7 +125,7 @@ function Result({ result, size, photos, data, onAgain }) {
   );
 }
 
-export default function GoatGame({ data, size }) {
+export default function GoatGame({ data, size, onSettings }) {
   const photos = useMemo(() => photoIndex(data), [data]);
   const [state, setState] = useState(() => startBracket(size));
   const [history, setHistory] = useState([]);
@@ -187,7 +194,7 @@ export default function GoatGame({ data, size }) {
     return () => window.removeEventListener("keydown", onKey);
   });
 
-  if (result) return <Result result={result} size={size} photos={photos} data={data} onAgain={restart} />;
+  if (result) return <Result result={result} size={size} photos={photos} data={data} onAgain={restart} onSettings={onSettings} />;
 
   const [a, b] = pair;
   const cardState = (p) => (chosen ? (chosen === p.id ? "won" : "lost") : null);
@@ -195,7 +202,7 @@ export default function GoatGame({ data, size }) {
   return (
     <div>
       <div className="flex flex-col items-center text-center">
-        <h2 className={`${FONT} text-2xl font-black uppercase leading-none text-ink sm:text-3xl md:text-5xl`}>
+        <h2 className={`${FONT} text-2xl font-black uppercase leading-none text-ink sm:text-3xl md:text-4xl xl:text-5xl`}>
           {tr("Tarixin ən yaxşısı kimdir?")}
         </h2>
         <p className={`mt-3 inline-flex items-center gap-2 rounded-full border-2 border-edge bg-surface px-4 py-1.5 ${FONT} text-sm font-bold uppercase tracking-wide text-ink md:text-base`}>
@@ -211,7 +218,7 @@ export default function GoatGame({ data, size }) {
         </div>
       </div>
 
-      <div key={`${state.alive.length}-${state.index}`} className="relative mx-auto mt-6 grid max-w-6xl grid-cols-2 gap-3 sm:gap-5 md:mt-8 md:gap-8">
+      <div key={`${state.alive.length}-${state.index}`} className="relative mx-auto mt-5 grid max-w-3xl grid-cols-2 gap-3 sm:gap-5 md:mt-6 md:gap-8">
         <div className="animate-[gtIn_0.4s_ease-out_both]">
           <GoatCard player={a} photo={photos.get(a.id)} data={data} side="left" hotkey="←" state={cardState(a)} onPick={() => choose(a)} />
         </div>
@@ -231,10 +238,17 @@ export default function GoatGame({ data, size }) {
         </span>
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-6xl flex-wrap items-center justify-between gap-3">
+      <div className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-between gap-3">
         <p className={`hidden ${FONT} text-sm text-faint lg:block`}>{tr("Klaviatura: ← sol, → sağ, Backspace geri al")}</p>
         <p className={`${FONT} text-sm text-muted lg:hidden`}>{tr("Daha yaxşı hesab etdiyin oyunçuya toxun")}</p>
         <div className="flex flex-wrap gap-2">
+          {onSettings && (
+            <button type="button" onClick={onSettings} className={BTN_GHOST}>
+              <span aria-hidden="true" className={SWEEP_BLUE} />
+              <ArrowLeft className="h-4 w-4" />
+              {tr("Parametrlər")}
+            </button>
+          )}
           <button type="button" onClick={undo} disabled={!history.length || Boolean(chosen)} className={`${BTN_GHOST} disabled:opacity-40`}>
             <span aria-hidden="true" className={SWEEP_BLUE} />
             <Undo2 className="h-4 w-4" />

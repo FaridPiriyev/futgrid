@@ -1,16 +1,49 @@
 import { useState } from "react";
-import { ChevronRight, Shuffle, Users } from "lucide-react";
-import { dateLabel, matches, playableSides } from "../../../lib/games/lineups";
+import { ChevronRight, ListChecks, Shuffle, Users } from "lucide-react";
+import { DECADES, KINDS, dateLabel, filterMatches, playableSides } from "../../../lib/games/lineups";
+import { Checkbox, Field, SETTINGS_CARD, SettingsHeader } from "../common/controls";
 import GameLayout from "../common/GameLayout";
-import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
+import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 import LineupGame, { LINEUP_KEYFRAMES } from "./LineupGame";
 
 import { tr } from "../../../i18n";
 const RECENT_KEY = "futgrid:heyet:recent";
+const FILTER_KEY = "futgrid:heyet:filter";
 
-const ALL_GAMES = matches.flatMap((m) =>
-  playableSides(m).map((s) => ({ match: m, sides: [s], key: `${m.id}:${s}` })),
-);
+const KIND_LABEL = {
+  get ucl() {
+    return tr("Çempionlar Liqası");
+  },
+  get wc() {
+    return tr("Dünya Kuboku");
+  },
+  get euro() {
+    return tr("Avropa Çempionatı");
+  },
+  get league() {
+    return tr("Liqa oyunları");
+  },
+};
+
+const SUFFIX = { 0: "ci", 10: "cu", 20: "ci", 30: "cu", 40: "cı", 50: "ci", 60: "cı", 70: "ci", 80: "ci", 90: "cı" };
+const decadeLabel = (d) => tr("{d}-{s} illər", { d, s: SUFFIX[d % 100] ?? "ci" });
+
+const gamesOf = (filter) =>
+  filterMatches(filter).flatMap((m) =>
+    playableSides(m).map((s) => ({ match: m, sides: [s], key: `${m.id}:${s}` })),
+  );
+
+function readFilter() {
+  try {
+    const f = JSON.parse(localStorage.getItem(FILTER_KEY) ?? "{}");
+    return {
+      decades: (f.decades ?? DECADES).filter((d) => DECADES.includes(d)),
+      kinds: (f.kinds ?? KINDS).filter((k) => KINDS.includes(k)),
+    };
+  } catch {
+    return { decades: DECADES, kinds: KINDS };
+  }
+}
 
 function readRecent() {
   try {
@@ -21,7 +54,9 @@ function readRecent() {
   }
 }
 
-function pickRandom(exclude) {
+function pickRandom(filter, exclude) {
+  const ALL_GAMES = gamesOf(filter);
+  if (!ALL_GAMES.length) return null;
   const recent = readRecent();
   const limit = Math.min(recent.length, Math.max(0, ALL_GAMES.length - 3));
   const avoid = new Set([...recent.slice(0, limit), exclude].filter(Boolean));
@@ -63,7 +98,7 @@ function SidePicker({ match, onPick }) {
   );
 }
 
-function MatchList({ onPick, onRandom }) {
+function MatchList({ list, onPick, onRandom }) {
   const [open, setOpen] = useState(null);
   return (
     <>
@@ -78,7 +113,7 @@ function MatchList({ onPick, onRandom }) {
         </button>
       </div>
       <div className="mx-auto grid max-w-5xl gap-3 md:grid-cols-2">
-        {matches.map((m, i) => (
+        {list.map((m, i) => (
           <div
             key={m.id}
             className="border border-line/10 bg-surface p-4 animate-[luIn_0.45s_ease-out_both] md:p-5"
@@ -113,37 +148,109 @@ function MatchList({ onPick, onRandom }) {
   );
 }
 
+function Setup({ filter, setFilter, count, onRandom, onList }) {
+  const toggle = (key, value) => {
+    const cur = filter[key];
+    const next = cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value];
+    setFilter({ ...filter, [key]: next });
+  };
+  return (
+    <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
+      <SettingsHeader
+        title={tr("Oyunlar")}
+        accent={tr("filter")}
+        sub={tr("İstədiyin illəri və turnirləri seç. Oyun yalnız seçdiyin filterlərə uyğun oyunlardan təsadüfi gələcək.")}
+        step={tr("{n} oyun", { n: count })}
+      />
+      <div className="mt-6 space-y-6">
+        <Field label={tr("İllər")}>
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+            {DECADES.map((d) => (
+              <Checkbox key={d} checked={filter.decades.includes(d)} onChange={() => toggle("decades", d)} label={decadeLabel(d)} />
+            ))}
+          </div>
+        </Field>
+        <Field label={tr("Turnir")}>
+          <div className="flex flex-wrap gap-2">
+            {KINDS.map((k) => (
+              <Checkbox key={k} checked={filter.kinds.includes(k)} onChange={() => toggle("kinds", k)} label={KIND_LABEL[k]} />
+            ))}
+          </div>
+        </Field>
+      </div>
+      {count === 0 && (
+        <p className={`mt-5 ${FONT} text-sm font-bold text-bad`}>{tr("Bu filterlərə uyğun oyun yoxdur. Ən azı bir il və bir turnir seç.")}</p>
+      )}
+      <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
+        <button type="button" onClick={onRandom} disabled={!count} className={BTN_PRIMARY}>
+          <span aria-hidden="true" className={SWEEP_WHITE} />
+          <Shuffle className="h-4 w-4" />
+          {tr("Təsadüfi oyun")}
+        </button>
+        <button type="button" onClick={onList} disabled={!count} className={`${BTN_GHOST} disabled:opacity-40`}>
+          <span aria-hidden="true" className={SWEEP_BLUE} />
+          <ListChecks className="h-4 w-4" />
+          {tr("Oyunu özün seç")}
+        </button>
+      </div>
+    </section>
+  );
+}
+
 export default function HeyetXatirla() {
-  const [game, setGame] = useState(() => pickRandom());
+  const [filter, setFilterState] = useState(readFilter);
+  const [stage, setStage] = useState("setup");
+  const [game, setGame] = useState(null);
   const [round, setRound] = useState(0);
+  const list = filterMatches(filter);
+  const count = gamesOf(filter).length;
+
+  const setFilter = (f) => {
+    setFilterState(f);
+    try {
+      localStorage.setItem(FILTER_KEY, JSON.stringify(f));
+    } catch {}
+  };
 
   const start = (g) => {
+    if (!g) return;
     setGame(g);
+    setStage("play");
     setRound((r) => r + 1);
   };
-  const next = () => start(pickRandom(game?.key));
+  const next = () => start(pickRandom(filter, game?.key));
 
   return (
     <GameLayout
       eyebrow={tr("Yaddaş oyunu")}
       title={tr("Heyəti xatırla")}
       description={tr("Təsadüfi məşhur oyun və komanda gəlir. Başlanğıc heyəti xatırla: ad və ya soyad yazmaq kifayətdir.")}
-      compact={Boolean(game)}
+      compact={stage === "play"}
     >
       <style>{LINEUP_KEYFRAMES}</style>
-      {game ? (
+      {stage === "play" && game ? (
         <LineupGame
           key={`${round}-${game.match.id}-${game.sides.join()}`}
           match={game.match}
           sides={game.sides}
           onNext={next}
-          onList={() => setGame(null)}
+          onList={() => setStage("list")}
         />
+      ) : stage === "list" ? (
+        <>
+          <div className="mx-auto mb-4 flex max-w-5xl">
+            <button type="button" onClick={() => setStage("setup")} className={`${FONT} text-sm font-bold uppercase tracking-wide text-muted hover:text-ink`}>
+              ← {tr("Filter")}
+            </button>
+          </div>
+          <MatchList
+            list={list}
+            onRandom={next}
+            onPick={(g) => start({ ...g, key: `${g.match.id}:${g.sides.join("+")}` })}
+          />
+        </>
       ) : (
-        <MatchList
-          onRandom={next}
-          onPick={(g) => start({ ...g, key: `${g.match.id}:${g.sides.join("+")}` })}
-        />
+        <Setup filter={filter} setFilter={setFilter} count={count} onRandom={next} onList={() => setStage("list")} />
       )}
     </GameLayout>
   );

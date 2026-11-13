@@ -4,7 +4,7 @@ import { byFame } from "./fame";
 
 import { tr } from "../../i18n";
 export const MAX_TRIES = 6;
-export const POOL = { easy: 120, normal: 500, hard: 2500 };
+export const POOL = { easy: 120, normal: 260, hard: 2500 };
 
 const PARTICLES = new Set([
   "van", "de", "di", "da", "dos", "das", "der", "den", "le", "la", "el", "ben", "al", "von", "du", "mac", "del",

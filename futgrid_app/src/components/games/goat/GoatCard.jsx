@@ -45,7 +45,7 @@ export function Portrait({ player, photo, data, compact = false, className = "" 
           src={src}
           alt=""
           onError={() => setFailed({ key, n: n + 1 })}
-          className="absolute inset-0 h-full w-full object-cover object-[50%_18%]"
+          className="absolute inset-0 h-full w-full object-cover object-[50%_12%]"
         />
       ) : compact ? (
         <span aria-hidden="true" className="absolute inset-0 grid place-items-center text-lg leading-none">
@@ -80,7 +80,7 @@ export default function GoatCard({ player, photo, side, state, onPick, hotkey, d
       onClick={onPick}
       disabled={Boolean(state)}
       aria-label={player.name}
-      className={`group relative block aspect-[3/4] w-full overflow-hidden rounded-2xl border-4 bg-navy text-left transition-[translate,scale,opacity,filter,box-shadow] duration-300 ease-out disabled:cursor-default sm:aspect-[4/5] lg:aspect-[5/4] ${s.ring} ${
+      className={`group relative block aspect-[3/4] w-full overflow-hidden rounded-2xl border-4 bg-navy text-left transition-[translate,scale,opacity,filter,box-shadow] duration-300 ease-out disabled:cursor-default sm:aspect-[4/5] ${s.ring} ${
         won ? `z-10 scale-[1.03] ${s.glow}` : lost ? "scale-95 opacity-35 grayscale" : `enabled:hover:-translate-y-1 ${s.hover}`
       }`}
     >

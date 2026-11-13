@@ -26,7 +26,7 @@ function EntityMark({ entity, size = "sm" }) {
         src={src}
         alt=""
         onError={() => setBroken((i) => i + 1)}
-        className={`${box} shrink-0 ${club ? "object-contain" : "rounded-sm object-cover shadow-[0_1px_4px_rgba(0,0,0,0.4)]"}`}
+        className={`${box} shrink-0 ${club ? "fg-logo object-contain" : "rounded-sm object-cover shadow-[0_1px_4px_rgba(0,0,0,0.4)]"}`}
       />
     );
   if (!club) return <span className={size === "lg" ? "text-4xl leading-none" : "text-sm leading-none"}>{entity.flag}</span>;

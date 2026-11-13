@@ -4,9 +4,9 @@ import { buildCategoryPool, countryFlag, countryName } from "./x0xCategories";
 
 import { tr } from "../../i18n";
 export const DIFFICULTY = {
-  easy: { maxTier: 1, minAnswers: 5 },
-  normal: { maxTier: 2, minAnswers: 3 },
-  hard: { maxTier: 3, minAnswers: 1 },
+  easy: { firstTier: 1, maxTier: 1, minAnswers: 6 },
+  normal: { firstTier: 1, maxTier: 2, minAnswers: 4 },
+  hard: { firstTier: 3, maxTier: 3, minAnswers: 1 },
 };
 
 const intersect = (a, b) => {
@@ -92,20 +92,22 @@ export function pairProblem(a, b) {
 
 export function randomPair(data, { difficulty = "normal", random = Math.random, avoid = new Set(), tries = 400 } = {}) {
   const pool = buildCategoryPool(data);
-  const { maxTier, minAnswers } = DIFFICULTY[difficulty] ?? DIFFICULTY.normal;
-  for (let tier = maxTier; tier <= 3; tier++) {
+  const { firstTier, maxTier, minAnswers } = DIFFICULTY[difficulty] ?? DIFFICULTY.normal;
+  for (let step = 0; step <= 2; step++) {
+    const tier = Math.min(3, maxTier + step);
     const clubs = pool.club.filter((c) => c.tier <= tier);
+    const firsts = pool.club.filter((c) => c.tier <= Math.min(3, firstTier + step));
     const countries = pool.country.filter((c) => c.tier <= tier);
-    if (clubs.length < 2) continue;
+    if (clubs.length < 2 || !firsts.length) continue;
     for (let t = 0; t < tries; t++) {
-      const a = clubs[Math.floor(random() * clubs.length)];
+      const a = firsts[Math.floor(random() * firsts.length)];
       const second = random() < 0.4 && countries.length ? countries : clubs;
       const b = second[Math.floor(random() * second.length)];
       if (pairProblem(a, b)) continue;
       const key = [a.key, b.key].sort().join("|");
       if (avoid.has(key)) continue;
       const n = intersect(a.ids, b.ids).length;
-      if (n < minAnswers) continue;
+      if (n < Math.max(1, minAnswers - step)) continue;
       const [first, other] = b.type === "country" ? [a, b] : shuffle([a, b], random);
       const byKey = entityIndex(data).byKey;
       return { a: byKey.get(first.key), b: byKey.get(other.key), key, answers: n };

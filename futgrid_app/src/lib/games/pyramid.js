@@ -6,9 +6,9 @@ export const STEPS = [5, 4, 3, 2, 1];
 export const PENALTY = 3;
 
 const RULES = {
-  easy: { maxTier: 1, margin: 3, pairs: 0.15 },
-  normal: { maxTier: 2, margin: 2, pairs: 0.3 },
-  hard: { maxTier: 3, margin: 1.4, pairs: 0.4 },
+  easy: { maxTier: 1, clubTier: 1, margin: 3, pairs: 0.15 },
+  normal: { maxTier: 2, clubTier: 1, margin: 2.5, pairs: 0.25 },
+  hard: { maxTier: 3, clubTier: 3, margin: 1.4, pairs: 0.4 },
 };
 
 const count = (a, b) => {
@@ -20,10 +20,12 @@ const count = (a, b) => {
 
 function tryLevel(pool, need, rule, tier, usedClubs, usedKeys, random, usedCountries = new Set()) {
   const clubs = pool.club.filter((c) => c.tier <= tier && !usedClubs.has(c.key));
+  const core = clubs.filter((c) => c.tier <= Math.max(rule.clubTier ?? tier, tier - 1));
+  const firsts = core.length >= 4 ? core : clubs;
   const countries = pool.country.filter((c) => c.tier <= tier);
   const min = Math.max(need, Math.ceil(need * rule.margin));
   for (let t = 0; t < 400; t++) {
-    const a = clubs[Math.floor(random() * clubs.length)];
+    const a = firsts[Math.floor(random() * firsts.length)];
     if (!a) return null;
     const pair = need <= 3 && random() < rule.pairs;
     const list = pair ? clubs : countries;

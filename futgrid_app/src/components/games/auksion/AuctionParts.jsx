@@ -89,14 +89,14 @@ export function LotCard({ data, lot, phase, outcome, names }) {
       <div className="relative flex items-start justify-between">
         <div>
           <p
-            className={`${FONT} text-5xl font-bold leading-none text-gold-hi md:text-6xl`}
+            className={`${FONT} text-4xl font-bold leading-none text-gold-hi/80 md:text-6xl`}
           >
-            {lot.rating}
+            ?
           </p>
           <p
-            className={`mt-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.25em] text-gold`}
+            className={`mt-1 max-w-22 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-[0.2em] text-gold md:max-w-none md:tracking-[0.25em]`}
           >
-            {tr("Reytinq", null, "rating")}
+            {tr("Reytinq sonda")}
           </p>
         </div>
         <div className="flex flex-col items-end gap-2">
@@ -414,9 +414,6 @@ export function TeamPanel({ data, side, name, state, isBot }) {
                     {s.pick.auto ? "avtomatik" : clubOf(data, s.pick.player)?.name}
                   </span>
                 </span>
-                <span className={`bg-line/10 px-1.5 py-0.5 ${FONT} text-xs font-bold text-ink`}>
-                  {s.pick.rating}
-                </span>
                 <span className={`w-11 text-right ${FONT} text-xs font-bold text-soft`}>
                   {money(s.pick.price)}
                 </span>
@@ -457,7 +454,7 @@ export function MiniTeam({ side, name, state, isBot }) {
               s.pick ? POS_STYLE[s.pos] : "text-dim shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--fg-line)_12%,transparent)]"
             }`}
           >
-            {s.pick ? s.pick.rating : POS_SHORT[s.pos]}
+            {POS_SHORT[s.pos]}
           </span>
         ))}
       </div>

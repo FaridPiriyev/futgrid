@@ -15,7 +15,7 @@ export default function EntityBadge({ entity, size = "h-20 w-20 md:h-28 md:w-28"
         className={
           entity.type === "country"
             ? `${flagSize} aspect-[4/3] object-cover shadow-[0_4px_16px_rgba(0,0,0,0.6)]`
-            : `${size} object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]`
+            : `${size} fg-logo object-contain`
         }
       />
     );

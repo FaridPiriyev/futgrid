@@ -76,10 +76,10 @@ function PlayerCard({ data, player, side, phase, correct, onGuess, animate }) {
       <PlayerAvatar
         key={player.id}
         player={player}
-        className="h-24 w-24 border-2 md:h-32 md:w-32"
-        textClass="text-3xl md:text-4xl"
+        className="h-16 w-16 border-2 sm:h-24 sm:w-24 md:h-32 md:w-32"
+        textClass="text-xl sm:text-3xl md:text-4xl"
       />
-      <h3 className={`relative mt-3 ${FONT} text-2xl font-bold uppercase leading-tight text-ink md:text-3xl`}>
+      <h3 className={`relative mt-2 ${FONT} text-xl font-bold uppercase leading-tight text-ink sm:mt-3 sm:text-2xl md:text-3xl`}>
         {player.name}
       </h3>
       <div
@@ -108,7 +108,7 @@ function PlayerCard({ data, player, side, phase, correct, onGuess, animate }) {
         {hidden ? (
           <>
             <p
-              className={`${FONT} text-5xl font-bold leading-tight text-gold-hi animate-[hlQ_1.6s_ease-in-out_infinite] md:text-6xl`}
+              className={`${FONT} text-4xl font-bold leading-tight text-gold-hi animate-[hlQ_1.6s_ease-in-out_infinite] md:text-6xl`}
             >
               ?
             </p>
@@ -133,7 +133,7 @@ function PlayerCard({ data, player, side, phase, correct, onGuess, animate }) {
           </>
         ) : (
           <p
-            className={`${FONT} text-5xl font-bold leading-tight md:text-6xl ${
+            className={`${FONT} text-4xl font-bold leading-tight md:text-6xl ${
               revealed ? (correct ? "text-good-hi" : "text-bad-hi") : "text-ink"
             }`}
           >

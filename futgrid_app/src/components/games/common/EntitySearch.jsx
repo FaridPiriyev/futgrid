@@ -2,13 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { searchEntities } from "../../../lib/games/common";
 import EntityBadge from "./EntityBadge";
-import { FONT } from "./ui";
+import { FONT, listPlacement, useMobileInput } from "./ui";
 
 import { tr } from "../../../i18n";
 export default function EntitySearch({ data, types = ["club", "country"], onSelect, disabled = false, focusKey, placeholder, accent = "border-accent", secret = false }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const inputRef = useRef(null);
+  const box = useMobileInput(inputRef);
 
   const results = useMemo(() => (disabled ? [] : searchEntities(data, query, { types })), [data, query, disabled, types]);
 
@@ -57,7 +58,7 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
           role="combobox"
           aria-expanded={results.length > 0}
           aria-controls="entity-search-list"
-          className={`w-full border-2 bg-line/5 py-3 pl-12 pr-4 ${secret ? "[-webkit-text-security:disc]" : ""} ${FONT} text-base text-ink placeholder-faint outline-none transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 md:text-lg ${
+          className={`w-full border-2 bg-line/5 py-2.5 pl-11 pr-3 md:py-3 md:pl-12 md:pr-4 ${secret ? "[-webkit-text-security:disc]" : ""} ${FONT} text-base text-ink placeholder-faint outline-none transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 md:text-lg ${
             disabled ? "border-line/10" : `${accent} focus:bg-line/10`
           }`}
         />
@@ -67,7 +68,8 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
         <ul
           id="entity-search-list"
           role="listbox"
-          className="absolute inset-x-0 top-full z-30 mt-1 max-h-80 overflow-y-auto border border-line/10 bg-surface shadow-2xl"
+          style={box.maxHeight ? { maxHeight: box.maxHeight } : undefined}
+          className={`absolute inset-x-0 z-40 max-h-80 overflow-y-auto overscroll-contain border border-line/10 bg-surface shadow-2xl ${listPlacement(box)}`}
         >
           {results.map((e, i) => (
             <li key={e.key} role="option" aria-selected={i === active}>
@@ -83,7 +85,7 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
                 <span className="flex h-8 w-10 shrink-0 items-center justify-center">
                   <EntityBadge entity={e} size="h-8 w-8" flagSize="w-9" />
                 </span>
-                <span className={`min-w-0 flex-1 truncate ${FONT} text-base font-bold uppercase tracking-wide text-ink`}>{e.label}</span>
+                <span className={`min-w-0 flex-1 truncate ${FONT} text-sm font-bold uppercase tracking-wide text-ink md:text-base`}>{e.label}</span>
                 <span className={`shrink-0 ${FONT} text-xs uppercase tracking-wider text-faint`}>{e.type === "club" ? tr("Klub") : tr("Ölkə")}</span>
               </button>
             </li>
@@ -92,7 +94,7 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
       )}
 
       {!disabled && query.trim().length >= 2 && results.length === 0 && (
-        <p className={`absolute inset-x-0 top-full z-30 mt-1 border border-line/10 bg-surface px-4 py-3 ${FONT} text-sm text-faint`}>
+        <p className={`absolute inset-x-0 z-40 border border-line/10 bg-surface px-4 py-3 ${listPlacement(box)} ${FONT} text-sm text-faint`}>
           {tr("Tapılmadı.")}
         </p>
       )}

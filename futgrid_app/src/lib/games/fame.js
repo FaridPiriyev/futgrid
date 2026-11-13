@@ -85,14 +85,10 @@ const COACH_EASY = [
 const COACH_NORMAL = [
   "maurizio-sarri", "rafael-benitez", "claudio-ranieri", "brendan-rodgers", "stefano-pioli",
   "ronald-koeman", "frank-lampard", "ole-gunnar-solskjaer", "roberto-mancini", "luciano-spalletti",
-  "simone-inzaghi", "gian-piero-gasperini", "marcelo-bielsa", "quique-setien", "ernesto-valverde",
-  "julen-lopetegui", "louis-van-gaal", "vicente-del-bosque", "joachim-low", "fabio-capello",
-  "marcello-lippi", "guus-hiddink", "jupp-heynckes", "ottmar-hitzfeld", "manuel-pellegrini",
-  "roberto-martinez", "gareth-southgate", "niko-kovac", "nuno-espirito-santo", "ange-postecoglou",
-  "enzo-maresca", "oliver-glasner", "thiago-motta", "roberto-de-zerbi", "graham-potter",
-  "david-moyes", "sergio-conceicao", "paulo-fonseca", "marco-silva", "lucien-favre",
-  "andre-villas-boas", "cesare-prandelli", "tite", "lionel-scaloni", "jorge-jesus",
-  "gennaro-gattuso", "andrea-pirlo", "igor-tudor",
+  "simone-inzaghi", "ernesto-valverde", "louis-van-gaal", "vicente-del-bosque", "joachim-low",
+  "fabio-capello", "marcello-lippi", "guus-hiddink", "jupp-heynckes", "manuel-pellegrini",
+  "gareth-southgate", "ange-postecoglou", "enzo-maresca", "david-moyes", "tite", "lionel-scaloni",
+  "julen-lopetegui", "roberto-martinez",
 ];
 
 const COACH_TIER = new Map([

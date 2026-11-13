@@ -2,7 +2,7 @@ import { Check, Lock } from "lucide-react";
 import { FONT } from "./ui";
 
 export const SETTINGS_CARD =
-  "relative overflow-hidden rounded-2xl border border-edge bg-surface p-5 shadow-[0_30px_60px_-44px_var(--fg-shadow)] md:p-8";
+  "relative overflow-hidden rounded-2xl border border-edge bg-surface p-4 shadow-[0_30px_60px_-44px_var(--fg-shadow)] md:p-8";
 
 const COLS = {
   1: "grid-cols-1",
@@ -188,13 +188,13 @@ export function SettingsHeader({ title, accent, sub, step }) {
     <div className="flex flex-wrap items-end justify-between gap-3 border-b border-edge pb-4">
       <div>
         <h2
-          className={`${FONT} text-2xl font-black uppercase leading-none tracking-wide text-ink md:text-3xl`}
+          className={`${FONT} text-xl font-black uppercase leading-none tracking-wide text-ink md:text-3xl`}
         >
           {title}
           {accent && <span className="text-accent"> · {accent}</span>}
         </h2>
         {sub && (
-          <p className={`mt-1.5 ${FONT} text-sm text-muted md:text-base`}>
+          <p className={`mt-1.5 ${FONT} text-[13px] leading-snug text-muted md:text-base`}>
             {sub}
           </p>
         )}

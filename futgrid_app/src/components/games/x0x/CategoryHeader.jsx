@@ -58,7 +58,7 @@ function Visual({ cat }) {
       <>
         <Picture
           src={cat.image}
-          className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+          className="h-full w-full rounded-lg bg-white object-contain p-1 shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
           fallback={<Trophy className={`${ICON} text-gold-hi`} />}
         />
         {cat.min > 1 && (

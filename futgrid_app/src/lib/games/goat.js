@@ -1,4 +1,4 @@
-import { norm } from "../data";
+import { manualPhoto, norm } from "../data";
 import { shuffle } from "../random";
 import { GOAT_PLAYERS } from "./goatPlayers";
 
@@ -44,10 +44,12 @@ export function standings(state, size) {
   };
 }
 
-const LOCAL = (id) => `/images/goat/${id}.jpg`;
+const COMMONS = (file) =>
+  file ? `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file.replace(/ /g, "_"))}?width=640` : null;
+const base = (g) => [manualPhoto(g.id, g.name), COMMONS(g.photo)].filter(Boolean);
 
 export function photoIndex(data) {
-  if (!data) return new Map(GOAT_PLAYERS.map((g) => [g.id, [LOCAL(g.id)]]));
+  if (!data) return new Map(GOAT_PLAYERS.map((g) => [g.id, base(g)]));
   if (data._goatPhotos) return data._goatPhotos;
   const bySlug = new Map();
   const byName = new Map();
@@ -63,7 +65,7 @@ export function photoIndex(data) {
     const hit =
       bySlug.get(g.id) ??
       [g.name, ...(g.aliases ?? [])].map((n) => byName.get(norm(n))).find(Boolean);
-    out.set(g.id, [LOCAL(g.id), hit?.photo_url].filter(Boolean));
+    out.set(g.id, [...new Set([...base(g), hit?.photo_url].filter(Boolean))]);
   }
   data._goatPhotos = out;
   return out;

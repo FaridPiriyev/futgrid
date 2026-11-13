@@ -1,4 +1,5 @@
 import { tr } from "../i18n";
+import { MANUAL_PHOTOS } from "./manualPhotos";
 const BASE = "/data";
 
 let cache = null;
@@ -28,12 +29,23 @@ const getJson = async (file, optional = false) => {
   return JSON.parse(text);
 };
 
+const manualBySlug = new Map(Object.entries(MANUAL_PHOTOS));
+const manualByName = new Map(
+  Object.entries(MANUAL_PHOTOS).map(([key, url]) => [norm(key), url]),
+);
+
+export function manualPhoto(slug, name) {
+  return manualBySlug.get(slug) ?? manualByName.get(norm(name)) ?? null;
+}
+
 function buildIndex({ clubs, players, trophies, countries, coaches }) {
   const clubsById = new Map(clubs.map((c) => [c.id, c]));
   const playersById = new Map();
   const playersByClub = new Map();
 
   for (const p of players) {
+    const manual = manualPhoto(p.slug, p.name);
+    if (manual) p.photo_url = manual;
     p._name = norm(p.name);
     p._tokens = p._name.split(" ");
     playersById.set(p.id, p);
@@ -56,6 +68,14 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
     countriesByCode: new Map((countries ?? []).map((c) => [c.code, c])),
     coachesById: new Map((coaches ?? []).map((c) => [c.id, c])),
   };
+}
+
+export function prefetchData() {
+  if (cache || typeof window === "undefined") return;
+  const run = () => loadData().catch(() => {});
+  const idle = () =>
+    "requestIdleCallback" in window ? window.requestIdleCallback(run, { timeout: 3000 }) : run();
+  setTimeout(idle, 2500);
 }
 
 export function loadData() {

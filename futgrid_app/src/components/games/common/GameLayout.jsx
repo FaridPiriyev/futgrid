@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { FONT } from "./ui";
@@ -7,7 +8,7 @@ function BackLink() {
   return (
     <Link
       to="/oyunlar"
-      className={`group inline-flex items-center gap-2 ${FONT} text-sm uppercase tracking-[0.15em] text-muted transition-colors duration-300 hover:text-ink`}
+      className={`group inline-flex shrink-0 items-center gap-2 whitespace-nowrap ${FONT} text-sm uppercase tracking-[0.15em] text-muted transition-colors duration-300 hover:text-ink`}
     >
       <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
       {tr("Oyunlara qayıt")}
@@ -22,12 +23,16 @@ export default function GameLayout({
   compact = false,
   children,
 }) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [compact]);
+
   return (
     <section
       className={`relative w-full overflow-hidden bg-page ${
         compact
-          ? "min-h-[calc(100svh-7rem)] pb-6 pt-4 md:min-h-[calc(100svh-8.75rem)] md:pt-20"
-          : "min-h-screen pb-16 pt-28 md:pt-32"
+          ? "min-h-[calc(100svh-7rem)] pb-24 pt-3 md:min-h-[calc(100svh-8.75rem)] md:pb-6 md:pt-20"
+          : "min-h-screen pb-24 pt-6 md:pb-16 md:pt-32"
       }`}
     >
       <div
@@ -42,7 +47,7 @@ export default function GameLayout({
           <div className="flex items-center justify-between gap-4">
             <BackLink />
             <span
-              className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] text-accent`}
+              className={`min-w-0 truncate ${FONT} text-xs font-bold uppercase tracking-[0.2em] text-accent md:text-sm`}
             >
               {tr(title)}
             </span>
@@ -50,22 +55,22 @@ export default function GameLayout({
         ) : (
           <>
             <BackLink />
-            <header className="mt-6 text-center">
+            <header className="mt-4 text-center md:mt-6">
               {eyebrow && (
                 <p
-                  className={`${FONT} text-base uppercase tracking-wider text-accent md:text-xl`}
+                  className={`${FONT} text-xs uppercase tracking-wider text-accent md:text-xl`}
                 >
                   {tr(eyebrow)}
                 </p>
               )}
               <h1
-                className={`mt-1 ${FONT} text-4xl font-bold uppercase leading-tight text-ink md:text-[56px]`}
+                className={`mt-1 ${FONT} text-[1.9rem] font-bold uppercase leading-none text-ink md:text-[56px] md:leading-tight`}
               >
                 {tr(title)}
               </h1>
               {description && (
                 <p
-                  className={`mx-auto mt-3 max-w-2xl ${FONT} text-base font-light leading-7 text-muted md:text-lg`}
+                  className={`mx-auto mt-2 max-w-2xl ${FONT} text-sm font-light leading-6 text-muted md:mt-3 md:text-lg md:leading-7`}
                 >
                   {tr(description)}
                 </p>
@@ -74,7 +79,7 @@ export default function GameLayout({
           </>
         )}
 
-        <div className={compact ? "mt-4" : "mt-10 md:mt-12"}>{children}</div>
+        <div className={compact ? "mt-3 md:mt-4" : "mt-6 md:mt-12"}>{children}</div>
       </div>
     </section>
   );
