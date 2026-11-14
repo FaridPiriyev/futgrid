@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main, backend]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: futgrid
+          POSTGRES_PASSWORD: futgrid
+          POSTGRES_DB: futgrid_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U futgrid -d futgrid_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://futgrid:futgrid@localhost:5432/futgrid_test?schema=public
+      REDIS_URL: redis://localhost:6379/0
+      TEST_DATABASE_URL: postgresql://futgrid:futgrid@localhost:5432/futgrid_test?schema=test
+      TEST_REDIS_URL: redis://localhost:6379/15
+      NODE_ENV: test
+      TOKEN_PEPPER: test-token-pepper
+      IP_HASH_SALT: test-ip-salt
+      JWT_ACCESS_SECRET: test-access-secret-at-least-32-characters
+      COOKIE_SECURE: "false"
+      CORS_ORIGINS: http://localhost:5173
+      DATA_DIR: packages/game-core/data
+      DATA_VERSION: v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run prisma:generate --workspace @futgrid/backend
+      - run: npm run prisma:deploy --workspace @futgrid/backend
+        env:
+          DATABASE_URL: postgresql://futgrid:futgrid@localhost:5432/futgrid_test?schema=test
+      - run: npm run lint --workspace @futgrid/game-core
+      - run: npm run typecheck --workspace @futgrid/game-core
+      - run: npm run test --workspace @futgrid/game-core
+      - run: npm run build --workspace @futgrid/game-core
+      - run: npm run lint --workspace @futgrid/backend
+      - run: npm run typecheck --workspace @futgrid/backend
+      - run: npm run test --workspace @futgrid/backend
+      - run: npm run build --workspace @futgrid/backend
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint --workspace futgrid_app
+      - run: npm run build --workspace futgrid_app

@@ -1,0 +1,643 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String    @id @default(uuid()) @db.Uuid
+  email            String    @unique
+  passwordHash     String?   @map("password_hash")
+  username         String    @unique
+  displayName      String?   @map("display_name")
+  teamId           Int?      @map("team_id")
+  locale           String    @default("az")
+  role             String    @default("user")
+  adminTotpSecret  String?   @map("admin_totp_secret")
+  adminTotpEnabled Boolean   @default(false) @map("admin_totp_enabled")
+  emailVerifiedAt  DateTime? @map("email_verified_at")
+  ageConfirmedAt   DateTime? @map("age_confirmed_at")
+  blockedAt        DateTime? @map("blocked_at")
+  deletedAt        DateTime? @map("deleted_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  team          Team?           @relation(fields: [teamId], references: [id])
+  oauthAccounts OAuthAccount[]
+  refreshTokens RefreshToken[]
+  emailTokens   EmailToken[]
+  settings      UserSetting[]
+  guestLinks    GuestLink[]
+  sessions      GameSession[]
+  ledger        PointsLedger[]
+  stats         UserGameStats[]
+  dailyAttempts DailyAttempt[]
+  dailyStreaks  DailyStreak[]
+  goatVotes     GoatVote[]
+  UserRating    UserRating[]
+  PushToken     PushToken[]
+
+  @@index([teamId])
+  @@index([role])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model OAuthAccount {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
+  provider          String
+  providerAccountId String   @map("provider_account_id")
+  email             String?
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("oauth_accounts")
+}
+
+model RefreshToken {
+  id                  String    @id @default(uuid()) @db.Uuid
+  userId              String    @map("user_id") @db.Uuid
+  tokenHash           String    @unique @map("token_hash")
+  expiresAt           DateTime  @map("expires_at")
+  revokedAt           DateTime? @map("revoked_at")
+  replacedByTokenHash String?   @map("replaced_by_token_hash")
+  userAgent           String?   @map("user_agent")
+  ipHash              String?   @map("ip_hash")
+  createdAt           DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+model EmailToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  tokenHash String    @unique @map("token_hash")
+  type      String
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+  @@index([expiresAt])
+  @@map("email_tokens")
+}
+
+model Team {
+  id        Int      @id
+  name      String
+  slug      String   @unique
+  logoUrl   String?  @map("logo_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users User[]
+
+  @@map("teams")
+}
+
+model UserSetting {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  gameKey   String   @map("game_key")
+  settings  Json
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameKey])
+  @@map("user_settings")
+}
+
+model GuestLink {
+  id         String   @id @default(uuid()) @db.Uuid
+  guestId    String   @unique @map("guest_id") @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  importedAt DateTime @default(now()) @map("imported_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("guest_links")
+}
+
+model Game {
+  id        String   @id
+  name      String
+  enabled   Boolean  @default(true)
+  sortOrder Int      @default(0) @map("sort_order")
+  isNew     Boolean  @default(false) @map("is_new")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  sessions GameSession[]
+  ledger   PointsLedger[]
+  stats    UserGameStats[]
+
+  @@map("games")
+}
+
+model GameSession {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String?   @map("user_id") @db.Uuid
+  guestId     String?   @map("guest_id") @db.Uuid
+  gameId      String    @map("game_id")
+  mode        String
+  difficulty  String
+  settings    Json
+  seed        BigInt
+  dataVersion String    @map("data_version")
+  status      String    @default("active")
+  score       Float?
+  points      Float?
+  flagged     Boolean   @default(false)
+  startedAt   DateTime  @default(now()) @map("started_at")
+  expiresAt   DateTime  @map("expires_at")
+  finishedAt  DateTime? @map("finished_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  user   User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  game   Game          @relation(fields: [gameId], references: [id])
+  ledger PointsLedger?
+  event  Event[]
+
+  @@index([userId, gameId, startedAt])
+  @@index([guestId, gameId, startedAt])
+  @@index([expiresAt])
+  @@index([status])
+  @@map("game_sessions")
+}
+
+model PointsLedger {
+  id          BigInt   @id @default(autoincrement())
+  userId      String?  @map("user_id") @db.Uuid
+  guestId     String?  @map("guest_id") @db.Uuid
+  sessionId   String   @unique @map("session_id") @db.Uuid
+  gameId      String   @map("game_id")
+  points      Float
+  score       Float
+  difficulty  String
+  periodWeek  String   @map("period_week")
+  periodMonth String   @map("period_month")
+  reason      String   @default("session")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user    User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  game    Game        @relation(fields: [gameId], references: [id])
+  session GameSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([userId, gameId, createdAt])
+  @@index([guestId, gameId, createdAt])
+  @@index([sessionId])
+  @@index([periodWeek])
+  @@index([periodMonth])
+  @@index([gameId, periodWeek])
+  @@map("points_ledger")
+}
+
+model UserGameStats {
+  id            String    @id @default(uuid()) @db.Uuid
+  userId        String?   @map("user_id") @db.Uuid
+  guestId       String?   @map("guest_id") @db.Uuid
+  gameId        String    @map("game_id")
+  played        Int       @default(0)
+  wins          Int       @default(0)
+  bestScore     Float     @default(0) @map("best_score")
+  totalPoints   Float     @default(0) @map("total_points")
+  currentStreak Int       @default(0) @map("current_streak")
+  bestStreak    Int       @default(0) @map("best_streak")
+  lastPlayedAt  DateTime? @map("last_played_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game  @relation(fields: [gameId], references: [id])
+
+  @@unique([userId, gameId])
+  @@unique([guestId, gameId])
+  @@index([gameId, bestScore])
+  @@map("user_game_stats")
+}
+
+model LeaderboardSnapshot {
+  id         BigInt   @id @default(autoincrement())
+  periodType String   @map("period_type")
+  periodKey  String   @map("period_key")
+  gameId     String?  @map("game_id")
+  scope      String   @default("global")
+  entries    Json
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([periodType, periodKey])
+  @@index([periodType, periodKey, gameId])
+  @@map("leaderboard_snapshots")
+}
+
+model Event {
+  id        BigInt   @id @default(autoincrement())
+  userId    String?  @map("user_id") @db.Uuid
+  guestId   String?  @map("guest_id") @db.Uuid
+  sessionId String?  @map("session_id") @db.Uuid
+  gameId    String?  @map("game_id")
+  type      String
+  payload   Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  session GameSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([guestId, createdAt])
+  @@index([gameId, type, createdAt])
+  @@map("events")
+}
+
+model DailyPuzzle {
+  id          String   @id @default(uuid()) @db.Uuid
+  game        String
+  date        String
+  difficulty  String
+  seed        BigInt
+  dataVersion String   @map("data_version")
+  puzzle      Json
+  closed      Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  attempts     DailyAttempt[]
+  answerCounts DailyAnswerCount[]
+
+  @@unique([game, date, difficulty])
+  @@index([game, date])
+  @@map("daily_puzzles")
+}
+
+model DailyAttempt {
+  id         String    @id @default(uuid()) @db.Uuid
+  puzzleId   String    @map("puzzle_id") @db.Uuid
+  userId     String?   @map("user_id") @db.Uuid
+  guestId    String?   @map("guest_id") @db.Uuid
+  status     String    @default("active")
+  state      Json
+  score      Float?
+  solved     Boolean   @default(false)
+  startedAt  DateTime  @default(now()) @map("started_at")
+  finishedAt DateTime? @map("finished_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  puzzle DailyPuzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+  user   User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@unique([puzzleId, userId])
+  @@unique([puzzleId, guestId])
+  @@index([userId, createdAt])
+  @@index([guestId, createdAt])
+  @@map("daily_attempts")
+}
+
+model DailyAnswerCount {
+  id            BigInt   @id @default(autoincrement())
+  puzzleId      String   @map("puzzle_id") @db.Uuid
+  cell          Int
+  playerId      Int      @map("player_id")
+  selectedCount Int      @default(0) @map("selected_count")
+  correctCount  Int      @default(0) @map("correct_count")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  puzzle DailyPuzzle @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+
+  @@unique([puzzleId, cell, playerId])
+  @@index([puzzleId, cell])
+  @@map("daily_answer_counts")
+}
+
+model DailyStreak {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String?  @map("user_id") @db.Uuid
+  guestId       String?  @map("guest_id") @db.Uuid
+  game          String
+  currentStreak Int      @default(0) @map("current_streak")
+  bestStreak    Int      @default(0) @map("best_streak")
+  lastDate      String?  @map("last_date")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, game])
+  @@unique([guestId, game])
+  @@index([game, currentStreak])
+  @@map("daily_streaks")
+}
+
+model GoatVote {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String?  @map("user_id") @db.Uuid
+  guestId   String?  @map("guest_id") @db.Uuid
+  size      Int
+  champion  String
+  final     String[]
+  semi      String[]
+  picks     Json
+  counted   Boolean  @default(false)
+  voteDate  String   @map("vote_date")
+  ipHash    String?  @map("ip_hash")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, voteDate])
+  @@index([guestId, voteDate])
+  @@index([size, counted, voteDate])
+  @@index([ipHash, voteDate])
+  @@map("goat_votes")
+}
+
+model GoatPlayerStat {
+  id            String   @id @default(uuid()) @db.Uuid
+  size          Int
+  playerId      String   @map("player_id")
+  championCount Int      @default(0) @map("champion_count")
+  finalCount    Int      @default(0) @map("final_count")
+  semiCount     Int      @default(0) @map("semi_count")
+  wins          Int      @default(0)
+  losses        Int      @default(0)
+  elo           Float    @default(1500)
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@unique([size, playerId])
+  @@index([size, championCount])
+  @@index([size, elo])
+  @@map("goat_player_stats")
+}
+
+model GoatPairStat {
+  id        BigInt   @id @default(autoincrement())
+  size      Int
+  winnerId  String   @map("winner_id")
+  loserId   String   @map("loser_id")
+  wins      Int      @default(0)
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([size, winnerId, loserId])
+  @@index([size, winnerId])
+  @@map("goat_pair_stats")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  email     String
+  message   String
+  locale    String   @default("az")
+  ipHash    String?  @map("ip_hash")
+  status    String   @default("new")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("contact_messages")
+}
+
+model PlayerRecord {
+  id              Int      @id
+  name            String
+  slug            String?  @unique
+  nationalityCode String?  @map("nationality_code")
+  position        String?
+  isActive        Boolean  @default(true) @map("is_active")
+  hidden          Boolean  @default(false)
+  birthDate       String?  @map("birth_date")
+  heightCm        Int?     @map("height_cm")
+  preferredFoot   String?  @map("preferred_foot")
+  currentClubId   Int?     @map("current_club_id")
+  currentClubName String?  @map("current_club_name")
+  marketValueEur  Float?   @map("market_value_eur")
+  highestValueEur Float?   @map("highest_value_eur")
+  photoUrl        String?  @map("photo_url")
+  data            Json?
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  stints   PlayerStint[]
+  trophies PlayerTrophy[]
+
+  @@index([nationalityCode])
+  @@index([position, isActive])
+  @@index([marketValueEur])
+  @@map("players")
+}
+
+model ClubRecord {
+  id        Int      @id
+  name      String
+  slug      String?  @unique
+  shortName String?  @map("short_name")
+  logoUrl   String?  @map("logo_url")
+  hidden    Boolean  @default(false)
+  data      Json?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  stints PlayerStint[]
+
+  @@map("clubs")
+}
+
+model PlayerStint {
+  id       BigInt  @id @default(autoincrement())
+  playerId Int     @map("player_id")
+  clubId   Int     @map("club_id")
+  fromDate String? @map("from_date")
+  toDate   String? @map("to_date")
+
+  player PlayerRecord @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  club   ClubRecord   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@index([playerId])
+  @@index([clubId])
+  @@map("player_stints")
+}
+
+model PlayerTrophy {
+  id       BigInt @id @default(autoincrement())
+  playerId Int    @map("player_id")
+  trophyId String @map("trophy_id")
+  count    Int    @default(1)
+
+  player PlayerRecord @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@unique([playerId, trophyId])
+  @@index([trophyId])
+  @@map("player_trophies")
+}
+
+model CoachRecord {
+  id        String   @id
+  name      String
+  slug      String?  @unique
+  photoUrl  String?  @map("photo_url")
+  hidden    Boolean  @default(false)
+  data      Json?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("coaches")
+}
+
+model CountryRecord {
+  code      String   @id
+  name      String
+  nameEn    String?  @map("name_en")
+  flagUrl   String?  @map("flag_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("countries")
+}
+
+model FamousMatchRecord {
+  id          String   @id
+  competition String
+  date        String
+  venue       String?
+  home        Json
+  away        Json
+  hidden      Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("famous_matches")
+}
+
+model DataOverride {
+  id         String   @id @default(uuid()) @db.Uuid
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  field      String
+  value      Json
+  createdBy  String?  @map("created_by") @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([entityType, entityId, field])
+  @@index([entityType, entityId])
+  @@map("data_overrides")
+}
+
+model DataRelease {
+  id          String    @id @default(uuid()) @db.Uuid
+  version     String    @unique
+  status      String    @default("building")
+  report      Json?
+  manifest    Json?
+  createdBy   String?   @map("created_by") @db.Uuid
+  createdAt   DateTime  @default(now()) @map("created_at")
+  publishedAt DateTime? @map("published_at")
+
+  @@index([status, createdAt])
+  @@map("data_releases")
+}
+
+model Media {
+  id         String   @id @default(uuid()) @db.Uuid
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  kind       String
+  sourceUrl  String   @map("source_url")
+  license    String?
+  author     String?
+  hash       String?
+  urls       Json?
+  status     String   @default("ready")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([entityType, entityId])
+  @@index([hash])
+  @@map("media")
+}
+
+model AuditLog {
+  id        BigInt   @id @default(autoincrement())
+  adminId   String   @map("admin_id") @db.Uuid
+  action    String
+  entity    String
+  entityId  String?  @map("entity_id")
+  before    Json?
+  after     Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([adminId, createdAt])
+  @@index([entity, entityId])
+  @@map("audit_log")
+}
+
+model UserRating {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  gameId    String   @map("game_id")
+  rating    Float    @default(1000)
+  games     Int      @default(0)
+  wins      Int      @default(0)
+  losses    Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameId])
+  @@index([gameId, rating])
+  @@map("user_ratings")
+}
+
+model PushToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  token     String   @unique
+  platform  String   @default("web")
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, enabled])
+  @@map("push_tokens")
+}
+
+model DuelMatch {
+  id          String   @id @default(uuid()) @db.Uuid
+  gameId      String   @map("game_id")
+  roomCode    String   @map("room_code")
+  winnerId    String?  @map("winner_id") @db.Uuid
+  loserId     String?  @map("loser_id") @db.Uuid
+  playerIds   String[] @map("player_ids")
+  score       Json?
+  durationMs  Int?     @map("duration_ms")
+  endedReason String   @map("ended_reason")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([gameId, createdAt])
+  @@index([winnerId])
+  @@map("duel_matches")
+}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, Flag, RotateCcw, Settings2 } from "lucide-react";
 import { commonPlayers, isCommon, randomPair } from "../../../lib/games/common";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerSearch from "../common/PlayerSearch";
 import ResultModal from "../common/ResultModal";
 import { Notice } from "../common/GameStatus";
@@ -45,6 +46,13 @@ function Stat({ label, value, sub, tone = "text-ink", compact }) {
 export default function OrtaqSolo({ data, settings, onSettings }) {
   const total = settings.rounds;
   const seen = useRef(new Set());
+  const ranked = useRankedGame({
+    game: "orta",
+    difficulty: settings.difficulty,
+    settings: { difficulty: settings.difficulty, rounds: settings.rounds },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
   const [index, setIndex] = useState(1);
   const [pair, setPair] = useState(undefined);
   const [revealed, setRevealed] = useState(false);
@@ -55,10 +63,11 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
   const [feedback, setFeedback] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const deal = useCallback(() => {
+  const deal = useCallback((random = randomRef.current) => {
     const next = randomPair(data, {
       difficulty: settings.difficulty,
       avoid: seen.current,
+      random,
     });
     if (next) seen.current.add(next.key);
     setPair(next);
@@ -68,9 +77,22 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
     setFeedback(null);
   }, [data, settings.difficulty]);
 
+  const start = useCallback(async () => {
+    seen.current = new Set();
+    finishedRef.current = false;
+    setIndex(1);
+    setScore(0);
+    setStats({ correct: 0, wrong: 0, skipped: 0 });
+    setShowModal(false);
+    randomRef.current = Math.random;
+    const random = await ranked.begin();
+    randomRef.current = random ?? Math.random;
+    deal(randomRef.current);
+  }, [ranked.begin, deal]);
+
   useEffect(() => {
-    deal();
-  }, [deal]);
+    void start();
+  }, [start]);
 
   useEffect(() => {
     if (!pair) return;
@@ -85,6 +107,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
   const last = index >= total;
 
   const guess = (player) => {
+    ranked.record({ round: index - 1, playerId: player.id });
     if (isCommon(pair.a, pair.b, player)) {
       setScore((s) => s + 1);
       setStats((s) => ({ ...s, correct: s.correct + 1 }));
@@ -108,18 +131,19 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
   };
 
   const next = () => {
-    if (last) return setShowModal(true);
+    if (last) {
+      if (!finishedRef.current) {
+        finishedRef.current = true;
+        void ranked.complete();
+      }
+      return setShowModal(true);
+    }
     setIndex((i) => i + 1);
-    deal();
+    deal(randomRef.current);
   };
 
   const restart = () => {
-    seen.current = new Set();
-    setIndex(1);
-    setScore(0);
-    setStats({ correct: 0, wrong: 0, skipped: 0 });
-    setShowModal(false);
-    deal();
+    void start();
   };
 
   if (pair === null)

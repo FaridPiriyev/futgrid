@@ -7,7 +7,7 @@ const MODES = [
     return tr("Dostla");
   }, get text() {
     return tr("Dostunu onlayn oyuna dəvət et");
-  }, soon: true },
+  } },
   { key: "online", Icon: Wifi, get title() {
     return tr("Onlayn rəqib");
   }, get text() {

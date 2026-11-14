@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, Check, ChevronRight, Lightbulb, RotateCcw, SkipForward, X } from "lucide-react";
 import {
   MAX_WRONG,
@@ -9,6 +9,7 @@ import {
   roundPoints,
 } from "../../../lib/games/career";
 import { POS_NAME, countryOf } from "../../../lib/games/playerInfo";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import ClubBadge from "../common/ClubBadge";
 import PlayerAvatar, { Flag } from "../common/PlayerAvatar";
 import PlayerSearch from "../common/PlayerSearch";
@@ -96,6 +97,13 @@ function Summary({ results, score, onAgain }) {
 
 export default function CareerGame({ data, difficulty }) {
   const pool = useMemo(() => careerPool(data, difficulty), [data, difficulty]);
+  const ranked = useRankedGame({
+    game: "career",
+    difficulty,
+    settings: { difficulty },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
   const [rounds, setRounds] = useState(() => pickRounds(pool));
   const [idx, setIdx] = useState(0);
   const [hints, setHints] = useState(0);
@@ -108,13 +116,25 @@ export default function CareerGame({ data, difficulty }) {
   const path = useMemo(() => (target ? careerPath(data, target) : []), [data, target]);
   const score = results.reduce((s, r) => s + r.points, 0);
 
-  function restart() {
-    setRounds(pickRounds(pool));
+  const start = useCallback(async () => {
+    finishedRef.current = false;
+    randomRef.current = Math.random;
+    const random = await ranked.begin();
+    randomRef.current = random ?? Math.random;
+    setRounds(pickRounds(pool, randomRef.current));
     setIdx(0);
     setHints(0);
     setWrong([]);
     setStatus("play");
     setResults([]);
+  }, [ranked.begin, pool]);
+
+  useEffect(() => {
+    void start();
+  }, [start]);
+
+  function restart() {
+    void start();
   }
 
   if (!target) return <Summary results={results} score={score} onAgain={restart} />;
@@ -145,7 +165,10 @@ export default function CareerGame({ data, difficulty }) {
 
   const guess = (p) => {
     if (status !== "play") return;
-    if (pathKey(data, p) === key) return finish(roundPoints(hints));
+    if (pathKey(data, p) === key) {
+      ranked.record({ round: idx, playerId: p.id, hints });
+      return finish(roundPoints(hints));
+    }
     const next = [...wrong, p];
     setWrong(next);
     setShake((s) => s + 1);
@@ -153,6 +176,10 @@ export default function CareerGame({ data, difficulty }) {
   };
 
   const next = () => {
+    if (idx + 1 >= rounds.length && !finishedRef.current) {
+      finishedRef.current = true;
+      void ranked.complete();
+    }
     setIdx((i) => i + 1);
     setHints(0);
     setWrong([]);

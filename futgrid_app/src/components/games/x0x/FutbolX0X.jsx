@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { datasetFor, loadData } from "../../../lib/data";
 import { buildCategoryPool } from "../../../lib/games/x0xCategories";
 import GameLayout from "../common/GameLayout";
@@ -7,16 +8,19 @@ import X0XMatch from "./X0XMatch";
 import X0XModeSelect from "./X0XModeSelect";
 import X0XSettings from "./X0XSettings";
 import X0XSolo from "./X0XSolo";
+import X0XDuel from "./X0XDuel";
 import { loadSettings, saveSettings } from "./settings";
 
 import { tr } from "../../../i18n";
 const TITLE = "Futbol X0X";
 
 export default function FutbolX0X() {
+  const [searchParams] = useSearchParams();
+  const invited = Boolean(searchParams.get("otaq"));
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [screen, setScreen] = useState("modes");
-  const [mode, setMode] = useState(null);
+  const [screen, setScreen] = useState(invited ? "game" : "modes");
+  const [mode, setMode] = useState(invited ? "friend" : null);
   const [settings, setSettings] = useState(loadSettings);
   const [gameKey, setGameKey] = useState(0);
 
@@ -63,7 +67,7 @@ export default function FutbolX0X() {
 
   const pickMode = (key) => {
     setMode(key);
-    setScreen("settings");
+    setScreen(key === "friend" ? "game" : "settings");
   };
 
   const start = () => {
@@ -91,6 +95,15 @@ export default function FutbolX0X() {
   else if (mode === "solo")
     body = (
       <X0XSolo
+        key={gameKey}
+        data={gameData}
+        settings={activeSettings}
+        onSettings={toSettings}
+      />
+    );
+  else if (mode === "friend")
+    body = (
+      <X0XDuel
         key={gameKey}
         data={gameData}
         settings={activeSettings}

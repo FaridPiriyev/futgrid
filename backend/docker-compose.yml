@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: futgrid-postgres
+    environment:
+      POSTGRES_USER: futgrid
+      POSTGRES_PASSWORD: futgrid
+      POSTGRES_DB: futgrid
+    ports:
+      - "5433:5432"
+    volumes:
+      - futgrid_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U futgrid -d futgrid"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: futgrid-redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - futgrid_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  futgrid_postgres:
+  futgrid_redis:

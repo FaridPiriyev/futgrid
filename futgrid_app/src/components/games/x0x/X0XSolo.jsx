@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CalendarDays,
   Eye,
@@ -15,6 +15,7 @@ import {
   multipleChoice,
 } from "../../../lib/games/x0x";
 import { seeded, seedFrom, todayKey } from "../../../lib/random";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerSearch from "../common/PlayerSearch";
 import ResultModal from "../common/ResultModal";
 import { Notice } from "../common/GameStatus";
@@ -44,6 +45,14 @@ function seedKey(settings) {
 
 export default function X0XSolo({ data, settings, onSettings }) {
   const [daily, setDaily] = useState(true);
+  const ranked = useRankedGame({
+    game: "xox",
+    difficulty: settings.difficulty,
+    settings: { difficulty: settings.difficulty, categories: settings.categories },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
+  const lastMoveRef = useRef(0);
   const [grid, setGrid] = useState(undefined);
   const [board, setBoard] = useState(emptyBoard);
   const [left, setLeft] = useState(GUESSES);
@@ -55,10 +64,17 @@ export default function X0XSolo({ data, settings, onSettings }) {
   const [reveal, setReveal] = useState(false);
 
   const start = useCallback(
-    (isDaily) => {
-      const random = isDaily
-        ? seeded(seedFrom(seedKey(settings)))
-        : Math.random;
+    async (isDaily) => {
+      finishedRef.current = false;
+      let random;
+      if (isDaily) {
+        random = seeded(seedFrom(seedKey(settings)));
+      } else {
+        randomRef.current = Math.random;
+        const rankedRandom = await ranked.begin();
+        randomRef.current = rankedRandom ?? Math.random;
+        random = randomRef.current;
+      }
       setDaily(isDaily);
       setGrid(
         generateGrid(data, {
@@ -75,12 +91,13 @@ export default function X0XSolo({ data, settings, onSettings }) {
       setOver(false);
       setShowResult(false);
       setReveal(false);
+      lastMoveRef.current = Date.now();
     },
-    [data, settings],
+    [data, settings, ranked.begin],
   );
 
   useEffect(() => {
-    start(true);
+    void start(true);
   }, [start]);
 
   const score = board.filter(Boolean).length;
@@ -98,9 +115,14 @@ export default function X0XSolo({ data, settings, onSettings }) {
     setActiveCell(null);
     setChoices([]);
     setShowResult(true);
+    if (!daily && !finishedRef.current) {
+      finishedRef.current = true;
+      void ranked.complete();
+    }
   };
 
   const pickCell = (cell) => {
+    lastMoveRef.current = Date.now();
     setActiveCell(cell);
     setFeedback(null);
     setChoices(
@@ -120,6 +142,13 @@ export default function X0XSolo({ data, settings, onSettings }) {
     if (status === "ok") {
       next = [...board];
       next[cell] = { mark: "solo", playerId: player.id, name: player.name };
+      if (!daily) {
+        ranked.record({
+          round: cell,
+          playerId: player.id,
+          ms: Math.max(0, Date.now() - lastMoveRef.current),
+        });
+      }
       setBoard(next);
       setFeedback({ type: "ok", text: tr("{name} düzgündür!", { name: player.name }) });
     } else {

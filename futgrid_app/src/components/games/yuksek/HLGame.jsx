@@ -10,6 +10,7 @@ import {
   saveBest,
 } from "../../../lib/games/higherLower";
 import { POS_NAME, clubOf, countryOf } from "../../../lib/games/playerInfo";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerAvatar, { ClubLogo, Flag } from "../common/PlayerAvatar";
 import ResultModal from "../common/ResultModal";
 import { Notice } from "../common/GameStatus";
@@ -168,24 +169,48 @@ export default function HLGame({ data, settings, onSettings }) {
   const pool = useMemo(() => buildPool(data, difficulty), [data, difficulty]);
   const [best, setBest] = useState(() => loadBest(difficulty));
   const [newRecord, setNewRecord] = useState(false);
-  const fresh = useCallback(() => {
-    const r = firstRound(pool, Math.random);
+  const ranked = useRankedGame({
+    game: "higherLower",
+    difficulty,
+    settings: { difficulty, rounds: 20 },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
+  const fresh = useCallback((random = Math.random) => {
+    const r = firstRound(pool, random);
     return r
       ? { ...r, streak: 0, round: 1, phase: "guess", correct: null, recent: [r.a.id, r.b.id] }
       : null;
   }, [pool]);
-  const [game, setGame] = useState(fresh);
+  const [game, setGame] = useState(() => fresh(Math.random));
   const timer = useRef(null);
+
+  const startRound = useCallback(async () => {
+    finishedRef.current = false;
+    randomRef.current = Math.random;
+    const random = await ranked.begin();
+    randomRef.current = random ?? Math.random;
+    setGame(fresh(randomRef.current));
+  }, [ranked.begin, fresh]);
+
+  useEffect(() => {
+    void startRound();
+  }, [startRound]);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const guess = useCallback((dir) => {
-    setGame((g) => {
-      if (!g || g.phase !== "guess") return g;
-      const ok = isCorrect(g.a, g.b, dir);
-      return { ...g, phase: ok ? "reveal" : "wrong", correct: ok };
-    });
-  }, []);
+    if (!game || game.phase !== "guess") return;
+    ranked.record({ round: game.round - 1, direction: dir });
+    const ok = isCorrect(game.a, game.b, dir);
+    setGame((g) => (g ? { ...g, phase: ok ? "reveal" : "wrong", correct: ok } : g));
+  }, [game, ranked.record]);
+
+  useEffect(() => {
+    if (game?.phase !== "over" || finishedRef.current) return;
+    finishedRef.current = true;
+    void ranked.complete();
+  }, [game?.phase, ranked.complete]);
 
   useEffect(() => {
     if (!game || game.phase === "guess" || game.phase === "over") return;
@@ -205,7 +230,7 @@ export default function HLGame({ data, settings, onSettings }) {
         const streak = g.streak + 1;
         const a = g.b;
         const recent = [...g.recent, a.id].slice(-40);
-        const b = pickChallenger(pool, a, streak, new Set(recent), Math.random);
+        const b = pickChallenger(pool, a, streak, new Set(recent), randomRef.current);
         if (!b) return { ...g, streak, phase: "over" };
         return {
           a,
@@ -239,7 +264,7 @@ export default function HLGame({ data, settings, onSettings }) {
   const restart = () => {
     clearTimeout(timer.current);
     setNewRecord(false);
-    setGame(fresh());
+    void startRound();
   };
 
   if (!game)

@@ -1,4 +1,5 @@
 import { manualPhoto, norm } from "../data";
+import { api } from "../api";
 import { shuffle } from "../random";
 import { GOAT_PLAYERS } from "./goatPlayers";
 
@@ -80,23 +81,17 @@ export function readHistory() {
   }
 }
 
-export function saveResult(size, result) {
+export function saveResult(size, result, picks = []) {
   const entry = {
     size,
     champion: result.champion.id,
     final: result.final.map((p) => p.id),
     semi: result.semi.map((p) => p.id),
-    at: new Date().toISOString(),
+    picks: picks.map((pick) => ({ winner: pick.winner, loser: pick.loser })),
   };
   try {
     localStorage.setItem(HISTORY_KEY, JSON.stringify([entry, ...readHistory()].slice(0, 30)));
   } catch {}
-  const api = import.meta.env?.VITE_API_URL;
-  if (api)
-    fetch(`${api.replace(/\/$/, "")}/goat/votes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(entry),
-    }).catch(() => {});
+  api.post("/goat/votes", entry).catch(() => {});
   return entry;
 }

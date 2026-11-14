@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import { LanguageProvider, tr, useLang } from "./i18n";
+import { AuthProvider } from "./lib/auth";
 import { GAME_CATALOG } from "./lib/games/catalog";
 import ogImage from "./assets/og-image.jpg";
 
@@ -21,6 +22,8 @@ const Piramida = lazy(() => import("./components/games/piramida/Piramida"));
 const TarixinEnYaxsisi = lazy(() => import("./components/games/goat/TarixinEnYaxsisi"));
 const IkiHerf = lazy(() => import("./components/games/ikiherf/IkiHerf"));
 const Legal = lazy(() => import("./components/Legal"));
+const Account = lazy(() => import("./components/Account"));
+const Admin = lazy(() => import("./components/Admin"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -71,6 +74,14 @@ const PAGES = {
   "/istifade-sertleri": () => [
     tr("İstifadə şərtləri"),
     tr("FutGrid saytından istifadə qaydaları."),
+  ],
+  "/hesab": () => [
+    tr("Hesab"),
+    tr("FutGrid hesabınız, statistikanız və reytinq nəticələriniz."),
+  ],
+  "/admin": () => [
+    tr("Admin panel"),
+    tr("FutGrid idarəetmə paneli."),
   ],
 };
 
@@ -123,7 +134,9 @@ function RouteMeta() {
 export default function App() {
   return (
     <LanguageProvider>
-      <AppShell />
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
     </LanguageProvider>
   );
 }
@@ -151,6 +164,8 @@ function AppShell() {
           <Route path="/oyunlar/piramida" element={<Piramida />} />
           <Route path="/oyunlar/tarixin-en-yaxsisi" element={<TarixinEnYaxsisi />} />
           <Route path="/oyunlar/iki-herf" element={<IkiHerf />} />
+          <Route path="/hesab" element={<Account />} />
+          <Route path="/admin" element={<Admin />} />
           <Route
             path="/mexfilik-siyaseti"
             element={<Legal page="privacy" lang={lang} />}
