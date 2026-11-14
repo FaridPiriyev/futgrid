@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Flag as FlagIcon, Lock, RotateCcw, Timer, Trophy } from "lucide-react";
 import { PENALTY, STEPS, buildPyramid, examples, fits } from "../../../lib/games/pyramid";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerSearch from "../common/PlayerSearch";
 import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 
@@ -101,7 +102,14 @@ function Row({ level, index, current, status, answers, missing }) {
 
 export default function PyramidGame({ data, difficulty, seconds }) {
   const [round, setRound] = useState(0);
-  const levels = useMemo(() => buildPyramid(data, difficulty), [data, difficulty, round]);
+  const ranked = useRankedGame({
+    game: "pyramid",
+    difficulty,
+    settings: { difficulty },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
+  const [levels, setLevels] = useState(() => buildPyramid(data, difficulty, Math.random));
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState(() => STEPS.map(() => []));
   const [left, setLeft] = useState(seconds);
@@ -109,6 +117,31 @@ export default function PyramidGame({ data, difficulty, seconds }) {
   const [message, setMessage] = useState(null);
   const [shake, setShake] = useState(0);
   const [penalty, setPenalty] = useState(0);
+
+  const start = useCallback(async () => {
+    finishedRef.current = false;
+    randomRef.current = Math.random;
+    const random = await ranked.begin();
+    randomRef.current = random ?? Math.random;
+    setLevels(buildPyramid(data, difficulty, randomRef.current));
+    setCurrent(0);
+    setAnswers(STEPS.map(() => []));
+    setLeft(seconds);
+    setStatus("play");
+    setMessage(null);
+    setPenalty(0);
+  }, [ranked.begin, data, difficulty, seconds]);
+
+  useEffect(() => {
+    void start();
+  }, [start]);
+
+  useEffect(() => {
+    if (status !== "play" && !finishedRef.current) {
+      finishedRef.current = true;
+      void ranked.complete();
+    }
+  }, [status, ranked.complete]);
 
   useEffect(() => {
     if (status !== "play" || !levels) return;
@@ -139,11 +172,7 @@ export default function PyramidGame({ data, difficulty, seconds }) {
 
   const restart = () => {
     setRound((r) => r + 1);
-    setCurrent(0);
-    setAnswers(STEPS.map(() => []));
-    setLeft(seconds);
-    setStatus("play");
-    setMessage(null);
+    void start();
   };
 
   const guess = (p) => {
@@ -162,6 +191,7 @@ export default function PyramidGame({ data, difficulty, seconds }) {
       return;
     }
     const nextMine = [...mine, p];
+    ranked.record({ round: current, playerId: p.id });
     const next = answers.map((a, i) => (i === current ? nextMine : a));
     setAnswers(next);
     if (nextMine.length < level.need) {

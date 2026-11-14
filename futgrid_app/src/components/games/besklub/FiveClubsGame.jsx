@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Check, Flag as FlagIcon, RotateCcw, Timer, Trophy } from "lucide-react";
 import { clubsOf, pickClubs } from "../../../lib/games/fiveClubs";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import ClubBadge from "../common/ClubBadge";
 import PlayerSearch from "../common/PlayerSearch";
 import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
@@ -60,7 +61,14 @@ function ClubTile({ club, flash, index, count, selected, disabled, onToggle }) {
 
 export default function FiveClubsGame({ data, difficulty, seconds }) {
   const [round, setRound] = useState(0);
-  const set = useMemo(() => pickClubs(data, difficulty), [data, difficulty, round]);
+  const ranked = useRankedGame({
+    game: "fiveClubs",
+    difficulty,
+    settings: { difficulty },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
+  const [set, setSet] = useState(() => pickClubs(data, difficulty, Math.random));
   const [found, setFound] = useState([]);
   const [left, setLeft] = useState(seconds);
   const [message, setMessage] = useState(null);
@@ -76,6 +84,30 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
     for (const f of found) for (const c of f.clubs) m.set(c.id, m.get(c.id) + 1);
     return m;
   }, [found, set]);
+
+  const start = useCallback(async () => {
+    finishedRef.current = false;
+    setFound([]);
+    setLeft(seconds);
+    setOver(false);
+    setFlash({});
+    setSelected([]);
+    randomRef.current = Math.random;
+    const random = await ranked.begin();
+    randomRef.current = random ?? Math.random;
+    setSet(pickClubs(data, difficulty, randomRef.current));
+  }, [ranked.begin, data, difficulty, seconds]);
+
+  useEffect(() => {
+    void start();
+  }, [start]);
+
+  useEffect(() => {
+    if (over && !finishedRef.current) {
+      finishedRef.current = true;
+      void ranked.complete();
+    }
+  }, [over, ranked.complete]);
 
   useEffect(() => {
     if (over) return;
@@ -112,6 +144,7 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
     if (missing.length)
       return bad(tr("{name} bu klubda oynamayıb: {v2}", { name: p.name, v2: missing.map((c) => c.name).join(", ") }));
     const clubs = chosen;
+    ranked.record({ round: found.length, playerId: p.id });
     setFound((f) => [{ player: p, clubs, count: clubs.length }, ...f]);
     setSelected([]);
     setMessage({ bad: false, text: `${tr("+{n} xal", { n: clubs.length })} · ${p.name}` });
@@ -124,11 +157,7 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
 
   const restart = () => {
     setRound((r) => r + 1);
-    setFound([]);
-    setLeft(seconds);
-    setOver(false);
-    setFlash({});
-    setSelected([]);
+    void start();
   };
 
   const pct = Math.max(0, left / seconds) * 100;

@@ -4,6 +4,7 @@ import GameLayout from "../common/GameLayout";
 import { Loader, Notice } from "../common/GameStatus";
 import HLGame, { HL_KEYFRAMES } from "./HLGame";
 import HLSettings from "./HLSettings";
+import HLDuel from "./HLDuel";
 import { loadSettings, saveSettings } from "./settings";
 
 import { tr } from "../../../i18n";
@@ -41,6 +42,18 @@ export default function YuksekAsagi() {
           setGameKey((k) => k + 1);
           setScreen("game");
         }}
+        onOnline={() => {
+          setGameKey((k) => k + 1);
+          setScreen("online");
+        }}
+      />
+    );
+  else if (screen === "online")
+    body = (
+      <HLDuel
+        key={gameKey}
+        data={data}
+        onSettings={() => setScreen("settings")}
       />
     );
   else
@@ -58,7 +71,7 @@ export default function YuksekAsagi() {
       eyebrow={tr("Seriya oyunu")}
       title={tr("Yüksək yoxsa Aşağı?")}
       description={tr("İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat və rekordunu qır.")}
-      compact={Boolean(data) && screen === "game"}
+      compact={Boolean(data) && screen !== "settings"}
     >
       <style>{HL_KEYFRAMES}</style>
       {body}

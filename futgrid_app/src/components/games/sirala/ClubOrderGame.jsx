@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, Check, ChevronRight, Eye, RotateCcw, X } from "lucide-react";
 import { careerPath } from "../../../lib/games/career";
 import { checkClub, nextEmpty, orderPool, pickPlayers } from "../../../lib/games/clubOrder";
 import { POS_NAME, ageOf, countryOf } from "../../../lib/games/playerInfo";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import ClubBadge from "../common/ClubBadge";
 import EntitySearch from "../common/EntitySearch";
 import PlayerAvatar, { Flag } from "../common/PlayerAvatar";
@@ -107,6 +108,13 @@ function Summary({ results, onAgain }) {
 
 export default function ClubOrderGame({ data, difficulty, lives, showYears }) {
   const pool = useMemo(() => orderPool(data, difficulty), [data, difficulty]);
+  const ranked = useRankedGame({
+    game: "clubOrder",
+    difficulty,
+    settings: { difficulty },
+  });
+  const randomRef = useRef(Math.random);
+  const finishedRef = useRef(false);
   const [players, setPlayers] = useState(() => pickPlayers(pool));
   const [idx, setIdx] = useState(0);
   const [filled, setFilled] = useState([]);
@@ -133,10 +141,22 @@ export default function ClubOrderGame({ data, difficulty, lives, showYears }) {
   const limited = lives > 0;
   const left = limited ? Math.max(0, lives - mistakes) : null;
 
-  const restart = () => {
-    setPlayers(pickPlayers(pool));
+  const start = useCallback(async () => {
+    finishedRef.current = false;
+    randomRef.current = Math.random;
+    const random = await ranked.begin();
+    randomRef.current = random ?? Math.random;
+    setPlayers(pickPlayers(pool, randomRef.current));
     setIdx(0);
     setResults([]);
+  }, [ranked.begin, pool]);
+
+  useEffect(() => {
+    void start();
+  }, [start]);
+
+  const restart = () => {
+    void start();
   };
 
   if (!target) return <Summary results={results} onAgain={restart} />;
@@ -144,6 +164,10 @@ export default function ClubOrderGame({ data, difficulty, lives, showYears }) {
 
   const finish = (nextFilled) => {
     const n = nextFilled.filter(Boolean).length;
+    ranked.record({
+      round: idx,
+      clubIds: path.map((step, i) => (nextFilled[i] ? step.club.id : -1)),
+    });
     setResults((r) => [...r, { player: target, found: n, total: path.length }]);
     setStatus(n === path.length ? "won" : "lost");
   };
@@ -181,7 +205,13 @@ export default function ClubOrderGame({ data, difficulty, lives, showYears }) {
   const age = ageOf(target);
   const slotState = (i) => (filled[i] ? "hit" : status !== "play" ? "lost" : "empty");
 
-  const next = () => setIdx((i) => i + 1);
+  const next = () => {
+    if (idx + 1 >= players.length && !finishedRef.current) {
+      finishedRef.current = true;
+      void ranked.complete();
+    }
+    setIdx((i) => i + 1);
+  };
 
   return (
     <div>

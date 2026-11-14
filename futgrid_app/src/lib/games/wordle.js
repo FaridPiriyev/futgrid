@@ -48,8 +48,8 @@ export function wordlePool(data, difficulty) {
   return { dict, targets: targets.slice(0, POOL[difficulty] ?? POOL.normal) };
 }
 
-export function dailyTarget(targets, difficulty) {
-  return targets[seedFrom(`${todayKey()}:${difficulty}`) % targets.length];
+export function dailyTarget(targets, difficulty, date = todayKey()) {
+  return targets[seedFrom(`${date}:${difficulty}`) % targets.length];
 }
 
 export function randomTarget(targets, random = Math.random, avoid) {

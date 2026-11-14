@@ -25,12 +25,15 @@ const DEFAULT_MODES = [
   } },
 ];
 
-export default function ModeSelect({ onPick, texts = {} }) {
+export default function ModeSelect({ onPick, texts = {}, friends = false }) {
+  const modes = DEFAULT_MODES.map((mode) =>
+    mode.key === "friend" && friends ? { ...mode, soon: false } : mode,
+  );
   return (
     <div>
       <h2 className={`${FONT} text-sm font-bold uppercase tracking-wide text-soft md:text-lg`}>{tr("Rejim seç")}</h2>
       <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 md:mt-4 lg:grid-cols-4">
-        {[...DEFAULT_MODES].sort((a, b) => Number(Boolean(a.soon)) - Number(Boolean(b.soon))).map(({ key, Icon, title, text, soon }) => (
+        {[...modes].sort((a, b) => Number(Boolean(a.soon)) - Number(Boolean(b.soon))).map(({ key, Icon, title, text, soon }) => (
           <button
             key={key}
             type="button"

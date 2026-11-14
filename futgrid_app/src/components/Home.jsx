@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronLeft,
@@ -19,6 +19,7 @@ import {
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { prefetchData } from "../lib/data";
+import { api } from "../lib/api";
 import slide2 from "../assets/slider2.webp";
 
 
@@ -286,9 +287,6 @@ const PODIUM = [
       "bg-orange-100 text-orange-800 ring-3 ring-orange-400 dark:bg-orange-400/15 dark:text-orange-200",
   },
 ];
-
-const FORMSPREE_ID = "xeaeyrkp";
-const CONTACT_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
 
 const CONTACT_INFO = [
   {
@@ -1303,21 +1301,15 @@ function ContactForm() {
     setStatus("sending");
     setError("");
     try {
-      const [res] = await Promise.all([
-        fetch(CONTACT_ENDPOINT, {
-          method: "POST",
-          headers: { Accept: "application/json" },
-          body: new FormData(formEl),
+      await Promise.all([
+        api.post("/contact", {
+          name: values.name,
+          email: values.email,
+          message: values.message,
+          honeypot: formEl.querySelector('[name="_gotcha"]')?.value || "",
         }),
         wait(1200),
       ]);
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(
-          data?.errors?.map((x) => x.message).join(", ") ||
-            tr("Mesaj göndərilmədi."),
-        );
-      }
       formEl.reset();
       setValues({ name: "", email: "", message: "" });
       setStatus("success");
@@ -1508,6 +1500,41 @@ export default function Home() {
   useEffect(() => prefetchData(), []);
   const [period, setPeriod] = useState("week");
   const [rowsIn, setRowsIn] = useState(false);
+  const [homeStats, setHomeStats] = useState(null);
+  const [livePlayers, setLivePlayers] = useState(null);
+
+  useEffect(() => {
+    api.get("/stats").then(setHomeStats).catch(() => {});
+    Promise.all(
+      ["week", "month", "all"].map((key) =>
+        api.get(`/leaderboard?period=${key}&limit=10`).then((data) => [key, data.entries ?? []]),
+      ),
+    )
+      .then((results) => {
+        const byId = new Map();
+        for (const [key, entries] of results) {
+          for (const entry of entries) {
+            const current = byId.get(entry.userId) ?? {
+              id: entry.userId,
+              name: entry.displayName,
+              team: entry.team?.name ?? entry.team?.slug ?? "—",
+              matches: entry.games ?? 0,
+              winRate: entry.winRate ?? 0,
+              points: { week: 0, month: 0, all: 0 },
+            };
+            current.points[key] = entry.points;
+            current.matches = Math.max(current.matches, entry.games ?? 0);
+            current.winRate = Math.max(current.winRate, entry.winRate ?? 0);
+            byId.set(entry.userId, current);
+          }
+        }
+        const merged = [...byId.values()].sort(
+          (a, b) => b.points.all - a.points.all || b.points.week - a.points.week,
+        );
+        if (merged.length) setLivePlayers(merged);
+      })
+      .catch(() => {});
+  }, []);
 
   const rootRef = useRef(null);
   const statsRef = useRef(null);
@@ -1536,10 +1563,17 @@ export default function Home() {
     setPeriod(key);
   };
 
-  const rows = [...PLAYERS]
+  const rows = [...(livePlayers ?? PLAYERS)]
     .sort((a, b) => b.points[period] - a.points[period])
     .map((p) => ({ ...p, points: { ...p.points, value: p.points[period] } }));
   const periodIndex = PERIODS.findIndex((p) => p.key === period);
+  const statValues = homeStats
+    ? [homeStats.players, homeStats.clubs, homeStats.countries, homeStats.coaches]
+    : null;
+  const displayStats = STATS.map((stat, index) => ({
+    ...stat,
+    value: statValues?.[index] ?? stat.value,
+  }));
 
   return (
     <div ref={rootRef} className="w-full overflow-x-clip bg-page">
@@ -1569,7 +1603,7 @@ export default function Home() {
             ref={statsRef}
             className="mt-16 grid grid-cols-2 gap-3 md:mt-20 md:grid-cols-4 md:gap-4.5"
           >
-            {STATS.map((s, i) => (
+            {displayStats.map((s, i) => (
               <StatCard key={s.label} stat={s} index={i} run={statsIn} />
             ))}
           </div>

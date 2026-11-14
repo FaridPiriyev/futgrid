@@ -9,6 +9,7 @@ import { SIDES } from "../ortaq/settings";
 import ModeSelect from "../common/ModeSelect";
 import BotLettersGame from "./BotLettersGame";
 import TwoLettersGame, { TWO_KEYFRAMES } from "./TwoLettersGame";
+import TwoLettersDuel from "./TwoLettersDuel";
 
 import { tr } from "../../../i18n";
 const KEY = "futgrid:ikiherf:settings";
@@ -127,7 +128,11 @@ export default function IkiHerf() {
     body = (
       <div className="mx-auto max-w-5xl">
         <ModeSelect
-          onPick={setMode}
+          friends
+          onPick={(key) => {
+            setMode(key);
+            if (key === "friend") setGame((g) => g + 1);
+          }}
           texts={{
             same: tr("İki nəfər, növbə ilə futbolçu tapın"),
             solo: tr("Bir hərfi bot verir, futbolçuları sən tapırsan"),
@@ -135,7 +140,7 @@ export default function IkiHerf() {
         />
       </div>
     );
-  else if (!game && mode === "solo")
+  else if (!game && mode !== "friend")
     body = (
       <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
         <SettingsHeader
@@ -222,7 +227,9 @@ export default function IkiHerf() {
             {tr("Parametrlər")}
           </button>
         </div>
-        {mode === "solo" ? (
+        {mode === "friend" ? (
+          <TwoLettersDuel key={game} data={data} onSettings={() => setMode(null)} />
+        ) : mode === "solo" ? (
           <BotLettersGame key={game} data={data} settings={settings} name={names.A} />
         ) : (
           <TwoLettersGame key={game} data={data} settings={settings} names={names} />

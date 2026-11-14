@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Copy, Delete, RotateCcw } from "lucide-react";
 import {
   MAX_TRIES,
@@ -13,6 +13,8 @@ import {
   wordlePool,
 } from "../../../lib/games/wordle";
 import { POS_NAME, clubOf, countryOf } from "../../../lib/games/playerInfo";
+import { api } from "../../../lib/api";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerAvatar, { ClubLogo, Flag } from "../common/PlayerAvatar";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 
@@ -97,6 +99,12 @@ function hintsFor(data, p, misses) {
 
 export default function WordleGame({ data, mode, difficulty, showHints = true }) {
   const { dict, targets } = useMemo(() => wordlePool(data, difficulty), [data, difficulty]);
+  const ranked = useRankedGame({
+    game: "wordle",
+    difficulty,
+    settings: { difficulty },
+  });
+  const finishedRef = useRef(false);
   const [target, setTarget] = useState(() =>
     mode === "daily" ? dailyTarget(targets, difficulty) : randomTarget(targets),
   );
@@ -110,15 +118,51 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
   const [message, setMessage] = useState(null);
   const [shake, setShake] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [dailyBusy, setDailyBusy] = useState(false);
 
   const won = rows.some((r) => r.word === answer);
   const done = won || rows.length >= MAX_TRIES;
   const misses = rows.filter((r) => r.word !== answer).length;
   const keys = useMemo(() => keyStates(rows), [rows]);
 
+  const startEndless = useCallback(async () => {
+    finishedRef.current = false;
+    setRows([]);
+    setCurrent("");
+    const random = await ranked.begin();
+    if (random) setTarget(randomTarget(targets, random));
+  }, [ranked.begin, targets]);
+
+  useEffect(() => {
+    if (mode === "endless") void startEndless();
+  }, [mode, difficulty, startEndless]);
+
+  useEffect(() => {
+    if (mode !== "endless" || !done || finishedRef.current) return;
+    finishedRef.current = true;
+    void ranked.complete();
+  }, [mode, done, ranked.complete]);
+
   useEffect(() => {
     if (mode === "daily") saveDaily(difficulty, { answer, rows });
   }, [mode, difficulty, answer, rows]);
+
+  useEffect(() => {
+    if (mode !== "daily") return;
+    let active = true;
+    api
+      .get(`/daily/wordle?difficulty=${difficulty}`)
+      .then((daily) => {
+        if (!active) return;
+        setTarget(dailyTarget(targets, difficulty, daily.date));
+        setRows(daily.attempt?.guesses ?? []);
+        setCurrent("");
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [mode, difficulty, targets]);
 
   useEffect(() => {
     if (!message) return;
@@ -137,6 +181,23 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
       if (key === "enter") {
         if (current.length < answer.length) return fail(tr("{n} hərf lazımdır", { n: answer.length }));
         if (!dict.has(current)) return fail(tr("Bazada belə ad yoxdur"));
+        if (mode === "endless") ranked.record({ round: rows.length, guess: current });
+        if (mode === "daily") {
+          if (dailyBusy) return;
+          setDailyBusy(true);
+          api
+            .post("/daily/wordle/guess", { guess: current, difficulty })
+            .then((result) => {
+              setRows((r) => [...r, { word: current, marks: result.marks }]);
+              setCurrent("");
+            })
+            .catch(() => {
+              setRows((r) => [...r, { word: current, marks: evaluate(current, answer) }]);
+              setCurrent("");
+            })
+            .finally(() => setDailyBusy(false));
+          return;
+        }
         setRows((r) => [...r, { word: current, marks: evaluate(current, answer) }]);
         setCurrent("");
         return;
@@ -145,7 +206,7 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
       if (/^[a-z]$/.test(key))
         setCurrent((c) => (c.length < answer.length ? c + key : c));
     },
-    [done, current, answer, dict],
+    [done, current, answer, dict, mode, ranked.record, rows.length, dailyBusy, difficulty],
   );
 
   useEffect(() => {
@@ -160,9 +221,7 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
   }, [press]);
 
   const next = () => {
-    setTarget((t) => randomTarget(targets, Math.random, t.id));
-    setRows([]);
-    setCurrent("");
+    void startEndless();
   };
 
   const share = async () => {

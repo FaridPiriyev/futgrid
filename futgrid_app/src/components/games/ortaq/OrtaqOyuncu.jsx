@@ -3,6 +3,7 @@ import { datasetFor, loadData } from "../../../lib/data";
 import GameLayout from "../common/GameLayout";
 import { Loader, Notice } from "../common/GameStatus";
 import ModeSelect from "../common/ModeSelect";
+import OrtaqDuel from "./OrtaqDuel";
 import OrtaqSettings from "./OrtaqSettings";
 import OrtaqSolo from "./OrtaqSolo";
 import OrtaqVersus from "./OrtaqVersus";
@@ -51,9 +52,10 @@ export default function OrtaqOyuncu() {
   else if (screen === "modes")
     body = (
       <ModeSelect
+        friends
         onPick={(key) => {
           setMode(key);
-          setScreen("settings");
+          setScreen(key === "friend" ? "game" : "settings");
         }}
         texts={{
           same: tr("Klubunu gizli seç, kartlar birlikdə açılsın"),
@@ -69,6 +71,14 @@ export default function OrtaqOyuncu() {
         onChange={changeSettings}
         onStart={start}
         onBack={() => setScreen("modes")}
+      />
+    );
+  else if (mode === "friend")
+    body = (
+      <OrtaqDuel
+        key={gameKey}
+        data={gameData}
+        onSettings={() => setScreen("settings")}
       />
     );
   else if (mode === "solo")

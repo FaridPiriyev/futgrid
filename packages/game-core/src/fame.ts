@@ -1,0 +1,144 @@
+import { norm } from "./data.js";
+import type { GameData, RawClub, RawPlayer } from "./types.js";
+
+const CLUB_RULES: [number, RegExp][] = [
+  [1, /^real madrid( cf)?$/],
+  [1, /^(fc )?barcelona$/],
+  [1, /^manchester united( fc)?$|^man utd$/],
+  [1, /^manchester city( fc)?$|^man city$/],
+  [1, /^liverpool( fc)?$/],
+  [1, /^chelsea( fc)?$/],
+  [1, /^arsenal( fc)?$/],
+  [1, /^tottenham( hotspur)?( fc)?$|^spurs$/],
+  [1, /^(fc )?bayern( munich| munchen)?$/],
+  [1, /^(bv )?borussia dortmund$|^dortmund$/],
+  [1, /^juventus( fc)?$/],
+  [1, /^(fc )?inter( milan)?$|^internazionale( milano)?$/],
+  [1, /^(ac )?milan$/],
+  [1, /^paris saint germain( fc)?$|^psg$|^paris sg$/],
+  [1, /^(club )?atletico( de)? madrid$/],
+  [1, /^(afc )?ajax( amsterdam)?$/],
+  [1, /^(sl )?benfica$/],
+  [1, /^(fc )?porto$/],
+  [1, /^(ssc )?napoli$/],
+  [2, /^sevilla( fc)?$/],
+  [2, /^valencia( cf)?$/],
+  [2, /^villarreal( cf)?$/],
+  [2, /^athletic (club|bilbao)$/],
+  [2, /^real sociedad$/],
+  [2, /^real betis( balompie)?$/],
+  [2, /^(bayer )?(04 )?leverkusen$|^bayer 04 leverkusen$/],
+  [2, /^(rb |rasenballsport )?leipzig$/],
+  [2, /^(fc )?schalke( 04)?$/],
+  [2, /^(vfl )?wolfsburg$/],
+  [2, /^(borussia )?monchengladbach$|^gladbach$/],
+  [2, /^(as )?roma$/],
+  [2, /^(ss )?lazio$/],
+  [2, /^atalanta( bc)?$/],
+  [2, /^(acf )?fiorentina$/],
+  [2, /^(olympique (de )?)?marseille$/],
+  [2, /^(olympique )?lyon(nais)?$/],
+  [2, /^(as )?monaco$/],
+  [2, /^(losc )?lille( osc)?$/],
+  [2, /^sporting( cp| lisbon| clube de portugal)?$/],
+  [2, /^psv( eindhoven)?$/],
+  [2, /^feyenoord( rotterdam)?$/],
+  [2, /^celtic( fc)?$/],
+  [2, /^rangers( fc)?$/],
+  [2, /^galatasaray$/],
+  [2, /^fenerbahce$/],
+  [2, /^besiktas$/],
+  [2, /^everton( fc)?$/],
+  [2, /^newcastle( united)?$/],
+  [2, /^aston villa$/],
+  [2, /^west ham( united)?$/],
+  [2, /^leicester( city)?$/],
+  [2, /^shakhtar( donetsk)?$/],
+  [2, /^d[iy]namo (kyiv|kiev)$/],
+  [2, /^zenit( st petersburg| saint petersburg)?$/],
+  [2, /^olympiak?c?os( piraeus)?$/],
+  [2, /^(cr )?flamengo$/],
+  [2, /^boca juniors$/],
+  [2, /^river plate$/],
+  [2, /^santos( fc)?$/],
+  [2, /^al nassr$/],
+  [2, /^al hilal$/],
+  [2, /^inter miami( cf)?$/],
+  [2, /^(la )?galaxy$|^los angeles galaxy$/],
+  [2, /^qarabag( fk)?$/],
+];
+
+const COUNTRY_TIER: Record<string, number> = {
+  BR: 1, AR: 1, FR: 1, DE: 1, ES: 1, "GB-ENG": 1, IT: 1, PT: 1, NL: 1, BE: 1,
+  HR: 1, UY: 1, CO: 2, MX: 2, US: 2, DK: 2, SE: 2, NO: 2, PL: 2, CH: 2, AT: 2,
+  RS: 2, TR: 2, MA: 2, SN: 2, NG: 2, GH: 2, CI: 2, EG: 2, CM: 2, DZ: 2, JP: 2,
+  KR: 2, "GB-SCT": 2, "GB-WLS": 2, UA: 2, CZ: 2, CL: 2, EC: 2, RU: 2, GR: 2,
+  IE: 2, AZ: 2,
+};
+
+const COACH_EASY = new Set([
+  "jose-mourinho", "pep-guardiola", "jurgen-klopp", "carlo-ancelotti", "zinedine-zidane",
+  "diego-simeone", "antonio-conte", "thomas-tuchel", "mikel-arteta", "xavi", "luis-enrique",
+  "massimiliano-allegri", "arsene-wenger", "sir-alex-ferguson", "mauricio-pochettino",
+  "erik-ten-hag", "unai-emery", "julian-nagelsmann", "hansi-flick", "xabi-alonso", "arne-slot",
+  "vincent-kompany", "ruben-amorim", "didier-deschamps",
+]);
+
+const COACH_NORMAL = new Set([
+  "maurizio-sarri", "rafael-benitez", "claudio-ranieri", "brendan-rodgers", "stefano-pioli",
+  "ronald-koeman", "frank-lampard", "ole-gunnar-solskjaer", "roberto-mancini", "luciano-spalletti",
+  "simone-inzaghi", "ernesto-valverde", "louis-van-gaal", "vicente-del-bosque", "joachim-low",
+  "fabio-capello", "marcello-lippi", "guus-hiddink", "jupp-heynckes", "manuel-pellegrini",
+  "gareth-southgate", "ange-postecoglou", "enzo-maresca", "david-moyes", "tite", "lionel-scaloni",
+  "julen-lopetegui", "roberto-martinez",
+]);
+
+const TROPHY_WEIGHT: Record<string, number> = {
+  ballon_dor: 3,
+  world_cup: 1.5,
+  ucl: 1,
+  euro: 0.8,
+  copa_america: 0.8,
+  premier_league: 0.3,
+  la_liga: 0.3,
+  serie_a: 0.3,
+  bundesliga: 0.3,
+  ligue_1: 0.2,
+};
+
+export function clubFameTier(club: RawClub | undefined): number {
+  const keys = [norm(club?.name), norm(club?.slug)];
+  for (const [tier, re] of CLUB_RULES) if (keys.some((key) => key && re.test(key))) return tier;
+  return 3;
+}
+
+export function clubFameReady(data: GameData): boolean {
+  if (data._clubFameReady !== undefined) return data._clubFameReady;
+  data._clubFameReady = data.clubs.filter((club) => clubFameTier(club) === 1).length >= 10;
+  return data._clubFameReady;
+}
+
+export const countryFameTier = (code: string): number => COUNTRY_TIER[code] ?? 3;
+
+export function coachFameTier(id: string): number {
+  if (COACH_EASY.has(id)) return 1;
+  if (COACH_NORMAL.has(id)) return 2;
+  return 3;
+}
+
+export function playerFame(player: RawPlayer): number {
+  const value = Math.max(
+    player.market_value?.amount_eur ?? 0,
+    player.market_value?.highest_eur ?? 0,
+    100_000,
+  );
+  const v = Math.max(0, Math.log10(value / 1_000_000));
+  const caps = Math.min(player.international?.caps ?? 0, 150) / 60;
+  let trophies = 0;
+  for (const trophy of player.trophies ?? []) {
+    trophies += (TROPHY_WEIGHT[trophy.id] ?? 0) * Math.min(trophy.count ?? 1, 5);
+  }
+  return v * 1.2 + caps + Math.min(trophies, 6);
+}
+
+export const byFame = (a: RawPlayer, b: RawPlayer): number => playerFame(b) - playerFame(a);

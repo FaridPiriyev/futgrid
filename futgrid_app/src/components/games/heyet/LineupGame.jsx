@@ -1,7 +1,8 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Eye, Send, Shuffle } from "lucide-react";
 import { buildMatcher, dateLabel, layout } from "../../../lib/games/lineups";
 import { POS_SHORT, initials } from "../../../lib/games/playerInfo";
+import { useRankedGame } from "../../../lib/games/useRankedSession";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE, useMobileInput } from "../common/ui";
 
 import { tr } from "../../../i18n";
@@ -72,6 +73,13 @@ function Pitch({ match, side, found, revealed, lastHit }) {
 
 export default function LineupGame({ match, sides, onNext, onList }) {
   const matcher = useMemo(() => buildMatcher(match, sides), [match, sides]);
+  const ranked = useRankedGame({
+    game: "lineups",
+    settings: { matchId: match.id, side: sides[0] },
+  });
+  const finishedRef = useRef(false);
+  const rankedReady = sides.length === 1;
+  const sideKey = sides.join(",");
   const total = sides.length * 11;
   const [found, setFound] = useState(() => new Set());
   const [lastHit, setLastHit] = useState(null);
@@ -83,10 +91,27 @@ export default function LineupGame({ match, sides, onNext, onList }) {
   const inputRef = useRef(null);
   useMobileInput(inputRef);
 
+  useEffect(() => {
+    finishedRef.current = false;
+    if (rankedReady) void ranked.begin();
+  }, [ranked.begin, rankedReady, match.id, sideKey]);
+
   const done = revealed || found.size === total;
+
+  useEffect(() => {
+    if (!rankedReady || !done || finishedRef.current) return;
+    finishedRef.current = true;
+    void ranked.complete();
+  }, [rankedReady, done, ranked.complete]);
 
   const accept = (slot) => {
     const key = `${slot.side}:${slot.index}`;
+    if (rankedReady) {
+      ranked.record({
+        round: slot.index,
+        playerName: match[slot.side].players[slot.index].name,
+      });
+    }
     const next = new Set(found);
     next.add(key);
     setFound(next);

@@ -132,6 +132,7 @@ export default function GoatGame({ data, size, onSettings }) {
   const [chosen, setChosen] = useState(null);
   const [result, setResult] = useState(null);
   const timer = useRef(null);
+  const picksRef = useRef([]);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
@@ -155,13 +156,15 @@ export default function GoatGame({ data, size, onSettings }) {
     if (chosen || state.champion) return;
     setChosen(winner.id);
     timer.current = setTimeout(() => {
+      const loser = pair.find((player) => player.id !== winner.id);
       const next = pick(state, winner);
+      if (loser) picksRef.current = [...picksRef.current, { winner: winner.id, loser: loser.id }];
       setHistory((h) => [...h, state]);
       setState(next);
       setChosen(null);
       if (next.champion) {
         const r = standings(next, size);
-        saveResult(size, r);
+        saveResult(size, r, picksRef.current);
         setResult(r);
       }
     }, DELAY);
@@ -171,6 +174,7 @@ export default function GoatGame({ data, size, onSettings }) {
     if (!history.length || chosen) return;
     setState(history[history.length - 1]);
     setHistory((h) => h.slice(0, -1));
+    picksRef.current = picksRef.current.slice(0, -1);
     setResult(null);
   };
 
@@ -178,6 +182,7 @@ export default function GoatGame({ data, size, onSettings }) {
     clearTimeout(timer.current);
     setState(startBracket(size));
     setHistory([]);
+    picksRef.current = [];
     setChosen(null);
     setResult(null);
   };

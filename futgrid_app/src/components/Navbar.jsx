@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
 import logoUrl from "../assets/futgrid-logo.webp";
 import { LANGS, useLang } from "../i18n";
-
+import { initialsOf, useAuth } from "../lib/auth";
+
+
 import { tr } from "../i18n";
 const LEFT_LINKS = [
   { key: "home", get label() {
@@ -28,7 +30,7 @@ const RIGHT_LINKS = [
   }, id: "contact" },
   { key: "login", get label() {
     return tr("Hesab");
-  }, id: "login" },
+  }, href: "/hesab" },
 ];
 
 const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
@@ -57,7 +59,7 @@ const stickyLink =
 const SHIELD_CLIP =
   "polygon(calc(50% - var(--sh) - 26px) 0, calc(50% + var(--sh) + 26px) 0, calc(50% + var(--sh)) 140px, 50% 210px, calc(50% - var(--sh)) 140px)";
 
-const hrefOf = (link) => (link.id ? `/#${link.id}` : "/");
+const hrefOf = (link) => link.href ?? (link.id ? `/#${link.id}` : "/");
 const navOffset = () => (window.innerWidth >= 768 ? 90 : 64);
 
 function useActiveSection(pathname) {
@@ -212,6 +214,7 @@ function MobileMenu({
   onGo,
   extras = null,
   hideAt = "md:hidden",
+  links = ALL_LINKS,
 }) {
   return (
     <div
@@ -222,7 +225,7 @@ function MobileMenu({
     >
       <div className="overflow-hidden">
         <nav className="border-t border-nav-line bg-nav px-4 pb-4 pt-1 shadow-[0_12px_24px_rgba(15,23,42,0.08)]">
-          {ALL_LINKS.map((link) => {
+          {links.map((link) => {
             const on = active === link.key;
             return (
               <a
@@ -313,6 +316,14 @@ export default function Navbar() {
   const navigate = useNavigate();
   const active = useActiveSection(pathname);
   const { lang, setLang } = useLang();
+  const { user } = useAuth();
+  const links = useMemo(
+    () =>
+      ALL_LINKS.map((link) =>
+        link.key === "login" && user ? { ...link, label: initialsOf(user) } : link,
+      ),
+    [user],
+  );
   const language = LANGS.find((l) => l.code === lang)?.label ?? "AZ";
   const setLanguage = (label) =>
     setLang(LANGS.find((l) => l.label === label)?.code ?? "az");
@@ -345,6 +356,10 @@ export default function Navbar() {
     (link, e) => {
       e.preventDefault();
       setIsMobileMenuOpen(false);
+      if (link.href) {
+        navigate(hrefOf(link));
+        return;
+      }
       if (pathname !== "/") {
         navigate(hrefOf(link));
         return;
@@ -397,7 +412,7 @@ export default function Navbar() {
           )}
 
           <nav className="hidden items-center gap-10 md:flex">
-            {ALL_LINKS.map((l, i) => (
+            {links.map((l, i) => (
               <span
                 key={l.key}
                 className={`inline-block transition-all duration-500 motion-reduce:transition-none ${
@@ -447,6 +462,7 @@ export default function Navbar() {
           open={isMobileMenuOpen && scrolled}
           active={active}
           onGo={go}
+          links={links}
           extras={
             <MenuExtras
               open={isMobileMenuOpen && scrolled}
