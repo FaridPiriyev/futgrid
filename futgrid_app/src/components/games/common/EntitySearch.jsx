@@ -69,7 +69,7 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
           id="entity-search-list"
           role="listbox"
           style={box.maxHeight ? { maxHeight: box.maxHeight } : undefined}
-          className={`absolute inset-x-0 z-40 max-h-80 overflow-y-auto overscroll-contain border border-line/10 bg-surface shadow-2xl ${listPlacement(box)}`}
+          className={`fg-scroll absolute inset-x-0 z-40 max-h-80 overflow-y-auto overscroll-contain rounded-xl border border-edge bg-surface p-1.5 shadow-[0_26px_50px_-22px_var(--fg-shadow)] ${listPlacement(box)}`}
         >
           {results.map((e, i) => (
             <li key={e.key} role="option" aria-selected={i === active}>
@@ -78,8 +78,8 @@ export default function EntitySearch({ data, types = ["club", "country"], onSele
                 onMouseEnter={() => setActive(i)}
                 onMouseDown={(ev) => ev.preventDefault()}
                 onClick={() => pick(e)}
-                className={`flex w-full items-center gap-3 border-l-2 px-4 py-2 text-left transition-colors duration-150 ${
-                  i === active ? "border-l-accent bg-accent/15" : "border-l-transparent hover:bg-line/5"
+                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors duration-150 md:px-3.5 ${
+                  i === active ? "bg-accent/12 shadow-[inset_3px_0_0_var(--fg-accent)]" : "hover:bg-line/5"
                 }`}
               >
                 <span className="flex h-8 w-10 shrink-0 items-center justify-center">

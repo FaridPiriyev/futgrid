@@ -124,3 +124,63 @@ export function searchPlayers(data, query, limit = 8) {
 }
 
 export const birthYear = (p) => p.birth_date?.slice(0, 4) ?? null;
+
+function editDistance(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    let best = i;
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (cur[j] < best) best = cur[j];
+    }
+    if (best > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+
+function fullNameIndex(data) {
+  if (data._fullNames) return data._fullNames;
+  const map = new Map();
+  const add = (key, p) => {
+    if (!key) return;
+    if (!map.has(key)) map.set(key, []);
+    if (!map.get(key).includes(p)) map.get(key).push(p);
+  };
+  for (const p of data.players) {
+    const name = p._name ?? norm(p.name);
+    add(name, p);
+    const t = name.split(" ");
+    if (t.length > 2) add(`${t[0]} ${t[t.length - 1]}`, p);
+  }
+  data._fullNames = map;
+  return map;
+}
+
+/**
+ * Yazılan mətni yalnız futbolçunun TAM adı ilə uyğunlaşdırır (təklif siyahısı olmadan).
+ * "messi" və ya "l m" kimi yarımçıq yazı qəbul olunmur; uzun adlarda 1-2 hərflik səhvə icazə var.
+ */
+export function findByFullName(data, text) {
+  const q = norm(text);
+  if (q.length < 3) return [];
+  const map = fullNameIndex(data);
+  const value = (p) => Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
+  const exact = map.get(q);
+  if (exact) return [...exact].sort((a, b) => value(b) - value(a));
+  const max = q.length >= 12 ? 2 : q.length >= 6 ? 1 : 0;
+  if (!max) return [];
+  let best = max + 1;
+  let hits = [];
+  for (const [key, list] of map) {
+    if (key.split(" ").length !== q.split(" ").length) continue;
+    const d = editDistance(q, key, Math.min(max, best));
+    if (d < best) {
+      best = d;
+      hits = [...list];
+    } else if (d === best && d <= max) hits.push(...list);
+  }
+  return best <= max ? [...new Set(hits)].sort((a, b) => value(b) - value(a)) : [];
+}

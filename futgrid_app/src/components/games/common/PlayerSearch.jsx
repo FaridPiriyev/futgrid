@@ -80,7 +80,7 @@ export default function PlayerSearch({
           id="player-search-list"
           role="listbox"
           style={box.maxHeight ? { maxHeight: box.maxHeight } : undefined}
-          className={`absolute inset-x-0 z-40 max-h-80 overflow-y-auto overscroll-contain border border-line/10 bg-surface shadow-2xl ${listPlacement(box)}`}
+          className={`fg-scroll absolute inset-x-0 z-40 max-h-80 overflow-y-auto overscroll-contain rounded-xl border border-edge bg-surface p-1.5 shadow-[0_26px_50px_-22px_var(--fg-shadow)] ${listPlacement(box)}`}
         >
           {results.map((p, i) => (
             <li key={p.id} role="option" aria-selected={i === active}>
@@ -89,8 +89,8 @@ export default function PlayerSearch({
                 onMouseEnter={() => setActive(i)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => pick(p)}
-                className={`flex w-full items-center justify-between gap-3 border-l-2 px-3 py-2.5 text-left md:px-4 md:py-3 transition-colors duration-150 ${
-                  i === active ? "border-l-accent bg-accent/15" : "border-l-transparent hover:bg-line/5"
+                className={`flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left md:px-3.5 md:py-3 transition-colors duration-150 ${
+                  i === active ? "bg-accent/12 shadow-[inset_3px_0_0_var(--fg-accent)]" : "hover:bg-line/5"
                 }`}
               >
                 <span className={`truncate ${FONT} text-sm font-bold uppercase tracking-wide text-ink md:text-base`}>{p.name}</span>
@@ -104,7 +104,7 @@ export default function PlayerSearch({
       )}
 
       {!disabled && query.trim().length >= 2 && results.length === 0 && (
-        <p className={`absolute inset-x-0 z-40 border border-line/10 bg-surface px-4 py-3 ${listPlacement(box)} ${FONT} text-sm text-faint`}>
+        <p className={`absolute inset-x-0 z-40 rounded-xl border border-edge bg-surface px-4 py-3 shadow-[0_26px_50px_-22px_var(--fg-shadow)] ${listPlacement(box)} ${FONT} text-sm text-faint`}>
           {tr("Bu adla oyunçu tapılmadı.")}
         </p>
       )}

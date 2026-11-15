@@ -13,14 +13,26 @@ const FutbolX0X = lazy(() => import("./components/games/x0x/FutbolX0X"));
 const OrtaqOyuncu = lazy(() => import("./components/games/ortaq/OrtaqOyuncu"));
 const YuksekAsagi = lazy(() => import("./components/games/yuksek/YuksekAsagi"));
 const Auksion = lazy(() => import("./components/games/auksion/Auksion"));
-const FutbolWordle = lazy(() => import("./components/games/wordle/FutbolWordle"));
-const KaryeraYolu = lazy(() => import("./components/games/karyera/KaryeraYolu"));
-const HeyetXatirla = lazy(() => import("./components/games/heyet/HeyetXatirla"));
+const FutbolWordle = lazy(
+  () => import("./components/games/wordle/FutbolWordle"),
+);
+const KaryeraYolu = lazy(
+  () => import("./components/games/karyera/KaryeraYolu"),
+);
+const HeyetXatirla = lazy(
+  () => import("./components/games/heyet/HeyetXatirla"),
+);
 const BesKlub = lazy(() => import("./components/games/besklub/BesKlub"));
-const KlublariSirala = lazy(() => import("./components/games/sirala/KlublariSirala"));
+const KlublariSirala = lazy(
+  () => import("./components/games/sirala/KlublariSirala"),
+);
 const Piramida = lazy(() => import("./components/games/piramida/Piramida"));
-const TarixinEnYaxsisi = lazy(() => import("./components/games/goat/TarixinEnYaxsisi"));
+const TarixinEnYaxsisi = lazy(
+  () => import("./components/games/goat/TarixinEnYaxsisi"),
+);
 const IkiHerf = lazy(() => import("./components/games/ikiherf/IkiHerf"));
+const YirmiSual = lazy(() => import("./components/games/sual/YirmiSual"));
+const KimdirBu = lazy(() => import("./components/games/sekil/KimdirBu"));
 const Legal = lazy(() => import("./components/Legal"));
 const Account = lazy(() => import("./components/Account"));
 const Admin = lazy(() => import("./components/Admin"));
@@ -49,7 +61,8 @@ function ScrollManager() {
   }, [pathname, hash]);
 
   useEffect(() => {
-    if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+    if ("scrollRestoration" in window.history)
+      window.history.scrollRestoration = "manual";
   }, []);
 
   return null;
@@ -61,11 +74,15 @@ const LOCALES = { az: "az_AZ", en: "en_US", ru: "ru_RU" };
 const PAGES = {
   "/": () => [
     tr("FutGrid — futbol bilik oyunları"),
-    tr("Futbol X0X, Futbol Wordle, Karyera yolu, Heyəti xatırla və daha çox futbol bilik oyunu. Pulsuz oyna, dostunla yarış, reytinqdə yüksəl."),
+    tr(
+      "Futbol X0X, Futbol Wordle, Karyera yolu, Heyəti xatırla və daha çox futbol bilik oyunu. Pulsuz oyna, dostunla yarış, reytinqdə yüksəl.",
+    ),
   ],
   "/oyunlar": () => [
     tr("Bütün oyunlar"),
-    tr("FutGrid-in bütün futbol oyunları bir yerdə: tək oyna və ya dostunla eyni ekranda yarış."),
+    tr(
+      "FutGrid-in bütün futbol oyunları bir yerdə: tək oyna və ya dostunla eyni ekranda yarış.",
+    ),
   ],
   "/mexfilik-siyaseti": () => [
     tr("Məxfilik siyasəti"),
@@ -79,10 +96,7 @@ const PAGES = {
     tr("Hesab"),
     tr("FutGrid hesabınız, statistikanız və reytinq nəticələriniz."),
   ],
-  "/admin": () => [
-    tr("Admin panel"),
-    tr("FutGrid idarəetmə paneli."),
-  ],
+  "/admin": () => [tr("Admin panel"), tr("FutGrid idarəetmə paneli.")],
 };
 
 function setMeta(attr, key, content) {
@@ -115,7 +129,11 @@ function RouteMeta() {
     setMeta("property", "og:url", url);
     setMeta("property", "og:type", "website");
     setMeta("property", "og:site_name", "FutGrid");
-    setMeta("property", "og:image", new URL(ogImage, window.location.origin).href);
+    setMeta(
+      "property",
+      "og:image",
+      new URL(ogImage, window.location.origin).href,
+    );
     setMeta("property", "og:locale", LOCALES[lang] ?? LOCALES.az);
     setMeta("name", "twitter:card", "summary_large_image");
 
@@ -162,8 +180,13 @@ function AppShell() {
           <Route path="/oyunlar/5-klub" element={<BesKlub />} />
           <Route path="/oyunlar/klublari-sirala" element={<KlublariSirala />} />
           <Route path="/oyunlar/piramida" element={<Piramida />} />
-          <Route path="/oyunlar/tarixin-en-yaxsisi" element={<TarixinEnYaxsisi />} />
+          <Route
+            path="/oyunlar/tarixin-en-yaxsisi"
+            element={<TarixinEnYaxsisi />}
+          />
           <Route path="/oyunlar/iki-herf" element={<IkiHerf />} />
+          <Route path="/oyunlar/20-sual" element={<YirmiSual />} />
+          <Route path="/oyunlar/kimdir-bu" element={<KimdirBu />} />
           <Route path="/hesab" element={<Account />} />
           <Route path="/admin" element={<Admin />} />
           <Route

@@ -22,7 +22,6 @@ import { prefetchData } from "../lib/data";
 import { api } from "../lib/api";
 import slide2 from "../assets/slider2.webp";
 
-
 import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
@@ -32,42 +31,42 @@ const SLIDES = [
     image: "/images/slider1.webp",
     fallback: "/images/slider1.png",
     get lines() {
-    return tr("Futbol|Taktikanı|Göstər").split("|");
-  },
+      return tr("Futbol|Taktikanı|Göstər").split("|");
+    },
     get subtitle() {
-    return tr("Klubları və oyunçuları tanı, matçı qazan");
-  },
+      return tr("Klubları və oyunçuları tanı, matçı qazan");
+    },
     get button() {
-    return tr("Daha ətraflı");
-  },
+      return tr("Daha ətraflı");
+    },
     href: "#games",
   },
   {
     image: slide2,
     fallback: "/images/slider2.png",
     get lines() {
-    return tr("Fərqli|oyunları|kəşf et").split("|");
-  },
+      return tr("Fərqli|oyunları|kəşf et").split("|");
+    },
     get subtitle() {
-    return tr("Taktiki oyunların yeni formatını kəşf et");
-  },
+      return tr("Taktiki oyunların yeni formatını kəşf et");
+    },
     get button() {
-    return tr("Oyunlara bax");
-  },
+      return tr("Oyunlara bax");
+    },
     href: "#games",
   },
   {
     image: "/images/slider3.webp",
     fallback: "/images/slider3.png",
     get lines() {
-    return tr("Reytinqdə|zirvəyə|yüksəl").split("|");
-  },
+      return tr("Reytinqdə|zirvəyə|yüksəl").split("|");
+    },
     get subtitle() {
-    return tr("Xal topla və liderlər cədvəlinə qalx");
-  },
+      return tr("Xal topla və liderlər cədvəlinə qalx");
+    },
     get button() {
-    return tr("Reytinqə bax");
-  },
+      return tr("Reytinqə bax");
+    },
     href: "#leaderboard",
   },
 ];
@@ -86,21 +85,36 @@ const TAPE_CLUBS = [
 ];
 
 const CARDS = [
-  { src: "/images/card1.png", get alt() {
-    return tr("Oyun zalı 1");
-  }, get title() {
-    return tr("Oyun studiyası");
-  } },
-  { src: "/images/card2.png", get alt() {
-    return tr("Oyun zalı 2");
-  }, get title() {
-    return tr("Taktika zalı");
-  } },
-  { src: "/images/card3.png", get alt() {
-    return tr("Oyun zalı 3");
-  }, get title() {
-    return tr("Turnir arenası");
-  } },
+  {
+    src: "/images/card1.webp",
+    fallback: "/images/card1.png",
+    get alt() {
+      return tr("Oyun zalı 1");
+    },
+    get title() {
+      return tr("Oyun studiyası");
+    },
+  },
+  {
+    src: "/images/card2.webp",
+    fallback: "/images/card2.png",
+    get alt() {
+      return tr("Oyun zalı 2");
+    },
+    get title() {
+      return tr("Taktika zalı");
+    },
+  },
+  {
+    src: "/images/card3.webp",
+    fallback: "/images/card3.png",
+    get alt() {
+      return tr("Oyun zalı 3");
+    },
+    get title() {
+      return tr("Turnir arenası");
+    },
+  },
 ];
 
 const CARD_TILT = ["-rotate-2", "rotate-[1.5deg]", "-rotate-1"];
@@ -112,72 +126,101 @@ const CARD_TAPE = [
 ];
 
 const STATS = [
-  { value: 15900, suffix: "+", get label() {
-    return tr("Oyunçu");
-  } },
-  { value: 433, suffix: "", get label() {
-    return tr("Klub");
-  } },
-  { value: 220, suffix: "", get label() {
-    return tr("Ölkə");
-  } },
-  { value: 1800, suffix: "+", get label() {
-    return tr("Məşqçi");
-  } },
+  {
+    value: 15900,
+    suffix: "+",
+    get label() {
+      return tr("Oyunçu");
+    },
+  },
+  {
+    value: 433,
+    suffix: "",
+    get label() {
+      return tr("Klub");
+    },
+  },
+  {
+    value: 220,
+    suffix: "",
+    get label() {
+      return tr("Ölkə");
+    },
+  },
+  {
+    value: 1800,
+    suffix: "+",
+    get label() {
+      return tr("Məşqçi");
+    },
+  },
 ];
 
 const GAMES = [
   {
     key: "x0x",
     get title() {
-    return tr("Futbol X0X");
-  },
+      return tr("Futbol X0X");
+    },
     get description() {
-    return tr("Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.");
-  },
+      return tr(
+        "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
+      );
+    },
     get tags() {
-    return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
-  },
+      return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
+    },
     href: "/oyunlar/futbol-x0x",
   },
   {
     key: "ortaq",
     get title() {
-    return tr("Ortaq Oyunçu");
-  },
+      return tr("Ortaq Oyunçu");
+    },
     get description() {
-    return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
-  },
+      return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
+    },
     get tags() {
-    return ["Kart dueli", "2 oyunçu"].map((s) => tr(s));
-  },
+      return ["Kart dueli", "2 oyunçu"].map((s) => tr(s));
+    },
     href: "/oyunlar/ortaq-oyuncu",
   },
   {
     key: "auksion",
     get title() {
-    return tr("Açıq Artırma");
-  },
+      return tr("Açıq Artırma");
+    },
     get description() {
-    return tr("20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.");
-  },
+      return tr(
+        "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
+      );
+    },
     get tags() {
-    return ["Hərrac", "20 ₼ büdcə"].map((s) => tr(s));
-  },
+      return ["Hərrac", "20 ₼ büdcə"].map((s) => tr(s));
+    },
     href: "/oyunlar/auksion",
   },
 ];
 
 const PERIODS = [
-  { key: "week", get label() {
-    return tr("Həftəlik");
-  } },
-  { key: "month", get label() {
-    return tr("Aylıq");
-  } },
-  { key: "all", get label() {
-    return tr("Bütün zamanlar");
-  } },
+  {
+    key: "week",
+    get label() {
+      return tr("Həftəlik");
+    },
+  },
+  {
+    key: "month",
+    get label() {
+      return tr("Aylıq");
+    },
+  },
+  {
+    key: "all",
+    get label() {
+      return tr("Bütün zamanlar");
+    },
+  },
 ];
 
 const PLAYERS = [
@@ -211,8 +254,8 @@ const PLAYERS = [
   },
   {
     get name() {
-    return tr("İsfendiyare memmedova");
-  },
+      return tr("İsfendiyare memmedova");
+    },
     team: "Efqanistan",
     matches: 110,
     winRate: 69,
@@ -220,8 +263,8 @@ const PLAYERS = [
   },
   {
     get name() {
-    return tr("Elcin İbrahmov");
-  },
+      return tr("Elcin İbrahmov");
+    },
     team: "Yasildere",
     matches: 137,
     winRate: 66,
@@ -243,8 +286,8 @@ const PLAYERS = [
   },
   {
     get name() {
-    return tr("İdris Muellim");
-  },
+      return tr("İdris Muellim");
+    },
     team: "UNEC",
     matches: 89,
     winRate: 57,
@@ -292,36 +335,52 @@ const CONTACT_INFO = [
   {
     Icon: Mail,
     get label() {
-    return tr("E-poçt");
-  },
+      return tr("E-poçt");
+    },
     value: "info@futgrid.az",
     href: "mailto:info@futgrid.az",
   },
   {
     Icon: Phone,
     get label() {
-    return tr("Telefon");
-  },
+      return tr("Telefon");
+    },
     value: "+994 50 000 00 00",
     href: "tel:+994500000000",
   },
-  { Icon: MapPin, get label() {
-    return tr("Ünvan");
-  }, get value() {
-    return tr("Bakı, Azərbaycan");
-  } },
+  {
+    Icon: MapPin,
+    get label() {
+      return tr("Ünvan");
+    },
+    get value() {
+      return tr("Bakı, Azərbaycan");
+    },
+  },
 ];
 
 const SOCIALS = [
-  { Icon: FaInstagram, href: "#", get label() {
-    return tr("Instagram");
-  } },
-  { Icon: FaTiktok, href: "#", get label() {
-    return tr("TikTok");
-  } },
-  { Icon: FaYoutube, href: "#", get label() {
-    return tr("YouTube");
-  } },
+  {
+    Icon: FaInstagram,
+    href: "#",
+    get label() {
+      return tr("Instagram");
+    },
+  },
+  {
+    Icon: FaTiktok,
+    href: "#",
+    get label() {
+      return tr("TikTok");
+    },
+  },
+  {
+    Icon: FaYoutube,
+    href: "#",
+    get label() {
+      return tr("YouTube");
+    },
+  },
 ];
 
 const MESSAGE_MAX = 1000;
@@ -884,6 +943,11 @@ function Polaroid({ card, index }) {
             src={card.src}
             alt={card.alt}
             loading="lazy"
+            onError={(e) => {
+              const img = e.currentTarget;
+              if (card.fallback && !img.src.endsWith(card.fallback))
+                img.src = card.fallback;
+            }}
             className="h-full w-full object-cover saturate-[.85] transition-[filter,scale] duration-500 group-hover/pol:scale-105 group-hover/pol:saturate-[1.2]"
           />
         </div>
@@ -1219,13 +1283,16 @@ function TopCard({ player, rank, run }) {
         <span className="relative min-w-0 flex-1">
           <span
             className={`block truncate ${FONT} font-black uppercase text-ink ${
-              first ? "text-base sm:text-lg md:text-2xl" : "text-base md:text-[22px]"
+              first
+                ? "text-base sm:text-lg md:text-2xl"
+                : "text-base md:text-[22px]"
             }`}
           >
             {player.name}
           </span>
           <span className={`block truncate ${BODY} text-[13px] text-muted`}>
-            {player.team} · {player.winRate}{tr("% qələbə")}
+            {player.team} · {player.winRate}
+            {tr("% qələbə")}
           </span>
         </span>
         <span
@@ -1315,7 +1382,10 @@ function ContactForm() {
       setStatus("success");
     } catch (err) {
       setError(
-        tr("{v1} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.", { v1: err.message || "Mesaj göndərilmədi." }),
+        tr(
+          "{v1} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.",
+          { v1: err.message || "Mesaj göndərilmədi." },
+        ),
       );
       setStatus("error");
     }
@@ -1342,7 +1412,9 @@ function ContactForm() {
         <p
           className={`mt-2 max-w-sm ${BODY} text-[15px] leading-relaxed text-muted`}
         >
-          {tr("Təşəkkürlər. Mesajını aldıq, ən qısa zamanda e-poçtuna cavab yazacağıq.")}
+          {tr(
+            "Təşəkkürlər. Mesajını aldıq, ən qısa zamanda e-poçtuna cavab yazacağıq.",
+          )}
         </p>
         <button
           type="button"
@@ -1504,10 +1576,15 @@ export default function Home() {
   const [livePlayers, setLivePlayers] = useState(null);
 
   useEffect(() => {
-    api.get("/stats").then(setHomeStats).catch(() => {});
+    api
+      .get("/stats")
+      .then(setHomeStats)
+      .catch(() => {});
     Promise.all(
       ["week", "month", "all"].map((key) =>
-        api.get(`/leaderboard?period=${key}&limit=10`).then((data) => [key, data.entries ?? []]),
+        api
+          .get(`/leaderboard?period=${key}&limit=10`)
+          .then((data) => [key, data.entries ?? []]),
       ),
     )
       .then((results) => {
@@ -1529,7 +1606,8 @@ export default function Home() {
           }
         }
         const merged = [...byId.values()].sort(
-          (a, b) => b.points.all - a.points.all || b.points.week - a.points.week,
+          (a, b) =>
+            b.points.all - a.points.all || b.points.week - a.points.week,
         );
         if (merged.length) setLivePlayers(merged);
       })
@@ -1568,7 +1646,12 @@ export default function Home() {
     .map((p) => ({ ...p, points: { ...p.points, value: p.points[period] } }));
   const periodIndex = PERIODS.findIndex((p) => p.key === period);
   const statValues = homeStats
-    ? [homeStats.players, homeStats.clubs, homeStats.countries, homeStats.coaches]
+    ? [
+        homeStats.players,
+        homeStats.clubs,
+        homeStats.countries,
+        homeStats.coaches,
+      ]
     : null;
   const displayStats = STATS.map((stat, index) => ({
     ...stat,
@@ -1589,7 +1672,7 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
           <SectionHeading kicker={tr("Futbol bilikini sına")}>
-            {tr("Taktiki oyunlar")}{" "} <span className="text-accent">&amp;</span>{" "}
+            {tr("Taktiki oyunlar")} <span className="text-accent">&amp;</span>{" "}
             {tr("strategiya")}
           </SectionHeading>
 
@@ -1615,7 +1698,9 @@ export default function Home() {
             <p
               className={`${BODY} text-base leading-8 text-muted md:text-[19px] md:leading-9`}
             >
-              {tr("FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır. Komandanı qur, rəqiblərinlə yarış və səviyyəni hər gün yüksəlt.")}
+              {tr(
+                "FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır. Komandanı qur, rəqiblərinlə yarış və səviyyəni hər gün yüksəlt.",
+              )}
             </p>
             <a
               href="#games"
@@ -1671,7 +1756,9 @@ export default function Home() {
         <BigNumber n="03" side="-left-2.5" />
 
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker={tr("Ən yaxşılar")}>{tr("Reytinq cədvəli")}</SectionHeading>
+          <SectionHeading kicker={tr("Ən yaxşılar")}>
+            {tr("Reytinq cədvəli")}
+          </SectionHeading>
 
           <div
             data-reveal
@@ -1813,7 +1900,9 @@ export default function Home() {
         className="relative w-full overflow-hidden bg-page pb-24 pt-8 md:pb-28 md:pt-10"
       >
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker={tr("Bizimlə əlaqə")}>{tr("Mesaj göndər")}</SectionHeading>
+          <SectionHeading kicker={tr("Bizimlə əlaqə")}>
+            {tr("Mesaj göndər")}
+          </SectionHeading>
 
           <div
             data-reveal
@@ -1841,7 +1930,9 @@ export default function Home() {
                   <p
                     className={`mt-3 max-w-xs ${BODY} text-[15px] leading-relaxed text-white/80`}
                   >
-                    {tr("Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı oxuyub cavab veririk.")}
+                    {tr(
+                      "Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı oxuyub cavab veririk.",
+                    )}
                   </p>
 
                   <div className="mt-7 flex flex-col gap-3">

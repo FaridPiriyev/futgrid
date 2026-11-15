@@ -25,7 +25,13 @@ export function useMobileInput(ref) {
     const timers = [];
     const measure = () => {
       if (!mq.matches) {
-        setBox((b) => (b.maxHeight === null && !b.up ? b : { maxHeight: null, up: false }));
+        // Masaüstü: aşağıda yer azdırsa siyahı yuxarı açılır, hündürlük ekrana sığır
+        const r = el.getBoundingClientRect();
+        const below = window.innerHeight - r.bottom - 12;
+        const above = r.top - TOP_GAP;
+        const up = below < 220 && above > below;
+        const maxHeight = Math.max(160, Math.min(320, Math.round(up ? above : below)));
+        setBox((b) => (b.maxHeight === maxHeight && b.up === up ? b : { maxHeight, up }));
         return;
       }
       const r = el.getBoundingClientRect();
@@ -49,10 +55,18 @@ export function useMobileInput(ref) {
     };
     const onFocus = () => {
       shown = false;
+      measure();
       timers.push(setTimeout(reveal, 300), setTimeout(reveal, 700), setTimeout(measure, 650), setTimeout(measure, 1000));
     };
     const onBlur = () => {
       shown = false;
+    };
+    // Yazı zamanı ölçü növbəti kadra qalır: input hadisəsinin içində state dəyişsə,
+    // React onChange-dən əvvəl render edir və ilk yazılan hərf itir.
+    let frame = 0;
+    const onInput = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
     };
     const onResize = () => {
       measure();
@@ -61,19 +75,22 @@ export function useMobileInput(ref) {
     };
     el.addEventListener("focus", onFocus);
     el.addEventListener("blur", onBlur);
-    el.addEventListener("input", measure);
+    el.addEventListener("input", onInput);
     vv?.addEventListener("resize", onResize);
     vv?.addEventListener("scroll", measure);
     window.addEventListener("resize", measure);
+    window.addEventListener("scroll", measure, { passive: true });
     measure();
     return () => {
       timers.forEach(clearTimeout);
+      cancelAnimationFrame(frame);
       el.removeEventListener("focus", onFocus);
       el.removeEventListener("blur", onBlur);
-      el.removeEventListener("input", measure);
+      el.removeEventListener("input", onInput);
       vv?.removeEventListener("resize", onResize);
       vv?.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", measure);
     };
   }, [ref]);
   return box;

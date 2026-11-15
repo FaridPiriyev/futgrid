@@ -10,7 +10,7 @@ import {
   letterOptions,
 } from "../../../lib/games/twoLetters";
 import { SIDES, otherSide } from "../ortaq/settings";
-import PlayerSearch from "../common/PlayerSearch";
+import NameGuess from "../common/NameGuess";
 import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 
 import { tr } from "../../../i18n";
@@ -213,6 +213,11 @@ export default function TwoLettersGame({ data, settings, names }) {
     setLeft(settings.seconds);
   };
 
+  const unknown = (text) => {
+    setMessage({ bad: true, text: tr("“{text}” tanınmadı. Futbolçunun adını tam yaz.", { text }) });
+    setShake((s) => s + 1);
+  };
+
   const nextRound = () => {
     setRound((r) => r + 1);
     setLetters([]);
@@ -314,13 +319,21 @@ export default function TwoLettersGame({ data, settings, names }) {
               </div>
             </div>
             <div key={shake} className={`mt-3 ${shake ? "animate-[thShake_0.35s_ease-out]" : ""}`}>
-              <PlayerSearch data={data} onSelect={guess} focusKey={`${round}-${used.length}-${turn}`} placeholder={tr("Futbolçunun adını yaz...")} />
+              <NameGuess
+                data={data}
+                onGuess={guess}
+                onUnknown={unknown}
+                pickFrom={(list) => list.find((p) => !used.some((u) => u.player.id === p.id) && hasLetters(data, p, letters[0], letters[1])) ?? list[0]}
+                focusKey={`${round}-${used.length}-${turn}`}
+              />
             </div>
             <div className="mt-2 flex min-h-7 items-center justify-between gap-3">
               {message ? (
                 <p className={`${FONT} text-sm font-bold ${message.bad ? "text-bad" : "text-good"}`}>{message.text}</p>
               ) : (
-                <span className={`${FONT} text-xs text-faint`}>{tr("Səhv cavab: −{n} saniyə", { n: PENALTY })}</span>
+                <span className={`${FONT} text-xs text-faint`}>
+                  {tr("Adı tam yaz, təklif çıxmayacaq")} · {tr("Səhv cavab: −{n} saniyə", { n: PENALTY })}
+                </span>
               )}
               <button
                 type="button"

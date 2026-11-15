@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2, ListOrdered, Triangle, Crown, Keyboard } from "lucide-react";
+import { Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2, ListOrdered, Triangle, Crown, Keyboard, HelpCircle, Grid3x3 } from "lucide-react";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { norm, prefetchData } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
@@ -48,7 +48,7 @@ function ModeIcons({ modes }) {
   );
 }
 
-const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle, goat: Crown, ikiherf: Keyboard };
+const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle, goat: Crown, ikiherf: Keyboard, sual: HelpCircle, sekil: Grid3x3 };
 
 function Cover({ game, soon }) {
   const [broken, setBroken] = useState(false);

@@ -1,4 +1,7 @@
 import { tr } from "../../i18n";
+import yirmiSualCover from "../../assets/games/yirmi-sual.webp";
+import kimdirBuCover from "../../assets/games/kimdir-bu.webp";
+
 export const GAME_CATALOG = [
   {
     key: "x0x",
@@ -231,6 +234,46 @@ export const GAME_CATALOG = [
     href: "/oyunlar/iki-herf",
     get tags() {
     return ["2 oyunçu", "Botla", "Vaxta qarşı"].map((s) => tr(s));
+  },
+    modes: ["solo", "duo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "sual",
+    get title() {
+    return tr("20 sual");
+  },
+    get genre() {
+    return tr("Sual-cavab");
+  },
+    get description() {
+    return tr("Gizli futbolçunu bəli/xeyr sualları ilə tap: aktivdir? hücumçudur? Premyer Liqada oynayıb? Ən az sualla tapan qalib olur.");
+  },
+    image: "/images/game13.png",
+    href: "/oyunlar/20-sual",
+    get tags() {
+    return ["Tək oyunçu", "2 oyunçu", "Bəli / Xeyr"].map((s) => tr(s));
+  },
+    modes: ["solo", "duo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "sekil",
+    get title() {
+    return tr("Kimdir bu?");
+  },
+    get genre() {
+    return tr("Şəkil oyunu");
+  },
+    get description() {
+    return tr("Futbolçunun şəkli 16 və ya 24 xanaya bölünüb, hər dəfə bir xana açılır. Şəkildəki futbolçunu ilk tanıyan qalib olur.");
+  },
+    image: "/images/game14.png",
+    href: "/oyunlar/kimdir-bu",
+    get tags() {
+    return ["Tək oyunçu", "2 oyunçu", "16 / 24 xana"].map((s) => tr(s));
   },
     modes: ["solo", "duo"],
     status: "live",

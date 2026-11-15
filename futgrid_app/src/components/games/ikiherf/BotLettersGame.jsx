@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Bot, Flag, RotateCcw, Timer, Trophy } from "lucide-react";
 import { LETTERS, PENALTY, countFor, examples, hasLetters, letterOptions } from "../../../lib/games/twoLetters";
 import { SIDES } from "../ortaq/settings";
-import PlayerSearch from "../common/PlayerSearch";
+import NameGuess from "../common/NameGuess";
 import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 import { LetterGrid, Marked, Tiles } from "./TwoLettersGame";
 
@@ -134,6 +134,11 @@ export default function BotLettersGame({ data, settings, name }) {
     setMessage({ bad: false, text: tr("{name} ✓", { name: p.name }) });
   };
 
+  const unknown = (text) => {
+    setMessage({ bad: true, text: tr("“{text}” tanınmadı. Futbolçunun adını tam yaz.", { text }) });
+    setShake((s) => s + 1);
+  };
+
   const nextRound = () => {
     setRound((r) => r + 1);
     setLetters([]);
@@ -236,13 +241,21 @@ export default function BotLettersGame({ data, settings, name }) {
               </div>
             </div>
             <div key={shake} className={`mt-3 ${shake ? "animate-[thShake_0.35s_ease-out]" : ""}`}>
-              <PlayerSearch data={data} onSelect={guess} focusKey={`${round}-${found.length}`} placeholder={tr("Futbolçunun adını yaz...")} />
+              <NameGuess
+                data={data}
+                onGuess={guess}
+                onUnknown={unknown}
+                pickFrom={(list) => list.find((p) => !found.some((f) => f.id === p.id) && hasLetters(data, p, letters[0], letters[1])) ?? list[0]}
+                focusKey={`${round}-${found.length}`}
+              />
             </div>
             <div className="mt-2 flex min-h-7 items-center justify-between gap-3">
               {message ? (
                 <p className={`${FONT} text-sm font-bold ${message.bad ? "text-bad" : "text-good"}`}>{message.text}</p>
               ) : (
-                <span className={`${FONT} text-xs text-faint`}>{tr("Səhv cavab: −{n} saniyə", { n: PENALTY })}</span>
+                <span className={`${FONT} text-xs text-faint`}>
+                  {tr("Adı tam yaz, təklif çıxmayacaq")} · {tr("Səhv cavab: −{n} saniyə", { n: PENALTY })}
+                </span>
               )}
               <button
                 type="button"
