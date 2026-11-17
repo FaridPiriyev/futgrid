@@ -29,8 +29,9 @@ export function pickPhoto(data, settings, avoid = new Set()) {
 }
 
 /**
- * Xanaların açılma sırası. Şəkillər kvadratdır və üz adətən ortada, bir az yuxarıda olur,
- * ona görə üzə yaxın xanalar sona saxlanılır (təsadüfi qarışıqlıqla).
+ * Xanaların açılma sırası — idarə olunan qarışıq:
+ * üzə ən yaxın bir neçə xana sona saxlanılır, qalanları isə növbə ilə
+ * bir kənardan, bir ortadan açılır (hamısı kənardan gəlmir).
  */
 export function revealOrder(size, random = Math.random) {
   const { cols, rows } = GRIDS[size] ?? GRIDS[16];
@@ -40,10 +41,36 @@ export function revealOrder(size, random = Math.random) {
     for (let c = 0; c < cols; c++) {
       const x = (c + 0.5) / cols;
       const y = (r + 0.5) / rows;
-      const d = Math.hypot(x - face.x, (y - face.y) * 1.2);
-      tiles.push({ i: r * cols + c, key: d + random() * 0.35 });
+      tiles.push({ i: r * cols + c, d: Math.hypot(x - face.x, (y - face.y) * 1.2) + random() * 0.04 });
     }
-  return tiles.sort((a, b) => b.key - a.key).map((t) => t.i);
+  tiles.sort((a, b) => a.d - b.d);
+
+  const shuffle = (list) => {
+    const out = [...list];
+    for (let k = out.length - 1; k > 0; k--) {
+      const j = Math.floor(random() * (k + 1));
+      [out[k], out[j]] = [out[j], out[k]];
+    }
+    return out;
+  };
+
+  const keep = size >= 24 ? 4 : 3;
+  const face3 = tiles.slice(0, keep);
+  const rest = tiles.slice(keep);
+  const half = Math.ceil(rest.length / 2);
+  const middle = shuffle(rest.slice(0, half));
+  const edge = shuffle(rest.slice(half));
+
+  const order = [];
+  let fromEdge = random() < 0.65;
+  while (edge.length || middle.length) {
+    const src = (fromEdge && edge.length) || !middle.length ? edge : middle;
+    order.push(src.shift().i);
+    fromEdge = !fromEdge;
+  }
+  // Üz xanaları ən sonda: ən mərkəzi olan lap axırda açılır.
+  const tail = shuffle(face3.slice(1)).map((t) => t.i);
+  return [...order, ...tail, face3[0].i];
 }
 
 /** Tapılanda qazanılan xal: bağlı qalan xanalar + 1. */

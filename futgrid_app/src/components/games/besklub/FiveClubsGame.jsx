@@ -12,9 +12,37 @@ export const FIVE_KEYFRAMES = `
 @keyframes fcHit { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fg-accent) 70%, transparent); transform: scale(1); } 40% { transform: scale(1.06); } 100% { box-shadow: 0 0 0 14px transparent; transform: scale(1); } }
 @keyframes fcShake { 0%,100% { transform: translateX(0); } 25%,75% { transform: translateX(-6px); } 50% { transform: translateX(6px); } }
 @keyframes fcPop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@keyframes fcTick { from { opacity: .2; transform: translateY(-22%) scale(.92); filter: blur(1.5px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes fcLand { 0% { transform: scale(.7); opacity: 0; filter: blur(2px); } 60% { transform: scale(1.08); opacity: 1; filter: blur(0); } 100% { transform: scale(1); } }
+@keyframes fcLock { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fg-accent) 75%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
 `;
 
-function ClubTile({ club, flash, index, count, selected, disabled, onToggle }) {
+// Klublar "slot" məntiqi ilə gəlir: hər kartda loqolar sürətlə dəyişir,
+// sonra kartlar soldan sağa bir-bir dayanır.
+const SPIN_FIRST_STOP = 1100;
+const SPIN_STEP = 260;
+const SHUFFLE_MS = 95;
+
+const reducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+function ShuffleFace({ clubs, offset }) {
+  const [i, setI] = useState(offset);
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => n + 1), SHUFFLE_MS);
+    return () => clearInterval(id);
+  }, []);
+  const club = clubs.length ? clubs[i % clubs.length] : null;
+  if (!club) return null;
+  return (
+    <span key={i} className="flex h-full w-full animate-[fcTick_0.09s_ease-out_both]">
+      <ClubBadge club={club} />
+    </span>
+  );
+}
+
+function ClubTile({ club, flash, index, count, selected, disabled, onToggle, spinning, reel }) {
   return (
     <div
       className="animate-[fcIn_0.5s_cubic-bezier(.2,.8,.2,1)_both]"
@@ -26,13 +54,13 @@ function ClubTile({ club, flash, index, count, selected, disabled, onToggle }) {
         role="checkbox"
         aria-checked={selected}
         aria-label={club.name}
-        disabled={disabled}
+        disabled={disabled || spinning}
         onClick={onToggle}
         className={`relative flex aspect-[3/4] w-full flex-col overflow-hidden rounded-xl border-2 bg-surface transition-[border-color,translate,box-shadow] duration-200 disabled:cursor-default ${
           selected
             ? "-translate-y-1.5 border-accent shadow-[0_18px_34px_-18px_var(--fg-accent)]"
             : "border-edge shadow-[0_18px_40px_-28px_var(--fg-shadow)] enabled:hover:-translate-y-0.5 enabled:hover:border-accent/50"
-        } ${flash ? "animate-[fcHit_0.7s_ease-out]" : ""}`}
+        } ${flash ? "animate-[fcHit_0.7s_ease-out]" : spinning ? "" : "animate-[fcLock_0.6s_ease-out]"}`}
       >
         <span
           aria-hidden="true"
@@ -44,15 +72,21 @@ function ClubTile({ club, flash, index, count, selected, disabled, onToggle }) {
         >
           {selected && <Check className="h-3.5 w-3.5" strokeWidth={3.5} />}
         </span>
-        <span className="flex min-h-0 flex-1">
-          <ClubBadge club={club} />
+        <span className="relative flex min-h-0 flex-1 overflow-hidden">
+          {spinning ? (
+            <ShuffleFace clubs={reel} offset={index * 3} />
+          ) : (
+            <span className={`flex h-full w-full ${flash ? "" : "animate-[fcLand_0.45s_cubic-bezier(.2,.9,.3,1.2)_both]"}`}>
+              <ClubBadge club={club} />
+            </span>
+          )}
         </span>
         <span
           className={`border-t py-1.5 text-center ${FONT} text-xs font-bold transition-colors duration-200 ${
             selected ? "border-accent bg-accent text-white" : "border-edge text-accent"
           }`}
         >
-          {tr("{n} cavab", { n: count })}
+          {spinning ? "· · ·" : tr("{n} cavab", { n: count })}
         </span>
       </button>
     </div>
@@ -78,6 +112,28 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
   const [selected, setSelected] = useState([]);
 
   const answers = set.answers;
+
+  // Slot maşını: hər yeni klub dəstində barabanlar fırlanır və bir-bir dayanır.
+  const [stopped, setStopped] = useState(5);
+  useEffect(() => {
+    if (reducedMotion()) {
+      setStopped(5);
+      return;
+    }
+    setStopped(0);
+    const ts = [0, 1, 2, 3, 4].map((i) =>
+      setTimeout(() => setStopped(i + 1), SPIN_FIRST_STOP + i * SPIN_STEP),
+    );
+    return () => ts.forEach(clearTimeout);
+  }, [set]);
+  const spinning = stopped < 5;
+  const reels = useMemo(() => {
+    const withLogo = data.clubs.filter((c) => c.logo_url);
+    const src = withLogo.length >= 8 ? withLogo : data.clubs;
+    return set.clubs.map(() =>
+      Array.from({ length: 14 }, () => src[Math.floor(Math.random() * src.length)]).filter(Boolean),
+    );
+  }, [set, data]);
   const score = found.reduce((s, f) => s + f.count, 0);
   const perClub = useMemo(() => {
     const m = new Map(set.clubs.map((c) => [c.id, 0]));
@@ -110,14 +166,14 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
   }, [over, ranked.complete]);
 
   useEffect(() => {
-    if (over) return;
+    if (over || spinning) return;
     if (left <= 0) {
       setOver(true);
       return;
     }
     const t = setTimeout(() => setLeft((s) => s - 1), 1000);
     return () => clearTimeout(t);
-  }, [left, over]);
+  }, [left, over, spinning]);
 
   useEffect(() => {
     if (!message) return;
@@ -192,18 +248,20 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
       </div>
 
       <div key={round} className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-5 md:gap-4">
-        {set.clubs.map((c, i) => (
-          <ClubTile
-            key={c.id}
-            club={c}
-            index={i}
-            flash={flash[c.id] ?? 0}
-            count={perClub.get(c.id)}
-            selected={selected.includes(c.id)}
-            disabled={over}
-            onToggle={() => toggle(c.id)}
-          />
-        ))}
+          {set.clubs.map((c, i) => (
+            <ClubTile
+              key={c.id}
+              club={c}
+              index={i}
+              flash={flash[c.id] ?? 0}
+              count={perClub.get(c.id)}
+              selected={selected.includes(c.id)}
+              disabled={over}
+              spinning={i >= stopped}
+              reel={reels[i] ?? []}
+              onToggle={() => toggle(c.id)}
+            />
+          ))}
       </div>
 
       <ol className={`mx-auto mt-5 flex max-w-2xl flex-wrap justify-center gap-2 ${FONT} text-xs font-bold uppercase tracking-wide`}>

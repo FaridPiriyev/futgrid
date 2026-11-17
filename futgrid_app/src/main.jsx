@@ -2,8 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { readTheme } from './components/ThemeToggle.jsx'
 import favicon from './assets/icons/favicon-32.png'
 import appleIcon from './assets/icons/apple-touch-icon.png'
+
+// Tema ilk renderdən əvvəl tətbiq olunur ki, açıq rəng bir anlıq yanıb-sönməsin.
+document.documentElement.dataset.theme = readTheme()
 
 for (const old of document.head.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')) old.remove()
 for (const [rel, href, sizes] of [
@@ -25,7 +29,7 @@ if (!document.head.querySelector('meta[name="theme-color"]')) {
 }
 
 const FONTS =
-  'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap'
+  'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&family=Tektur:wght@400;500;600;700;800;900&display=swap'
 
 if (!document.querySelector('link[href^="https://fonts.googleapis.com/css2"]')) {
   for (const [rel, href, cors] of [

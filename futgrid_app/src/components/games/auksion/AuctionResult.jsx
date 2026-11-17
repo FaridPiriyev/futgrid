@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RotateCcw, Settings2, Trophy } from "lucide-react";
-import { BUDGET, money, teamStrength } from "../../../lib/games/auction";
+import { BUDGET, money, pitchSpots, teamStrength } from "../../../lib/games/auction";
 import { clubOf, countryOf } from "../../../lib/games/playerInfo";
 import PlayerAvatar from "../common/PlayerAvatar";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
@@ -8,16 +8,6 @@ import { shortName } from "./AuctionParts";
 import { SIDES } from "./settings";
 
 import { tr } from "../../../i18n";
-const SPOTS = {
-  GK: [[50, 86]],
-  DF: [[50, 63]],
-  MF: [[50, 40]],
-  FW: [
-    [27, 14],
-    [73, 14],
-  ],
-};
-
 function useCount(target, run, duration = 1200) {
   const [v, setV] = useState(0);
   useEffect(() => {
@@ -41,7 +31,8 @@ function useCount(target, run, duration = 1200) {
 }
 
 function Pitch({ team, side }) {
-  const used = { GK: 0, DF: 0, MF: 0, FW: 0 };
+  const spots = pitchSpots(team.slots.map((s) => s.pos));
+  const crowded = team.slots.length > 0 && Math.max(...Object.values(team.slots.reduce((m, s) => ({ ...m, [s.pos]: (m[s.pos] ?? 0) + 1 }), {}))) >= 4;
   return (
     <div data-theme="dark" className="relative h-80 overflow-hidden border border-line/8 bg-linear-to-b from-[#0d2a1c] to-[#0a1f16] md:h-96">
       <span className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-line/12" />
@@ -49,11 +40,11 @@ function Pitch({ team, side }) {
       <span className="absolute inset-x-0 top-0 h-px bg-line/12" />
       {team.slots.map((s, i) => {
         if (!s.pick) return null;
-        const [x, y] = SPOTS[s.pos][used[s.pos]++] ?? [50, 50];
+        const [x, y] = spots[i] ?? [50, 50];
         return (
           <div
             key={i}
-            className="absolute w-24 -translate-x-1/2 -translate-y-1/2 text-center animate-[auLot_0.5s_cubic-bezier(.2,.8,.2,1)_both]"
+            className={`absolute ${crowded ? "w-20" : "w-24"} -translate-x-1/2 -translate-y-1/2 text-center animate-[auLot_0.5s_cubic-bezier(.2,.8,.2,1)_both]`}
             style={{ left: `${x}%`, top: `${y}%`, animationDelay: `${300 + i * 120}ms` }}
           >
             <span className="relative mx-auto block w-fit">
@@ -72,7 +63,7 @@ function Pitch({ team, side }) {
               {shortName(s.pick.player.name)}
             </span>
             <span className={`block ${FONT} text-[10px] text-muted`}>
-              {s.pick.auto ? "avtomatik" : money(s.pick.price)}
+              {s.pick.auto ? "avtomatik" : s.pick.gift ? tr("hədiyyə") : money(s.pick.price)}
             </span>
           </div>
         );

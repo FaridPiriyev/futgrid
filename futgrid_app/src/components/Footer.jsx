@@ -4,7 +4,8 @@ import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { SiteLogo } from "./Navbar";
-
+
+
 import { tr } from "../i18n";
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
@@ -43,7 +44,7 @@ const FOOTER_GAME_LINKS = [
 ];
 
 const FOOTER_SOCIALS = [
-  { Icon: FaInstagram, href: "#", get label() {
+  { Icon: FaInstagram, href: "https://www.instagram.com/futgrid.az", get label() {
     return tr("Instagram");
   } },
   { Icon: FaTiktok, href: "#", get label() {
@@ -209,6 +210,8 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target={href?.startsWith("http") ? "_blank" : undefined}
+                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
                   className="grid h-11 w-11 place-items-center border border-white/20 transition-[translate,background-color,color,border-color] duration-300 hover:-translate-y-1 hover:border-yellow hover:bg-yellow hover:text-on-yellow"
                 >
@@ -243,6 +246,8 @@ export default function Footer() {
                 <a
                   key={value}
                   href={href}
+                  target={href?.startsWith("http") ? "_blank" : undefined}
+                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="group flex items-center gap-4"
                 >
                   <span className="grid h-11 w-11 shrink-0 place-items-center bg-white/10 transition-[background-color,color,rotate] duration-300 group-hover:-rotate-8 group-hover:bg-yellow group-hover:text-on-yellow">

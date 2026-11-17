@@ -37,7 +37,7 @@ const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
 const SECTION_IDS = ["about", "games", "leaderboard", "contact"];
 
 const SOCIALS = [
-  { Icon: FaInstagram, href: "#", get label() {
+  { Icon: FaInstagram, href: "https://www.instagram.com/futgrid.az", get label() {
     return tr("Instagram");
   } },
   { Icon: FaTiktok, href: "#", get label() {
@@ -168,6 +168,8 @@ function MenuExtras({ open, language, setLanguage }) {
           <a
             key={label}
             href={href}
+            target={href?.startsWith("http") ? "_blank" : undefined}
+            rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
             aria-label={label}
             tabIndex={tab}
             className="text-nav-soft transition-colors hover:text-nav-ink"
@@ -508,6 +510,8 @@ export default function Navbar() {
                 <a
                   key={label}
                   href={href}
+                  target={href?.startsWith("http") ? "_blank" : undefined}
+                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
                   className="text-nav-soft transition-colors hover:text-nav-ink"
                 >
@@ -524,6 +528,8 @@ export default function Navbar() {
                 <a
                   key={label}
                   href={href}
+                  target={href?.startsWith("http") ? "_blank" : undefined}
+                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
                   className="hidden text-ink transition-colors hover:text-accent lg:block"
                 >

@@ -98,7 +98,7 @@ function hintsFor(data, p, misses) {
 }
 
 export default function WordleGame({ data, mode, difficulty, showHints = true }) {
-  const { dict, targets } = useMemo(() => wordlePool(data, difficulty), [data, difficulty]);
+  const { targets } = useMemo(() => wordlePool(data, difficulty), [data, difficulty]);
   const ranked = useRankedGame({
     game: "wordle",
     difficulty,
@@ -180,7 +180,7 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
       if (done) return;
       if (key === "enter") {
         if (current.length < answer.length) return fail(tr("{n} hərf lazımdır", { n: answer.length }));
-        if (!dict.has(current)) return fail(tr("Bazada belə ad yoxdur"));
+        // İstənilən hərf birləşməsi qəbul olunur (məs. "asuhdis") — bazada olması şərt deyil.
         if (mode === "endless") ranked.record({ round: rows.length, guess: current });
         if (mode === "daily") {
           if (dailyBusy) return;
@@ -206,7 +206,7 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
       if (/^[a-z]$/.test(key))
         setCurrent((c) => (c.length < answer.length ? c + key : c));
     },
-    [done, current, answer, dict, mode, ranked.record, rows.length, dailyBusy, difficulty],
+    [done, current, answer, mode, ranked.record, rows.length, dailyBusy, difficulty],
   );
 
   useEffect(() => {

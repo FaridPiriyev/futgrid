@@ -1,4 +1,5 @@
 import { tr } from "../../../i18n";
+import { DEFAULT_FORMATION, validFormation } from "../../../lib/games/auction";
 const KEY = "futgrid:auksion:settings";
 
 export const DEFAULT_SETTINGS = {
@@ -6,7 +7,27 @@ export const DEFAULT_SETTINGS = {
   timer: 10,
   bot: "normal",
   names: { A: "", B: "" },
+  formation: DEFAULT_FORMATION,
 };
+
+// Hazır heyət şablonları (qapıçı · müdafiə · orta · hücum)
+export const FORMATION_PRESETS = [
+  { key: "classic", f: { GK: 1, DF: 1, MF: 1, FW: 2 }, get label() {
+    return tr("Klassik");
+  } },
+  { key: "attack", f: { GK: 0, DF: 0, MF: 0, FW: 5 }, get label() {
+    return tr("Tam hücum");
+  } },
+  { key: "wall", f: { GK: 1, DF: 3, MF: 0, FW: 1 }, get label() {
+    return tr("Beton müdafiə");
+  } },
+  { key: "mid", f: { GK: 1, DF: 1, MF: 2, FW: 1 }, get label() {
+    return tr("Orta xətt");
+  } },
+  { key: "free", f: { GK: 0, DF: 2, MF: 1, FW: 2 }, get label() {
+    return tr("Qapıçısız");
+  } },
+];
 
 export const OPTIONS = {
   pool: [
@@ -85,6 +106,9 @@ export function loadSettings() {
         ...DEFAULT_SETTINGS,
         ...saved,
         names: { ...DEFAULT_SETTINGS.names, ...saved.names },
+        formation: validFormation(saved.formation)
+          ? { ...DEFAULT_FORMATION, ...saved.formation }
+          : DEFAULT_FORMATION,
       };
   } catch {}
   return DEFAULT_SETTINGS;

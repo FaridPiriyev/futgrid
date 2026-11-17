@@ -192,7 +192,7 @@ export default function OrtaqSolo({ data, settings, onSettings }) {
             state={revealed ? "revealed" : "hidden"}
             owner="Sistem"
             side={SIDES.B}
-            delay={380}
+            delay={0}
           />
           <div className="hidden md:block">
             <Stat

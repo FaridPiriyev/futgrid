@@ -37,7 +37,7 @@ export default function GameLayout({
     >
       <div
         aria-hidden="true"
-        className="fg-pitch absolute inset-x-0 top-0 h-80 opacity-80 [mask-image:linear-gradient(to_bottom,black,transparent)]"
+        className="fg-pitch absolute inset-x-0 top-0 h-96 opacity-80 [mask-image:linear-gradient(to_bottom,transparent_0,transparent_9rem,black_14rem,transparent)] lg:[mask-image:linear-gradient(to_bottom,transparent_0,transparent_4rem,black_10rem,transparent)]"
       />
 
       <div

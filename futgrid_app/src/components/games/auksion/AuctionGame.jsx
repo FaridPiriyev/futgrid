@@ -2,9 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Settings2 } from "lucide-react";
 import {
   bidAmount,
+  botDecision,
   botLimit,
   buildPool,
   canBid,
+  decideLot,
   newGame,
   nextPrice,
   passLot,
@@ -15,6 +17,7 @@ import { BTN_GHOST, FONT, SWEEP_BLUE } from "../common/ui";
 import AuctionResult from "./AuctionResult";
 import {
   BidControls,
+  DecidePanel,
   Feed,
   LotCard,
   MiniTeam,
@@ -36,8 +39,9 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
   const pool = useMemo(() => buildPool(data, settings.pool), [data, settings.pool]);
   const names = sideNames(mode, settings);
   const [round, setRound] = useState(0);
+  const formation = settings.formation;
   const [state, setState] = useState(() =>
-    newGame(pool, Math.random, Date.now(), timerMs),
+    newGame(pool, Math.random, Date.now(), timerMs, formation),
   );
   const [now, setNow] = useState(() => Date.now());
   const stateRef = useRef(state);
@@ -87,6 +91,26 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
     return () => clearTimeout(t);
   }, [botKey, settings.bot, timerMs]);
 
+  // Bot pulu olan tərəfdirsə, oyunçunu özünə götürmək və ya rəqibə vermək qərarını verir.
+  const decideKey =
+    solo && state.phase === "decide" && lot?.decider === "B" ? lot.id : null;
+  useEffect(() => {
+    if (!decideKey) return;
+    const t = setTimeout(() => {
+      setState((cur) =>
+        cur.phase === "decide" && cur.lot?.id === decideKey
+          ? decideLot(cur, botDecision(cur), Date.now())
+          : cur,
+      );
+    }, 1300 + Math.random() * 900);
+    return () => clearTimeout(t);
+  }, [decideKey]);
+
+  const decide = useCallback(
+    (choice) => setState((s) => decideLot(s, choice, Date.now())),
+    [],
+  );
+
   const bid = useCallback(
     (side, inc) => setState((s) => placeBid(s, side, inc, Date.now(), timerMs)),
     [timerMs],
@@ -98,6 +122,16 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
     const onKey = (e) => {
       if (e.repeat || e.target.closest?.("input, textarea")) return;
       const k = e.key.toLowerCase();
+      const cur = stateRef.current;
+      if (cur.phase === "decide") {
+        const d = cur.lot?.decider;
+        if (!d || !sides.includes(d)) return;
+        const i = KEYS[d].bids.indexOf(k);
+        if (i === 0) decide("take");
+        else if (i === 1) decide("give");
+        else if (k === KEYS[d].pass) decide("skip");
+        return;
+      }
       for (const side of sides) {
         const i = KEYS[side].bids.indexOf(k);
         if (i >= 0) {
@@ -112,11 +146,11 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [solo, bid, pass]);
+  }, [solo, bid, pass, decide]);
 
   const restart = () => {
     botRef.current = { lotId: null, limit: 0 };
-    setState(newGame(pool, Math.random, Date.now(), timerMs));
+    setState(newGame(pool, Math.random, Date.now(), timerMs, formation));
     setRound((r) => r + 1);
   };
 
@@ -157,7 +191,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
           <span className="font-bold text-ink">
             {state.log.filter((l) => l.winner).length}
           </span>
-          /10
+          /{state.teams.A.slots.length + state.teams.B.slots.length}
         </p>
         <button type="button" onClick={onSettings} className={`${BTN_GHOST} px-4! py-2!`}>
           <span aria-hidden="true" className={SWEEP_BLUE} />
@@ -174,7 +208,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
       <div className="grid gap-5 lg:grid-cols-[minmax(0,290px)_minmax(0,1fr)_minmax(0,290px)]">
         <div className="hidden space-y-4 lg:block">
           <TeamPanel data={data} side="A" name={names.A} state={state} />
-          {!solo && controls("A")}
+          {!solo && !lot?.decider && controls("A")}
         </div>
 
         <div className="mx-auto flex w-full max-w-md flex-col items-center gap-4">
@@ -187,9 +221,21 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
               names={names}
             />
           )}
-          {lot && <PriceRow state={state} names={names} now={now} timerMs={timerMs} />}
-          {lot && controls("A", solo ? "w-full" : "w-full lg:hidden")}
-          {lot && !solo && controls("B", "w-full lg:hidden")}
+          {lot && (state.phase === "decide" || lot.decider) ? (
+            <DecidePanel
+              state={state}
+              names={names}
+              onDecide={decide}
+              botSide={solo ? "B" : null}
+              keys={KEYS}
+            />
+          ) : (
+            <>
+              {lot && <PriceRow state={state} names={names} now={now} timerMs={timerMs} />}
+              {lot && controls("A", solo ? "w-full" : "w-full lg:hidden")}
+              {lot && !solo && controls("B", "w-full lg:hidden")}
+            </>
+          )}
           <div className="hidden w-full lg:block">
             <Feed state={state} names={names} />
           </div>
@@ -197,7 +243,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
 
         <div className="hidden space-y-4 lg:block">
           <TeamPanel data={data} side="B" name={names.B} state={state} isBot={solo} />
-          {!solo && controls("B")}
+          {!solo && !lot?.decider && controls("B")}
         </div>
       </div>
     </div>

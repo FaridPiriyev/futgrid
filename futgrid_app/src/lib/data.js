@@ -1,5 +1,6 @@
 import { tr } from "../i18n";
 import { MANUAL_PHOTOS } from "./manualPhotos";
+import marketValuesCsv from "../data/market-values.csv?raw";
 const BASE = "/data";
 
 let cache = null;
@@ -38,6 +39,53 @@ export function manualPhoto(slug, name) {
   return manualBySlug.get(slug) ?? manualByName.get(norm(name)) ?? null;
 }
 
+/*
+ * Bazar dəyəri düzəlişləri: src/data/market-values.csv faylında "new_m" sütununa
+ * yazılan dəyər (milyon €, məs. 45 və ya 3,5) players.json-dakı dəyərin yerinə keçir.
+ * Sətirdə id varsa id ilə, yoxdursa adla tapılır. 0 yazsan dəyər sıfırlanır.
+ */
+export function parseValueFixes(text) {
+  const byId = new Map();
+  const byName = new Map();
+  const lines = String(text ?? "")
+    .replace(/^\uFEFF/, "")
+    .split(/\r?\n/)
+    .filter((l) => l.trim());
+  const header = lines.shift() ?? "";
+  const sep = header.includes(";") ? ";" : ",";
+  const head = header
+    .split(sep)
+    .map((h) => h.trim().replace(/^"|"$/g, "").toLowerCase());
+  const iId = head.indexOf("id");
+  const iName = head.indexOf("name");
+  const iNew = head.indexOf("new_m");
+  if (iNew < 0) return { byId, byName };
+  for (const line of lines) {
+    const cells = line.split(sep).map((c) => c.trim().replace(/^"|"$/g, ""));
+    const raw = (cells[iNew] ?? "").replace(/\s/g, "").replace(",", ".");
+    if (!raw) continue;
+    const millions = Number(raw);
+    if (!Number.isFinite(millions) || millions < 0) continue;
+    const eur = Math.round(millions * 1e6);
+    const id = iId >= 0 ? cells[iId] : "";
+    if (id) byId.set(String(id), eur);
+    else if (iName >= 0 && cells[iName]) byName.set(norm(cells[iName]), eur);
+  }
+  return { byId, byName };
+}
+
+const VALUE_FIXES = parseValueFixes(marketValuesCsv);
+
+function applyValueFix(p) {
+  const eur =
+    VALUE_FIXES.byId.get(String(p.id)) ?? VALUE_FIXES.byName.get(p._name);
+  if (eur === undefined) return;
+  const mv = { ...(p.market_value ?? {}) };
+  mv.amount_eur = eur;
+  mv.highest_eur = Math.max(mv.highest_eur ?? 0, eur);
+  p.market_value = mv;
+}
+
 function buildIndex({ clubs, players, trophies, countries, coaches }) {
   const clubsById = new Map(clubs.map((c) => [c.id, c]));
   const playersById = new Map();
@@ -48,6 +96,7 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
     if (manual) p.photo_url = manual;
     p._name = norm(p.name);
     p._tokens = p._name.split(" ");
+    applyValueFix(p);
     playersById.set(p.id, p);
     for (const clubId of new Set(p.club_history ?? [])) {
       if (!playersByClub.has(clubId)) playersByClub.set(clubId, new Set());
@@ -70,18 +119,31 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
   };
 }
 
+// Yalnız klublar (loqolar üçün) — ana səhifədəki zolaq bütün datanı gözləmədən istifadə edir.
+let clubsCache = null;
+export function loadClubs() {
+  if (!clubsCache)
+    clubsCache = getJson("clubs.json").catch((e) => {
+      clubsCache = null;
+      throw e;
+    });
+  return clubsCache;
+}
+
 export function prefetchData() {
   if (cache || typeof window === "undefined") return;
   const run = () => loadData().catch(() => {});
   const idle = () =>
-    "requestIdleCallback" in window ? window.requestIdleCallback(run, { timeout: 3000 }) : run();
+    "requestIdleCallback" in window
+      ? window.requestIdleCallback(run, { timeout: 3000 })
+      : run();
   setTimeout(idle, 2500);
 }
 
 export function loadData() {
   if (!cache) {
     cache = Promise.all([
-      getJson("clubs.json"),
+      loadClubs(),
       getJson("players.json"),
       getJson("trophies.json", true),
       getJson("countries.json", true),
@@ -132,7 +194,11 @@ function editDistance(a, b, max) {
     const cur = [i];
     let best = i;
     for (let j = 1; j <= b.length; j++) {
-      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      cur[j] = Math.min(
+        prev[j] + 1,
+        cur[j - 1] + 1,
+        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
       if (cur[j] < best) best = cur[j];
     }
     if (best > max) return max + 1;
@@ -167,7 +233,8 @@ export function findByFullName(data, text) {
   const q = norm(text);
   if (q.length < 3) return [];
   const map = fullNameIndex(data);
-  const value = (p) => Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
+  const value = (p) =>
+    Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
   const exact = map.get(q);
   if (exact) return [...exact].sort((a, b) => value(b) - value(a));
   const max = q.length >= 12 ? 2 : q.length >= 6 ? 1 : 0;
@@ -182,5 +249,7 @@ export function findByFullName(data, text) {
       hits = [...list];
     } else if (d === best && d <= max) hits.push(...list);
   }
-  return best <= max ? [...new Set(hits)].sort((a, b) => value(b) - value(a)) : [];
+  return best <= max
+    ? [...new Set(hits)].sort((a, b) => value(b) - value(a))
+    : [];
 }

@@ -18,13 +18,14 @@ import {
 } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { GAME_CATALOG } from "../lib/games/catalog";
-import { prefetchData } from "../lib/data";
+import { loadClubs, norm, prefetchData } from "../lib/data";
 import { api } from "../lib/api";
 import slide2 from "../assets/slider2.webp";
 
 import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
+const HERO_FONT = "font-['Tektur',sans-serif]";
 
 const SLIDES = [
   {
@@ -73,16 +74,125 @@ const SLIDES = [
 
 const AUTOPLAY_MS = 5500;
 
+// Zolaqdakı klublar: ad + datadakı adla uyğunlaşdırmaq üçün açar sözlər (loqo üçün).
 const TAPE_CLUBS = [
-  "Real Madrid",
-  "Barcelona",
-  "Liverpool",
-  "Qarabağ",
-  "Bayern",
-  "Inter",
-  "PSG",
-  "Arsenal",
+  { label: "Real Madrid", keys: ["real madrid"] },
+  { label: "Barcelona", keys: ["barcelona", "fc barcelona"] },
+  { label: "Liverpool", keys: ["liverpool", "liverpool fc"] },
+  { label: "Qarabağ", keys: ["qarabag", "qarabag fk", "qarabag agdam"] },
+  { label: "Bayern", keys: ["bayern munich", "bayern munchen", "fc bayern munchen", "bayern"] },
+  { label: "Inter", keys: ["inter", "internazionale", "inter milan", "fc internazionale milano"] },
+  { label: "PSG", keys: ["paris saint germain", "psg", "paris sg"] },
+  { label: "Arsenal", keys: ["arsenal", "arsenal fc"] },
+  { label: "Man City", keys: ["manchester city", "man city"] },
+  { label: "Juventus", keys: ["juventus"] },
+  { label: "Milan", keys: ["ac milan", "milan"] },
+  { label: "Chelsea", keys: ["chelsea", "chelsea fc"] },
 ];
+
+function useTapeLogos() {
+  const [logos, setLogos] = useState({});
+  useEffect(() => {
+    let alive = true;
+    loadClubs()
+      .then((clubs) => {
+        const byName = new Map();
+        for (const c of clubs ?? [])
+          if (c.logo_url && !byName.has(norm(c.name))) byName.set(norm(c.name), c.logo_url);
+        const out = {};
+        for (const t of TAPE_CLUBS) {
+          const hit = t.keys.map((k) => byName.get(k)).find(Boolean);
+          if (hit) out[t.label] = hit;
+        }
+        if (alive) setLogos(out);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return logos;
+}
+
+// Loqo şəkillərinin ətrafındakı boş (şəffaf) sahə müxtəlifdir, ona görə dairədə
+// mərkəzdə dayanmırlar. Şəkli kəsib real konturuna görə mərkəzləyirik (CORS icazə versə).
+const trimmedLogos = new Map();
+function useTrimmedLogo(url) {
+  const [src, setSrc] = useState(() => (url ? trimmedLogos.get(url) ?? url : url));
+  useEffect(() => {
+    if (!url) return;
+    if (trimmedLogos.has(url)) {
+      setSrc(trimmedLogos.get(url));
+      return;
+    }
+    let alive = true;
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const w = img.naturalWidth;
+        const h = img.naturalHeight;
+        const c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(img, 0, 0);
+        const { data } = ctx.getImageData(0, 0, w, h);
+        let x0 = w, y0 = h, x1 = -1, y1 = -1;
+        for (let y = 0; y < h; y++)
+          for (let x = 0; x < w; x++) {
+            const i = (y * w + x) * 4;
+            const solid = data[i + 3] > 12 && !(data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245);
+            if (solid) {
+              if (x < x0) x0 = x;
+              if (x > x1) x1 = x;
+              if (y < y0) y0 = y;
+              if (y > y1) y1 = y;
+            }
+          }
+        if (x1 < 0) return;
+        const side = Math.max(x1 - x0 + 1, y1 - y0 + 1);
+        const out = document.createElement("canvas");
+        out.width = out.height = side;
+        out
+          .getContext("2d")
+          .drawImage(c, x0, y0, x1 - x0 + 1, y1 - y0 + 1, (side - (x1 - x0 + 1)) / 2, (side - (y1 - y0 + 1)) / 2, x1 - x0 + 1, y1 - y0 + 1);
+        const result = out.toDataURL("image/png");
+        trimmedLogos.set(url, result);
+        if (alive) setSrc(result);
+      } catch {
+        trimmedLogos.set(url, url);
+      }
+    };
+    img.onerror = () => trimmedLogos.set(url, url);
+    img.src = url;
+    return () => {
+      alive = false;
+    };
+  }, [url]);
+  return src;
+}
+
+function TapeClub({ label, logo }) {
+  const [broken, setBroken] = useState(false);
+  const src = useTrimmedLogo(logo);
+  return (
+    <span className="inline-flex items-center gap-2.5 md:gap-3.5">
+      {logo && !broken && (
+        <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_6px_14px_-6px_rgba(0,0,0,.6)] ring-2 ring-yellow/80 animate-[fgPop_0.5s_ease-out_both] md:h-11 md:w-11">
+          <img
+            src={src}
+            alt=""
+            loading="lazy"
+            onError={() => setBroken(true)}
+            className="block h-6 max-h-6 w-6 max-w-6 object-contain object-center md:h-7.5 md:max-h-7.5 md:w-7.5 md:max-w-7.5"
+          />
+        </span>
+      )}
+      {label}
+    </span>
+  );
+}
 
 const CARDS = [
   {
@@ -362,7 +472,7 @@ const CONTACT_INFO = [
 const SOCIALS = [
   {
     Icon: FaInstagram,
-    href: "#",
+    href: "https://www.instagram.com/futgrid.az",
     get label() {
       return tr("Instagram");
     },
@@ -390,7 +500,73 @@ const KEYFRAMES = `
 @keyframes fgPulseRing { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
 @keyframes fgFly { 0% { transform: translate(0,0) rotate(0); opacity: 1; } 45% { transform: translate(34px,-26px) rotate(-12deg) scale(.6); opacity: 0; } 46% { transform: translate(-34px,26px) scale(.6); opacity: 0; } 100% { transform: translate(0,0) rotate(0); opacity: 1; } }
 @keyframes fgPop { 0% { transform: scale(.85); opacity: 0; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes fgBallRoll { 0% { transform: translateX(-12vw) rotate(0deg); opacity: 0; } 6% { opacity: 1; } 70% { transform: translateX(104vw) rotate(1080deg); opacity: 1; } 71%,100% { transform: translateX(104vw) rotate(1080deg); opacity: 0; } }
+@keyframes fgBallHop { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+@keyframes fgColon { 0%,100% { opacity: 1; } 50% { opacity: .2; } }
+@keyframes fgLive { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,.7); } 70% { box-shadow: 0 0 0 7px rgba(239,68,68,0); } }
+@keyframes fgFlood { 0%,100% { opacity: .55; } 50% { opacity: .9; } }
 `;
+
+// Klassik futbol topu (SVG)
+function SoccerBall({ className = "" }) {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
+      <circle cx="32" cy="32" r="30" fill="#fff" stroke="#0b1430" strokeWidth="3" />
+      <path d="M32 19 L43 27 L39 40 L25 40 L21 27 Z" fill="#0b1430" />
+      <path d="M32 19 L32 6 M43 27 L55 22 M39 40 L47 51 M25 40 L17 51 M21 27 L9 22" stroke="#0b1430" strokeWidth="2.5" />
+      <path d="M26 4.5 L32 6 L38 4.5 M57.5 18 L55 22 L59 28 M50 52 L47 51 L42 58 M22 58 L17 51 L14 52 M5 28 L9 22 L6.5 18" fill="#0b1430" stroke="#0b1430" strokeWidth="2.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+// Meydança xətləri (şəkil üzərində)
+function PitchOverlay() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 400 300"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-30 mix-blend-screen"
+      fill="none"
+      stroke="#fff"
+      strokeWidth="2"
+    >
+      <line x1="200" y1="0" x2="200" y2="300" />
+      <circle cx="200" cy="150" r="48" />
+      <circle cx="200" cy="150" r="3" fill="#fff" />
+      <rect x="0" y="80" width="62" height="140" />
+      <rect x="0" y="118" width="22" height="64" />
+      <path d="M62 122 A 34 34 0 0 1 62 178" />
+      <rect x="338" y="80" width="62" height="140" />
+      <rect x="378" y="118" width="22" height="64" />
+      <path d="M338 122 A 34 34 0 0 0 338 178" />
+    </svg>
+  );
+}
+
+// LED tablo: canlı matç hissi
+function Scoreboard() {
+  return (
+    <div className="fg-pop-float absolute left-2 top-2 z-10 -rotate-3 [--d:.8s] [--f:5.2s] sm:left-6 sm:top-6">
+      <div className="overflow-hidden rounded-xl border-2 border-[#2a3557] bg-[#070b16] shadow-[0_22px_44px_-24px_rgba(0,0,0,.9)]">
+        <div className="flex items-center justify-between gap-3 bg-[#0f1830] px-2.5 py-1">
+          <span className={`flex items-center gap-1.5 ${FONT} text-[9px] font-extrabold uppercase tracking-[0.16em] text-white/80 sm:text-[10px]`}>
+            <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-[fgLive_1.4s_ease-out_infinite]" />
+            {tr("Canlı")}
+          </span>
+          <span className={`${FONT} text-[10px] font-black text-yellow sm:text-xs`}>90+2&apos;</span>
+        </div>
+        <div className={`flex items-center gap-2 px-2.5 py-1.5 ${FONT} font-black uppercase sm:gap-3 sm:px-3.5 sm:py-2`}>
+          <span className="text-[11px] tracking-wide text-white sm:text-sm">FutGrid</span>
+          <span className="flex items-center gap-1 rounded-md bg-black px-2 py-0.5 font-mono text-base text-[#ffd23d] [text-shadow:0_0_8px_#ffb300] sm:text-xl">
+            3<span className="animate-[fgColon_1s_steps(1)_infinite]">:</span>1
+          </span>
+          <span className="text-[11px] tracking-wide text-white/70 sm:text-sm">{tr("Rəqib")}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const REVEAL_BASE =
   "transition-[opacity,translate,scale] duration-700 ease-out motion-reduce:transition-none";
@@ -604,24 +780,57 @@ function Marquee({ items, className, sep, sepClass, reverse = false }) {
   );
 }
 
+// İki zolaq paralel düzülür (bir-birinin üstünə düşmür):
+// yuxarıda klub loqoları olan əsas zolaq, altında stadion LED lövhəsi kimi oyun adları.
+const CLUB_TAPE_BG = {
+  backgroundColor: "var(--fg-accent)",
+  backgroundImage: [
+    // üst və alt ağ-sarı haşiyə (forma kanti kimi)
+    "linear-gradient(180deg, var(--fg-yellow) 0 3px, #fff 3px 5px, transparent 5px calc(100% - 5px), #fff calc(100% - 5px) calc(100% - 3px), var(--fg-yellow) calc(100% - 3px))",
+    // çəmən biçimi kimi zolaqlar
+    "repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 70px, transparent 70px 140px)",
+    // nöqtəli tekstura
+    "radial-gradient(rgba(255,255,255,.14) 1px, transparent 1.4px)",
+    // dərinlik
+    "linear-gradient(180deg, rgba(255,255,255,.18), transparent 45%, rgba(0,0,0,.28))",
+  ].join(","),
+  backgroundSize: "100% 100%, auto, 9px 9px, 100% 100%",
+};
+
+const LED_TAPE_BG = {
+  backgroundColor: "#05070d",
+  backgroundImage:
+    "radial-gradient(rgba(255,194,61,.10) 1px, transparent 1.3px), linear-gradient(180deg, rgba(255,255,255,.06), transparent 40%, rgba(0,0,0,.4))",
+  backgroundSize: "5px 5px, 100% 100%",
+};
+
 function Tapes() {
+  const logos = useTapeLogos();
   return (
-    <div aria-hidden="true" className="relative h-36 md:h-38">
-      <div className="absolute -inset-x-10 top-[4.6rem] z-1 rotate-[4deg] overflow-hidden bg-navy py-2 sm:rotate-3 md:top-14 md:rotate-2 md:py-3">
+    <div aria-hidden="true" className="relative h-40 shrink-0 md:h-44 lg:h-40">
+      <div
+        className="absolute -inset-x-10 top-5 z-2 -rotate-[2.2deg] overflow-hidden py-2.5 shadow-[0_24px_44px_-24px_color-mix(in_srgb,var(--fg-accent)_85%,transparent)] sm:-rotate-[1.8deg] md:top-6 md:-rotate-[1.4deg] md:py-3"
+        style={CLUB_TAPE_BG}
+      >
+        <Marquee
+          items={TAPE_CLUBS.map((c) => (
+            <TapeClub key={c.label} label={c.label} logo={logos[c.label]} />
+          ))}
+          sep={<SoccerBall className="h-4 w-4 md:h-5 md:w-5" />}
+          sepClass="inline-flex opacity-90"
+          className={`${FONT} text-lg font-black uppercase tracking-[0.06em] text-white [text-shadow:0_2px_0_rgba(0,0,0,.25)] sm:text-xl md:text-[26px]`}
+        />
+      </div>
+      <div
+        className="absolute -inset-x-10 top-[6.3rem] z-1 -rotate-[2.2deg] overflow-hidden border-y-2 border-[#1d2742] py-1.5 sm:-rotate-[1.8deg] md:top-[7.4rem] md:-rotate-[1.4deg] md:py-2 lg:top-[7.1rem]"
+        style={LED_TAPE_BG}
+      >
         <Marquee
           reverse
           items={GAME_CATALOG.map((g) => g.title)}
           sep="★"
-          sepClass="text-white/60"
-          className={`${FONT} text-xs font-extrabold uppercase tracking-[0.16em] text-yellow sm:text-sm md:text-[17px]`}
-        />
-      </div>
-      <div className="absolute -inset-x-10 top-8 z-2 -rotate-[3.5deg] overflow-hidden bg-accent py-2.5 shadow-[0_20px_40px_-26px_color-mix(in_srgb,var(--fg-accent)_80%,transparent)] sm:-rotate-[2.5deg] md:top-10 md:-rotate-[1.6deg] md:py-4">
-        <Marquee
-          items={TAPE_CLUBS}
-          sep="●"
-          sepClass="text-yellow"
-          className={`${FONT} text-lg font-black uppercase tracking-[0.06em] text-white sm:text-xl md:text-[26px]`}
+          sepClass="text-accent"
+          className={`${FONT} text-xs font-extrabold uppercase tracking-[0.2em] text-yellow [text-shadow:0_0_8px_rgba(255,194,61,.55)] sm:text-sm md:text-base`}
         />
       </div>
     </div>
@@ -644,7 +853,7 @@ function HeroCollage({ index }) {
   }, [index]);
 
   return (
-    <div className="relative mx-auto h-85 w-full max-w-140 sm:h-115 lg:h-140">
+    <div className="relative mx-auto h-85 w-full max-w-140 sm:h-115 lg:h-full lg:max-h-140 lg:min-h-[20rem]">
       <div
         className="fg-frame-in absolute inset-[12px_16px_36px_36px] overflow-hidden bg-navy [animation-delay:.25s] sm:inset-[20px_30px_40px_60px]"
         style={{ clipPath: "polygon(10% 0, 100% 0, 92% 100%, 0 100%)" }}
@@ -670,8 +879,12 @@ function HeroCollage({ index }) {
             )}
           </div>
         ))}
+        <PitchOverlay />
         <div className="fg-halftone-w fg-drift absolute inset-y-0 left-0 w-2/5" />
+        <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_65%)] animate-[fgFlood_3.2s_ease-in-out_infinite]" />
       </div>
+
+      <Scoreboard />
 
       <div
         aria-hidden="true"
@@ -808,19 +1021,22 @@ function Hero() {
 
   const slide = SLIDES[index];
   const [first, middle, last] = slide.lines;
-  const longest = Math.max(...slide.lines.map((l) => l.length));
+  const longest = Math.max(first.length, middle.length);
+  // Ölçülər ekran hündürlüyünə görə də kiçilir ki, bölmə (lentlər daxil) 100%-də tam görünsün.
   const titleSize =
     longest <= 8
-      ? "text-[52px] sm:text-7xl xl:text-[104px]"
+      ? "text-[44px] sm:text-[64px] lg:text-[clamp(52px,10vh,100px)]"
       : longest <= 10
-        ? "text-[40px] sm:text-6xl xl:text-[86px]"
-        : longest <= 12
-          ? "text-[38px] sm:text-[52px] xl:text-[72px]"
-          : "text-[32px] sm:text-[44px] xl:text-[60px]";
+        ? "text-[38px] sm:text-[56px] lg:text-[clamp(46px,8.6vh,86px)]"
+        : "text-[32px] sm:text-[46px] lg:text-[clamp(40px,7.2vh,72px)]";
+  const boardSize =
+    last.length <= 8
+      ? "text-[36px] sm:text-[52px] lg:text-[clamp(40px,7.8vh,80px)]"
+      : "text-[30px] sm:text-[42px] lg:text-[clamp(34px,6.4vh,64px)]";
 
   return (
     <section
-      className="relative overflow-hidden bg-page pt-6 md:pt-10 lg:pt-16"
+      className="relative flex flex-col overflow-hidden bg-page pt-6 md:pt-10 lg:h-[calc(100svh-140px)] lg:min-h-[540px] lg:max-h-[980px] lg:pt-[clamp(0.75rem,3vh,2.5rem)]"
       aria-roledescription="karusel"
       aria-label={tr("Əsas slaydlar")}
       onMouseEnter={() => setPaused(true)}
@@ -838,14 +1054,28 @@ function Hero() {
         className="fg-pitch fg-stripes-move absolute right-0 top-0 hidden h-[calc(100%-9.5rem)] w-[56%] lg:block"
         style={{ clipPath: "polygon(14% 0, 100% 0, 100% 100%, 0 100%)" }}
       />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 h-[70%] w-full lg:w-1/2"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(45deg, color-mix(in srgb, var(--fg-line) 7%, transparent) 0 1.5px, transparent 1.5px 24px), repeating-linear-gradient(-45deg, color-mix(in srgb, var(--fg-line) 7%, transparent) 0 1.5px, transparent 1.5px 24px)",
+          maskImage: "radial-gradient(ellipse at 25% 35%, #000 0%, transparent 70%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 25% 35%, #000 0%, transparent 70%)",
+        }}
+      />
 
-      <div className="relative mx-auto grid max-w-330 items-center gap-8 px-4 pb-4 md:px-6 lg:grid-cols-2 lg:gap-10 lg:pb-14">
+      <div className="relative mx-auto grid w-full max-w-330 items-center gap-8 px-4 pb-4 md:px-6 lg:min-h-0 lg:flex-1 lg:grid-cols-2 lg:gap-10 lg:pb-2">
         <div key={index} className="relative z-10 min-w-0">
-          <div
-            className={`fg-fade flex items-center gap-3.5 ${FONT} text-[15px] font-extrabold tracking-[0.2em]`}
-          >
-            <span className="text-accent">{pad(index + 1)}</span>
-            <span className="relative h-0.75 w-28 bg-edge">
+          <div className={`fg-fade flex flex-wrap items-center gap-3 ${HERO_FONT} text-xs font-semibold uppercase tracking-[0.16em] sm:text-[13px]`}>
+            <span className="inline-flex items-center gap-2 bg-bad px-3 py-1.5 text-white">
+              <span className="h-2 w-2 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,.3)] animate-[fgLive_1.4s_ease-out_infinite]" />
+              {tr("Matç günü")}
+            </span>
+            <span className="text-muted">
+              {tr("Raund")} <span className="text-accent">{pad(index + 1)}</span> / {pad(SLIDES.length)}
+            </span>
+            <span className="relative h-0.75 w-20 bg-edge">
               <span
                 className="fg-prog absolute inset-y-0 left-0 bg-accent"
                 style={{
@@ -854,41 +1084,43 @@ function Hero() {
                 }}
               />
             </span>
-            <span className="text-muted">{pad(SLIDES.length)}</span>
           </div>
 
           <h1
-            className={`mt-5 ${FONT} ${titleSize} font-black uppercase leading-[0.92] text-ink`}
+            className={`mt-5 ${HERO_FONT} ${titleSize} font-bold uppercase leading-[0.92] text-ink lg:mt-[clamp(0.75rem,2.4vh,1.5rem)]`}
           >
             <span className="fg-mask">
               <span className="fg-rise [animation-delay:.15s]">{first}</span>
             </span>
             <span className="fg-mask">
-              <span className="fg-rise relative [animation-delay:.3s]">
-                <span className="fg-outline">{middle}</span>
-                <span aria-hidden="true" className="fg-wipe absolute inset-0">
-                  {middle}
-                </span>
-              </span>
+              <span className="fg-rise text-accent [animation-delay:.3s]">{middle}</span>
             </span>
-            <span className="fg-mask pt-1">
-              <span className="fg-rise -skew-x-8 bg-accent px-3.5 text-white [animation-delay:.45s]">
-                <span className="inline-block skew-x-8">{last}</span>
+            <span className="fg-mask mt-3 pb-2 lg:mt-[clamp(0.5rem,1.8vh,1rem)]">
+              <span className="fg-rise inline-flex items-center gap-3 rounded-2xl border-3 border-[#2a3557] bg-[#070b16] py-1.5 pl-2.5 pr-5 shadow-[0_0_0_6px_#0b1225,0_30px_60px_-30px_#000] [animation-delay:.45s] sm:gap-4 sm:py-2 sm:pl-3 sm:pr-6">
+                <span
+                  aria-hidden="true"
+                  className={`${HERO_FONT} text-[11px] font-semibold tracking-[0.18em] text-[#8b93a7] [writing-mode:vertical-rl] rotate-180 sm:text-sm`}
+                >
+                  90+2&apos;
+                </span>
+                <span className={`${boardSize} leading-none text-[#ffd23d] [text-shadow:0_0_18px_rgba(255,180,0,.6)]`}>
+                  {last}
+                </span>
               </span>
             </span>
           </h1>
 
           <p
-            className={`fg-fade mt-6 ${FONT} text-sm font-bold uppercase tracking-[0.18em] text-accent [animation-delay:.65s] md:text-lg`}
+            className={`fg-fade mt-5 ${HERO_FONT} text-sm font-medium uppercase tracking-[0.14em] text-accent [animation-delay:.65s] md:text-lg lg:mt-[clamp(0.75rem,2.6vh,1.5rem)]`}
           >
             {slide.subtitle}
           </p>
 
-          <div className="fg-fade mt-8 flex flex-wrap items-center gap-2.5 [animation-delay:.8s] sm:gap-3.5">
+          <div className="fg-fade mt-7 flex flex-wrap items-center gap-2.5 [animation-delay:.8s] sm:gap-3.5 lg:mt-[clamp(1rem,3vh,2rem)]">
             <a
               href={slide.href}
               onClick={(e) => jumpTo(e, slide.href)}
-              className={`inline-flex h-12 items-stretch bg-accent ${FONT} text-sm font-extrabold sm:h-14 sm:text-base uppercase tracking-[0.08em] text-white shadow-[0_16px_30px_-14px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] transition-transform duration-200 hover:-translate-y-0.5`}
+              className={`inline-flex h-12 items-stretch bg-accent ${HERO_FONT} text-sm font-semibold sm:h-14 sm:text-base uppercase tracking-[0.12em] text-white shadow-[0_16px_30px_-14px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] transition-transform duration-200 hover:-translate-y-0.5`}
             >
               <span className="flex items-center px-5 sm:px-7">
                 {slide.button}
@@ -917,6 +1149,12 @@ function Hero() {
         </div>
 
         <HeroCollage index={index} />
+      </div>
+
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-40 z-20 h-9 overflow-hidden md:bottom-44 lg:bottom-40 motion-reduce:hidden">
+        <span className="absolute left-0 top-0 block h-9 w-9 animate-[fgBallRoll_9s_linear_2s_infinite]">
+          <SoccerBall className="h-full w-full animate-[fgBallHop_0.45s_ease-in-out_infinite] drop-shadow-[0_6px_6px_rgba(0,0,0,.45)]" />
+        </span>
       </div>
 
       <Tapes />
@@ -1942,6 +2180,8 @@ export default function Home() {
                         <Tag
                           key={label}
                           href={href}
+                          target={href?.startsWith("http") ? "_blank" : undefined}
+                          rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
                           className="group flex items-center gap-3.5"
                         >
                           <span className="grid h-11 w-11 shrink-0 place-items-center bg-white/15 transition-[background-color,color,rotate] duration-300 group-hover:-rotate-8 group-hover:bg-yellow group-hover:text-on-yellow">
@@ -1979,6 +2219,8 @@ export default function Home() {
                       <a
                         key={label}
                         href={href}
+                        target={href?.startsWith("http") ? "_blank" : undefined}
+                        rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
                         aria-label={label}
                         className="grid h-9 w-9 place-items-center border border-white/30 transition-[translate,background-color,color] duration-300 hover:-translate-y-1 hover:bg-yellow hover:text-on-yellow"
                       >

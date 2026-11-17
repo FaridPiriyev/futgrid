@@ -1,7 +1,36 @@
 import { playerRating } from "./rating";
 
 import { tr } from "../../i18n";
-export const SLOTS = ["GK", "DF", "MF", "FW", "FW"];
+export const POS_ORDER = ["GK", "DF", "MF", "FW"];
+export const TEAM_SIZE = 5;
+export const DEFAULT_FORMATION = { GK: 1, DF: 1, MF: 1, FW: 2 };
+
+// Heyət filteri: hər mövqedən neçə oyunçu (0 = mövqe bağlıdır). Cəm 5 olmalıdır.
+export const formationTotal = (f) =>
+  POS_ORDER.reduce((s, pos) => s + Math.max(0, Number(f?.[pos]) || 0), 0);
+export const validFormation = (f) => formationTotal(f) === TEAM_SIZE;
+export const formationSlots = (f) =>
+  POS_ORDER.flatMap((pos) =>
+    Array(Math.max(0, Number((validFormation(f) ? f : DEFAULT_FORMATION)[pos]) || 0)).fill(pos),
+  );
+
+export const SLOTS = formationSlots(DEFAULT_FORMATION);
+
+// Meydançada yerləşmə: hər mövqe öz xəttində bərabər paylanır,
+// xətdə 4+ oyunçu olanda üst-üstə düşməsinlər deyə pilləli düzülür.
+const LINE_Y = { GK: 86, DF: 64, MF: 41, FW: 16 };
+export function pitchSpots(positions) {
+  const total = {};
+  for (const pos of positions) total[pos] = (total[pos] ?? 0) + 1;
+  const seen = {};
+  return positions.map((pos) => {
+    const n = total[pos];
+    const i = (seen[pos] = (seen[pos] ?? -1) + 1);
+    const x = ((i + 1) / (n + 1)) * 100;
+    const stagger = n >= 4 ? (i % 2 ? 7 : -6) : 0;
+    return [x, Math.max(8, Math.min(90, LINE_Y[pos] + stagger))];
+  });
+}
 export const BUDGET = 40;
 export const MAX_LOTS = 30;
 export const SOLD_MS = 1700;
@@ -50,9 +79,9 @@ export function buildPool(data, key) {
   return by;
 }
 
-export const newTeam = () => ({
+export const newTeam = (formation) => ({
   money: BUDGET,
-  slots: SLOTS.map((pos) => ({ pos, pick: null })),
+  slots: formationSlots(formation).map((pos) => ({ pos, pick: null })),
 });
 
 export const openCount = (team, pos) =>
@@ -60,9 +89,34 @@ export const openCount = (team, pos) =>
 
 export const isFull = (team) => openCount(team) === 0;
 
+// Bütün büdcə bir oyunçuya da xərclənə bilər (boş yerlər üçün pul saxlamaq lazım deyil).
 export function maxBid(team) {
-  const open = openCount(team);
-  return open ? team.money - (open - 1) : -1;
+  return openCount(team) ? team.money : -1;
+}
+
+export const otherSide = (side) => (side === "A" ? "B" : "A");
+export const isBroke = (team) => openCount(team) > 0 && team.money <= 0;
+const canBuy = (team) => openCount(team) > 0 && team.money > 0;
+
+// Bir tərəfin pulu bitib, digərinin həm pulu, həm boş yeri var:
+// qalan oyunçuları pulu olan tərəf paylayır (özünə götürür və ya rəqibə verir).
+export function deciderOf(teams) {
+  for (const side of SIDE_KEYS) {
+    const other = otherSide(side);
+    if (canBuy(teams[side]) && isBroke(teams[other])) return side;
+  }
+  return null;
+}
+
+export const takePrice = (lot, team) => Math.min(lot.start, team.money);
+
+export function decideOptions(state) {
+  const { lot, teams, phase } = state;
+  if (phase !== "decide" || !lot) return { take: false, give: false, skip: false };
+  const d = lot.decider;
+  const take = openCount(teams[d], lot.pos) > 0;
+  const give = openCount(teams[otherSide(d)], lot.pos) > 0;
+  return { take, give, skip: !give };
 }
 
 export const nextPrice = (lot) => (lot.leader ? lot.price + 1 : lot.start);
@@ -158,6 +212,10 @@ function autofill(state, pool, random) {
 export function openLot(state, pool, random, now, timerMs) {
   if (SIDE_KEYS.every((s) => isFull(state.teams[s])))
     return { ...state, lot: null, phase: "done" };
+  // Heç kimin həm pulu, həm boş yeri qalmayıbsa, qalan yerlər avtomatik dolur.
+  if (!SIDE_KEYS.some((s) => canBuy(state.teams[s])))
+    return autofill(state, pool, random);
+  const decider = deciderOf(state.teams);
   const info =
     state.lotNo < MAX_LOTS ? pickLot(pool, state.teams, state.used, random) : null;
   if (!info) return autofill(state, pool, random);
@@ -167,7 +225,7 @@ export function openLot(state, pool, random, now, timerMs) {
     ...state,
     used,
     lotNo: state.lotNo + 1,
-    phase: "bid",
+    phase: decider ? "decide" : "bid",
     outcome: null,
     deadline: now + timerMs,
     lot: {
@@ -175,16 +233,17 @@ export function openLot(state, pool, random, now, timerMs) {
       id: `${state.lotNo + 1}-${info.player.id}`,
       price: info.start,
       leader: null,
+      decider,
       passed: { A: false, B: false },
       history: [],
     },
   };
 }
 
-export function newGame(pool, random, now, timerMs) {
+export function newGame(pool, random, now, timerMs, formation) {
   return openLot(
     {
-      teams: { A: newTeam(), B: newTeam() },
+      teams: { A: newTeam(formation), B: newTeam(formation) },
       used: new Set(),
       lotNo: 0,
       lot: null,
@@ -226,6 +285,57 @@ export function passLot(state, side) {
   };
 }
 
+function assign(state, winner, price, now, extra = {}) {
+  const { lot } = state;
+  const team = state.teams[winner];
+  let placed = false;
+  const slots = team.slots.map((s) => {
+    if (placed || s.pick || s.pos !== lot.pos) return s;
+    placed = true;
+    return {
+      ...s,
+      pick: { player: lot.player, rating: lot.rating, price, ...extra },
+    };
+  });
+  return {
+    ...state,
+    teams: { ...state.teams, [winner]: { money: team.money - price, slots } },
+    phase: "sold",
+    soldAt: now,
+    outcome: { winner, price, ...extra },
+    log: [...state.log, { player: lot.player, winner, price, ...extra }],
+  };
+}
+
+// Pulu olan tərəfin qərarı: "take" (özünə, başlanğıc qiymətə), "give" (rəqibə, pulsuz), "skip".
+export function decideLot(state, choice, now) {
+  const opts = decideOptions(state);
+  if (!opts[choice]) return state;
+  const { lot } = state;
+  const d = lot.decider;
+  if (choice === "take")
+    return assign(state, d, takePrice(lot, state.teams[d]), now, { decided: true });
+  if (choice === "give")
+    return assign(state, otherSide(d), 0, now, { gift: true });
+  return {
+    ...state,
+    phase: "sold",
+    soldAt: now,
+    outcome: { winner: null },
+    log: [...state.log, { player: lot.player, winner: null, price: 0 }],
+  };
+}
+
+// Bot qərar verəndə: güclü oyunçunu özünə götürür, zəifini rəqibə verir.
+export function botDecision(state) {
+  const opts = decideOptions(state);
+  const { lot } = state;
+  if (!lot) return "skip";
+  if (opts.take && (!opts.give || lot.rating >= 84)) return "take";
+  if (opts.give) return "give";
+  return opts.take ? "take" : "skip";
+}
+
 function close(state, now) {
   const { lot } = state;
   const log = [...state.log];
@@ -263,6 +373,7 @@ export function tick(state, pool, random, now, timerMs) {
       ? openLot(state, pool, random, now, timerMs)
       : state;
   }
+  if (state.phase === "decide") return state;
   if (state.phase !== "bid" || !state.lot) return state;
   const others = SIDE_KEYS.filter((s) => canBid(state, s));
   if (!others.length || now >= state.deadline) return close(state, now);

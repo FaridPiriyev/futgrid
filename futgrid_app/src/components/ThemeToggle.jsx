@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
-
-import { tr } from "../i18n";
-const KEY = "fg-theme-v2";
 
-const readTheme = () => {
+
+import { tr } from "../i18n";
+// v3: sayta ilk dəfə girən istifadəçi üçün tünd (qara) tema standartdır.
+// Açıq tema yalnız istifadəçi özü dəyişəndə yadda saxlanır.
+export const THEME_KEY = "fg-theme-v3";
+const KEY = THEME_KEY;
+
+export const readTheme = () => {
   try {
-    return localStorage.getItem(KEY) === "dark" ? "dark" : "light";
+    return localStorage.getItem(KEY) === "light" ? "light" : "dark";
   } catch {
-    return "light";
+    return "dark";
   }
 };
 

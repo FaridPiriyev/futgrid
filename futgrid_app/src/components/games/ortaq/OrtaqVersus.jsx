@@ -352,7 +352,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
             owner={names.B}
             side={SIDES.B}
             glow={SIDES.B.glow}
-            delay={380}
+            delay={0}
           />
           <div className="hidden md:block">{panel("B")}</div>
         </div>

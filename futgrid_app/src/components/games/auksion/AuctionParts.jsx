@@ -1,12 +1,15 @@
-import { Bot, Crown, User } from "lucide-react";
+import { Bot, Crown, Gift, HandCoins, SkipForward, User, Wallet } from "lucide-react";
 import {
   BUDGET,
   bidAmount,
   canBid,
+  decideOptions,
   maxBid,
   money,
   nextPrice,
   openCount,
+  otherSide,
+  takePrice,
 } from "../../../lib/games/auction";
 import {
   POS_NAME,
@@ -164,11 +167,15 @@ export function LotCard({ data, lot, phase, outcome, names }) {
             }`}
           >
             <p className={`${FONT} text-3xl font-bold uppercase tracking-widest md:text-4xl`}>
-              {outcome.winner ? tr("Satıldı") : tr("Satılmadı")}
+              {outcome.gift
+                ? tr("Hədiyyə")
+                : outcome.winner
+                  ? tr("Satıldı")
+                  : tr("Satılmadı")}
             </p>
             {outcome.winner && (
               <p className={`${FONT} mt-1 text-base font-bold uppercase text-ink`}>
-                {names[outcome.winner]} · {money(outcome.price)}
+                {names[outcome.winner]} · {outcome.gift ? tr("pulsuz") : money(outcome.price)}
               </p>
             )}
           </div>
@@ -253,8 +260,99 @@ function statusText(state, side) {
   if (lot.leader === side) return tr("Öndəsən");
   if (lot.passed[side]) return tr("Bu lotdan keçdin");
   if (!openCount(teams[side], lot.pos)) return `${POS_NAME[lot.pos]} yerin doludur`;
+  if (teams[side].money <= 0) return tr("Pulun bitdi");
   if (maxBid(teams[side]) < nextPrice(lot)) return tr("Büdcə çatmır");
   return null;
+}
+
+// Bir tərəfin pulu bitəndə: pulu olan tərəf hər oyunçunu özünə götürür və ya rəqibə verir.
+export function DecidePanel({ state, names, onDecide, botSide, keys }) {
+  const lot = state.lot;
+  const d = lot.decider;
+  const o = otherSide(d);
+  const opts = decideOptions(state);
+  const waiting = state.phase === "decide";
+  const botTurn = waiting && botSide === d;
+  const price = takePrice(lot, state.teams[d]);
+  const k = keys?.[d];
+
+  const btn =
+    "group relative flex min-h-16 flex-col items-center justify-center gap-0.5 overflow-hidden border px-3 py-2 transition-[transform,filter,opacity] duration-200 active:scale-95 enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-30";
+
+  return (
+    <div className="w-full animate-[auIn_0.4s_ease-out_both]">
+      <div className="mb-3 flex items-center gap-3 border border-bad/30 bg-bad/8 px-3 py-2.5">
+        <Wallet className="h-5 w-5 shrink-0 text-bad-hi" />
+        <p className={`${FONT} text-sm leading-snug text-ink-soft`}>
+          <span className={`font-bold ${SIDES[o].text}`}>{names[o]}</span>{" "}
+          {tr("pulsuz qaldı.")}{" "}
+          <span className={`font-bold ${SIDES[d].text}`}>{names[d]}</span>{" "}
+          {tr("qalan oyunçuları paylayır.")}
+        </p>
+      </div>
+      {botTurn ? (
+        <p className={`flex items-center justify-center gap-1.5 py-4 ${FONT} text-sm uppercase tracking-wider text-muted`}>
+          <Bot className="h-4 w-4" />
+          {tr("Bot qərar verir")}
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className="h-1 w-1 rounded-full bg-muted animate-[auDot_1.2s_ease-in-out_infinite]"
+              style={{ animationDelay: `${i * 0.2}s` }}
+            />
+          ))}
+        </p>
+      ) : (
+        <div className={`grid gap-2 ${opts.skip ? "grid-cols-3" : "grid-cols-2"}`}>
+          <button
+            type="button"
+            disabled={!waiting || !opts.take}
+            onClick={() => onDecide("take")}
+            className={`${btn} border-transparent ${SIDES[d].solid}`}
+          >
+            <span className={`flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase`}>
+              <HandCoins className="h-4 w-4" />
+              {tr("Özümə götür")}
+            </span>
+            <span className={`${FONT} text-xs font-bold opacity-80`}>{money(price)}</span>
+            {k && <span className="absolute right-1 top-0.5 text-[10px] opacity-60">{k.bids[0]}</span>}
+          </button>
+          <button
+            type="button"
+            disabled={!waiting || !opts.give}
+            onClick={() => onDecide("give")}
+            className={`${btn} border-line/15 bg-line/5 text-ink enabled:hover:bg-line/10`}
+          >
+            <span className={`flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase`}>
+              <Gift className="h-4 w-4" />
+              {tr("{name} alsın", { name: names[o] })}
+            </span>
+            <span className={`${FONT} text-xs font-bold text-good-hi`}>{tr("pulsuz")}</span>
+            {k && <span className="absolute right-1 top-0.5 text-[10px] opacity-60">{k.bids[1]}</span>}
+          </button>
+          {opts.skip && (
+            <button
+              type="button"
+              disabled={!waiting}
+              onClick={() => onDecide("skip")}
+              className={`${btn} border-transparent bg-bad-lo text-white`}
+            >
+              <span className={`flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase`}>
+                <SkipForward className="h-4 w-4" />
+                {tr("Keç")}
+              </span>
+              {k && <span className="absolute right-1 top-0.5 text-[10px] uppercase opacity-60">{k.pass}</span>}
+            </button>
+          )}
+        </div>
+      )}
+      {!opts.give && waiting && (
+        <p className={`mt-2 text-center ${FONT} text-xs text-muted`}>
+          {tr("{name} komandasında bu mövqedə boş yer yoxdur.", { name: names[o] })}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export function BidControls({ side, state, names, onBid, onPass, showName, showKeys }) {
@@ -346,7 +444,7 @@ function Thinking({ state, side }) {
 
 export function TeamPanel({ data, side, name, state, isBot }) {
   const team = state.teams[side];
-  const lot = state.phase === "bid" ? state.lot : null;
+  const lot = state.phase === "bid" || state.phase === "decide" ? state.lot : null;
   const open = openCount(team);
   const cap = maxBid(team);
   const leading = lot?.leader === side;
@@ -411,11 +509,11 @@ export function TeamPanel({ data, side, name, state, isBot }) {
                     {shortName(s.pick.player.name)}
                   </span>
                   <span className={`block truncate ${FONT} text-[11px] text-faint`}>
-                    {s.pick.auto ? "avtomatik" : clubOf(data, s.pick.player)?.name}
+                    {s.pick.auto ? "avtomatik" : s.pick.gift ? tr("rəqibdən hədiyyə") : clubOf(data, s.pick.player)?.name}
                   </span>
                 </span>
-                <span className={`w-11 text-right ${FONT} text-xs font-bold text-soft`}>
-                  {money(s.pick.price)}
+                <span className={`w-11 text-right ${FONT} text-xs font-bold ${s.pick.gift ? "text-good-hi" : "text-soft"}`}>
+                  {s.pick.gift ? tr("pulsuz") : money(s.pick.price)}
                 </span>
               </>
             ) : (

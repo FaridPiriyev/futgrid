@@ -11,7 +11,7 @@ export default function GameLayout({ eyebrow, title, description, children }) {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-0.5 bg-accent"
+        className="absolute inset-x-0 top-0 h-0 bg-accent"
       />
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6">

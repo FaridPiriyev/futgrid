@@ -186,7 +186,11 @@ function Header() {
           transformOrigin: "bottom",
         }}
       />
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-accent" />
+      {/* Yuxarı hissə ana səhifədəki kimi tünd qalır ki, menyunun loqo qalxanı fonla qarışmasın */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-linear-to-b from-page from-30% via-page/80 to-transparent"
+      />
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-page"
