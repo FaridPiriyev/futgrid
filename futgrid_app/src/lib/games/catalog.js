@@ -1,6 +1,7 @@
 import { tr } from "../../i18n";
 import yirmiSualCover from "../../assets/games/yirmi-sual.webp";
 import kimdirBuCover from "../../assets/games/kimdir-bu.webp";
+import ultimateCover from "../../assets/games/ultimate-11.webp";
 
 export const GAME_CATALOG = [
   {
@@ -276,6 +277,26 @@ export const GAME_CATALOG = [
     return ["Tək oyunçu", "2 oyunçu", "16 / 24 xana"].map((s) => tr(s));
   },
     modes: ["solo", "duo"],
+    status: "live",
+    isNew: true,
+  },
+  {
+    key: "ultimate",
+    get title() {
+    return tr("Ultimate 11");
+  },
+    get genre() {
+    return tr("Komanda qur · Baraban");
+  },
+    get description() {
+    return tr("Klub və dövr barabanlarını fırlat, hər raundda o illərin futbolçusundan birini seç və 11 raundda ən güclü heyəti qur.");
+  },
+    image: ultimateCover,
+    href: "/oyunlar/ultimate-11",
+    get tags() {
+    return ["Tək oyunçu", "Gündəlik", "11 raund"].map((s) => tr(s));
+  },
+    modes: ["solo"],
     status: "live",
     isNew: true,
   },

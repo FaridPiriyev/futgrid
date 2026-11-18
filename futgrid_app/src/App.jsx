@@ -33,6 +33,7 @@ const TarixinEnYaxsisi = lazy(
 const IkiHerf = lazy(() => import("./components/games/ikiherf/IkiHerf"));
 const YirmiSual = lazy(() => import("./components/games/sual/YirmiSual"));
 const KimdirBu = lazy(() => import("./components/games/sekil/KimdirBu"));
+const Ultimate = lazy(() => import("./components/games/ultimate/Ultimate"));
 const Legal = lazy(() => import("./components/Legal"));
 const Account = lazy(() => import("./components/Account"));
 const Admin = lazy(() => import("./components/Admin"));
@@ -187,6 +188,7 @@ function AppShell() {
           <Route path="/oyunlar/iki-herf" element={<IkiHerf />} />
           <Route path="/oyunlar/20-sual" element={<YirmiSual />} />
           <Route path="/oyunlar/kimdir-bu" element={<KimdirBu />} />
+          <Route path="/oyunlar/ultimate-11" element={<Ultimate />} />
           <Route path="/hesab" element={<Account />} />
           <Route path="/admin" element={<Admin />} />
           <Route
