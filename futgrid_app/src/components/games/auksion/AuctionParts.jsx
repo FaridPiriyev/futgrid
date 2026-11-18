@@ -9,6 +9,7 @@ import {
   nextPrice,
   openCount,
   otherSide,
+  slotPos,
   takePrice,
 } from "../../../lib/games/auction";
 import {
@@ -43,11 +44,12 @@ const TIER_STYLE = {
 };
 
 export function PosBadge({ pos, className = "h-6 w-10 text-[10px]" }) {
+  const known = pos in POS_STYLE;
   return (
     <span
-      className={`grid shrink-0 place-items-center ${FONT} font-bold tracking-wider ${POS_STYLE[pos]} ${className}`}
+      className={`grid shrink-0 place-items-center ${FONT} font-bold tracking-wider ${known ? POS_STYLE[pos] : "bg-line/8 text-soft"} ${className}`}
     >
-      {POS_SHORT[pos]}
+      {known ? POS_SHORT[pos] : "★"}
     </span>
   );
 }
@@ -66,7 +68,7 @@ export function SideMark({ side, isBot, className = "h-8 w-8" }) {
   );
 }
 
-export function LotCard({ data, lot, phase, outcome, names }) {
+export function LotCard({ data, lot, phase, outcome, names, free = false }) {
   const p = lot.player;
   const club = clubOf(data, p);
   const country = countryOf(data, p);
@@ -99,7 +101,7 @@ export function LotCard({ data, lot, phase, outcome, names }) {
           <p
             className={`mt-1 max-w-22 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-[0.2em] text-gold md:max-w-none md:tracking-[0.25em]`}
           >
-            {tr("Reytinq sonda")}
+            {free ? tr("Müzakirə rejimi") : tr("Reytinq sonda")}
           </p>
         </div>
         <div className="flex flex-col items-end gap-2">
@@ -448,7 +450,7 @@ export function TeamPanel({ data, side, name, state, isBot }) {
   const open = openCount(team);
   const cap = maxBid(team);
   const leading = lot?.leader === side;
-  const target = lot ? team.slots.findIndex((s) => !s.pick && s.pos === lot.pos) : -1;
+  const target = lot ? team.slots.findIndex((s) => !s.pick && (s.pos === lot.pos || s.pos === "ANY")) : -1;
 
   return (
     <div
@@ -501,7 +503,7 @@ export function TeamPanel({ data, side, name, state, isBot }) {
                   }`
             }`}
           >
-            <PosBadge pos={s.pos} />
+            <PosBadge pos={slotPos(s)} />
             {s.pick ? (
               <>
                 <span className="min-w-0 flex-1">
@@ -549,10 +551,10 @@ export function MiniTeam({ side, name, state, isBot }) {
             key={i}
             title={s.pick?.player.name}
             className={`grid h-6 place-items-center ${FONT} text-[9px] font-bold ${
-              s.pick ? POS_STYLE[s.pos] : "text-dim shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--fg-line)_12%,transparent)]"
+              s.pick ? POS_STYLE[slotPos(s)] ?? "bg-line/8 text-soft" : "text-dim shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--fg-line)_12%,transparent)]"
             }`}
           >
-            {POS_SHORT[s.pos]}
+            {POS_SHORT[slotPos(s)] ?? "★"}
           </span>
         ))}
       </div>

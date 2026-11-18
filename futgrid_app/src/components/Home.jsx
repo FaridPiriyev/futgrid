@@ -117,12 +117,15 @@ function useTapeLogos() {
 // Loqo şəkillərinin ətrafındakı boş (şəffaf) sahə müxtəlifdir, ona görə dairədə
 // mərkəzdə dayanmırlar. Şəkli kəsib real konturuna görə mərkəzləyirik (CORS icazə versə).
 const trimmedLogos = new Map();
+const logoTone = new Map();
 function useTrimmedLogo(url) {
   const [src, setSrc] = useState(() => (url ? trimmedLogos.get(url) ?? url : url));
+  const [tone, setTone] = useState(() => logoTone.get(url));
   useEffect(() => {
     if (!url) return;
     if (trimmedLogos.has(url)) {
       setSrc(trimmedLogos.get(url));
+      setTone(logoTone.get(url));
       return;
     }
     let alive = true;
@@ -151,6 +154,14 @@ function useTrimmedLogo(url) {
             }
           }
         if (x1 < 0) return;
+        // Loqonun ümumi parlaqlığı: tünd loqolar ağ dairədə, açıq/ağ loqolar tünd dairədə göstərilir.
+        let lum = 0, n = 0;
+        for (let i = 0; i < data.length; i += 16)
+          if (data[i + 3] > 12) {
+            lum += 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+            n++;
+          }
+        logoTone.set(url, n && lum / n < 70 ? "dark" : "light");
         const side = Math.max(x1 - x0 + 1, y1 - y0 + 1);
         const out = document.createElement("canvas");
         out.width = out.height = side;
@@ -159,7 +170,10 @@ function useTrimmedLogo(url) {
           .drawImage(c, x0, y0, x1 - x0 + 1, y1 - y0 + 1, (side - (x1 - x0 + 1)) / 2, (side - (y1 - y0 + 1)) / 2, x1 - x0 + 1, y1 - y0 + 1);
         const result = out.toDataURL("image/png");
         trimmedLogos.set(url, result);
-        if (alive) setSrc(result);
+        if (alive) {
+          setSrc(result);
+          setTone(logoTone.get(url));
+        }
       } catch {
         trimmedLogos.set(url, url);
       }
@@ -170,16 +184,16 @@ function useTrimmedLogo(url) {
       alive = false;
     };
   }, [url]);
-  return src;
+  return { src, tone };
 }
 
 function TapeClub({ label, logo }) {
   const [broken, setBroken] = useState(false);
-  const src = useTrimmedLogo(logo);
+  const { src, tone } = useTrimmedLogo(logo);
   return (
     <span className="inline-flex items-center gap-2.5 md:gap-3.5">
       {logo && !broken && (
-        <span className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_6px_14px_-6px_rgba(0,0,0,.6)] ring-2 ring-yellow/80 animate-[fgPop_0.5s_ease-out_both] md:h-11 md:w-11">
+        <span className={`relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full ${tone === "dark" ? "bg-white" : "bg-[radial-gradient(circle_at_35%_30%,#1d2c5c,#0b1430)]"} shadow-[0_6px_14px_-6px_rgba(0,0,0,.6)] ring-2 ring-yellow/80 animate-[fgPop_0.5s_ease-out_both] md:h-11 md:w-11`}>
           <img
             src={src}
             alt=""

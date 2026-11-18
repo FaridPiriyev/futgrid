@@ -905,5 +905,14 @@
   "Fırlanır...": "Крутится...",
   "5 Klub": "5 клубов",
   "Canlı": "Live",
-  "Rəqib": "Соперник"
+  "Rəqib": "Соперник",
+  "Müzakirə rejimi": "Режим обсуждения",
+  "Kimin komandası daha yaxşıdır?": "Чья команда лучше?",
+  "Bu rejimdə reytinq yoxdur. Komandaları müqayisə edin və qalibi özünüz müzakirə edin!": "В этом режиме нет рейтингов. Сравните команды и решите сами, кто победил!",
+  "Xərclənən:": "Потрачено:",
+  "Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu hərraca çıxır, hər komanda 5 oyunçu alır.": "Свободный режим: без позиций, на аукцион выходят 10 случайных игроков, каждая команда берёт 5.",
+  "Sonda reytinq göstərilmir — kimin komandasının daha yaxşı olduğunu özünüz müzakirə edin.": "В конце рейтинг не показывается — сами решите, чья команда лучше.",
+  "Sərbəst rejim — mövqesiz": "Свободный режим — без позиций",
+  "10 təsadüfi oyunçu, sonda reytinq yoxdur — müzakirə edin": "10 случайных игроков, без рейтинга — обсуждайте",
+  "Oyunçular mövqeyə görə bölünmür: hər lotda istənilən mövqedən təsadüfi futbolçu çıxır. Hər komanda 5 oyunçu yığır, sonda güc xalı və reytinq göstərilmir.": "Игроки не делятся по позициям: в каждом лоте случайный футболист любой позиции. Каждая команда набирает 5 игроков, в конце нет очков силы и рейтингов."
 }

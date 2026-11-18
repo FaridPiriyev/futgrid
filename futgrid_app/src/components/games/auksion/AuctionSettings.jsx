@@ -1,6 +1,8 @@
-import { ArrowLeft, Lock, Minus, Play, Plus } from "lucide-react";
+import { ArrowLeft, Lock, MessagesSquare, Minus, Play, Plus, Shuffle } from "lucide-react";
 import {
+  FREE_FORMATION,
   POS_ORDER,
+  isFree,
   TEAM_SIZE,
   formationSlots,
   formationTotal,
@@ -51,11 +53,15 @@ const lineupText = (f) =>
 
 const rules = (f) => [
   tr("Hər komandanın 20 ₼ büdcəsi var."),
-  tr("Heyət: {list}.", { list: lineupText(validFormation(f) ? f : DEFAULT_SETTINGS.formation) }),
+  isFree(f)
+    ? tr("Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu hərraca çıxır, hər komanda 5 oyunçu alır.")
+    : tr("Heyət: {list}.", { list: lineupText(validFormation(f) ? f : DEFAULT_SETTINGS.formation) }),
   tr("Hər təklif ən azı 0.5 ₼ artırır, saat yenidən başlayır."),
   tr("Bütün 20 ₼-ı bir oyunçuya da verə bilərsən."),
   tr("Pulu bitənin qalan oyunçularını rəqib paylayır: ya özünə götürür, ya da ona pulsuz verir."),
-  tr("Sonda reytinqlər və kimya bonusu toplanır, güclü komanda qalib olur."),
+  isFree(f)
+    ? tr("Sonda reytinq göstərilmir — kimin komandasının daha yaxşı olduğunu özünüz müzakirə edin.")
+    : tr("Sonda reytinqlər və kimya bonusu toplanır, güclü komanda qalib olur."),
 ];
 
 function MiniPitch({ formation }) {
@@ -84,6 +90,54 @@ function MiniPitch({ formation }) {
 }
 
 function FormationPicker({ value, onChange }) {
+  const free = isFree(value);
+  const toggle = (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={free}
+      onClick={() => onChange(free ? DEFAULT_SETTINGS.formation : FREE_FORMATION)}
+      className={`mb-4 flex w-full items-center gap-3.5 rounded-xl border-2 px-3.5 py-3 text-left transition-colors duration-200 ${
+        free ? "border-accent/60 bg-accent/8" : "border-edge bg-surface hover:border-accent/30"
+      }`}
+    >
+      <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${free ? "bg-accent text-white" : "bg-page-2 text-accent"}`}>
+        <Shuffle className="h-5 w-5" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className={`block ${FONT} text-[15px] font-extrabold uppercase tracking-wide text-ink`}>
+          {tr("Sərbəst rejim — mövqesiz")}
+        </span>
+        <span className={`block ${FONT} text-sm text-muted`}>
+          {tr("10 təsadüfi oyunçu, sonda reytinq yoxdur — müzakirə edin")}
+        </span>
+      </span>
+      <span className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${free ? "bg-accent" : "bg-edge"}`}>
+        <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-[left] duration-200 ${free ? "left-5.5" : "left-0.5"}`} />
+      </span>
+    </button>
+  );
+  if (free)
+    return (
+      <div>
+        {toggle}
+        <div className={`flex items-start gap-3 rounded-xl border border-dashed border-edge bg-page/60 p-4 ${FONT} text-sm text-ink-soft`}>
+          <MessagesSquare className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+          <p>
+            {tr("Oyunçular mövqeyə görə bölünmür: hər lotda istənilən mövqedən təsadüfi futbolçu çıxır. Hər komanda 5 oyunçu yığır, sonda güc xalı və reytinq göstərilmir.")}
+          </p>
+        </div>
+      </div>
+    );
+  return (
+    <div>
+      {toggle}
+      <FormationEditor value={value} onChange={onChange} />
+    </div>
+  );
+}
+
+function FormationEditor({ value, onChange }) {
   const f = { ...DEFAULT_SETTINGS.formation, ...value };
   const total = formationTotal(f);
   const set = (pos, d) => {

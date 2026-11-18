@@ -6,13 +6,20 @@ export const TEAM_SIZE = 5;
 export const DEFAULT_FORMATION = { GK: 1, DF: 1, MF: 1, FW: 2 };
 
 // Heyət filteri: hər mövqedən neçə oyunçu (0 = mövqe bağlıdır). Cəm 5 olmalıdır.
+// Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu gəlir, sonda reytinq göstərilmir.
+export const ANY = "ANY";
+export const FREE_FORMATION = { ANY: TEAM_SIZE };
+export const isFree = (f) => Number(f?.ANY) === TEAM_SIZE;
 export const formationTotal = (f) =>
-  POS_ORDER.reduce((s, pos) => s + Math.max(0, Number(f?.[pos]) || 0), 0);
+  isFree(f) ? TEAM_SIZE : POS_ORDER.reduce((s, pos) => s + Math.max(0, Number(f?.[pos]) || 0), 0);
 export const validFormation = (f) => formationTotal(f) === TEAM_SIZE;
 export const formationSlots = (f) =>
-  POS_ORDER.flatMap((pos) =>
-    Array(Math.max(0, Number((validFormation(f) ? f : DEFAULT_FORMATION)[pos]) || 0)).fill(pos),
-  );
+  isFree(f)
+    ? Array(TEAM_SIZE).fill(ANY)
+    : POS_ORDER.flatMap((pos) =>
+        Array(Math.max(0, Number((validFormation(f) ? f : DEFAULT_FORMATION)[pos]) || 0)).fill(pos),
+      );
+const fits = (slot, pos) => slot.pos === pos || slot.pos === ANY;
 
 export const SLOTS = formationSlots(DEFAULT_FORMATION);
 
@@ -28,7 +35,7 @@ export function pitchSpots(positions) {
     const i = (seen[pos] = (seen[pos] ?? -1) + 1);
     const x = ((i + 1) / (n + 1)) * 100;
     const stagger = n >= 4 ? (i % 2 ? 7 : -6) : 0;
-    return [x, Math.max(8, Math.min(90, LINE_Y[pos] + stagger))];
+    return [x, Math.max(8, Math.min(90, (LINE_Y[pos] ?? 41) + stagger))];
   });
 }
 export const BUDGET = 40;
@@ -85,7 +92,10 @@ export const newTeam = (formation) => ({
 });
 
 export const openCount = (team, pos) =>
-  team.slots.filter((s) => !s.pick && (!pos || s.pos === pos)).length;
+  team.slots.filter((s) => !s.pick && (!pos || fits(s, pos))).length;
+
+// Meydançada göstərmək üçün yerin real mövqeyi (sərbəst rejimdə oyunçunun öz mövqeyi).
+export const slotPos = (s) => (s.pos === ANY ? s.pick?.player?.position ?? ANY : s.pos);
 
 export const isFull = (team) => openCount(team) === 0;
 
@@ -158,8 +168,14 @@ export function botLimit(lot, team, difficulty, random) {
 
 function pickLot(pool, teams, used, random) {
   const weights = {};
+  const FREE_W = { GK: 1, DF: 3, MF: 3, FW: 3 };
   for (const t of Object.values(teams))
-    for (const s of t.slots) if (!s.pick) weights[s.pos] = (weights[s.pos] ?? 0) + 1;
+    for (const s of t.slots) {
+      if (s.pick) continue;
+      if (s.pos === ANY)
+        for (const [pos, w] of Object.entries(FREE_W)) weights[pos] = (weights[pos] ?? 0) + w / 10;
+      else weights[s.pos] = (weights[s.pos] ?? 0) + 1;
+    }
   const options = Object.entries(weights).filter(([pos]) =>
     pool[pos].some((p) => !used.has(p.id)),
   );
@@ -190,7 +206,8 @@ function autofill(state, pool, random) {
     let cash = team.money;
     const slots = team.slots.map((s) => {
       if (s.pick) return s;
-      const free = pool[s.pos].filter((p) => !used.has(p.id));
+      const pos = s.pos === ANY ? ["DF", "MF", "FW"][Math.floor(random() * 3)] : s.pos;
+      const free = pool[pos].filter((p) => !used.has(p.id));
       const tail = free.slice(-Math.max(3, Math.floor(free.length * 0.15)));
       const list = tail.length ? tail : free;
       const player = list[Math.floor(random() * list.length)];
@@ -290,7 +307,7 @@ function assign(state, winner, price, now, extra = {}) {
   const team = state.teams[winner];
   let placed = false;
   const slots = team.slots.map((s) => {
-    if (placed || s.pick || s.pos !== lot.pos) return s;
+    if (placed || s.pick || !fits(s, lot.pos)) return s;
     placed = true;
     return {
       ...s,
@@ -346,7 +363,7 @@ function close(state, now) {
   const team = state.teams[lot.leader];
   let placed = false;
   const slots = team.slots.map((s) => {
-    if (placed || s.pick || s.pos !== lot.pos) return s;
+    if (placed || s.pick || !fits(s, lot.pos)) return s;
     placed = true;
     return {
       ...s,

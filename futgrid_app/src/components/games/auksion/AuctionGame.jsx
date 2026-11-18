@@ -7,6 +7,7 @@ import {
   buildPool,
   canBid,
   decideLot,
+  isFree,
   newGame,
   nextPrice,
   passLot,
@@ -162,6 +163,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
         state={state}
         names={names}
         solo={solo}
+        formation={formation}
         onAgain={restart}
         onSettings={onSettings}
       />
@@ -219,6 +221,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
               phase={state.phase}
               outcome={state.outcome}
               names={names}
+              free={isFree(formation)}
             />
           )}
           {lot && (state.phase === "decide" || lot.decider) ? (

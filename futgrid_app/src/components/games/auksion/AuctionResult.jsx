@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RotateCcw, Settings2, Trophy } from "lucide-react";
-import { BUDGET, money, pitchSpots, teamStrength } from "../../../lib/games/auction";
+import { BUDGET, isFree, money, pitchSpots, slotPos, teamStrength } from "../../../lib/games/auction";
 import { clubOf, countryOf } from "../../../lib/games/playerInfo";
 import PlayerAvatar from "../common/PlayerAvatar";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
@@ -30,9 +30,10 @@ function useCount(target, run, duration = 1200) {
   return v;
 }
 
-function Pitch({ team, side }) {
-  const spots = pitchSpots(team.slots.map((s) => s.pos));
-  const crowded = team.slots.length > 0 && Math.max(...Object.values(team.slots.reduce((m, s) => ({ ...m, [s.pos]: (m[s.pos] ?? 0) + 1 }), {}))) >= 4;
+function Pitch({ team, side, hideRating = false }) {
+  const positions = team.slots.map(slotPos);
+  const spots = pitchSpots(positions);
+  const crowded = positions.length > 0 && Math.max(...Object.values(positions.reduce((m, p) => ({ ...m, [p]: (m[p] ?? 0) + 1 }), {}))) >= 4;
   return (
     <div data-theme="dark" className="relative h-80 overflow-hidden border border-line/8 bg-linear-to-b from-[#0d2a1c] to-[#0a1f16] md:h-96">
       <span className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-line/12" />
@@ -53,9 +54,11 @@ function Pitch({ team, side }) {
                 className={`h-11 w-11 border-2 ${SIDES[side].border}`}
                 textClass="text-sm"
               />
-              <span className="absolute -bottom-1.5 -right-2.5 bg-gold px-1 text-[10px] font-bold text-black">
-                {s.pick.rating}
-              </span>
+              {!hideRating && (
+                <span className="absolute -bottom-1.5 -right-2.5 bg-gold px-1 text-[10px] font-bold text-black">
+                  {s.pick.rating}
+                </span>
+              )}
             </span>
             <span
               className={`mt-1.5 block truncate ${FONT} text-[11px] font-bold text-ink [text-shadow:0_1px_4px_#000]`}
@@ -151,7 +154,80 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
   );
 }
 
-export default function AuctionResult({ data, state, names, solo, onAgain, onSettings }) {
+// Sərbəst rejimin sonu: reytinq və qalib yoxdur — komandaları yan-yana göstəririk, oyunçular özləri müzakirə edir.
+function FreeTeamCard({ data, side, name, team, delay }) {
+  const spent = team.slots.reduce((s, x) => s + (x.pick?.price ?? 0), 0);
+  return (
+    <div
+      className="grid gap-5 border border-line/10 bg-surface/85 p-4 animate-[auIn_0.6s_ease-out_both] md:grid-cols-[240px_1fr] md:p-5"
+      style={{ animationDelay: delay }}
+    >
+      <Pitch team={team} side={side} hideRating />
+      <div>
+        <span className={`${FONT} text-xl font-bold uppercase ${SIDES[side].text}`}>{name}</span>
+        <ul className="mt-3 space-y-2">
+          {team.slots.map((s, i) =>
+            s.pick ? (
+              <li key={i} className="flex items-center gap-3 border-b border-line/8 pb-2">
+                <PlayerAvatar player={s.pick.player} className={`h-10 w-10 border-2 ${SIDES[side].border}`} textClass="text-xs" />
+                <span className="min-w-0 flex-1">
+                  <span className={`block truncate ${FONT} text-base font-bold text-ink`}>{s.pick.player.name}</span>
+                  <span className={`block truncate ${FONT} text-xs text-faint`}>
+                    {[clubOf(data, s.pick.player)?.name, countryOf(data, s.pick.player)?.name].filter(Boolean).join(" · ")}
+                  </span>
+                </span>
+                <span className={`${FONT} text-sm font-bold ${s.pick.gift ? "text-good-hi" : "text-soft"}`}>
+                  {s.pick.auto ? "avtomatik" : s.pick.gift ? tr("pulsuz") : money(s.pick.price)}
+                </span>
+              </li>
+            ) : null,
+          )}
+        </ul>
+        <p className={`mt-3 ${FONT} text-sm text-muted`}>
+          {tr("Xərclənən:")} <span className="font-bold text-ink">{money(spent)}</span> / {money(BUDGET)}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function AuctionResult(props) {
+  return isFree(props.formation) ? <FreeResult {...props} /> : <RatedResult {...props} />;
+}
+
+function FreeResult({ data, state, names, onAgain, onSettings }) {
+  return (
+    <div>
+      <div className="text-center animate-[auIn_0.5s_ease-out_both]">
+        <p className={`${FONT} text-sm font-bold uppercase tracking-[0.28em] text-gold`}>{tr("Hərrac bitdi")}</p>
+        <h2 className={`mt-2 ${FONT} text-3xl font-bold uppercase text-ink md:text-5xl`}>
+          {tr("Kimin komandası daha yaxşıdır?")}
+        </h2>
+        <p className={`mx-auto mt-3 max-w-xl ${FONT} text-base text-muted`}>
+          {tr("Bu rejimdə reytinq yoxdur. Komandaları müqayisə edin və qalibi özünüz müzakirə edin!")}
+        </p>
+      </div>
+      <div className="mt-8 grid gap-5 xl:grid-cols-2">
+        <FreeTeamCard data={data} side="A" name={names.A} team={state.teams.A} delay="150ms" />
+        <FreeTeamCard data={data} side="B" name={names.B} team={state.teams.B} delay="300ms" />
+      </div>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <button type="button" onClick={onAgain} className={BTN_PRIMARY}>
+          <span aria-hidden="true" className={SWEEP_WHITE} />
+          <RotateCcw className="h-4 w-4" />
+          {tr("Yenidən oyna")}
+        </button>
+        <button type="button" onClick={onSettings} className={BTN_GHOST}>
+          <span aria-hidden="true" className={SWEEP_BLUE} />
+          <Settings2 className="h-4 w-4" />
+          {tr("Parametrlər")}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function RatedResult({ data, state, names, solo, onAgain, onSettings }) {
   const res = { A: teamStrength(state.teams.A), B: teamStrength(state.teams.B) };
   const winner =
     res.A.total === res.B.total ? null : res.A.total > res.B.total ? "A" : "B";

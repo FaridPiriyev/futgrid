@@ -905,5 +905,14 @@
   "Fırlanır...": "Spinning...",
   "5 Klub": "5 Clubs",
   "Canlı": "Live",
-  "Rəqib": "Rival"
+  "Rəqib": "Rival",
+  "Müzakirə rejimi": "Debate mode",
+  "Kimin komandası daha yaxşıdır?": "Whose team is better?",
+  "Bu rejimdə reytinq yoxdur. Komandaları müqayisə edin və qalibi özünüz müzakirə edin!": "No ratings in this mode. Compare the teams and debate the winner yourselves!",
+  "Xərclənən:": "Spent:",
+  "Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu hərraca çıxır, hər komanda 5 oyunçu alır.": "Free mode: no positions, 10 random players go up for auction, each team buys 5.",
+  "Sonda reytinq göstərilmir — kimin komandasının daha yaxşı olduğunu özünüz müzakirə edin.": "No ratings at the end — debate whose team is better yourselves.",
+  "Sərbəst rejim — mövqesiz": "Free mode — no positions",
+  "10 təsadüfi oyunçu, sonda reytinq yoxdur — müzakirə edin": "10 random players, no ratings at the end — debate it",
+  "Oyunçular mövqeyə görə bölünmür: hər lotda istənilən mövqedən təsadüfi futbolçu çıxır. Hər komanda 5 oyunçu yığır, sonda güc xalı və reytinq göstərilmir.": "Players aren't split by position: each lot is a random footballer from any position. Each team collects 5 players; no strength score or ratings are shown at the end."
 }

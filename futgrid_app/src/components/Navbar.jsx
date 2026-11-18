@@ -386,7 +386,7 @@ export default function Navbar() {
     <a
       href="/"
       onClick={(e) => go(LEFT_LINKS[0], e)}
-      className={className}
+      className={`${className} rounded-lg outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70`}
       aria-label={tr("FutGrid ana səhifə")}
     >
       <SiteLogo className={imgClassName} />
