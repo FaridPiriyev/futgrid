@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { requireUser } from "../../lib/auth.js";
+import { AppError } from "../../lib/errors.js";
 import {
   deleteMe,
   exportMe,
@@ -12,6 +13,10 @@ import {
   registerPushToken,
   deletePushToken,
   updateMe,
+  changeUsername,
+  changePassword,
+  setAvatar,
+  clearAvatar,
 } from "./service.js";
 import {
   deletePushTokenSchema,
@@ -20,6 +25,8 @@ import {
   patchMeSchema,
   pushTokenSchema,
   settingsSchema,
+  usernameSchema,
+  passwordChangeSchema,
 } from "./schemas.js";
 
 export async function registerUserRoutes(fastify: FastifyInstance): Promise<void> {
@@ -60,6 +67,44 @@ export async function registerUserRoutes(fastify: FastifyInstance): Promise<void
   app.get("/me/export", { schema: { tags: ["users"] } }, async (request) => {
     const user = requireUser(request);
     return exportMe(user.id);
+  });
+
+  app.patch(
+    "/me/username",
+    { schema: { tags: ["users"], body: usernameSchema } },
+    async (request) => {
+      const user = requireUser(request);
+      return changeUsername(user.id, request.body.username);
+    },
+  );
+
+  app.post(
+    "/me/password",
+    { schema: { tags: ["users"], body: passwordChangeSchema } },
+    async (request) => {
+      const user = requireUser(request);
+      await changePassword(user.id, request.body.currentPassword, request.body.newPassword);
+      return { ok: true };
+    },
+  );
+
+  app.post("/me/avatar", { schema: { tags: ["users"] } }, async (request, reply) => {
+    const user = requireUser(request);
+    const file = await request.file();
+    if (!file) {
+      throw new AppError("VALIDATION_FAILED", {
+        details: [{ field: "avatar", rule: "file_required" }],
+      });
+    }
+    const buffer = await file.toBuffer();
+    const result = await setAvatar(user.id, buffer, file.mimetype);
+    return reply.status(201).send(result);
+  });
+
+  app.delete("/me/avatar", { schema: { tags: ["users"] } }, async (request) => {
+    const user = requireUser(request);
+    await clearAvatar(user.id);
+    return { ok: true };
   });
 
   app.get("/me/ratings", { schema: { tags: ["users"] } }, async (request) => {

@@ -8,22 +8,24 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(uuid()) @db.Uuid
-  email            String    @unique
-  passwordHash     String?   @map("password_hash")
-  username         String    @unique
-  displayName      String?   @map("display_name")
-  teamId           Int?      @map("team_id")
-  locale           String    @default("az")
-  role             String    @default("user")
-  adminTotpSecret  String?   @map("admin_totp_secret")
-  adminTotpEnabled Boolean   @default(false) @map("admin_totp_enabled")
-  emailVerifiedAt  DateTime? @map("email_verified_at")
-  ageConfirmedAt   DateTime? @map("age_confirmed_at")
-  blockedAt        DateTime? @map("blocked_at")
-  deletedAt        DateTime? @map("deleted_at")
-  createdAt        DateTime  @default(now()) @map("created_at")
-  updatedAt        DateTime  @updatedAt @map("updated_at")
+  id                String    @id @default(uuid()) @db.Uuid
+  email             String    @unique
+  passwordHash      String?   @map("password_hash")
+  username          String    @unique
+  displayName       String?   @map("display_name")
+  teamId            Int?      @map("team_id")
+  locale            String    @default("az")
+  avatarUrl         String?   @map("avatar_url")
+  passwordChangedAt DateTime? @map("password_changed_at")
+  role              String    @default("user")
+  adminTotpSecret   String?   @map("admin_totp_secret")
+  adminTotpEnabled  Boolean   @default(false) @map("admin_totp_enabled")
+  emailVerifiedAt   DateTime? @map("email_verified_at")
+  ageConfirmedAt    DateTime? @map("age_confirmed_at")
+  blockedAt         DateTime? @map("blocked_at")
+  deletedAt         DateTime? @map("deleted_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
 
   team          Team?           @relation(fields: [teamId], references: [id])
   oauthAccounts OAuthAccount[]

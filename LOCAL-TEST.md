@@ -92,6 +92,14 @@ GOAT:
 curl 'http://localhost:3000/v1/goat/ranking?size=16'
 ```
 
+Profile:
+
+1. Open `/hesab`.
+2. Change username.
+3. Change password.
+4. Upload a profile photo.
+5. Log out and test “Şifrəni unutdum?” from the login form.
+
 Admin:
 
 You can use the browser UI at `http://localhost:5173/admin` after promoting your account.
@@ -167,6 +175,11 @@ For the other online games:
 - Ortaq Oyunçu: choose `Dostla`.
 - Yüksək/Aşağı: open settings and click `Dostla onlayn`.
 - İki hərf: choose `Dostla` from the mode screen.
+- 20 sual: choose `Dostla`.
+- Kimdir Bu?: choose `Dostla`.
+- Açıq Artırma: choose `Dostla`; host clicks `Hərracı başlat` after 2–4 players join.
+
+For every room: create it, copy the numeric ID, send the ID, and join by typing the ID.
 
 The terminal commands above are still useful for debugging the Socket.IO server.
 

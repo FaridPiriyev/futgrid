@@ -11,7 +11,7 @@ import {
   REFRESH_COOKIE,
 } from "../../lib/auth.js";
 import { AppError } from "../../lib/errors.js";
-import { randomToken } from "../../lib/crypto.js";
+import { randomToken, signAccessToken } from "../../lib/crypto.js";
 import { enforceScopedLimit, rateLimitKey } from "../../lib/rate-limit.js";
 import {
   forgotPassword,
@@ -35,6 +35,7 @@ import {
   verifyEmailSchema,
 } from "./schemas.js";
 import { parseLocale } from "../../lib/i18n.js";
+import { prisma } from "../../lib/prisma.js";
 
 const OAUTH_STATE_COOKIE = "futgrid_oauth_state";
 
@@ -237,6 +238,20 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
       return reply.redirect(`${config.APP_URL}/hesab?oauth=ok`);
     },
   );
+
+  app.get("/auth/socket-token", async (request) => {
+    const user = requireUser(request);
+    const account = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { id: true, username: true, displayName: true, avatarUrl: true },
+    });
+    if (!account) throw new AppError("NOT_FOUND");
+    return {
+      token: await signAccessToken(account.id, user.role),
+      expiresIn: config.ACCESS_TOKEN_TTL_MINUTES * 60,
+      user: account,
+    };
+  });
 
   app.get("/auth/csrf", async (request) => {
     const token = request.cookies[ACCESS_COOKIE] ? "cookie-session" : "none";

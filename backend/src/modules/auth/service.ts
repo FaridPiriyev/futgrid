@@ -38,6 +38,7 @@ export interface PublicUser {
   teamId: number | null;
   locale: string;
   role: string;
+  avatarUrl: string | null;
   emailVerified: boolean;
   createdAt: string;
 }
@@ -51,6 +52,7 @@ export function toPublicUser(user: User): PublicUser {
     teamId: user.teamId,
     locale: user.locale,
     role: user.role,
+    avatarUrl: user.avatarUrl,
     emailVerified: Boolean(user.emailVerifiedAt),
     createdAt: user.createdAt.toISOString(),
   };

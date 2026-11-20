@@ -30,6 +30,15 @@ export const importGuestSchema = z.object({
   records: z.array(importedRecordSchema).max(50),
 });
 
+export const usernameSchema = z.object({
+  username: z.string().trim().min(3).max(20).regex(/^[A-Za-z0-9_]+$/),
+});
+
+export const passwordChangeSchema = z.object({
+  currentPassword: z.string().min(1).max(128),
+  newPassword: z.string().min(8).max(128),
+});
+
 export const pushTokenSchema = z.object({
   token: z.string().min(20).max(4096),
   platform: z.enum(["web", "ios", "android"]).default("web"),

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { LogOut, Trash2, UserRound } from "lucide-react";
+import { LogOut, Trash2, Upload, UserRound } from "lucide-react";
 import { api } from "../lib/api";
 import { initialsOf, useAuth } from "../lib/auth";
 import { tr } from "../i18n";
@@ -18,6 +18,8 @@ function LoginForm({ onDone }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [forgot, setForgot] = useState(false);
+  const [notice, setNotice] = useState("");
 
   const submit = async (event) => {
     event.preventDefault();
@@ -54,8 +56,30 @@ function LoginForm({ onDone }) {
         required
       />
       {error ? <p className="text-sm text-bad-hi">{error}</p> : null}
+      {notice ? <p className="text-sm text-good-hi">{notice}</p> : null}
       <button className={primaryClass} type="submit" disabled={busy}>
         {busy ? tr("Gözləyin...") : tr("Daxil ol")}
+      </button>
+      <button
+        className={`${secondaryClass} text-xs`}
+        type="button"
+        onClick={async () => {
+          if (forgot) return;
+          setError("");
+          setNotice("");
+          if (!email) return setError(tr("Əvvəlcə e-poçtu yaz."));
+          setForgot(true);
+          try {
+            await api.post("/auth/forgot-password", { email });
+            setNotice(tr("Əgər bu e-poçt qeydiyyatdadırsa, link göndərildi."));
+          } catch (err) {
+            setError(err.message || tr("Sorğu alınmadı."));
+          } finally {
+            setForgot(false);
+          }
+        }}
+      >
+        {tr("Şifrəni unutdum?")}
       </button>
     </form>
   );
@@ -189,9 +213,62 @@ function ResetForm() {
 }
 
 function Profile({ user }) {
-  const { logout } = useAuth();
+  const { logout, refresh } = useAuth();
   const stats = user.stats ?? [];
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [username, setUsername] = useState(user.username ?? "");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [profileMessage, setProfileMessage] = useState("");
+  const [profileError, setProfileError] = useState("");
+  const [avatarBusy, setAvatarBusy] = useState(false);
+
+  const saveUsername = async (event) => {
+    event.preventDefault();
+    setProfileError("");
+    setProfileMessage("");
+    try {
+      await api.patch("/me/username", { username });
+      await refresh();
+      setProfileMessage(tr("İstifadəçi adı yeniləndi."));
+    } catch (error) {
+      setProfileError(error.message || tr("İstifadəçi adı yenilənmədi."));
+    }
+  };
+
+  const savePassword = async (event) => {
+    event.preventDefault();
+    setProfileError("");
+    setProfileMessage("");
+    try {
+      await api.post("/me/password", { currentPassword, newPassword });
+      setCurrentPassword("");
+      setNewPassword("");
+      setProfileMessage(tr("Şifrə yeniləndi."));
+    } catch (error) {
+      setProfileError(error.message || tr("Şifrə yenilənmədi."));
+    }
+  };
+
+  const uploadAvatar = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setAvatarBusy(true);
+    setProfileError("");
+    setProfileMessage("");
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      await api.upload("/me/avatar", form);
+      await refresh();
+      setProfileMessage(tr("Profil şəkli yeniləndi."));
+    } catch (error) {
+      setProfileError(error.message || tr("Şəkil yüklənmədi."));
+    } finally {
+      setAvatarBusy(false);
+      event.target.value = "";
+    }
+  };
 
   const remove = async () => {
     if (!confirmDelete) {
@@ -205,16 +282,43 @@ function Profile({ user }) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center gap-4">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-accent font-['Roboto_Condensed',sans-serif] text-xl font-bold text-white">
-          {initialsOf(user)}
-        </span>
+        {user.avatarUrl ? (
+          <img src={user.avatarUrl} alt="" className="h-14 w-14 rounded-full object-cover" />
+        ) : (
+          <span className="grid h-14 w-14 place-items-center rounded-full bg-accent font-['Roboto_Condensed',sans-serif] text-xl font-bold text-white">
+            {initialsOf(user)}
+          </span>
+        )}
         <div>
           <h1 className="font-['Roboto_Condensed',sans-serif] text-2xl font-bold uppercase text-ink">
             {user.displayName || user.username}
           </h1>
           <p className="text-sm text-muted">{user.email}</p>
+          <p className="text-xs text-faint">@{user.username}</p>
         </div>
       </div>
+
+      <section className="rounded-xl border border-line/15 bg-surface p-4">
+        <h2 className="font-['Roboto_Condensed',sans-serif] text-lg font-bold uppercase text-ink">
+          {tr("Profil")}
+        </h2>
+        <label className={`${secondaryClass} mt-3 cursor-pointer`}>
+          <Upload className="h-4 w-4" />
+          {avatarBusy ? tr("Yüklənir...") : tr("Profil şəklini dəyiş")}
+          <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={uploadAvatar} disabled={avatarBusy} />
+        </label>
+        <form className="mt-4 flex flex-col gap-2 sm:flex-row" onSubmit={saveUsername}>
+          <input className={inputClass} value={username} onChange={(event) => setUsername(event.target.value)} minLength={3} maxLength={20} pattern="[A-Za-z0-9_]+" required />
+          <button className={secondaryClass} type="submit">{tr("İstifadəçi adını dəyiş")}</button>
+        </form>
+        <form className="mt-3 flex flex-col gap-2 sm:flex-row" onSubmit={savePassword}>
+          <input className={inputClass} type="password" autoComplete="current-password" placeholder={tr("Cari şifrə")} value={currentPassword} onChange={(event) => setCurrentPassword(event.target.value)} required />
+          <input className={inputClass} type="password" autoComplete="new-password" placeholder={tr("Yeni şifrə")} value={newPassword} onChange={(event) => setNewPassword(event.target.value)} minLength={8} required />
+          <button className={secondaryClass} type="submit">{tr("Şifrəni dəyiş")}</button>
+        </form>
+        {profileError ? <p className="mt-2 text-sm text-bad-hi">{profileError}</p> : null}
+        {profileMessage ? <p className="mt-2 text-sm text-good-hi">{profileMessage}</p> : null}
+      </section>
 
       <section className="rounded-xl border border-line/15 bg-surface p-4">
         <h2 className="font-['Roboto_Condensed',sans-serif] text-lg font-bold uppercase text-ink">

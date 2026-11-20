@@ -10,6 +10,7 @@ import { SIDES } from "../ortaq/settings";
 import { PIXEL_KEYFRAMES } from "./PixelBoard";
 import PixelDuo from "./PixelDuo";
 import PixelSolo from "./PixelSolo";
+import PixelDuel from "./PixelDuel";
 
 import { tr } from "../../../i18n";
 
@@ -88,7 +89,11 @@ export default function KimdirBu() {
     body = (
       <div className="mx-auto max-w-5xl">
         <ModeSelect
-          onPick={setMode}
+          friends
+          onPick={(key) => {
+            setMode(key);
+            if (key === "friend") setGame((g) => g + 1);
+          }}
           texts={{
             same: tr("Şəkil açılır, ilk tanıyan düyməni basır"),
             solo: tr("Şəkil xana-xana açılır, tez tap, çox xal al"),
@@ -96,7 +101,7 @@ export default function KimdirBu() {
         />
       </div>
     );
-  else if (!game)
+  else if (!game && mode !== "friend")
     body = (
       <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
         <SettingsHeader
@@ -164,7 +169,9 @@ export default function KimdirBu() {
             {tr("Parametrlər")}
           </button>
         </div>
-        {solo ? <PixelSolo key={game} data={data} settings={settings} /> : <PixelDuo key={game} data={data} settings={settings} names={names} />}
+        {mode === "friend" ? (
+          <PixelDuel key={game} data={data} onSettings={() => setMode(null)} />
+        ) : solo ? <PixelSolo key={game} data={data} settings={settings} /> : <PixelDuo key={game} data={data} settings={settings} names={names} />}
       </>
     );
 

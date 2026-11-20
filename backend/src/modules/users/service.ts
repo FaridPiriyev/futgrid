@@ -3,6 +3,10 @@ import type { Prisma } from "@prisma/client";
 import { AppError } from "../../lib/errors.js";
 import { prisma } from "../../lib/prisma.js";
 import { ensureGames } from "../../lib/games.js";
+import { hashPassword, verifyPassword } from "../../lib/crypto.js";
+import sharp from "sharp";
+import { createHash } from "node:crypto";
+import { publishObject } from "../../lib/storage.js";
 import type { ImportGuestInput } from "./schemas.js";
 
 export async function getMe(userId: string) {
@@ -13,6 +17,7 @@ export async function getMe(userId: string) {
       email: true,
       username: true,
       displayName: true,
+      avatarUrl: true,
       teamId: true,
       locale: true,
       role: true,
@@ -42,6 +47,7 @@ export async function getMe(userId: string) {
     email: user.email,
     username: user.username,
     displayName: user.displayName,
+    avatarUrl: user.avatarUrl,
     team: user.team,
     locale: user.locale,
     role: user.role,
@@ -83,6 +89,7 @@ export async function updateMe(
       email: true,
       username: true,
       displayName: true,
+      avatarUrl: true,
       teamId: true,
       locale: true,
       role: true,
@@ -280,4 +287,86 @@ export async function getMyDuels(userId: string, limit = 20) {
     take: limit,
   });
   return { entries: matches };
+}
+
+export async function changeUsername(userId: string, username: string) {
+  const existing = await prisma.user.findUnique({ where: { username } });
+  if (existing && existing.id !== userId) throw new AppError("USERNAME_TAKEN");
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: { username },
+    select: {
+      id: true,
+      email: true,
+      username: true,
+      displayName: true,
+      avatarUrl: true,
+      locale: true,
+      role: true,
+      createdAt: true,
+    },
+  });
+  return { ...user, createdAt: user.createdAt.toISOString() };
+}
+
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string,
+): Promise<void> {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user?.passwordHash) throw new AppError("INVALID_CREDENTIALS");
+  const ok = await verifyPassword(user.passwordHash, currentPassword);
+  if (!ok) throw new AppError("INVALID_CREDENTIALS");
+  if (await verifyPassword(user.passwordHash, newPassword)) {
+    throw new AppError("VALIDATION_FAILED", {
+      details: [{ field: "newPassword", rule: "same_as_current" }],
+    });
+  }
+  await prisma.user.update({
+    where: { id: userId },
+    data: { passwordHash: await hashPassword(newPassword), passwordChangedAt: new Date() },
+  });
+}
+
+export async function setAvatar(
+  userId: string,
+  buffer: Buffer,
+  mimetype: string,
+): Promise<{ avatarUrl: string }> {
+  if (!["image/jpeg", "image/png", "image/webp"].includes(mimetype)) {
+    throw new AppError("VALIDATION_FAILED", {
+      details: [{ field: "avatar", rule: "unsupported_image_type" }],
+    });
+  }
+  if (buffer.length > 5_000_000) {
+    throw new AppError("VALIDATION_FAILED", {
+      details: [{ field: "avatar", rule: "image_too_large" }],
+    });
+  }
+  const webp = await sharp(buffer)
+    .rotate()
+    .resize({ width: 512, height: 512, fit: "cover", withoutEnlargement: true })
+    .webp({ quality: 85 })
+    .toBuffer();
+  const hash = createHash("sha256").update(webp).digest("hex").slice(0, 20);
+  const key = `avatars/${userId}-${hash}.webp`;
+  const published = await publishObject("media", key, webp, "image/webp");
+  await prisma.media.create({
+    data: {
+      entityType: "user",
+      entityId: userId,
+      kind: "avatar",
+      sourceUrl: "upload",
+      hash,
+      urls: { original: published.url, local: published.localPath },
+      status: "ready",
+    },
+  });
+  await prisma.user.update({ where: { id: userId }, data: { avatarUrl: published.url } });
+  return { avatarUrl: published.url };
+}
+
+export async function clearAvatar(userId: string): Promise<void> {
+  await prisma.user.update({ where: { id: userId }, data: { avatarUrl: null } });
 }

@@ -107,7 +107,7 @@ function Shirt({ className = "" }) {
   );
 }
 
-function Pitch({ data, lineup, tradeMode, onSlot, lastSeat }) {
+function Pitch({ lineup, tradeMode, onSlot, lastSeat }) {
   return (
     <div
       data-theme="dark"
@@ -157,7 +157,7 @@ function Pitch({ data, lineup, tradeMode, onSlot, lastSeat }) {
   );
 }
 
-function OptionCard({ data, player, combo, fits, onPick, index, disabled, star }) {
+function OptionCard({ data, player, fits, onPick, index, disabled, star }) {
   const rating = playerRating(player);
   const country = countryOf(data, player);
   return (
@@ -221,7 +221,7 @@ function Powers({ powers, onUse, disabled, active }) {
   );
 }
 
-function Result({ data, lineup, formation, daily, onAgain, onSettings }) {
+function Result({ lineup, formation, daily, onAgain, onSettings }) {
   const score = useMemo(() => teamScore(lineup), [lineup]);
   const best = lineup.reduce((b, s) => (!b || s.pick.rating > b.rating ? s.pick : b), null);
   const [copied, setCopied] = useState(false);
@@ -282,7 +282,7 @@ function Result({ data, lineup, formation, daily, onAgain, onSettings }) {
           </button>
         </div>
       </div>
-      <Pitch data={data} lineup={lineup} />
+      <Pitch lineup={lineup} />
     </div>
   );
 }
@@ -306,9 +306,14 @@ export default function UltimateGame({ data, formation, difficulty, daily, onAga
   const shuffleClubs = useMemo(() => {
     const seen = new Map();
     for (const c of combos) if (!seen.has(c.club.id)) seen.set(c.club.id, c.club);
-    return [...seen.values()].sort(() => Math.random() - 0.5).slice(0, 24);
+    return [...seen.values()]
+      .sort((a, b) => String(a.id).localeCompare(String(b.id)))
+      .slice(0, 24);
   }, [combos]);
-  const shuffleEras = useMemo(() => [...new Set(combos.map((c) => c.era))].sort(() => Math.random() - 0.5), [combos]);
+  const shuffleEras = useMemo(
+    () => [...new Set(combos.map((c) => c.era))].sort((a, b) => a - b),
+    [combos],
+  );
 
   const roll = (fn) => {
     setSpinning(true);
@@ -376,7 +381,7 @@ export default function UltimateGame({ data, formation, difficulty, daily, onAga
 
   if (done)
     return (
-      <Result data={data} lineup={lineup} formation={formation} daily={daily} onAgain={onAgain} onSettings={onSettings} />
+      <Result lineup={lineup} formation={formation} daily={daily} onAgain={onAgain} onSettings={onSettings} />
     );
 
   if (!combos.length)
@@ -446,7 +451,7 @@ export default function UltimateGame({ data, formation, difficulty, daily, onAga
         </div>
       </div>
 
-      <Pitch data={data} lineup={lineup} tradeMode={mode === "trade"} onSlot={onSlot} lastSeat={lastSeat} />
+      <Pitch lineup={lineup} tradeMode={mode === "trade"} onSlot={onSlot} lastSeat={lastSeat} />
     </div>
   );
 }

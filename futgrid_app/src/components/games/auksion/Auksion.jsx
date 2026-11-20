@@ -6,6 +6,7 @@ import ModeSelect from "../common/ModeSelect";
 import AuctionGame from "./AuctionGame";
 import { AUCTION_KEYFRAMES } from "./AuctionParts";
 import AuctionSettings from "./AuctionSettings";
+import AuctionDuel from "./AuctionDuel";
 import { loadSettings, saveSettings } from "./settings";
 
 import { tr } from "../../../i18n";
@@ -38,9 +39,10 @@ export default function Auksion() {
   else if (screen === "modes")
     body = (
       <ModeSelect
+        friends
         onPick={(key) => {
           setMode(key);
-          setScreen("settings");
+          setScreen(key === "friend" ? "game" : "settings");
         }}
         texts={{
           same: tr("Dostunla eyni ekranda hərraca gir"),
@@ -59,6 +61,14 @@ export default function Auksion() {
           setScreen("game");
         }}
         onBack={() => setScreen("modes")}
+      />
+    );
+  else if (mode === "friend")
+    body = (
+      <AuctionDuel
+        key={gameKey}
+        data={data}
+        onSettings={() => setScreen("modes")}
       />
     );
   else

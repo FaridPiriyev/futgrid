@@ -57,12 +57,14 @@ async function rawRequest(path, options = {}) {
   const { timeoutMs = 8000, ...fetchOptions } = options;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const headers = headersFor(fetchOptions.headers);
+  if (fetchOptions.body instanceof FormData) delete headers["Content-Type"];
   try {
     return await fetch(`${API_URL}${path}`, {
       ...fetchOptions,
       credentials: "include",
       signal: controller.signal,
-      headers: headersFor(fetchOptions.headers),
+      headers,
     });
   } finally {
     clearTimeout(timeout);
@@ -105,6 +107,8 @@ export const api = {
     apiRequest(path, { method: "PATCH", body: JSON.stringify(body) }),
   put: (path, body) => apiRequest(path, { method: "PUT", body: JSON.stringify(body) }),
   delete: (path) => apiRequest(path, { method: "DELETE" }),
+  upload: (path, formData) =>
+    apiRequest(path, { method: "POST", body: formData, timeoutMs: 30000 }),
 };
 
 export function queuePendingResult(payload) {

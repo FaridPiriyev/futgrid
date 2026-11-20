@@ -347,84 +347,7 @@ const PERIODS = [
   },
 ];
 
-const PLAYERS = [
-  {
-    name: "Fuad Namazov",
-    team: "TAU",
-    matches: 148,
-    winRate: 82,
-    points: { week: 2480, month: 9320, all: 41850 },
-  },
-  {
-    name: "Ali Manafov",
-    team: "SDU",
-    matches: 132,
-    winRate: 78,
-    points: { week: 2310, month: 9740, all: 38600 },
-  },
-  {
-    name: "Farid Piriyev",
-    team: "AZUQE",
-    matches: 156,
-    winRate: 74,
-    points: { week: 2190, month: 8650, all: 40210 },
-  },
-  {
-    name: "Elesger",
-    team: "Nasosnu",
-    matches: 121,
-    winRate: 71,
-    points: { week: 1980, month: 8120, all: 33400 },
-  },
-  {
-    get name() {
-      return tr("İsfendiyare memmedova");
-    },
-    team: "Efqanistan",
-    matches: 110,
-    winRate: 69,
-    points: { week: 2050, month: 7430, all: 29870 },
-  },
-  {
-    get name() {
-      return tr("Elcin İbrahmov");
-    },
-    team: "Yasildere",
-    matches: 137,
-    winRate: 66,
-    points: { week: 1720, month: 7010, all: 31150 },
-  },
-  {
-    name: "Ali Como",
-    team: "TAU",
-    matches: 98,
-    winRate: 63,
-    points: { week: 1940, month: 6580, all: 24300 },
-  },
-  {
-    name: "Umud memmedov",
-    team: "Qida",
-    matches: 104,
-    winRate: 60,
-    points: { week: 1490, month: 6890, all: 26720 },
-  },
-  {
-    get name() {
-      return tr("İdris Muellim");
-    },
-    team: "UNEC",
-    matches: 89,
-    winRate: 57,
-    points: { week: 1380, month: 5420, all: 21980 },
-  },
-  {
-    name: "Apo kerim sentarci",
-    team: "kapital bank",
-    matches: 76,
-    winRate: 54,
-    points: { week: 1210, month: 5150, all: 18640 },
-  },
-];
+
 
 const AVATAR_COLORS = [
   "bg-accent/12 text-accent",
@@ -603,13 +526,12 @@ const initials = (name) =>
     .join("")
     .toUpperCase();
 
-const avatarOf = (player) =>
-  AVATAR_COLORS[
-    Math.max(
-      0,
-      PLAYERS.findIndex((p) => p.name === player.name),
-    ) % AVATAR_COLORS.length
-  ];
+const avatarOf = (player) => {
+  const key = String(player.id ?? player.name ?? "");
+  let hash = 0;
+  for (let index = 0; index < key.length; index++) hash = (hash * 31 + key.charCodeAt(index)) >>> 0;
+  return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+};
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -1846,6 +1768,8 @@ export default function Home() {
             const current = byId.get(entry.userId) ?? {
               id: entry.userId,
               name: entry.displayName,
+              username: entry.username,
+              avatarUrl: entry.avatarUrl,
               team: entry.team?.name ?? entry.team?.slug ?? "—",
               matches: entry.games ?? 0,
               winRate: entry.winRate ?? 0,
@@ -1893,7 +1817,7 @@ export default function Home() {
     setPeriod(key);
   };
 
-  const rows = [...(livePlayers ?? PLAYERS)]
+  const rows = [...(livePlayers ?? [])]
     .sort((a, b) => b.points[period] - a.points[period])
     .map((p) => ({ ...p, points: { ...p.points, value: p.points[period] } }));
   const periodIndex = PERIODS.findIndex((p) => p.key === period);
@@ -2078,6 +2002,12 @@ export default function Home() {
                 <span className="text-right">{tr("Xal")}</span>
               </div>
 
+              {rows.length === 0 ? (
+                <p className={`px-4 py-8 text-center ${FONT} text-sm text-muted`}>
+                  {tr("Hələ reytinq nəticəsi yoxdur. İlk oyunu oyna və cədvəldə görün.")}
+                </p>
+              ) : null}
+
               {rows.slice(3).map((player, j) => {
                 const i = j + 3;
                 return (
@@ -2099,11 +2029,15 @@ export default function Home() {
                         {pad(i + 1)}
                       </span>
                       <div className="flex min-w-0 items-center gap-3">
-                        <span
-                          className={`grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full ${FONT} text-[13px] font-black ${avatarOf(player)}`}
-                        >
-                          {initials(player.name)}
-                        </span>
+                        {player.avatarUrl ? (
+                          <img src={player.avatarUrl} alt="" className="h-8.5 w-8.5 shrink-0 rounded-full object-cover" />
+                        ) : (
+                          <span
+                            className={`grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full ${FONT} text-[13px] font-black ${avatarOf(player)}`}
+                          >
+                            {initials(player.name)}
+                          </span>
+                        )}
                         <div className="min-w-0">
                           <p
                             className={`truncate ${FONT} text-base font-extrabold uppercase text-ink md:text-[17px]`}
