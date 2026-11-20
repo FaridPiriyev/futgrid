@@ -127,7 +127,7 @@ describe("online duels", () => {
     expect(code).toHaveLength(6);
 
     const statePromise = waitFor<{ status: string }>(b, "game:state");
-    await emitAck(b, "room:join", { code });
+    await emitAck(b, "room:join", { code, game: "xox" });
     const state = await statePromise;
     expect(state.status).toBe("playing");
 
@@ -157,7 +157,7 @@ describe("online duels", () => {
     const created = await emitAck<{ room: { code: string } }>(a, "room:create", { game: "orta" });
     const code = created.room.code;
     const statePromise = waitFor<{ status: string }>(b, "game:state");
-    await emitAck(b, "room:join", { code });
+    await emitAck(b, "room:join", { code, game: "orta" });
     await statePromise;
 
     const redis = await getRedis();
@@ -189,7 +189,7 @@ describe("online duels", () => {
     const hl = await emitAck<{ room: { code: string } }>(a, "room:create", { game: "higherLower" });
     const hlCode = hl.room.code;
     const hlStarted = waitFor(b, "game:state");
-    await emitAck(b, "room:join", { code: hlCode });
+    await emitAck(b, "room:join", { code: hlCode, game: "higherLower" });
     await hlStarted;
     const redis = await getRedis();
     const hlRoom = JSON.parse((await redis.get(`duel:room:${hlCode}`)) as string) as { seed: number };
@@ -211,7 +211,7 @@ describe("online duels", () => {
     const tl = await emitAck<{ room: { code: string } }>(a, "room:create", { game: "twoLetters" });
     const tlCode = tl.room.code;
     const tlStarted = waitFor(b, "game:state");
-    await emitAck(b, "room:join", { code: tlCode });
+    await emitAck(b, "room:join", { code: tlCode, game: "twoLetters" });
     await tlStarted;
     const tlRoom = JSON.parse((await redis.get(`duel:room:${tlCode}`)) as string) as { seed: number };
     const tlPuzzle = buildPuzzle("twoLetters", getGameData(), tlRoom.seed, {
@@ -228,6 +228,19 @@ describe("online duels", () => {
     const tlState = await tlMoved;
     expect(tlState.state.index).toBe(1);
     expect(Object.values(tlState.state.scores)).toContain(1);
+  });
+
+
+  it("rejects joining a room from a different game", async () => {
+    const a = makeClient(randomUUID());
+    const b = makeClient(randomUUID());
+    await Promise.all([waitFor(a, "connect"), waitFor(b, "connect")]);
+    const created = await emitAck<{ room: { code: string } }>(a, "room:create", { game: "xox" });
+    const response = await emitAck<{ error?: { code: string } }>(b, "room:join", {
+      code: created.room.code,
+      game: "orta",
+    });
+    expect(response.error?.code).toBe("ROOM_GAME_MISMATCH");
   });
 
   it("stores mobile push tokens", async () => {

@@ -10,6 +10,7 @@ import { SIDES } from "../ortaq/settings";
 import SualDuo from "./SualDuo";
 import { SUAL_KEYFRAMES } from "./SualParts";
 import SualSolo from "./SualSolo";
+import SualDuel from "./SualDuel";
 
 import { tr } from "../../../i18n";
 
@@ -82,7 +83,11 @@ export default function YirmiSual() {
     body = (
       <div className="mx-auto max-w-5xl">
         <ModeSelect
-          onPick={setMode}
+          friends
+          onPick={(key) => {
+            setMode(key);
+            if (key === "friend") setGame((g) => g + 1);
+          }}
           texts={{
             same: tr("Hərə bir futbolçu tutur, daha az sualla tapan qalibdir"),
             solo: tr("Bot futbolçu tutur, sən suallarla tapırsan"),
@@ -90,7 +95,7 @@ export default function YirmiSual() {
         />
       </div>
     );
-  else if (!game)
+  else if (!game && mode !== "friend")
     body = (
       <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
         <SettingsHeader
@@ -146,7 +151,9 @@ export default function YirmiSual() {
             {tr("Parametrlər")}
           </button>
         </div>
-        {solo ? <SualSolo key={game} data={data} settings={settings} /> : <SualDuo key={game} data={data} settings={settings} names={names} />}
+        {mode === "friend" ? (
+          <SualDuel key={game} data={data} onSettings={() => setMode(null)} />
+        ) : solo ? <SualSolo key={game} data={data} settings={settings} /> : <SualDuo key={game} data={data} settings={settings} names={names} />}
       </>
     );
 

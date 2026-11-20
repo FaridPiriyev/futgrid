@@ -227,6 +227,43 @@ describe("auth", () => {
     });
     expect(reuse.statusCode).toBe(401);
   });
+
+  it("changes username and password without logging out other sessions", async () => {
+    const email = `profile-${randomUUID()}@example.com`;
+    const { user, login } = await registerAndVerify(email, `prof_${randomUUID().slice(0, 8)}`);
+    const headers = { cookie: cookieHeader(login), origin: "http://localhost:5173" };
+    const username = `new_${randomUUID().slice(0, 8)}`;
+    const renamed = await app.inject({
+      method: "PATCH",
+      url: "/v1/me/username",
+      headers,
+      payload: { username },
+    });
+    expect(renamed.statusCode).toBe(200);
+    expect(renamed.json().username).toBe(username);
+
+    const changed = await app.inject({
+      method: "POST",
+      url: "/v1/me/password",
+      headers,
+      payload: { currentPassword: "correct horse battery", newPassword: "new password 123" },
+    });
+    expect(changed.statusCode).toBe(200);
+
+    const oldLogin = await app.inject({
+      method: "POST",
+      url: "/v1/auth/login",
+      payload: { email, password: "correct horse battery" },
+    });
+    expect(oldLogin.statusCode).toBe(401);
+    const newLogin = await app.inject({
+      method: "POST",
+      url: "/v1/auth/login",
+      payload: { email, password: "new password 123" },
+    });
+    expect(newLogin.statusCode).toBe(200);
+    expect((await prisma.user.findUnique({ where: { id: user.id } }))?.username).toBe(username);
+  });
 });
 
 describe("sessions", () => {

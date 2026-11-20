@@ -6,6 +6,7 @@ import rateLimit from "@fastify/rate-limit";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import fastifyStatic from "@fastify/static";
+import multipart from "@fastify/multipart";
 import { mkdirSync } from "node:fs";
 import {
   jsonSchemaTransform,
@@ -42,6 +43,7 @@ export async function buildApp() {
   app.setSerializerCompiler(serializerCompiler);
 
   await app.register(cookie);
+  await app.register(multipart, { limits: { fileSize: 5_000_000, files: 1 } });
   await app.register(helmet, {
     contentSecurityPolicy: false,
     crossOriginResourcePolicy: { policy: "cross-origin" },

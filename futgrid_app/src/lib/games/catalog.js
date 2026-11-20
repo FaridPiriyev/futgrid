@@ -1,6 +1,4 @@
 import { tr } from "../../i18n";
-import yirmiSualCover from "../../assets/games/yirmi-sual.webp";
-import kimdirBuCover from "../../assets/games/kimdir-bu.webp";
 import ultimateCover from "../../assets/games/ultimate-11.webp";
 
 export const GAME_CATALOG = [

@@ -178,6 +178,7 @@ async function hydrate(raw: RawEntry[]) {
       deletedAt: true,
       blockedAt: true,
       emailVerifiedAt: true,
+      avatarUrl: true,
       team: { select: { id: true, name: true, slug: true, logoUrl: true } },
     },
     }),
@@ -205,6 +206,7 @@ async function hydrate(raw: RawEntry[]) {
     userId: string;
     username: string;
     displayName: string;
+    avatarUrl: string | null;
     team: (typeof users)[number]["team"] | null;
     points: number;
     games: number;
@@ -220,6 +222,7 @@ async function hydrate(raw: RawEntry[]) {
       userId: entry.userId,
       username: user.username,
       displayName: user.deletedAt ? "Deleted user" : (user.displayName ?? user.username),
+      avatarUrl: user.deletedAt ? null : user.avatarUrl,
       team: user.team,
       points: Math.round(entry.points * 1000) / 1000,
       games: userStats?.games ?? 0,

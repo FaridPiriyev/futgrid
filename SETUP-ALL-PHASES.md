@@ -330,7 +330,7 @@ The website now has online friend-room UIs for:
 - Yüksək/Aşağı: settings -> `Dostla onlayn`
 - İki hərf: `/oyunlar/iki-herf` -> `Dostla`
 
-Each creates a room code and invite link; opening the link joins automatically.
+Each uses a create-room or join-by-numeric-ID flow. No invite URL is required.
 
 The admin website UI is at `/admin`. Promote an account first, then set up TOTP there.
 
@@ -681,3 +681,69 @@ Budget: roughly $5–8/month.
 For the least maintenance, use Railway + Neon + Upstash: roughly $5–10/month.
 
 Whichever option you choose, keep PostgreSQL backups in a separate location from the VPS.
+
+## 18. Profile, usernames, avatars and new online games
+
+### Profile
+- Website: `/hesab`
+- Change display name with the existing profile form.
+- Change username with `PATCH /v1/me/username`.
+- Change password with `POST /v1/me/password`.
+- Upload profile photo with `POST /v1/me/avatar`.
+- Remove profile photo with `DELETE /v1/me/avatar`.
+- Forgot-password link is now on the login form.
+- Password changes do not revoke other sessions.
+- Usernames have no cooldown and are not reserved after a change.
+
+Avatar storage:
+- Development: `cdn-media/`
+- Production: R2 if configured, otherwise local storage with a Railway volume.
+- Max 5 MB, JPEG/PNG/WebP, re-encoded to WebP.
+
+### Usernames in rooms and leaderboard
+Rooms, leaderboard and duel results now include:
+- display name
+- `@username`
+- avatar URL
+- initials fallback
+
+The fake homepage leaderboard names were removed. If the API has no ranked users, the
+site shows an empty leaderboard message.
+
+### Online friend games
+Available from the website:
+- Futbol X0X
+- Ortaq Oyunçu
+- Yüksək/Aşağı
+- İki hərf
+- 20 sual
+- Kimdir Bu?
+- Açıq Artırma
+
+Each room has:
+- numeric 6-digit room ID
+- create-room or join-by-ID flow
+- no invite URL required
+- server-returned player identity
+- display name + username + avatar
+- reconnect and rematch support
+
+Açıq Artırma online:
+- 2–4 players
+- host starts the auction
+- 5 slots, 40 budget
+- server-owned timer and bids
+- highest bid wins the lot
+- highest team rating wins
+
+### Tests
+Run:
+
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
+
+Expected: 48 game-core tests and 24 backend tests.

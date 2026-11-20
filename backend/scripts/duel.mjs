@@ -52,7 +52,7 @@ socket.on("connect", () => {
       console.log(`  node backend/scripts/duel.mjs join ${roomCode}`);
     });
   } else {
-    socket.emit("room:join", { code }, (response) => {
+    socket.emit("room:join", { code, game }, (response) => {
       if (response?.error) {
         console.error("room:join failed:", response.error);
         process.exit(1);
