@@ -29,9 +29,11 @@ if (!document.head.querySelector('meta[name="theme-color"]')) {
 }
 
 const FONTS =
-  'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&family=Tektur:wght@400;500;600;700;800;900&display=swap'
+  'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&family=Tektur:wght@500;600;700&display=swap'
 
-if (!document.querySelector('link[href^="https://fonts.googleapis.com/css2"]')) {
+// index.html-də şrift linki varsa, amma içində Tektur yoxdursa, Tektur heç yüklənmirdi.
+// İndi yalnız Tektur daxil olan link tapılanda təkrar yükləmirik.
+if (!document.querySelector('link[href^="https://fonts.googleapis.com/css2"][href*="Tektur"]')) {
   for (const [rel, href, cors] of [
     ['preconnect', 'https://fonts.googleapis.com'],
     ['preconnect', 'https://fonts.gstatic.com', true],

@@ -903734,7 +903734,9 @@
       "simone-inzaghi"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-01-04"
     },
     "stats": {
       "career": {
@@ -903826,7 +903828,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 34500000
+      "highest_eur": 34500000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-06-21"
     },
     "stats": {
       "career": {
@@ -903919,7 +903923,9 @@
       "antonio-conte"
     ],
     "market_value": {
-      "highest_eur": 24500000
+      "highest_eur": 24500000,
+      "amount_eur": 200000,
+      "updated_at": "2016-11-15"
     },
     "stats": {
       "career": {
@@ -904002,7 +904008,9 @@
       "arsene-wenger"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 350000,
+      "updated_at": "2017-06-10"
     },
     "stats": {
       "career": {
@@ -904084,7 +904092,9 @@
       "javi-gracia"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-30"
     },
     "stats": {
       "career": {
@@ -904159,7 +904169,9 @@
       "fatih-terim"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 300000,
+      "updated_at": "2013-07-22"
     },
     "stats": {
       "career": {
@@ -904271,7 +904283,9 @@
       "peter-stoger"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -904373,7 +904387,9 @@
       "irfan-buz"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 150000,
+      "updated_at": "2019-12-09"
     },
     "stats": {
       "career": {
@@ -904460,7 +904476,9 @@
       "thomas-schaaf"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 750000,
+      "updated_at": "2014-11-03"
     },
     "stats": {
       "career": {
@@ -904540,7 +904558,9 @@
       "dougie-freedman"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2014-03-10"
     },
     "stats": {
       "career": {
@@ -904595,7 +904615,9 @@
       "thomas-tuchel"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 500000,
+      "updated_at": "2013-06-30"
     },
     "stats": {
       "career": {
@@ -904635,7 +904657,9 @@
       "walter-mazzarri"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-07"
     },
     "stats": {
       "career": {
@@ -904746,7 +904770,9 @@
       "sam-allardyce"
     ],
     "market_value": {
-      "highest_eur": 14500000
+      "highest_eur": 14500000,
+      "amount_eur": 250000,
+      "updated_at": "2017-06-01"
     },
     "stats": {
       "career": {
@@ -904813,7 +904839,9 @@
       "julian-nagelsmann"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1250000,
+      "updated_at": "2016-02-15"
     },
     "stats": {
       "career": {
@@ -904877,7 +904905,9 @@
       "tony-pulis"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 1000000,
+      "updated_at": "2013-01-28"
     },
     "stats": {
       "career": {
@@ -904963,7 +904993,9 @@
       "stale-solbakken"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2015-02-06"
     },
     "stats": {
       "career": {
@@ -905031,7 +905063,9 @@
       "marco-kurz"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2014-07-10"
     },
     "stats": {
       "career": {
@@ -905099,7 +905133,9 @@
       "felix-magath"
     ],
     "market_value": {
-      "highest_eur": 11500000
+      "highest_eur": 11500000,
+      "amount_eur": 250000,
+      "updated_at": "2019-12-19"
     },
     "stats": {
       "career": {
@@ -905164,7 +905200,9 @@
       "peter-knabel"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-06-05"
     },
     "stats": {
       "career": {
@@ -905227,7 +905265,9 @@
       "roberto-mancini"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-06-19"
     },
     "stats": {
       "career": {
@@ -905293,7 +905333,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 11000000,
+      "updated_at": "2017-02-07"
     },
     "stats": {
       "career": {
@@ -905378,7 +905420,9 @@
       "dmitriy-khokhlov"
     ],
     "market_value": {
-      "highest_eur": 14500000
+      "highest_eur": 14500000,
+      "amount_eur": 700000,
+      "updated_at": "2016-11-20"
     },
     "stats": {
       "career": {
@@ -905441,7 +905485,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-11-18"
     },
     "stats": {
       "career": {
@@ -905518,7 +905564,9 @@
       "michel"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 750000,
+      "updated_at": "2016-02-15"
     },
     "stats": {
       "career": {
@@ -905599,7 +905647,9 @@
       "heiko-herrlich"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 800000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -905686,7 +905736,9 @@
       "steve-rutter"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 600000,
+      "updated_at": "2016-06-21"
     },
     "stats": {
       "career": {
@@ -905767,7 +905819,9 @@
       "luigi-delneri"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 800000,
+      "updated_at": "2018-04-10"
     },
     "stats": {
       "career": {
@@ -905855,7 +905909,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 200000,
+      "updated_at": "2017-06-05"
     },
     "stats": {
       "career": {
@@ -905911,7 +905967,9 @@
       "brendan-rodgers"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 1750000,
+      "updated_at": "2016-12-15"
     },
     "stats": {
       "career": {
@@ -905982,7 +906040,9 @@
       "mark-bowen"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 500000,
+      "updated_at": "2013-03-02"
     },
     "stats": {
       "career": {
@@ -906051,7 +906111,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 1000000,
+      "updated_at": "2013-05-30"
     },
     "stats": {
       "career": {
@@ -906133,7 +906195,9 @@
       "scott-marshall"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2017-06-28"
     },
     "stats": {
       "career": {
@@ -906190,7 +906254,9 @@
       "andre-villas-boas"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 500000,
+      "updated_at": "2013-07-22"
     },
     "stats": {
       "career": {
@@ -906247,7 +906313,9 @@
       "steve-holland"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-02-27"
     },
     "stats": {
       "career": {
@@ -906330,7 +906398,9 @@
       "roberto-di-matteo"
     ],
     "market_value": {
-      "highest_eur": 45000000
+      "highest_eur": 45000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-12-15"
     },
     "stats": {
       "career": {
@@ -906438,7 +906508,9 @@
       "remi-garde"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 250000,
+      "updated_at": "2013-08-26"
     },
     "stats": {
       "career": {
@@ -906551,7 +906623,9 @@
       "lorenzo-staelens"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 200000,
+      "updated_at": "2016-06-01"
     },
     "stats": {
       "career": {
@@ -906627,7 +906701,9 @@
       "rudi-garcia"
     ],
     "market_value": {
-      "highest_eur": 27000000
+      "highest_eur": 27000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-06-28"
     },
     "stats": {
       "career": {
@@ -906718,7 +906794,9 @@
       "tony-pulis"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 500000,
+      "updated_at": "2017-04-21"
     },
     "stats": {
       "career": {
@@ -906790,7 +906868,9 @@
       "brian-kidd"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 1750000,
+      "updated_at": "2017-02-14"
     },
     "stats": {
       "career": {
@@ -906862,7 +906942,9 @@
       "michael-appleton"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 3000000,
+      "updated_at": "2013-01-28"
     },
     "stats": {
       "career": {
@@ -906954,7 +907036,9 @@
       "samet-aybaba"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 250000,
+      "updated_at": "2019-12-07"
     },
     "stats": {
       "career": {
@@ -907029,7 +907113,9 @@
       "felix-magath"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 700000,
+      "updated_at": "2015-04-11"
     },
     "stats": {
       "career": {
@@ -907146,7 +907232,9 @@
       "pepe-mel"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-15"
     },
     "stats": {
       "career": {
@@ -907228,7 +907316,9 @@
       "chris-ramsey"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 1000000,
+      "updated_at": "2015-02-12"
     },
     "stats": {
       "career": {
@@ -907310,7 +907400,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 600000,
+      "updated_at": "2015-03-03"
     },
     "stats": {
       "career": {
@@ -907385,7 +907477,9 @@
       "ersun-yanal"
     ],
     "market_value": {
-      "highest_eur": 11500000
+      "highest_eur": 11500000,
+      "amount_eur": 750000,
+      "updated_at": "2015-10-13"
     },
     "stats": {
       "career": {
@@ -907460,7 +907554,9 @@
       "david-unsworth"
     ],
     "market_value": {
-      "highest_eur": 18500000
+      "highest_eur": 18500000,
+      "amount_eur": 325000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -907551,7 +907647,9 @@
       "ole-gunnar-solskjaer"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-15"
     },
     "stats": {
       "career": {
@@ -907616,7 +907714,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 65000000
+      "highest_eur": 65000000,
+      "amount_eur": 2000000,
+      "updated_at": "2020-10-15"
     },
     "stats": {
       "career": {
@@ -907714,7 +907814,9 @@
       "massimiliano-allegri"
     ],
     "market_value": {
-      "highest_eur": 70000000
+      "highest_eur": 70000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-12-05"
     },
     "stats": {
       "career": {
@@ -907792,7 +907894,9 @@
       "sir-alex-ferguson"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 1000000,
+      "updated_at": "2013-01-28"
     },
     "stats": {
       "career": {
@@ -907851,7 +907955,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-15"
     },
     "stats": {
       "career": {
@@ -907932,7 +908038,9 @@
       "jorge-jesus"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 500000,
+      "updated_at": "2013-08-19"
     },
     "stats": {
       "career": {
@@ -907993,7 +908101,9 @@
       "andrea-stramaccioni"
     ],
     "market_value": {
-      "highest_eur": 24500000
+      "highest_eur": 24500000,
+      "amount_eur": 500000,
+      "updated_at": "2013-06-19"
     },
     "stats": {
       "career": {
@@ -908108,7 +908218,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 46000000
+      "highest_eur": 46000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -908218,7 +908330,9 @@
       "andre-villas-boas"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1500000,
+      "updated_at": "2014-08-12"
     },
     "stats": {
       "career": {
@@ -908290,7 +908404,9 @@
       "chris-ramsey"
     ],
     "market_value": {
-      "highest_eur": 31500000
+      "highest_eur": 31500000,
+      "amount_eur": 100000,
+      "updated_at": "2017-11-20"
     },
     "stats": {
       "career": {
@@ -908377,7 +908493,9 @@
       "dick-advocaat"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 800000,
+      "updated_at": "2012-07-03"
     },
     "stats": {
       "career": {
@@ -908449,7 +908567,9 @@
       "eddie-niedzwiecki"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-06-28"
     },
     "stats": {
       "career": {
@@ -908519,7 +908639,9 @@
       "rudi-garcia"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 1750000,
+      "updated_at": "2014-01-14"
     },
     "stats": {
       "career": {
@@ -908568,7 +908690,9 @@
       "brendan-rodgers"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 1000000,
+      "updated_at": "2013-01-28"
     },
     "stats": {
       "career": {
@@ -908658,7 +908782,9 @@
       "arsene-wenger"
     ],
     "market_value": {
-      "highest_eur": 11500000
+      "highest_eur": 11500000,
+      "amount_eur": 800000,
+      "updated_at": "2017-11-17"
     },
     "stats": {
       "career": {
@@ -908744,7 +908870,9 @@
       "felix-magath"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 500000,
+      "updated_at": "2017-02-27"
     },
     "stats": {
       "career": {
@@ -908802,7 +908930,9 @@
       "chris-ramsey"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 500000,
+      "updated_at": "2015-02-12"
     },
     "stats": {
       "career": {
@@ -908900,7 +909030,9 @@
       "tim-sherwood"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 400000,
+      "updated_at": "2021-12-31"
     },
     "stats": {
       "career": {
@@ -908989,7 +909121,9 @@
       "tim-sherwood"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 150000,
+      "updated_at": "2018-11-15"
     },
     "stats": {
       "career": {
@@ -909066,7 +909200,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 26500000
+      "highest_eur": 26500000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-05-28"
     },
     "stats": {
       "career": {
@@ -909151,7 +909287,9 @@
       "paul-lambert"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 2500000,
+      "updated_at": "2018-05-28"
     },
     "stats": {
       "career": {
@@ -909229,7 +909367,9 @@
       }
     ],
     "market_value": {
-      "highest_eur": 11250000
+      "highest_eur": 11250000,
+      "amount_eur": 600000,
+      "updated_at": "2015-03-01"
     },
     "trophies": [
       {
@@ -909299,7 +909439,9 @@
       "claudio-taffarel"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 500000,
+      "updated_at": "2018-07-11"
     },
     "stats": {
       "career": {
@@ -909409,7 +909551,9 @@
       "mark-bowen"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 200000,
+      "updated_at": "2018-01-08"
     },
     "stats": {
       "career": {
@@ -909468,7 +909612,9 @@
       "vitor-bruno"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-06-07"
     },
     "stats": {
       "career": {
@@ -909539,7 +909685,9 @@
       "robert-maaskant"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 25000,
+      "updated_at": "2019-12-09"
     },
     "stats": {
       "career": {
@@ -909605,7 +909753,9 @@
       "ismail-kartal"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1500000,
+      "updated_at": "2017-01-18"
     },
     "stats": {
       "career": {
@@ -909706,7 +909856,9 @@
       "vladimir-petkovic"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 400000,
+      "updated_at": "2013-06-19"
     },
     "stats": {
       "career": {
@@ -909788,7 +909940,9 @@
       "steve-agnew"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 200000,
+      "updated_at": "2021-06-30"
     },
     "stats": {
       "career": {
@@ -909886,7 +910040,9 @@
       "nathan-jones"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-06-13"
     },
     "stats": {
       "career": {
@@ -910008,7 +910164,9 @@
       "moreno"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-05-31"
     },
     "stats": {
       "career": {
@@ -910105,7 +910263,9 @@
       "peter-knabel"
     ],
     "market_value": {
-      "highest_eur": 26000000
+      "highest_eur": 26000000,
+      "amount_eur": 200000,
+      "updated_at": "2018-06-02"
     },
     "stats": {
       "career": {
@@ -910191,7 +910351,9 @@
       "miodrag-bozovic"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 250000,
+      "updated_at": "2018-07-03"
     },
     "stats": {
       "career": {
@@ -910277,7 +910439,9 @@
       "kevin-macdonald"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-06-28"
     },
     "stats": {
       "career": {
@@ -910383,7 +910547,9 @@
       "filipe-almeida"
     ],
     "market_value": {
-      "highest_eur": 29000000
+      "highest_eur": 29000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-11-14"
     },
     "stats": {
       "career": {
@@ -910508,7 +910674,9 @@
       "david-badia-cequier"
     ],
     "market_value": {
-      "highest_eur": 42000000
+      "highest_eur": 42000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-05-03"
     },
     "stats": {
       "career": {
@@ -910592,7 +910760,9 @@
       "david-unsworth"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-05-27"
     },
     "stats": {
       "career": {
@@ -910683,7 +910853,9 @@
       "brian-kidd"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -910790,7 +910962,9 @@
       "leonardo-jardim"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 75000,
+      "updated_at": "2023-06-23"
     },
     "stats": {
       "career": {
@@ -910847,7 +911021,9 @@
       "andrea-stramaccioni"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 800000,
+      "updated_at": "2014-02-02"
     },
     "stats": {
       "career": {
@@ -910940,7 +911116,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2015-07-01"
     },
     "stats": {
       "career": {
@@ -910999,7 +911177,9 @@
       "unai-emery"
     ],
     "market_value": {
-      "highest_eur": 13500000
+      "highest_eur": 13500000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-06-01"
     },
     "stats": {
       "career": {
@@ -911089,7 +911269,9 @@
       "roberto-martinez"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2018-01-06"
     },
     "stats": {
       "career": {
@@ -911179,7 +911361,9 @@
       "christian-gross"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 800000,
+      "updated_at": "2021-06-09"
     },
     "stats": {
       "career": {
@@ -911270,7 +911454,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 200000,
+      "updated_at": "2021-05-19"
     },
     "stats": {
       "career": {
@@ -911372,7 +911558,9 @@
       "filipe-almeida"
     ],
     "market_value": {
-      "highest_eur": 47500000
+      "highest_eur": 47500000,
+      "amount_eur": 1500000,
+      "updated_at": "2019-06-12"
     },
     "stats": {
       "career": {
@@ -911464,7 +911652,9 @@
       "claudio-taffarel"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 75000,
+      "updated_at": "2017-11-20"
     },
     "stats": {
       "career": {
@@ -911548,7 +911738,9 @@
       "oceano"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 400000,
+      "updated_at": "2015-07-01"
     },
     "stats": {
       "career": {
@@ -911612,7 +911804,9 @@
       "fred-rutten"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2015-02-16"
     },
     "stats": {
       "career": {
@@ -911672,7 +911866,9 @@
       "ernest-faber"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 2000000,
+      "updated_at": "2014-02-11"
     },
     "stats": {
       "career": {
@@ -911778,7 +911974,9 @@
       "roberto-mancini"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 400000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -911859,7 +912057,9 @@
       "orhan-atik"
     ],
     "market_value": {
-      "highest_eur": 45000000
+      "highest_eur": 45000000,
+      "amount_eur": 3000000,
+      "updated_at": "2019-05-03"
     },
     "stats": {
       "career": {
@@ -911956,7 +912156,9 @@
       "ernest-faber"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-06-12"
     },
     "stats": {
       "career": {
@@ -912032,7 +912234,9 @@
       "pep-guardiola"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-02-12"
     },
     "stats": {
       "career": {
@@ -912124,7 +912328,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -912232,7 +912438,9 @@
       "nico-estevez"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2016-11-15"
     },
     "stats": {
       "career": {
@@ -912309,7 +912517,9 @@
       "tito-vilanova"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-11-11"
     },
     "stats": {
       "career": {
@@ -912410,7 +912620,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 27000000
+      "highest_eur": 27000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-05-28"
     },
     "stats": {
       "career": {
@@ -912495,7 +912707,9 @@
       "arsene-wenger"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 250000,
+      "updated_at": "2017-06-01"
     },
     "stats": {
       "career": {
@@ -912576,7 +912790,9 @@
       "christian-gourcuff"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 400000,
+      "updated_at": "2013-05-30"
     },
     "stats": {
       "career": {
@@ -912650,7 +912866,9 @@
       "frederic-hantz"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 250000,
+      "updated_at": "2013-08-07"
     },
     "stats": {
       "career": {
@@ -912719,7 +912937,9 @@
       "fatih-terim"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2018-05-29"
     },
     "stats": {
       "career": {
@@ -912794,7 +913014,9 @@
       "felix-magath"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 750000,
+      "updated_at": "2013-09-13"
     },
     "stats": {
       "career": {
@@ -912845,7 +913067,9 @@
       "pascal-dupraz"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 600000,
+      "updated_at": "2013-05-30"
     },
     "stats": {
       "career": {
@@ -912914,7 +913138,9 @@
       "leonel-pontes"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1200000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -913014,7 +913240,9 @@
       "juan-ramon-rocha"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1500000,
+      "updated_at": "2013-01-13"
     },
     "stats": {
       "career": {
@@ -913080,7 +913308,9 @@
       "mauro-tassotti"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 500000,
+      "updated_at": "2016-01-04"
     },
     "stats": {
       "career": {
@@ -913149,7 +913379,9 @@
       "hami-mandirali"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 75000,
+      "updated_at": "2018-02-08"
     },
     "stats": {
       "career": {
@@ -913244,7 +913476,9 @@
       "luciano-spalletti"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 500000,
+      "updated_at": "2017-05-05"
     },
     "stats": {
       "career": {
@@ -913340,7 +913574,9 @@
       "tamer-tuna"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 150000,
+      "updated_at": "2017-07-20"
     },
     "stats": {
       "career": {
@@ -913414,7 +913650,9 @@
       "massimiliano-allegri"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2015-07-14"
     },
     "stats": {
       "career": {
@@ -913478,7 +913716,9 @@
       "claudio-ranieri"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 2000000,
+      "updated_at": "2017-06-01"
     },
     "stats": {
       "career": {
@@ -913545,7 +913785,9 @@
       "clarence-seedorf"
     ],
     "market_value": {
-      "highest_eur": 38000000
+      "highest_eur": 38000000,
+      "amount_eur": 200000,
+      "updated_at": "2020-06-29"
     },
     "stats": {
       "career": {
@@ -913625,7 +913867,9 @@
       "jose-anigo"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 200000,
+      "updated_at": "2017-12-05"
     },
     "stats": {
       "career": {
@@ -913711,7 +913955,9 @@
       "erol-malkoc"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 200000,
+      "updated_at": "2017-06-09"
     },
     "stats": {
       "career": {
@@ -913782,7 +914028,9 @@
       "roberto-di-matteo"
     ],
     "market_value": {
-      "highest_eur": 28500000
+      "highest_eur": 28500000,
+      "amount_eur": 2500000,
+      "updated_at": "2018-12-19"
     },
     "stats": {
       "career": {
@@ -913891,7 +914139,9 @@
       "zeki-murat-gole"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 500000,
+      "updated_at": "2020-08-04"
     },
     "stats": {
       "career": {
@@ -913974,7 +914224,9 @@
       "kurban-berdyev"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 100000,
+      "updated_at": "2020-12-26"
     },
     "stats": {
       "career": {
@@ -914041,7 +914293,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 36000000
+      "highest_eur": 36000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-12-05"
     },
     "stats": {
       "career": {
@@ -914101,7 +914355,9 @@
       "massimiliano-allegri"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2014-01-07"
     },
     "stats": {
       "career": {
@@ -914221,7 +914477,9 @@
       "sam-allardyce"
     ],
     "market_value": {
-      "highest_eur": 18500000
+      "highest_eur": 18500000,
+      "amount_eur": 400000,
+      "updated_at": "2018-06-07"
     },
     "stats": {
       "career": {
@@ -914288,7 +914546,9 @@
       "hikmet-karaman"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 450000,
+      "updated_at": "2015-06-25"
     },
     "stats": {
       "career": {
@@ -914345,7 +914605,9 @@
       "luis-garcia"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 200000,
+      "updated_at": "2019-06-11"
     },
     "stats": {
       "career": {
@@ -914462,7 +914724,9 @@
       "delio-rossi"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 200000,
+      "updated_at": "2019-06-06"
     },
     "stats": {
       "career": {
@@ -914539,7 +914803,9 @@
       "nenad-sakic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 25000,
+      "updated_at": "2018-06-19"
     },
     "stats": {
       "career": {
@@ -914639,7 +914905,9 @@
       "massimo-oddo"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 200000,
+      "updated_at": "2018-06-18"
     },
     "stats": {
       "career": {
@@ -914719,7 +914987,9 @@
       }
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 100000,
+      "updated_at": "2016-04-01"
     },
     "stats": {
       "career": {
@@ -914800,7 +915070,9 @@
       "luigi-de-canio"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 100000,
+      "updated_at": "2015-06-29"
     },
     "stats": {
       "career": {
@@ -914875,7 +915147,9 @@
       "vincenzo-montella"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 300000,
+      "updated_at": "2018-06-03"
     },
     "stats": {
       "career": {
@@ -914923,7 +915197,9 @@
       }
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 200000,
+      "updated_at": "2013-06-19"
     },
     "trophies": [
       {
@@ -914965,7 +915241,9 @@
       "zdenek-zeman"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 300000,
+      "updated_at": "2013-06-19"
     },
     "stats": {
       "career": {
@@ -915041,7 +915319,9 @@
       "walter-mazzarri"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 400000,
+      "updated_at": "2015-12-18"
     },
     "stats": {
       "career": {
@@ -915110,7 +915390,9 @@
       "claudio-ranieri"
     ],
     "market_value": {
-      "highest_eur": 38000000
+      "highest_eur": 38000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-12-05"
     },
     "stats": {
       "career": {
@@ -915198,7 +915480,9 @@
       "paquito"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 700000,
+      "updated_at": "2018-05-30"
     },
     "stats": {
       "career": {
@@ -915247,7 +915531,9 @@
       "aurelio-andreazzoli"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-06-08"
     },
     "stats": {
       "career": {
@@ -915346,7 +915632,9 @@
       "walter-zenga"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-01-02"
     },
     "stats": {
       "career": {
@@ -915442,7 +915730,9 @@
       "luigi-delneri"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 25000,
+      "updated_at": "2018-06-28"
     },
     "stats": {
       "career": {
@@ -915535,7 +915825,9 @@
       "luigi-delneri"
     ],
     "market_value": {
-      "highest_eur": 28500000
+      "highest_eur": 28500000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-01-04"
     },
     "stats": {
       "career": {
@@ -915615,7 +915907,9 @@
       "mauro-tassotti"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 150000,
+      "updated_at": "2017-11-15"
     },
     "stats": {
       "career": {
@@ -915683,7 +915977,9 @@
       "vladimir-petkovic"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 50000,
+      "updated_at": "2015-02-03"
     },
     "stats": {
       "career": {
@@ -915737,7 +916033,9 @@
       "luigi-de-canio"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-01-04"
     },
     "stats": {
       "career": {
@@ -915826,7 +916124,9 @@
       "cristian-bucchi"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 75000,
+      "updated_at": "2016-11-15"
     },
     "stats": {
       "career": {
@@ -915901,7 +916201,9 @@
       "alberto-malesani"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 75000,
+      "updated_at": "2015-06-25"
     },
     "stats": {
       "career": {
@@ -915970,7 +916272,9 @@
       "samet-aybaba"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 250000,
+      "updated_at": "2015-06-06"
     },
     "stats": {
       "career": {
@@ -916061,7 +916365,9 @@
       "jose-luis-mendilibar"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-06-27"
     },
     "stats": {
       "career": {
@@ -916147,7 +916453,9 @@
       "john-carver"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 75000,
+      "updated_at": "2021-10-20"
     },
     "stats": {
       "career": {
@@ -916209,7 +916517,9 @@
       "cristian-bucchi"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 75000,
+      "updated_at": "2016-06-17"
     },
     "stats": {
       "career": {
@@ -916301,7 +916611,9 @@
       "gian-piero-ventura"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 100000,
+      "updated_at": "2017-05-08"
     },
     "stats": {
       "career": {
@@ -916351,7 +916663,9 @@
       "markus-krosche"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-12-28"
     },
     "stats": {
       "career": {
@@ -916431,7 +916745,9 @@
       "nico-willig"
     ],
     "market_value": {
-      "highest_eur": 42000000
+      "highest_eur": 42000000,
+      "amount_eur": 800000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -916501,7 +916817,9 @@
       "dieter-hecking"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2015-02-04"
     },
     "stats": {
       "career": {
@@ -916555,7 +916873,9 @@
       "marinos-ouzounidis"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 175000,
+      "updated_at": "2018-12-13"
     },
     "stats": {
       "career": {
@@ -916614,7 +916934,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 5000000,
+      "updated_at": "2015-11-15"
     },
     "stats": {
       "career": {
@@ -916696,7 +917018,9 @@
       "jens-keller"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2019-06-04"
     },
     "stats": {
       "career": {
@@ -916747,7 +917071,9 @@
       "arsene-wenger"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-05-28"
     },
     "stats": {
       "career": {
@@ -916812,7 +917138,9 @@
       "vincenzo-montella"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 200000,
+      "updated_at": "2017-06-08"
     },
     "stats": {
       "career": {
@@ -916870,7 +917198,9 @@
       "ertugrul-saglam"
     ],
     "market_value": {
-      "highest_eur": 11500000
+      "highest_eur": 11500000,
+      "amount_eur": 600000,
+      "updated_at": "2015-07-01"
     },
     "stats": {
       "career": {
@@ -916915,7 +917245,9 @@
       "filipe-almeida"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 100000,
+      "updated_at": "2019-06-04"
     },
     "stats": {
       "career": {
@@ -916975,7 +917307,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 14500000
+      "highest_eur": 14500000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-06-06"
     },
     "stats": {
       "career": {
@@ -917073,7 +917407,9 @@
       "claudio-taffarel"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 300000,
+      "updated_at": "2016-01-30"
     },
     "stats": {
       "career": {
@@ -917157,7 +917493,9 @@
       "peter-knabel"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-06-27"
     },
     "stats": {
       "career": {
@@ -917231,7 +917569,9 @@
       "irfan-saraloglu"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-06-07"
     },
     "stats": {
       "career": {
@@ -917319,7 +917659,9 @@
       "arsene-wenger"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 2000000,
+      "updated_at": "2016-02-09"
     },
     "stats": {
       "career": {
@@ -917385,7 +917727,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 3500000,
+      "updated_at": "2017-02-07"
     },
     "stats": {
       "career": {
@@ -917482,7 +917826,9 @@
       "jose-luis-mendilibar"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 800000,
+      "updated_at": "2013-06-14"
     },
     "stats": {
       "career": {
@@ -917547,7 +917893,9 @@
       "slavisa-stojanovic"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 100000,
+      "updated_at": "2015-06-24"
     },
     "stats": {
       "career": {
@@ -917613,7 +917961,9 @@
       "domingos-paciencia"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 100000,
+      "updated_at": "2016-02-22"
     },
     "stats": {
       "career": {
@@ -917690,7 +918040,9 @@
       "victor-sanchez"
     ],
     "market_value": {
-      "highest_eur": 31000000
+      "highest_eur": 31000000,
+      "amount_eur": 500000,
+      "updated_at": "2017-05-11"
     },
     "stats": {
       "career": {
@@ -917773,7 +918125,9 @@
       "domingos-paciencia"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 300000,
+      "updated_at": "2014-02-06"
     },
     "stats": {
       "career": {
@@ -917824,7 +918178,9 @@
       "mauricio-pellegrino"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 500000,
+      "updated_at": "2013-06-12"
     },
     "stats": {
       "career": {
@@ -917893,7 +918249,9 @@
       "louis-van-gaal"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 2000000,
+      "updated_at": "2017-06-28"
     },
     "stats": {
       "career": {
@@ -917977,7 +918335,9 @@
       "clarence-seedorf"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2018-05-30"
     },
     "stats": {
       "career": {
@@ -918029,7 +918389,9 @@
       "jordi-roura"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-23"
     },
     "stats": {
       "career": {
@@ -918097,7 +918459,9 @@
       "jordi-roura"
     ],
     "market_value": {
-      "highest_eur": 70000000
+      "highest_eur": 70000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -918180,7 +918544,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-06-04"
     },
     "stats": {
       "career": {
@@ -918259,7 +918625,9 @@
       "jordi-roura"
     ],
     "market_value": {
-      "highest_eur": 65000000
+      "highest_eur": 65000000,
+      "amount_eur": 2000000,
+      "updated_at": "2019-05-03"
     },
     "stats": {
       "career": {
@@ -918362,7 +918730,9 @@
       "andrea-mandorlini"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 500000,
+      "updated_at": "2015-07-14"
     },
     "stats": {
       "career": {
@@ -918441,7 +918811,9 @@
       "alexis-trujillo"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 1500000,
+      "updated_at": "2023-06-13"
     },
     "stats": {
       "career": {
@@ -918548,7 +918920,9 @@
       "victor-sanchez"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-02-19"
     },
     "stats": {
       "career": {
@@ -918610,7 +918984,9 @@
       "gregorio-manzano"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 200000,
+      "updated_at": "2014-02-06"
     },
     "stats": {
       "career": {
@@ -918705,7 +919081,9 @@
       "filippo-inzaghi"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 2500000,
+      "updated_at": "2019-06-27"
     },
     "stats": {
       "career": {
@@ -918807,7 +919185,9 @@
       "alvaro-garcia"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 475000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -918921,7 +919301,9 @@
       "sam-allardyce"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 250000,
+      "updated_at": "2018-11-08"
     },
     "stats": {
       "career": {
@@ -919004,7 +919386,9 @@
       "paco-jemez"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 100000,
+      "updated_at": "2015-01-08"
     },
     "stats": {
       "career": {
@@ -919063,7 +919447,9 @@
       "manuel-pellegrini"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 50000,
+      "updated_at": "2023-05-24"
     },
     "stats": {
       "career": {
@@ -919149,7 +919535,9 @@
       "jurgen-klinsmann"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-04-07"
     },
     "stats": {
       "career": {
@@ -919227,7 +919615,9 @@
       "jordi-roura"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 1000000,
+      "updated_at": "2019-12-28"
     },
     "stats": {
       "career": {
@@ -919295,7 +919685,9 @@
       "victor-sanchez"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-06-29"
     },
     "stats": {
       "career": {
@@ -919341,7 +919733,9 @@
       }
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 200000,
+      "updated_at": "2019-06-10"
     },
     "stats": {
       "career": {
@@ -919411,7 +919805,9 @@
       "mauricio-pochettino"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 1500000,
+      "updated_at": "2014-01-23"
     },
     "stats": {
       "career": {
@@ -919478,7 +919874,9 @@
       "orhan-atik"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2019-06-04"
     },
     "stats": {
       "career": {
@@ -919558,7 +919956,9 @@
       "diego-simeone"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-06-05"
     },
     "stats": {
       "career": {
@@ -919653,7 +920053,9 @@
       "bulent-albayrak"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 150000,
+      "updated_at": "2021-05-21"
     },
     "stats": {
       "career": {
@@ -919748,7 +920150,9 @@
       "hakan-kutlu"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 150000,
+      "updated_at": "2017-01-10"
     },
     "stats": {
       "career": {
@@ -919830,7 +920234,9 @@
       "franck-passi"
     ],
     "market_value": {
-      "highest_eur": 55000000
+      "highest_eur": 55000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -919972,7 +920378,9 @@
       "bulent-uygun"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 250000,
+      "updated_at": "2020-03-02"
     },
     "stats": {
       "career": {
@@ -920036,7 +920444,9 @@
       "vincent-kompany"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 4000000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -920146,7 +920556,9 @@
       "paco-jemez"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-23"
     },
     "stats": {
       "career": {
@@ -920197,7 +920609,9 @@
       "oleg-blokhin"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 800000,
+      "updated_at": "2014-07-08"
     },
     "stats": {
       "career": {
@@ -920246,7 +920660,9 @@
       "sergen-yalcin"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 100000,
+      "updated_at": "2021-06-07"
     },
     "stats": {
       "career": {
@@ -920320,7 +920736,9 @@
       "jacky-bonnevay"
     ],
     "market_value": {
-      "highest_eur": 21500000
+      "highest_eur": 21500000,
+      "amount_eur": 1200000,
+      "updated_at": "2016-01-19"
     },
     "stats": {
       "career": {
@@ -920412,7 +920830,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 100000,
+      "updated_at": "2017-12-01"
     },
     "stats": {
       "career": {
@@ -920491,7 +920911,9 @@
       "rafael-benitez"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 750000,
+      "updated_at": "2013-01-28"
     },
     "stats": {
       "career": {
@@ -920579,7 +921001,9 @@
       "giannis-vonortas"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 800000,
+      "updated_at": "2013-02-10"
     },
     "stats": {
       "career": {
@@ -920684,7 +921108,9 @@
       "hamza-hamzaoglu"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-06-07"
     },
     "stats": {
       "career": {
@@ -920748,7 +921174,9 @@
       "marco-silva"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 200000,
+      "updated_at": "2021-06-30"
     },
     "stats": {
       "career": {
@@ -920853,7 +921281,9 @@
       "remi-garde"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-07-01"
     },
     "stats": {
       "career": {
@@ -920931,7 +921361,9 @@
       "edoardo-reja"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-07-13"
     },
     "stats": {
       "career": {
@@ -921028,7 +921460,9 @@
       "andrea-mandorlini"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 400000,
+      "updated_at": "2022-06-06"
     },
     "stats": {
       "career": {
@@ -921144,7 +921578,9 @@
       "davide-ballardini"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -921213,7 +921649,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 36500000
+      "highest_eur": 36500000,
+      "amount_eur": 100000,
+      "updated_at": "2019-12-27"
     },
     "stats": {
       "career": {
@@ -921339,7 +921777,9 @@
       "filipe-almeida"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-02-22"
     },
     "stats": {
       "career": {
@@ -921417,7 +921857,9 @@
       "filipe-almeida"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 2750000,
+      "updated_at": "2016-01-18"
     },
     "stats": {
       "career": {
@@ -921529,7 +921971,9 @@
       "ihsan-derelioglu"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 300000,
+      "updated_at": "2021-05-21"
     },
     "stats": {
       "career": {
@@ -921581,7 +922025,9 @@
       "rui-vitoria"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 500000,
+      "updated_at": "2018-06-13"
     },
     "stats": {
       "career": {
@@ -921660,7 +922106,9 @@
       "steve-mcclaren"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-02-27"
     },
     "stats": {
       "career": {
@@ -921739,7 +922187,9 @@
       "seref-cicek"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-05-31"
     },
     "stats": {
       "career": {
@@ -921796,7 +922246,9 @@
       "marco-silva"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-05-13"
     },
     "stats": {
       "career": {
@@ -921842,7 +922294,9 @@
       "duncan-ferguson"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 1600000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -921906,7 +922360,9 @@
       "paul-heckingbottom"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -921995,7 +922451,9 @@
       "steve-clarke"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 500000,
+      "updated_at": "2017-12-07"
     },
     "stats": {
       "career": {
@@ -922070,7 +922528,9 @@
       "vitor-pereira"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 250000,
+      "updated_at": "2013-06-06"
     },
     "stats": {
       "career": {
@@ -922133,7 +922593,9 @@
       "mark-hughes"
     ],
     "market_value": {
-      "highest_eur": 12250000
+      "highest_eur": 12250000,
+      "amount_eur": 1000000,
+      "updated_at": "2014-01-08"
     },
     "stats": {
       "career": {
@@ -922188,7 +922650,9 @@
       "sergey-semak"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 750000,
+      "updated_at": "2018-06-30"
     },
     "stats": {
       "career": {
@@ -922254,7 +922718,9 @@
       "siramana-dembele"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 500000,
+      "updated_at": "2024-06-06"
     },
     "stats": {
       "career": {
@@ -922369,7 +922835,9 @@
       "omer-faruk-mahir"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 600000,
+      "updated_at": "2022-10-07"
     },
     "stats": {
       "career": {
@@ -922422,7 +922890,9 @@
       "rolando-maran"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 800000,
+      "updated_at": "2019-06-06"
     },
     "stats": {
       "career": {
@@ -922493,7 +922963,9 @@
       "luciano-spalletti"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 50000,
+      "updated_at": "2016-12-14"
     },
     "stats": {
       "career": {
@@ -922572,7 +923044,9 @@
       "patrick-collot"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 750000,
+      "updated_at": "2018-07-14"
     },
     "stats": {
       "career": {
@@ -922646,7 +923120,9 @@
       "arsen-papikyan"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 50000,
+      "updated_at": "2017-11-23"
     },
     "stats": {
       "career": {
@@ -922717,7 +923193,9 @@
       "dmitriy-khokhlov"
     ],
     "market_value": {
-      "highest_eur": 11800000
+      "highest_eur": 11800000,
+      "amount_eur": 50000,
+      "updated_at": "2021-06-02"
     },
     "stats": {
       "career": {
@@ -922798,7 +923276,9 @@
       "raul-riancho"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2019-06-14"
     },
     "stats": {
       "career": {
@@ -922879,7 +923359,9 @@
       "nigel-adkins"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 50000,
+      "updated_at": "2022-06-14"
     },
     "stats": {
       "career": {
@@ -922932,7 +923414,9 @@
       "aurelio-andreazzoli"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 75000,
+      "updated_at": "2016-06-13"
     },
     "stats": {
       "career": {
@@ -923010,7 +923494,9 @@
       "sergey-tashuev"
     ],
     "market_value": {
-      "highest_eur": 26000000
+      "highest_eur": 26000000,
+      "amount_eur": 300000,
+      "updated_at": "2018-07-01"
     },
     "stats": {
       "career": {
@@ -923076,7 +923562,9 @@
       "sergey-semak"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 200000,
+      "updated_at": "2017-06-01"
     },
     "stats": {
       "career": {
@@ -923153,7 +923641,9 @@
       "cristian-brocchi"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-07-15"
     },
     "stats": {
       "career": {
@@ -923271,7 +923761,9 @@
       "irfan-saraloglu"
     ],
     "market_value": {
-      "highest_eur": 36500000
+      "highest_eur": 36500000,
+      "amount_eur": 500000,
+      "updated_at": "2020-08-04"
     },
     "stats": {
       "career": {
@@ -923343,7 +923835,9 @@
       "igor-shalimov"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 100000,
+      "updated_at": "2018-06-06"
     },
     "stats": {
       "career": {
@@ -923407,7 +923901,9 @@
       "yuriy-kalitvintsev"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 800000,
+      "updated_at": "2019-06-14"
     },
     "stats": {
       "career": {
@@ -923482,7 +923978,9 @@
       "mark-van-bommel"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 475000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -923563,7 +924061,9 @@
       "manolo-jimenez"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 650000,
+      "updated_at": "2016-11-15"
     },
     "stats": {
       "career": {
@@ -923635,7 +924135,9 @@
       "luciano-spalletti"
     ],
     "market_value": {
-      "highest_eur": 18500000
+      "highest_eur": 18500000,
+      "amount_eur": 700000,
+      "updated_at": "2022-01-14"
     },
     "stats": {
       "career": {
@@ -923715,7 +924217,9 @@
       "terry-westley"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 300000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -923804,7 +924308,9 @@
       "jordi-roura"
     ],
     "market_value": {
-      "highest_eur": 36000000
+      "highest_eur": 36000000,
+      "amount_eur": 1000000,
+      "updated_at": "2022-10-31"
     },
     "stats": {
       "career": {
@@ -923923,7 +924429,9 @@
       "manuel-pellegrini"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 100000,
+      "updated_at": "2018-12-23"
     },
     "stats": {
       "career": {
@@ -924038,7 +924546,9 @@
       "seref-cicek"
     ],
     "market_value": {
-      "highest_eur": 17250000
+      "highest_eur": 17250000,
+      "amount_eur": 150000,
+      "updated_at": "2023-06-23"
     },
     "stats": {
       "career": {
@@ -924114,7 +924624,9 @@
       "kevin-ball"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 50000,
+      "updated_at": "2019-06-28"
     },
     "stats": {
       "career": {
@@ -924170,7 +924682,9 @@
       "rodolfo-cardoso"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 4000000,
+      "updated_at": "2015-02-04"
     },
     "stats": {
       "career": {
@@ -924239,7 +924753,9 @@
       "cristian-brocchi"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 400000,
+      "updated_at": "2020-11-10"
     },
     "stats": {
       "career": {
@@ -924302,7 +924818,9 @@
       "diego-simeone"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 1000000,
+      "updated_at": "2021-02-09"
     },
     "stats": {
       "career": {
@@ -924384,7 +924902,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-11-22"
     },
     "stats": {
       "career": {
@@ -924470,7 +924990,9 @@
       "sergiy-rebrov"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 500000,
+      "updated_at": "2018-03-04"
     },
     "stats": {
       "career": {
@@ -924534,7 +925056,9 @@
       "dan-petrescu"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-06-02"
     },
     "stats": {
       "career": {
@@ -924648,7 +925172,9 @@
       "dan-petrescu"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 75000,
+      "updated_at": "2023-05-24"
     },
     "stats": {
       "career": {
@@ -924735,7 +925261,9 @@
       "clarence-seedorf"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 100000,
+      "updated_at": "2017-06-09"
     },
     "stats": {
       "career": {
@@ -924808,7 +925336,9 @@
       "eugenio-corini"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 250000,
+      "updated_at": "2018-06-07"
     },
     "stats": {
       "career": {
@@ -924871,7 +925401,9 @@
       "giuseppe-iachini"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 150000,
+      "updated_at": "2019-12-30"
     },
     "stats": {
       "career": {
@@ -925009,7 +925541,9 @@
       "giuseppe-iachini"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -925105,7 +925639,9 @@
       "david-badia-cequier"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -925187,7 +925723,9 @@
       "massimo-oddo"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 50000,
+      "updated_at": "2022-06-11"
     },
     "stats": {
       "career": {
@@ -925273,7 +925811,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 200000,
+      "updated_at": "2017-06-08"
     },
     "stats": {
       "career": {
@@ -925361,7 +925901,9 @@
       "alan-pardew"
     ],
     "market_value": {
-      "highest_eur": 13500000
+      "highest_eur": 13500000,
+      "amount_eur": 600000,
+      "updated_at": "2019-06-11"
     },
     "stats": {
       "career": {
@@ -925415,7 +925957,9 @@
       "roberto-mancini"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 50000,
+      "updated_at": "2019-12-23"
     },
     "stats": {
       "career": {
@@ -925477,7 +926021,9 @@
       "bulent-uygun"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 100000,
+      "updated_at": "2018-07-05"
     },
     "stats": {
       "career": {
@@ -925545,7 +926091,9 @@
       "brian-kidd"
     ],
     "market_value": {
-      "highest_eur": 32000000
+      "highest_eur": 32000000,
+      "amount_eur": 500000,
+      "updated_at": "2017-12-07"
     },
     "stats": {
       "career": {
@@ -925634,7 +926182,9 @@
       "jose-pinot"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-06-04"
     },
     "stats": {
       "career": {
@@ -925727,7 +926277,9 @@
       "aykut-kocaman"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 500000,
+      "updated_at": "2014-08-07"
     },
     "stats": {
       "career": {
@@ -925842,7 +926394,9 @@
       "seref-cicek"
     ],
     "market_value": {
-      "highest_eur": 27000000
+      "highest_eur": 27000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-06-24"
     },
     "stats": {
       "career": {
@@ -925908,7 +926462,9 @@
       "frederic-hantz"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 400000,
+      "updated_at": "2018-07-03"
     },
     "stats": {
       "career": {
@@ -926033,7 +926589,9 @@
       "kurban-berdyev"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -926121,7 +926679,9 @@
       "sergio"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -926194,7 +926754,9 @@
       "philippe-montanier"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 2000000,
+      "updated_at": "2018-12-17"
     },
     "stats": {
       "career": {
@@ -926298,7 +926860,9 @@
       "jonas-de-roeck"
     ],
     "market_value": {
-      "highest_eur": 26000000
+      "highest_eur": 26000000,
+      "amount_eur": 1600000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -926366,7 +926930,9 @@
       "sergi-barjuan"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 3000000,
+      "updated_at": "2022-11-07"
     },
     "stats": {
       "career": {
@@ -926459,7 +927025,9 @@
       "vasilios-vouzas"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 300000,
+      "updated_at": "2018-05-30"
     },
     "stats": {
       "career": {
@@ -926551,7 +927119,9 @@
       "samet-aybaba"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 50000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -926627,7 +927197,9 @@
       "markus-gisdol"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -926694,7 +927266,9 @@
       "arsene-wenger"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 2000000,
+      "updated_at": "2016-02-09"
     },
     "stats": {
       "career": {
@@ -926783,7 +927357,9 @@
       "davide-ballardini"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -926837,7 +927413,9 @@
       "martin-jol"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 400000,
+      "updated_at": "2022-10-07"
     },
     "stats": {
       "career": {
@@ -926901,7 +927479,9 @@
       "mauro-tassotti"
     ],
     "market_value": {
-      "highest_eur": 18500000
+      "highest_eur": 18500000,
+      "amount_eur": 500000,
+      "updated_at": "2019-06-06"
     },
     "stats": {
       "career": {
@@ -926985,7 +927565,9 @@
       "mauro-tassotti"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 350000,
+      "updated_at": "2020-08-25"
     },
     "stats": {
       "career": {
@@ -927053,7 +927635,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 37000000
+      "highest_eur": 37000000,
+      "amount_eur": 500000,
+      "updated_at": "2016-01-04"
     },
     "stats": {
       "career": {
@@ -927140,7 +927724,9 @@
       "oleksiy-mykhaylychenko"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 75000,
+      "updated_at": "2021-12-26"
     },
     "stats": {
       "career": {
@@ -927214,7 +927800,9 @@
       "ernesto-valverde"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 325000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -927287,7 +927875,9 @@
       "paulo-sousa"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 200000,
+      "updated_at": "2019-12-05"
     },
     "stats": {
       "career": {
@@ -927351,7 +927941,9 @@
       "raffaele-palladino"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-10-11"
     },
     "stats": {
       "career": {
@@ -927419,7 +928011,9 @@
       "brian-kidd"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 800000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -927487,7 +928081,9 @@
       "hugo-broos"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-12-13"
     },
     "stats": {
       "career": {
@@ -927582,7 +928178,9 @@
       "edoardo-reja"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 100000,
+      "updated_at": "2017-06-09"
     },
     "stats": {
       "career": {
@@ -927642,7 +928240,9 @@
       "filippo-inzaghi"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-06-06"
     },
     "stats": {
       "career": {
@@ -927720,7 +928320,9 @@
       "david-wagner"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-04-09"
     },
     "stats": {
       "career": {
@@ -927790,7 +928392,9 @@
       "irfan-saraloglu"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-06-01"
     },
     "stats": {
       "career": {
@@ -927876,7 +928480,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -927992,7 +928598,9 @@
       "bayram-bektas"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 200000,
+      "updated_at": "2021-01-12"
     },
     "stats": {
       "career": {
@@ -928098,7 +928706,9 @@
       "bruno-labbadia"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-06-06"
     },
     "stats": {
       "career": {
@@ -928183,7 +928793,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 1000000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -928252,7 +928864,9 @@
       "remi-garde"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-02-09"
     },
     "stats": {
       "career": {
@@ -928315,7 +928929,9 @@
       "walter-mazzarri"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 750000,
+      "updated_at": "2016-02-06"
     },
     "stats": {
       "career": {
@@ -928426,7 +929042,9 @@
       "clarence-seedorf"
     ],
     "market_value": {
-      "highest_eur": 13500000
+      "highest_eur": 13500000,
+      "amount_eur": 100000,
+      "updated_at": "2019-10-30"
     },
     "stats": {
       "career": {
@@ -928500,7 +929118,9 @@
       "ivan-juric"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 50000,
+      "updated_at": "2023-12-05"
     },
     "stats": {
       "career": {
@@ -928595,7 +929215,9 @@
       "massimo-carrera"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -928662,7 +929284,9 @@
       "filipe-almeida"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 100000,
+      "updated_at": "2021-06-02"
     },
     "stats": {
       "career": {
@@ -928759,7 +929383,9 @@
       "franck-passi"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 650000,
+      "updated_at": "2023-06-08"
     },
     "stats": {
       "career": {
@@ -928846,7 +929472,9 @@
       "mark-bowen"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 750000,
+      "updated_at": "2017-06-26"
     },
     "stats": {
       "career": {
@@ -928921,7 +929549,9 @@
       "auri-skarbalius"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 4000000,
+      "updated_at": "2016-01-21"
     },
     "stats": {
       "career": {
@@ -928988,7 +929618,9 @@
       "diego-simeone"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1100000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -929054,7 +929686,9 @@
       "aurelio-andreazzoli"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-06-06"
     },
     "stats": {
       "career": {
@@ -929147,7 +929781,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 2500000,
+      "updated_at": "2018-12-17"
     },
     "stats": {
       "career": {
@@ -929212,7 +929848,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 11500000
+      "highest_eur": 11500000,
+      "amount_eur": 100000,
+      "updated_at": "2022-06-08"
     },
     "stats": {
       "career": {
@@ -929290,7 +929928,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 475000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -929361,7 +930001,9 @@
       "vitor-pereira"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 350000,
+      "updated_at": "2022-06-23"
     },
     "stats": {
       "career": {
@@ -929446,7 +930088,9 @@
       "andrea-pirlo"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-10-11"
     },
     "stats": {
       "career": {
@@ -929532,7 +930176,9 @@
       "paulo-fonseca"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 750000,
+      "updated_at": "2018-07-03"
     },
     "stats": {
       "career": {
@@ -929673,7 +930319,9 @@
       "felice-tufano"
     ],
     "market_value": {
-      "highest_eur": 27000000
+      "highest_eur": 27000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -929812,7 +930460,9 @@
       "vincenzo-italiano"
     ],
     "market_value": {
-      "highest_eur": 21500000
+      "highest_eur": 21500000,
+      "amount_eur": 275000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -929884,7 +930534,9 @@
       "keith-millen"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 1000000,
+      "updated_at": "2016-02-09"
     },
     "stats": {
       "career": {
@@ -929934,7 +930586,9 @@
       "edin-terzic"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 750000,
+      "updated_at": "2021-06-09"
     },
     "stats": {
       "career": {
@@ -930016,7 +930670,9 @@
       "jose-morais"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 100000,
+      "updated_at": "2024-06-06"
     },
     "stats": {
       "career": {
@@ -930113,7 +930769,9 @@
       "tamer-tuna"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 100000,
+      "updated_at": "2017-01-10"
     },
     "stats": {
       "career": {
@@ -930201,7 +930859,9 @@
       "paulo-fonseca"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-05-28"
     },
     "stats": {
       "career": {
@@ -930272,7 +930932,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 32000000
+      "highest_eur": 32000000,
+      "amount_eur": 600000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -930352,7 +931014,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 80000000
+      "highest_eur": 80000000,
+      "amount_eur": 15000000,
+      "updated_at": "2021-10-13"
     },
     "stats": {
       "career": {
@@ -930470,7 +931134,9 @@
       "terry-westley"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -930557,7 +931223,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 45000000
+      "highest_eur": 45000000,
+      "amount_eur": 400000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -930663,7 +931331,9 @@
       "erdinc-sozer"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -930730,7 +931400,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-11-30"
     },
     "stats": {
       "career": {
@@ -930822,7 +931494,9 @@
       "ertugrul-saglam"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 100000,
+      "updated_at": "2021-01-16"
     },
     "stats": {
       "career": {
@@ -930885,7 +931559,9 @@
       "david-moyes"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1500000,
+      "updated_at": "2018-12-19"
     },
     "stats": {
       "career": {
@@ -930961,7 +931637,9 @@
       "vitor-pereira"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-05-31"
     },
     "stats": {
       "career": {
@@ -931035,7 +931713,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 250000,
+      "updated_at": "2019-12-19"
     },
     "stats": {
       "career": {
@@ -931108,7 +931788,9 @@
       "willy-sagnol"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-16"
     },
     "stats": {
       "career": {
@@ -931192,7 +931874,9 @@
       "jorge-jesus"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -931283,7 +931967,9 @@
       "mathieu-le-scornet"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 700000,
+      "updated_at": "2024-06-03"
     },
     "stats": {
       "career": {
@@ -931363,7 +932049,9 @@
       "kurban-berdyev"
     ],
     "market_value": {
-      "highest_eur": 28500000
+      "highest_eur": 28500000,
+      "amount_eur": 200000,
+      "updated_at": "2023-04-07"
     },
     "stats": {
       "career": {
@@ -931460,7 +932148,9 @@
       "mark-bowen"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-03-17"
     },
     "stats": {
       "career": {
@@ -931538,7 +932228,9 @@
       "oceano"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 50000,
+      "updated_at": "2022-06-27"
     },
     "stats": {
       "career": {
@@ -931613,7 +932305,9 @@
       "maurizio-sarri"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 400000,
+      "updated_at": "2022-05-13"
     },
     "stats": {
       "career": {
@@ -931694,7 +932388,9 @@
       "felix-magath"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-05-02"
     },
     "stats": {
       "career": {
@@ -931763,7 +932459,9 @@
       "remi-garde"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-07-04"
     },
     "stats": {
       "career": {
@@ -931867,7 +932565,9 @@
       "irfan-saraloglu"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 275000,
+      "updated_at": "2022-06-23"
     },
     "stats": {
       "career": {
@@ -931935,7 +932635,9 @@
       "stefano-vecchi"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -932014,7 +932716,9 @@
       "mark-hughes"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2017-12-05"
     },
     "stats": {
       "career": {
@@ -932075,7 +932779,9 @@
       "slaven-bilic"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1500000,
+      "updated_at": "2017-02-20"
     },
     "stats": {
       "career": {
@@ -932183,7 +932889,9 @@
       "dmitriy-alenichev"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 650000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -932250,7 +932958,9 @@
       "thorsten-fink"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2018-12-31"
     },
     "stats": {
       "career": {
@@ -932304,7 +933014,9 @@
       "andrea-mandorlini"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 75000,
+      "updated_at": "2019-06-20"
     },
     "stats": {
       "career": {
@@ -932374,7 +933086,9 @@
       "hikmet-karaman"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 50000,
+      "updated_at": "2019-10-20"
     },
     "stats": {
       "career": {
@@ -932444,7 +933158,9 @@
       "nico-willig"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-09"
     },
     "stats": {
       "career": {
@@ -932504,7 +933220,9 @@
       "stephen-robinson"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1200000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -932567,7 +933285,9 @@
       "sergey-chikishev"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-02-27"
     },
     "stats": {
       "career": {
@@ -932631,7 +933351,9 @@
       "edoardo-reja"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 700000,
+      "updated_at": "2018-05-23"
     },
     "stats": {
       "career": {
@@ -932707,7 +933429,9 @@
       "maurizio-sarri"
     ],
     "market_value": {
-      "highest_eur": 28500000
+      "highest_eur": 28500000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-08-22"
     },
     "stats": {
       "career": {
@@ -932783,7 +933507,9 @@
       "pal-dardai"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 2000000,
+      "updated_at": "2021-06-09"
     },
     "stats": {
       "career": {
@@ -932878,7 +933604,9 @@
       "frank-de-boer"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 500000,
+      "updated_at": "2020-11-10"
     },
     "stats": {
       "career": {
@@ -932972,7 +933700,9 @@
       "roberto-donadoni"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-01-01"
     },
     "stats": {
       "career": {
@@ -933036,7 +933766,9 @@
       "zeljko-buvac"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 25000,
+      "updated_at": "2023-06-16"
     },
     "stats": {
       "career": {
@@ -933096,7 +933828,9 @@
       "zeljko-buvac"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 5500000,
+      "updated_at": "2021-06-09"
     },
     "stats": {
       "career": {
@@ -933147,7 +933881,9 @@
       "hannes-wolf"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 5500000,
+      "updated_at": "2021-06-09"
     },
     "stats": {
       "career": {
@@ -933192,7 +933928,9 @@
       "leonid-slutski"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-11-20"
     },
     "stats": {
       "career": {
@@ -933286,7 +934024,9 @@
       "sergey-matveev"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-09-13"
     },
     "stats": {
       "career": {
@@ -933354,7 +934094,9 @@
       "luigi-de-canio"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-12-29"
     },
     "stats": {
       "career": {
@@ -933438,7 +934180,9 @@
       "edoardo-reja"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 100000,
+      "updated_at": "2021-06-24"
     },
     "stats": {
       "career": {
@@ -933508,7 +934252,9 @@
       "muzaffer-bilazer"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -933603,7 +934349,9 @@
       "raffaele-palladino"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-11-11"
     },
     "stats": {
       "career": {
@@ -933699,7 +934447,9 @@
       "sedat-karabuk"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1000000,
+      "updated_at": "2021-10-12"
     },
     "stats": {
       "career": {
@@ -933789,7 +934539,9 @@
       "jurgen-kramny"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 800000,
+      "updated_at": "2020-09-16"
     },
     "stats": {
       "career": {
@@ -933874,7 +934626,9 @@
       "kevin-macdonald"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 175000,
+      "updated_at": "2023-06-09"
     },
     "stats": {
       "career": {
@@ -933950,7 +934704,9 @@
       "kevin-ball"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 7500000,
+      "updated_at": "2016-02-09"
     },
     "stats": {
       "career": {
@@ -934016,7 +934772,9 @@
       "louis-van-gaal"
     ],
     "market_value": {
-      "highest_eur": 31500000
+      "highest_eur": 31500000,
+      "amount_eur": 300000,
+      "updated_at": "2019-06-17"
     },
     "stats": {
       "career": {
@@ -934106,7 +934864,9 @@
       "julen-lopetegui"
     ],
     "market_value": {
-      "highest_eur": 80000000
+      "highest_eur": 80000000,
+      "amount_eur": 10000000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -934198,7 +934958,9 @@
       "franck-passi"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 250000,
+      "updated_at": "2019-12-19"
     },
     "stats": {
       "career": {
@@ -934261,7 +935023,9 @@
       "brian-kidd"
     ],
     "market_value": {
-      "highest_eur": 18500000
+      "highest_eur": 18500000,
+      "amount_eur": 500000,
+      "updated_at": "2019-06-28"
     },
     "stats": {
       "career": {
@@ -934312,7 +935076,9 @@
       "gerardo-seoane"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -934374,7 +935140,9 @@
       "stefano-vecchi"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-11-14"
     },
     "stats": {
       "career": {
@@ -934445,7 +935213,9 @@
       "john-carver"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 3200000,
+      "updated_at": "2017-03-05"
     },
     "stats": {
       "career": {
@@ -934521,7 +935291,9 @@
       "apostolos-terzis"
     ],
     "market_value": {
-      "highest_eur": 18500000
+      "highest_eur": 18500000,
+      "amount_eur": 300000,
+      "updated_at": "2023-05-22"
     },
     "stats": {
       "career": {
@@ -934577,7 +935349,9 @@
       "ole-gunnar-solskjaer"
     ],
     "market_value": {
-      "highest_eur": 27500000
+      "highest_eur": 27500000,
+      "amount_eur": 1800000,
+      "updated_at": "2021-04-21"
     },
     "stats": {
       "career": {
@@ -934700,7 +935474,9 @@
       "sam-allardyce"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 350000,
+      "updated_at": "2023-05-31"
     },
     "stats": {
       "career": {
@@ -934796,7 +935572,9 @@
       "mario-silva"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 400000,
+      "updated_at": "2021-05-21"
     },
     "stats": {
       "career": {
@@ -934887,7 +935665,9 @@
       "duncan-ferguson"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-20"
     },
     "stats": {
       "career": {
@@ -934958,7 +935738,9 @@
       "senol-fidan"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 50000,
+      "updated_at": "2023-06-23"
     },
     "stats": {
       "career": {
@@ -935046,7 +935828,9 @@
       "sven-swinnen"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 900000,
+      "updated_at": "2021-03-17"
     },
     "stats": {
       "career": {
@@ -935118,7 +935902,9 @@
       "maurizio-sarri"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-11-08"
     },
     "stats": {
       "career": {
@@ -935202,7 +935988,9 @@
       "pedro-martins"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -935285,7 +936073,9 @@
       "murat-sahin"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-16"
     },
     "stats": {
       "career": {
@@ -935385,7 +936175,9 @@
       "ercan-kilic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -935508,7 +936300,9 @@
       "zeljko-buvac"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 700000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -935616,7 +936410,9 @@
       "unai-emery"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-13"
     },
     "stats": {
       "career": {
@@ -935695,7 +936491,9 @@
       "oleg-pashinin"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2021-06-02"
     },
     "stats": {
       "career": {
@@ -935763,7 +936561,9 @@
       "tamer-tuna"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 350000,
+      "updated_at": "2021-06-07"
     },
     "stats": {
       "career": {
@@ -935873,7 +936673,9 @@
       "massimo-carrera"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 325000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -935962,7 +936764,9 @@
       "stefano-pioli"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 800000,
+      "updated_at": "2021-06-03"
     },
     "stats": {
       "career": {
@@ -936048,7 +936852,9 @@
       "valeriy-karpin"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 150000,
+      "updated_at": "2021-04-09"
     },
     "stats": {
       "career": {
@@ -936122,7 +936928,9 @@
       "eduardo-berizzo"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -936204,7 +937012,9 @@
       "eddie-niedzwiecki"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-05-28"
     },
     "stats": {
       "career": {
@@ -936305,7 +937115,9 @@
       "paco-lopez"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -936402,7 +937214,9 @@
       "victor-sanchez"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-06-09"
     },
     "stats": {
       "career": {
@@ -936524,7 +937338,9 @@
       "jaime-mut"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-06-23"
     },
     "stats": {
       "career": {
@@ -936597,7 +937413,9 @@
       "andrey-kobelev"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-07"
     },
     "stats": {
       "career": {
@@ -936656,7 +937474,9 @@
       "orhan-atik"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 300000,
+      "updated_at": "2020-01-03"
     },
     "stats": {
       "career": {
@@ -936740,7 +937560,9 @@
       "paolo-di-canio"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-26"
     },
     "stats": {
       "career": {
@@ -936784,7 +937606,9 @@
       "zeljko-buvac"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-09"
     },
     "stats": {
       "career": {
@@ -936905,7 +937729,9 @@
       "christos-kontis"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1000000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -936990,7 +937816,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 4000000,
+      "updated_at": "2023-06-13"
     },
     "stats": {
       "career": {
@@ -937120,7 +937948,9 @@
       "stefano-vecchi"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -937204,7 +938034,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2020-10-14"
     },
     "stats": {
       "career": {
@@ -937294,7 +938126,9 @@
       "massimiliano-allegri"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-06-29"
     },
     "stats": {
       "career": {
@@ -937378,7 +938212,9 @@
       "jurgen-klopp"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 800000,
+      "updated_at": "2017-06-29"
     },
     "stats": {
       "career": {
@@ -937442,7 +938278,9 @@
       "fatih-tekke"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 25000,
+      "updated_at": "2022-06-29"
     },
     "stats": {
       "career": {
@@ -937528,7 +938366,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-03-14"
     },
     "stats": {
       "career": {
@@ -937623,7 +938463,9 @@
       "delio-rossi"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 50000,
+      "updated_at": "2019-06-04"
     },
     "stats": {
       "career": {
@@ -937701,7 +938543,9 @@
       "asier-santana"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 2500000,
+      "updated_at": "2023-08-22"
     },
     "stats": {
       "career": {
@@ -937789,7 +938633,9 @@
       "pako-ayestaran"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 1000000,
+      "updated_at": "2021-04-09"
     },
     "stats": {
       "career": {
@@ -937900,7 +938746,9 @@
       "zeki-murat-gole"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-10-20"
     },
     "stats": {
       "career": {
@@ -937993,7 +938841,9 @@
       "alexis-trujillo"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-05-31"
     },
     "stats": {
       "career": {
@@ -938092,7 +938942,9 @@
       "vincenzo-montella"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-06"
     },
     "stats": {
       "career": {
@@ -938156,7 +939008,9 @@
       "razvan-lucescu"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2021-06-09"
     },
     "stats": {
       "career": {
@@ -938229,7 +939083,9 @@
       "steve-holland"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-06-08"
     },
     "stats": {
       "career": {
@@ -938293,7 +939149,9 @@
       "kevin-macdonald"
     ],
     "market_value": {
-      "highest_eur": 16500000
+      "highest_eur": 16500000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-02-27"
     },
     "stats": {
       "career": {
@@ -938355,7 +939213,9 @@
       "rob-kelly"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 50000,
+      "updated_at": "2023-05-17"
     },
     "stats": {
       "career": {
@@ -938419,7 +939279,9 @@
       "keith-downing"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -938508,7 +939370,9 @@
       "pako-ayestaran"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-13"
     },
     "stats": {
       "career": {
@@ -938643,7 +939507,9 @@
       "roberto-mancini"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 5000000,
+      "updated_at": "2016-02-06"
     },
     "stats": {
       "career": {
@@ -938730,7 +939596,9 @@
       "stefano-vecchi"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -938783,7 +939651,9 @@
       "david-moyes"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 600000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -938873,7 +939743,9 @@
       "guus-hiddink"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -938949,7 +939821,9 @@
       "brian-mcdermott"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -939056,7 +939930,9 @@
       "alexander-blessin"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -939128,7 +940004,9 @@
       "paulo-sousa"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 125000,
+      "updated_at": "2022-11-15"
     },
     "stats": {
       "career": {
@@ -939187,7 +940065,9 @@
       "roberto-donadoni"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 500000,
+      "updated_at": "2018-06-08"
     },
     "stats": {
       "career": {
@@ -939248,7 +940128,9 @@
       "andrey-sosnitskiy"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-05"
     },
     "stats": {
       "career": {
@@ -939328,7 +940210,9 @@
       "recep-karatepe"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 50000,
+      "updated_at": "2022-06-10"
     },
     "stats": {
       "career": {
@@ -939383,7 +940267,9 @@
       "lorenz-gunther-kostner"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-12-31"
     },
     "stats": {
       "career": {
@@ -939463,7 +940349,9 @@
       "recep-ucar"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -939534,7 +940422,9 @@
       "ihsan-derelioglu"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-06-08"
     },
     "stats": {
       "career": {
@@ -939597,7 +940487,9 @@
       "raul-riancho"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-05-24"
     },
     "stats": {
       "career": {
@@ -939648,7 +940540,9 @@
       "slavoljub-muslin"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-10-07"
     },
     "stats": {
       "career": {
@@ -939724,7 +940618,9 @@
       "ernesto-valverde"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 400000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -939786,7 +940682,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -939849,7 +940747,9 @@
       "massimiliano-allegri"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 3000000,
+      "updated_at": "2020-06-29"
     },
     "stats": {
       "career": {
@@ -939946,7 +940846,9 @@
       "walter-mazzarri"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-06-07"
     },
     "stats": {
       "career": {
@@ -940022,7 +940924,9 @@
       "stefano-vecchi"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 300000,
+      "updated_at": "2022-06-06"
     },
     "stats": {
       "career": {
@@ -940106,7 +941010,9 @@
       "sedat-karabuk"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 625000,
+      "updated_at": "2021-05-21"
     },
     "stats": {
       "career": {
@@ -940186,7 +941092,9 @@
       "gennaro-gattuso"
     ],
     "market_value": {
-      "highest_eur": 75000000
+      "highest_eur": 75000000,
+      "amount_eur": 1000000,
+      "updated_at": "2022-11-08"
     },
     "stats": {
       "career": {
@@ -940282,7 +941190,9 @@
       "dmitriy-gunko"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2020-11-10"
     },
     "stats": {
       "career": {
@@ -940353,7 +941263,9 @@
       "ryan-mason"
     ],
     "market_value": {
-      "highest_eur": 90000000
+      "highest_eur": 90000000,
+      "amount_eur": 2000000,
+      "updated_at": "2022-11-08"
     },
     "stats": {
       "career": {
@@ -940452,7 +941364,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 150000,
+      "updated_at": "2022-11-14"
     },
     "stats": {
       "career": {
@@ -940520,7 +941434,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-26"
     },
     "stats": {
       "career": {
@@ -940605,7 +941521,9 @@
       "pal-dardai"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1600000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -940661,7 +941579,9 @@
       "julien-sable"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 2000000,
+      "updated_at": "2020-10-15"
     },
     "stats": {
       "career": {
@@ -940763,7 +941683,9 @@
       "nenad-bjelica"
     ],
     "market_value": {
-      "highest_eur": 45000000
+      "highest_eur": 45000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -940815,7 +941737,9 @@
       "igor-jovicevic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-21"
     },
     "stats": {
       "career": {
@@ -940935,7 +941859,9 @@
       "pep-guardiola"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 500000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -941062,7 +941988,9 @@
       "ekrem-dag"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-05-21"
     },
     "stats": {
       "career": {
@@ -941168,7 +942096,9 @@
       "giuseppe-iachini"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 900000,
+      "updated_at": "2021-06-03"
     },
     "stats": {
       "career": {
@@ -941235,7 +942165,9 @@
       "philippe-montanier"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -941365,7 +942297,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -941455,7 +942389,9 @@
       "vincent-kompany"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -941553,7 +942489,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 16500000
+      "highest_eur": 16500000,
+      "amount_eur": 300000,
+      "updated_at": "2019-12-12"
     },
     "stats": {
       "career": {
@@ -941628,7 +942566,9 @@
       "eduardo-berizzo"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1500000,
+      "updated_at": "2021-03-30"
     },
     "stats": {
       "career": {
@@ -941698,7 +942638,9 @@
       "zeljko-buvac"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -941758,7 +942700,9 @@
       "maurizio-sarri"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 800000,
+      "updated_at": "2022-12-28"
     },
     "stats": {
       "career": {
@@ -941857,7 +942801,9 @@
       "antonio-conte"
     ],
     "market_value": {
-      "highest_eur": 45000000
+      "highest_eur": 45000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -941922,7 +942868,9 @@
       "gary-neville"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -941989,7 +942937,9 @@
       "massimo-oddo"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 200000,
+      "updated_at": "2021-06-24"
     },
     "stats": {
       "career": {
@@ -942053,7 +943003,9 @@
       "wolfgang-rolff"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1500000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -942105,7 +943057,9 @@
       "unai-emery"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2022-06-03"
     },
     "stats": {
       "career": {
@@ -942198,7 +943152,9 @@
       "thomas-schaaf"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -942304,7 +943260,9 @@
       "franck-passi"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 425000,
+      "updated_at": "2023-04-04"
     },
     "stats": {
       "career": {
@@ -942391,7 +943349,9 @@
       "andrea-mandorlini"
     ],
     "market_value": {
-      "highest_eur": 11500000
+      "highest_eur": 11500000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -942449,7 +943409,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 1500000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -942554,7 +943516,9 @@
       "asier-santana"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 900000,
+      "updated_at": "2021-06-30"
     },
     "stats": {
       "career": {
@@ -942629,7 +943593,9 @@
       "sergey-semak"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -942703,7 +943669,9 @@
       "giovanni-stroppa"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 800000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -942779,7 +943747,9 @@
       "massimo-carrera"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 25000,
+      "updated_at": "2023-07-28"
     },
     "stats": {
       "career": {
@@ -942852,7 +943822,9 @@
       "cesare-prandelli"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1500000,
+      "updated_at": "2017-06-05"
     },
     "stats": {
       "career": {
@@ -942933,7 +943905,9 @@
       "ekrem-dag"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-06-01"
     },
     "stats": {
       "career": {
@@ -942980,7 +943954,9 @@
       "javier-calleja"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 475000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -943023,7 +943999,9 @@
       "maurizio-sarri"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -943102,7 +944080,9 @@
       "peter-bosz"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -943180,7 +944160,9 @@
       "michel"
     ],
     "market_value": {
-      "highest_eur": 70000000
+      "highest_eur": 70000000,
+      "amount_eur": 1800000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -943261,7 +944243,9 @@
       "zeljko-buvac"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 200000,
+      "updated_at": "2020-09-11"
     },
     "stats": {
       "career": {
@@ -943351,7 +944335,9 @@
       "wim-de-decker"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-09-18"
     },
     "stats": {
       "career": {
@@ -943440,7 +944426,9 @@
       "gregorio-manzano"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-10-07"
     },
     "stats": {
       "career": {
@@ -943544,7 +944532,9 @@
       "javier-cabello"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-01-06"
     },
     "stats": {
       "career": {
@@ -943626,7 +944616,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 31000000
+      "highest_eur": 31000000,
+      "amount_eur": 3000000,
+      "updated_at": "2019-06-14"
     },
     "stats": {
       "career": {
@@ -943755,7 +944747,9 @@
       "bruno-lage"
     ],
     "market_value": {
-      "highest_eur": 60000000
+      "highest_eur": 60000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-06-20"
     },
     "stats": {
       "career": {
@@ -943840,7 +944834,9 @@
       "gary-megson"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-11-08"
     },
     "stats": {
       "career": {
@@ -943927,7 +944923,9 @@
       "mauro-tassotti"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -944017,7 +945015,9 @@
       "igor-cherevchenko"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 600000,
+      "updated_at": "2020-07-31"
     },
     "stats": {
       "career": {
@@ -944143,7 +945143,9 @@
       "steve-holland"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-06-27"
     },
     "stats": {
       "career": {
@@ -944240,7 +945242,9 @@
       "francesco-guidolin"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 2500000,
+      "updated_at": "2021-10-12"
     },
     "stats": {
       "career": {
@@ -944365,7 +945369,9 @@
       "aleksandr-ermakovich"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 5000000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -944468,7 +945474,9 @@
       "mark-bowen"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -944568,7 +945576,9 @@
       "fabio-liverani"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 400000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -944635,7 +945645,9 @@
       "marco-silva"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 200000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -944723,7 +945735,9 @@
       "pepe-mel"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -944783,7 +945797,9 @@
       "miodrag-bozovic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2019-06-14"
     },
     "stats": {
       "career": {
@@ -944869,7 +945885,9 @@
       "hennie-spijkerman"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 275000,
+      "updated_at": "2022-10-12"
     },
     "stats": {
       "career": {
@@ -944944,7 +945962,9 @@
       "massimo-rastelli"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 700000,
+      "updated_at": "2019-03-20"
     },
     "stats": {
       "career": {
@@ -945031,7 +946051,9 @@
       "vitor-pereira"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-06-22"
     },
     "stats": {
       "career": {
@@ -945107,7 +946129,9 @@
       "luis-enrique"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-08-05"
     },
     "stats": {
       "career": {
@@ -945210,7 +946234,9 @@
       "jesualdo-ferreira"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-10-04"
     },
     "stats": {
       "career": {
@@ -945297,7 +946323,9 @@
       "abdullah-avci"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 300000,
+      "updated_at": "2020-12-30"
     },
     "stats": {
       "career": {
@@ -945357,7 +946385,9 @@
       "simone-inzaghi"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 400000,
+      "updated_at": "2022-10-07"
     },
     "stats": {
       "career": {
@@ -945422,7 +946452,9 @@
       "sergey-silkin"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-06-06"
     },
     "stats": {
       "career": {
@@ -945487,7 +946519,9 @@
       "paul-lambert"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2021-11-09"
     },
     "stats": {
       "career": {
@@ -945565,7 +946599,9 @@
       "vasilios-vouzas"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-30"
     },
     "stats": {
       "career": {
@@ -945630,7 +946666,9 @@
       "arnaldo-teixeira"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -945702,7 +946740,9 @@
       "ruben-cousillas"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -945792,7 +946832,9 @@
       "savvas-pantelidis"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -945861,7 +946903,9 @@
       "garry-monk"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-06-30"
     },
     "stats": {
       "career": {
@@ -945926,7 +946970,9 @@
       "viktor-goncharenko"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -945995,7 +947041,9 @@
       "huseyin-cimsir"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -946094,7 +947142,9 @@
       "omer-erdogan"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-10-27"
     },
     "stats": {
       "career": {
@@ -946176,7 +947226,9 @@
       "romain-pitau"
     ],
     "market_value": {
-      "highest_eur": 19000000
+      "highest_eur": 19000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-03-29"
     },
     "stats": {
       "career": {
@@ -946247,7 +947299,9 @@
       "gian-piero-ventura"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 700000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -946334,7 +947388,9 @@
       "brendan-rodgers"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -946387,7 +947443,9 @@
       "michael-frontzeck"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -946506,7 +947564,9 @@
       "felix-magath"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -946556,7 +947616,9 @@
       "aitor-karanka"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -946644,7 +947706,9 @@
       "raul-riancho"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -946702,7 +947766,9 @@
       "alois-schwartz"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -946766,7 +947832,9 @@
       "nico-estevez"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2000000,
+      "updated_at": "2019-06-07"
     },
     "stats": {
       "career": {
@@ -946837,7 +947905,9 @@
       "claudio-ranieri"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -946896,7 +947966,9 @@
       "guus-hiddink"
     ],
     "market_value": {
-      "highest_eur": 150000000
+      "highest_eur": 150000000,
+      "amount_eur": 5000000,
+      "updated_at": "2023-06-13"
     },
     "stats": {
       "career": {
@@ -947006,7 +948078,9 @@
       "duncan-ferguson"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1800000,
+      "updated_at": "2022-06-15"
     },
     "stats": {
       "career": {
@@ -947105,7 +948179,9 @@
       "claude-puel"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -947164,7 +948240,9 @@
       "carlo-ancelotti"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 2000000,
+      "updated_at": "2019-09-05"
     },
     "stats": {
       "career": {
@@ -947264,7 +948342,9 @@
       "ersun-yanal"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-27"
     },
     "stats": {
       "career": {
@@ -947345,7 +948425,9 @@
       "alvaro-garcia"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-06-30"
     },
     "stats": {
       "career": {
@@ -947406,7 +948488,9 @@
       "luis-garcia"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -947475,7 +948559,9 @@
       "walter-mazzarri"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 25000,
+      "updated_at": "2023-07-10"
     },
     "stats": {
       "career": {
@@ -947548,7 +948634,9 @@
       "marco-giampaolo"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -947618,7 +948706,9 @@
       "kurban-berdyev"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 1000000,
+      "updated_at": "2018-05-23"
     },
     "stats": {
       "career": {
@@ -947678,7 +948768,9 @@
       "eduardo-berizzo"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 700000,
+      "updated_at": "2022-06-29"
     },
     "stats": {
       "career": {
@@ -947758,7 +948850,9 @@
       "petit"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -947836,7 +948930,9 @@
       "edoardo-reja"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 350000,
+      "updated_at": "2021-12-17"
     },
     "stats": {
       "career": {
@@ -947929,7 +949025,9 @@
       "mircea-lucescu"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 200000,
+      "updated_at": "2021-11-09"
     },
     "stats": {
       "career": {
@@ -948012,7 +949110,9 @@
       "gary-megson"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -948074,7 +949174,9 @@
       "steve-holland"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -948161,7 +949263,9 @@
       "gaizka-garitano"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 1500000,
+      "updated_at": "2021-03-30"
     },
     "stats": {
       "career": {
@@ -948251,7 +949355,9 @@
       "phillip-cocu"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -948314,7 +949420,9 @@
       "jose-peseiro"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 3000000,
+      "updated_at": "2017-01-01"
     },
     "stats": {
       "career": {
@@ -948377,7 +949485,9 @@
       "nico-willig"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 150000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -948466,7 +949576,9 @@
       "juan-esnaider"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 100000,
+      "updated_at": "2021-10-18"
     },
     "stats": {
       "career": {
@@ -948555,7 +949667,9 @@
       "leonardo-semplici"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-07-04"
     },
     "stats": {
       "career": {
@@ -948653,7 +949767,9 @@
       "luciano-spalletti"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 550000,
+      "updated_at": "2021-12-03"
     },
     "stats": {
       "career": {
@@ -948792,7 +949908,9 @@
       "leonardo-semplici"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-08-22"
     },
     "stats": {
       "career": {
@@ -948874,7 +949992,9 @@
       "stefano-colantuono"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -948957,7 +950077,9 @@
       "claudio-ranieri"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -949020,7 +950142,9 @@
       }
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 75000,
+      "updated_at": "2017-02-22"
     },
     "data_as_of": "2026-10"
   },
@@ -949088,7 +950212,9 @@
       "stefano-vecchi"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -949182,7 +950308,9 @@
       "rik-de-mil"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 600000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -949237,7 +950365,9 @@
       "huseyin-cimsir"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1500000,
+      "updated_at": "2019-01-04"
     },
     "stats": {
       "career": {
@@ -949339,7 +950469,9 @@
       "frank-vercauteren"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 400000,
+      "updated_at": "2024-06-06"
     },
     "stats": {
       "career": {
@@ -949434,7 +950566,9 @@
       "duncan-ferguson"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -949521,7 +950655,9 @@
       "david-wagner"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -949603,7 +950739,9 @@
       "brian-kidd"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 350000,
+      "updated_at": "2023-04-05"
     },
     "stats": {
       "career": {
@@ -949679,7 +950817,9 @@
       "nico-estevez"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 400000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -949758,7 +950898,9 @@
       "tim-sherwood"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -949862,7 +951004,9 @@
       "takis-lemonis"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-09-25"
     },
     "stats": {
       "career": {
@@ -949925,7 +951069,9 @@
       "vitor-bruno"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 25000,
+      "updated_at": "2022-11-12"
     },
     "stats": {
       "career": {
@@ -950018,7 +951164,9 @@
       "sami-hyypia"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 4500000,
+      "updated_at": "2020-06-29"
     },
     "stats": {
       "career": {
@@ -950085,7 +951233,9 @@
       "tony-pulis"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 750000,
+      "updated_at": "2016-11-14"
     },
     "stats": {
       "career": {
@@ -950187,7 +951337,9 @@
       "murat-yakin"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-06-30"
     },
     "stats": {
       "career": {
@@ -950271,7 +951423,9 @@
       "rui-barros"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-10-03"
     },
     "stats": {
       "career": {
@@ -950321,7 +951475,9 @@
       "andries-jonker"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1000000,
+      "updated_at": "2020-07-08"
     },
     "stats": {
       "career": {
@@ -950398,7 +951554,9 @@
       "jorge-sampaoli"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-09"
     },
     "stats": {
       "career": {
@@ -950459,7 +951617,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -950575,7 +951735,9 @@
       "andre-villas-boas"
     ],
     "market_value": {
-      "highest_eur": 17500000
+      "highest_eur": 17500000,
+      "amount_eur": 250000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -950635,7 +951797,9 @@
       "david-moyes"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-08-22"
     },
     "stats": {
       "career": {
@@ -950771,7 +951935,9 @@
       "bart-goor"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 400000,
+      "updated_at": "2024-06-04"
     },
     "stats": {
       "career": {
@@ -950905,7 +952071,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-04"
     },
     "stats": {
       "career": {
@@ -950979,7 +952147,9 @@
       "willy-sagnol"
     ],
     "market_value": {
-      "highest_eur": 70000000
+      "highest_eur": 70000000,
+      "amount_eur": 10000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -951087,7 +952257,9 @@
       "aitor-karanka"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 700000,
+      "updated_at": "2024-06-03"
     },
     "stats": {
       "career": {
@@ -951175,7 +952347,9 @@
       "jose-anigo"
     ],
     "market_value": {
-      "highest_eur": 21000000
+      "highest_eur": 21000000,
+      "amount_eur": 1500000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -951269,7 +952443,9 @@
       "claudio-ranieri"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 450000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -951327,7 +952503,9 @@
       "atila-gerin"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2022-06-01"
     },
     "stats": {
       "career": {
@@ -951381,7 +952559,9 @@
       "markus-krosche"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -951448,7 +952628,9 @@
       "jose-ramon-sandoval"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -951511,7 +952693,9 @@
       "edoardo-reja"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1000000,
+      "updated_at": "2021-06-03"
     },
     "stats": {
       "career": {
@@ -951573,7 +952757,9 @@
       "michael-appleton"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -951640,7 +952826,9 @@
       "irfan-saraloglu"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -951739,7 +952927,9 @@
       "eddie-niedzwiecki"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-20"
     },
     "stats": {
       "career": {
@@ -951796,7 +952986,9 @@
       "andre-schubert"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 6000000,
+      "updated_at": "2016-07-22"
     },
     "stats": {
       "career": {
@@ -951884,7 +953076,9 @@
       "senol-fidan"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-10-13"
     },
     "stats": {
       "career": {
@@ -951946,7 +953140,9 @@
       "luca-vigiani"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 1800000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -952016,7 +953212,9 @@
       "ersun-yanal"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-05-31"
     },
     "stats": {
       "career": {
@@ -952090,7 +953288,9 @@
       "miguel-angel-tena"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -952164,7 +953364,9 @@
       "angelo-alessio"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 350000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -952239,7 +953441,9 @@
       "rob-kelly"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 100000,
+      "updated_at": "2022-01-07"
     },
     "stats": {
       "career": {
@@ -952330,7 +953534,9 @@
       "sotiris-sylaidopoulos"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -952381,7 +953587,9 @@
       "marco-silva"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -952468,7 +953676,9 @@
       "alfons-groenendijk"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 225000,
+      "updated_at": "2023-06-08"
     },
     "stats": {
       "career": {
@@ -952558,7 +953768,9 @@
       "mauro-tassotti"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 275000,
+      "updated_at": "2021-12-07"
     },
     "stats": {
       "career": {
@@ -952603,7 +953815,9 @@
       "john-van-den-brom"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-10-04"
     },
     "stats": {
       "career": {
@@ -952673,7 +953887,9 @@
       "besnik-hasi"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -952730,7 +953946,9 @@
       "juan-muniz"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -952828,7 +954046,9 @@
       "quique-sanchez-flores"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 100000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -952909,7 +954129,9 @@
       "leonardo-jardim"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-05-25"
     },
     "stats": {
       "career": {
@@ -952955,7 +954177,9 @@
       "luis-castro"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -953035,7 +954259,9 @@
       "jorge-leitao"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 300000,
+      "updated_at": "2017-12-07"
     },
     "stats": {
       "career": {
@@ -953145,7 +954371,9 @@
       "leonardo-semplici"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -953218,7 +954446,9 @@
       "roberto-martinez"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 75000,
+      "updated_at": "2022-06-27"
     },
     "stats": {
       "career": {
@@ -953261,7 +954491,9 @@
       "ivica-olic"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-06-19"
     },
     "stats": {
       "career": {
@@ -953315,7 +954547,9 @@
       "domenico-tedesco"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 2500000,
+      "updated_at": "2023-10-20"
     },
     "stats": {
       "career": {
@@ -953379,7 +954613,9 @@
       "garry-monk"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1000000,
+      "updated_at": "2017-06-29"
     },
     "stats": {
       "career": {
@@ -953458,7 +954694,9 @@
       "joaquin-caparros"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -953530,7 +954768,9 @@
       "eduardo-berizzo"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2000000,
+      "updated_at": "2020-04-08"
     },
     "stats": {
       "career": {
@@ -953601,7 +954841,9 @@
       "luis-garcia"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-06-13"
     },
     "stats": {
       "career": {
@@ -953691,7 +954933,9 @@
       "thorsten-fink"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 150000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -953740,7 +954984,9 @@
       "luis-garcia"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -953819,7 +955065,9 @@
       "scott-marshall"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -953911,7 +955159,9 @@
       "veljko-paunovic"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -954034,7 +955284,9 @@
       "philippe-bizeul"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 900000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -954091,7 +955343,9 @@
       "kurban-berdyev"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -954178,7 +955432,9 @@
       "stefano-colantuono"
     ],
     "market_value": {
-      "highest_eur": 10500000
+      "highest_eur": 10500000,
+      "amount_eur": 200000,
+      "updated_at": "2020-11-10"
     },
     "stats": {
       "career": {
@@ -954250,7 +955506,9 @@
       "marcel-keizer"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-08-22"
     },
     "stats": {
       "career": {
@@ -954319,7 +955577,9 @@
       "jonathan-woodgate"
     ],
     "market_value": {
-      "highest_eur": 33000000
+      "highest_eur": 33000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-20"
     },
     "stats": {
       "career": {
@@ -954393,7 +955653,9 @@
       "patrick-mccarthy"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -954448,7 +955710,9 @@
       "paulo-sergio"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 700000,
+      "updated_at": "2020-08-17"
     },
     "stats": {
       "career": {
@@ -954524,7 +955788,9 @@
       "mauricio-pochettino"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-05-31"
     },
     "stats": {
       "career": {
@@ -954617,7 +955883,9 @@
       "rafael-benitez"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 200000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -954679,7 +955947,9 @@
       "christophe-galtier"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-16"
     },
     "stats": {
       "career": {
@@ -954761,7 +956031,9 @@
       "pedro-martins"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 4000000,
+      "updated_at": "2022-11-07"
     },
     "stats": {
       "career": {
@@ -954839,7 +956111,9 @@
       "vincenzo-montella"
     ],
     "market_value": {
-      "highest_eur": 16500000
+      "highest_eur": 16500000,
+      "amount_eur": 550000,
+      "updated_at": "2021-10-20"
     },
     "stats": {
       "career": {
@@ -954893,7 +956167,9 @@
       "paulo-sousa"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 3000000,
+      "updated_at": "2021-12-16"
     },
     "stats": {
       "career": {
@@ -954986,7 +956262,9 @@
       "dmitriy-gunko"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-10-27"
     },
     "stats": {
       "career": {
@@ -955034,7 +956312,9 @@
       "jose-mourinho"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 2500000,
+      "updated_at": "2023-08-22"
     },
     "stats": {
       "career": {
@@ -955104,7 +956384,9 @@
       "julien-sable"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-10-26"
     },
     "stats": {
       "career": {
@@ -955155,7 +956437,9 @@
       "patrick-collot"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 300000,
+      "updated_at": "2021-06-25"
     },
     "stats": {
       "career": {
@@ -955234,7 +956518,9 @@
       "jaime-mut"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 600000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -955308,7 +956594,9 @@
       "edward-sturing"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -955384,7 +956672,9 @@
       "armin-veh"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-28"
     },
     "stats": {
       "career": {
@@ -955455,7 +956745,9 @@
       "sil-rouvrois"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 150000,
+      "updated_at": "2024-06-04"
     },
     "stats": {
       "career": {
@@ -955527,7 +956819,9 @@
       "alberto-malesani"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-05-25"
     },
     "stats": {
       "career": {
@@ -955602,7 +956896,9 @@
       "rogier-meijer"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 100000,
+      "updated_at": "2023-04-10"
     },
     "stats": {
       "career": {
@@ -955646,7 +956942,9 @@
       "jose-luis-mendilibar"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -955702,7 +957000,9 @@
       "walter-mazzarri"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -955787,7 +957087,9 @@
       "markus-krosche"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1700000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -955838,7 +957140,9 @@
       "peter-hermann"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 8000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -955960,7 +957264,9 @@
       "hakan-keles"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 75000,
+      "updated_at": "2024-03-29"
     },
     "stats": {
       "career": {
@@ -956030,7 +957336,9 @@
       "john-carver"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 500000,
+      "updated_at": "2022-06-07"
     },
     "stats": {
       "career": {
@@ -956108,7 +957416,9 @@
       "andre-breitenreiter"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 5000000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -956211,7 +957521,9 @@
       "hakan-keles"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 100000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -956284,7 +957596,9 @@
       "peter-zeidler"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 9000000,
+      "updated_at": "2022-06-09"
     },
     "stats": {
       "career": {
@@ -956356,7 +957670,9 @@
       "dieter-hecking"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -956433,7 +957749,9 @@
       "roger-prinzen"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 900000,
+      "updated_at": "2023-06-28"
     },
     "stats": {
       "career": {
@@ -956499,7 +957817,9 @@
       "massimo-ficcadenti"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 7500000,
+      "updated_at": "2017-12-29"
     },
     "stats": {
       "career": {
@@ -956609,7 +957929,9 @@
       "francesco-calzona"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 3500000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -956706,7 +958028,9 @@
       "luis-blanco"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -956808,7 +958132,9 @@
       "freddie-ljungberg"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -956944,7 +958270,9 @@
       "abdoulay-konko"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 500000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -957082,7 +958410,9 @@
       "andries-jonker"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -957234,7 +958564,9 @@
       "cesare-prandelli"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 700000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -957285,7 +958617,9 @@
       "dean-smith"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-27"
     },
     "stats": {
       "career": {
@@ -957376,7 +958710,9 @@
       "giuseppe-iachini"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-05-17"
     },
     "stats": {
       "career": {
@@ -957433,7 +958769,9 @@
       "mark-fotheringham"
     ],
     "market_value": {
-      "highest_eur": 17000000
+      "highest_eur": 17000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -957489,7 +958827,9 @@
       "joaquin-caparros"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 600000,
+      "updated_at": "2023-10-20"
     },
     "stats": {
       "career": {
@@ -957573,7 +958913,9 @@
       "reiner-maurer"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 250000,
+      "updated_at": "2024-06-04"
     },
     "stats": {
       "career": {
@@ -957642,7 +958984,9 @@
       "duncan-ferguson"
     ],
     "market_value": {
-      "highest_eur": 35000000
+      "highest_eur": 35000000,
+      "amount_eur": 750000,
+      "updated_at": "2023-12-21"
     },
     "stats": {
       "career": {
@@ -957692,7 +959036,9 @@
       "steve-cooper"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1800000,
+      "updated_at": "2023-06-20"
     },
     "stats": {
       "career": {
@@ -957740,7 +959086,9 @@
       "graeme-jones"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -957839,7 +959187,9 @@
       "vladimir-petkovic"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 700000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -957906,7 +959256,9 @@
       "lorenz-gunther-kostner"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2500000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -957970,7 +959322,9 @@
       "henk-fraser"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -958043,7 +959397,9 @@
       "philippe-clement"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -958158,7 +959514,9 @@
       "marco-giampaolo"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2200000,
+      "updated_at": "2023-10-11"
     },
     "stats": {
       "career": {
@@ -958267,7 +959625,9 @@
       "alberto-malesani"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -958368,7 +959728,9 @@
       "pako-ayestaran"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -958489,7 +959851,9 @@
       "giovanni-stroppa"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 400000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -958563,7 +959927,9 @@
       "sami-ugurlu"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -958633,7 +959999,9 @@
       "sergey-ovchinnikov"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-04"
     },
     "stats": {
       "career": {
@@ -958716,7 +960084,9 @@
       "victor-sanchez"
     ],
     "market_value": {
-      "highest_eur": 45000000
+      "highest_eur": 45000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -958780,7 +960150,9 @@
       "alfons-groenendijk"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -958824,7 +960196,9 @@
       "friedhelm-funkel"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 3500000,
+      "updated_at": "2023-06-22"
     },
     "stats": {
       "career": {
@@ -958908,7 +960282,9 @@
       "bulent-uygun"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-16"
     },
     "stats": {
       "career": {
@@ -958998,7 +960374,9 @@
       "vincenzo-montella"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 4000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -959043,7 +960421,9 @@
       "rene-meulensteen"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 250000,
+      "updated_at": "2022-04-21"
     },
     "stats": {
       "career": {
@@ -959096,7 +960476,9 @@
       "ihsan-derelioglu"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -959142,7 +960524,9 @@
       "dejan-stankovic"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 500000,
+      "updated_at": "2023-06-15"
     },
     "stats": {
       "career": {
@@ -959219,7 +960603,9 @@
       "felice-tufano"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -959318,7 +960704,9 @@
       "marco-van-basten"
     ],
     "market_value": {
-      "highest_eur": 23000000
+      "highest_eur": 23000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -959363,7 +960751,9 @@
       "ryan-giggs"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -959455,7 +960845,9 @@
       "samet-aybaba"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-05-02"
     },
     "stats": {
       "career": {
@@ -959543,7 +960935,9 @@
       "gavin-strachan"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-06-20"
     },
     "stats": {
       "career": {
@@ -959593,7 +960987,9 @@
       "terry-westley"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -959688,7 +961084,9 @@
       "vitor-pereira"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 500000,
+      "updated_at": "2019-11-13"
     },
     "stats": {
       "career": {
@@ -959788,7 +961186,9 @@
       "eusebio-di-francesco"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-20"
     },
     "stats": {
       "career": {
@@ -959835,7 +961235,9 @@
       "jan-siewert"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 3500000,
+      "updated_at": "2023-06-26"
     },
     "stats": {
       "career": {
@@ -959901,7 +961303,9 @@
       "gaizka-garitano"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-26"
     },
     "stats": {
       "career": {
@@ -959978,7 +961382,9 @@
       "andries-jonker"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 2000000,
+      "updated_at": "2024-05-29"
     },
     "stats": {
       "career": {
@@ -960028,7 +961434,9 @@
       "dimitrios-grammozis"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -960086,7 +961494,9 @@
       "alexandre-dujeux"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 300000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -960168,7 +961578,9 @@
       "franck-passi"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 2000000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -960226,7 +961638,9 @@
       "giuseppe-iachini"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -960308,7 +961722,9 @@
       "nico-estevez"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 7000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -960419,7 +961835,9 @@
       "ryan-mason"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 3700000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -960522,7 +961940,9 @@
       "giovanni-martusciello"
     ],
     "market_value": {
-      "highest_eur": 55000000
+      "highest_eur": 55000000,
+      "amount_eur": 11000000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -960597,7 +962017,9 @@
       "rob-kelly"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 600000,
+      "updated_at": "2023-05-31"
     },
     "stats": {
       "career": {
@@ -960665,7 +962087,9 @@
       "adam-murray"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 5000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -960742,7 +962166,9 @@
       "tito-vilanova"
     ],
     "market_value": {
-      "highest_eur": 28000000
+      "highest_eur": 28000000,
+      "amount_eur": 4000000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -960871,7 +962297,9 @@
       "tito-vilanova"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -960936,7 +962364,9 @@
       "kelvin-davis"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 275000,
+      "updated_at": "2023-06-23"
     },
     "stats": {
       "career": {
@@ -961039,7 +962469,9 @@
       "fatih-tekke"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 125000,
+      "updated_at": "2023-12-21"
     },
     "stats": {
       "career": {
@@ -961104,7 +962536,9 @@
       "roberto-d-aversa"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 900000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -961196,7 +962630,9 @@
       "sam-allardyce"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 5000000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -961270,7 +962706,9 @@
       "juan-merino"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-28"
     },
     "stats": {
       "career": {
@@ -961320,7 +962758,9 @@
       "luis-blanco"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-06-26"
     },
     "stats": {
       "career": {
@@ -961409,7 +962849,9 @@
       "roger-prinzen"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-06-06"
     },
     "stats": {
       "career": {
@@ -961543,7 +962985,9 @@
       "claudio-ranieri"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1200000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -961615,7 +963059,9 @@
       "delio-rossi"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -961688,7 +963134,9 @@
       "marcel-rapp"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 3000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -961769,7 +963217,9 @@
       "ismail-kartal"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 3000000,
+      "updated_at": "2023-10-19"
     },
     "stats": {
       "career": {
@@ -961839,7 +963289,9 @@
       "robert-moreno"
     ],
     "market_value": {
-      "highest_eur": 50000000
+      "highest_eur": 50000000,
+      "amount_eur": 8000000,
+      "updated_at": "2024-06-03"
     },
     "stats": {
       "career": {
@@ -961881,7 +963333,9 @@
       "graham-potter"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 350000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -961952,7 +963406,9 @@
       "danny-rohl"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 500000,
+      "updated_at": "2024-05-24"
     },
     "stats": {
       "career": {
@@ -962051,7 +963507,9 @@
       "andries-jonker"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 5000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -962138,7 +963596,9 @@
       "ihsan-derelioglu"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 1000000,
+      "updated_at": "2023-06-08"
     },
     "stats": {
       "career": {
@@ -962226,7 +963686,9 @@
       "samet-aybaba"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-12-01"
     },
     "stats": {
       "career": {
@@ -962296,7 +963758,9 @@
       "reiner-maurer"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 600000,
+      "updated_at": "2023-10-20"
     },
     "stats": {
       "career": {
@@ -962412,7 +963876,9 @@
       "ivan-vukomanovic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -962489,7 +963955,9 @@
       "steve-cooper"
     ],
     "market_value": {
-      "highest_eur": 32000000
+      "highest_eur": 32000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -962556,7 +964024,9 @@
       "tony-pulis"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1500000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -962620,7 +964090,9 @@
       "david-sesa"
     ],
     "market_value": {
-      "highest_eur": 12500000
+      "highest_eur": 12500000,
+      "amount_eur": 400000,
+      "updated_at": "2022-10-07"
     },
     "stats": {
       "career": {
@@ -962659,7 +964131,9 @@
       "fabio-liverani"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 750000,
+      "updated_at": "2023-06-12"
     },
     "stats": {
       "career": {
@@ -962754,7 +964228,9 @@
       "emiliano-bigica"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -962864,7 +964340,9 @@
       "abdoulay-konko"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 500000,
+      "updated_at": "2024-06-19"
     },
     "stats": {
       "career": {
@@ -962954,7 +964432,9 @@
       "steve-mcclaren"
     ],
     "market_value": {
-      "highest_eur": 24000000
+      "highest_eur": 24000000,
+      "amount_eur": 6000000,
+      "updated_at": "2023-12-13"
     },
     "stats": {
       "career": {
@@ -963018,7 +964498,9 @@
       "bruno-labbadia"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 4000000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -963125,7 +964607,9 @@
       "fred-rutten"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 2500000,
+      "updated_at": "2024-03-29"
     },
     "stats": {
       "career": {
@@ -963179,7 +964663,9 @@
       "samet-aybaba"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -963228,7 +964714,9 @@
       "pacheta"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -963280,7 +964768,9 @@
       "philippe-mao"
     ],
     "market_value": {
-      "highest_eur": 16000000
+      "highest_eur": 16000000,
+      "amount_eur": 16000000,
+      "updated_at": "2018-12-17"
     },
     "stats": {
       "career": {
@@ -963359,7 +964849,9 @@
       "davide-ballardini"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 600000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -963407,7 +964899,9 @@
       "steve-mcclaren"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2022-06-10"
     },
     "stats": {
       "career": {
@@ -963465,7 +964959,9 @@
       "asier-santana"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 900000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -963567,7 +965063,9 @@
       "stefano-pioli"
     ],
     "market_value": {
-      "highest_eur": 25000000
+      "highest_eur": 25000000,
+      "amount_eur": 800000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -963607,7 +965105,9 @@
       "neil-adams"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 700000,
+      "updated_at": "2023-06-09"
     },
     "stats": {
       "career": {
@@ -963664,7 +965164,9 @@
       "davide-nicola"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -963720,7 +965222,9 @@
       "luis-cembranos"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1800000,
+      "updated_at": "2023-10-13"
     },
     "stats": {
       "career": {
@@ -963779,7 +965283,9 @@
       "abdel-bouhazama"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1500000,
+      "updated_at": "2023-06-26"
     },
     "stats": {
       "career": {
@@ -963875,7 +965381,9 @@
       "pablo-machin"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-03"
     },
     "stats": {
       "career": {
@@ -963950,7 +965458,9 @@
       "duncan-ferguson"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 200000,
+      "updated_at": "2023-06-09"
     },
     "stats": {
       "career": {
@@ -963997,7 +965507,9 @@
       "jocelyn-gourvennec"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-06-16"
     },
     "stats": {
       "career": {
@@ -964084,7 +965596,9 @@
       "sergio-mantecon"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1200000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -964128,7 +965642,9 @@
       "chris-wilder"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 1200000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -964195,7 +965711,9 @@
       "serdar-topraktepe"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 5000000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -964290,7 +965808,9 @@
       "aaron-danks"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 4000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -964359,7 +965879,9 @@
       "michel"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-10-13"
     },
     "stats": {
       "career": {
@@ -964442,7 +965964,9 @@
       "aleksandr-kulchiy"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 950000,
+      "updated_at": "2024-05-31"
     },
     "stats": {
       "career": {
@@ -964506,7 +966030,9 @@
       "rob-edwards"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 13000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -964571,7 +966097,9 @@
       "pacheta"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -964627,7 +966155,9 @@
       "paco-herrera"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-10-25"
     },
     "stats": {
       "career": {
@@ -964682,7 +966212,9 @@
       "thierry-henry"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 3000000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -964760,7 +966292,9 @@
       "roy-hodgson"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 800000,
+      "updated_at": "2023-06-14"
     },
     "stats": {
       "career": {
@@ -964832,7 +966366,9 @@
       "emiliano-bigica"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 1400000,
+      "updated_at": "2024-06-05"
     },
     "stats": {
       "career": {
@@ -964887,7 +966423,9 @@
       "vitor-bruno"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 3500000,
+      "updated_at": "2023-10-12"
     },
     "stats": {
       "career": {
@@ -964960,7 +966498,9 @@
       "mauricio-pellegrino"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1000000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -965008,7 +966548,9 @@
       "scott-parker"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 2500000,
+      "updated_at": "2022-05-13"
     },
     "stats": {
       "career": {
@@ -965071,7 +966613,9 @@
       "miguel-cardoso"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1700000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -965133,7 +966677,9 @@
       "yves-vanderhaeghe"
     ],
     "market_value": {
-      "highest_eur": 11000000
+      "highest_eur": 11000000,
+      "amount_eur": 250000,
+      "updated_at": "2023-05-30"
     },
     "stats": {
       "career": {
@@ -965204,7 +966750,9 @@
       "atila-gerin"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 400000,
+      "updated_at": "2023-10-20"
     },
     "stats": {
       "career": {
@@ -965275,7 +966823,9 @@
       "stefano-colantuono"
     ],
     "market_value": {
-      "highest_eur": 14000000
+      "highest_eur": 14000000,
+      "amount_eur": 350000,
+      "updated_at": "2024-03-29"
     },
     "stats": {
       "career": {
@@ -965309,7 +966859,9 @@
       "slaven-bilic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 4500000,
+      "updated_at": "2023-06-01"
     },
     "stats": {
       "career": {
@@ -965365,7 +966917,9 @@
       "roberto-martinez"
     ],
     "market_value": {
-      "highest_eur": 18000000
+      "highest_eur": 18000000,
+      "amount_eur": 5000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -965427,7 +966981,9 @@
       "steven-gerrard"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 5000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -965494,7 +967050,9 @@
       "scott-parker"
     ],
     "market_value": {
-      "highest_eur": 22000000
+      "highest_eur": 22000000,
+      "amount_eur": 8500000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -965568,7 +967126,9 @@
       "chris-coleman"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 1500000,
+      "updated_at": "2024-05-30"
     },
     "stats": {
       "career": {
@@ -965607,7 +967167,9 @@
       "sergio-conceicao"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 1100000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -965667,7 +967229,9 @@
       "vladan-milojevic"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 450000,
+      "updated_at": "2023-07-25"
     },
     "stats": {
       "career": {
@@ -965756,7 +967320,9 @@
       "jose-ramon-sandoval"
     ],
     "market_value": {
-      "highest_eur": 13000000
+      "highest_eur": 13000000,
+      "amount_eur": 4000000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -965813,7 +967379,9 @@
       "julen-lopetegui"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 300000,
+      "updated_at": "2023-03-28"
     },
     "stats": {
       "career": {
@@ -965873,7 +967441,9 @@
       "philippe-clement"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 2500000,
+      "updated_at": "2023-10-27"
     },
     "stats": {
       "career": {
@@ -965945,7 +967515,9 @@
       "ihsan-derelioglu"
     ],
     "market_value": {
-      "highest_eur": 40000000
+      "highest_eur": 40000000,
+      "amount_eur": 2000000,
+      "updated_at": "2024-06-07"
     },
     "stats": {
       "career": {
@@ -965991,7 +967563,9 @@
       "jurgen-klopp"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 3000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -966041,7 +967615,9 @@
       "ruben-selles"
     ],
     "market_value": {
-      "highest_eur": 15000000
+      "highest_eur": 15000000,
+      "amount_eur": 6500000,
+      "updated_at": "2023-11-27"
     },
     "stats": {
       "career": {
@@ -966085,7 +967661,9 @@
       "peter-balette"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 2500000,
+      "updated_at": "2023-10-19"
     },
     "stats": {
       "career": {
@@ -966123,7 +967701,9 @@
       "luis-garcia"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 2000000,
+      "updated_at": "2023-07-04"
     },
     "stats": {
       "career": {
@@ -966160,7 +967740,9 @@
       "graham-potter"
     ],
     "market_value": {
-      "highest_eur": 20000000
+      "highest_eur": 20000000,
+      "amount_eur": 18000000,
+      "updated_at": "2022-06-15"
     },
     "stats": {
       "career": {
@@ -966225,7 +967807,9 @@
       "kieran-mckenna"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 2500000,
+      "updated_at": "2024-05-24"
     },
     "stats": {
       "career": {
@@ -966278,7 +967862,9 @@
       "adi-hutter"
     ],
     "market_value": {
-      "highest_eur": 30000000
+      "highest_eur": 30000000,
+      "amount_eur": 20000000,
+      "updated_at": "2024-06-03"
     },
     "stats": {
       "career": {
@@ -966329,7 +967915,9 @@
       "ralf-rangnick"
     ],
     "market_value": {
-      "highest_eur": 12000000
+      "highest_eur": 12000000,
+      "amount_eur": 12000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {
@@ -966379,7 +967967,9 @@
       "rob-edwards"
     ],
     "market_value": {
-      "highest_eur": 10000000
+      "highest_eur": 10000000,
+      "amount_eur": 10000000,
+      "updated_at": "2024-05-27"
     },
     "stats": {
       "career": {

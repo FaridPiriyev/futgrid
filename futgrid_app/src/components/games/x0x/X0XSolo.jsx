@@ -14,7 +14,7 @@ import {
   isFull,
   multipleChoice,
 } from "../../../lib/games/x0x";
-import { seeded, seedFrom, todayKey } from "../../../lib/random";
+import { seeded, seedFrom, todayKey, todayLabel } from "../../../lib/random";
 import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerSearch from "../common/PlayerSearch";
 import ResultModal from "../common/ResultModal";
@@ -169,12 +169,12 @@ export default function X0XSolo({ data, settings, onSettings }) {
   const corner = (
     <span className="text-center">
       <span
-        className={`block ${FONT} text-3xl font-bold leading-none text-ink md:text-5xl`}
+        className={`block ${FONT} text-3xl font-bold leading-none text-white md:text-5xl`}
       >
         {left}
       </span>
       <span
-        className={`mt-1 block ${FONT} text-[10px] uppercase tracking-wider text-accent-hi md:text-xs`}
+        className={`mt-1 block ${FONT} text-[10px] font-bold uppercase tracking-wider text-white/90 md:text-xs`}
       >
         {tr("cəhd qalıb")}
       </span>
@@ -198,7 +198,7 @@ export default function X0XSolo({ data, settings, onSettings }) {
           <Stat
             Icon={daily ? CalendarDays : Shuffle}
             label={daily ? tr("Günün cədvəli") : tr("Təsadüfi")}
-            value={daily ? todayKey().slice(5) : tr("Məşq")}
+            value={daily ? todayLabel() : tr("Məşq")}
           />
           <Stat Icon={Target} label={tr("Xal")} value={`${score} / 9`} />
           <Stat Icon={Eye} label={tr("Nadirlik")} value={rarity} />
@@ -288,8 +288,8 @@ export default function X0XSolo({ data, settings, onSettings }) {
           </button>
         )}
         {!over && (
-          <button type="button" onClick={finish} className={BTN_PRIMARY}>
-            <span aria-hidden="true" className={SWEEP_WHITE} />
+          <button type="button" onClick={finish} className={BTN_GHOST}>
+            <span aria-hidden="true" className={SWEEP_BLUE} />
             <Flag className="h-4 w-4" />
             {tr("Təslim ol")}
           </button>

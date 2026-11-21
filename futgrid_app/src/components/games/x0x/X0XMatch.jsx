@@ -301,8 +301,8 @@ export default function X0XMatch({ data, settings, onSettings }) {
           </>
         )}
         {!roundOver && (
-          <button type="button" onClick={giveUp} className={BTN_PRIMARY}>
-            <span aria-hidden="true" className={SWEEP_WHITE} />
+          <button type="button" onClick={giveUp} className={BTN_GHOST}>
+            <span aria-hidden="true" className={SWEEP_BLUE} />
             <Flag className="h-4 w-4" />
             {tr("Təslim ol")}
           </button>

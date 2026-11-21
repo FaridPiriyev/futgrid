@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { ArrowUp, Mail, MapPin } from "lucide-react";
+import { SOCIAL_LINKS, externalProps } from "../lib/socials";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { SiteLogo } from "./Navbar";
 
@@ -33,7 +33,7 @@ const FOOTER_NAV_LINKS = [
   }, to: "/#contact" },
   { get label() {
     return tr("Hesab");
-  }, to: "/#login" },
+  }, to: "/hesab" },
 ];
 
 const FOOTER_GAME_LINKS = [
@@ -41,18 +41,6 @@ const FOOTER_GAME_LINKS = [
   { get label() {
     return tr("Bütün oyunlar");
   }, to: "/oyunlar" },
-];
-
-const FOOTER_SOCIALS = [
-  { Icon: FaInstagram, href: "https://www.instagram.com/futgrid.az", get label() {
-    return tr("Instagram");
-  } },
-  { Icon: FaTiktok, href: "#", get label() {
-    return tr("TikTok");
-  } },
-  { Icon: FaYoutube, href: "#", get label() {
-    return tr("YouTube");
-  } },
 ];
 
 const FOOTER_CONTACT = [
@@ -63,14 +51,6 @@ const FOOTER_CONTACT = [
   },
     value: "info@futgrid.az",
     href: "mailto:info@futgrid.az",
-  },
-  {
-    Icon: Phone,
-    get label() {
-    return tr("Telefon");
-  },
-    value: "+994 50 000 00 00",
-    href: "tel:+994500000000",
   },
   {
     Icon: MapPin,
@@ -206,12 +186,11 @@ export default function Footer() {
             </p>
 
             <div className="mt-6 flex items-center gap-3">
-              {FOOTER_SOCIALS.map(({ Icon, href, label }) => (
+              {SOCIAL_LINKS.map(({ key, Icon, href, label }) => (
                 <a
-                  key={label}
+                  key={key}
                   href={href}
-                  target={href?.startsWith("http") ? "_blank" : undefined}
-                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                  {...externalProps(href)}
                   aria-label={label}
                   className="grid h-11 w-11 place-items-center border border-white/20 transition-[translate,background-color,color,border-color] duration-300 hover:-translate-y-1 hover:border-yellow hover:bg-yellow hover:text-on-yellow"
                 >
@@ -246,8 +225,7 @@ export default function Footer() {
                 <a
                   key={value}
                   href={href}
-                  target={href?.startsWith("http") ? "_blank" : undefined}
-                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                  {...externalProps(href)}
                   className="group flex items-center gap-4"
                 >
                   <span className="grid h-11 w-11 shrink-0 place-items-center bg-white/10 transition-[background-color,color,rotate] duration-300 group-hover:-rotate-8 group-hover:bg-yellow group-hover:text-on-yellow">

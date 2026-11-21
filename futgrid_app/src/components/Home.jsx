@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
-  ChevronLeft,
-  ChevronRight,
-  Play,
   Trophy,
   Mail,
-  Phone,
   MapPin,
   Send,
   Check,
@@ -14,317 +10,20 @@ import {
   ArrowRight,
   User,
   MessageSquare,
-  Gavel,
+  Plus,
+  CalendarDays,
 } from "lucide-react";
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { SOCIAL_LINKS, externalProps } from "../lib/socials";
 import { GAME_CATALOG } from "../lib/games/catalog";
-import { loadClubs, norm, prefetchData } from "../lib/data";
+import { prefetchData } from "../lib/data";
 import { api } from "../lib/api";
-import slide2 from "../assets/slider2.webp";
+import { useAuth } from "../lib/auth";
+import heroPhoto from "../assets/slider2.webp";
 
 import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 const HERO_FONT = "font-['Tektur',sans-serif]";
-
-const SLIDES = [
-  {
-    image: "/images/slider1.webp",
-    fallback: "/images/slider1.png",
-    get lines() {
-      return tr("Futbol|Taktikanı|Göstər").split("|");
-    },
-    get subtitle() {
-      return tr("Klubları və oyunçuları tanı, matçı qazan");
-    },
-    get button() {
-      return tr("Daha ətraflı");
-    },
-    href: "#games",
-  },
-  {
-    image: slide2,
-    fallback: "/images/slider2.png",
-    get lines() {
-      return tr("Fərqli|oyunları|kəşf et").split("|");
-    },
-    get subtitle() {
-      return tr("Taktiki oyunların yeni formatını kəşf et");
-    },
-    get button() {
-      return tr("Oyunlara bax");
-    },
-    href: "#games",
-  },
-  {
-    image: "/images/slider3.webp",
-    fallback: "/images/slider3.png",
-    get lines() {
-      return tr("Reytinqdə|zirvəyə|yüksəl").split("|");
-    },
-    get subtitle() {
-      return tr("Xal topla və liderlər cədvəlinə qalx");
-    },
-    get button() {
-      return tr("Reytinqə bax");
-    },
-    href: "#leaderboard",
-  },
-];
-
-const AUTOPLAY_MS = 5500;
-
-// Zolaqdakı klublar: ad + datadakı adla uyğunlaşdırmaq üçün açar sözlər (loqo üçün).
-const TAPE_CLUBS = [
-  { label: "Real Madrid", keys: ["real madrid"] },
-  { label: "Barcelona", keys: ["barcelona", "fc barcelona"] },
-  { label: "Liverpool", keys: ["liverpool", "liverpool fc"] },
-  { label: "Qarabağ", keys: ["qarabag", "qarabag fk", "qarabag agdam"] },
-  { label: "Bayern", keys: ["bayern munich", "bayern munchen", "fc bayern munchen", "bayern"] },
-  { label: "Inter", keys: ["inter", "internazionale", "inter milan", "fc internazionale milano"] },
-  { label: "PSG", keys: ["paris saint germain", "psg", "paris sg"] },
-  { label: "Arsenal", keys: ["arsenal", "arsenal fc"] },
-  { label: "Man City", keys: ["manchester city", "man city"] },
-  { label: "Juventus", keys: ["juventus"] },
-  { label: "Milan", keys: ["ac milan", "milan"] },
-  { label: "Chelsea", keys: ["chelsea", "chelsea fc"] },
-];
-
-function useTapeLogos() {
-  const [logos, setLogos] = useState({});
-  useEffect(() => {
-    let alive = true;
-    loadClubs()
-      .then((clubs) => {
-        const byName = new Map();
-        for (const c of clubs ?? [])
-          if (c.logo_url && !byName.has(norm(c.name))) byName.set(norm(c.name), c.logo_url);
-        const out = {};
-        for (const t of TAPE_CLUBS) {
-          const hit = t.keys.map((k) => byName.get(k)).find(Boolean);
-          if (hit) out[t.label] = hit;
-        }
-        if (alive) setLogos(out);
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, []);
-  return logos;
-}
-
-// Loqo şəkillərinin ətrafındakı boş (şəffaf) sahə müxtəlifdir, ona görə dairədə
-// mərkəzdə dayanmırlar. Şəkli kəsib real konturuna görə mərkəzləyirik (CORS icazə versə).
-const trimmedLogos = new Map();
-const logoTone = new Map();
-function useTrimmedLogo(url) {
-  const [src, setSrc] = useState(() => (url ? trimmedLogos.get(url) ?? url : url));
-  const [tone, setTone] = useState(() => logoTone.get(url));
-  useEffect(() => {
-    if (!url) return;
-    if (trimmedLogos.has(url)) {
-      setSrc(trimmedLogos.get(url));
-      setTone(logoTone.get(url));
-      return;
-    }
-    let alive = true;
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      try {
-        const w = img.naturalWidth;
-        const h = img.naturalHeight;
-        const c = document.createElement("canvas");
-        c.width = w;
-        c.height = h;
-        const ctx = c.getContext("2d", { willReadFrequently: true });
-        ctx.drawImage(img, 0, 0);
-        const { data } = ctx.getImageData(0, 0, w, h);
-        let x0 = w, y0 = h, x1 = -1, y1 = -1;
-        for (let y = 0; y < h; y++)
-          for (let x = 0; x < w; x++) {
-            const i = (y * w + x) * 4;
-            const solid = data[i + 3] > 12 && !(data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245);
-            if (solid) {
-              if (x < x0) x0 = x;
-              if (x > x1) x1 = x;
-              if (y < y0) y0 = y;
-              if (y > y1) y1 = y;
-            }
-          }
-        if (x1 < 0) return;
-        // Loqonun ümumi parlaqlığı: tünd loqolar ağ dairədə, açıq/ağ loqolar tünd dairədə göstərilir.
-        let lum = 0, n = 0;
-        for (let i = 0; i < data.length; i += 16)
-          if (data[i + 3] > 12) {
-            lum += 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-            n++;
-          }
-        logoTone.set(url, n && lum / n < 70 ? "dark" : "light");
-        const side = Math.max(x1 - x0 + 1, y1 - y0 + 1);
-        const out = document.createElement("canvas");
-        out.width = out.height = side;
-        out
-          .getContext("2d")
-          .drawImage(c, x0, y0, x1 - x0 + 1, y1 - y0 + 1, (side - (x1 - x0 + 1)) / 2, (side - (y1 - y0 + 1)) / 2, x1 - x0 + 1, y1 - y0 + 1);
-        const result = out.toDataURL("image/png");
-        trimmedLogos.set(url, result);
-        if (alive) {
-          setSrc(result);
-          setTone(logoTone.get(url));
-        }
-      } catch {
-        trimmedLogos.set(url, url);
-      }
-    };
-    img.onerror = () => trimmedLogos.set(url, url);
-    img.src = url;
-    return () => {
-      alive = false;
-    };
-  }, [url]);
-  return { src, tone };
-}
-
-function TapeClub({ label, logo }) {
-  const [broken, setBroken] = useState(false);
-  const { src, tone } = useTrimmedLogo(logo);
-  return (
-    <span className="inline-flex items-center gap-2.5 md:gap-3.5">
-      {logo && !broken && (
-        <span className={`relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full ${tone === "dark" ? "bg-white" : "bg-[radial-gradient(circle_at_35%_30%,#1d2c5c,#0b1430)]"} shadow-[0_6px_14px_-6px_rgba(0,0,0,.6)] ring-2 ring-yellow/80 animate-[fgPop_0.5s_ease-out_both] md:h-11 md:w-11`}>
-          <img
-            src={src}
-            alt=""
-            loading="lazy"
-            onError={() => setBroken(true)}
-            className="block h-6 max-h-6 w-6 max-w-6 object-contain object-center md:h-7.5 md:max-h-7.5 md:w-7.5 md:max-w-7.5"
-          />
-        </span>
-      )}
-      {label}
-    </span>
-  );
-}
-
-const CARDS = [
-  {
-    src: "/images/card1.webp",
-    fallback: "/images/card1.png",
-    get alt() {
-      return tr("Oyun zalı 1");
-    },
-    get title() {
-      return tr("Oyun studiyası");
-    },
-  },
-  {
-    src: "/images/card2.webp",
-    fallback: "/images/card2.png",
-    get alt() {
-      return tr("Oyun zalı 2");
-    },
-    get title() {
-      return tr("Taktika zalı");
-    },
-  },
-  {
-    src: "/images/card3.webp",
-    fallback: "/images/card3.png",
-    get alt() {
-      return tr("Oyun zalı 3");
-    },
-    get title() {
-      return tr("Turnir arenası");
-    },
-  },
-];
-
-const CARD_TILT = ["-rotate-2", "rotate-[1.5deg]", "-rotate-1"];
-
-const CARD_TAPE = [
-  "-rotate-3 bg-[var(--fg-tape)]",
-  "rotate-2 bg-[var(--fg-tape-2)]",
-  "rotate-4 bg-[var(--fg-tape)]",
-];
-
-const STATS = [
-  {
-    value: 15900,
-    suffix: "+",
-    get label() {
-      return tr("Oyunçu");
-    },
-  },
-  {
-    value: 433,
-    suffix: "",
-    get label() {
-      return tr("Klub");
-    },
-  },
-  {
-    value: 220,
-    suffix: "",
-    get label() {
-      return tr("Ölkə");
-    },
-  },
-  {
-    value: 1800,
-    suffix: "+",
-    get label() {
-      return tr("Məşqçi");
-    },
-  },
-];
-
-const GAMES = [
-  {
-    key: "x0x",
-    get title() {
-      return tr("Futbol X0X");
-    },
-    get description() {
-      return tr(
-        "Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.",
-      );
-    },
-    get tags() {
-      return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
-    },
-    href: "/oyunlar/futbol-x0x",
-  },
-  {
-    key: "ortaq",
-    get title() {
-      return tr("Ortaq Oyunçu");
-    },
-    get description() {
-      return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
-    },
-    get tags() {
-      return ["Kart dueli", "2 oyunçu"].map((s) => tr(s));
-    },
-    href: "/oyunlar/ortaq-oyuncu",
-  },
-  {
-    key: "auksion",
-    get title() {
-      return tr("Açıq Artırma");
-    },
-    get description() {
-      return tr(
-        "20 ₼ büdcə ilə hərraca gir, 5 oyunçuluq komanda yığ. Ən güclü heyəti quran qalib olur.",
-      );
-    },
-    get tags() {
-      return ["Hərrac", "20 ₼ büdcə"].map((s) => tr(s));
-    },
-    href: "/oyunlar/auksion",
-  },
-];
 
 const PERIODS = [
   {
@@ -346,8 +45,6 @@ const PERIODS = [
     },
   },
 ];
-
-
 
 const AVATAR_COLORS = [
   "bg-accent/12 text-accent",
@@ -388,44 +85,12 @@ const CONTACT_INFO = [
     href: "mailto:info@futgrid.az",
   },
   {
-    Icon: Phone,
-    get label() {
-      return tr("Telefon");
-    },
-    value: "+994 50 000 00 00",
-    href: "tel:+994500000000",
-  },
-  {
     Icon: MapPin,
     get label() {
       return tr("Ünvan");
     },
     get value() {
       return tr("Bakı, Azərbaycan");
-    },
-  },
-];
-
-const SOCIALS = [
-  {
-    Icon: FaInstagram,
-    href: "https://www.instagram.com/futgrid.az",
-    get label() {
-      return tr("Instagram");
-    },
-  },
-  {
-    Icon: FaTiktok,
-    href: "#",
-    get label() {
-      return tr("TikTok");
-    },
-  },
-  {
-    Icon: FaYoutube,
-    href: "#",
-    get label() {
-      return tr("YouTube");
     },
   },
 ];
@@ -444,67 +109,6 @@ const KEYFRAMES = `
 @keyframes fgFlood { 0%,100% { opacity: .55; } 50% { opacity: .9; } }
 `;
 
-// Klassik futbol topu (SVG)
-function SoccerBall({ className = "" }) {
-  return (
-    <svg viewBox="0 0 64 64" aria-hidden="true" className={className}>
-      <circle cx="32" cy="32" r="30" fill="#fff" stroke="#0b1430" strokeWidth="3" />
-      <path d="M32 19 L43 27 L39 40 L25 40 L21 27 Z" fill="#0b1430" />
-      <path d="M32 19 L32 6 M43 27 L55 22 M39 40 L47 51 M25 40 L17 51 M21 27 L9 22" stroke="#0b1430" strokeWidth="2.5" />
-      <path d="M26 4.5 L32 6 L38 4.5 M57.5 18 L55 22 L59 28 M50 52 L47 51 L42 58 M22 58 L17 51 L14 52 M5 28 L9 22 L6.5 18" fill="#0b1430" stroke="#0b1430" strokeWidth="2.5" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-// Meydança xətləri (şəkil üzərində)
-function PitchOverlay() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 400 300"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-30 mix-blend-screen"
-      fill="none"
-      stroke="#fff"
-      strokeWidth="2"
-    >
-      <line x1="200" y1="0" x2="200" y2="300" />
-      <circle cx="200" cy="150" r="48" />
-      <circle cx="200" cy="150" r="3" fill="#fff" />
-      <rect x="0" y="80" width="62" height="140" />
-      <rect x="0" y="118" width="22" height="64" />
-      <path d="M62 122 A 34 34 0 0 1 62 178" />
-      <rect x="338" y="80" width="62" height="140" />
-      <rect x="378" y="118" width="22" height="64" />
-      <path d="M338 122 A 34 34 0 0 0 338 178" />
-    </svg>
-  );
-}
-
-// LED tablo: canlı matç hissi
-function Scoreboard() {
-  return (
-    <div className="fg-pop-float absolute left-2 top-2 z-10 -rotate-3 [--d:.8s] [--f:5.2s] sm:left-6 sm:top-6">
-      <div className="overflow-hidden rounded-xl border-2 border-[#2a3557] bg-[#070b16] shadow-[0_22px_44px_-24px_rgba(0,0,0,.9)]">
-        <div className="flex items-center justify-between gap-3 bg-[#0f1830] px-2.5 py-1">
-          <span className={`flex items-center gap-1.5 ${FONT} text-[9px] font-extrabold uppercase tracking-[0.16em] text-white/80 sm:text-[10px]`}>
-            <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-[fgLive_1.4s_ease-out_infinite]" />
-            {tr("Canlı")}
-          </span>
-          <span className={`${FONT} text-[10px] font-black text-yellow sm:text-xs`}>90+2&apos;</span>
-        </div>
-        <div className={`flex items-center gap-2 px-2.5 py-1.5 ${FONT} font-black uppercase sm:gap-3 sm:px-3.5 sm:py-2`}>
-          <span className="text-[11px] tracking-wide text-white sm:text-sm">FutGrid</span>
-          <span className="flex items-center gap-1 rounded-md bg-black px-2 py-0.5 font-mono text-base text-[#ffd23d] [text-shadow:0_0_8px_#ffb300] sm:text-xl">
-            3<span className="animate-[fgColon_1s_steps(1)_infinite]">:</span>1
-          </span>
-          <span className="text-[11px] tracking-wide text-white/70 sm:text-sm">{tr("Rəqib")}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 const REVEAL_BASE =
   "transition-[opacity,translate,scale] duration-700 ease-out motion-reduce:transition-none";
 const REVEAL = {
@@ -512,10 +116,6 @@ const REVEAL = {
   left: `${REVEAL_BASE} -translate-x-12 opacity-0 data-in:translate-x-0 data-in:opacity-100`,
   right: `${REVEAL_BASE} translate-x-12 opacity-0 data-in:translate-x-0 data-in:opacity-100`,
 };
-
-const CARD_SHADOW = "shadow-[0_30px_60px_-36px_var(--fg-shadow)]";
-const CARD_HOVER =
-  "transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--fg-accent)_55%,transparent)]";
 
 const initials = (name) =>
   name
@@ -529,7 +129,8 @@ const initials = (name) =>
 const avatarOf = (player) => {
   const key = String(player.id ?? player.name ?? "");
   let hash = 0;
-  for (let index = 0; index < key.length; index++) hash = (hash * 31 + key.charCodeAt(index)) >>> 0;
+  for (let index = 0; index < key.length; index++)
+    hash = (hash * 31 + key.charCodeAt(index)) >>> 0;
   return AVATAR_COLORS[hash % AVATAR_COLORS.length];
 };
 
@@ -577,62 +178,48 @@ function useReveal(rootRef) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const els = root.querySelectorAll("[data-reveal]");
+    const show = (el) => el.setAttribute("data-in", "true");
+    const pending = () => root.querySelectorAll("[data-reveal]:not([data-in])");
     if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.setAttribute("data-in", "true"));
+      pending().forEach(show);
       return;
     }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.setAttribute("data-in", "true");
+          show(entry.target);
           io.unobserve(entry.target);
         });
       },
       { threshold: 0.15, rootMargin: "0px 0px -6% 0px" },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [rootRef]);
-}
-
-function useParallax(rootRef) {
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const mq = window.matchMedia(
-      "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
-    );
-    const els = [...root.querySelectorAll("[data-parallax]")];
+    pending().forEach((el) => io.observe(el));
+    // Ehtiyat: bəzi brauzerlərdə (sürətli sürüşdürmə, zoom) müşahidəçi gec işləyir və
+    // element gizli qalır. Ekrana girmiş hər elementi sürüşdürmə zamanı da açırıq.
     let frame = 0;
-    const update = () => {
+    const sweep = () => {
       frame = 0;
-      const vh = window.innerHeight;
-      for (const el of els) {
-        if (!mq.matches) {
-          el.style.transform = "";
-          continue;
+      const limit = window.innerHeight * 0.96;
+      pending().forEach((el) => {
+        if (el.getBoundingClientRect().top < limit) {
+          show(el);
+          io.unobserve(el);
         }
-        const box = el.parentElement.getBoundingClientRect();
-        if (box.bottom < -200 || box.top > vh + 200) continue;
-        const speed = Number(el.dataset.parallax) || 0.15;
-        const offset = (box.top + box.height / 2 - vh / 2) * -speed;
-        el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
-      }
+      });
     };
     const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
+      if (!frame) frame = requestAnimationFrame(sweep);
     };
-    update();
+    const late = setTimeout(sweep, 1200);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    mq.addEventListener("change", schedule);
     return () => {
+      io.disconnect();
+      clearTimeout(late);
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
-      mq.removeEventListener("change", schedule);
     };
   }, [rootRef]);
 }
@@ -688,18 +275,6 @@ function SectionHeading({ kicker, children, center = true }) {
   );
 }
 
-function BigNumber({ n, side }) {
-  return (
-    <span
-      aria-hidden="true"
-      data-parallax="0.15"
-      className={`fg-outline-soft pointer-events-none absolute top-10 hidden select-none ${side} ${FONT} text-[300px] font-black leading-[0.8] md:block`}
-    >
-      {n}
-    </span>
-  );
-}
-
 function Marquee({ items, className, sep, sepClass, reverse = false }) {
   const row = [...items, ...items];
   return (
@@ -716,695 +291,745 @@ function Marquee({ items, className, sep, sepClass, reverse = false }) {
   );
 }
 
-// İki zolaq paralel düzülür (bir-birinin üstünə düşmür):
-// yuxarıda klub loqoları olan əsas zolaq, altında stadion LED lövhəsi kimi oyun adları.
-const CLUB_TAPE_BG = {
-  backgroundColor: "var(--fg-accent)",
-  backgroundImage: [
-    // üst və alt ağ-sarı haşiyə (forma kanti kimi)
-    "linear-gradient(180deg, var(--fg-yellow) 0 3px, #fff 3px 5px, transparent 5px calc(100% - 5px), #fff calc(100% - 5px) calc(100% - 3px), var(--fg-yellow) calc(100% - 3px))",
-    // çəmən biçimi kimi zolaqlar
-    "repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 70px, transparent 70px 140px)",
-    // nöqtəli tekstura
-    "radial-gradient(rgba(255,255,255,.14) 1px, transparent 1.4px)",
-    // dərinlik
-    "linear-gradient(180deg, rgba(255,255,255,.18), transparent 45%, rgba(0,0,0,.28))",
-  ].join(","),
-  backgroundSize: "100% 100%, auto, 9px 9px, 100% 100%",
-};
+// Saytda nə qədər futbolçu/məşqçi olduğunu yuvarlaq göstəririk: 20 690 → "20 000+".
+const roundDown = (n, step = 1000) =>
+  `${String(Math.floor(n / step) * step).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}+`;
 
-const LED_TAPE_BG = {
-  backgroundColor: "#05070d",
-  backgroundImage:
-    "radial-gradient(rgba(255,194,61,.10) 1px, transparent 1.3px), linear-gradient(180deg, rgba(255,255,255,.06), transparent 40%, rgba(0,0,0,.4))",
-  backgroundSize: "5px 5px, 100% 100%",
-};
+const HIGHLIGHT = "text-yellow light:text-gold-hi";
+const STAR = (
+  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-3 w-3 fill-current">
+    <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z" />
+  </svg>
+);
 
-function Tapes() {
-  const logos = useTapeLogos();
+function DailyCard() {
+  const day = pad(new Date().getDate());
   return (
-    <div aria-hidden="true" className="relative h-40 shrink-0 md:h-44 lg:h-40">
-      <div
-        className="absolute -inset-x-10 top-5 z-2 -rotate-[2.2deg] overflow-hidden py-2.5 shadow-[0_24px_44px_-24px_color-mix(in_srgb,var(--fg-accent)_85%,transparent)] sm:-rotate-[1.8deg] md:top-6 md:-rotate-[1.4deg] md:py-3"
-        style={CLUB_TAPE_BG}
-      >
-        <Marquee
-          items={TAPE_CLUBS.map((c) => (
-            <TapeClub key={c.label} label={c.label} logo={logos[c.label]} />
-          ))}
-          sep={<SoccerBall className="h-4 w-4 md:h-5 md:w-5" />}
-          sepClass="inline-flex opacity-90"
-          className={`${FONT} text-lg font-black uppercase tracking-[0.06em] text-white [text-shadow:0_2px_0_rgba(0,0,0,.25)] sm:text-xl md:text-[26px]`}
-        />
-      </div>
-      <div
-        className="absolute -inset-x-10 top-[6.3rem] z-1 -rotate-[2.2deg] overflow-hidden border-y-2 border-[#1d2742] py-1.5 sm:-rotate-[1.8deg] md:top-[7.4rem] md:-rotate-[1.4deg] md:py-2 lg:top-[7.1rem]"
-        style={LED_TAPE_BG}
-      >
-        <Marquee
-          reverse
-          items={GAME_CATALOG.map((g) => g.title)}
-          sep="★"
-          sepClass="text-accent"
-          className={`${FONT} text-xs font-extrabold uppercase tracking-[0.2em] text-yellow [text-shadow:0_0_8px_rgba(255,194,61,.55)] sm:text-sm md:text-base`}
-        />
-      </div>
-    </div>
-  );
-}
-
-function HeroCollage({ index }) {
-  const [loaded, setLoaded] = useState(() => new Set([0]));
-  const [failed, setFailed] = useState(() => new Set());
-  useEffect(() => {
-    const next = (index + 1) % SLIDES.length;
-    const t = setTimeout(
-      () =>
-        setLoaded((s) =>
-          s.has(index) && s.has(next) ? s : new Set([...s, index, next]),
-        ),
-      index === 0 ? 2500 : 0,
-    );
-    return () => clearTimeout(t);
-  }, [index]);
-
-  return (
-    <div className="relative mx-auto h-85 w-full max-w-140 sm:h-115 lg:h-full lg:max-h-140 lg:min-h-[20rem]">
-      <div
-        className="fg-frame-in absolute inset-[12px_16px_36px_36px] overflow-hidden bg-navy [animation-delay:.25s] sm:inset-[20px_30px_40px_60px]"
-        style={{ clipPath: "polygon(10% 0, 100% 0, 92% 100%, 0 100%)" }}
-      >
-        {SLIDES.map((s, i) => (
-          <div
-            key={s.image}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              i === index ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {(i === index || loaded.has(i)) && (
-              <img
-                src={failed.has(i) ? s.fallback : s.image}
-                alt=""
-                decoding="async"
-                onError={() =>
-                  setFailed((f) => (f.has(i) ? f : new Set([...f, i])))
-                }
-                fetchpriority={i === 0 ? "high" : "low"}
-                className="fg-kb absolute inset-0 h-full w-full bg-navy object-cover"
-              />
-            )}
-          </div>
-        ))}
-        <PitchOverlay />
-        <div className="fg-halftone-w fg-drift absolute inset-y-0 left-0 w-2/5" />
-        <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_65%)] animate-[fgFlood_3.2s_ease-in-out_infinite]" />
-      </div>
-
-      <Scoreboard />
-
-      <div
+    <Link
+      to="/oyunlar/karyera-yolu"
+      aria-label={tr("Günün oyunçusu: Karyera yolu oyunu")}
+      className="fg-fade group/daily relative z-10 mx-3.5 -mt-14 flex items-center gap-3.5 rounded-2xl border border-line/10 bg-surface/95 p-4 shadow-[0_24px_48px_-20px_var(--fg-shadow)] backdrop-blur-sm transition-[translate,border-color] duration-300 [animation-delay:.6s] hover:-translate-y-1 hover:border-accent/50 sm:absolute sm:bottom-9 sm:left-0 sm:mx-0 sm:mt-0 sm:block sm:w-75 sm:p-5"
+    >
+      <span
         aria-hidden="true"
-        className="fg-bar-in absolute left-4 top-16 h-[55%] w-4 -skew-x-10 bg-yellow sm:left-7.5 sm:top-22 sm:w-5.5"
-      />
-
-      <Link
-        to="/oyunlar/karyera-yolu"
-        aria-label={tr("Günün oyunçusu: Karyera yolu oyunu")}
-        className="fg-pop-float absolute bottom-3 left-0 w-40 -rotate-4 rounded-2xl border-3 border-yellow bg-surface p-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:.95s] sm:bottom-5 sm:w-52 sm:p-3"
+        className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border-2 border-current ${HERO_FONT} text-[22px] font-bold sm:hidden ${HIGHLIGHT}`}
       >
-        <span className="flex items-center justify-between">
+        ?
+      </span>
+      <span className="min-w-0 flex-1 sm:block">
+        <span className="flex items-center justify-between gap-3">
           <span
-            className={`${FONT} text-lg font-black text-accent sm:text-[22px]`}
-          >
-            #07
-          </span>
-          <span
-            className={`whitespace-nowrap ${FONT} text-[9px] font-extrabold uppercase tracking-[0.04em] text-gold-hi sm:text-[11px] sm:tracking-[0.14em]`}
+            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.16em] sm:text-xs ${HIGHLIGHT}`}
           >
             {tr("Günün oyunçusu")}
           </span>
-        </span>
-        <span className="fg-halftone mt-2 grid h-20 place-items-center rounded-[10px] bg-page-2 sm:h-30">
           <span
-            className={`fg-ping-y grid h-12 w-12 place-items-center rounded-full bg-navy ${FONT} text-2xl font-black text-yellow sm:h-17.5 sm:w-17.5 sm:text-[34px]`}
+            className={`hidden ${HERO_FONT} text-base font-bold text-accent sm:inline`}
           >
-            ?
+            #{day}
           </span>
         </span>
         <span
-          className={`fg-qblink mt-2 block text-center ${FONT} text-base font-black tracking-[0.1em] text-ink sm:mt-2.5 sm:text-xl`}
+          className={`mt-1 block ${FONT} text-lg font-bold text-ink sm:mt-2.5 sm:text-[21px]`}
         >
-          ? ? ? ? ? ?
-        </span>
-      </Link>
-
-      <Link
-        to="/oyunlar/futbol-wordle"
-        aria-label={tr("Futbol Wordle oyununa keç")}
-        className="fg-pop-float absolute right-0 top-0 rotate-5 rounded-2xl bg-surface px-3 py-2.5 shadow-[0_22px_44px_-24px_var(--fg-shadow)] [--d:1.1s] [--f:6s] sm:px-3.5 sm:py-3"
-      >
-        <span
-          className={`block ${FONT} text-[10px] font-extrabold uppercase tracking-[0.14em] text-muted sm:text-[11px]`}
-        >
-          {tr("Wordle · 4/6")}
+          {tr("Bu gün kim gizlənib?")}
         </span>
         <span
-          className={`mt-2 flex gap-1.5 [perspective:300px] ${FONT} text-base font-black sm:text-xl`}
+          aria-hidden="true"
+          className="mt-3.5 hidden grid-cols-6 gap-1.5 sm:grid"
         >
-          {[
-            ["S", "var(--fg-good-lo)"],
-            ["A", "var(--fg-good-lo)"],
-            ["K", "var(--fg-good-lo)"],
-            ["A", "var(--fg-good-lo)"],
-          ].map(([letter, color], i) => (
+          {Array.from({ length: 6 }, (_, i) => (
             <span
               key={i}
-              className="fg-tile fg-flip grid h-7 w-7 place-items-center rounded-md sm:h-8.5 sm:w-8.5"
-              style={{ "--c": color, animationDelay: `${1.6 + i * 0.25}s` }}
+              className={`grid h-9.5 place-items-center rounded-md border border-line/15 ${HERO_FONT} text-base font-bold text-faint`}
             >
-              {letter}
+              ?
             </span>
           ))}
         </span>
-      </Link>
-
-      <Link
-        to="/oyunlar"
-        aria-label={tr("Bütün oyunlar: {n}", { n: GAME_CATALOG.length })}
-        className="fg-pop-float absolute bottom-0 right-2 grid h-24 w-24 place-items-center rounded-full bg-yellow text-center text-on-yellow shadow-[0_20px_40px_-20px_var(--fg-shadow)] [--d:1.25s] [--f:4.6s] sm:right-2.5 sm:h-30 sm:w-30"
-      >
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 160 160"
-          className="fg-spin pointer-events-none absolute -inset-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] overflow-visible sm:-inset-5 sm:h-[calc(100%+2.5rem)] sm:w-[calc(100%+2.5rem)]"
+        <span
+          className={`mt-4 hidden items-center gap-2 ${FONT} text-[15px] font-bold tracking-[0.04em] text-accent sm:inline-flex`}
         >
-          <defs>
-            <path
-              id="fg-ring"
-              d="M80,80 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0"
-            />
-          </defs>
-          <text
-            fontFamily="Roboto Condensed, sans-serif"
-            fontWeight="800"
-            fontSize="11"
-            letterSpacing="2.6"
-            fill="currentColor"
-            className="text-ink"
-          >
-            <textPath href="#fg-ring">
-              {tr("FUTGRID · OYNA · QAZAN · FUTGRID · OYNA · QAZAN ·")}
-            </textPath>
-          </text>
-        </svg>
-        <span className={`relative ${FONT} font-black leading-[0.9]`}>
-          <span className="block text-4xl sm:text-[46px]">
-            {GAME_CATALOG.length}
-          </span>
-          <span className="block text-xs tracking-[0.12em] sm:text-sm">
-            {tr("OYUN")}
-          </span>
+          {tr("Tapmacanı həll et")}
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/daily:translate-x-1" />
         </span>
-      </Link>
+      </span>
+      <span
+        aria-hidden="true"
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-[10px] bg-accent/15 text-accent sm:hidden"
+      >
+        <ArrowRight className="h-4.5 w-4.5" />
+      </span>
+    </Link>
+  );
+}
+
+function HeroStat({ value, label, first = false }) {
+  return (
+    <div
+      className={
+        first ? "pr-6 sm:pr-8" : "border-l border-line/12 px-6 sm:px-8"
+      }
+    >
+      <p
+        className={`${HERO_FONT} text-2xl font-bold leading-none text-ink sm:text-[32px]`}
+      >
+        {value}
+      </p>
+      <p
+        className={`mt-2 ${FONT} text-xs font-semibold uppercase tracking-[0.12em] text-muted sm:text-[13px]`}
+      >
+        {label}
+      </p>
     </div>
   );
 }
 
-function Hero() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const startX = useRef(null);
-
-  const go = (dir) =>
-    setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length);
-
-  useEffect(() => {
-    if (paused) return;
-    const id = setTimeout(() => go(1), AUTOPLAY_MS);
-    return () => clearTimeout(id);
-  }, [index, paused]);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.target.closest?.("input, textarea")) return;
-      if (window.scrollY > window.innerHeight) return;
-      if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "ArrowRight") go(1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  const slide = SLIDES[index];
-  const [first, middle, last] = slide.lines;
-  const longest = Math.max(first.length, middle.length);
-  // Ölçülər ekran hündürlüyünə görə də kiçilir ki, bölmə (lentlər daxil) 100%-də tam görünsün.
-  const titleSize =
-    longest <= 8
-      ? "text-[44px] sm:text-[64px] lg:text-[clamp(52px,10vh,100px)]"
-      : longest <= 10
-        ? "text-[38px] sm:text-[56px] lg:text-[clamp(46px,8.6vh,86px)]"
-        : "text-[32px] sm:text-[46px] lg:text-[clamp(40px,7.2vh,72px)]";
-  const boardSize =
-    last.length <= 8
-      ? "text-[36px] sm:text-[52px] lg:text-[clamp(40px,7.8vh,80px)]"
-      : "text-[30px] sm:text-[42px] lg:text-[clamp(34px,6.4vh,64px)]";
-
+function Hero({ stats }) {
+  const players = stats?.players ?? 20000;
+  const coaches = stats?.coaches ?? 2000;
   return (
-    <section
-      className="relative flex flex-col overflow-hidden bg-page pt-6 md:pt-10 lg:h-[calc(100svh-140px)] lg:min-h-[540px] lg:max-h-[980px] lg:pt-[clamp(0.75rem,3vh,2.5rem)]"
-      aria-roledescription="karusel"
-      aria-label={tr("Əsas slaydlar")}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onPointerDown={(e) => (startX.current = e.clientX)}
-      onPointerUp={(e) => {
-        if (startX.current === null) return;
-        const diff = e.clientX - startX.current;
-        if (Math.abs(diff) > 60) go(diff < 0 ? 1 : -1);
-        startX.current = null;
-      }}
-    >
-      <div
-        aria-hidden="true"
-        className="fg-pitch fg-stripes-move absolute right-0 top-0 hidden h-[calc(100%-9.5rem)] w-[56%] lg:block"
-        style={{ clipPath: "polygon(14% 0, 100% 0, 100% 100%, 0 100%)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 h-[70%] w-full lg:w-1/2"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(45deg, color-mix(in srgb, var(--fg-line) 7%, transparent) 0 1.5px, transparent 1.5px 24px), repeating-linear-gradient(-45deg, color-mix(in srgb, var(--fg-line) 7%, transparent) 0 1.5px, transparent 1.5px 24px)",
-          maskImage: "radial-gradient(ellipse at 25% 35%, #000 0%, transparent 70%)",
-          WebkitMaskImage: "radial-gradient(ellipse at 25% 35%, #000 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="relative mx-auto grid w-full max-w-330 items-center gap-8 px-4 pb-4 md:px-6 lg:min-h-0 lg:flex-1 lg:grid-cols-2 lg:gap-10 lg:pb-2">
-        <div key={index} className="relative z-10 min-w-0">
-          <div className={`fg-fade flex flex-wrap items-center gap-3 ${HERO_FONT} text-xs font-semibold uppercase tracking-[0.16em] sm:text-[13px]`}>
-            <span className="inline-flex items-center gap-2 bg-bad px-3 py-1.5 text-white">
-              <span className="h-2 w-2 rounded-full bg-white shadow-[0_0_0_4px_rgba(255,255,255,.3)] animate-[fgLive_1.4s_ease-out_infinite]" />
-              {tr("Matç günü")}
-            </span>
-            <span className="text-muted">
-              {tr("Raund")} <span className="text-accent">{pad(index + 1)}</span> / {pad(SLIDES.length)}
-            </span>
-            <span className="relative h-0.75 w-20 bg-edge">
-              <span
-                className="fg-prog absolute inset-y-0 left-0 bg-accent"
-                style={{
-                  animationDuration: `${AUTOPLAY_MS}ms`,
-                  animationPlayState: paused ? "paused" : "running",
-                }}
-              />
-            </span>
-          </div>
+    <section aria-label={tr("FutGrid oyunları")} className="relative bg-page">
+      <div className="mx-auto grid w-full max-w-330 items-center gap-10 px-4 pb-12 pt-8 sm:pb-14 md:px-6 md:pt-12 lg:grid-cols-2 lg:gap-14 lg:pb-16 lg:pt-14">
+        <div className="flex min-w-0 flex-col items-start">
+          <p
+            className={`fg-fade inline-flex items-center gap-2.5 rounded-full border border-yellow/35 px-3.5 py-2 ${FONT} text-xs font-bold uppercase tracking-[0.14em] light:border-gold/40 sm:text-[13px] ${HIGHLIGHT}`}
+          >
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 rounded-full bg-current"
+            />
+            {tr("{n} futbol oyunu · Pulsuz", { n: GAME_CATALOG.length })}
+          </p>
 
           <h1
-            className={`mt-5 ${HERO_FONT} ${titleSize} font-bold uppercase leading-[0.92] text-ink lg:mt-[clamp(0.75rem,2.4vh,1.5rem)]`}
+            className={`mt-5 ${FONT} text-[44px] font-extrabold uppercase leading-[0.95] tracking-[-0.01em] text-ink sm:mt-6 sm:text-6xl lg:text-[80px]`}
           >
             <span className="fg-mask">
-              <span className="fg-rise [animation-delay:.15s]">{first}</span>
+              <span className="fg-rise [animation-delay:.1s]">
+                {tr("Fərqli oyunları", null, "hero")}
+              </span>
             </span>
             <span className="fg-mask">
-              <span className="fg-rise text-accent [animation-delay:.3s]">{middle}</span>
-            </span>
-            <span className="fg-mask mt-3 pb-2 lg:mt-[clamp(0.5rem,1.8vh,1rem)]">
-              <span className="fg-rise inline-flex items-center gap-3 rounded-2xl border-3 border-[#2a3557] bg-[#070b16] py-1.5 pl-2.5 pr-5 shadow-[0_0_0_6px_#0b1225,0_30px_60px_-30px_#000] [animation-delay:.45s] sm:gap-4 sm:py-2 sm:pl-3 sm:pr-6">
-                <span
-                  aria-hidden="true"
-                  className={`${HERO_FONT} text-[11px] font-semibold tracking-[0.18em] text-[#8b93a7] [writing-mode:vertical-rl] rotate-180 sm:text-sm`}
-                >
-                  90+2&apos;
-                </span>
-                <span className={`${boardSize} leading-none text-[#ffd23d] [text-shadow:0_0_18px_rgba(255,180,0,.6)]`}>
-                  {last}
-                </span>
+              <span className={`fg-rise [animation-delay:.25s] ${HIGHLIGHT}`}>
+                {tr("kəşf et", null, "hero")}
               </span>
             </span>
           </h1>
 
           <p
-            className={`fg-fade mt-5 ${HERO_FONT} text-sm font-medium uppercase tracking-[0.14em] text-accent [animation-delay:.65s] md:text-lg lg:mt-[clamp(0.75rem,2.6vh,1.5rem)]`}
+            className={`fg-fade mt-5 max-w-130 ${BODY} text-base leading-relaxed text-muted [animation-delay:.35s] sm:mt-6 md:text-[19px]`}
           >
-            {slide.subtitle}
+            {tr(
+              "Futbol Wordle, X0X, Karyera yolu və daha {n} oyun. Tək oyna, dostunla yarış, reytinqdə yüksəl.",
+              { n: GAME_CATALOG.length - 3 },
+            )}
           </p>
 
-          <div className="fg-fade mt-7 flex flex-wrap items-center gap-2.5 [animation-delay:.8s] sm:gap-3.5 lg:mt-[clamp(1rem,3vh,2rem)]">
+          <div className="fg-fade mt-7 grid w-full grid-cols-2 gap-2.5 [animation-delay:.45s] sm:mt-9 sm:flex sm:w-auto sm:flex-wrap sm:gap-3">
             <a
-              href={slide.href}
-              onClick={(e) => jumpTo(e, slide.href)}
-              className={`inline-flex h-12 items-stretch bg-accent ${HERO_FONT} text-sm font-semibold sm:h-14 sm:text-base uppercase tracking-[0.12em] text-white shadow-[0_16px_30px_-14px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] transition-transform duration-200 hover:-translate-y-0.5`}
+              href="#games"
+              onClick={(e) => jumpTo(e, "#games")}
+              className={`inline-flex h-13 items-center justify-center gap-3 rounded-[10px] bg-accent-lo px-5 ${FONT} text-[15px] font-bold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-200 hover:-translate-y-0.5 hover:bg-accent sm:h-14 sm:px-7 sm:text-base`}
             >
-              <span className="flex items-center px-5 sm:px-7">
-                {slide.button}
-              </span>
-              <span className="grid w-12 place-items-center bg-yellow text-on-yellow sm:w-14">
-                <ArrowRight className="fg-nudge h-5 w-5" strokeWidth={2.6} />
-              </span>
+              {tr("İndi oyna")}
+              <ArrowRight className="h-4.5 w-4.5" strokeWidth={2.4} />
             </a>
-            <button
-              type="button"
-              onClick={() => go(-1)}
-              aria-label={tr("Əvvəlki slayd")}
-              className="grid h-12 w-12 place-items-center border-2 border-ink text-ink sm:h-14 sm:w-14 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
+            <Link
+              to="/oyunlar"
+              className={`inline-flex h-13 items-center justify-center rounded-[10px] border border-line/25 px-5 ${FONT} text-[15px] font-bold uppercase tracking-[0.08em] text-ink transition-colors duration-200 hover:border-line/60 sm:h-14 sm:px-7 sm:text-base`}
             >
-              <ChevronLeft className="h-5 w-5" strokeWidth={2.4} />
-            </button>
-            <button
-              type="button"
-              onClick={() => go(1)}
-              aria-label={tr("Növbəti slayd")}
-              className="grid h-12 w-12 place-items-center border-2 border-ink bg-ink sm:h-14 sm:w-14 text-page transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
-            >
-              <ChevronRight className="h-5 w-5" strokeWidth={2.4} />
-            </button>
+              {tr("Bütün oyunlar")}
+            </Link>
+          </div>
+
+          <div className="fg-fade mt-10 hidden flex-wrap [animation-delay:.55s] sm:flex lg:mt-13">
+            <HeroStat first value={GAME_CATALOG.length} label={tr("oyun")} />
+            <HeroStat value={roundDown(players)} label={tr("futbolçu")} />
+            <HeroStat value={roundDown(coaches)} label={tr("məşqçi")} />
           </div>
         </div>
 
-        <HeroCollage index={index} />
+        <div className="relative min-w-0 sm:h-115 lg:h-140">
+          <div
+            aria-hidden="true"
+            className="absolute left-0 top-4.5 z-10 sm:left-3 sm:top-12"
+          >
+            <div className="h-27.5 w-2.5 -skew-x-10 sm:h-47.5 sm:w-3.5">
+              <div className="fg-bar-in h-full w-full bg-yellow" />
+            </div>
+          </div>
+          <div className="fg-frame-in relative h-57.5 overflow-hidden rounded-2xl bg-surface [animation-delay:.2s] sm:absolute sm:inset-y-0 sm:left-10 sm:right-0 sm:h-auto sm:rounded-none sm:[clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
+            <img
+              src={heroPhoto}
+              alt={tr("Stadionda telefonda FutGrid oynayan azarkeş")}
+              fetchpriority="high"
+              decoding="async"
+              className="fg-kb absolute inset-0 h-full w-full object-cover object-[center_40%]"
+            />
+          </div>
+          <DailyCard />
+        </div>
       </div>
 
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-40 z-20 h-9 overflow-hidden md:bottom-44 lg:bottom-40 motion-reduce:hidden">
-        <span className="absolute left-0 top-0 block h-9 w-9 animate-[fgBallRoll_9s_linear_2s_infinite]">
-          <SoccerBall className="h-full w-full animate-[fgBallHop_0.45s_ease-in-out_infinite] drop-shadow-[0_6px_6px_rgba(0,0,0,.45)]" />
-        </span>
+      <div className="overflow-hidden border-y border-line/8 bg-navy">
+        <Marquee
+          items={GAME_CATALOG.map((g) => g.title)}
+          sep={STAR}
+          sepClass="inline-flex text-yellow"
+          className={`py-4 ${FONT} text-sm font-bold uppercase tracking-[0.16em] text-[#dbe4ff]`}
+        />
       </div>
-
-      <Tapes />
     </section>
   );
 }
 
-function Polaroid({ card, index }) {
+const BTN_PRIMARY = `inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] bg-accent-lo px-4 ${FONT} text-sm font-bold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-200 hover:-translate-y-0.5 hover:bg-accent sm:h-14 sm:gap-3 sm:px-7 sm:text-base`;
+const BTN_GHOST = `inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] border border-line/25 px-4 ${FONT} text-sm font-bold uppercase tracking-[0.08em] text-ink transition-colors duration-200 hover:border-line/60 sm:h-14 sm:gap-3 sm:px-7 sm:text-base`;
+const CHIP = `rounded-md bg-line/6 px-2.5 py-1 ${FONT} text-xs font-bold uppercase tracking-[0.08em] text-ink-soft`;
+const CHIP_HOT = `rounded-md bg-accent/15 px-2.5 py-1 ${FONT} text-xs font-bold uppercase tracking-[0.08em] text-accent`;
+const PANEL =
+  "rounded-[18px] border border-line/8 bg-surface shadow-[0_30px_60px_-40px_var(--fg-shadow)]";
+
+const swapToPng = (e) => {
+  const img = e.currentTarget;
+  const png = img.src.replace(/\.webp$/, ".png");
+  if (png !== img.src) img.src = png;
+};
+
+function SectionIntro({ children }) {
   return (
-    <div
+    <p
       data-reveal
-      className={`${REVEAL.up} w-[74%] shrink-0 snap-center sm:w-auto ${index === 1 ? "sm:mt-6" : ""}`}
-      style={{ transitionDelay: `${index * 150}ms` }}
+      className={`${REVEAL.up} mx-auto mt-4 max-w-160 text-center ${BODY} text-base leading-relaxed text-muted md:mt-5 md:text-lg`}
     >
-      <figure
-        className={`group/pol relative m-0 bg-surface p-3 pb-4 shadow-[0_24px_50px_-30px_var(--fg-shadow)] transition-[rotate,translate,box-shadow] duration-500 ease-out hover:-translate-y-3 hover:rotate-0 hover:shadow-[0_40px_60px_-30px_color-mix(in_srgb,var(--fg-accent)_55%,transparent)] ${CARD_TILT[index]}`}
-      >
-        <span
-          aria-hidden="true"
-          className={`absolute -top-3.5 left-1/2 z-10 h-7 w-28 -translate-x-1/2 ${CARD_TAPE[index]}`}
-        />
-        <div className="aspect-4/3 overflow-hidden bg-deep">
-          <img
-            src={card.src}
-            alt={card.alt}
-            loading="lazy"
-            onError={(e) => {
-              const img = e.currentTarget;
-              if (card.fallback && !img.src.endsWith(card.fallback))
-                img.src = card.fallback;
-            }}
-            className="h-full w-full object-cover saturate-[.85] transition-[filter,scale] duration-500 group-hover/pol:scale-105 group-hover/pol:saturate-[1.2]"
-          />
-        </div>
-        <figcaption
-          className={`mt-3 flex items-center justify-between ${FONT} text-[15px] font-extrabold uppercase tracking-[0.08em] text-ink`}
-        >
-          <span>№ {pad(index + 1)}</span>
-          <span className="text-accent">{card.title}</span>
-        </figcaption>
-      </figure>
-    </div>
+      {children}
+    </p>
   );
 }
 
-function StatCard({ stat, index, run }) {
-  const dark = index === 2;
+function StepCard({ step, index }) {
+  const Tag = step.href.startsWith("#") ? "a" : Link;
+  const linkProps = step.href.startsWith("#")
+    ? { href: step.href, onClick: (e) => jumpTo(e, step.href) }
+    : { to: step.href };
+  return (
+    <li
+      data-reveal
+      className={`${REVEAL.up} list-none`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      <Tag
+        {...linkProps}
+        className={`group/step flex h-full items-center gap-4 overflow-hidden p-3 transition-[translate,border-color] duration-300 hover:-translate-y-1 hover:border-accent/50 sm:flex-col sm:items-stretch sm:gap-0 sm:p-0 ${PANEL}`}
+      >
+        <span className="relative block h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-deep sm:aspect-16/10 sm:h-auto sm:w-full sm:rounded-none">
+          <img
+            src={step.image}
+            alt={step.alt}
+            loading="lazy"
+            onError={swapToPng}
+            className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/step:scale-105"
+          />
+          <span
+            className={`absolute left-1.5 top-1.5 grid h-8 w-8 place-items-center rounded-lg bg-yellow ${HERO_FONT} text-sm font-bold text-on-yellow sm:left-4 sm:top-4 sm:h-13 sm:w-13 sm:rounded-[14px] sm:text-[22px]`}
+          >
+            {pad(index + 1)}
+          </span>
+        </span>
+        <span className="flex min-w-0 flex-1 flex-col gap-1.5 sm:gap-2.5 sm:p-6">
+          <span
+            className={`${FONT} text-lg font-bold uppercase leading-tight text-ink sm:text-[26px] sm:leading-none`}
+          >
+            {step.title}
+          </span>
+          <span
+            className={`${BODY} text-sm leading-relaxed text-muted max-sm:line-clamp-3 sm:text-[15px] sm:leading-relaxed`}
+          >
+            {step.text}
+          </span>
+          <span className="mt-auto hidden flex-wrap gap-1.5 pt-2 sm:flex">
+            {step.chips.map((chip) => (
+              <span key={chip.label} className={chip.hot ? CHIP_HOT : CHIP}>
+                {chip.label}
+              </span>
+            ))}
+          </span>
+        </span>
+      </Tag>
+    </li>
+  );
+}
+
+function HowItWorks({ signedIn }) {
+  const more = GAME_CATALOG.length - 4;
+  const steps = [
+    {
+      image: "/images/card2.webp",
+      alt: tr("Soyunma otağında taktika lövhəsi"),
+      title: tr("Oyununu seç"),
+      text: tr(
+        "X0X, Wordle, Karyera yolu, Açıq artırma və daha {n} oyun. Hər birinin öz qaydası və çətinlik səviyyəsi var.",
+        { n: more },
+      ),
+      chips: [
+        { label: tr("{n} oyun", { n: GAME_CATALOG.length }) },
+        { label: tr("Gündəlik tapmacalar") },
+      ],
+      href: "/oyunlar",
+    },
+    {
+      image: "/images/card1.webp",
+      alt: tr("Divanda telefonla oynayan iki dost"),
+      title: tr("Tək və ya dostla oyna"),
+      text: tr(
+        "Bota qarşı məşq et, ya da otaq yaradıb 6 rəqəmli kodu dostuna göndər — eyni anda onlayn yarışın.",
+      ),
+      chips: [
+        { label: tr("Bota qarşı") },
+        { label: tr("Onlayn otaq"), hot: true },
+      ],
+      href: "/oyunlar?filter=duo",
+    },
+    {
+      image: "/images/card3.webp",
+      alt: tr("Stadiona çıxan tunel"),
+      title: tr("Xal topla, reytinqə qalx"),
+      text: tr(
+        "Hesabla oynadığın hər oyun xal gətirir. Həftəlik, aylıq və bütün zamanlar cədvəlində yerini tut.",
+      ),
+      chips: PERIODS.map((p) => ({ label: p.label })),
+      href: "#leaderboard",
+    },
+  ];
+
+  return (
+    <section id="about" className="relative w-full bg-page py-16 md:py-24">
+      <div className="relative mx-auto max-w-330 px-4 md:px-6">
+        <SectionHeading kicker={tr("Necə işləyir")}>
+          {tr("3 addımda")}{" "}
+          <span className={HIGHLIGHT}>{tr("oyuna başla")}</span>
+        </SectionHeading>
+        <SectionIntro>
+          {tr(
+            "Qeydiyyat tələb olunmur — istədiyin oyunu aç və oyna. Hesab yalnız xal toplamaq və reytinqə düşmək üçün lazımdır.",
+          )}
+        </SectionIntro>
+
+        <ol className="mt-9 grid gap-3 p-0 sm:grid-cols-3 sm:gap-5 md:mt-14 lg:gap-6">
+          {steps.map((step, i) => (
+            <StepCard key={step.title} step={step} index={i} />
+          ))}
+        </ol>
+
+        <div
+          data-reveal
+          className={`${REVEAL.up} mt-9 grid grid-cols-2 gap-2.5 sm:flex sm:justify-center sm:gap-3 md:mt-12`}
+        >
+          <a
+            href="#games"
+            onClick={(e) => jumpTo(e, "#games")}
+            className={BTN_PRIMARY}
+          >
+            {tr("Oyunlara bax")}
+            <ArrowRight className="h-4.5 w-4.5" strokeWidth={2.4} />
+          </a>
+          {signedIn ? (
+            <Link to="/oyunlar" className={BTN_GHOST}>
+              {tr("Bütün oyunlar")}
+            </Link>
+          ) : (
+            <Link to="/hesab" className={BTN_GHOST}>
+              {tr("Hesab yarat")}
+            </Link>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const POPULAR = [
+  { key: "x0x", badge: () => tr("Günün cədvəli") },
+  { key: "ortaq" },
+  { key: "auksion" },
+];
+
+function ModeChips({ game }) {
+  const solo = game.tags.includes(tr("Bota qarşı"))
+    ? tr("Bota qarşı")
+    : tr("Tək");
+  return (
+    <span className="flex flex-wrap gap-1.5">
+      {game.modes.includes("solo") && (
+        <span className={`${CHIP} px-2 text-[11px]`}>{solo}</span>
+      )}
+      {game.modes.includes("duo") && (
+        <span className={`${CHIP_HOT} px-2 text-[11px]`}>{tr("Dostla")}</span>
+      )}
+    </span>
+  );
+}
+
+function GameCard({ game, badge, index }) {
+  return (
+    <li
+      data-reveal
+      className={`${REVEAL.up} w-65 shrink-0 snap-start list-none sm:w-auto`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      <Link
+        to={game.href}
+        className={`group/game flex h-full flex-col overflow-hidden transition-[translate,border-color] duration-300 hover:-translate-y-1 hover:border-accent/50 ${PANEL}`}
+      >
+        <span className="relative block aspect-16/10 overflow-hidden bg-deep">
+          <img
+            src={game.image}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-105"
+          />
+          {badge && (
+            <span
+              className={`absolute left-3.5 top-3.5 rounded-md bg-yellow px-2.5 py-1.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.1em] text-on-yellow`}
+            >
+              {badge}
+            </span>
+          )}
+        </span>
+        <span className="flex flex-1 flex-col gap-2 p-5 sm:gap-2.5 sm:px-6 sm:pb-6 sm:pt-5.5">
+          <span
+            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.16em] text-accent sm:text-xs`}
+          >
+            {game.genre}
+          </span>
+          <span
+            className={`${FONT} text-[22px] font-bold uppercase leading-none text-ink sm:text-[26px]`}
+          >
+            {game.title}
+          </span>
+          <span
+            className={`line-clamp-3 ${BODY} text-sm leading-relaxed text-muted sm:text-[15px] sm:leading-relaxed`}
+          >
+            {game.description}
+          </span>
+          <span className="mt-auto flex items-center justify-between gap-3 border-t border-line/8 pt-3.5">
+            <ModeChips game={game} />
+            <span
+              className={`inline-flex shrink-0 items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-widest text-accent`}
+            >
+              {tr("Oyna")}
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/game:translate-x-1" />
+            </span>
+          </span>
+        </span>
+      </Link>
+    </li>
+  );
+}
+
+const ROOM_CODE = ["4", "8", "2", "9", "1", "3"];
+
+function DuelBanner() {
+  const duo = GAME_CATALOG.filter((g) => g.modes.includes("duo"));
   return (
     <div
       data-reveal
-      className={REVEAL.up}
-      style={{ transitionDelay: `${index * 120}ms` }}
+      className={`${REVEAL.up} relative mt-6 grid items-center gap-8 overflow-hidden rounded-[22px] border border-accent/20 bg-navy p-6 text-white sm:p-8 md:mt-8 lg:grid-cols-[1.15fr_1fr] lg:gap-10 lg:px-11 lg:py-10`}
     >
-      <div
-        className={`group relative h-full overflow-hidden border-t-5 px-5 pb-4.5 pt-5.5 transition-[translate,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_40px_-26px_var(--fg-shadow)] ${
-          dark
-            ? "border-yellow bg-navy text-white"
-            : "border-accent bg-surface text-ink"
-        }`}
-      >
-        {dark ? (
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,.025)_0_90px,transparent_90px_180px)]"
+      />
+      <div className="relative min-w-0">
+        <p
+          className={`inline-flex items-center gap-2 ${FONT} text-xs font-bold uppercase tracking-[0.16em] text-yellow sm:text-[13px]`}
+        >
           <span
             aria-hidden="true"
-            className="fg-halftone-w fg-drift absolute inset-y-0 right-0 w-1/2"
+            className="fg-blink h-2 w-2 rounded-full bg-good-hi"
           />
-        ) : (
-          <span
-            aria-hidden="true"
-            className={`absolute -right-1.5 -top-3.5 ${FONT} text-[92px] font-black leading-none text-page transition-[translate,color] duration-500 group-hover:-translate-x-3 group-hover:translate-y-2.5 group-hover:text-accent/10`}
+          {tr("Yeni · Onlayn duel")}
+        </p>
+        <h3
+          className={`mt-3 ${FONT} text-[34px] font-extrabold uppercase leading-none sm:text-[44px]`}
+        >
+          {tr("Dostunu çağır")}
+        </h3>
+        <p
+          className={`mt-3.5 max-w-130 ${BODY} text-[15px] leading-relaxed text-navy-soft sm:text-[17px]`}
+        >
+          {tr(
+            "Otaq yarat, 6 rəqəmli kodu dostuna göndər və eyni anda onlayn yarışın. Hesab açmaq tələb olunmur.",
+          )}
+        </p>
+        <ul className="mt-4.5 hidden flex-wrap gap-1.5 p-0 sm:flex">
+          {duo.map((g) => (
+            <li key={g.key} className="list-none">
+              <Link
+                to={g.href}
+                className={`block rounded-full border border-white/15 px-2.5 py-1 ${FONT} text-[13px] font-semibold text-[#dbe4ff] transition-colors duration-200 hover:border-yellow hover:text-yellow`}
+              >
+                {g.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-6.5 sm:flex sm:flex-wrap sm:gap-3">
+          <Link
+            to="/oyunlar?filter=duo"
+            className={`inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] bg-yellow px-4 ${FONT} text-sm sm:gap-2.5 sm:px-6 sm:text-[15px] font-extrabold uppercase tracking-[0.08em] text-on-yellow transition-[translate,filter] duration-200 hover:-translate-y-0.5 hover:brightness-110`}
           >
-            {stat.label[0]}
-          </span>
-        )}
-        <p
-          className={`relative whitespace-nowrap ${FONT} text-[28px] font-black leading-none sm:text-4xl md:text-5xl lg:text-6xl`}
+            <Plus className="h-4.5 w-4.5" strokeWidth={2.4} />
+            {tr("Otaq yarat")}
+          </Link>
+          <Link
+            to="/oyunlar?filter=duo"
+            className={`inline-flex h-13 items-center justify-center whitespace-nowrap rounded-[10px] border border-white/25 px-4 ${FONT} text-sm sm:px-6 sm:text-[15px] font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:border-white/60`}
+          >
+            {tr("Koda qoşul")}
+          </Link>
+        </div>
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="relative order-first rounded-[18px] border border-white/8 bg-black/35 p-4 sm:p-7 lg:order-none"
+      >
+        <div
+          className={`hidden items-center justify-between ${FONT} text-xs font-bold uppercase tracking-[0.16em] text-navy-soft sm:flex`}
         >
-          <CountUp value={stat.value} run={run} duration={1800} />
-          <span className={dark ? "text-yellow" : "text-accent"}>
-            {stat.suffix}
+          <span>{tr("Otaq kodu")}</span>
+          <span className="text-accent-hi">{GAME_CATALOG[0].title}</span>
+        </div>
+        <div className="grid grid-cols-6 gap-1.5 sm:mt-3.5 sm:gap-2">
+          {ROOM_CODE.map((d, i) => (
+            <span
+              key={i}
+              className={`grid h-12 place-items-center rounded-[10px] border border-white/12 bg-white/5 ${HERO_FONT} text-2xl font-bold sm:h-17 sm:text-[34px]`}
+            >
+              {d}
+            </span>
+          ))}
+        </div>
+        <div className="mt-5.5 hidden items-center gap-3.5 sm:flex">
+          <span
+            className={`grid h-12 w-12 place-items-center rounded-full bg-accent-lo ${FONT} text-base font-extrabold`}
+          >
+            {tr("SƏN")}
           </span>
-        </p>
-        <p
-          className={`relative mt-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.24em] md:text-[13px] ${
-            dark ? "text-yellow" : "text-muted"
-          }`}
-        >
-          {stat.label}
-        </p>
+          <span className={`${FONT} text-xl font-extrabold text-navy-soft`}>
+            VS
+          </span>
+          <span
+            className={`grid h-12 w-12 place-items-center rounded-full border-2 border-dashed border-white/30 ${HERO_FONT} text-xl font-bold text-navy-soft`}
+          >
+            ?
+          </span>
+          <span
+            className={`ml-auto inline-flex items-center gap-2 ${BODY} text-sm text-navy-soft`}
+          >
+            <span className="fg-blink h-2 w-2 rounded-full bg-yellow" />
+            {tr("Rəqib gözlənilir…")}
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
-const coverOf = (key) => GAME_CATALOG.find((g) => g.key === key)?.image;
-
-function PitchLines() {
+function PopularGames() {
+  const games = POPULAR.map((p) => ({
+    game: GAME_CATALOG.find((g) => g.key === p.key),
+    badge: p.badge?.(),
+  })).filter((p) => p.game);
   return (
-    <svg
-      aria-hidden="true"
-      data-reveal
-      viewBox="0 0 1440 900"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-0 h-full w-full"
-    >
-      <g fill="none" stroke="var(--fg-pitch-line)" strokeWidth="3">
-        <line
-          className="fg-draw"
-          pathLength="1"
-          x1="720"
-          y1="0"
-          x2="720"
-          y2="900"
-        />
-        <circle className="fg-draw" pathLength="1" cx="720" cy="450" r="130" />
-        <rect
-          className="fg-draw"
-          pathLength="1"
-          x="-2"
-          y="250"
-          width="180"
-          height="400"
-        />
-        <rect
-          className="fg-draw"
-          pathLength="1"
-          x="1262"
-          y="250"
-          width="180"
-          height="400"
-        />
-      </g>
-    </svg>
-  );
-}
-
-function PlayLabel({ className = "" }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2 ${FONT} text-base font-black uppercase tracking-[0.1em] ${className}`}
-    >
-      {tr("Oyna")}
-      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/game:translate-x-1.5" />
-    </span>
-  );
-}
-
-function FeatureCard({ game }) {
-  return (
-    <div data-reveal className={`${REVEAL.left} h-full`}>
-      <Link
-        to={game.href}
-        className={`fg-sheen group/game flex h-full flex-col bg-surface text-ink ${CARD_SHADOW} ${CARD_HOVER}`}
-      >
-        <div
-          className="relative h-60 shrink-0 overflow-hidden bg-deep sm:h-80 lg:h-auto lg:min-h-0 lg:flex-1 lg:shrink"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 86%, 0 100%)" }}
-        >
-          <img
-            src={coverOf(game.key)}
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
-          />
-          <span
-            className={`fg-bob absolute left-4 top-4 bg-yellow px-3 py-1.5 ${FONT} text-sm font-black uppercase text-on-yellow md:left-5 md:top-5 md:text-base`}
-          >
-            {tr("#01 · Ən populyar")}
-          </span>
-        </div>
-        <div className="flex flex-1 flex-col gap-3 px-5 pb-6 pt-2.5 md:px-7.5 lg:flex-none">
-          <div className="flex flex-wrap gap-2">
-            {game.tags.map((tag) => (
-              <span
-                key={tag}
-                className={`border-[1.5px] border-ink px-2.5 py-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.1em] md:text-xs`}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <h3
-            className={`${FONT} text-4xl font-black uppercase leading-none md:text-5xl`}
-          >
-            {game.title}
-          </h3>
-          <p
-            className={`max-w-lg ${BODY} text-[15px] leading-relaxed text-muted md:text-base`}
-          >
-            {game.description}
-          </p>
-          <span className="mt-auto flex items-center gap-3 pt-1 text-accent">
-            <span className="fg-ping-b grid h-10 w-10 place-items-center bg-accent text-white">
-              <Play className="h-4 w-4 fill-current" />
-            </span>
-            <PlayLabel />
-          </span>
-        </div>
-      </Link>
-    </div>
-  );
-}
-
-function RowCard({ game, index }) {
-  return (
-    <div
-      data-reveal
-      className={`${REVEAL.right} lg:min-h-0 lg:flex-1`}
-      style={{ transitionDelay: "120ms" }}
-    >
-      <Link
-        to={game.href}
-        className={`fg-sheen group/game flex h-full min-h-56 bg-surface text-ink md:min-h-60 lg:min-h-0 ${CARD_SHADOW} ${CARD_HOVER}`}
-      >
-        <div
-          className="relative w-[42%] shrink-0 overflow-hidden bg-deep sm:w-[46%]"
-          style={{ clipPath: "polygon(0 0, 100% 0, 84% 100%, 0 100%)" }}
-        >
-          <img
-            src={coverOf(game.key)}
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-700 ease-out group-hover/game:scale-106"
-          />
-          <span
-            className={`absolute left-3 top-3 bg-surface px-2.5 py-1 ${FONT} text-sm font-black text-ink`}
-          >
-            #{pad(index + 1)}
-          </span>
-        </div>
-        <div className="flex flex-1 flex-col justify-center gap-2 py-5 pl-2 pr-5 md:pr-6">
-          <span
-            className={`${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-accent md:text-xs`}
-          >
-            {game.tags.join(" · ")}
-          </span>
-          <h3
-            className={`${FONT} text-2xl font-black uppercase leading-none md:text-[32px]`}
-          >
-            {game.title}
-          </h3>
-          <p
-            className={`${BODY} text-sm leading-relaxed text-muted md:text-[15px]`}
-          >
-            {game.description}
-          </p>
-          <PlayLabel className="text-accent" />
-        </div>
-      </Link>
-    </div>
-  );
-}
-
-function AuctionCard({ game }) {
-  const [broken, setBroken] = useState(false);
-  const image = coverOf(game.key);
-  const hasImage = image && !broken;
-  return (
-    <div
-      data-reveal
-      className={`${REVEAL.right} lg:min-h-0 lg:flex-1`}
-      style={{ transitionDelay: "240ms" }}
-    >
-      <Link
-        to={game.href}
-        className={`fg-sheen group/game flex h-full min-h-56 flex-col bg-navy text-white sm:flex-row md:min-h-60 lg:min-h-0 ${CARD_SHADOW} ${CARD_HOVER}`}
-      >
-        {hasImage ? (
-          <div className="relative aspect-16/10 w-full shrink-0 overflow-hidden bg-navy sm:aspect-auto sm:w-[56%] sm:[clip-path:polygon(0_0,100%_0,90%_100%,0_100%)]">
-            <img
-              src={image}
-              alt=""
-              loading="lazy"
-              onError={() => setBroken(true)}
-              className="absolute inset-0 h-full w-full object-cover object-[70%_50%] transition-[scale] duration-700 ease-out group-hover/game:scale-105"
-            />
-            <span
-              className={`absolute left-3 top-3 bg-yellow px-2.5 py-1 ${FONT} text-sm font-black text-on-yellow`}
+    <section id="games" className="relative w-full bg-page py-16 md:py-24">
+      <div className="relative mx-auto max-w-330 px-4 md:px-6">
+        <div className="flex flex-wrap items-end justify-between gap-x-5 gap-y-3">
+          <SectionHeading kicker={tr("İndi kəşf et")} center={false}>
+            {tr("Populyar oyunlar")}
+          </SectionHeading>
+          <div data-reveal className={REVEAL.up}>
+            <Link
+              to="/oyunlar"
+              className={`group/all inline-flex h-12 items-center gap-2.5 ${FONT} text-[15px] font-bold uppercase tracking-[0.08em] text-accent transition-colors hover:text-accent-hi md:text-base`}
             >
-              #03
-            </span>
+              {tr("Bütün {n} oyun", { n: GAME_CATALOG.length })}
+              <ArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover/all:translate-x-1" />
+            </Link>
           </div>
-        ) : (
-          <div className="relative grid h-48 shrink-0 place-items-center sm:h-auto sm:w-[42%]">
-            <span className="fg-ping-y grid h-24 w-24 place-items-center rounded-full border-3 border-yellow md:h-30 md:w-30">
-              <Gavel
-                className="fg-gavel h-11 w-11 text-yellow md:h-14 md:w-14"
-                strokeWidth={1.8}
-              />
-            </span>
-          </div>
-        )}
-        <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-2 border-t-4 border-yellow px-5 py-5 sm:border-t-0 sm:py-5 sm:pl-2 sm:pr-5 md:pr-6">
-          <span
-            aria-hidden="true"
-            className="fg-halftone-w fg-drift pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          />
-          <span
-            className={`relative ${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-yellow md:text-xs`}
-          >
-            {game.tags.join(" · ")}
-          </span>
-          <h3
-            className={`relative ${FONT} text-2xl font-black uppercase leading-none md:text-[28px] xl:text-[32px]`}
-          >
-            {game.title}
-          </h3>
-          <p
-            className={`relative ${BODY} text-sm leading-relaxed text-navy-soft sm:line-clamp-3 md:text-[15px]`}
-          >
-            {game.description}
-          </p>
-          <PlayLabel className="relative text-yellow" />
         </div>
-      </Link>
+
+        <ul className="-mx-4 mt-7 flex snap-x snap-mandatory gap-3.5 overflow-x-auto scroll-px-4 px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:mt-10 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-6 [&::-webkit-scrollbar]:hidden">
+          {games.map(({ game, badge }, i) => (
+            <GameCard key={game.key} game={game} badge={badge} index={i} />
+          ))}
+        </ul>
+
+        <DuelBanner />
+      </div>
+    </section>
+  );
+}
+
+const PEDESTALS = [
+  {
+    place: 2,
+    avatar:
+      "h-14 w-14 border-slate-400/60 text-slate-500 dark:text-slate-300 text-[22px]",
+    label: "text-muted",
+    block:
+      "h-24 sm:h-30 border-slate-400/30 bg-linear-to-b from-slate-400/25 to-slate-400/5 text-slate-500 dark:text-slate-300 text-4xl sm:text-[44px]",
+  },
+  {
+    place: 1,
+    avatar: `h-15 w-15 sm:h-17 sm:w-17 border-current text-[26px] ${HIGHLIGHT}`,
+    label: HIGHLIGHT,
+    block: `h-34 sm:h-42.5 border-yellow/40 bg-linear-to-b from-yellow/30 to-yellow/5 text-5xl sm:text-[56px] ${HIGHLIGHT}`,
+  },
+  {
+    place: 3,
+    avatar:
+      "h-14 w-14 border-orange-400/60 text-orange-600 dark:text-orange-300 text-[22px]",
+    label: "text-muted",
+    block:
+      "h-18 sm:h-22.5 border-orange-400/35 bg-linear-to-b from-orange-400/25 to-orange-400/5 text-orange-600 dark:text-orange-300 text-3xl sm:text-[38px]",
+  },
+];
+
+const PODIUM_TITLE = {
+  week: () => tr("Bu həftənin podiumu"),
+  month: () => tr("Bu ayın podiumu"),
+  all: () => tr("Bütün zamanların podiumu"),
+};
+
+function EmptyPodium({ period }) {
+  return (
+    <div
+      className={`relative flex flex-col overflow-hidden px-5 pt-6 sm:px-8 sm:pt-8 ${PANEL}`}
+    >
+      <p
+        className={`${FONT} text-[13px] font-bold uppercase tracking-[0.16em] text-muted`}
+      >
+        {PODIUM_TITLE[period]()}
+      </p>
+      <p className={`mt-1.5 ${FONT} text-xl font-bold text-ink sm:text-2xl`}>
+        {tr("Hələ heç kim xal toplamayıb —")}{" "}
+        <span className={HIGHLIGHT}>{tr("ilk sən ol")}</span>
+      </p>
+      <div
+        aria-hidden="true"
+        className="mt-auto grid grid-cols-3 items-end gap-2.5 pt-8 sm:gap-3 sm:pt-9"
+      >
+        {PEDESTALS.map((p) => (
+          <div
+            key={p.place}
+            className="flex min-w-0 flex-col items-center gap-2.5"
+          >
+            {p.place === 1 && (
+              <Crown className={`h-7 w-7 ${HIGHLIGHT}`} strokeWidth={2} />
+            )}
+            <span
+              className={`grid place-items-center rounded-full border-2 border-dashed ${HERO_FONT} font-bold ${p.avatar}`}
+            >
+              ?
+            </span>
+            <span
+              className={`text-center ${FONT} text-xs font-bold uppercase tracking-[0.08em] sm:text-sm ${p.label}`}
+            >
+              {p.place === 1 ? tr("Sən ola bilərsən") : tr("Boş yer")}
+            </span>
+            <div
+              className={`flex w-full justify-center rounded-t-xl border border-b-0 pt-3 ${HERO_FONT} font-bold leading-none sm:pt-3.5 ${p.block}`}
+            >
+              {p.place}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HowToScore({ signedIn }) {
+  const rows = [
+    {
+      Icon: User,
+      tone: "bg-accent/15 text-accent",
+      title: tr("Pulsuz hesab aç"),
+      text: tr(
+        "Daxil olmadan da oynaya bilərsən, amma xal yalnız hesaba yazılır.",
+      ),
+    },
+    {
+      Icon: Trophy,
+      tone: "bg-accent/15 text-accent",
+      title: tr("Oyna və qazan"),
+      text: tr(
+        "Hesabla oynadığın oyunların nəticəsi avtomatik olaraq xal kimi cədvələ düşür.",
+      ),
+    },
+    {
+      Icon: CalendarDays,
+      tone: `bg-yellow/15 ${HIGHLIGHT}`,
+      title: tr("Hər həftə yeni şans"),
+      text: tr(
+        "Həftəlik cədvəl hər bazar ertəsi yenilənir — hər həftə liderliyə qalxmaq olar.",
+      ),
+    },
+  ];
+  return (
+    <div className={`flex flex-col p-5 sm:p-8 ${PANEL}`}>
+      <p
+        className={`${FONT} text-[13px] font-bold uppercase tracking-[0.16em] text-muted`}
+      >
+        {tr("Necə xal toplamaq olar?")}
+      </p>
+      <ul className="mt-3 flex flex-col p-0 sm:mt-5">
+        {rows.map(({ Icon, tone, title, text }) => (
+          <li
+            key={title}
+            className="flex list-none gap-4 border-b border-line/6 py-3.5 last:border-b-0"
+          >
+            <span
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${tone}`}
+            >
+              <Icon className="h-5 w-5" strokeWidth={1.8} />
+            </span>
+            <span className="min-w-0">
+              <span
+                className={`block ${FONT} text-[17px] font-bold uppercase text-ink sm:text-[19px]`}
+              >
+                {title}
+              </span>
+              <span
+                className={`mt-1 block ${BODY} text-sm leading-normal text-muted sm:text-[15px]`}
+              >
+                {text}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-auto grid grid-cols-2 gap-2.5 pt-5 sm:flex sm:gap-3 sm:pt-6">
+        {signedIn ? (
+          <Link to="/oyunlar" className={BTN_PRIMARY}>
+            {tr("Bütün oyunlar")}
+          </Link>
+        ) : (
+          <Link to="/hesab" className={BTN_PRIMARY}>
+            {tr("Hesab yarat")}
+          </Link>
+        )}
+        <a
+          href="#games"
+          onClick={(e) => jumpTo(e, "#games")}
+          className={BTN_GHOST}
+        >
+          {tr("İndi oyna")}
+        </a>
+      </div>
     </div>
   );
 }
@@ -1606,19 +1231,12 @@ function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex h-full flex-col">
       <div className="flex items-end justify-between gap-4">
-        <div>
-          <p
-            className={`${FONT} text-xs font-extrabold uppercase tracking-[0.2em] text-accent`}
-          >
-            {tr("Forma")}
-          </p>
-          <h3
-            className={`mt-1 ${FONT} text-3xl font-black uppercase leading-none text-ink md:text-[34px]`}
-          >
-            {tr("Bizə yaz")}
-          </h3>
-        </div>
-        <div className="text-right">
+        <p
+          className={`max-w-sm ${BODY} text-[15px] leading-relaxed text-muted`}
+        >
+          {tr("Ad, e-poçt və mesajını yaz — ən qısa zamanda cavab verəcəyik.")}
+        </p>
+        <div className="shrink-0 text-right">
           <p
             className={`${FONT} text-[11px] font-bold uppercase tracking-[0.2em] text-faint`}
           >
@@ -1790,14 +1408,13 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
+  const { user } = useAuth();
+  const signedIn = Boolean(user);
   const rootRef = useRef(null);
-  const statsRef = useRef(null);
   const panelRef = useRef(null);
-  const statsIn = useInView(statsRef, 0.3);
   const lbInView = useInView(panelRef, 0.15);
 
   useReveal(rootRef);
-  useParallax(rootRef);
 
   useEffect(() => {
     if (!lbInView) return;
@@ -1820,117 +1437,20 @@ export default function Home() {
   const rows = [...(livePlayers ?? [])]
     .sort((a, b) => b.points[period] - a.points[period])
     .map((p) => ({ ...p, points: { ...p.points, value: p.points[period] } }));
-  const periodIndex = PERIODS.findIndex((p) => p.key === period);
-  const statValues = homeStats
-    ? [
-        homeStats.players,
-        homeStats.clubs,
-        homeStats.countries,
-        homeStats.coaches,
-      ]
-    : null;
-  const displayStats = STATS.map((stat, index) => ({
-    ...stat,
-    value: statValues?.[index] ?? stat.value,
-  }));
-
   return (
     <div ref={rootRef} className="w-full overflow-x-clip bg-page">
       <style>{KEYFRAMES}</style>
 
-      <Hero />
+      <Hero stats={homeStats} />
 
-      <section
-        id="about"
-        className="relative w-full overflow-hidden bg-page py-20 md:py-28"
-      >
-        <BigNumber n="01" side="-left-2.5" />
+      <HowItWorks signedIn={signedIn} />
 
-        <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <SectionHeading kicker={tr("Futbol bilikini sına")}>
-            {tr("Taktiki oyunlar")} <span className="text-accent">&amp;</span>{" "}
-            {tr("strategiya")}
-          </SectionHeading>
-
-          <div className="-mx-4 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-8 pt-5 [scrollbar-width:none] sm:mx-0 sm:mt-12 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 md:mt-14 lg:gap-7 [&::-webkit-scrollbar]:hidden">
-            {CARDS.map((card, i) => (
-              <Polaroid key={card.src} card={card} index={i} />
-            ))}
-          </div>
-
-          <div
-            ref={statsRef}
-            className="mt-16 grid grid-cols-2 gap-3 md:mt-20 md:grid-cols-4 md:gap-4.5"
-          >
-            {displayStats.map((s, i) => (
-              <StatCard key={s.label} stat={s} index={i} run={statsIn} />
-            ))}
-          </div>
-
-          <div
-            data-reveal
-            className={`${REVEAL.up} mx-auto mt-12 max-w-3xl text-center md:mt-14`}
-          >
-            <p
-              className={`${BODY} text-base leading-8 text-muted md:text-[19px] md:leading-9`}
-            >
-              {tr(
-                "FutGrid oyun həvəskarları üçün taktiki oyunların, reytinq cədvəllərinin və turnirlərin bir yerdə toplandığı platformadır. Komandanı qur, rəqiblərinlə yarış və səviyyəni hər gün yüksəlt.",
-              )}
-            </p>
-            <a
-              href="#games"
-              onClick={(e) => jumpTo(e, "#games")}
-              className={`group/btn mt-7 inline-flex h-13.5 items-center gap-2.5 bg-navy px-8 ${FONT} text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent md:px-9 md:text-base`}
-            >
-              {tr("Oyunlara bax")}
-              <ArrowRight className="h-4 w-4 text-yellow transition-transform duration-300 group-hover/btn:translate-x-1.5" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="games"
-        className="fg-pitch relative w-full overflow-hidden py-16 md:py-20"
-      >
-        <PitchLines />
-        <BigNumber n="02" side="-right-2.5" />
-
-        <div className="relative mx-auto max-w-330 px-4 md:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-5">
-            <SectionHeading kicker={tr("İndi kəşf et")} center={false}>
-              {tr("Populyar oyunlar")}
-            </SectionHeading>
-            <div data-reveal className={REVEAL.up}>
-              <Link
-                to="/oyunlar"
-                className={`group/btn inline-flex h-13.5 items-center gap-3 bg-navy pl-6 pr-2.5 ${FONT} text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-[translate,background-color] duration-300 hover:-translate-y-0.5 hover:bg-accent md:text-base`}
-              >
-                {tr("Daha çox oyun")}
-                <span className="fg-ping-y grid h-8.5 min-w-8.5 place-items-center bg-yellow px-1 font-black text-on-yellow">
-                  {GAME_CATALOG.length}
-                </span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
-            <FeatureCard game={GAMES[0]} />
-            <div className="flex min-w-0 flex-col gap-6 lg:h-140">
-              <RowCard game={GAMES[1]} index={1} />
-              <AuctionCard game={GAMES[2]} />
-            </div>
-          </div>
-        </div>
-      </section>
+      <PopularGames />
 
       <section
         id="leaderboard"
         className="relative w-full overflow-hidden bg-page py-20 md:py-28"
       >
-        <BigNumber n="03" side="-left-2.5" />
-
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
           <SectionHeading kicker={tr("Ən yaxşılar")}>
             {tr("Reytinq cədvəli")}
@@ -1939,18 +1459,13 @@ export default function Home() {
           <div
             data-reveal
             className={`${REVEAL.up} mt-7 flex justify-center`}
-            style={{ transitionDelay: "200ms" }}
+            style={{ transitionDelay: "150ms" }}
           >
             <div
-              className="relative grid grid-cols-3 border border-edge bg-surface p-1"
+              className="flex gap-1 rounded-full border border-line/8 bg-surface p-1"
               role="tablist"
               aria-label={tr("Dövr")}
             >
-              <span
-                aria-hidden="true"
-                className="absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] bg-navy transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.3,1.15)]"
-                style={{ transform: `translateX(${periodIndex * 100}%)` }}
-              />
               {PERIODS.map((p) => {
                 const on = period === p.key;
                 return (
@@ -1960,16 +1475,12 @@ export default function Home() {
                     role="tab"
                     aria-selected={on}
                     onClick={() => changePeriod(p.key)}
-                    className={`relative z-10 flex items-center justify-center gap-2 px-3 py-2.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.08em] transition-colors duration-300 sm:px-5 md:px-6 md:text-base ${
-                      on ? "text-white" : "text-ink hover:bg-page"
+                    className={`h-10 rounded-full px-3.5 ${FONT} text-[13px] font-bold uppercase tracking-[0.08em] transition-colors duration-300 sm:h-11 sm:px-5.5 sm:text-sm ${
+                      on
+                        ? "bg-accent-lo text-white"
+                        : "text-muted hover:text-ink"
                     }`}
                   >
-                    {on && (
-                      <span
-                        aria-hidden="true"
-                        className="fg-blink h-2 w-2 rounded-full bg-good"
-                      />
-                    )}
                     {p.label}
                   </button>
                 );
@@ -1977,107 +1488,118 @@ export default function Home() {
             </div>
           </div>
 
-          <div
-            ref={panelRef}
-            className="mt-10 grid gap-6 md:mt-11 lg:grid-cols-[1fr_1.3fr] lg:items-start"
-          >
-            <div className="flex flex-col gap-4">
-              {rows.slice(0, 3).map((player, rank) => (
-                <TopCard
-                  key={player.name}
-                  player={player}
-                  rank={rank}
-                  run={rowsIn}
-                />
-              ))}
+          {rows.length === 0 ? (
+            <div
+              ref={panelRef}
+              data-reveal
+              className={`${REVEAL.up} mt-8 grid gap-4 md:mt-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6`}
+            >
+              <EmptyPodium period={period} />
+              <HowToScore signedIn={signedIn} />
             </div>
-
-            <div className="overflow-hidden border border-edge bg-surface">
-              <div
-                className={`grid grid-cols-[32px_1fr_auto] items-center gap-3 border-b-2 border-ink px-4 py-3.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.16em] text-muted md:grid-cols-[44px_1fr_140px_80px] md:px-5.5`}
-              >
-                <span>#</span>
-                <span>{tr("Oyunçu")}</span>
-                <span className="hidden md:block">{tr("Komanda")}</span>
-                <span className="text-right">{tr("Xal")}</span>
+          ) : (
+            <div
+              ref={panelRef}
+              className="mt-10 grid gap-6 md:mt-11 lg:grid-cols-[1fr_1.3fr] lg:items-start"
+            >
+              <div className="flex flex-col gap-4">
+                {rows.slice(0, 3).map((player, rank) => (
+                  <TopCard
+                    key={player.name}
+                    player={player}
+                    rank={rank}
+                    run={rowsIn}
+                  />
+                ))}
               </div>
 
-              {rows.length === 0 ? (
-                <p className={`px-4 py-8 text-center ${FONT} text-sm text-muted`}>
-                  {tr("Hələ reytinq nəticəsi yoxdur. İlk oyunu oyna və cədvəldə görün.")}
-                </p>
-              ) : null}
+              <div className="overflow-hidden border border-edge bg-surface">
+                <div
+                  className={`grid grid-cols-[32px_1fr_auto] items-center gap-3 border-b-2 border-ink px-4 py-3.5 ${FONT} text-xs font-extrabold uppercase tracking-[0.16em] text-muted md:grid-cols-[44px_1fr_140px_80px] md:px-5.5`}
+                >
+                  <span>#</span>
+                  <span>{tr("Oyunçu")}</span>
+                  <span className="hidden md:block">{tr("Komanda")}</span>
+                  <span className="text-right">{tr("Xal")}</span>
+                </div>
 
-              {rows.slice(3).map((player, j) => {
-                const i = j + 3;
-                return (
-                  <div
-                    key={player.name}
-                    className={`border-b border-page-2 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
-                      rowsIn
-                        ? "translate-x-0 opacity-100 duration-500"
-                        : "translate-x-6 opacity-0 duration-0"
-                    }`}
-                    style={{
-                      transitionDelay: rowsIn ? `${400 + j * 70}ms` : "0ms",
-                    }}
-                  >
-                    <div className="group grid grid-cols-[32px_1fr_auto] items-center gap-3 px-4 py-3 transition-[background-color,box-shadow] duration-200 hover:bg-accent/5 hover:shadow-[inset_4px_0_0_var(--fg-accent)] md:grid-cols-[44px_1fr_140px_80px] md:px-5.5">
-                      <span
-                        className={`${FONT} text-sm font-black text-muted transition-colors duration-200 group-hover:text-accent`}
-                      >
-                        {pad(i + 1)}
-                      </span>
-                      <div className="flex min-w-0 items-center gap-3">
-                        {player.avatarUrl ? (
-                          <img src={player.avatarUrl} alt="" className="h-8.5 w-8.5 shrink-0 rounded-full object-cover" />
-                        ) : (
-                          <span
-                            className={`grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full ${FONT} text-[13px] font-black ${avatarOf(player)}`}
-                          >
-                            {initials(player.name)}
-                          </span>
-                        )}
-                        <div className="min-w-0">
-                          <p
-                            className={`truncate ${FONT} text-base font-extrabold uppercase text-ink md:text-[17px]`}
-                          >
-                            {player.name}
-                          </p>
-                          <p
-                            className={`truncate ${BODY} text-xs text-muted md:hidden`}
-                          >
-                            {player.team}
-                          </p>
+                {rows.slice(3).map((player, j) => {
+                  const i = j + 3;
+                  return (
+                    <div
+                      key={player.name}
+                      className={`border-b border-page-2 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
+                        rowsIn
+                          ? "translate-x-0 opacity-100 duration-500"
+                          : "translate-x-6 opacity-0 duration-0"
+                      }`}
+                      style={{
+                        transitionDelay: rowsIn ? `${400 + j * 70}ms` : "0ms",
+                      }}
+                    >
+                      <div className="group grid grid-cols-[32px_1fr_auto] items-center gap-3 px-4 py-3 transition-[background-color,box-shadow] duration-200 hover:bg-accent/5 hover:shadow-[inset_4px_0_0_var(--fg-accent)] md:grid-cols-[44px_1fr_140px_80px] md:px-5.5">
+                        <span
+                          className={`${FONT} text-sm font-black text-muted transition-colors duration-200 group-hover:text-accent`}
+                        >
+                          {pad(i + 1)}
+                        </span>
+                        <div className="flex min-w-0 items-center gap-3">
+                          {player.avatarUrl ? (
+                            <img
+                              src={player.avatarUrl}
+                              alt=""
+                              className="h-8.5 w-8.5 shrink-0 rounded-full object-cover"
+                            />
+                          ) : (
+                            <span
+                              className={`grid h-8.5 w-8.5 shrink-0 place-items-center rounded-full ${FONT} text-[13px] font-black ${avatarOf(player)}`}
+                            >
+                              {initials(player.name)}
+                            </span>
+                          )}
+                          <div className="min-w-0">
+                            <p
+                              className={`truncate ${FONT} text-base font-extrabold uppercase text-ink md:text-[17px]`}
+                            >
+                              {player.name}
+                            </p>
+                            <p
+                              className={`truncate ${BODY} text-xs text-muted md:hidden`}
+                            >
+                              {player.team}
+                            </p>
+                          </div>
                         </div>
+                        <span
+                          className={`hidden truncate ${BODY} text-sm text-muted md:block`}
+                        >
+                          {player.team}
+                        </span>
+                        <span
+                          className={`text-right ${FONT} text-lg font-black text-ink md:text-[19px]`}
+                        >
+                          <CountUp
+                            value={player.points.value}
+                            run={rowsIn}
+                            duration={900}
+                          />
+                        </span>
                       </div>
-                      <span
-                        className={`hidden truncate ${BODY} text-sm text-muted md:block`}
-                      >
-                        {player.team}
-                      </span>
-                      <span
-                        className={`text-right ${FONT} text-lg font-black text-ink md:text-[19px]`}
-                      >
-                        <CountUp
-                          value={player.points.value}
-                          run={rowsIn}
-                          duration={900}
-                        />
-                      </span>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
-          <p
-            className={`mt-5 flex items-center justify-center gap-2 ${BODY} text-xs text-muted`}
-          >
-            <Trophy className="h-3.5 w-3.5 text-gold" />
-            {tr("Reytinq hər həftə bazar ertəsi yenilənir")}
-          </p>
+          {rows.length > 0 && (
+            <p
+              className={`mt-5 flex items-center justify-center gap-2 ${BODY} text-xs text-muted`}
+            >
+              <Trophy className="h-3.5 w-3.5 text-gold" />
+              {tr("Reytinq hər həftə bazar ertəsi yenilənir")}
+            </p>
+          )}
         </div>
       </section>
 
@@ -2087,7 +1609,7 @@ export default function Home() {
       >
         <div className="relative mx-auto max-w-330 px-4 md:px-6">
           <SectionHeading kicker={tr("Bizimlə əlaqə")}>
-            {tr("Mesaj göndər")}
+            {tr("Bizə yaz")}
           </SectionHeading>
 
           <div
@@ -2106,15 +1628,10 @@ export default function Home() {
                   <p
                     className={`${FONT} text-[13px] font-extrabold uppercase tracking-[0.2em] text-yellow`}
                   >
-                    {tr("Əlaqə")}
+                    {tr("Əlaqə məlumatları")}
                   </p>
-                  <h3
-                    className={`mt-2 ${FONT} text-3xl font-black uppercase leading-none md:text-[40px]`}
-                  >
-                    {tr("Anketini yolla")}
-                  </h3>
                   <p
-                    className={`mt-3 max-w-xs ${BODY} text-[15px] leading-relaxed text-white/80`}
+                    className={`mt-3 max-w-xs ${BODY} text-[15px] leading-relaxed text-white/85`}
                   >
                     {tr(
                       "Sualın, təklifin və ya ideyan var? Bizə yaz, hər mesajı oxuyub cavab veririk.",
@@ -2128,8 +1645,14 @@ export default function Home() {
                         <Tag
                           key={label}
                           href={href}
-                          target={href?.startsWith("http") ? "_blank" : undefined}
-                          rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                          target={
+                            href?.startsWith("http") ? "_blank" : undefined
+                          }
+                          rel={
+                            href?.startsWith("http")
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
                           className="group flex items-center gap-3.5"
                         >
                           <span className="grid h-11 w-11 shrink-0 place-items-center bg-white/15 transition-[background-color,color,rotate] duration-300 group-hover:-rotate-8 group-hover:bg-yellow group-hover:text-on-yellow">
@@ -2163,12 +1686,11 @@ export default function Home() {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    {SOCIALS.map(({ Icon, href, label }) => (
+                    {SOCIAL_LINKS.map(({ key, Icon, href, label }) => (
                       <a
-                        key={label}
+                        key={key}
                         href={href}
-                        target={href?.startsWith("http") ? "_blank" : undefined}
-                        rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                        {...externalProps(href)}
                         aria-label={label}
                         className="grid h-9 w-9 place-items-center border border-white/30 transition-[translate,background-color,color] duration-300 hover:-translate-y-1 hover:bg-yellow hover:text-on-yellow"
                       >

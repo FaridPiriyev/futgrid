@@ -1,6 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { Bell, Play, Search, Sparkles, User, Users, X, Type, Route, Shirt, Link2, ListOrdered, Triangle, Crown, Keyboard, HelpCircle, Grid3x3 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  ArrowRight,
+  Play,
+  Search,
+  Sparkles,
+  User,
+  Users,
+  X,
+  Type,
+  Route,
+  Shirt,
+  Link2,
+  ListOrdered,
+  Triangle,
+  Crown,
+  Keyboard,
+  HelpCircle,
+  Grid3x3,
+} from "lucide-react";
 import { GAME_CATALOG } from "../lib/games/catalog";
 import { norm, prefetchData } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
@@ -12,45 +30,31 @@ const BODY = "font-['Roboto',sans-serif]";
 const BACKGROUND = "/images/background_games.jpg";
 
 const STYLE = `
-@keyframes agIn { from { opacity: 0; transform: translateY(28px) scale(.97); } to { opacity: 1; transform: none; } }
-@keyframes agUp { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes agIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 @keyframes agFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-@keyframes agLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes agGrid { from { background-position: 0 0; } to { background-position: 0 48px; } }
-@keyframes agDrift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.15); } }
-@keyframes agShine { 0% { transform: translateX(0) skewX(-14deg); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateX(480%) skewX(-14deg); opacity: 0; } }
-@keyframes agBlink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
-@keyframes agPulse { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
 `;
 
-const SHINE =
-  "pointer-events-none absolute inset-y-0 -left-1/3 z-10 w-1/3 bg-linear-to-r from-transparent via-line/25 to-transparent opacity-0";
-
-const canTilt = () =>
-  window.matchMedia(
-    "(hover: hover) and (min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-  ).matches;
-
-function ModeIcons({ modes }) {
-  return (
-    <span className="hidden shrink-0 items-center gap-1 text-faint sm:flex">
-      {modes.includes("solo") && (
-        <span title={tr("Tək oyunçu")}>
-          <User className="h-3.5 w-3.5" />
-        </span>
-      )}
-      {modes.includes("duo") && (
-        <span title={tr("2 oyunçu")}>
-          <Users className="h-3.5 w-3.5" />
-        </span>
-      )}
-    </span>
-  );
-}
+const FILTERS = [
+  { key: "all", get label() {
+    return tr("Hamısı");
+  }, test: () => true },
+  { key: "solo", get label() {
+    return tr("Tək oyunçu");
+  }, test: (g) => g.modes.includes("solo") },
+  { key: "duo", get label() {
+    return tr("Dostla");
+  }, test: (g) => g.modes.includes("duo") },
+  { key: "new", get label() {
+    return tr("Yeni");
+  }, test: (g) => g.isNew },
+];
 
 const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle, goat: Crown, ikiherf: Keyboard, sual: HelpCircle, sekil: Grid3x3 };
 
-function Cover({ game, soon }) {
+// "Tək oyunçu" və "2 oyunçu" teqləri kartda artıq rejim çipi kimi göstərilir, təkrarlanmasın.
+const isModeTag = (tag) => tag === tr("Tək oyunçu") || tag === tr("2 oyunçu");
+
+function Cover({ game }) {
   const [broken, setBroken] = useState(false);
   if (game.art === "auction")
     return (
@@ -60,7 +64,7 @@ function Cover({ game, soon }) {
     const Icon = COVER_ICONS[game.key] ?? Play;
     return (
       <div className="absolute inset-0 grid place-items-center bg-surface-2">
-        <Icon className="h-10 w-10 text-accent/70 transition-transform duration-500 group-hover/tile:scale-110" strokeWidth={1.5} />
+        <Icon className="h-10 w-10 text-accent/70" strokeWidth={1.5} />
       </div>
     );
   }
@@ -69,124 +73,124 @@ function Cover({ game, soon }) {
       src={game.image}
       alt=""
       loading="lazy"
+      decoding="async"
       onError={() => setBroken(true)}
-      className={`absolute inset-0 h-full w-full object-cover transition-[transform,filter] duration-700 ease-out group-hover/tile:scale-110 ${
-        soon ? "brightness-75 grayscale-[0.7] group-hover/tile:grayscale-0" : ""
-      }`}
+      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover/tile:scale-105"
     />
   );
 }
 
-function GameTile({ game, index }) {
-  const ref = useRef(null);
-  const soon = game.status === "soon";
-
-  const onMove = (e) => {
-    if (!canTilt()) return;
-    const el = ref.current;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(1000px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg) translateY(-6px)`;
-    el.style.setProperty("--mx", `${((x + 0.5) * 100).toFixed(1)}%`);
-    el.style.setProperty("--my", `${((y + 0.5) * 100).toFixed(1)}%`);
-  };
-  const onLeave = () => {
-    ref.current.style.transform = "";
-  };
-
+function ModeChips({ modes }) {
   return (
-    <div
-      className="h-full animate-[agIn_0.6s_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none"
-      style={{ animationDelay: `${index * 45}ms` }}
-    >
-      <Link
-        ref={ref}
-        to={game.href}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        title={game.description}
-        className="group/tile relative flex h-full flex-col overflow-hidden rounded-xl border border-line/10 bg-surface transition-[transform,border-color,box-shadow] duration-300 ease-out will-change-transform hover:border-accent/60 hover:shadow-[0_18px_40px_-24px_color-mix(in_srgb,var(--fg-accent)_75%,transparent)] active:scale-[0.98]"
-      >
-        <div data-theme="dark" className="relative aspect-4/3 shrink-0 overflow-hidden bg-surface-2">
-          <Cover game={game} soon={soon} />
-          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
-          <span
-            aria-hidden="true"
-            className={`${SHINE} group-hover/tile:animate-[agShine_0.9s_ease-out_1_both]`}
-          />
-          <div className="absolute left-2 top-2 z-10 flex gap-1">
-            {soon && (
-              <span
-                className={`inline-flex items-center gap-1 rounded bg-black/60 px-1.5 py-0.5 ${FONT} text-[10px] font-bold uppercase tracking-wider text-gold-hi backdrop-blur-sm`}
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-gold-hi animate-[agBlink_1.6s_ease-in-out_infinite]" />
-                {tr("Tezliklə")}
-              </span>
-            )}
-            {game.isNew && (
-              <span
-                className={`inline-flex items-center gap-1 rounded bg-accent px-1.5 py-0.5 ${FONT} text-[10px] font-bold uppercase tracking-wider text-white`}
-              >
-                <Sparkles className="h-2.5 w-2.5" />
-                {tr("Yeni")}
-              </span>
-            )}
-          </div>
-          <span
-            className={`absolute bottom-2 right-2 z-10 grid h-8 w-8 place-items-center rounded-full transition-[transform,opacity] duration-300 md:translate-y-1 md:opacity-0 md:group-hover/tile:translate-y-0 md:group-hover/tile:opacity-100 ${
-              soon ? "bg-black/60 text-white backdrop-blur-sm" : "bg-accent text-white"
-            }`}
-          >
-            {soon ? <Bell className="h-3.5 w-3.5" /> : <Play className="ml-0.5 h-3.5 w-3.5 fill-white" />}
-          </span>
-        </div>
-
-        <div className="flex flex-1 flex-col gap-1 px-3 py-2.5 md:px-3.5 md:py-3">
-          <p className={`truncate ${FONT} text-[10px] uppercase tracking-[0.16em] text-accent md:text-[11px]`}>
-            {game.genre}
-          </p>
-          <div className="flex items-start justify-between gap-2">
-            <h3 className={`line-clamp-2 min-w-0 break-words ${FONT} text-sm font-bold uppercase leading-tight text-ink md:text-base`}>
-              {game.title}
-            </h3>
-            <ModeIcons modes={game.modes} />
-          </div>
-        </div>
-      </Link>
-    </div>
+    <span className="flex flex-wrap gap-1.5">
+      {modes.includes("solo") && (
+        <span
+          className={`inline-flex items-center gap-1 rounded-md bg-line/6 px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.08em] text-ink-soft`}
+        >
+          <User className="h-3 w-3" aria-hidden="true" />
+          {tr("Tək")}
+        </span>
+      )}
+      {modes.includes("duo") && (
+        <span
+          className={`inline-flex items-center gap-1 rounded-md bg-accent/12 px-2 py-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.08em] text-accent`}
+        >
+          <Users className="h-3 w-3" aria-hidden="true" />
+          {tr("Dostla")}
+        </span>
+      )}
+    </span>
   );
 }
 
-function Header() {
+function GameCard({ game, index }) {
+  const soon = game.status === "soon";
+  const extraTags = game.tags.filter((t) => !isModeTag(t) && t !== game.genre);
+
   return (
-    <section className="relative overflow-hidden bg-page-2 pb-10 pt-8 md:pb-14 md:pt-16 lg:pt-36">
+    <li
+      className="animate-[agIn_0.5s_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none"
+      style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
+    >
+      <Link
+        to={game.href}
+        className="group/tile flex h-full overflow-hidden rounded-2xl border border-line/10 bg-surface transition-[translate,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] sm:flex-col"
+      >
+        <div
+          data-theme="dark"
+          className="relative w-28 shrink-0 overflow-hidden bg-surface-2 sm:aspect-16/10 sm:w-auto"
+        >
+          <Cover game={game} />
+          <div className="absolute inset-0 hidden bg-linear-to-t from-black/55 via-transparent to-transparent sm:block" />
+          {(game.isNew || soon) && (
+            <span
+              className={`absolute left-2 top-2 z-10 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 ${FONT} text-[10px] font-bold uppercase tracking-wider sm:left-3 sm:top-3 sm:px-2 sm:text-[11px] ${
+                soon ? "bg-black/65 text-gold-hi" : "bg-accent text-white"
+              }`}
+            >
+              <Sparkles className="h-2.5 w-2.5" aria-hidden="true" />
+              {soon ? tr("Tezliklə") : tr("Yeni")}
+            </span>
+          )}
+          <span
+            aria-hidden="true"
+            className="absolute bottom-3 right-3 z-10 hidden h-10 w-10 place-items-center rounded-full bg-accent text-white opacity-0 transition-[opacity,translate] duration-300 group-hover/tile:translate-y-0 group-hover/tile:opacity-100 sm:grid sm:translate-y-1"
+          >
+            <Play className="ml-0.5 h-4 w-4 fill-white" />
+          </span>
+        </div>
+
+        <div className="flex min-w-0 flex-1 flex-col gap-2 p-3.5 sm:gap-2.5 sm:p-5">
+          <p
+            className={`truncate ${FONT} text-[11px] font-bold uppercase tracking-[0.16em] text-accent sm:text-xs`}
+          >
+            {game.genre}
+          </p>
+          <h2
+            className={`${FONT} text-lg font-bold uppercase leading-tight text-ink sm:text-[22px]`}
+          >
+            {game.title}
+          </h2>
+          <p
+            className={`line-clamp-2 ${BODY} text-[13px] leading-relaxed text-muted sm:line-clamp-3 sm:text-[15px]`}
+          >
+            {game.description}
+          </p>
+
+          <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-1 sm:pt-2">
+            <ModeChips modes={game.modes} />
+            {extraTags.slice(0, 2).map((tag) => (
+              <span
+                key={tag}
+                className={`hidden rounded-md border border-line/10 px-2 py-[3px] ${FONT} text-[11px] font-semibold uppercase tracking-[0.06em] text-muted sm:inline-block`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <span
+            className={`hidden items-center gap-2 border-t border-line/8 pt-3.5 ${FONT} text-sm font-bold uppercase tracking-[0.1em] text-accent sm:mt-1 sm:flex`}
+          >
+            {tr("Oyna")}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/tile:translate-x-1" />
+          </span>
+        </div>
+      </Link>
+    </li>
+  );
+}
+
+function Header({ total }) {
+  return (
+    <section className="relative overflow-hidden bg-page-2 pb-8 pt-8 md:pb-12 md:pt-16 lg:pt-36">
       <div
         aria-hidden="true"
-        className="absolute inset-0 scale-110 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center opacity-60"
         style={{ backgroundImage: `url(${BACKGROUND})` }}
       />
       <div aria-hidden="true" className="absolute inset-0 bg-page/80 light:bg-page/90" />
-      <div
-        aria-hidden="true"
-        className="absolute -left-24 top-10 h-80 w-80 rounded-full bg-accent-lo/25 blur-[90px] animate-[agDrift_14s_ease-in-out_infinite] motion-reduce:animate-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-sky-500/15 blur-[90px] animate-[agDrift_18s_ease-in-out_infinite_reverse] motion-reduce:animate-none"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 animate-[agGrid_2.5s_linear_infinite] opacity-25 mask-[linear-gradient(to_top,black,transparent)] motion-reduce:animate-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--fg-accent) 45%, transparent) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          transform: "perspective(420px) rotateX(58deg)",
-          transformOrigin: "bottom",
-        }}
-      />
-      {/* Yuxarı hissə ana səhifədəki kimi tünd qalır ki, menyunun loqo qalxanı fonla qarışmasın */}
+      {/* Yuxarı hissə tünd qalır ki, menyunun loqo qalxanı fonla qarışmasın */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-linear-to-b from-page from-30% via-page/80 to-transparent"
@@ -199,7 +203,7 @@ function Header() {
       <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
         <nav
           aria-label={tr("Səhifə yolu")}
-          className={`flex items-center gap-2 ${FONT} text-xs uppercase tracking-[0.18em] text-faint animate-[agFade_0.6s_ease-out_both] md:text-sm`}
+          className={`flex items-center gap-2 ${FONT} text-xs uppercase tracking-[0.18em] text-faint animate-[agFade_0.5s_ease-out_both] md:text-sm`}
         >
           <Link to="/" className="transition-colors duration-300 hover:text-ink">
             {tr("Ana səhifə")}
@@ -208,26 +212,41 @@ function Header() {
           <span className="text-muted">{tr("Oyunlar")}</span>
         </nav>
 
-        <div className="mt-6 flex items-center gap-3 md:mt-8">
-          <span className="h-px w-10 origin-left bg-accent animate-[agLine_0.8s_ease-out_0.1s_both] md:w-16" />
-          <p
-            className={`${FONT} text-base uppercase tracking-wider text-accent animate-[agFade_0.6s_ease-out_0.2s_both] md:text-xl`}
-          >
-            {tr("Oyun kolleksiyası")}
-          </p>
+        <div className="mt-6 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 md:mt-8">
+          <div className="max-w-2xl animate-[agFade_0.6s_ease-out_0.1s_both]">
+            <p
+              className={`${FONT} text-sm font-bold uppercase tracking-[0.16em] text-accent md:text-base`}
+            >
+              {tr("Oyun kolleksiyası")}
+            </p>
+            <h1
+              className={`mt-2 ${FONT} text-[44px] font-extrabold uppercase leading-none text-ink md:text-[64px]`}
+            >
+              {tr("Bütün oyunlar")}
+            </h1>
+            <p
+              className={`mt-4 ${BODY} text-base leading-relaxed text-muted md:text-lg`}
+            >
+              {tr("Futbol biliyini fərqli formatlarda sına: tək oyna, dostunla yarış, yeni oyunlar gəldikcə ilk sən kəşf et.")}
+            </p>
+          </div>
+          <div className="flex gap-8 animate-[agFade_0.6s_ease-out_0.2s_both]">
+            <div>
+              <p className={`${FONT} text-4xl font-extrabold leading-none text-ink`}>{total}</p>
+              <p className={`mt-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.14em] text-muted`}>
+                {tr("oyun")}
+              </p>
+            </div>
+            <div className="border-l border-line/12 pl-8">
+              <p className={`${FONT} text-4xl font-extrabold leading-none text-ink`}>
+                {GAME_CATALOG.filter((g) => g.modes.includes("duo")).length}
+              </p>
+              <p className={`mt-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.14em] text-muted`}>
+                {tr("dostla oynanır")}
+              </p>
+            </div>
+          </div>
         </div>
-        <h1
-          className={`mt-1 overflow-hidden py-[0.08em] ${FONT} text-5xl font-bold uppercase leading-none text-ink md:text-[84px]`}
-        >
-          <span className="block animate-[agUp_0.9s_cubic-bezier(.2,.8,.2,1)_0.15s_both] motion-reduce:animate-none">
-            {tr("Bütün oyunlar")}
-          </span>
-        </h1>
-        <p
-          className={`mt-4 max-w-2xl ${FONT} text-base font-light leading-7 text-muted animate-[agFade_0.7s_ease-out_0.35s_both] md:text-lg md:leading-8`}
-        >
-          {tr("Futbol biliyini fərqli formatlarda sına: tək oyna, dostunla yarış, yeni oyunlar gəldikcə ilk sən kəşf et.")}
-        </p>
       </div>
     </section>
   );
@@ -236,58 +255,101 @@ function Header() {
 export default function AllGames() {
   useEffect(() => prefetchData(), []);
   const [query, setQuery] = useState("");
+  const [params, setParams] = useSearchParams();
+  const fromUrl = params.get("filter");
+  const filter = FILTERS.some((f) => f.key === fromUrl) ? fromUrl : "all";
+  const setFilter = (key) =>
+    setParams(key === "all" ? {} : { filter: key }, { replace: true, preventScrollReset: true });
   const q = norm(query.trim());
+  const active = FILTERS.find((f) => f.key === filter) ?? FILTERS[0];
   const list = GAME_CATALOG.filter(
     (g) =>
-      !q ||
-      norm(`${g.title} ${g.genre} ${g.description} ${g.tags.join(" ")}`).includes(q),
+      active.test(g) &&
+      (!q ||
+        norm(`${g.title} ${g.genre} ${g.description} ${g.tags.join(" ")}`).includes(q)),
   );
 
   return (
     <main className="bg-page">
       <style>{STYLE}</style>
-      <Header />
+      <Header total={GAME_CATALOG.length} />
 
       <section className="relative pb-16 md:pb-24">
         <div className="relative z-10 mx-auto max-w-330 px-4 md:px-6">
-          <label className="relative flex h-12 w-full items-center border border-line/10 bg-surface/70 backdrop-blur-sm transition-colors duration-300 animate-[agFade_0.6s_ease-out_0.45s_both] focus-within:border-accent md:max-w-md">
-            <Search className="pointer-events-none absolute left-4 h-4 w-4 text-faint" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={tr("Oyun axtar...")}
-              aria-label={tr("Oyun axtar")}
-              className={`h-full w-full bg-transparent pl-11 pr-11 ${BODY} text-sm text-ink outline-none placeholder:text-faint`}
-            />
-            {query && (
-              <button
-                type="button"
-                aria-label={tr("Axtarışı təmizlə")}
-                onClick={() => setQuery("")}
-                className="absolute right-2 grid h-8 w-8 place-items-center text-faint transition-colors duration-300 hover:text-ink"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            )}
-          </label>
+          <div className="flex flex-col gap-3 animate-[agFade_0.5s_ease-out_0.25s_both] md:flex-row md:items-center md:justify-between">
+            <div
+              role="group"
+              aria-label={tr("Oyunları süz")}
+              className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden"
+            >
+              {FILTERS.map((f) => {
+                const on = f.key === filter;
+                const count = GAME_CATALOG.filter(f.test).length;
+                return (
+                  <button
+                    key={f.key}
+                    type="button"
+                    onClick={() => setFilter(f.key)}
+                    aria-pressed={on}
+                    className={`inline-flex h-11 shrink-0 items-center gap-2 rounded-full border px-4 ${FONT} text-sm font-bold uppercase tracking-[0.08em] transition-colors duration-200 ${
+                      on
+                        ? "border-accent bg-accent text-white"
+                        : "border-line/15 bg-surface text-ink-soft hover:border-line/40 hover:text-ink"
+                    }`}
+                  >
+                    {f.label}
+                    <span
+                      className={`rounded-full px-1.5 text-xs ${on ? "bg-white/20" : "bg-line/8 text-muted"}`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <label className="relative flex h-11 w-full items-center rounded-full border border-line/15 bg-surface transition-colors duration-300 focus-within:border-accent md:max-w-sm">
+              <Search className="pointer-events-none absolute left-4 h-4 w-4 text-faint" aria-hidden="true" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={tr("Oyun axtar...")}
+                aria-label={tr("Oyun axtar")}
+                className={`h-full w-full rounded-full bg-transparent pl-11 pr-11 ${BODY} text-sm text-ink outline-none placeholder:text-faint [&::-webkit-search-cancel-button]:hidden`}
+              />
+              {query && (
+                <button
+                  type="button"
+                  aria-label={tr("Axtarışı təmizlə")}
+                  onClick={() => setQuery("")}
+                  className="absolute right-1 grid h-9 w-9 place-items-center rounded-full text-faint transition-colors duration-300 hover:text-ink"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </label>
+          </div>
 
           {list.length ? (
-            <div
-              key={q}
-              className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-8 md:gap-4 lg:grid-cols-4"
+            <ul
+              key={`${filter}-${q}`}
+              className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 md:mt-8 lg:grid-cols-3"
             >
               {list.map((g, i) => (
-                <GameTile key={g.key} game={g} index={i} />
+                <GameCard key={g.key} game={g} index={i} />
               ))}
-            </div>
+            </ul>
           ) : (
-            <div className="mt-10 flex flex-col items-center border border-dashed border-line/15 px-6 py-16 text-center animate-[agFade_0.5s_ease-out_both]">
+            <div className="mt-10 flex flex-col items-center rounded-2xl border border-dashed border-line/15 px-6 py-16 text-center animate-[agFade_0.5s_ease-out_both]">
               <Search className="h-8 w-8 text-faint" />
               <p className={`mt-4 ${FONT} text-xl font-bold uppercase text-ink`}>
                 {tr("Heç nə tapılmadı")}
               </p>
               <p className={`mt-2 ${BODY} text-sm text-muted`}>
-                {tr("“{query}” üzrə oyun yoxdur. Başqa söz yoxla.", { query })}
+                {q
+                  ? tr("“{query}” üzrə oyun yoxdur. Başqa söz yoxla.", { query })
+                  : tr("Bu filtrdə oyun yoxdur.")}
               </p>
             </div>
           )}

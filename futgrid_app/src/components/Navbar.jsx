@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Globe, ChevronDown, ChevronRight } from "lucide-react";
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { SOCIAL_LINKS } from "../lib/socials";
 import ThemeToggle from "./ThemeToggle";
 import logoUrl from "../assets/futgrid-logo.webp";
 import { LANGS, useLang } from "../i18n";
@@ -36,17 +36,7 @@ const RIGHT_LINKS = [
 const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
 const SECTION_IDS = ["about", "games", "leaderboard", "contact"];
 
-const SOCIALS = [
-  { Icon: FaInstagram, href: "https://www.instagram.com/futgrid.az", get label() {
-    return tr("Instagram");
-  } },
-  { Icon: FaTiktok, href: "#", get label() {
-    return tr("TikTok");
-  } },
-  { Icon: FaYoutube, href: "#", get label() {
-    return tr("YouTube");
-  } },
-];
+const SOCIALS = SOCIAL_LINKS;
 
 const LANGUAGES = LANGS.map((l) => l.label);
 

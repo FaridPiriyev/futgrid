@@ -52,6 +52,11 @@ body {
   color: var(--fg-ink);
 }
 
+/* Menyu yuxarıda sabitdir: bölməyə keçid edəndə başlıq menyunun altında qalmasın */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
 /* Səliqəli nazik scrollbar: axtarış siyahıları və uzun panellər üçün */
 .fg-scroll {
   scrollbar-gutter: stable;

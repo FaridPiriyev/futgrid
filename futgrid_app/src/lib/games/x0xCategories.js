@@ -59,7 +59,7 @@ const TROPHY_PICKS = [
     return tr("Avropa Liqası");
   }, tier: 2 },
   { id: "club_world_cup", min: 1, get label() {
-    return tr("Klublararası DÇ");
+    return tr("Klub Dünya Kuboku");
   }, tier: 2 },
   { id: "uefa_super_cup", min: 1, get label() {
     return tr("UEFA Superkuboku");

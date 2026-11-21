@@ -96,7 +96,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "karyera",
@@ -116,7 +115,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "heyet",
@@ -136,7 +134,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "besklub",
@@ -156,7 +153,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "sirala",
@@ -176,7 +172,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "piramida",
@@ -196,7 +191,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "goat",
@@ -216,7 +210,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "ikiherf",
@@ -236,7 +229,6 @@ export const GAME_CATALOG = [
   },
     modes: ["solo", "duo"],
     status: "live",
-    isNew: true,
   },
   {
     key: "sual",

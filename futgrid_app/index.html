@@ -1,25 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="az">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>futgrid_app</title>
-    <script>
-      try {
-        document.documentElement.dataset.theme =
-          localStorage.getItem("fg-theme-v2") === "dark" ? "dark" : "light";
-      } catch (e) {
-        document.documentElement.dataset.theme = "light";
-      }
-    </script>
-
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>FutGrid — futbol bilik oyunları</title>
+    <script>
+      // ThemeToggle.jsx ilə eyni qayda: standart tünd tema, yalnız seçilibsə açıq.
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("fg-theme-v3") === "light" ? "light" : "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <meta
       name="description"
       content="Futbol X0X, Futbol Wordle, Karyera yolu, Heyəti xatırla və daha çox futbol bilik oyunu. Pulsuz oyna, dostunla yarış, reytinqdə yüksəl."
@@ -38,7 +34,7 @@
     <meta property="og:title" content="FutGrid — futbol bilik oyunları" />
     <meta
       property="og:description"
-      content="12 futbol oyunu: tək oyna və ya dostunla yarış."
+      content="15 futbol oyunu: tək oyna və ya dostunla yarış."
     />
     <meta property="og:url" content="https://futgrid.az/" />
     <meta property="og:image" content="https://futgrid.az/og-image.jpg" />
@@ -51,13 +47,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&display=swap"
-    />
-    <link
-      rel="preload"
-      as="image"
-      href="/images/slider1.webp"
-      fetchpriority="high"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&family=Tektur:wght@500;600;700&display=swap"
     />
 
     <script type="application/ld+json">

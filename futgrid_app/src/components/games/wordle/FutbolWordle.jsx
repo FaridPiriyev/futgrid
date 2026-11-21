@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { loadData } from "../../../lib/data";
-import { Lightbulb } from "lucide-react";
+import { Lightbulb, Settings2 } from "lucide-react";
 import { Field, Segmented, SETTINGS_CARD, Toggle } from "../common/controls";
+import { FONT } from "../common/ui";
 import GameLayout from "../common/GameLayout";
 import { Loader, Notice } from "../common/GameStatus";
 import WordleGame, { WORDLE_KEYFRAMES } from "./WordleGame";
@@ -52,6 +53,8 @@ export default function FutbolWordle() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [settings, setSettings] = useState(load);
+  // Mobildə parametrlər paneli lövhəni ekrandan aşağı itələyirdi: indi qısa sətir kimi görünür, toxunanda açılır.
+  const [panelOpen, setPanelOpen] = useState(false);
 
   useEffect(() => {
     loadData()
@@ -73,7 +76,25 @@ export default function FutbolWordle() {
   else
     body = (
       <>
-        <div className={`mb-6 grid gap-5 lg:grid-cols-[1fr_1.3fr_0.9fr] lg:items-end ${SETTINGS_CARD} md:p-6`}>
+        <button
+          type="button"
+          onClick={() => setPanelOpen((v) => !v)}
+          aria-expanded={panelOpen}
+          className="mb-4 flex min-h-12 w-full items-center justify-between gap-3 rounded-2xl border border-edge bg-surface px-4 py-2.5 text-left lg:hidden"
+        >
+          <span className={`min-w-0 truncate ${FONT} text-sm font-bold uppercase tracking-[0.08em] text-ink`}>
+            {MODES.find((m) => m.value === settings.mode)?.label} ·{" "}
+            {LEVELS.find((l) => l.value === settings.difficulty)?.label}
+            <span className="text-muted">
+              {" "}· {settings.hints ? tr("İpuçları açıq") : tr("İpuçları bağlı")}
+            </span>
+          </span>
+          <span className={`inline-flex shrink-0 items-center gap-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.12em] text-accent`}>
+            <Settings2 className="h-4 w-4" />
+            {panelOpen ? tr("Bağla") : tr("Parametrlər")}
+          </span>
+        </button>
+        <div className={`mb-6 gap-5 lg:grid lg:grid-cols-[1fr_1.3fr_0.9fr] lg:items-end ${panelOpen ? "grid" : "hidden"} ${SETTINGS_CARD} md:p-6`}>
           <Field label={tr("Rejim")}>
             <Segmented label={tr("Rejim")} options={MODES} value={settings.mode} onChange={change("mode")} />
           </Field>
