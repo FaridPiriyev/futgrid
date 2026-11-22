@@ -1,6 +1,7 @@
 import { tr } from "../i18n";
 import { MANUAL_PHOTOS } from "./manualPhotos";
 import marketValuesCsv from "../data/market-values.csv?raw";
+import badPhotosTxt from "../data/bad-photos.txt?raw";
 const BASE = "/data";
 
 let cache = null;
@@ -86,6 +87,15 @@ function applyValueFix(p) {
   p.market_value = mv;
 }
 
+// src/data/bad-photos.txt: səhv şəkli olan oyunçular (ad və ya slug, hər sətirdə bir).
+const BAD_PHOTOS = new Set(
+  String(badPhotosTxt ?? "")
+    .split(/\r?\n/)
+    .map((l) => l.replace(/#.*/, "").trim())
+    .filter(Boolean)
+    .map(norm),
+);
+
 function buildIndex({ clubs, players, trophies, countries, coaches }) {
   const clubsById = new Map(clubs.map((c) => [c.id, c]));
   const playersById = new Map();
@@ -94,6 +104,8 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
   for (const p of players) {
     const manual = manualPhoto(p.slug, p.name);
     if (manual) p.photo_url = manual;
+    else if (BAD_PHOTOS.has(norm(p.slug)) || BAD_PHOTOS.has(norm(p.name)))
+      delete p.photo_url;
     p._name = norm(p.name);
     p._tokens = p._name.split(" ");
     applyValueFix(p);

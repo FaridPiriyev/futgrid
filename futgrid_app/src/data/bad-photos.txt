@@ -1,0 +1,8 @@
+# Səhv şəkli olan oyunçular — hər sətirdə bir oyunçu (adı və ya slug-ı).
+# Burada olan oyunçunun şəkli saytda göstərilmir (baş hərfləri görünür).
+# Düzgün şəkil üçün: node scripts/photos-add.mjs (Wikidata-dan tapmağa çalışır)
+# və ya şəkli src/assets/players/ qovluğuna oyunçunun adı ilə at.
+#
+# Nümunə:
+# Phil Foden
+# lamine-yamal
