@@ -256,7 +256,7 @@ export default function CareerGame({ data, difficulty }) {
           </>
         ) : (
           <div className="flex flex-col items-center gap-4 border border-line/10 bg-surface p-5 text-center animate-[kyIn_0.4s_ease-out_both] sm:flex-row sm:text-left">
-            <PlayerAvatar player={target} className="h-16 w-16" textClass="text-xl" />
+            <PlayerAvatar player={target} className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24" textClass="text-xl" />
             <div className="flex-1">
               <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] ${status === "right" ? "text-good" : "text-bad"}`}>
                 {status === "right" ? tr("Düzdür! +{points} xal", { points: results[results.length - 1]?.points }) : tr("Cavab")}

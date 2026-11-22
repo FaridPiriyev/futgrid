@@ -1,35 +1,42 @@
-// Ultimate 11: hər raundda KOMANDA (klub) + DÖVR (5 illik) barabanı fırlanır,
-// həmin klubda həmin dövrdə oynamış 4 futbolçudan biri heyətə seçilir.
+// Ultimate 11: hər raundda KOMANDA + DÖVR barabanı fırlanır, həmin komandada
+// həmin dövrdə oynamış futbolçulardan biri heyətə seçilir. Reytinqlər oyun
+// bitənə qədər gizlidir. Adi klub+5 illik dövr kombinasiyalarından əlavə,
+// əl ilə yığılmış əfsanəvi komandalar da düşür (2005 Milan, 2002 Braziliya...).
 import { clubFameTier, playerFame } from "./fame";
 import { playerRating } from "./rating";
+import { countryName } from "./x0xCategories";
+import { LEGEND_SQUADS } from "./legendSquads";
 import { tr } from "../../i18n";
 
 export const ROUNDS = 11;
 export const OPTIONS = 4;
 const ERA_STEP = 5;
 const FIRST_ERA = 1985;
+const LEGEND_SHARE = 0.38;
 
-// Meydançada yerlər (x, y faizlə; y=0 rəqib qapısı tərəfi)
+// Meydançada yerlər (x, y faizlə; y=0 rəqib qapısı tərəfi). side: -1 sol, 0 mərkəz, 1 sağ
 export const FORMATIONS = {
   "4-3-3": [
-    ["GK", "GK", 50, 88],
-    ["DF", "LB", 13, 66], ["DF", "CB", 37, 71], ["DF", "CB", 63, 71], ["DF", "RB", 87, 66],
-    ["MF", "CM", 24, 45], ["MF", "CM", 50, 49], ["MF", "CM", 76, 45],
-    ["FW", "LW", 17, 20], ["FW", "ST", 50, 14], ["FW", "RW", 83, 20],
+    ["GK", "GK", 50, 89],
+    ["DF", "LB", 13, 67], ["DF", "CB", 37, 72], ["DF", "CB", 63, 72], ["DF", "RB", 87, 67],
+    ["MF", "CM", 22, 46], ["MF", "CM", 50, 50], ["MF", "CM", 78, 46],
+    ["FW", "LW", 16, 21], ["FW", "ST", 50, 15], ["FW", "RW", 84, 21],
   ],
   "4-4-2": [
-    ["GK", "GK", 50, 88],
-    ["DF", "LB", 13, 66], ["DF", "CB", 37, 71], ["DF", "CB", 63, 71], ["DF", "RB", 87, 66],
+    ["GK", "GK", 50, 89],
+    ["DF", "LB", 13, 67], ["DF", "CB", 37, 72], ["DF", "CB", 63, 72], ["DF", "RB", 87, 67],
     ["MF", "LM", 13, 42], ["MF", "CM", 37, 47], ["MF", "CM", 63, 47], ["MF", "RM", 87, 42],
-    ["FW", "ST", 35, 16], ["FW", "ST", 65, 16],
+    ["FW", "ST", 34, 17], ["FW", "ST", 66, 17],
   ],
   "3-5-2": [
-    ["GK", "GK", 50, 88],
-    ["DF", "CB", 24, 69], ["DF", "CB", 50, 72], ["DF", "CB", 76, 69],
-    ["MF", "LWB", 9, 45], ["MF", "CM", 31, 50], ["MF", "CAM", 50, 36], ["MF", "CM", 69, 50], ["MF", "RWB", 91, 45],
-    ["FW", "ST", 35, 15], ["FW", "ST", 65, 15],
+    ["GK", "GK", 50, 89],
+    ["DF", "CB", 24, 70], ["DF", "CB", 50, 73], ["DF", "CB", 76, 70],
+    ["MF", "LWB", 11, 45], ["MF", "CM", 31, 51], ["MF", "CAM", 50, 35], ["MF", "CM", 69, 51], ["MF", "RWB", 89, 45],
+    ["FW", "ST", 34, 15], ["FW", "ST", 66, 15],
   ],
 };
+
+const SIDE_OF = (label, x) => (/^L/.test(label) ? -1 : /^R/.test(label) ? 1 : x < 40 ? -0.5 : x > 60 ? 0.5 : 0);
 
 export const newLineup = (formation) =>
   (FORMATIONS[formation] ?? FORMATIONS["4-3-3"]).map(([pos, label, x, y]) => ({
@@ -37,18 +44,121 @@ export const newLineup = (formation) =>
     label,
     x,
     y,
+    side: SIDE_OF(label, x),
     pick: null,
   }));
 
 const year = (d) => (d ? Number(String(d).slice(0, 4)) : null);
 export const eraLabel = (start) => `${start}–${String(start + ERA_STEP - 1).slice(2)}`;
+export const comboEra = (combo) => combo.eraText ?? eraLabel(combo.era);
 
 const MIN_FAME = { easy: 2.2, normal: 1.4, hard: 0.6 };
 const CLUB_TIER = { easy: 1, normal: 2, hard: 3 };
 
-// Klub+dövr kombinasiyaları: ən azı 6 oyunçu və 3 fərqli mövqe olanlar.
+// ---------- əfsanəvi komandalar ----------
+const nameKey = (s) =>
+  String(s ?? "")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/ø/g, "o")
+    .replace(/ł/g, "l")
+    .replace(/ı/g, "i")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+function nameIndex(data) {
+  if (data._u11Names) return data._u11Names;
+  const map = new Map();
+  for (const p of data.players) {
+    const k = nameKey(p.name);
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(p);
+  }
+  data._u11Names = map;
+  return map;
+}
+
+function resolveLegend(data, squad, names) {
+  const index = nameIndex(data);
+  let best = null;
+  let bestScore = -Infinity;
+  for (const n of names)
+    for (const p of index.get(nameKey(n)) ?? []) {
+      let s = 0;
+      if (squad.club) s += p.club_history?.includes(squad.club) ? 4 : -10;
+      if (squad.nation) s += p.nationality_code === squad.nation ? 4 : -10;
+      const by = year(p.birth_date);
+      if (by) s += by >= squad.year - 41 && by <= squad.year - 16 ? 2 : -6;
+      if (p.photo_url) s += 0.5;
+      if (s > bestScore) {
+        best = p;
+        bestScore = s;
+      }
+    }
+  return bestScore >= 0 ? best : null;
+}
+
+const slug = (s) => nameKey(s).replace(/ /g, "-");
+
+const ROLE_POS = { GK: "GK", CB: "DF", LB: "DF", RB: "DF", DF: "DF", MF: "MF", LM: "MF", RM: "MF", FW: "FW", ST: "FW", LW: "FW", RW: "FW" };
+const ROLE_SIDE = { GK: 0, CB: 0, LB: -1, RB: 1, MF: 0, LM: -1, RM: 1, ST: 0, LW: -1, RW: 1 };
+
+export function buildLegendCombos(data) {
+  if (data._u11Legends) return data._u11Legends;
+  const out = [];
+  for (const sq of LEGEND_SQUADS) {
+    let club;
+    if (sq.club) {
+      const c = data.clubsById.get(sq.club);
+      if (!c) continue;
+      club = { ...c, id: `legend:${sq.id}`, baseId: c.id };
+    } else {
+      const info = data.countriesByCode.get(sq.nation);
+      const name = countryName(sq.nation, data);
+      club = {
+        id: `legend:${sq.id}`,
+        name,
+        short_name: name,
+        logo_url: info?.flag_url ?? `https://flagcdn.com/${sq.nation.toLowerCase()}.svg`,
+        nation: sq.nation,
+      };
+    }
+    const players = [];
+    for (const line of sq.players) {
+      const [role, rating, ...rest] = line.split(" ");
+      const pos = ROLE_POS[role];
+      if (!pos) continue;
+      const [label, nat] = rest.join(" ").split("@");
+      const names = label.split("/");
+      const found = resolveLegend(data, sq, names);
+      const base = found ?? {
+        id: `legend:${slug(names[0])}`,
+        name: names[0],
+        nationality_code: nat ?? sq.nation ?? null,
+        stub: true,
+      };
+      // Mövqe və reytinq həmin komandaya görədir (orijinal obyektə toxunmuruq).
+      players.push({ ...base, position: pos, role, _rating: Number(rating), _fame: undefined });
+    }
+    if (players.length < 8) continue;
+    out.push({
+      key: `legend:${sq.id}`,
+      club,
+      era: sq.year,
+      eraText: sq.season,
+      legend: true,
+      players,
+    });
+  }
+  data._u11Legends = out;
+  return out;
+}
+
+// ---------- adi klub + dövr kombinasiyaları ----------
+// ən azı 6 oyunçu və 3 fərqli mövqe olanlar.
 export function buildCombos(data, difficulty = "normal") {
-  const cacheKey = `_ultimate_${difficulty}`;
+  const cacheKey = `_ultimate2_${difficulty}`;
   if (data[cacheKey]) return data[cacheKey];
   const nowYear = new Date().getFullYear();
   const minFame = MIN_FAME[difficulty] ?? MIN_FAME.normal;
@@ -66,7 +176,6 @@ export function buildCombos(data, difficulty = "normal") {
       if (!from || !to || to < FIRST_ERA) continue;
       const first = Math.max(FIRST_ERA, from - ((from - FIRST_ERA) % ERA_STEP));
       for (let e = first; e <= to; e += ERA_STEP) {
-        // dövrdə ən azı 1 tam mövsüm
         if (Math.min(to, e + ERA_STEP - 1) - Math.max(from, e) < 1) continue;
         const key = `${club.id}|${e}`;
         let combo = map.get(key);
@@ -76,11 +185,12 @@ export function buildCombos(data, difficulty = "normal") {
     }
   }
 
-  const combos = [...map.values()].filter((c) => {
+  const regular = [...map.values()].filter((c) => {
     const pos = new Set(c.players.map((p) => p.position));
     return c.players.length >= 6 && pos.size >= 3;
   });
-  for (const c of combos) c.players.sort((a, b) => playerRating(b) - playerRating(a));
+  for (const c of regular) c.players = c.players.sort((a, b) => playerRating(b) - playerRating(a)).slice(0, 14);
+  const combos = [...regular, ...buildLegendCombos(data)];
   data[cacheKey] = combos;
   return combos;
 }
@@ -101,84 +211,104 @@ function pickWeighted(list, weight, random) {
   return list[list.length - 1];
 }
 
-// Kombinasiyadan 4 seçim: ən azı biri boş mövqeyə uyğun olur.
-function drawOptions(combo, lineup, random, star = false) {
-  const used = usedIds(lineup);
-  const open = openPositions(lineup);
-  const pool = combo.players.filter((p) => !used.has(p.id)).slice(0, 14);
-  const out = [];
-  if (star && pool.length) out.push(pool[0]);
-  while (out.length < OPTIONS && out.length < pool.length) {
-    const rest = pool.filter((p) => !out.includes(p));
-    out.push(pickWeighted(rest, (p) => Math.max(1, playerRating(p) - 60), random));
+function shuffle(list, random) {
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  if (!out.some((p) => open.has(p.position))) {
-    const fit = pool.find((p) => open.has(p.position) && !out.includes(p));
-    if (fit) out[out.length - 1] = fit;
-  }
-  return out.sort((a, b) => playerRating(b) - playerRating(a));
+  return a;
 }
 
-const comboFits = (combo, lineup) => {
+const fitting = (combo, lineup) => {
   const used = usedIds(lineup);
   const open = openPositions(lineup);
-  return combo.players.some((p) => !used.has(p.id) && open.has(p.position));
+  return combo.players.filter((p) => !used.has(p.id) && open.has(p.position));
 };
 
-export function spin(combos, lineup, random, { club, era, avoid } = {}) {
-  const narrow = (l, f) => {
-    const n = l.filter(f);
-    return n.length ? n : l;
-  };
-  let list = combos.filter((c) => comboFits(c, lineup) && c.key !== avoid);
-  if (club) list = narrow(list, (c) => c.club.id === club);
-  if (era) list = narrow(list, (c) => c.era === era);
-  if (!list.length) list = combos.filter((c) => comboFits(c, lineup));
-  if (!list.length) return null;
-  const combo = pickWeighted(list, (c) => Math.sqrt(c.players.length), random);
+// Seçimlər: yalnız boş mövqeyə uyğun futbolçular, qarışıq sırada.
+function drawOptions(combo, lineup, random) {
+  const pool = fitting(combo, lineup);
+  const out = [];
+  // hər boş xətdən ən azı bir nəfər düşsün deyə əvvəl müxtəlif mövqelər
+  const byPos = new Map();
+  for (const p of pool) {
+    if (!byPos.has(p.position)) byPos.set(p.position, []);
+    byPos.get(p.position).push(p);
+  }
+  const weight = (p) => Math.max(1, playerRating(p) - 60);
+  for (const list of shuffle([...byPos.values()], random)) {
+    if (out.length >= Math.min(2, OPTIONS)) break;
+    out.push(pickWeighted(list, weight, random));
+  }
+  while (out.length < OPTIONS && out.length < pool.length) {
+    const rest = pool.filter((p) => !out.includes(p));
+    out.push(pickWeighted(rest, weight, random));
+  }
+  return shuffle(out, random);
+}
+
+export function spin(combos, lineup, random, { avoid } = {}) {
+  const skip = avoid instanceof Set ? avoid : new Set(avoid ? [avoid] : []);
+  const scored = combos
+    .filter((c) => !skip.has(c.key))
+    .map((c) => ({ c, n: fitting(c, lineup).length }))
+    .filter((x) => x.n > 0);
+  if (!scored.length) return null;
+  const need = Math.min(OPTIONS, Math.max(...scored.map((x) => x.n)));
+  let list = scored.filter((x) => x.n >= Math.min(need, 3));
+  if (!list.length) list = scored;
+  const legends = list.filter((x) => x.c.legend);
+  const regular = list.filter((x) => !x.c.legend);
+  const pool = legends.length && (!regular.length || random() < LEGEND_SHARE) ? legends : regular;
+  const { c: combo } = pickWeighted(pool, (x) => Math.sqrt(x.c.players.length), random);
   return { combo, options: drawOptions(combo, lineup, random) };
 }
 
-// Komandanı yenilə: eyni dövr, başqa klub. Dövrü yenilə: eyni klub, başqa dövr.
-export function reroll(combos, round, lineup, random, what) {
-  const { combo } = round;
-  const opts =
-    what === "club"
-      ? { era: combo.era, avoid: combo.key }
-      : { club: combo.club.id, avoid: combo.key };
-  const strict = combos.filter(
-    (c) =>
-      c.key !== combo.key &&
-      comboFits(c, lineup) &&
-      (what === "club" ? c.era === combo.era : c.club.id === combo.club.id),
-  );
-  if (strict.length) {
-    const next = pickWeighted(strict, (c) => Math.sqrt(c.players.length), random);
-    return { combo: next, options: drawOptions(next, lineup, random) };
-  }
-  return spin(combos, lineup, random, { avoid: opts.avoid });
+// Ən uyğun boş yer. Əfsanəvi komandalarda rol məlumdur (LB, RW...); qalanlarda
+// mərkəz üstündür, müdafiədə boy (uzun — mərkəz, qısa — cinah), cinahda isə ayaq nəzərə alınır.
+export function bestSlot(lineup, player) {
+  const roleSide = player.role ? ROLE_SIDE[player.role] : undefined;
+  const foot = player.preferred_foot === "left" ? -1 : player.preferred_foot === "right" ? 1 : 0;
+  const h = player.height_cm ?? 0;
+  const wide = player.position === "DF" && h ? (h <= 180 ? 2.5 : h >= 185 ? -1 : 0) : 0;
+  let best = -1;
+  let bestScore = -Infinity;
+  lineup.forEach((s, i) => {
+    if (s.pick || s.pos !== player.position) return;
+    let score;
+    if (roleSide !== undefined) score = -Math.abs(s.side - roleSide) * 3;
+    else {
+      score = -Math.abs(s.side) * 2 + (s.side ? wide : 0);
+      if (foot && s.side) score += Math.sign(s.side) === foot ? 1.5 : -0.5;
+    }
+    if (score > bestScore) {
+      best = i;
+      bestScore = score;
+    }
+  });
+  return best;
 }
 
-export const starOptions = (round, lineup, random) => ({
-  ...round,
-  options: drawOptions(round.combo, lineup, random, true),
-  star: true,
-});
-
 export function place(lineup, player, combo, slotIndex = null) {
-  const idx =
-    slotIndex ?? lineup.findIndex((s) => !s.pick && s.pos === player.position);
+  const idx = slotIndex ?? bestSlot(lineup, player);
   if (idx < 0 || lineup[idx].pick || lineup[idx].pos !== player.position) return lineup;
   const next = [...lineup];
   next[idx] = {
     ...next[idx],
-    pick: { player, rating: playerRating(player), club: combo.club, era: combo.era },
+    pick: { player, rating: playerRating(player), club: combo.club, era: combo.era, eraText: comboEra(combo), legend: Boolean(combo.legend) },
   };
   return next;
 }
 
-export const removeAt = (lineup, idx) =>
-  lineup.map((s, i) => (i === idx ? { ...s, pick: null } : s));
+// Eyni xəttdə iki yerin dəyişdirilməsi (boş yerə köçürmək də olar).
+export function swapSlots(lineup, a, b) {
+  if (a === b || lineup[a]?.pos !== lineup[b]?.pos) return lineup;
+  const next = [...lineup];
+  next[a] = { ...lineup[a], pick: lineup[b].pick };
+  next[b] = { ...lineup[b], pick: lineup[a].pick };
+  return next;
+}
 
 export const isComplete = (lineup) => lineup.every((s) => s.pick);
 
@@ -212,6 +342,3 @@ export function verdict(overall) {
   if (overall >= 78) return tr("Güclü komanda");
   return tr("Yaxşı başlanğıc — yenə cəhd et");
 }
-
-export const POWERS = ["club", "era", "star", "trade", "double"];
-export const freshPowers = () => Object.fromEntries(POWERS.map((k) => [k, 1]));

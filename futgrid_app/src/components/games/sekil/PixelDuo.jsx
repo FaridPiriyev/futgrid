@@ -12,8 +12,10 @@ import { tr } from "../../../i18n";
 const ANSWER_TIME = 10;
 const LAST_CALL = 8;
 const KEYS = { A: "a", B: "l" };
+// Səhv cavab verən oyunçu növbəti bu qədər xana açılana qədər gözləyir.
+const LOCK_TILES = 4;
 
-function BuzzButton({ side, name, locked, onBuzz, disabled }) {
+function BuzzButton({ side, name, locked, wait, onBuzz, disabled }) {
   const s = SIDES[side];
   return (
     <button
@@ -27,7 +29,11 @@ function BuzzButton({ side, name, locked, onBuzz, disabled }) {
     >
       {locked ? <Lock className="h-5 w-5 text-muted" /> : <BellRing className="h-5 w-5" />}
       <span className={`max-w-full text-center ${FONT} text-sm font-black uppercase leading-tight [overflow-wrap:anywhere] sm:text-base md:text-lg ${locked ? "text-muted" : ""}`}>
-        {locked ? tr("Bu raund bağlıdır") : tr("{name} bilir!", { name })}
+        {locked
+          ? wait > 0
+            ? tr("{n} xana sonra açılır", { n: wait })
+            : tr("Bu raund bağlıdır")
+          : tr("{name} bilir!", { name })}
       </span>
       {!locked && (
         <span className={`hidden ${FONT} text-[11px] font-bold uppercase tracking-wider opacity-80 md:block`}>
@@ -50,7 +56,11 @@ export default function PixelDuo({ data, settings, names }) {
   const [phase, setPhase] = useState("play");
   const [answering, setAnswering] = useState(null);
   const [answerLeft, setAnswerLeft] = useState(ANSWER_TIME);
-  const [locked, setLocked] = useState({ A: false, B: false });
+  // Hər oyunçu üçün: neçənci xana açılanda kilid açılır (0 = kilid yoxdur).
+  const [lockUntil, setLockUntil] = useState({ A: 0, B: 0 });
+  const locked = { A: opened < lockUntil.A, B: opened < lockUntil.B };
+  // Bütün xanalar açılıbsa, artıq açılacaq xana qalmır — kilid raundun sonuna qədər qalır.
+  const waitFor = (side) => (lockUntil[side] > size ? 0 : Math.max(0, lockUntil[side] - opened));
   const [lastCall, setLastCall] = useState(LAST_CALL);
   const [message, setMessage] = useState(null);
   const [result, setResult] = useState(null);
@@ -104,11 +114,19 @@ export default function PixelDuo({ data, settings, names }) {
   }
 
   function wrong(side, why) {
-    const nextLocked = { ...locked, [side]: true };
-    setLocked(nextLocked);
+    const until = opened + LOCK_TILES;
+    const next = { ...lockUntil, [side]: until };
+    setLockUntil(next);
     setAnswering(null);
-    setMessage({ side, text: `${why} · ${tr("{name} bu raundda daha cavab verə bilməz", { name: names[side] })}` });
-    if (nextLocked.A && nextLocked.B) finishRound(null);
+    setMessage({
+      side,
+      text:
+        until > size
+          ? `${why} · ${tr("{name} bu raundda daha cavab verə bilməz", { name: names[side] })}`
+          : `${why} · ${tr("{name} növbəti {n} xana açılana qədər gözləyir", { name: names[side], n: LOCK_TILES })}`,
+    });
+    // Hər ikisi raundun sonuna qədər bağlıdırsa, raund bitir.
+    if (next.A > size && next.B > size) finishRound(null);
   }
 
   function finishRound(winner) {
@@ -132,7 +150,7 @@ export default function PixelDuo({ data, settings, names }) {
     setOrder(revealOrder(size));
     setOpened(0);
     setReady(false);
-    setLocked({ A: false, B: false });
+    setLockUntil({ A: 0, B: 0 });
     setLastCall(LAST_CALL);
     setMessage(null);
     setResult(null);
@@ -210,12 +228,12 @@ export default function PixelDuo({ data, settings, names }) {
                 <h2 className={`${FONT} text-2xl font-black uppercase leading-tight text-ink md:text-3xl`}>{tr("Kimdir bu?")}</h2>
                 <p className={`mt-1 ${FONT} text-sm text-muted ${opened < size ? "hidden sm:block" : ""}`}>
                   {opened < size
-                    ? tr("Tanıyan kimi düyməni bas. İlk düz cavab raundu qazanır, səhv cavab verən bu raundda bağlanır.")
+                    ? tr("Tanıyan kimi düyməni bas. İlk düz cavab raundu qazanır, səhv cavab verən növbəti 4 xana açılana qədər gözləyir.")
                     : tr("Bütün xanalar açıldı: son {n} saniyə!", { n: lastCall })}
                 </p>
                 <div className="mt-4 flex gap-3">
-                  <BuzzButton side="A" name={names.A} locked={locked.A} onBuzz={() => buzz("A")} disabled={!running} />
-                  <BuzzButton side="B" name={names.B} locked={locked.B} onBuzz={() => buzz("B")} disabled={!running} />
+                  <BuzzButton side="A" name={names.A} locked={locked.A} wait={waitFor("A")} onBuzz={() => buzz("A")} disabled={!running} />
+                  <BuzzButton side="B" name={names.B} locked={locked.B} wait={waitFor("B")} onBuzz={() => buzz("B")} disabled={!running} />
                 </div>
                 {message ? (
                   <p className={`mt-3 ${FONT} text-sm font-bold text-bad`}>{message.text}</p>

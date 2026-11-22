@@ -1,5 +1,6 @@
 import { tr } from "../../i18n";
 import ultimateCover from "../../assets/games/ultimate-11.webp";
+import ortaqCover from "../../assets/games/ortaq-oyuncu.webp";
 
 export const GAME_CATALOG = [
   {
@@ -13,7 +14,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.");
   },
-    image: "/images/game1.jpg",
+    image: "/images/game1.webp",
     href: "/oyunlar/futbol-x0x",
     get tags() {
     return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
@@ -32,7 +33,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
   },
-    image: "/images/game2.jpg",
+    image: ortaqCover,
     href: "/oyunlar/ortaq-oyuncu",
     get tags() {
     return ["Kart dueli", "2 oyunçu", "Tək oyunçu"].map((s) => tr(s));
@@ -70,7 +71,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat.");
   },
-    image: "/images/game4.jpg",
+    image: "/images/game4.webp",
     href: "/oyunlar/yuksek-asagi",
     get tags() {
     return ["Tək oyunçu", "Seriya", "Bazar dəyəri"].map((s) => tr(s));
@@ -127,7 +128,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Təsadüfi məşhur oyun və komanda gəlir. Başlanğıc heyəti xatırla, boş yerləri adlarla doldur.");
   },
-    image: "/images/game7.jpg",
+    image: "/images/game7.webp",
     href: "/oyunlar/heyeti-xatirla",
     get tags() {
     return ["Tək oyunçu", "Məşhur oyunlar"].map((s) => tr(s));
@@ -165,7 +166,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Futbolçu gəlir, qutular onun klublarının sayı qədərdir. Qutuya toxun və klubları karyera sırası ilə düz.");
   },
-    image: "/images/game9.png",
+    image: "/images/game9.webp",
     href: "/oyunlar/klublari-sirala",
     get tags() {
     return ["Tək oyunçu", "10 raund"].map((s) => tr(s));
@@ -184,7 +185,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("5-4-3-2-1: hər səviyyədə iki şərtə uyğun futbolçuları vaxt bitməmiş yaz və zirvəyə qalx.");
   },
-    image: "/images/game10.png",
+    image: "/images/game10.webp",
     href: "/oyunlar/piramida",
     get tags() {
     return ["Tək oyunçu", "Vaxta qarşı", "5 səviyyə"].map((s) => tr(s));
@@ -203,7 +204,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("128 ikonik futbolçu, hər turda ikisindən biri. 64, 32, 16… sonda tək bir əfsanə qalır.");
   },
-    image: "/images/game11.png",
+    image: "/images/game11.webp",
     href: "/oyunlar/tarixin-en-yaxsisi",
     get tags() {
     return ["Tək oyunçu", "128 əfsanə", "Turnir"].map((s) => tr(s));
@@ -222,7 +223,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("İki oyunçu, iki hərf. Adında hər iki hərf olan futbolçunu növbə ilə tap, vaxtı bitən uduzur.");
   },
-    image: "/images/game12.png",
+    image: "/images/game12.webp",
     href: "/oyunlar/iki-herf",
     get tags() {
     return ["2 oyunçu", "Botla", "Vaxta qarşı"].map((s) => tr(s));
@@ -241,7 +242,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Gizli futbolçunu bəli/xeyr sualları ilə tap: aktivdir? hücumçudur? Premyer Liqada oynayıb? Ən az sualla tapan qalib olur.");
   },
-    image: "/images/game13.png",
+    image: "/images/game13.webp",
     href: "/oyunlar/20-sual",
     get tags() {
     return ["Tək oyunçu", "2 oyunçu", "Bəli / Xeyr"].map((s) => tr(s));
@@ -261,7 +262,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Futbolçunun şəkli 16 və ya 24 xanaya bölünüb, hər dəfə bir xana açılır. Şəkildəki futbolçunu ilk tanıyan qalib olur.");
   },
-    image: "/images/game14.png",
+    image: "/images/game14.webp",
     href: "/oyunlar/kimdir-bu",
     get tags() {
     return ["Tək oyunçu", "2 oyunçu", "16 / 24 xana"].map((s) => tr(s));

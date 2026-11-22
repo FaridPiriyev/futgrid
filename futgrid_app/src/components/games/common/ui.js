@@ -14,6 +14,11 @@ export const BTN_GHOST = `group/btn relative isolate inline-flex items-center ju
 
 const MOBILE = "(max-width: 767px)";
 const TOP_GAP = 76;
+// Telefonda oyun inputuna yazarkən saytın yapışqan menyusu gizlənir (bax index.css: html.fg-typing),
+// ona görə input ekranın lap yuxarısına qədər qalxa bilər.
+const TYPING_GAP = 12;
+const typing = () => document.documentElement.classList.contains("fg-typing");
+const gap = () => (typing() ? TYPING_GAP : TOP_GAP);
 
 export function useMobileInput(ref) {
   const [box, setBox] = useState({ maxHeight: null, up: false });
@@ -28,7 +33,7 @@ export function useMobileInput(ref) {
         // Masaüstü: aşağıda yer azdırsa siyahı yuxarı açılır, hündürlük ekrana sığır
         const r = el.getBoundingClientRect();
         const below = window.innerHeight - r.bottom - 12;
-        const above = r.top - TOP_GAP;
+        const above = r.top - gap();
         const up = below < 220 && above > below;
         const maxHeight = Math.max(160, Math.min(320, Math.round(up ? above : below)));
         setBox((b) => (b.maxHeight === maxHeight && b.up === up ? b : { maxHeight, up }));
@@ -38,7 +43,7 @@ export function useMobileInput(ref) {
       const top = vv ? vv.offsetTop : 0;
       const bottom = vv ? vv.offsetTop + vv.height : window.innerHeight;
       const below = bottom - r.bottom - 10;
-      const above = r.top - top - TOP_GAP;
+      const above = r.top - top - gap();
       const up = below < 170 && above > below;
       const maxHeight = Math.max(120, Math.min(320, Math.round(up ? above : below)));
       setBox((b) => (b.maxHeight === maxHeight && b.up === up ? b : { maxHeight, up }));
@@ -50,16 +55,22 @@ export function useMobileInput(ref) {
       shown = true;
       const r = el.getBoundingClientRect();
       const top = vv.offsetTop;
-      if (r.top < top + TOP_GAP - 4 || r.top > top + vv.height * 0.42)
-        window.scrollBy({ top: r.top - top - TOP_GAP, behavior: "smooth" });
+      if (r.top < top + gap() - 4 || r.top > top + vv.height * 0.42)
+        window.scrollBy({ top: r.top - top - gap(), behavior: "smooth" });
     };
     const onFocus = () => {
       shown = false;
+      if (mq.matches) document.documentElement.classList.add("fg-typing");
       measure();
       timers.push(setTimeout(reveal, 300), setTimeout(reveal, 700), setTimeout(measure, 650), setTimeout(measure, 1000));
     };
     const onBlur = () => {
       shown = false;
+      // Başqa inputa keçid zamanı menyu yanıb-sönməsin deyə bir az gözləyirik.
+      setTimeout(() => {
+        const a = document.activeElement;
+        if (!a || !/^(INPUT|TEXTAREA)$/.test(a.tagName)) document.documentElement.classList.remove("fg-typing");
+      }, 120);
     };
     // Yazı zamanı ölçü növbəti kadra qalır: input hadisəsinin içində state dəyişsə,
     // React onChange-dən əvvəl render edir və ilk yazılan hərf itir.
@@ -82,6 +93,7 @@ export function useMobileInput(ref) {
     window.addEventListener("scroll", measure, { passive: true });
     measure();
     return () => {
+      document.documentElement.classList.remove("fg-typing");
       timers.forEach(clearTimeout);
       cancelAnimationFrame(frame);
       el.removeEventListener("focus", onFocus);

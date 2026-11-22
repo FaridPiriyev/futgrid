@@ -7,11 +7,11 @@ import {
   buildPool,
   canBid,
   decideLot,
-  isFree,
   newGame,
   nextPrice,
   passLot,
   placeBid,
+  placeBidExact,
   tick,
 } from "../../../lib/games/auction";
 import { BTN_GHOST, FONT, SWEEP_BLUE } from "../common/ui";
@@ -37,7 +37,10 @@ const BOT_DELAY = {
 export default function AuctionGame({ data, mode, settings, onSettings }) {
   const timerMs = settings.timer * 1000;
   const solo = mode === "solo";
-  const pool = useMemo(() => buildPool(data, settings.pool), [data, settings.pool]);
+  const pool = useMemo(
+    () => buildPool(data, settings.pool, { mystery: Boolean(settings.mystery) }),
+    [data, settings.pool, settings.mystery],
+  );
   const names = sideNames(mode, settings);
   const [round, setRound] = useState(0);
   const formation = settings.formation;
@@ -64,7 +67,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
   const lot = state.lot;
   const botKey =
     solo && state.phase === "bid" && lot
-      ? `${lot.id}|${lot.price}|${lot.leader}|${lot.passed.B}|${lot.passed.A}`
+      ? `${lot.id}|${lot.price}|${lot.leader}|${lot.opener}|${lot.passed.B}|${lot.passed.A}`
       : null;
 
   useEffect(() => {
@@ -83,6 +86,11 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
       setState((cur) => {
         if (!canBid(cur, "B")) return cur;
         const limit = botRef.current.lotId === cur.lot.id ? botRef.current.limit : 0;
+        // Bot lotu açırsa, mütləq təklif verməlidir: güclü oyunçuya bəzən birbaşa böyük məbləğ.
+        if (!cur.lot.leader) {
+          const open = limit >= 10 && Math.random() < 0.35 ? Math.min(limit, 2 * Math.ceil(limit / 4)) : nextPrice(cur.lot);
+          return placeBidExact(cur, "B", Math.max(nextPrice(cur.lot), open), Date.now(), timerMs);
+        }
         if (nextPrice(cur.lot) > limit) return passLot(cur, "B");
         const jump = limit - nextPrice(cur.lot) >= 6 && Math.random() < 0.3 ? 2 : 1;
         const inc = bidAmount(cur.lot, jump) <= limit ? jump : 1;
@@ -114,6 +122,10 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
 
   const bid = useCallback(
     (side, inc) => setState((s) => placeBid(s, side, inc, Date.now(), timerMs)),
+    [timerMs],
+  );
+  const bidExact = useCallback(
+    (side, amount) => setState((s) => placeBidExact(s, side, amount, Date.now(), timerMs)),
     [timerMs],
   );
   const pass = useCallback((side) => setState((s) => passLot(s, side)), []);
@@ -176,6 +188,7 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
         state={state}
         names={names}
         onBid={bid}
+        onBidExact={bidExact}
         onPass={pass}
         showName={!solo}
         showKeys
@@ -221,7 +234,6 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
               phase={state.phase}
               outcome={state.outcome}
               names={names}
-              free={isFree(formation)}
             />
           )}
           {lot && (state.phase === "decide" || lot.decider) ? (

@@ -88,19 +88,27 @@ export default function SualSolo({ data, settings }) {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-start">
         <section className="rounded-2xl border border-edge bg-surface p-4 md:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <SecretCard
               label={tr("Gizli futbolçu")}
               sub={tr("{level} · {n} sual qalıb", { level: tr(LEVEL[settings.difficulty]), n: left })}
             />
-            {best > 0 && (
-              <span className={`inline-flex items-center gap-1.5 rounded-full bg-gold/12 px-3 py-1 ${FONT} text-xs font-black uppercase text-gold-hi`}>
-                <Trophy className="h-3.5 w-3.5" />
-                {tr("Rekord: {n} sual", { n: best })}
-              </span>
-            )}
+            <div className="flex flex-wrap items-center gap-3">
+              {best > 0 && (
+                <span className={`inline-flex items-center gap-1.5 rounded-full bg-gold/12 px-3 py-1 ${FONT} text-xs font-black uppercase text-gold-hi`}>
+                  <Trophy className="h-3.5 w-3.5" />
+                  {tr("Rekord: {n} sual", { n: best })}
+                </span>
+              )}
+              {playing && (
+                <button type="button" onClick={() => setPhase("lost")} className={`inline-flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase text-muted hover:text-bad`}>
+                  <FlagIcon className="h-4 w-4" />
+                  {tr("Təslim ol")}
+                </button>
+              )}
+            </div>
           </div>
           <div className="mt-3 h-2 overflow-hidden rounded-full bg-line/10">
             <span
@@ -120,12 +128,6 @@ export default function SualSolo({ data, settings }) {
               </p>
               <div className="mt-3 border-t border-edge pt-4">
                 <QuestionBank data={data} asked={asked} onAsk={ask} />
-              </div>
-              <div className="mt-5 flex justify-end">
-                <button type="button" onClick={() => setPhase("lost")} className={`inline-flex items-center gap-1.5 ${FONT} text-sm font-bold uppercase text-muted hover:text-bad`}>
-                  <FlagIcon className="h-4 w-4" />
-                  {tr("Təslim ol")}
-                </button>
               </div>
             </>
           ) : (

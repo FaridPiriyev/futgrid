@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Copy, Delete, RotateCcw } from "lucide-react";
+import { Delete, RotateCcw } from "lucide-react";
 import {
   MAX_TRIES,
   dailyTarget,
@@ -8,7 +8,6 @@ import {
   loadDaily,
   randomTarget,
   saveDaily,
-  shareText,
   surnameOf,
   wordlePool,
 } from "../../../lib/games/wordle";
@@ -16,7 +15,7 @@ import { POS_NAME, clubOf, countryOf } from "../../../lib/games/playerInfo";
 import { api } from "../../../lib/api";
 import { useRankedGame } from "../../../lib/games/useRankedSession";
 import PlayerAvatar, { ClubLogo, Flag } from "../common/PlayerAvatar";
-import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
+import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 
 import { tr } from "../../../i18n";
 export const WORDLE_KEYFRAMES = `
@@ -117,7 +116,6 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
   const [current, setCurrent] = useState("");
   const [message, setMessage] = useState(null);
   const [shake, setShake] = useState(0);
-  const [copied, setCopied] = useState(false);
   const [dailyBusy, setDailyBusy] = useState(false);
 
   const won = rows.some((r) => r.word === answer);
@@ -224,16 +222,11 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
     void startEndless();
   };
 
-  const share = async () => {
-    try {
-      await navigator.clipboard.writeText(shareText(rows, won, answer.length));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {}
-  };
+
 
   const hints = hintsFor(data, target, done ? MAX_TRIES : misses);
   const club = clubOf(data, target);
+  const country = countryOf(data, target);
 
   return (
     <div
@@ -276,18 +269,46 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
         </div>
 
         {done ? (
-          <div className="mt-6 border border-line/10 bg-surface p-5 text-center animate-[wdIn_0.4s_ease-out_both]">
-            <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] ${won ? "text-good" : "text-bad"}`}>
+          <div
+            className={`relative mt-6 overflow-hidden rounded-[18px] border p-5 text-center animate-[wdIn_0.4s_ease-out_both] sm:p-6 ${
+              won ? "border-good/40 bg-good/8" : "border-bad/35 bg-bad/8"
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className={`absolute inset-x-0 top-0 h-1 ${won ? "bg-good" : "bg-bad"}`}
+            />
+            <p className={`${FONT} text-sm font-bold uppercase tracking-[0.2em] ${won ? "text-good-hi" : "text-bad-hi"}`}>
               {won ? tr("Tapdın! {n}/{MAX_TRIES}", { n: rows.length, MAX_TRIES }) : tr("Tapa bilmədin")}
             </p>
-            <div className="mt-3 flex items-center justify-center gap-3">
-              <PlayerAvatar player={target} className="h-14 w-14" textClass="text-lg" />
-              <div className="text-left">
-                <p className={`${FONT} text-xl font-bold uppercase text-ink`}>{target.name}</p>
-                <p className={`${FONT} text-sm text-muted`}>{club?.name}</p>
-              </div>
+            <div className="mx-auto mt-4 w-fit">
+              <PlayerAvatar
+                player={target}
+                className="h-32 w-32 ring-4 ring-surface shadow-[0_20px_40px_-20px_rgba(0,0,0,.8)] sm:h-36 sm:w-36"
+                textClass="text-4xl"
+              />
             </div>
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <p className={`mt-4 ${FONT} text-[26px] font-extrabold uppercase leading-none text-ink sm:text-3xl`}>
+              {target.name}
+            </p>
+            <div className={`mt-3 flex flex-wrap items-center justify-center gap-2 ${FONT} text-sm text-muted`}>
+              {club ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-line/12 bg-line/5 px-3 py-1">
+                  <ClubLogo club={club} className="h-4.5 w-4.5" />
+                  {club.name}
+                </span>
+              ) : null}
+              {country ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-line/12 bg-line/5 px-3 py-1">
+                  <Flag country={country} />
+                  {country.name}
+                </span>
+              ) : null}
+              {POS_NAME[target.position] ? (
+                <span className="rounded-full border border-line/12 bg-line/5 px-3 py-1">{POS_NAME[target.position]}</span>
+              ) : null}
+            </div>
+            <div className="mt-5 flex justify-center">
               {mode === "endless" ? (
                 <button type="button" onClick={next} className={BTN_PRIMARY}>
                   <span aria-hidden="true" className={SWEEP_WHITE} />
@@ -295,13 +316,8 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
                   {tr("Növbəti oyunçu")}
                 </button>
               ) : (
-                <p className={`w-full ${FONT} text-sm text-muted`}>{tr("Yeni oyunçu sabah gələcək.")}</p>
+                <p className={`${FONT} text-sm text-muted`}>{tr("Yeni oyunçu sabah gələcək.")}</p>
               )}
-              <button type="button" onClick={share} className={BTN_GHOST}>
-                <span aria-hidden="true" className={SWEEP_BLUE} />
-                <Copy className="h-4 w-4" />
-                {copied ? tr("Kopyalandı") : tr("Nəticəni kopyala")}
-              </button>
             </div>
           </div>
         ) : (

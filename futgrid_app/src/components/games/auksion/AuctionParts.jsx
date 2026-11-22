@@ -1,8 +1,11 @@
-import { Bot, Crown, Gift, HandCoins, SkipForward, User, Wallet } from "lucide-react";
+import { useState } from "react";
+import { Bot, Crown, Gift, HandCoins, HelpCircle, SkipForward, User, Wallet } from "lucide-react";
 import {
   BUDGET,
+  MIN_BID,
   bidAmount,
   canBid,
+  canPass,
   decideOptions,
   maxBid,
   money,
@@ -68,7 +71,70 @@ export function SideMark({ side, isBot, className = "h-8 w-8" }) {
   );
 }
 
-export function LotCard({ data, lot, phase, outcome, names, free = false }) {
+// Gizli oyunçu: ad və şəkil yox, yalnız ipucu görünür. Satılandan sonra açılır.
+function MysteryLotCard({ data, lot, phase, outcome, names }) {
+  const revealed = phase === "sold";
+  const p = lot.player;
+  return (
+    <div
+      key={lot.id}
+      data-theme="dark"
+      className="relative w-full overflow-hidden border border-gold/25 bg-[linear-gradient(160deg,#1d1a33_0%,#0d0f1e_55%,#0a0d16_100%)] p-4 shadow-[0_30px_80px_-30px_color-mix(in_srgb,var(--fg-gold)_40%,transparent)] animate-[auLot_0.55s_cubic-bezier(.2,.8,.2,1)_both] md:p-5"
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-56 w-72 rounded-full bg-gold/15 blur-3xl" />
+      <div className="relative flex items-center justify-between gap-3">
+        <p className={`inline-flex items-center gap-1.5 ${FONT} text-[11px] font-bold uppercase tracking-[0.22em] text-gold`}>
+          <HelpCircle className="h-3.5 w-3.5" />
+          {tr("Gizli oyunçu")}
+        </p>
+        <PosBadge pos={lot.pos} className="h-6 w-12 text-[11px]" />
+      </div>
+      <div className="relative mt-4 flex justify-center">
+        {revealed ? (
+          <PlayerAvatar key={p.id} player={p} className="h-24 w-24 border-2 md:h-28 md:w-28 lg:h-32 lg:w-32" textClass="text-3xl md:text-4xl" />
+        ) : (
+          <span className={`grid h-24 w-24 place-items-center rounded-full border-2 border-dashed border-gold/50 bg-gold/5 ${FONT} text-5xl font-bold text-gold-hi md:h-28 md:w-28 lg:h-32 lg:w-32`}>
+            ?
+          </span>
+        )}
+      </div>
+      <p className={`relative mt-4 text-center ${FONT} text-xl font-bold leading-snug text-ink md:text-2xl`}>
+        {revealed ? p.name : `“${lot.clue.label()}”`}
+      </p>
+      <p className={`relative mt-2 text-center ${FONT} text-sm text-muted`}>
+        {revealed
+          ? [clubOf(data, p)?.name, countryOf(data, p)?.name].filter(Boolean).join(" · ")
+          : tr("{pos} · {n} mümkün oyunçu — kim olduğu satışdan sonra açılır", { pos: POS_NAME[lot.pos], n: lot.clue.count })}
+      </p>
+      <SoldStamp phase={phase} outcome={outcome} names={names} soft />
+    </div>
+  );
+}
+
+function SoldStamp({ phase, outcome, names, soft = false }) {
+  if (phase !== "sold" || !outcome) return null;
+  return (
+    <div className={`absolute inset-0 z-10 grid place-items-center ${soft ? "items-start pt-4 bg-transparent" : "bg-black/65 backdrop-blur-[2px]"}`}>
+      <div
+        className={`border-4 bg-black/60 px-6 py-3 text-center animate-[auStamp_0.5s_cubic-bezier(.2,.8,.2,1)_both] ${
+          outcome.winner ? `${SIDES[outcome.winner].border} ${SIDES[outcome.winner].text}` : "border-faint text-muted"
+        }`}
+      >
+        <p className={`${FONT} text-3xl font-bold uppercase tracking-widest md:text-4xl`}>
+          {outcome.gift ? tr("Hədiyyə") : outcome.auto ? tr("Avtomatik") : outcome.winner ? tr("Satıldı") : tr("Satılmadı")}
+        </p>
+        {outcome.winner && (
+          <p className={`${FONT} mt-1 text-base font-bold uppercase text-ink`}>
+            {names[outcome.winner]} · {outcome.gift ? tr("pulsuz") : money(outcome.price)}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function LotCard({ data, lot, phase, outcome, names }) {
+  if (lot.clue) return <MysteryLotCard data={data} lot={lot} phase={phase} outcome={outcome} names={names} />;
   const p = lot.player;
   const club = clubOf(data, p);
   const country = countryOf(data, p);
@@ -101,7 +167,7 @@ export function LotCard({ data, lot, phase, outcome, names, free = false }) {
           <p
             className={`mt-1 max-w-22 ${FONT} text-[11px] font-bold uppercase leading-tight tracking-[0.2em] text-gold md:max-w-none md:tracking-[0.25em]`}
           >
-            {free ? tr("Müzakirə rejimi") : tr("Reytinq sonda")}
+            {tr("Reytinq sonda")}
           </p>
         </div>
         <div className="flex flex-col items-end gap-2">
@@ -118,7 +184,7 @@ export function LotCard({ data, lot, phase, outcome, names, free = false }) {
         <PlayerAvatar
           key={p.id}
           player={p}
-          className="h-24 w-24 border-2 md:h-28 md:w-28"
+          className="h-24 w-24 border-2 md:h-28 md:w-28 lg:h-32 lg:w-32"
           textClass="text-3xl md:text-4xl"
         />
       </div>
@@ -159,30 +225,7 @@ export function LotCard({ data, lot, phase, outcome, names, free = false }) {
         ))}
       </div>
 
-      {phase === "sold" && outcome && (
-        <div className="absolute inset-0 z-10 grid place-items-center bg-black/65 backdrop-blur-[2px]">
-          <div
-            className={`border-4 px-6 py-3 text-center animate-[auStamp_0.5s_cubic-bezier(.2,.8,.2,1)_both] ${
-              outcome.winner
-                ? `${SIDES[outcome.winner].border} ${SIDES[outcome.winner].text}`
-                : "border-faint text-muted"
-            }`}
-          >
-            <p className={`${FONT} text-3xl font-bold uppercase tracking-widest md:text-4xl`}>
-              {outcome.gift
-                ? tr("Hədiyyə")
-                : outcome.winner
-                  ? tr("Satıldı")
-                  : tr("Satılmadı")}
-            </p>
-            {outcome.winner && (
-              <p className={`${FONT} mt-1 text-base font-bold uppercase text-ink`}>
-                {names[outcome.winner]} · {outcome.gift ? tr("pulsuz") : money(outcome.price)}
-              </p>
-            )}
-          </div>
-        </div>
-      )}
+      <SoldStamp phase={phase} outcome={outcome} names={names} />
     </div>
   );
 }
@@ -230,13 +273,13 @@ export function PriceRow({ state, names, now, timerMs }) {
         <p
           className={`${FONT} text-[11px] font-bold uppercase tracking-[0.24em] text-faint`}
         >
-          {leader ? tr("Cari təklif") : tr("Başlanğıc qiymət")}
+          {leader ? tr("Cari təklif") : tr("Minimum açılış")}
         </p>
         <p
           key={`${lot.id}-${lot.price}-${leader}`}
           className={`${FONT} text-5xl font-bold leading-tight text-ink animate-[auBump_0.35s_ease-out]`}
         >
-          {money(leader ? lot.price : lot.start)}
+          {money(leader ? lot.price : MIN_BID)}
         </p>
         <p
           className={`${FONT} text-sm font-bold ${leader ? SIDES[leader].text : "text-faint"}`}
@@ -247,7 +290,7 @@ export function PriceRow({ state, names, now, timerMs }) {
               {tr("{name} öndədir", { name: names[leader] })}
             </span>
           ) : (
-            tr("Hələ təklif yoxdur")
+            <span className={SIDES[lot.opener]?.text}>{tr("{name} açır", { name: names[lot.opener] })}</span>
           )}
         </p>
       </div>
@@ -260,6 +303,8 @@ function statusText(state, side) {
   const { lot, teams, phase } = state;
   if (phase !== "bid" || !lot) return null;
   if (lot.leader === side) return tr("Öndəsən");
+  if (!lot.leader && side === lot.opener) return tr("Sən açırsan — ən azı 1 ₼");
+  if (!lot.leader) return tr("Rəqib açır…");
   if (lot.passed[side]) return tr("Bu lotdan keçdin");
   if (!openCount(teams[side], lot.pos)) return `${POS_NAME[lot.pos]} yerin doludur`;
   if (teams[side].money <= 0) return tr("Pulun bitdi");
@@ -357,13 +402,25 @@ export function DecidePanel({ state, names, onDecide, botSide, keys }) {
   );
 }
 
-export function BidControls({ side, state, names, onBid, onPass, showName, showKeys }) {
+export function BidControls({ side, state, names, onBid, onBidExact, onPass, showName, showKeys }) {
   const lot = state.lot;
   const can = canBid(state, side);
+  const passOk = canPass(state, side);
   const cap = maxBid(state.teams[side]);
   const status = statusText(state, side);
   const incs = [1, 2, 4];
   const keys = KEYS[side];
+  const [custom, setCustom] = useState("");
+  const min = lot ? nextPrice(lot) : MIN_BID;
+  const typed = Math.round(Number(String(custom).replace(",", ".")) * 2);
+  const typedOk = can && Number.isFinite(typed) && typed >= min && typed <= cap;
+
+  const submitCustom = (e) => {
+    e.preventDefault();
+    if (!typedOk) return;
+    onBidExact?.(side, typed);
+    setCustom("");
+  };
 
   return (
     <div className="w-full">
@@ -408,7 +465,7 @@ export function BidControls({ side, state, names, onBid, onPass, showName, showK
         })}
         <button
           type="button"
-          disabled={!can}
+          disabled={!passOk}
           onClick={() => onPass(side)}
           className={`relative h-13 border border-transparent bg-bad-lo ${FONT} text-base font-bold uppercase text-white shadow-[0_10px_22px_-12px_var(--fg-bad)] transition-[filter,transform] duration-200 active:scale-95 enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-35`}
         >
@@ -420,6 +477,28 @@ export function BidControls({ side, state, names, onBid, onPass, showName, showK
           )}
         </button>
       </div>
+      {/* İstədiyin məbləği yaz: məs. birbaşa 20 ₼ */}
+      <form onSubmit={submitCustom} className="mt-2 flex gap-2">
+        <label className="relative min-w-0 flex-1">
+          <input
+            value={custom}
+            onChange={(e) => setCustom(e.target.value.replace(/[^\d.,]/g, "").slice(0, 5))}
+            inputMode="decimal"
+            disabled={!can}
+            placeholder={can ? tr("Məbləğ yaz ({min}–{max})", { min: money(min), max: money(cap) }) : tr("Məbləğ yaz")}
+            aria-label={tr("Təklif məbləği")}
+            className={`h-11 w-full border border-line/15 bg-line/5 pl-3 pr-8 ${FONT} text-base text-ink outline-none transition-colors placeholder:text-faint focus:border-accent disabled:opacity-40`}
+          />
+          <span className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 ${FONT} text-sm text-muted`}>₼</span>
+        </label>
+        <button
+          type="submit"
+          disabled={!typedOk}
+          className={`h-11 shrink-0 px-4 ${SIDES[side].solid} ${FONT} text-sm font-bold uppercase transition-opacity disabled:opacity-35`}
+        >
+          {tr("Təklif et")}
+        </button>
+      </form>
     </div>
   );
 }
@@ -582,8 +661,8 @@ export function Feed({ state, names }) {
         </div>
       ))}
       <div className={`flex items-center justify-between ${FONT} text-sm text-dim`}>
-        <span>{tr("Başlanğıc qiymət")}</span>
-        <span>{money(lot.start)}</span>
+        <span>{tr("Minimum açılış")}</span>
+        <span>{money(MIN_BID)}</span>
       </div>
     </div>
   );

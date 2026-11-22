@@ -27,11 +27,11 @@ export function PlayerChip({ player, highlight = "" }) {
           src={player.photo_url}
           alt=""
           onError={() => setBroken(true)}
-          className="h-7 w-7 shrink-0 object-cover object-top transition-transform duration-200 group-hover:scale-110"
+          className="h-7 w-7 shrink-0 object-cover object-top transition-transform duration-200 group-hover:scale-110 lg:h-9 lg:w-9"
         />
       ) : (
         <span
-          className={`flex h-7 w-7 shrink-0 items-center justify-center bg-line/10 ${FONT} text-[10px] font-bold text-soft`}
+          className={`flex h-7 w-7 shrink-0 items-center justify-center bg-line/10 lg:h-9 lg:w-9 ${FONT} text-[10px] font-bold text-soft`}
         >
           {initials(player.name)}
         </span>

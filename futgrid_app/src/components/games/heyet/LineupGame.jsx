@@ -16,7 +16,7 @@ function Pitch({ match, side, found, revealed, lastHit }) {
   const team = match[side];
   const spots = useMemo(() => layout(team), [team]);
   return (
-    <div>
+    <div className="mx-auto w-full lg:w-[clamp(260px,calc((100svh-22rem)*0.75),100%)]">
       <p className={`mb-2 flex items-baseline justify-between ${FONT} text-lg font-bold uppercase text-ink`}>
         {tr(team.name)}
         <span className="text-sm font-normal text-muted">{team.formation}</span>
@@ -26,7 +26,7 @@ function Pitch({ match, side, found, revealed, lastHit }) {
         className="relative aspect-[3/4] overflow-hidden border border-line/10 bg-linear-to-b from-[#0f3322] to-[#0a2117]"
       >
         <span className="absolute inset-x-0 top-1/2 h-px bg-white/12" />
-        <span className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/12" />
+        <span className="absolute left-1/2 top-1/2 aspect-square w-[22%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/12" />
         <span className="absolute bottom-0 left-1/2 h-[16%] w-[44%] -translate-x-1/2 border border-b-0 border-white/12" />
         <span className="absolute left-1/2 top-0 h-[16%] w-[44%] -translate-x-1/2 border border-t-0 border-white/12" />
         {spots.map((s) => {
@@ -37,7 +37,7 @@ function Pitch({ match, side, found, revealed, lastHit }) {
           return (
             <div
               key={key}
-              className="absolute w-24 text-center"
+              className="absolute w-[25%] max-w-28 text-center"
               style={{
                 left: `${s.x}%`,
                 top: `${s.y}%`,
@@ -162,9 +162,11 @@ export default function LineupGame({ match, sides, onNext, onList }) {
         )}
       </div>
 
-      <div className="mt-4 border border-line/10 bg-surface p-4 text-center md:p-5">
+      <div className="lg:mt-4 lg:grid lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:items-start lg:gap-8">
+      <div className="lg:sticky lg:top-24">
+      <div className="mt-4 border border-line/10 bg-surface p-4 text-center md:p-5 lg:mt-0">
         <p className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] text-accent`}>{tr(match.competition)}</p>
-        <p className={`mt-1 ${FONT} text-2xl font-bold uppercase text-ink md:text-3xl`}>
+        <p className={`mt-1 ${FONT} text-2xl font-bold uppercase text-ink md:text-3xl lg:text-2xl`}>
           {tr(match.home.name)} <span className="text-accent">{match.home.score}–{match.away.score}</span> {tr(match.away.name)}
         </p>
         <p className={`${FONT} text-sm text-muted`}>
@@ -184,7 +186,7 @@ export default function LineupGame({ match, sides, onNext, onList }) {
           <span className="mx-2 text-dim">·</span>
           {tr("Səhv")}{" "} <span className="font-bold text-ink">{misses}</span>
         </p>
-        <div className="h-1.5 w-full overflow-hidden bg-line/10 sm:w-60">
+        <div className="h-1.5 w-full overflow-hidden bg-line/10 sm:w-60 lg:w-full">
           <span className="block h-full bg-accent transition-[width] duration-500" style={{ width: `${(found.size / total) * 100}%` }} />
         </div>
       </div>
@@ -242,10 +244,13 @@ export default function LineupGame({ match, sides, onNext, onList }) {
         </div>
       )}
 
-      <div className={`mt-5 grid gap-5 ${sides.length > 1 ? "md:grid-cols-2" : "mx-auto max-w-md"}`}>
+      </div>
+
+      <div className={`mt-5 grid grid-cols-1 gap-5 lg:mt-0 ${sides.length > 1 ? "md:grid-cols-2" : "mx-auto max-w-md lg:mx-0 lg:max-w-none"}`}>
         {sides.map((s) => (
           <Pitch key={s} match={match} side={s} found={found} revealed={revealed} lastHit={lastHit} />
         ))}
+      </div>
       </div>
     </div>
   );

@@ -85,7 +85,7 @@ function Summary({ results, onAgain }) {
       <ul className="mt-6 space-y-2 text-left">
         {results.map((r, i) => (
           <li key={i} className="flex items-center gap-3 rounded-xl border border-edge px-3 py-2">
-            <PlayerAvatar player={r.player} className="h-8 w-8" textClass="text-[10px]" />
+            <PlayerAvatar player={r.player} className="h-8 w-8 lg:h-10 lg:w-10" textClass="text-[10px]" />
             <span className={`flex-1 truncate ${FONT} text-base font-bold text-ink`}>{r.player.name}</span>
             <span
               className={`rounded-full px-2.5 py-0.5 ${FONT} text-sm font-black ${
@@ -238,7 +238,7 @@ export default function ClubOrderGame({ data, difficulty, lives, showYears }) {
         key={target.id}
         className="mx-auto mt-5 flex max-w-2xl items-center gap-4 rounded-2xl border border-edge bg-surface p-4 shadow-[0_30px_60px_-44px_var(--fg-shadow)] animate-[coIn_0.45s_ease-out_both] md:p-5"
       >
-        <PlayerAvatar player={target} className="h-16 w-16 md:h-20 md:w-20" textClass="text-xl" />
+        <PlayerAvatar player={target} className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24" textClass="text-xl" />
         <div className="min-w-0 flex-1">
           <p className={`${FONT} text-xs font-bold uppercase tracking-[0.2em] text-accent`}>{tr("Bu futbolçunun klubları")}</p>
           <p className={`break-words ${FONT} text-xl font-black uppercase leading-tight text-ink sm:text-2xl md:text-3xl`}>{target.name}</p>

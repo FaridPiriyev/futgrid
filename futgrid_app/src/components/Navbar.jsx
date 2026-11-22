@@ -387,7 +387,7 @@ export default function Navbar() {
     <>
       <div
         aria-hidden={!scrolled}
-        className={`fixed inset-x-0 top-0 z-60 bg-nav shadow-[0_4px_20px_rgba(15,23,42,0.1)] transition-[transform,opacity,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+        className={`fg-sticky-nav fixed inset-x-0 top-0 z-60 bg-nav shadow-[0_4px_20px_rgba(15,23,42,0.1)] transition-[transform,opacity,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
           scrolled
             ? "visible translate-y-0 opacity-100"
             : "invisible -translate-y-full opacity-0"

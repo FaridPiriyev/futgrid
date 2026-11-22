@@ -4,7 +4,7 @@ import GameLayout from "../common/GameLayout";
 import { Loader, Notice } from "../common/GameStatus";
 import HLGame, { HL_KEYFRAMES } from "./HLGame";
 import HLSettings from "./HLSettings";
-import HLDuel from "./HLDuel";
+import HLLine from "./HLLine";
 import { loadSettings, saveSettings } from "./settings";
 
 import { tr } from "../../../i18n";
@@ -42,17 +42,14 @@ export default function YuksekAsagi() {
           setGameKey((k) => k + 1);
           setScreen("game");
         }}
-        onOnline={() => {
-          setGameKey((k) => k + 1);
-          setScreen("online");
-        }}
       />
     );
-  else if (screen === "online")
+  else if (settings.mode === "line")
     body = (
-      <HLDuel
+      <HLLine
         key={gameKey}
         data={data}
+        settings={settings}
         onSettings={() => setScreen("settings")}
       />
     );

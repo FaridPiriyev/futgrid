@@ -78,7 +78,6 @@ export async function register(input: RegisterInput, request: FastifyRequest): P
     60 * 60,
   );
 
-  if (!input.ageConfirmed) throw new AppError("AGE_REQUIRED");
   if (PROHIBITED_USERNAMES.has(input.username.toLowerCase())) {
     throw new AppError("VALIDATION_FAILED", {
       details: [{ field: "username", rule: "prohibited" }],
@@ -111,7 +110,7 @@ export async function register(input: RegisterInput, request: FastifyRequest): P
       displayName: input.displayName ?? null,
       teamId: input.teamId ?? null,
       locale: input.locale,
-      ageConfirmedAt: new Date(),
+      ageConfirmedAt: input.ageConfirmed ? new Date() : null,
     },
   });
 

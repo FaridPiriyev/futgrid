@@ -25,7 +25,7 @@ export default function AuctionDuel({ data, onSettings }) {
   }, [lot?.deadline]);
 
   return (
-    <DuelLobby duel={duel}>
+    <DuelLobby duel={duel} showChildrenWhileWaiting>
       <div className="mx-auto max-w-4xl space-y-4">
         {waiting ? (
           <div className="text-center">

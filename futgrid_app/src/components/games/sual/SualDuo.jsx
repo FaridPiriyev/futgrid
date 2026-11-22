@@ -205,7 +205,7 @@ export default function SualDuo({ data, settings, names }) {
       </div>
 
       {phase === "play" ? (
-        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-start">
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-start">
           <section key={turn} className={`rounded-2xl border-2 bg-surface p-4 animate-[sqIn_0.3s_ease-out_both] md:p-5 ${s.border}`}>
             <h2 className={`${FONT} text-xl font-black uppercase leading-tight md:text-2xl ${s.text}`}>
               {lastChance ? tr("{name}, son şansın!", { name: names[turn] }) : tr("Növbə: {name}", { name: names[turn] })}

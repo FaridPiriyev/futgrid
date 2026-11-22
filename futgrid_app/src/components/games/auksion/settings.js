@@ -8,6 +8,8 @@ export const DEFAULT_SETTINGS = {
   bot: "normal",
   names: { A: "", B: "" },
   formation: DEFAULT_FORMATION,
+  // Gizli oyunçu: lotda ad yox, ipucu görünür ("Barcelona ilə ÇL qazanıb").
+  mystery: false,
 };
 
 // Hazır heyət şablonları (qapıçı · müdafiə · orta · hücum)

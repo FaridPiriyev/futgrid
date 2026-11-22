@@ -1,4 +1,4 @@
-import { Play, Trophy, Wifi } from "lucide-react";
+import { Play, Trophy } from "lucide-react";
 import { loadBest } from "../../../lib/games/higherLower";
 import {
   Field,
@@ -6,19 +6,24 @@ import {
   SETTINGS_CARD,
   SettingsHeader,
 } from "../common/controls";
-import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
+import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
 import { OPTIONS } from "./settings";
 
 import { tr } from "../../../i18n";
-export default function HLSettings({ settings, onChange, onStart, onOnline }) {
-  const best = loadBest(settings.difficulty);
+export default function HLSettings({ settings, onChange, onStart }) {
+  const line = settings.mode === "line";
+  const best = loadBest(line ? `${settings.difficulty}:line` : settings.difficulty);
 
   return (
     <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
       <SettingsHeader
         title={tr("Tək oyunçu")}
         accent={tr("parametrlər")}
-        sub={tr("Solda bazar dəyəri açıq olan oyunçu, sağda gizli olan. Sağdakının dəyəri daha çoxdur, yoxsa daha az? Hər düzgün cavab seriyanı artırır, ilk səhvdə oyun bitir.")}
+        sub={
+          line
+            ? tr("Bir oyunçu və bir məbləğ görürsən: onun bazar dəyəri bu məbləğdən çoxdur, azdır, yoxsa tam bərabərdir? Hər düzgün cavab seriyanı artırır, ilk səhvdə oyun bitir.")
+            : tr("Solda bazar dəyəri açıq olan oyunçu, sağda gizli olan. Sağdakının dəyəri daha çoxdur, yoxsa daha az? Hər düzgün cavab seriyanı artırır, ilk səhvdə oyun bitir.")
+        }
       />
       {best > 0 && (
         <span
@@ -29,7 +34,15 @@ export default function HLSettings({ settings, onChange, onStart, onOnline }) {
         </span>
       )}
 
-      <div className="mt-6">
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <Field label={tr("Rejim")}>
+          <Segmented
+            label={tr("Rejim")}
+            options={OPTIONS.mode}
+            value={settings.mode ?? "compare"}
+            onChange={(mode) => onChange({ ...settings, mode })}
+          />
+        </Field>
         <Field label={tr("Çətinlik")}>
           <Segmented
             label={tr("Çətinlik")}
@@ -46,13 +59,6 @@ export default function HLSettings({ settings, onChange, onStart, onOnline }) {
           <Play className="h-4 w-4" />
           {tr("Oyuna başla")}
         </button>
-        {onOnline ? (
-          <button type="button" onClick={onOnline} className={BTN_GHOST}>
-            <span aria-hidden="true" className={SWEEP_BLUE} />
-            <Wifi className="h-4 w-4" />
-            {tr("Dostla onlayn")}
-          </button>
-        ) : null}
       </div>
     </section>
   );

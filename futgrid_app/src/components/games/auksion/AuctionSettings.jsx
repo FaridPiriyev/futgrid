@@ -1,4 +1,4 @@
-import { ArrowLeft, Lock, MessagesSquare, Minus, Play, Plus, Shuffle } from "lucide-react";
+import { ArrowLeft, HelpCircle, Lock, Minus, Play, Plus, Shuffle } from "lucide-react";
 import {
   FREE_FORMATION,
   POS_ORDER,
@@ -51,17 +51,18 @@ const lineupText = (f) =>
     .map((pos) => `${f[pos]} ${POS_NAME[pos].toLowerCase()}`)
     .join(", ");
 
-const rules = (f) => [
-  tr("Hər komandanın 20 ₼ büdcəsi var."),
+const rules = (f, mystery) => [
+  tr("Hər komandanın 20 ₼ büdcəsi var, hər komanda 5 oyunçu alır — 10 oyunçunun hamısı satılır."),
   isFree(f)
-    ? tr("Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu hərraca çıxır, hər komanda 5 oyunçu alır.")
+    ? tr("Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu hərraca çıxır.")
     : tr("Heyət: {list}.", { list: lineupText(validFormation(f) ? f : DEFAULT_SETTINGS.formation) }),
-  tr("Hər təklif ən azı 0.5 ₼ artırır, saat yenidən başlayır."),
-  tr("Bütün 20 ₼-ı bir oyunçuya da verə bilərsən."),
-  tr("Pulu bitənin qalan oyunçularını rəqib paylayır: ya özünə götürür, ya da ona pulsuz verir."),
-  isFree(f)
-    ? tr("Sonda reytinq göstərilmir — kimin komandasının daha yaxşı olduğunu özünüz müzakirə edin.")
-    : tr("Sonda reytinqlər və kimya bonusu toplanır, güclü komanda qalib olur."),
+  tr("Hər lotu növbə ilə bir oyunçu açır və ən azı 1 ₼ təklif etməlidir."),
+  tr("Rəqib ya artırır, ya da keçir. Keçsə, oyunçu son təklif verənə gedir."),
+  tr("Təklifi düymələrlə və ya məbləği yazaraq ver — məsələn, birbaşa 20 ₼."),
+  mystery
+    ? tr("Gizli oyunçu: ad yox, ipucu görünür. Kim olduğu satışdan sonra açılır.")
+    : tr("Pulu bitən komandanın qalan oyunçuları 0 ₼-a gəlir."),
+  tr("Sonda sistem hər oyunçuya reytinq verir, kimya bonusu əlavə olunur və güclü komanda qalib olur."),
 ];
 
 function MiniPitch({ formation }) {
@@ -109,7 +110,7 @@ function FormationPicker({ value, onChange }) {
           {tr("Sərbəst rejim — mövqesiz")}
         </span>
         <span className={`block ${FONT} text-sm text-muted`}>
-          {tr("10 təsadüfi oyunçu, sonda reytinq yoxdur — müzakirə edin")}
+          {tr("10 təsadüfi oyunçu, istənilən mövqedən")}
         </span>
       </span>
       <span className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${free ? "bg-accent" : "bg-edge"}`}>
@@ -122,9 +123,9 @@ function FormationPicker({ value, onChange }) {
       <div>
         {toggle}
         <div className={`flex items-start gap-3 rounded-xl border border-dashed border-edge bg-page/60 p-4 ${FONT} text-sm text-ink-soft`}>
-          <MessagesSquare className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+          <Shuffle className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
           <p>
-            {tr("Oyunçular mövqeyə görə bölünmür: hər lotda istənilən mövqedən təsadüfi futbolçu çıxır. Hər komanda 5 oyunçu yığır, sonda güc xalı və reytinq göstərilmir.")}
+            {tr("Oyunçular mövqeyə görə bölünmür: hər lotda istənilən mövqedən təsadüfi futbolçu çıxır. Hər komanda 5 oyunçu yığır, sonda sistem reytinqləri hesablayıb qalibi elan edir.")}
           </p>
         </div>
       </div>
@@ -134,6 +135,35 @@ function FormationPicker({ value, onChange }) {
       {toggle}
       <FormationEditor value={value} onChange={onChange} />
     </div>
+  );
+}
+
+function MysteryToggle({ value, onChange }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={value}
+      onClick={() => onChange(!value)}
+      className={`flex w-full items-center gap-3.5 rounded-xl border-2 px-3.5 py-3 text-left transition-colors duration-200 ${
+        value ? "border-gold/60 bg-gold/8" : "border-edge bg-surface hover:border-gold/30"
+      }`}
+    >
+      <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${value ? "bg-gold text-black" : "bg-page-2 text-gold"}`}>
+        <HelpCircle className="h-5 w-5" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className={`block ${FONT} text-[15px] font-extrabold uppercase tracking-wide text-ink`}>
+          {tr("Gizli oyunçu rejimi")}
+        </span>
+        <span className={`block ${FONT} text-sm text-muted`}>
+          {tr("Ad görünmür, yalnız ipucu: “FC Barcelona ilə Çempionlar Liqası qazanıb”. Messi də çıxa bilər, Mascherano da.")}
+        </span>
+      </span>
+      <span className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${value ? "bg-gold" : "bg-edge"}`}>
+        <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-[left] duration-200 ${value ? "left-5.5" : "left-0.5"}`} />
+      </span>
+    </button>
   );
 }
 
@@ -247,7 +277,7 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
       />
 
       <ul className="mt-5 grid gap-2 rounded-xl bg-page p-4 sm:grid-cols-2">
-        {rules(formation).map((r, i) => (
+        {rules(formation, settings.mystery).map((r, i) => (
           <li key={i} className={`flex gap-2.5 ${FONT} text-sm text-ink-soft`}>
             <span
               className={`grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent ${FONT} text-[11px] font-black text-white`}
@@ -258,6 +288,12 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
           </li>
         ))}
       </ul>
+
+      <div className="mt-6">
+        <Field label={tr("Oyun növü")}>
+          <MysteryToggle value={Boolean(settings.mystery)} onChange={set("mystery")} />
+        </Field>
+      </div>
 
       <div className="mt-6">
         <Field label={tr("Heyət filteri")} hint={tr("mövqeni 0 et — bağlansın")}>

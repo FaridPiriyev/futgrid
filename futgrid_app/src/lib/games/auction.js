@@ -1,4 +1,5 @@
 import { playerRating } from "./rating";
+import { pickClue } from "./auctionClues";
 
 import { tr } from "../../i18n";
 export const POS_ORDER = ["GK", "DF", "MF", "FW"];
@@ -39,6 +40,8 @@ export function pitchSpots(positions) {
   });
 }
 export const BUDGET = 40;
+// Pul "yarım manat" vahidi ilə saxlanılır: 2 = 1 ₼. Hər lotun açılış təklifi ən azı 1 ₼-dır.
+export const MIN_BID = 2;
 export const MAX_LOTS = 30;
 export const SOLD_MS = 1700;
 export const SIDE_KEYS = ["A", "B"];
@@ -67,7 +70,7 @@ export const money = (halves) => {
 
 export const tierOf = (rating) => TIERS.find((t) => rating >= t.min);
 
-export function buildPool(data, key) {
+export function buildPool(data, key, { mystery = false } = {}) {
   const sizes = POOL_SIZES[key] ?? POOL_SIZES.stars;
   const by = { GK: [], DF: [], MF: [], FW: [] };
   for (const p of data.players) {
@@ -83,6 +86,8 @@ export function buildPool(data, key) {
           b.market_value.amount_eur - a.market_value.amount_eur,
       )
       .slice(0, sizes[pos]);
+  // Gizli rejim: oyunçu ipucu ilə seçilir (bax auctionClues.js).
+  if (mystery) Object.defineProperty(by, "mystery", { value: data, enumerable: false });
   return by;
 }
 
@@ -129,18 +134,25 @@ export function decideOptions(state) {
   return { take, give, skip: !give };
 }
 
-export const nextPrice = (lot) => (lot.leader ? lot.price + 1 : lot.start);
+export const nextPrice = (lot) => (lot.leader ? lot.price + 1 : MIN_BID);
 
+// Lotu növbə ilə bir tərəf açır: açan ən azı 1 ₼ təklif etməlidir, o vaxta qədər rəqib gözləyir.
 export function canBid(state, side) {
   const { lot, teams, phase } = state;
   if (phase !== "bid" || !lot) return false;
   if (lot.passed[side] || lot.leader === side) return false;
+  if (!lot.leader && side !== lot.opener) return false;
   const team = teams[side];
   return openCount(team, lot.pos) > 0 && maxBid(team) >= nextPrice(lot);
 }
 
+// Açan təklif verməmişdən keçə bilməz; rəqib isə yalnız təklif olandan sonra keçir.
+export const canPass = (state, side) =>
+  state.phase === "bid" && Boolean(state.lot?.leader) && state.lot.leader !== side && !state.lot.passed[side];
+
+// Sürətli düymələr: açılışda 1 · 2 · 4 ₼, sonra +0.5 · +1 · +2 ₼.
 export function bidAmount(lot, inc) {
-  return (lot.leader ? lot.price : lot.start - 1) + inc;
+  return lot.leader ? lot.price + inc : MIN_BID * inc;
 }
 
 const fairPrice = (rating) =>
@@ -158,24 +170,35 @@ export function botLimit(lot, team, difficulty, random) {
   const slotsLeft = openCount(team);
   const perSlot = team.money / slotsLeft;
   let w =
-    fairPrice(lot.rating) * Math.min(2, Math.max(0.5, (perSlot / 8) ** 0.7));
+    fairPrice(lot.expected ?? lot.rating) * Math.min(2, Math.max(0.5, (perSlot / 8) ** 0.7));
   if (slotsLeft === 1 && difficulty !== "easy")
-    w = Math.max(w, cap * (lot.rating >= 80 ? 1 : 0.7));
+    w = Math.max(w, cap * ((lot.expected ?? lot.rating) >= 80 ? 1 : 0.7));
   const [lo, hi] = NOISE[difficulty] ?? NOISE.normal;
   w *= lo + random() * (hi - lo);
   return Math.max(0, Math.min(cap, Math.floor(w)));
 }
 
 function pickLot(pool, teams, used, random) {
-  const weights = {};
-  const FREE_W = { GK: 1, DF: 3, MF: 3, FW: 3 };
-  for (const t of Object.values(teams))
-    for (const s of t.slots) {
-      if (s.pick) continue;
-      if (s.pos === ANY)
-        for (const [pos, w] of Object.entries(FREE_W)) weights[pos] = (weights[pos] ?? 0) + w / 10;
-      else weights[s.pos] = (weights[s.pos] ?? 0) + 1;
+  // Hər iki komandada boş yeri olan mövqelər üstündür — onda lot həqiqi hərraca çıxır.
+  const weightsFor = (sides) => {
+    const weights = {};
+    const FREE_W = { GK: 1, DF: 3, MF: 3, FW: 3 };
+    for (const pos of POS_ORDER) {
+      if (!sides.every((side) => openCount(teams[side], pos) > 0)) continue;
+      let w = 0;
+      for (const side of sides)
+        for (const s of teams[side].slots) {
+          if (s.pick) continue;
+          if (s.pos === ANY) w += FREE_W[pos] / 10;
+          else if (s.pos === pos) w += 1;
+        }
+      if (w > 0) weights[pos] = w;
     }
+    return weights;
+  };
+  let weights = weightsFor(SIDE_KEYS);
+  if (!Object.keys(weights).length)
+    weights = Object.assign({}, ...SIDE_KEYS.map((side) => weightsFor([side])));
   const options = Object.entries(weights).filter(([pos]) =>
     pool[pos].some((p) => !used.has(p.id)),
   );
@@ -190,11 +213,18 @@ function pickLot(pool, teams, used, random) {
       break;
     }
   }
+  if (pool.mystery) {
+    const hit = pickClue(pool.mystery, pos, used, random);
+    if (hit) {
+      const rating = playerRating(hit.player);
+      return { player: hit.player, pos, rating, tier: tierOf(hit.expected), start: MIN_BID, clue: hit.clue, expected: hit.expected };
+    }
+  }
   const free = pool[pos].filter((p) => !used.has(p.id));
   const player = free[Math.floor(random() * free.length)];
   const rating = playerRating(player);
   const tier = tierOf(rating);
-  return { player, pos, rating, tier, start: tier.start };
+  return { player, pos, rating, tier, start: MIN_BID };
 }
 
 function autofill(state, pool, random) {
@@ -229,31 +259,47 @@ function autofill(state, pool, random) {
 export function openLot(state, pool, random, now, timerMs) {
   if (SIDE_KEYS.every((s) => isFull(state.teams[s])))
     return { ...state, lot: null, phase: "done" };
-  // Heç kimin həm pulu, həm boş yeri qalmayıbsa, qalan yerlər avtomatik dolur.
-  if (!SIDE_KEYS.some((s) => canBuy(state.teams[s])))
-    return autofill(state, pool, random);
-  const decider = deciderOf(state.teams);
   const info =
     state.lotNo < MAX_LOTS ? pickLot(pool, state.teams, state.used, random) : null;
   if (!info) return autofill(state, pool, random);
   const used = new Set(state.used);
   used.add(info.player.id);
-  return {
+  const takers = SIDE_KEYS.filter((side) => openCount(state.teams[side], info.pos) > 0);
+  // Növbə ilə açan: hər lotda dəyişir.
+  const turn = state.nextOpener ?? "A";
+  const opener = takers.includes(turn) ? turn : takers[0];
+  const lot = {
+    ...info,
+    id: `${state.lotNo + 1}-${info.player.id}`,
+    price: 0,
+    leader: null,
+    opener,
+    decider: null,
+    passed: { A: false, B: false },
+    history: [],
+  };
+  const next = {
     ...state,
     used,
     lotNo: state.lotNo + 1,
-    phase: decider ? "decide" : "bid",
+    nextOpener: otherSide(turn),
+    phase: "bid",
     outcome: null,
     deadline: now + timerMs,
-    lot: {
-      ...info,
-      id: `${state.lotNo + 1}-${info.player.id}`,
-      price: info.start,
-      leader: null,
-      decider,
-      passed: { A: false, B: false },
-      history: [],
-    },
+    lot,
+  };
+  // Bu mövqedə yalnız bir komandanın yeri qalıbsa, oyunçu ona minimum qiymətə gedir.
+  if (takers.length === 1) return assign(next, opener, Math.min(MIN_BID, state.teams[opener].money), now, { auto: true });
+  // Açanın 1 ₼-ı yoxdursa, onun adından qalan pulu (0 da ola bilər) avtomatik təklif olunur.
+  if (state.teams[opener].money < MIN_BID) return openWith(next, opener, state.teams[opener].money, now, timerMs);
+  return next;
+}
+
+function openWith(state, side, amount, now, timerMs) {
+  return {
+    ...state,
+    deadline: now + timerMs,
+    lot: { ...state.lot, price: amount, leader: side, history: [{ side, amount, auto: true }, ...state.lot.history] },
   };
 }
 
@@ -278,9 +324,15 @@ export function newGame(pool, random, now, timerMs, formation) {
 
 export function placeBid(state, side, inc, now, timerMs) {
   if (!canBid(state, side)) return state;
+  return placeBidExact(state, side, bidAmount(state.lot, inc), now, timerMs);
+}
+
+// İstənilən məbləğ (yarım manatla): məs. birbaşa 20 ₼ = 40.
+export function placeBidExact(state, side, amount, now, timerMs) {
+  if (!canBid(state, side)) return state;
   const lot = state.lot;
-  const amount = bidAmount(lot, inc);
-  if (amount > maxBid(state.teams[side])) return state;
+  amount = Math.round(amount);
+  if (amount < nextPrice(lot) || amount > maxBid(state.teams[side])) return state;
   return {
     ...state,
     deadline: now + timerMs,
@@ -294,8 +346,7 @@ export function placeBid(state, side, inc, now, timerMs) {
 }
 
 export function passLot(state, side) {
-  if (state.phase !== "bid" || !state.lot || state.lot.leader === side)
-    return state;
+  if (!canPass(state, side)) return state;
   return {
     ...state,
     lot: { ...state.lot, passed: { ...state.lot.passed, [side]: true } },
@@ -392,6 +443,13 @@ export function tick(state, pool, random, now, timerMs) {
   }
   if (state.phase === "decide") return state;
   if (state.phase !== "bid" || !state.lot) return state;
+  const lot = state.lot;
+  if (!lot.leader) {
+    // Açan vaxtında təklif verməsə, onun adından minimum 1 ₼ təklif olunur.
+    if (now < state.deadline) return state;
+    const cash = state.teams[lot.opener].money;
+    return openWith(state, lot.opener, Math.min(MIN_BID, cash), now, timerMs);
+  }
   const others = SIDE_KEYS.filter((s) => canBid(state, s));
   if (!others.length || now >= state.deadline) return close(state, now);
   return state;

@@ -1372,40 +1372,34 @@ export default function Home() {
       .get("/stats")
       .then(setHomeStats)
       .catch(() => {});
+    // Hər dövr üçün backend-in qaytardığı ilk 10 oyunçu ayrıca saxlanılır.
     Promise.all(
       ["week", "month", "all"].map((key) =>
         api
           .get(`/leaderboard?period=${key}&limit=10`)
-          .then((data) => [key, data.entries ?? []]),
+          .then((data) => [key, data.entries ?? []])
+          .catch(() => [key, []]),
       ),
-    )
-      .then((results) => {
-        const byId = new Map();
-        for (const [key, entries] of results) {
-          for (const entry of entries) {
-            const current = byId.get(entry.userId) ?? {
-              id: entry.userId,
-              name: entry.displayName,
-              username: entry.username,
-              avatarUrl: entry.avatarUrl,
-              team: entry.team?.name ?? entry.team?.slug ?? "—",
-              matches: entry.games ?? 0,
-              winRate: entry.winRate ?? 0,
-              points: { week: 0, month: 0, all: 0 },
-            };
-            current.points[key] = entry.points;
-            current.matches = Math.max(current.matches, entry.games ?? 0);
-            current.winRate = Math.max(current.winRate, entry.winRate ?? 0);
-            byId.set(entry.userId, current);
-          }
-        }
-        const merged = [...byId.values()].sort(
-          (a, b) =>
-            b.points.all - a.points.all || b.points.week - a.points.week,
-        );
-        if (merged.length) setLivePlayers(merged);
-      })
-      .catch(() => {});
+    ).then((results) => {
+      const boards = {};
+      for (const [key, entries] of results) {
+        boards[key] = entries
+          .filter((e) => (e.points ?? 0) > 0)
+          .sort((a, b) => b.points - a.points)
+          .slice(0, 10)
+          .map((entry) => ({
+            id: entry.userId,
+            name: entry.displayName,
+            username: entry.username,
+            avatarUrl: entry.avatarUrl,
+            team: entry.team?.name ?? entry.team?.slug ?? "—",
+            matches: entry.games ?? 0,
+            winRate: entry.winRate ?? 0,
+            points: { value: entry.points },
+          }));
+      }
+      setLivePlayers(boards);
+    });
   }, []);
 
   const { user } = useAuth();
@@ -1434,9 +1428,7 @@ export default function Home() {
     setPeriod(key);
   };
 
-  const rows = [...(livePlayers ?? [])]
-    .sort((a, b) => b.points[period] - a.points[period])
-    .map((p) => ({ ...p, points: { ...p.points, value: p.points[period] } }));
+  const rows = livePlayers?.[period] ?? [];
   return (
     <div ref={rootRef} className="w-full overflow-x-clip bg-page">
       <style>{KEYFRAMES}</style>
@@ -1505,7 +1497,7 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 {rows.slice(0, 3).map((player, rank) => (
                   <TopCard
-                    key={player.name}
+                    key={player.id ?? player.name}
                     player={player}
                     rank={rank}
                     run={rowsIn}
@@ -1527,7 +1519,7 @@ export default function Home() {
                   const i = j + 3;
                   return (
                     <div
-                      key={player.name}
+                      key={player.id ?? player.name}
                       className={`border-b border-page-2 transition-all ease-out last:border-b-0 motion-reduce:transition-none ${
                         rowsIn
                           ? "translate-x-0 opacity-100 duration-500"

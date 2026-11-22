@@ -140,7 +140,7 @@ export default function IkiHerf() {
         />
       </div>
     );
-  else if (!game && mode !== "friend")
+  else if (!game && mode === "solo")
     body = (
       <section className={`mx-auto max-w-3xl ${SETTINGS_CARD}`}>
         <SettingsHeader

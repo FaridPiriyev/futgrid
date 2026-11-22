@@ -181,6 +181,8 @@ export function datasetFor(data, era) {
   return data._active;
 }
 
+const SEARCH_TROPHY = { ballon_dor: 2, world_cup: 1.5, ucl: 1, euro: 0.8, copa_america: 0.8 };
+
 export function searchPlayers(data, query, limit = 8) {
   const q = norm(query);
   if (q.length < 2) return [];
@@ -189,11 +191,24 @@ export function searchPlayers(data, query, limit = 8) {
 
   for (const p of data.players) {
     if (!words.every((w) => p._tokens.some((t) => t.startsWith(w)))) continue;
-    const rank = p._name === q ? 0 : p._name.startsWith(q) ? 1 : 2;
-    hits.push({ p, rank, value: p.market_value?.amount_eur ?? 0 });
+    // Tam ad uyğunluğu həmişə birinci; qalanları tanınmışlığa görə sıralanır ki,
+    // "mes" yazanda Messi az tanınan "Meschack ..."-dan əvvəl çıxsın.
+    const mv = p.market_value ?? {};
+    const money = Math.max(mv.amount_eur ?? 0, (mv.highest_eur ?? 0) * 0.5);
+    // Əl ilə əlavə olunmuş əfsanələrin (Pelé, Maradona...) bazar dəyəri yoxdur — onlara baza xal veririk.
+    const legend = !money && p.is_active === false ? 8 : 0;
+    let cups = 0;
+    for (const t of p.trophies ?? []) cups += SEARCH_TROPHY[t.id] ?? 0;
+    const fame =
+      Math.max(Math.log10(money + 1e4), legend) +
+      Math.min(p.international?.caps ?? 0, 150) / 60 +
+      Math.min(cups, 2);
+    const last = p._tokens[p._tokens.length - 1] ?? "";
+    const bonus = p._name.startsWith(q) ? 1 : last.startsWith(words[words.length - 1]) ? 0.8 : 0;
+    hits.push({ p, rank: p._name === q ? 0 : 1, score: fame + bonus });
   }
 
-  hits.sort((a, b) => a.rank - b.rank || b.value - a.value);
+  hits.sort((a, b) => a.rank - b.rank || b.score - a.score);
   return hits.slice(0, limit).map((h) => h.p);
 }
 

@@ -9,7 +9,7 @@ import UltimateGame, { ULTIMATE_KEYFRAMES } from "./UltimateGame";
 import { tr } from "../../../i18n";
 
 const KEY = "futgrid:ultimate:settings";
-const DEFAULTS = { formation: "4-3-3", difficulty: "normal", mode: "free" };
+const DEFAULTS = { formation: "4-3-3", difficulty: "normal" };
 
 const FORMATION_OPTS = ["4-3-3", "4-4-2", "3-5-2"].map((v) => ({ value: v, label: v }));
 const LEVELS = [
@@ -17,14 +17,13 @@ const LEVELS = [
   { value: "normal", get label() { return tr("Normal"); }, get sub() { return tr("tanınmış klublar"); } },
   { value: "hard", get label() { return tr("Çətin"); }, get sub() { return tr("bütün klublar"); } },
 ];
-const MODES = [
-  { value: "free", get label() { return tr("Sərbəst"); }, get sub() { return tr("hər dəfə təsadüfi"); } },
-  { value: "daily", get label() { return tr("Gündəlik"); }, get sub() { return tr("bu gün hamıya eyni"); } },
-];
-
 function load() {
   try {
-    return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") };
+    const { formation, difficulty } = JSON.parse(localStorage.getItem(KEY) ?? "{}");
+    return {
+      formation: ["4-3-3", "4-4-2", "3-5-2"].includes(formation) ? formation : DEFAULTS.formation,
+      difficulty: ["easy", "normal", "hard"].includes(difficulty) ? difficulty : DEFAULTS.difficulty,
+    };
   } catch {
     return DEFAULTS;
   }
@@ -59,20 +58,15 @@ export default function Ultimate() {
         <SettingsHeader
           title={tr("Ultimate 11")}
           accent={tr("parametrlər")}
-          sub={tr("11 raund. Hər raundda KOMANDA və DÖVR barabanı fırlanır, o klubda o illərdə oynamış 4 futbolçudan birini heyətinə götürürsən. Bonusları ağıllı işlət və ən güclü 11-i qur.")}
+          sub={tr("11 raund. Hər raundda KOMANDA və DÖVR barabanı fırlanır, o komandada o illərdə oynamış futbolçulardan birini heyətinə götürürsən. Reytinqlər gizlidir — yalnız sonda açılır. Əfsanəvi komandalar da düşür: 2005 Milan, 2002 Braziliya, 2009 Barselona...")}
         />
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <Field label={tr("Sxem")}>
             <Segmented label={tr("Sxem")} options={FORMATION_OPTS} value={settings.formation} onChange={change("formation")} />
           </Field>
-          <Field label={tr("Rejim")}>
-            <Segmented label={tr("Rejim")} options={MODES} value={settings.mode} onChange={change("mode")} />
+          <Field label={tr("Çətinlik")}>
+            <Segmented label={tr("Çətinlik")} options={LEVELS} value={settings.difficulty} onChange={change("difficulty")} />
           </Field>
-          <div className="md:col-span-2">
-            <Field label={tr("Çətinlik")}>
-              <Segmented label={tr("Çətinlik")} options={LEVELS} value={settings.difficulty} onChange={change("difficulty")} />
-            </Field>
-          </div>
         </div>
         <div className="mt-7 border-t border-edge pt-5">
           <button type="button" onClick={() => setGame((g) => g + 1)} className={BTN_PRIMARY}>
@@ -90,11 +84,7 @@ export default function Ultimate() {
         data={data}
         formation={settings.formation}
         difficulty={settings.difficulty}
-        daily={settings.mode === "daily"}
-        onAgain={() => {
-          if (settings.mode === "daily") change("mode")("free");
-          setGame((g) => g + 1);
-        }}
+        onAgain={() => setGame((g) => g + 1)}
         onSettings={() => setGame(0)}
       />
     );

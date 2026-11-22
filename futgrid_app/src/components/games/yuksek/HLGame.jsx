@@ -77,7 +77,7 @@ function PlayerCard({ data, player, side, phase, correct, onGuess, animate }) {
       <PlayerAvatar
         key={player.id}
         player={player}
-        className="h-16 w-16 border-2 sm:h-24 sm:w-24 md:h-32 md:w-32"
+        className="h-16 w-16 border-2 sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-36 lg:w-36"
         textClass="text-xl sm:text-3xl md:text-4xl"
       />
       <h3 className={`relative mt-2 ${FONT} text-xl font-bold uppercase leading-tight text-ink sm:mt-3 sm:text-2xl md:text-3xl`}>

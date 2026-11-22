@@ -106,3 +106,35 @@ export function saveBest(difficulty, value) {
     localStorage.setItem(bestKey(difficulty), String(value));
   } catch {}
 }
+
+// "Rəqəm" rejimi: bir oyunçu və bir məbləğ — dəyəri bundan çoxdur, azdır, yoxsa bərabər?
+// Məbləğ Transfermarkt-ın adətən istifadə etdiyi yuvarlaq pillələrdən seçilir.
+const LADDER = [
+  0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2, 1.5, 1.8, 2, 2.5, 3, 3.5,
+  4, 4.5, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 20, 22, 25, 28, 30, 32, 35, 38, 40, 45, 50, 55, 60,
+  65, 70, 75, 80, 85, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 200, 220, 250,
+].map((m) => m * 1e6);
+
+export function pickLine(player, random) {
+  const v = METRIC.get(player);
+  // Təxminən hər 4 sualdan biri dəqiq dəyərin özüdür ("bərabər").
+  if (random() < 0.25) return v;
+  let i = LADDER.findIndex((x) => x >= v);
+  if (i < 0) i = LADDER.length - 1;
+  const step = 1 + Math.floor(random() * 3);
+  const dir = random() < 0.5 ? -1 : 1;
+  let j = Math.max(0, Math.min(LADDER.length - 1, i + dir * step));
+  if (LADDER[j] === v) j = Math.max(0, Math.min(LADDER.length - 1, j + (dir > 0 ? 1 : -1)));
+  return LADDER[j] === v ? v * (dir > 0 ? 1.2 : 0.8) : LADDER[j];
+}
+
+export function lineAnswer(player, line) {
+  const v = METRIC.get(player);
+  if (v === line) return "equal";
+  return v > line ? "up" : "down";
+}
+
+export function pickLinePlayer(pool, recent, random) {
+  const options = pool.filter((p) => !recent.has(p.id));
+  return weightedPick(options.length ? options : pool, random);
+}

@@ -29,7 +29,7 @@ export default function GameLayout({
 
   return (
     <section
-      className={`relative w-full overflow-x-clip bg-page ${
+      className={`fg-game relative w-full overflow-x-clip bg-page ${
         compact
           ? "min-h-[calc(100svh-7rem)] pb-24 pt-3 md:min-h-[calc(100svh-8.75rem)] md:pb-6 md:pt-20"
           : "min-h-screen pb-24 pt-6 md:pb-16 md:pt-32"

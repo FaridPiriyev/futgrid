@@ -90,3 +90,17 @@ section[id] {
     scrollbar-color: color-mix(in srgb, var(--fg-accent) 45%, transparent) transparent;
   }
 }
+
+/* Telefonda oyunda yazı rejimi: klaviatura açıq olanda yapışqan menyu gizlənir,
+   oyunun altında boş yer yaranır ki, input ekranın yuxarısına qalxa bilsin
+   və təkliflər siyahısı klaviaturanın altında qalmasın. */
+@media (max-width: 767px) {
+  html.fg-typing .fg-sticky-nav {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  html.fg-typing .fg-game {
+    padding-bottom: 70vh;
+  }
+}
