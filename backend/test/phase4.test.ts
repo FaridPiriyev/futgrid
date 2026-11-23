@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { AddressInfo } from "node:net";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { io as connect, type Socket } from "socket.io-client";
-import { buildPuzzle, hasLetters } from "@futgrid/game-core";
+import { buildPuzzle, commonPlayers, entityIndex, hasLetters } from "@futgrid/game-core";
 import { buildApp } from "../src/app.js";
 import { setupDuels } from "../src/modules/duel/socket.js";
 import { getGameData } from "../src/lib/data.js";
@@ -135,51 +135,72 @@ describe("online duels", () => {
     const raw = await redis.get(`duel:room:${code}`);
     expect(raw).toBeTruthy();
     const room = JSON.parse(raw as string) as { seed: number };
-    const puzzle = buildPuzzle("xox", getGameData(), room.seed, {
+    // Onlayn X0X raundlarla oynanılır: 1-ci raundun cədvəli seed + 7919 ilə qurulur.
+    const puzzle = buildPuzzle("xox", getGameData(), (room.seed + 7_919) >>> 0, {
       difficulty: "normal",
-      categories: { country: true, trophy: true, coach: false },
+      categories: { country: true, trophy: true, coach: true },
     });
     const grid = puzzle.grid as { rows: { ids: Set<number> }[]; cols: { ids: Set<number> }[] };
     const playerId = [...grid.rows[0]!.ids].find((id) => grid.cols[0]!.ids.has(id));
     expect(playerId).toBeTruthy();
 
-    const moveState = waitFor<{ state: { board: (string | null)[] } }>(b, "game:state");
+    const moveState = waitFor<{ state: { cells: ({ mark: string } | null)[] } }>(b, "game:state");
     await emitAck(a, "game:move", { code, cell: 0, playerId });
     const moved = await moveState;
-    expect(moved.state.board[0]).toBe("X");
+    expect(moved.state.cells[0]?.mark).toBe("X");
   });
-
 
   it("plays an online Ortaq Oyunçu round", async () => {
     const a = makeClient(randomUUID());
     const b = makeClient(randomUUID());
     await Promise.all([waitFor(a, "connect"), waitFor(b, "connect")]);
-    const created = await emitAck<{ room: { code: string } }>(a, "room:create", { game: "orta" });
+    const created = await emitAck<{ room: { code: string } }>(a, "room:create", {
+      game: "orta",
+      settings: { era: "all" },
+    });
     const code = created.room.code;
     const statePromise = waitFor<{ status: string }>(b, "game:state");
     await emitAck(b, "room:join", { code, game: "orta" });
     await statePromise;
 
-    const redis = await getRedis();
-    const raw = await redis.get(`duel:room:${code}`);
-    expect(raw).toBeTruthy();
-    const room = JSON.parse(raw as string) as { seed: number };
-    const puzzle = buildPuzzle("orta", getGameData(), room.seed, {
-      difficulty: "normal",
-      rounds: 10,
+    // Hər oyunçu öz kartını seçir; kartlar açılandan sonra ortaq oyunçunu yazan xal alır.
+    const data = getGameData();
+    const clubs = entityIndex(data).clubs.filter((club) => club.ids.size > 200);
+    let pair: { a: (typeof clubs)[number]; b: (typeof clubs)[number]; id: number } | null = null;
+    for (const x of clubs) {
+      for (const y of clubs) {
+        if (x.key === y.key) continue;
+        const common = commonPlayers(data, x, y);
+        if (common[0]) {
+          pair = { a: x, b: y, id: common[0].id };
+          break;
+        }
+      }
+      if (pair) break;
+    }
+    expect(pair).toBeTruthy();
+    // Kartlar ikisi də seçiləndə açılır — "answer" mərhələsini gözləyirik.
+    const revealed = new Promise<{ state: { phase: string } }>((resolve) => {
+      const handler = (payload: { state: { phase: string } }) => {
+        if (payload.state.phase !== "answer") return;
+        b.off("game:state", handler);
+        resolve(payload);
+      };
+      b.on("game:state", handler);
     });
-    const pairs = puzzle.pairs as { a: { ids: Set<number> }; b: { ids: Set<number> } }[];
-    const pair = pairs[0]!;
-    const playerId = [...pair.a.ids].find((id) => pair.b.ids.has(id));
-    expect(playerId).toBeTruthy();
+    await emitAck(a, "game:move", { code, action: "pick", key: pair!.a.key });
+    await emitAck(b, "game:move", { code, action: "pick", key: pair!.b.key });
+    expect((await revealed).state.phase).toBe("answer");
 
-    const moveState = waitFor<{ state: { round: number; scores: Record<string, number> } }>(b, "game:state");
-    await emitAck(a, "game:move", { code, playerId });
+    const moveState = waitFor<{ state: { round: number; scores: Record<string, number> } }>(
+      b,
+      "game:state",
+    );
+    await emitAck(a, "game:move", { code, action: "answer", playerId: pair!.id });
     const moved = await moveState;
     expect(moved.state.round).toBe(1);
     expect(Object.values(moved.state.scores)).toContain(1);
   });
-
 
   it("plays online Higher/Lower and Two Letters rounds", async () => {
     const a = makeClient(randomUUID());
@@ -192,7 +213,9 @@ describe("online duels", () => {
     await emitAck(b, "room:join", { code: hlCode, game: "higherLower" });
     await hlStarted;
     const redis = await getRedis();
-    const hlRoom = JSON.parse((await redis.get(`duel:room:${hlCode}`)) as string) as { seed: number };
+    const hlRoom = JSON.parse((await redis.get(`duel:room:${hlCode}`)) as string) as {
+      seed: number;
+    };
     const hlPuzzle = buildPuzzle("higherLower", getGameData(), hlRoom.seed, {
       difficulty: "normal",
       rounds: 10,
@@ -213,23 +236,28 @@ describe("online duels", () => {
     const tlStarted = waitFor(b, "game:state");
     await emitAck(b, "room:join", { code: tlCode, game: "twoLetters" });
     await tlStarted;
-    const tlRoom = JSON.parse((await redis.get(`duel:room:${tlCode}`)) as string) as { seed: number };
-    const tlPuzzle = buildPuzzle("twoLetters", getGameData(), tlRoom.seed, {
-      difficulty: "normal",
-      rounds: 10,
+    // Hərfləri oyunçular seçir: əvvəl otağı quran, sonra rəqib.
+    const playing = new Promise<{ state: { phase: string; letters: string[] } }>((resolve) => {
+      const handler = (payload: { state: { phase: string; letters: string[] } }) => {
+        if (payload.state.phase !== "play") return;
+        b.off("game:state", handler);
+        resolve(payload);
+      };
+      b.on("game:state", handler);
     });
-    const pair = (tlPuzzle.pairs as { a: string; b: string }[])[0]!;
+    await emitAck(a, "game:move", { code: tlCode, action: "letter", letter: "A" });
+    await emitAck(b, "game:move", { code: tlCode, action: "letter", letter: "N" });
+    const tlPlay = await playing;
+    expect(tlPlay.state.letters).toEqual(["A", "N"]);
     const player = getGameData().players.find((entry) =>
-      hasLetters(getGameData(), entry, pair.a, pair.b),
+      hasLetters(getGameData(), entry, "A", "N"),
     );
     expect(player).toBeTruthy();
-    const tlMoved = waitFor<{ state: { index: number; scores: Record<string, number> } }>(b, "game:state");
-    await emitAck(a, "game:move", { code: tlCode, playerId: player!.id });
+    const tlMoved = waitFor<{ state: { used: { playerId: number }[] } }>(b, "game:state");
+    await emitAck(a, "game:move", { code: tlCode, action: "answer", playerId: player!.id });
     const tlState = await tlMoved;
-    expect(tlState.state.index).toBe(1);
-    expect(Object.values(tlState.state.scores)).toContain(1);
+    expect(tlState.state.used[0]?.playerId).toBe(player!.id);
   });
-
 
   it("rejects joining a room from a different game", async () => {
     const a = makeClient(randomUUID());

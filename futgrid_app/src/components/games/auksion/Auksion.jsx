@@ -7,14 +7,16 @@ import AuctionGame from "./AuctionGame";
 import { AUCTION_KEYFRAMES } from "./AuctionParts";
 import AuctionSettings from "./AuctionSettings";
 import AuctionDuel from "./AuctionDuel";
+import { hasDuelEntry } from "../../../lib/games/useDuelRoom";
 import { loadSettings, saveSettings } from "./settings";
 
 import { tr } from "../../../i18n";
 export default function Auksion() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [screen, setScreen] = useState("modes");
-  const [mode, setMode] = useState(null);
+  const [invited] = useState(() => hasDuelEntry("auction"));
+  const [screen, setScreen] = useState(invited ? "game" : "modes");
+  const [mode, setMode] = useState(invited ? "friend" : null);
   const [settings, setSettings] = useState(loadSettings);
   const [gameKey, setGameKey] = useState(0);
 
@@ -68,6 +70,8 @@ export default function Auksion() {
       <AuctionDuel
         key={gameKey}
         data={data}
+        settings={settings}
+        onSettingsChange={changeSettings}
         onSettings={() => setScreen("modes")}
       />
     );

@@ -10,9 +10,20 @@ export const DEFAULT_SETTINGS = {
   multipleChoice: false,
   categories: { club: true, country: true, trophy: true, coach: true },
   names: { X: "", O: "" },
+  // Onlayn matç neçə raund qələbəsinə qədər gedir.
+  target: 2,
 };
 
 export const OPTIONS = {
+  target: [1, 2, 3].map((n) => ({
+    value: n,
+    get label() {
+      return tr("{n} raund", { n });
+    },
+    get sub() {
+      return n === 1 ? tr("bir raund, qalib bəlli") : tr("{n} qələbə qazanan", { n });
+    },
+  })),
   difficulty: [
     { value: "easy", get label() {
     return tr("Asan");

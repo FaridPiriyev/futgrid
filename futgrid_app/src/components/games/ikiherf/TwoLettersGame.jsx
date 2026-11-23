@@ -71,7 +71,7 @@ export function Tiles({ letters, sides, size, pending, spinAt = -1 }) {
   );
 }
 
-function Scoreboard({ names, scores, active, subs }) {
+export function Scoreboard({ names, scores, active, subs }) {
   const card = (side) => {
     const s = SIDES[side];
     const on = active === side;

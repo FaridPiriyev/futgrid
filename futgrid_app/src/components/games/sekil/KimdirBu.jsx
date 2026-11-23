@@ -11,28 +11,13 @@ import { PIXEL_KEYFRAMES } from "./PixelBoard";
 import PixelDuo from "./PixelDuo";
 import PixelSolo from "./PixelSolo";
 import PixelDuel from "./PixelDuel";
+import { ERAS, GRID_OPTIONS, LEVELS, ROUNDS, SPEEDS, TARGETS } from "./options";
+import { hasDuelEntry } from "../../../lib/games/useDuelRoom";
 
 import { tr } from "../../../i18n";
 
 const KEY = "futgrid:sekil:settings";
 const DEFAULTS = { names: { A: "", B: "" }, grid: 16, difficulty: "normal", era: "all", speed: 3, rounds: 5, target: 3 };
-
-const GRID_OPTIONS = [
-  { value: 16, get label() { return tr("16 xana"); }, get sub() { return tr("4 × 4"); } },
-  { value: 24, get label() { return tr("24 xana"); }, get sub() { return tr("4 × 6, daha uzun"); } },
-];
-const LEVELS = [
-  { value: "easy", get label() { return tr("Asan"); }, get sub() { return tr("ən məşhurlar"); } },
-  { value: "normal", get label() { return tr("Orta"); }, get sub() { return tr("tanınmışlar"); } },
-  { value: "hard", get label() { return tr("Çətin"); }, get sub() { return tr("geniş seçim"); } },
-];
-const ERAS = [
-  { value: "active", get label() { return tr("Aktiv"); }, get sub() { return tr("indiki futbolçular"); } },
-  { value: "all", get label() { return tr("Bütün zamanlar"); }, get sub() { return tr("legendlər daxil"); } },
-];
-const SPEEDS = [2, 3, 4].map((n) => ({ value: n, get label() { return tr("{n} san", { n }); } }));
-const ROUNDS = [5, 10].map((n) => ({ value: n, get label() { return tr("{n} futbolçu", { n }); } }));
-const TARGETS = [3, 5].map((n) => ({ value: n, get label() { return tr("{n} xal", { n }); } }));
 
 function load() {
   try {
@@ -64,8 +49,9 @@ export default function KimdirBu() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [settings, setSettings] = useState(load);
-  const [mode, setMode] = useState(null);
-  const [game, setGame] = useState(0);
+  const [invited] = useState(() => hasDuelEntry("sekil"));
+  const [mode, setMode] = useState(invited ? "friend" : null);
+  const [game, setGame] = useState(invited ? 1 : 0);
 
   useEffect(() => {
     loadData().then(setData).catch((e) => setError(e.message));
@@ -162,15 +148,17 @@ export default function KimdirBu() {
   else
     body = (
       <>
-        <div className="mx-auto mb-4 flex max-w-5xl justify-end">
-          <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
-            <span aria-hidden="true" className={SWEEP_BLUE} />
-            <ArrowLeft className="h-4 w-4" />
-            {tr("Parametrlər")}
-          </button>
-        </div>
+        {mode !== "friend" ? (
+          <div className="mx-auto mb-4 flex max-w-5xl justify-end">
+            <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
+              <span aria-hidden="true" className={SWEEP_BLUE} />
+              <ArrowLeft className="h-4 w-4" />
+              {tr("Parametrlər")}
+            </button>
+          </div>
+        ) : null}
         {mode === "friend" ? (
-          <PixelDuel key={game} data={data} onSettings={() => setMode(null)} />
+          <PixelDuel key={game} data={data} settings={settings} onSettingsChange={save} onSettings={() => setMode(null)} />
         ) : solo ? <PixelSolo key={game} data={data} settings={settings} /> : <PixelDuo key={game} data={data} settings={settings} names={names} />}
       </>
     );

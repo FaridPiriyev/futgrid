@@ -9,6 +9,7 @@ import OrtaqSolo from "./OrtaqSolo";
 import OrtaqVersus from "./OrtaqVersus";
 import { CARD_KEYFRAMES } from "./PokerCard";
 import { loadSettings, saveSettings } from "./settings";
+import { hasDuelEntry } from "../../../lib/games/useDuelRoom";
 
 import { tr } from "../../../i18n";
 const TITLE = "Ortaq oyunçu";
@@ -16,8 +17,9 @@ const TITLE = "Ortaq oyunçu";
 export default function OrtaqOyuncu() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [screen, setScreen] = useState("modes");
-  const [mode, setMode] = useState(null);
+  const [invited] = useState(() => hasDuelEntry("orta"));
+  const [screen, setScreen] = useState(invited ? "game" : "modes");
+  const [mode, setMode] = useState(invited ? "friend" : null);
   const [settings, setSettings] = useState(loadSettings);
   const [gameKey, setGameKey] = useState(0);
 
@@ -77,8 +79,10 @@ export default function OrtaqOyuncu() {
     body = (
       <OrtaqDuel
         key={gameKey}
-        data={gameData}
-        onSettings={() => setScreen("settings")}
+        data={data}
+        settings={settings}
+        onSettingsChange={changeSettings}
+        onSettings={() => setScreen("modes")}
       />
     );
   else if (mode === "solo")

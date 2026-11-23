@@ -10,62 +10,12 @@ import ModeSelect from "../common/ModeSelect";
 import BotLettersGame from "./BotLettersGame";
 import TwoLettersGame, { TWO_KEYFRAMES } from "./TwoLettersGame";
 import TwoLettersDuel from "./TwoLettersDuel";
+import { LEVELS, ROUNDS, SOLO_TIMES, TARGETS, TIMES } from "./options";
+import { hasDuelEntry } from "../../../lib/games/useDuelRoom";
 
 import { tr } from "../../../i18n";
 const KEY = "futgrid:ikiherf:settings";
 const DEFAULTS = { names: { A: "", B: "" }, seconds: 15, target: 5, difficulty: "normal", soloSeconds: 45, rounds: 5 };
-
-const LEVELS = [
-  { value: "easy", get label() {
-    return tr("Asan");
-  }, get sub() {
-    return tr("çox cavablı hərflər");
-  } },
-  { value: "normal", get label() {
-    return tr("Normal");
-  }, get sub() {
-    return tr("orta");
-  } },
-  { value: "hard", get label() {
-    return tr("Çətin");
-  }, get sub() {
-    return tr("bütün hərflər");
-  } },
-];
-
-const TIMES = [10, 15, 20].map((n) => ({
-  value: n,
-  get label() {
-    return tr("{n} san.", { n });
-  },
-  get sub() {
-    return tr("hər növbəyə");
-  },
-}));
-
-const SOLO_TIMES = [30, 45, 60].map((n) => ({
-  value: n,
-  get label() {
-    return tr("{n} san.", { n });
-  },
-  get sub() {
-    return tr("hər raunda");
-  },
-}));
-
-const ROUNDS = [3, 5, 10].map((n) => ({
-  value: n,
-  get label() {
-    return tr("{n} raund", { n });
-  },
-}));
-
-const TARGETS = [3, 5, 7].map((n) => ({
-  value: n,
-  get label() {
-    return tr("{n} xal", { n });
-  },
-}));
 
 function load() {
   try {
@@ -99,8 +49,9 @@ export default function IkiHerf() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [settings, setSettings] = useState(load);
-  const [game, setGame] = useState(0);
-  const [mode, setMode] = useState(null);
+  const [invited] = useState(() => hasDuelEntry("twoLetters"));
+  const [game, setGame] = useState(invited ? 1 : 0);
+  const [mode, setMode] = useState(invited ? "friend" : null);
 
   useEffect(() => {
     loadData()
@@ -220,15 +171,17 @@ export default function IkiHerf() {
   else
     body = (
       <>
-        <div className="mx-auto mb-4 flex max-w-4xl justify-end">
-          <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
-            <span aria-hidden="true" className={SWEEP_BLUE} />
-            <ArrowLeft className="h-4 w-4" />
-            {tr("Parametrlər")}
-          </button>
-        </div>
+        {mode !== "friend" ? (
+          <div className="mx-auto mb-4 flex max-w-4xl justify-end">
+            <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
+              <span aria-hidden="true" className={SWEEP_BLUE} />
+              <ArrowLeft className="h-4 w-4" />
+              {tr("Parametrlər")}
+            </button>
+          </div>
+        ) : null}
         {mode === "friend" ? (
-          <TwoLettersDuel key={game} data={data} onSettings={() => setMode(null)} />
+          <TwoLettersDuel key={game} data={data} settings={settings} onSettingsChange={save} onSettings={() => setMode(null)} />
         ) : mode === "solo" ? (
           <BotLettersGame key={game} data={data} settings={settings} name={names.A} />
         ) : (

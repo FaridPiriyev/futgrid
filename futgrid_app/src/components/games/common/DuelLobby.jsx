@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Check, Copy, KeyRound, Plus, RotateCcw, Share2, Swords, Trophy, Wifi } from "lucide-react";
+import { ArrowLeft, Check, Copy, DoorOpen, KeyRound, Plus, RotateCcw, Share2, Swords, Wifi } from "lucide-react";
+import { DUEL_KEYFRAMES, DuelFinished, nameOf } from "./DuelKit";
 import { Loader, Notice } from "./GameStatus";
 import { FONT } from "./ui";
 import { tr } from "../../../i18n";
@@ -34,7 +35,7 @@ function PlayerSide({ player, index, align = "left", me }) {
       <Avatar player={player} index={index} />
       <div className="min-w-0">
         <p className={`truncate ${FONT} text-base font-extrabold uppercase ${player ? "text-ink" : "text-faint"}`}>
-          {player ? player.displayName || player.name : tr("Gözlənilir…")}
+          {player ? nameOf(player) : tr("Gözlənilir…")}
         </p>
         <p className={`truncate ${FONT} text-xs text-muted`}>
           {player ? (me ? tr("Sən") : player.username ? `@${player.username}` : tr("Rəqib")) : tr("Boş yer")}
@@ -125,7 +126,27 @@ function JoinBox({ onJoin }) {
   );
 }
 
-function WaitingRoom({ code }) {
+/** Otağın parametrləri: hər iki oyunçu eyni qaydaları görür. */
+export function SettingsSummary({ items, dark = false }) {
+  if (!items?.length) return null;
+  return (
+    <ul className="flex flex-wrap gap-1.5">
+      {items.map(({ label, value }) => (
+        <li
+          key={label}
+          className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 ${FONT} text-xs ${
+            dark ? "border-white/15 bg-white/6 text-white" : "border-line/12 bg-line/5 text-ink"
+          }`}
+        >
+          <span className={dark ? "text-navy-soft" : "text-muted"}>{label}:</span>
+          <span className="font-bold">{value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function WaitingRoom({ code, onLeave, summary }) {
   const [copied, setCopied] = useState(false);
   const link = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?otaq=${code}` : "";
   const copy = async () => {
@@ -161,17 +182,21 @@ function WaitingRoom({ code }) {
             {tr("Kodu dostuna göndər. O, “Koda qoşul” hissəsinə yazan kimi oyun başlayacaq.")}
           </p>
         </div>
-        <div className="flex gap-2.5 md:flex-col">
-          <button type="button" onClick={() => void copy()} className={`${BTN} flex-1 bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
+        <div className="flex flex-wrap gap-2.5 md:flex-col md:flex-nowrap">
+          <button type="button" onClick={() => void copy()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
             {copied ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
             {copied ? tr("Kopyalandı") : tr("Kodu kopyala")}
           </button>
           {typeof navigator !== "undefined" && navigator.share ? (
-            <button type="button" onClick={() => void share()} className={`${BTN} flex-1 border border-white/25 text-white hover:border-white/60 md:w-56 md:flex-none`}>
+            <button type="button" onClick={() => void share()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap border border-white/25 text-white hover:border-white/60 md:w-56 md:flex-none`}>
               <Share2 className="h-4.5 w-4.5" />
               {tr("Paylaş")}
             </button>
           ) : null}
+          <button type="button" onClick={onLeave} className={`${BTN} basis-full whitespace-nowrap text-navy-soft hover:text-white md:w-56 md:basis-auto`}>
+            <DoorOpen className="h-4.5 w-4.5" />
+            {tr("Otağı bağla")}
+          </button>
         </div>
       </div>
       <div className="relative mt-6">
@@ -180,35 +205,72 @@ function WaitingRoom({ code }) {
           <CodeTiles value={code} />
         </div>
       </div>
+      {summary?.length ? (
+        <div className="relative mt-5">
+          <p className={`mb-2 ${FONT} text-xs font-bold uppercase tracking-[0.18em] text-navy-soft`}>{tr("Oyunun parametrləri")}</p>
+          <SettingsSummary items={summary} dark />
+        </div>
+      ) : null}
     </div>
   );
 }
 
-export default function DuelLobby({ duel, children, showChildrenWhileWaiting = false }) {
-  if (duel.loading) return <Loader text={tr("Yüklənir...")} />;
+/** Otaq yaradılmayıbsa: oyunun öz parametr ekranı (otağı quran üçün) + kodla qoşulma. */
+function SetupStage({ duel, setup }) {
+  return (
+    <div className="space-y-4">
+      {setup({ create: (settings) => void duel.createRoom(settings), connected: duel.connected })}
+      <div className="mx-auto grid max-w-5xl items-center gap-4 rounded-2xl border border-edge bg-surface p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:p-6">
+        <div>
+          <p className={`${FONT} text-xs font-bold uppercase tracking-[0.18em] text-yellow`}>{tr("Dostun otaq yaradıb?")}</p>
+          <p className={`mt-1 ${FONT} text-sm text-muted`}>
+            {tr("Onun göndərdiyi 6 rəqəmli kodu yaz — parametrləri otağı quran seçib, sən sadəcə qoşulursan.")}
+          </p>
+          <span className={`mt-3 inline-flex items-center gap-1.5 ${FONT} text-xs text-muted`}>
+            <Wifi className={`h-4 w-4 ${duel.connected ? "text-good-hi" : "text-faint"}`} />
+            {duel.connected ? tr("Serverə qoşuldu") : tr("Serverə qoşulur...")}
+          </span>
+        </div>
+        <JoinBox onJoin={(code) => void duel.joinRoom(code)} />
+      </div>
+    </div>
+  );
+}
+
+export default function DuelLobby({ duel, children, finishedDetail = null, onBack = null, setup = null, summary = null }) {
+  if (duel.loading && !duel.room) return <Loader text={tr("Otağa qoşulur...")} />;
 
   if (!duel.connected && !duel.room) {
     return (
       <div className="space-y-3">
         <Notice title={tr("Onlayn oyuna qoşulmaq alınmadı")} text={duel.error || tr("Server işlədiyini yoxlayın.")} />
-        <button type="button" onClick={duel.reconnect} className={BTN_MAIN}>
-          <RotateCcw className="h-4.5 w-4.5" />
-          {tr("Yenidən cəhd et")}
-        </button>
+        <div className="text-center">
+          <button type="button" onClick={duel.reconnect} className={BTN_MAIN}>
+            <RotateCcw className="h-4.5 w-4.5" />
+            {tr("Yenidən cəhd et")}
+          </button>
+        </div>
       </div>
     );
   }
 
   const players = duel.room?.players ?? [];
   const waiting = duel.room?.status === "waiting";
-  const playing = duel.room?.status === "playing";
   const finished = duel.room?.status === "finished";
-  const won = duel.result?.winnerId === duel.myId;
-  const draw = finished && !duel.result?.winnerId;
 
   return (
     <div className="space-y-4">
-      {!duel.room ? (
+      <style>{DUEL_KEYFRAMES}</style>
+      {!duel.room && setup ? <SetupStage duel={duel} setup={setup} /> : null}
+      {!duel.room && onBack && !setup ? (
+        <div className="flex justify-end">
+          <button type="button" onClick={onBack} className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wider text-muted hover:text-ink`}>
+            <ArrowLeft className="h-4 w-4" />
+            {tr("Rejimlər")}
+          </button>
+        </div>
+      ) : null}
+      {!duel.room && !setup ? (
         <div className="overflow-hidden rounded-[18px] border border-line/10 bg-surface">
           <div className="flex items-center gap-3 border-b border-line/8 px-5 py-4 sm:px-7">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent/15 text-accent">
@@ -259,29 +321,17 @@ export default function DuelLobby({ duel, children, showChildrenWhileWaiting = f
         </div>
       ) : null}
 
-      {duel.room ? <VersusBar players={players} myId={duel.myId} live={playing} /> : null}
+      {waiting ? <VersusBar players={players} myId={duel.myId} live={false} /> : null}
+      {waiting ? <WaitingRoom code={duel.room.code} onLeave={() => void duel.leaveRoom()} summary={summary} /> : null}
 
-      {waiting ? <WaitingRoom code={duel.room.code} /> : null}
-
-      {finished ? (
-        <div
-          className={`flex flex-col items-center gap-3 rounded-[18px] border p-5 text-center sm:p-6 ${
-            won ? "border-good/40 bg-good/10" : draw ? "border-line/15 bg-surface" : "border-bad/35 bg-bad/8"
-          }`}
-        >
-          <Trophy className={`h-8 w-8 ${won ? "text-yellow" : "text-muted"}`} />
-          <p className={`${FONT} text-2xl font-extrabold uppercase ${won ? "text-good-hi" : draw ? "text-ink" : "text-bad-hi"}`}>
-            {won ? tr("Qazandın!") : draw ? tr("Heç-heçə") : tr("Uduzdun")}
-          </p>
-          <button type="button" onClick={duel.rematch} className={BTN_MAIN}>
-            <RotateCcw className="h-4.5 w-4.5" />
-            {tr("Yenidən oyna")}
-          </button>
-        </div>
+      {duel.error ? (
+        <p role="alert" className={`rounded-[10px] border border-bad/30 bg-bad/8 px-3 py-2 ${FONT} text-sm font-bold text-bad-hi`}>
+          {duel.error}
+        </p>
       ) : null}
 
-      {duel.error ? <p className={`${FONT} text-sm font-bold text-bad-hi`}>{duel.error}</p> : null}
-      {duel.room && (!waiting || showChildrenWhileWaiting) ? children : null}
+      {finished ? <DuelFinished duel={duel} detail={finishedDetail} /> : null}
+      {duel.room && !waiting ? children : null}
     </div>
   );
 }

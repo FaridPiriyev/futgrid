@@ -13,6 +13,7 @@ import {
   SWEEP_WHITE,
 } from "../common/ui";
 import { OPTIONS, SIDES } from "./settings";
+import { ONLINE_STEP, ONLINE_TITLE, OnlineSetupActions } from "../common/OnlineSetup";
 
 import { tr } from "../../../i18n";
 function NameInput({ side, value, onChange, placeholder }) {
@@ -109,8 +110,10 @@ export default function OrtaqSettings({
   onChange,
   onStart,
   onBack,
+  connected = true,
 }) {
   const set = (key) => (value) => onChange({ ...settings, [key]: value });
+  const online = mode === "online";
   const setName = (side) => (value) =>
     onChange({ ...settings, names: { ...settings.names, [side]: value } });
   const versus = mode === "same";
@@ -118,10 +121,13 @@ export default function OrtaqSettings({
   return (
     <section className={`mx-auto max-w-5xl ${SETTINGS_CARD}`}>
       <SettingsHeader
-        title={versus ? tr("Eyni ekran") : tr("Tək oyunçu")}
+        title={online ? ONLINE_TITLE() : versus ? tr("Eyni ekran") : tr("Tək oyunçu")}
         accent={tr("parametrlər")}
+        step={online ? ONLINE_STEP() : undefined}
         sub={
-          versus
+          online
+            ? tr("Hər biriniz öz telefonunda gizlicə klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci yazan +1 xal alır, səhv yazan −1.")
+            : versus
             ? tr("Hər oyunçu gizli olaraq klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci tapan +1 xal alır, səhv deyən −1.")
             : tr("Sistem bir klub və bir klub və ya ölkə verir. Hər ikisində oynamış oyunçunu tap.")
         }
@@ -154,7 +160,16 @@ export default function OrtaqSettings({
             onChange={set("era")}
           />
         </Field>
-        {versus ? (
+        {online ? (
+          <Field label={tr("Neçə xala qədər")}>
+            <Segmented
+              label={tr("Neçə xala qədər")}
+              options={OPTIONS.onlineTargets}
+              value={OPTIONS.targetPresets.includes(settings.target) ? settings.target : 5}
+              onChange={set("target")}
+            />
+          </Field>
+        ) : versus ? (
           <Field label={tr("Neçə xala qədər")}>
             <TargetPicker value={settings.target} onChange={set("target")} />
           </Field>
@@ -180,6 +195,9 @@ export default function OrtaqSettings({
         )}
       </div>
 
+      {online ? (
+        <OnlineSetupActions onCreate={onStart} onBack={onBack} connected={connected} />
+      ) : (
       <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
         <button type="button" onClick={onStart} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
@@ -192,6 +210,7 @@ export default function OrtaqSettings({
           {tr("Rejimlər")}
         </button>
       </div>
+      )}
     </section>
   );
 }

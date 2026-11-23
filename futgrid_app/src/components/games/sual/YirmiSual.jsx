@@ -11,22 +11,13 @@ import SualDuo from "./SualDuo";
 import { SUAL_KEYFRAMES } from "./SualParts";
 import SualSolo from "./SualSolo";
 import SualDuel from "./SualDuel";
+import { ERAS, LEVELS, LIMITS } from "./options";
+import { hasDuelEntry } from "../../../lib/games/useDuelRoom";
 
 import { tr } from "../../../i18n";
 
 const KEY = "futgrid:sual:settings";
 const DEFAULTS = { names: { A: "", B: "" }, difficulty: "normal", era: "all", maxQuestions: 20 };
-
-const LEVELS = [
-  { value: "easy", get label() { return tr("Asan"); }, get sub() { return tr("ən məşhurlar"); } },
-  { value: "normal", get label() { return tr("Normal"); }, get sub() { return tr("tanınmışlar"); } },
-  { value: "hard", get label() { return tr("Çətin"); }, get sub() { return tr("geniş seçim"); } },
-];
-const ERAS = [
-  { value: "active", get label() { return tr("Aktiv"); }, get sub() { return tr("indiki futbolçular"); } },
-  { value: "all", get label() { return tr("Bütün zamanlar"); }, get sub() { return tr("legendlər daxil"); } },
-];
-const LIMITS = [10, 15, 20].map((n) => ({ value: n, get label() { return tr("{n} sual", { n }); } }));
 
 function load() {
   try {
@@ -58,8 +49,9 @@ export default function YirmiSual() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [settings, setSettings] = useState(load);
-  const [mode, setMode] = useState(null);
-  const [game, setGame] = useState(0);
+  const [invited] = useState(() => hasDuelEntry("sual"));
+  const [mode, setMode] = useState(invited ? "friend" : null);
+  const [game, setGame] = useState(invited ? 1 : 0);
 
   useEffect(() => {
     loadData().then(setData).catch((e) => setError(e.message));
@@ -144,15 +136,17 @@ export default function YirmiSual() {
   else
     body = (
       <>
-        <div className="mx-auto mb-4 flex max-w-6xl justify-end">
-          <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
-            <span aria-hidden="true" className={SWEEP_BLUE} />
-            <ArrowLeft className="h-4 w-4" />
-            {tr("Parametrlər")}
-          </button>
-        </div>
+        {mode !== "friend" ? (
+          <div className="mx-auto mb-4 flex max-w-6xl justify-end">
+            <button type="button" onClick={() => setGame(0)} className={BTN_GHOST}>
+              <span aria-hidden="true" className={SWEEP_BLUE} />
+              <ArrowLeft className="h-4 w-4" />
+              {tr("Parametrlər")}
+            </button>
+          </div>
+        ) : null}
         {mode === "friend" ? (
-          <SualDuel key={game} data={data} onSettings={() => setMode(null)} />
+          <SualDuel key={game} data={data} settings={settings} onSettingsChange={save} onSettings={() => setMode(null)} />
         ) : solo ? <SualSolo key={game} data={data} settings={settings} /> : <SualDuo key={game} data={data} settings={settings} names={names} />}
       </>
     );

@@ -159,7 +159,7 @@ export default function AuctionResult(props) {
   return <RatedResult {...props} />;
 }
 
-function RatedResult({ data, state, names, solo, onAgain, onSettings }) {
+function RatedResult({ data, state, names, solo, onAgain, onSettings, header = true, actions = true }) {
   const res = { A: teamStrength(state.teams.A), B: teamStrength(state.teams.B) };
   const winner =
     res.A.total === res.B.total ? null : res.A.total > res.B.total ? "A" : "B";
@@ -175,6 +175,7 @@ function RatedResult({ data, state, names, solo, onAgain, onSettings }) {
 
   return (
     <div>
+      {header && (
       <div className="text-center animate-[auIn_0.5s_ease-out_both]">
         <p className={`${FONT} text-sm font-bold uppercase tracking-[0.28em] text-gold`}>
           {tr("Hərrac bitdi")}
@@ -191,6 +192,7 @@ function RatedResult({ data, state, names, solo, onAgain, onSettings }) {
           <span className={`text-5xl md:text-6xl ${SIDES.B.text}`}>{b}</span>
         </div>
       </div>
+      )}
 
       <div className="mt-8 grid gap-5 xl:grid-cols-2">
         <TeamCard
@@ -213,6 +215,7 @@ function RatedResult({ data, state, names, solo, onAgain, onSettings }) {
         />
       </div>
 
+      {actions && (
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <button type="button" onClick={onAgain} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
@@ -225,6 +228,7 @@ function RatedResult({ data, state, names, solo, onAgain, onSettings }) {
           {tr("Parametrlər")}
         </button>
       </div>
+      )}
     </div>
   );
 }

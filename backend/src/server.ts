@@ -12,6 +12,11 @@ import { registerDataJobs } from "./jobs/data.js";
 import { setupDuels } from "./modules/duel/socket.js";
 import { generateDailyPuzzles } from "./modules/daily/service.js";
 
+// Bir hadisədəki gözlənilməz xəta bütün serveri (və bütün onlayn otaqları) dayandırmasın.
+process.on("unhandledRejection", (reason) => {
+  logger.error({ err: reason }, "unhandled promise rejection");
+});
+
 async function main(): Promise<void> {
   if (config.SENTRY_DSN) {
     Sentry.init({ dsn: config.SENTRY_DSN, environment: config.NODE_ENV });

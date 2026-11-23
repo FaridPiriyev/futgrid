@@ -32,7 +32,7 @@ import { tr } from "../../../i18n";
 const CLUB_ONLY = ["club"];
 const ANY = ["club", "country"];
 
-function ScorePanel({ name, score, side, status, active, compact }) {
+export function ScorePanel({ name, score, side, status, active, compact }) {
   return (
     <div
       className={`relative flex min-w-0 flex-col items-center justify-center gap-1 overflow-hidden rounded-2xl border px-3 text-center transition-all duration-500 ${
@@ -162,7 +162,7 @@ function Curtain({ picker, other, step, round, onReady }) {
   );
 }
 
-function Feedback({ feedback }) {
+export function Feedback({ feedback }) {
   if (!feedback) return null;
   return (
     <div

@@ -16,6 +16,7 @@ import {
   SWEEP_WHITE,
 } from "../common/ui";
 import { MARKS } from "./marks";
+import { ONLINE_STEP, ONLINE_TITLE, OnlineSetupActions } from "../common/OnlineSetup";
 import { OPTIONS } from "./settings";
 
 import { tr } from "../../../i18n";
@@ -49,6 +50,7 @@ export default function X0XSettings({
   onStart,
   onBack,
   available,
+  connected = true,
 }) {
   const set = (key) => (value) => onChange({ ...settings, [key]: value });
   const setCat = (key) => (value) =>
@@ -59,6 +61,7 @@ export default function X0XSettings({
   const setName = (mark) => (value) =>
     onChange({ ...settings, names: { ...settings.names, [mark]: value } });
   const versus = mode === "same";
+  const online = mode === "online";
 
   const categories = (
     <Field label={tr("Kateqoriyalar")}>
@@ -82,9 +85,16 @@ export default function X0XSettings({
   return (
     <section className={`mx-auto max-w-5xl ${SETTINGS_CARD}`}>
       <SettingsHeader
-        title={versus ? tr("Eyni ekran") : tr("Tək oyunçu")}
+        title={online ? ONLINE_TITLE() : versus ? tr("Eyni ekran") : tr("Tək oyunçu")}
         accent={tr("parametrlər")}
-        sub={versus ? tr("İki oyunçu, bir cihaz") : tr("9 cəhdlə cədvəli doldur")}
+        sub={
+          online
+            ? tr("Qaydaları sən seçirsən. Dostun koda qoşulan kimi eyni parametrlərlə oynayacaqsınız.")
+            : versus
+              ? tr("İki oyunçu, bir cihaz")
+              : tr("9 cəhdlə cədvəli doldur")
+        }
+        step={online ? ONLINE_STEP() : undefined}
       />
 
       <div className="mt-6 grid gap-x-10 gap-y-6 lg:grid-cols-2">
@@ -125,7 +135,17 @@ export default function X0XSettings({
         </div>
 
         <div className="space-y-6">
-          {versus && (
+          {online && (
+            <Field label={tr("Qələbə üçün")}>
+              <Segmented
+                label={tr("Qələbə üçün")}
+                options={OPTIONS.target}
+                value={settings.target ?? 2}
+                onChange={set("target")}
+              />
+            </Field>
+          )}
+          {(versus || online) && (
             <>
               <Field label={tr("Oğurlama")}>
                 <Segmented
@@ -149,6 +169,9 @@ export default function X0XSettings({
         </div>
       </div>
 
+      {online ? (
+        <OnlineSetupActions onCreate={onStart} onBack={onBack} connected={connected} />
+      ) : (
       <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
         <button type="button" onClick={onStart} className={BTN_PRIMARY}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
@@ -161,6 +184,7 @@ export default function X0XSettings({
           {tr("Rejimlər")}
         </button>
       </div>
+      )}
     </section>
   );
 }

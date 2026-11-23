@@ -1,0 +1,1353 @@
+{
+ "version": 1,
+ "note": "Qaliblər 2005-06 mövsümündən. Klub dəyərləri clubs.json slug-larıdır, millilər ISO kodlarıdır.",
+ "trophies": {
+  "ucl": {
+   "type": "club",
+   "tm": [
+    "CL"
+   ],
+   "tm_codes": [
+    "uefa-champions-league",
+    "champions-league"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "fc-barcelona",
+    "2006-07": "ac-milan",
+    "2007-08": "manchester-united",
+    "2008-09": "fc-barcelona",
+    "2009-10": "inter-milan",
+    "2010-11": "fc-barcelona",
+    "2011-12": "chelsea",
+    "2012-13": "bayern-munich",
+    "2013-14": "real-madrid",
+    "2014-15": "fc-barcelona",
+    "2015-16": "real-madrid",
+    "2016-17": "real-madrid",
+    "2017-18": "real-madrid",
+    "2018-19": "liverpool",
+    "2019-20": "bayern-munich",
+    "2020-21": "chelsea",
+    "2021-22": "real-madrid",
+    "2022-23": "manchester-city",
+    "2023-24": "real-madrid",
+    "2024-25": "paris-saint-germain",
+    "2025-26": "paris-saint-germain"
+   }
+  },
+  "europa_league": {
+   "type": "club",
+   "tm": [
+    "EL"
+   ],
+   "tm_codes": [
+    "europa-league",
+    "uefa-europa-league"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "sevilla-fc",
+    "2006-07": "sevilla-fc",
+    "2007-08": "zenit-saint-petersburg",
+    "2008-09": "shakhtar-donetsk",
+    "2009-10": "atletico-madrid",
+    "2010-11": "fc-porto",
+    "2011-12": "atletico-madrid",
+    "2012-13": "chelsea",
+    "2013-14": "sevilla-fc",
+    "2014-15": "sevilla-fc",
+    "2015-16": "sevilla-fc",
+    "2016-17": "manchester-united",
+    "2017-18": "atletico-madrid",
+    "2018-19": "chelsea",
+    "2019-20": "sevilla-fc",
+    "2020-21": "villarreal",
+    "2021-22": "eintracht-frankfurt",
+    "2022-23": "sevilla-fc",
+    "2023-24": "atalanta",
+    "2024-25": "tottenham-hotspur",
+    "2025-26": "aston-villa"
+   }
+  },
+  "conference_league": {
+   "type": "club",
+   "tm": [
+    "UCOL"
+   ],
+   "tm_codes": [
+    "uefa-conference-league",
+    "conference-league",
+    "europa-conference-league"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2021-22": "as-roma",
+    "2022-23": "west-ham-united",
+    "2023-24": "olympiacos",
+    "2024-25": "chelsea",
+    "2025-26": "crystal-palace"
+   }
+  },
+  "uefa_super_cup": {
+   "type": "club",
+   "tm": [
+    "USC"
+   ],
+   "tm_codes": [
+    "uefa-super-cup",
+    "uefa-supercup"
+   ],
+   "end": "start:08-20",
+   "seasons": {
+    "2005-06": "liverpool",
+    "2006-07": "sevilla-fc",
+    "2007-08": "ac-milan",
+    "2008-09": "zenit-saint-petersburg",
+    "2009-10": "fc-barcelona",
+    "2010-11": "atletico-madrid",
+    "2011-12": "fc-barcelona",
+    "2012-13": "atletico-madrid",
+    "2013-14": "bayern-munich",
+    "2014-15": "real-madrid",
+    "2015-16": "fc-barcelona",
+    "2016-17": "real-madrid",
+    "2017-18": "real-madrid",
+    "2018-19": "atletico-madrid",
+    "2019-20": "liverpool",
+    "2020-21": "bayern-munich",
+    "2021-22": "chelsea",
+    "2022-23": "real-madrid",
+    "2023-24": "manchester-city",
+    "2024-25": "real-madrid",
+    "2025-26": "paris-saint-germain",
+    "2026-27": "paris-saint-germain"
+   }
+  },
+  "club_world_cup": {
+   "type": "club",
+   "tm": [
+    "KLUB"
+   ],
+   "tm_codes": [
+    "fifa-club-world-cup",
+    "fifa-klub-wm",
+    "club-world-cup"
+   ],
+   "end": "start:12-18",
+   "seasons": {
+    "2005-06": "sao-paulo",
+    "2006-07": "internacional",
+    "2007-08": "ac-milan",
+    "2008-09": "manchester-united",
+    "2009-10": "fc-barcelona",
+    "2010-11": "inter-milan",
+    "2011-12": "fc-barcelona",
+    "2012-13": "corinthians",
+    "2013-14": "bayern-munich",
+    "2014-15": "real-madrid",
+    "2015-16": "fc-barcelona",
+    "2016-17": "real-madrid",
+    "2017-18": "real-madrid",
+    "2018-19": "real-madrid",
+    "2019-20": "liverpool",
+    "2020-21": {
+     "club": "bayern-munich",
+     "date": "2021-02-11"
+    },
+    "2021-22": {
+     "club": "chelsea",
+     "date": "2022-02-12"
+    },
+    "2022-23": {
+     "club": "real-madrid",
+     "date": "2023-02-11"
+    },
+    "2023-24": "manchester-city",
+    "2024-25": {
+     "club": "chelsea",
+     "date": "2025-07-13"
+    }
+   }
+  },
+  "intercontinental_cup": {
+   "type": "club",
+   "tm": [
+    "INTC"
+   ],
+   "tm_codes": [
+    "fifa-intercontinental-cup",
+    "intercontinental-cup"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2024-25": {
+     "club": "real-madrid",
+     "date": "2024-12-18"
+    },
+    "2025-26": {
+     "club": "paris-saint-germain",
+     "date": "2025-12-17"
+    }
+   }
+  },
+  "premier_league": {
+   "type": "club",
+   "tm": [
+    "GB1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "chelsea",
+    "2006-07": "manchester-united",
+    "2007-08": "manchester-united",
+    "2008-09": "manchester-united",
+    "2009-10": "chelsea",
+    "2010-11": "manchester-united",
+    "2011-12": "manchester-city",
+    "2012-13": "manchester-united",
+    "2013-14": "manchester-city",
+    "2014-15": "chelsea",
+    "2015-16": "leicester-city",
+    "2016-17": "chelsea",
+    "2017-18": "manchester-city",
+    "2018-19": "manchester-city",
+    "2019-20": "liverpool",
+    "2020-21": "manchester-city",
+    "2021-22": "manchester-city",
+    "2022-23": "manchester-city",
+    "2023-24": "manchester-city",
+    "2024-25": "liverpool",
+    "2025-26": "arsenal"
+   }
+  },
+  "la_liga": {
+   "type": "club",
+   "tm": [
+    "ES1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "fc-barcelona",
+    "2006-07": "real-madrid",
+    "2007-08": "real-madrid",
+    "2008-09": "fc-barcelona",
+    "2009-10": "fc-barcelona",
+    "2010-11": "fc-barcelona",
+    "2011-12": "real-madrid",
+    "2012-13": "fc-barcelona",
+    "2013-14": "atletico-madrid",
+    "2014-15": "fc-barcelona",
+    "2015-16": "fc-barcelona",
+    "2016-17": "real-madrid",
+    "2017-18": "fc-barcelona",
+    "2018-19": "fc-barcelona",
+    "2019-20": "real-madrid",
+    "2020-21": "atletico-madrid",
+    "2021-22": "real-madrid",
+    "2022-23": "fc-barcelona",
+    "2023-24": "real-madrid",
+    "2024-25": "fc-barcelona",
+    "2025-26": "fc-barcelona"
+   }
+  },
+  "bundesliga": {
+   "type": "club",
+   "tm": [
+    "L1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "bayern-munich",
+    "2006-07": "vfb-stuttgart",
+    "2007-08": "bayern-munich",
+    "2008-09": "vfl-wolfsburg",
+    "2009-10": "bayern-munich",
+    "2010-11": "borussia-dortmund",
+    "2011-12": "borussia-dortmund",
+    "2012-13": "bayern-munich",
+    "2013-14": "bayern-munich",
+    "2014-15": "bayern-munich",
+    "2015-16": "bayern-munich",
+    "2016-17": "bayern-munich",
+    "2017-18": "bayern-munich",
+    "2018-19": "bayern-munich",
+    "2019-20": "bayern-munich",
+    "2020-21": "bayern-munich",
+    "2021-22": "bayern-munich",
+    "2022-23": "bayern-munich",
+    "2023-24": "bayer-leverkusen",
+    "2024-25": "bayern-munich",
+    "2025-26": "bayern-munich"
+   }
+  },
+  "serie_a": {
+   "type": "club",
+   "tm": [
+    "IT1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "inter-milan",
+    "2006-07": "inter-milan",
+    "2007-08": "inter-milan",
+    "2008-09": "inter-milan",
+    "2009-10": "inter-milan",
+    "2010-11": "ac-milan",
+    "2011-12": "juventus",
+    "2012-13": "juventus",
+    "2013-14": "juventus",
+    "2014-15": "juventus",
+    "2015-16": "juventus",
+    "2016-17": "juventus",
+    "2017-18": "juventus",
+    "2018-19": "juventus",
+    "2019-20": "juventus",
+    "2020-21": "inter-milan",
+    "2021-22": "ac-milan",
+    "2022-23": "napoli",
+    "2023-24": "inter-milan",
+    "2024-25": "napoli",
+    "2025-26": "inter-milan"
+   }
+  },
+  "ligue_1": {
+   "type": "club",
+   "tm": [
+    "FR1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "olympique-lyonnais",
+    "2006-07": "olympique-lyonnais",
+    "2007-08": "olympique-lyonnais",
+    "2009-10": "olympique-de-marseille",
+    "2010-11": "lille-osc",
+    "2011-12": "montpellier",
+    "2012-13": "paris-saint-germain",
+    "2013-14": "paris-saint-germain",
+    "2014-15": "paris-saint-germain",
+    "2015-16": "paris-saint-germain",
+    "2016-17": "as-monaco",
+    "2017-18": "paris-saint-germain",
+    "2018-19": "paris-saint-germain",
+    "2019-20": "paris-saint-germain",
+    "2020-21": "lille-osc",
+    "2021-22": "paris-saint-germain",
+    "2022-23": "paris-saint-germain",
+    "2023-24": "paris-saint-germain",
+    "2024-25": "paris-saint-germain",
+    "2025-26": "paris-saint-germain"
+   }
+  },
+  "eredivisie": {
+   "type": "club",
+   "tm": [
+    "NL1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "psv-eindhoven",
+    "2006-07": "psv-eindhoven",
+    "2007-08": "psv-eindhoven",
+    "2008-09": "az-alkmaar",
+    "2009-10": "fc-twente",
+    "2010-11": "ajax",
+    "2011-12": "ajax",
+    "2012-13": "ajax",
+    "2013-14": "ajax",
+    "2014-15": "psv-eindhoven",
+    "2015-16": "psv-eindhoven",
+    "2016-17": "feyenoord",
+    "2017-18": "psv-eindhoven",
+    "2018-19": "ajax",
+    "2020-21": "ajax",
+    "2021-22": "ajax",
+    "2022-23": "feyenoord",
+    "2023-24": "psv-eindhoven",
+    "2024-25": "psv-eindhoven",
+    "2025-26": "psv-eindhoven"
+   }
+  },
+  "primeira_liga": {
+   "type": "club",
+   "tm": [
+    "PO1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "fc-porto",
+    "2006-07": "fc-porto",
+    "2007-08": "fc-porto",
+    "2008-09": "fc-porto",
+    "2009-10": "sl-benfica",
+    "2010-11": "fc-porto",
+    "2011-12": "fc-porto",
+    "2012-13": "fc-porto",
+    "2013-14": "sl-benfica",
+    "2014-15": "sl-benfica",
+    "2015-16": "sl-benfica",
+    "2016-17": "sl-benfica",
+    "2017-18": "fc-porto",
+    "2018-19": "sl-benfica",
+    "2019-20": "fc-porto",
+    "2020-21": "sporting-cp",
+    "2021-22": "fc-porto",
+    "2022-23": "sl-benfica",
+    "2023-24": "sporting-cp",
+    "2024-25": "sporting-cp",
+    "2025-26": "fc-porto"
+   }
+  },
+  "super_lig": {
+   "type": "club",
+   "tm": [
+    "TR1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "galatasaray",
+    "2006-07": "fenerbahce",
+    "2007-08": "galatasaray",
+    "2008-09": "besiktas",
+    "2010-11": "fenerbahce",
+    "2011-12": "galatasaray",
+    "2012-13": "galatasaray",
+    "2013-14": "fenerbahce",
+    "2014-15": "galatasaray",
+    "2015-16": "besiktas",
+    "2016-17": "besiktas",
+    "2017-18": "galatasaray",
+    "2018-19": "galatasaray",
+    "2019-20": "basaksehir",
+    "2020-21": "besiktas",
+    "2021-22": "trabzonspor",
+    "2022-23": "galatasaray",
+    "2023-24": "galatasaray",
+    "2024-25": "galatasaray",
+    "2025-26": "galatasaray"
+   }
+  },
+  "scottish_premiership": {
+   "type": "club",
+   "tm": [
+    "SC1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "celtic",
+    "2006-07": "celtic",
+    "2007-08": "celtic",
+    "2008-09": "rangers",
+    "2009-10": "rangers",
+    "2010-11": "rangers",
+    "2011-12": "celtic",
+    "2012-13": "celtic",
+    "2013-14": "celtic",
+    "2014-15": "celtic",
+    "2015-16": "celtic",
+    "2016-17": "celtic",
+    "2017-18": "celtic",
+    "2018-19": "celtic",
+    "2019-20": "celtic",
+    "2020-21": "rangers",
+    "2021-22": "celtic",
+    "2022-23": "celtic",
+    "2023-24": "celtic",
+    "2024-25": "celtic",
+    "2025-26": "celtic"
+   }
+  },
+  "saudi_pro_league": {
+   "type": "club",
+   "tm": [
+    "SA1"
+   ],
+   "tm_codes": [],
+   "end": "05-30",
+   "seasons": {
+    "2013-14": "al-nassr",
+    "2014-15": "al-nassr",
+    "2015-16": "al-ahli",
+    "2016-17": "al-hilal",
+    "2017-18": "al-hilal",
+    "2018-19": "al-nassr",
+    "2019-20": "al-hilal",
+    "2020-21": "al-hilal",
+    "2021-22": "al-hilal",
+    "2022-23": "al-ittihad",
+    "2023-24": "al-hilal",
+    "2024-25": "al-ittihad",
+    "2025-26": "al-nassr"
+   }
+  },
+  "fa_cup": {
+   "type": "club",
+   "tm": [
+    "FAC"
+   ],
+   "tm_codes": [
+    "fa-cup"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "liverpool",
+    "2006-07": "chelsea",
+    "2008-09": "chelsea",
+    "2009-10": "chelsea",
+    "2010-11": "manchester-city",
+    "2011-12": "chelsea",
+    "2013-14": "arsenal",
+    "2014-15": "arsenal",
+    "2015-16": "manchester-united",
+    "2016-17": "arsenal",
+    "2017-18": "chelsea",
+    "2018-19": "manchester-city",
+    "2019-20": "arsenal",
+    "2020-21": "leicester-city",
+    "2021-22": "liverpool",
+    "2022-23": "manchester-city",
+    "2023-24": "manchester-united",
+    "2024-25": "crystal-palace",
+    "2025-26": "manchester-city"
+   }
+  },
+  "efl_cup": {
+   "type": "club",
+   "tm": [
+    "CGB"
+   ],
+   "tm_codes": [
+    "efl-cup",
+    "league-cup",
+    "carabao-cup"
+   ],
+   "end": "03-01",
+   "seasons": {
+    "2005-06": "manchester-united",
+    "2006-07": "chelsea",
+    "2007-08": "tottenham-hotspur",
+    "2008-09": "manchester-united",
+    "2009-10": "manchester-united",
+    "2011-12": "liverpool",
+    "2013-14": "manchester-city",
+    "2014-15": "chelsea",
+    "2015-16": "manchester-city",
+    "2016-17": "manchester-united",
+    "2017-18": "manchester-city",
+    "2018-19": "manchester-city",
+    "2019-20": "manchester-city",
+    "2020-21": "manchester-city",
+    "2021-22": "liverpool",
+    "2022-23": "manchester-united",
+    "2023-24": "liverpool",
+    "2024-25": "newcastle-united",
+    "2025-26": "manchester-city"
+   }
+  },
+  "copa_del_rey": {
+   "type": "club",
+   "tm": [
+    "CDR"
+   ],
+   "tm_codes": [
+    "copa-del-rey"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "rcd-espanyol",
+    "2006-07": "sevilla-fc",
+    "2007-08": "valencia-cf",
+    "2008-09": "fc-barcelona",
+    "2009-10": "sevilla-fc",
+    "2010-11": "real-madrid",
+    "2011-12": "fc-barcelona",
+    "2012-13": "atletico-madrid",
+    "2013-14": "real-madrid",
+    "2014-15": "fc-barcelona",
+    "2015-16": "fc-barcelona",
+    "2016-17": "fc-barcelona",
+    "2017-18": "fc-barcelona",
+    "2018-19": "valencia-cf",
+    "2019-20": {
+     "club": "real-sociedad",
+     "date": "2021-04-03"
+    },
+    "2020-21": "fc-barcelona",
+    "2021-22": "real-betis",
+    "2022-23": "real-madrid",
+    "2023-24": "athletic-bilbao",
+    "2024-25": "fc-barcelona",
+    "2025-26": "real-sociedad"
+   }
+  },
+  "dfb_pokal": {
+   "type": "club",
+   "tm": [
+    "DFB"
+   ],
+   "tm_codes": [
+    "dfb-pokal"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "bayern-munich",
+    "2006-07": "1-fc-nurnberg",
+    "2007-08": "bayern-munich",
+    "2008-09": "werder-bremen",
+    "2009-10": "bayern-munich",
+    "2010-11": "schalke-04",
+    "2011-12": "borussia-dortmund",
+    "2012-13": "bayern-munich",
+    "2013-14": "bayern-munich",
+    "2014-15": "vfl-wolfsburg",
+    "2015-16": "bayern-munich",
+    "2016-17": "borussia-dortmund",
+    "2017-18": "eintracht-frankfurt",
+    "2018-19": "bayern-munich",
+    "2019-20": "bayern-munich",
+    "2020-21": "borussia-dortmund",
+    "2021-22": "rb-leipzig",
+    "2022-23": "rb-leipzig",
+    "2023-24": "bayer-leverkusen",
+    "2024-25": "vfb-stuttgart",
+    "2025-26": "bayern-munich"
+   }
+  },
+  "coppa_italia": {
+   "type": "club",
+   "tm": [
+    "CIT"
+   ],
+   "tm_codes": [
+    "italy-cup",
+    "coppa-italia"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "inter-milan",
+    "2006-07": "as-roma",
+    "2007-08": "as-roma",
+    "2008-09": "lazio",
+    "2009-10": "inter-milan",
+    "2010-11": "inter-milan",
+    "2011-12": "napoli",
+    "2012-13": "lazio",
+    "2013-14": "napoli",
+    "2014-15": "juventus",
+    "2015-16": "juventus",
+    "2016-17": "juventus",
+    "2017-18": "juventus",
+    "2018-19": "lazio",
+    "2019-20": "napoli",
+    "2020-21": "juventus",
+    "2021-22": "inter-milan",
+    "2022-23": "inter-milan",
+    "2023-24": "juventus",
+    "2024-25": "bologna",
+    "2025-26": "inter-milan"
+   }
+  },
+  "coupe_de_france": {
+   "type": "club",
+   "tm": [
+    "FRCH"
+   ],
+   "tm_codes": [
+    "coupe-de-france"
+   ],
+   "end": "05-30",
+   "seasons": {
+    "2005-06": "paris-saint-germain",
+    "2007-08": "olympique-lyonnais",
+    "2009-10": "paris-saint-germain",
+    "2010-11": "lille-osc",
+    "2011-12": "olympique-lyonnais",
+    "2014-15": "paris-saint-germain",
+    "2015-16": "paris-saint-germain",
+    "2016-17": "paris-saint-germain",
+    "2017-18": "paris-saint-germain",
+    "2018-19": "stade-rennais",
+    "2019-20": "paris-saint-germain",
+    "2020-21": "paris-saint-germain",
+    "2021-22": "nantes",
+    "2022-23": "toulouse-fc",
+    "2023-24": "paris-saint-germain",
+    "2024-25": "paris-saint-germain",
+    "2025-26": "rc-lens"
+   }
+  },
+  "mls_cup": {
+   "type": "club",
+   "tm": [],
+   "tm_codes": [],
+   "end": "cal:12-08",
+   "seasons": {
+    "2011": "la-galaxy",
+    "2012": "la-galaxy",
+    "2014": "la-galaxy",
+    "2015": "portland-timbers",
+    "2016": "seattle-sounders-fc",
+    "2017": "toronto-fc",
+    "2018": "atlanta-united",
+    "2019": "seattle-sounders-fc",
+    "2020": "columbus-crew",
+    "2021": "new-york-city-fc",
+    "2022": "los-angeles-fc",
+    "2023": "columbus-crew",
+    "2024": "la-galaxy",
+    "2025": "inter-miami-cf"
+   }
+  },
+  "supporters_shield": {
+   "type": "club",
+   "tm": [],
+   "tm_codes": [],
+   "end": "cal:10-20",
+   "seasons": {
+    "2024": "inter-miami-cf",
+    "2025": "philadelphia-union"
+   }
+  },
+  "leagues_cup": {
+   "type": "club",
+   "tm": [],
+   "tm_codes": [],
+   "end": "cal:08-25",
+   "seasons": {
+    "2023": "inter-miami-cf",
+    "2024": "columbus-crew",
+    "2025": "seattle-sounders-fc"
+   }
+  },
+  "world_cup": {
+   "type": "national",
+   "tm": [
+    "FIWC"
+   ],
+   "tm_codes": [
+    "fifa-world-cup",
+    "world-cup",
+    "weltmeisterschaft"
+   ],
+   "seasons": {
+    "2006": "IT",
+    "2010": "ES",
+    "2014": "DE",
+    "2018": "FR",
+    "2022": "AR",
+    "2026": "ES"
+   }
+  },
+  "euro": {
+   "type": "national",
+   "tm": [],
+   "tm_codes": [
+    "european-championship",
+    "europameisterschaft",
+    "uefa-euro",
+    "euro"
+   ],
+   "seasons": {
+    "2008": "ES",
+    "2012": "ES",
+    "2016": "PT",
+    "2021": "IT",
+    "2024": "ES"
+   }
+  },
+  "copa_america": {
+   "type": "national",
+   "tm": [],
+   "tm_codes": [
+    "copa-america"
+   ],
+   "seasons": {
+    "2007": "BR",
+    "2011": "UY",
+    "2015": "CL",
+    "2016": "CL",
+    "2019": "BR",
+    "2021": "AR",
+    "2024": "AR"
+   }
+  },
+  "nations_league": {
+   "type": "national",
+   "tm": [],
+   "tm_codes": [
+    "uefa-nations-league",
+    "nations-league"
+   ],
+   "seasons": {
+    "2019": "PT",
+    "2021": "FR",
+    "2023": "ES",
+    "2025": "PT"
+   }
+  },
+  "finalissima": {
+   "type": "national",
+   "tm": [],
+   "tm_codes": [
+    "finalissima"
+   ],
+   "seasons": {
+    "2022": "AR"
+   }
+  },
+  "ballon_dor": {
+   "type": "individual",
+   "seasons": {
+    "2005": [
+     [
+      "Ronaldinho",
+      1980
+     ]
+    ],
+    "2006": [
+     [
+      "Fabio Cannavaro",
+      1973
+     ]
+    ],
+    "2007": [
+     [
+      "Kaká",
+      1982
+     ]
+    ],
+    "2008": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2009": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2010": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2011": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2012": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2013": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2014": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2015": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2016": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2017": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2018": [
+     [
+      "Luka Modrić",
+      1985
+     ]
+    ],
+    "2019": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2021": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2022": [
+     [
+      "Karim Benzema",
+      1987
+     ]
+    ],
+    "2023": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2024": [
+     [
+      "Rodri",
+      1996
+     ]
+    ],
+    "2025": [
+     [
+      "Ousmane Dembélé",
+      1997
+     ]
+    ]
+   }
+  },
+  "the_best": {
+   "type": "individual",
+   "seasons": {
+    "2016": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2017": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2018": [
+     [
+      "Luka Modrić",
+      1985
+     ]
+    ],
+    "2019": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2020": [
+     [
+      "Robert Lewandowski",
+      1988
+     ]
+    ],
+    "2021": [
+     [
+      "Robert Lewandowski",
+      1988
+     ]
+    ],
+    "2022": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2023": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2024": [
+     [
+      "Vinicius Junior",
+      2000
+     ]
+    ],
+    "2025": [
+     [
+      "Ousmane Dembélé",
+      1997
+     ]
+    ]
+   }
+  },
+  "golden_shoe": {
+   "type": "individual",
+   "seasons": {
+    "2005-06": [
+     [
+      "Luca Toni",
+      1977
+     ]
+    ],
+    "2006-07": [
+     [
+      "Francesco Totti",
+      1976
+     ]
+    ],
+    "2007-08": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2008-09": [
+     [
+      "Diego Forlán",
+      1979
+     ]
+    ],
+    "2009-10": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2010-11": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2011-12": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2012-13": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2013-14": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ],
+     [
+      "Luis Suárez",
+      1987
+     ]
+    ],
+    "2014-15": [
+     [
+      "Cristiano Ronaldo",
+      1985
+     ]
+    ],
+    "2015-16": [
+     [
+      "Luis Suárez",
+      1987
+     ]
+    ],
+    "2016-17": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2017-18": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2018-19": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2019-20": [
+     [
+      "Ciro Immobile",
+      1990
+     ]
+    ],
+    "2020-21": [
+     [
+      "Robert Lewandowski",
+      1988
+     ]
+    ],
+    "2021-22": [
+     [
+      "Robert Lewandowski",
+      1988
+     ]
+    ],
+    "2022-23": [
+     [
+      "Erling Haaland",
+      2000
+     ]
+    ],
+    "2023-24": [
+     [
+      "Harry Kane",
+      1993
+     ]
+    ],
+    "2024-25": [
+     [
+      "Kylian Mbappé",
+      1998
+     ]
+    ],
+    "2025-26": [
+     [
+      "Harry Kane",
+      1993
+     ]
+    ]
+   }
+  },
+  "golden_boy": {
+   "type": "individual",
+   "seasons": {
+    "2005": [
+     [
+      "Lionel Messi",
+      1987
+     ]
+    ],
+    "2006": [
+     [
+      "Cesc Fàbregas",
+      1987
+     ]
+    ],
+    "2007": [
+     [
+      "Sergio Agüero",
+      1988
+     ]
+    ],
+    "2008": [
+     [
+      "Anderson",
+      1988
+     ]
+    ],
+    "2009": [
+     [
+      "Alexandre Pato",
+      1989
+     ]
+    ],
+    "2010": [
+     [
+      "Mario Balotelli",
+      1990
+     ]
+    ],
+    "2011": [
+     [
+      "Mario Götze",
+      1992
+     ]
+    ],
+    "2012": [
+     [
+      "Isco",
+      1992
+     ]
+    ],
+    "2013": [
+     [
+      "Paul Pogba",
+      1993
+     ]
+    ],
+    "2014": [
+     [
+      "Raheem Sterling",
+      1994
+     ]
+    ],
+    "2015": [
+     [
+      "Anthony Martial",
+      1995
+     ]
+    ],
+    "2016": [
+     [
+      "Renato Sanches",
+      1997
+     ]
+    ],
+    "2017": [
+     [
+      "Kylian Mbappé",
+      1998
+     ]
+    ],
+    "2018": [
+     [
+      "Matthijs de Ligt",
+      1999
+     ]
+    ],
+    "2019": [
+     [
+      "João Félix",
+      1999
+     ]
+    ],
+    "2020": [
+     [
+      "Erling Haaland",
+      2000
+     ]
+    ],
+    "2021": [
+     [
+      "Pedri",
+      2002
+     ]
+    ],
+    "2022": [
+     [
+      "Gavi",
+      2004
+     ]
+    ],
+    "2023": [
+     [
+      "Jude Bellingham",
+      2003
+     ]
+    ],
+    "2024": [
+     [
+      "Lamine Yamal",
+      2007
+     ]
+    ],
+    "2025": [
+     [
+      "Désiré Doué",
+      2005
+     ]
+    ]
+   }
+  },
+  "kopa_trophy": {
+   "type": "individual",
+   "seasons": {
+    "2018": [
+     [
+      "Kylian Mbappé",
+      1998
+     ]
+    ],
+    "2019": [
+     [
+      "Matthijs de Ligt",
+      1999
+     ]
+    ],
+    "2021": [
+     [
+      "Pedri",
+      2002
+     ]
+    ],
+    "2022": [
+     [
+      "Gavi",
+      2004
+     ]
+    ],
+    "2023": [
+     [
+      "Jude Bellingham",
+      2003
+     ]
+    ],
+    "2024": [
+     [
+      "Lamine Yamal",
+      2007
+     ]
+    ],
+    "2025": [
+     [
+      "Lamine Yamal",
+      2007
+     ]
+    ]
+   }
+  },
+  "yashin_trophy": {
+   "type": "individual",
+   "seasons": {
+    "2019": [
+     [
+      "Alisson",
+      1992
+     ]
+    ],
+    "2021": [
+     [
+      "Gianluigi Donnarumma",
+      1999
+     ]
+    ],
+    "2022": [
+     [
+      "Thibaut Courtois",
+      1992
+     ]
+    ],
+    "2023": [
+     [
+      "Emiliano Martínez",
+      1992
+     ]
+    ],
+    "2024": [
+     [
+      "Emiliano Martínez",
+      1992
+     ]
+    ],
+    "2025": [
+     [
+      "Gianluigi Donnarumma",
+      1999
+     ]
+    ]
+   }
+  }
+ }
+}

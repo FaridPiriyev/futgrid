@@ -58,7 +58,7 @@ function SecretPick({ data, settings, side, names, onDone }) {
   );
 }
 
-function PlayerCard({ side, name, used, max, active, found }) {
+export function PlayerCard({ side, name, used, max, active, found, activeText }) {
   const s = SIDES[side];
   return (
     <div
@@ -73,7 +73,7 @@ function PlayerCard({ side, name, used, max, active, found }) {
       <span className="min-w-0">
         <span className={`block truncate ${FONT} text-sm font-black uppercase leading-none text-ink md:text-lg`}>{name}</span>
         <span className={`mt-1 block ${FONT} text-[11px] text-muted md:text-xs`}>
-          {found != null ? tr("{n} sualda tapdı", { n: found }) : active ? tr("növbə səndədir") : tr("{n}/{max} sual", { n: used, max })}
+          {found != null ? tr("{n} sualda tapdı", { n: found }) : active ? activeText ?? tr("növbə səndədir") : tr("{n}/{max} sual", { n: used, max })}
         </span>
       </span>
     </div>

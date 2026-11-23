@@ -20,7 +20,7 @@ const peak = (p) => Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.hi
 const popularity = (p) =>
   Math.max(p.market_value?.amount_eur ?? 0, p.market_value?.highest_eur ?? 0);
 
-const year = (d) => (d ? d.slice(0, 4) : null);
+const year = (d) => (typeof d === "string" && /^\d{4}/.test(d) ? d.slice(0, 4) : null);
 
 export function pathIds(data, p) {
   const out = [];
@@ -33,11 +33,61 @@ export function pathIds(data, p) {
 
 export const pathKey = (data, p) => pathIds(data, p).join(">");
 
+const time = (d) => (d ? Date.parse(d) : NaN);
+
+// Stintləri xronoloji sıraya qoyur və eyni klubun ardıcıl stintlərini birləşdirir
+// (məs. Groningen gənclər 1996–2000 + əsas komanda 2000–2002).
+function stintRuns(p) {
+  const list = (p.club_stints ?? [])
+    .filter((s) => s.club_id != null && !Number.isNaN(time(s.from)))
+    .sort((a, b) => time(a.from) - time(b.from));
+  const runs = [];
+  for (const s of list) {
+    const last = runs[runs.length - 1];
+    if (last && last.club_id === s.club_id) last.to = s.to ?? null;
+    else runs.push({ club_id: s.club_id, from: s.from, to: s.to ?? null });
+  }
+  return runs;
+}
+
+// Klub ardıcıllığı (pathIds) dəyişmir — ranked yoxlaması onunla işləyir. Yalnız illər
+// stintlərə ardıcıl (LCS) uyğunlaşdırılır: hər addım özündən əvvəlkindən geri getmir.
+// Uyğun stint tapılmayan addımda il göstərilmir (səhv il göstərməkdənsə).
+function alignYears(ids, runs) {
+  const n = ids.length;
+  const m = runs.length;
+  const suf = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--)
+    for (let j = m - 1; j >= 0; j--)
+      suf[i][j] = ids[i] === runs[j].club_id ? 1 + suf[i + 1][j + 1] : Math.max(suf[i + 1][j], suf[i][j + 1]);
+  const match = new Array(n).fill(-1);
+  let i = 0;
+  let j = 0;
+  while (i < n && j < m) {
+    if (ids[i] === runs[j].club_id && suf[i][j] === 1 + suf[i + 1][j + 1]) match[i++] = j++;
+    else if (suf[i][j + 1] >= suf[i + 1][j]) j++;
+    else i++;
+  }
+  return match.map((a, k) => {
+    if (a < 0) return null;
+    const next = match.slice(k + 1).find((x) => x >= 0) ?? m;
+    let to = runs[a].to;
+    for (let b = a + 1; b < next; b++) if (runs[b].club_id === runs[a].club_id) to = runs[b].to;
+    return { from: runs[a].from, to };
+  });
+}
+
 export function careerPath(data, p) {
-  const stints = [...(p.club_stints ?? [])];
-  return pathIds(data, p).map((id) => {
-    const i = stints.findIndex((s) => s.club_id === id);
-    const s = i >= 0 ? stints.splice(i, 1)[0] : null;
+  const ids = pathIds(data, p);
+  const spans = alignYears(ids, stintRuns(p));
+  // Ortada bitmə tarixi olmayan stint "indi" deyil — növbəti klubun başlanğıcına qədərdir.
+  spans.forEach((s, k) => {
+    if (!s || year(s.to)) return;
+    const next = spans.slice(k + 1).find(Boolean);
+    if (next) s.to = next.from;
+  });
+  return ids.map((id, k) => {
+    const s = spans[k];
     const from = year(s?.from);
     const to = s ? year(s.to) ?? (p.is_active === false ? null : tr("indi")) : null;
     return {

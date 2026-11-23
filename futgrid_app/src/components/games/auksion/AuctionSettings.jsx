@@ -19,6 +19,7 @@ import {
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 import { DEFAULT_SETTINGS, FORMATION_PRESETS, OPTIONS, SIDES } from "./settings";
 
+import { ONLINE_STEP, ONLINE_TITLE, OnlineSetupActions } from "../common/OnlineSetup";
 import { tr } from "../../../i18n";
 function NameInput({ side, value, onChange, placeholder }) {
   return (
@@ -261,19 +262,22 @@ function FormationEditor({ value, onChange }) {
   );
 }
 
-export default function AuctionSettings({ mode, settings, onChange, onStart, onBack }) {
+export default function AuctionSettings({ mode, settings, onChange, onStart, onBack, connected = true }) {
   const set = (key) => (value) => onChange({ ...settings, [key]: value });
   const setName = (side) => (value) =>
     onChange({ ...settings, names: { ...settings.names, [side]: value } });
   const versus = mode === "same";
+  const online = mode === "online";
   const formation = settings.formation ?? DEFAULT_SETTINGS.formation;
   const ready = validFormation(formation);
 
   return (
     <section className={`mx-auto max-w-5xl ${SETTINGS_CARD}`}>
       <SettingsHeader
-        title={versus ? tr("Eyni ekran") : tr("Bota qarşı")}
+        title={online ? ONLINE_TITLE() : versus ? tr("Eyni ekran") : tr("Bota qarşı")}
         accent={tr("parametrlər")}
+        step={online ? ONLINE_STEP() : undefined}
+        sub={online ? tr("Hərracın qaydalarını sən seçirsən — dostun qoşulanda eyni parametrlərlə başlayacaqsınız.") : undefined}
       />
 
       <ul className="mt-5 grid gap-2 rounded-xl bg-page p-4 sm:grid-cols-2">
@@ -320,7 +324,7 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
             </div>
           </Field>
         )}
-        {!versus && (
+        {!versus && !online && (
           <Field label={tr("Botun səviyyəsi")}>
             <Segmented
               label={tr("Botun səviyyəsi")}
@@ -357,6 +361,9 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
         )}
       </div>
 
+      {online ? (
+        <OnlineSetupActions onCreate={onStart} onBack={onBack} connected={connected} disabled={!ready} />
+      ) : (
       <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
         <button type="button" onClick={onStart} disabled={!ready} className={`${BTN_PRIMARY} disabled:cursor-not-allowed disabled:opacity-40`}>
           <span aria-hidden="true" className={SWEEP_WHITE} />
@@ -369,6 +376,7 @@ export default function AuctionSettings({ mode, settings, onChange, onStart, onB
           {tr("Rejimlər")}
         </button>
       </div>
+      )}
     </section>
   );
 }

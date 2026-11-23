@@ -40,6 +40,13 @@ export const OPTIONS = {
   } },
   ],
   targetPresets: [1, 3, 5, 10],
+  // Onlayn oyun mütləq bitməlidir — limitsiz yoxdur.
+  onlineTargets: [1, 3, 5, 10].map((n) => ({
+    value: n,
+    get label() {
+      return tr("{n} xal", { n });
+    },
+  })),
   rounds: [
     { value: 5, get label() {
     return tr("5 sual");

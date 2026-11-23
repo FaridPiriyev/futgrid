@@ -52,3 +52,14 @@ export function readGameDataFile<T>(name: string, optional = false): T {
 export function gameDataDir(): string {
   return resolveDataDir();
 }
+
+let winners: Record<string, any> | null = null;
+/** Kubok qalibləri (mövsüm → klub/ölkə). Açıq artırmanın "gizli oyunçu" ipucları üçün. */
+export function getTrophyWinners(): Record<string, any> {
+  if (winners) return winners;
+  winners = readJson<Record<string, any>>(
+    resolve(resolveDataDir(), "trophy-winners.json"),
+    true,
+  ) ?? { trophies: {} };
+  return winners;
+}
