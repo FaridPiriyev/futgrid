@@ -72,11 +72,8 @@ async function createVerificationToken(user: User, locale: Locale): Promise<void
 }
 
 export async function register(input: RegisterInput, request: FastifyRequest): Promise<PublicUser> {
-  await enforceScopedLimit(
-    rateLimitKey("register", request.ip),
-    3,
-    60 * 60,
-  );
+  await enforceScopedLimit(rateLimitKey("register:ip", request.ip), 30, 60 * 60);
+  await enforceScopedLimit(rateLimitKey("register:email", input.email), 5, 60 * 60);
 
   if (PROHIBITED_USERNAMES.has(input.username.toLowerCase())) {
     throw new AppError("VALIDATION_FAILED", {
@@ -174,6 +171,31 @@ export async function refresh(
   if (!stored) throw new AppError("TOKEN_INVALID");
 
   if (stored.revokedAt) {
+    // Multi-tab race: a token rotated milliseconds ago in another tab is not theft.
+    const graceMs = 30_000;
+    if (Date.now() - stored.revokedAt.getTime() <= graceMs) {
+      const accessToken = await signAccessToken(stored.user.id, stored.user.role);
+      const replacement = randomToken();
+      const replacementHash = hashToken(replacement);
+      const replacementExpiresAt = addDays(new Date(), config.REFRESH_TOKEN_TTL_DAYS);
+      await prisma.refreshToken.create({
+        data: {
+          userId: stored.userId,
+          tokenHash: replacementHash,
+          expiresAt: replacementExpiresAt,
+          userAgent: String(request.headers["user-agent"] ?? "").slice(0, 300) || null,
+          ipHash: hashIp(request.ip),
+        },
+      });
+      return {
+        user: stored.user,
+        tokens: {
+          accessToken,
+          refreshToken: replacement,
+          refreshExpiresAt: replacementExpiresAt,
+        },
+      };
+    }
     await prisma.refreshToken.updateMany({
       where: { userId: stored.userId, revokedAt: null },
       data: { revokedAt: new Date() },
@@ -241,6 +263,16 @@ export async function verifyEmail(token: string): Promise<void> {
       data: { emailVerifiedAt: new Date() },
     }),
   ]);
+}
+
+export async function resendVerification(email: string): Promise<void> {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user || user.deletedAt || user.blockedAt || user.emailVerifiedAt) return;
+  await prisma.emailToken.updateMany({
+    where: { userId: user.id, type: "verify", usedAt: null },
+    data: { usedAt: new Date() },
+  });
+  await createVerificationToken(user, parseLocale(user.locale));
 }
 
 export async function forgotPassword(email: string): Promise<void> {

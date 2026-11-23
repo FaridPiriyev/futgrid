@@ -43,7 +43,7 @@ const GAMES: Record<DuelGame, GameModule> = {
 };
 
 /** Bağlantı kəsiləndən neçə ms sonra oyunçu texniki məğlub sayılır. */
-const forfeitMs = () => Number(process.env.DUEL_FORFEIT_MS ?? 45_000);
+const forfeitMs = () => Number(process.env.DUEL_FORFEIT_MS ?? 30_000);
 const SWEEP_MS = 500;
 
 interface SocketIdentity {
@@ -457,9 +457,10 @@ export function setupDuels(httpServer: HttpServer) {
       let seat = "";
       const result = await mutate(code, (room, ctx) => {
         if (room.game !== payload.game) return { error: "ROOM_GAME_MISMATCH" };
+        const maxPlayers = room.game === "auction" ? 4 : 2;
         let player = room.players.find((entry) => entry.identityId === me.id);
         if (!player) {
-          if (room.players.length >= 2 || room.status !== "waiting") return { error: "ROOM_FULL" };
+          if (room.players.length >= maxPlayers || room.status !== "waiting") return { error: "ROOM_FULL" };
           player = newPlayer(me, socket);
           room.players.push(player);
         } else {
@@ -468,7 +469,8 @@ export function setupDuels(httpServer: HttpServer) {
           player.forfeitAt = null;
         }
         seat = player.seat;
-        if (room.status === "waiting" && room.players.length === 2) {
+        // Auction supports 2-4 players, so the host starts it manually.
+        if (room.status === "waiting" && room.players.length === 2 && room.game !== "auction") {
           startRoom(room, ctx);
           return { event: "game:state" };
         }
@@ -543,6 +545,7 @@ export function setupDuels(httpServer: HttpServer) {
         if (!player) return { error: "NOT_IN_ROOM" };
         if (room.hostSeat !== player.seat) return { error: "FORBIDDEN" };
         if (room.players.length < 2) return { error: "NOT_ENOUGH_PLAYERS" };
+        if (room.game === "auction" && room.players.length > 4) return { error: "ROOM_FULL" };
         if (room.status === "playing") return { error: "ALREADY_STARTED" };
         startRoom(room, ctx);
         return { event: "game:state" };

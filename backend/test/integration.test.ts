@@ -154,21 +154,37 @@ describe("auth", () => {
     expect(rotated.statusCode).toBe(200);
     expect(cookieValue(rotated, "futgrid_refresh")).toBeTruthy();
 
-    const reuse = await app.inject({
+    const reusedInGrace = await app.inject({
       method: "POST",
       url: "/v1/auth/refresh",
       headers: { cookie: refreshCookie },
       payload: {},
     });
-    expect(reuse.statusCode).toBe(401);
+    expect(reusedInGrace.statusCode).toBe(200);
 
-    const afterReuse = await app.inject({
+    await prisma.refreshToken.updateMany({
+      where: { revokedAt: { not: null } },
+      data: { revokedAt: new Date(Date.now() - 60_000) },
+    });
+    const theft = await app.inject({
+      method: "POST",
+      url: "/v1/auth/refresh",
+      headers: { cookie: refreshCookie },
+      payload: {},
+    });
+    expect(theft.statusCode).toBe(401);
+    await prisma.refreshToken.updateMany({
+      where: { revokedAt: { not: null } },
+      data: { revokedAt: new Date(Date.now() - 60_000) },
+    });
+
+    const afterTheft = await app.inject({
       method: "POST",
       url: "/v1/auth/refresh",
       headers: { cookie: `futgrid_refresh=${cookieValue(rotated, "futgrid_refresh")}` },
       payload: {},
     });
-    expect(afterReuse.statusCode).toBe(401);
+    expect(afterTheft.statusCode).toBe(401);
   });
 
   it("does not reveal whether a forgot-password email exists", async () => {

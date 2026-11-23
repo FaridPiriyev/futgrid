@@ -20,9 +20,10 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/backend/dist ./backend/dist
 COPY --from=build /app/backend/prisma ./backend/prisma
 COPY --from=build /app/backend/package.json ./backend/package.json
+COPY --from=build /app/backend/docker-entrypoint.sh ./backend/docker-entrypoint.sh
 COPY --from=build /app/packages/game-core/package.json ./packages/game-core/package.json
 COPY --from=build /app/packages/game-core/dist ./packages/game-core/dist
 COPY --from=build /app/packages/game-core/data ./packages/game-core/data
-WORKDIR /app/backend
+WORKDIR /app
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+CMD ["./backend/docker-entrypoint.sh"]

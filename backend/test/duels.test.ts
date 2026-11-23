@@ -83,6 +83,7 @@ async function pair(game: string, settings?: Record<string, unknown>) {
   const code = created.room.code as string;
   const started = next(a, ["game:state"], (state) => state.status === "playing");
   const joined = await ack(b, "room:join", { code, game });
+  if (game === "auction") await ack(a, "game:start", { code, game });
   const state = await started;
   return { a, b, code, aSeat: created.youId as string, bSeat: joined.youId as string, state };
 }

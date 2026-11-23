@@ -237,7 +237,7 @@ function SetupStage({ duel, setup }) {
   );
 }
 
-export default function DuelLobby({ duel, children, finishedDetail = null, onBack = null, setup = null, summary = null }) {
+export default function DuelLobby({ duel, children, finishedDetail = null, onBack = null, setup = null, summary = null, waitingActions = null }) {
   if (duel.loading && !duel.room) return <Loader text={tr("Otağa qoşulur...")} />;
 
   if (!duel.connected && !duel.room) {
@@ -323,6 +323,7 @@ export default function DuelLobby({ duel, children, finishedDetail = null, onBac
 
       {waiting ? <VersusBar players={players} myId={duel.myId} live={false} /> : null}
       {waiting ? <WaitingRoom code={duel.room.code} onLeave={() => void duel.leaveRoom()} summary={summary} /> : null}
+      {waiting && waitingActions ? waitingActions : null}
 
       {duel.error ? (
         <p role="alert" className={`rounded-[10px] border border-bad/30 bg-bad/8 px-3 py-2 ${FONT} text-sm font-bold text-bad-hi`}>

@@ -15,6 +15,7 @@ import { randomToken, signAccessToken } from "../../lib/crypto.js";
 import { enforceScopedLimit, rateLimitKey } from "../../lib/rate-limit.js";
 import {
   forgotPassword,
+  resendVerification,
   findOrCreateGoogleUser,
   login,
   logout,
@@ -31,6 +32,7 @@ import {
   loginSchema,
   refreshSchema,
   registerSchema,
+  resendVerificationSchema,
   resetPasswordSchema,
   verifyEmailSchema,
 } from "./schemas.js";
@@ -50,7 +52,7 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
         body: registerSchema,
       },
       ...(config.RATE_LIMIT_ENABLED
-        ? { config: { rateLimit: { max: 3, timeWindow: "1 hour" } } }
+        ? { config: { rateLimit: { max: 30, timeWindow: "1 hour" } } }
         : {}),
     },
     async (request, reply) => {
@@ -128,6 +130,20 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
     async (request, reply) => {
       await verifyEmail(request.body.token);
       return reply.send({ ok: true });
+    },
+  );
+
+  app.post(
+    "/auth/resend-verification",
+    { schema: { tags: ["auth"], body: resendVerificationSchema } },
+    async (request, reply) => {
+      await enforceScopedLimit(
+        rateLimitKey("resend-verify", request.ip, request.body.email),
+        5,
+        60 * 60,
+      );
+      await resendVerification(request.body.email);
+      return reply.send({ ok: true, message: "If this email needs verification, we sent a link" });
     },
   );
 
@@ -225,8 +241,12 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
         sub?: string;
         email?: string;
         name?: string;
+        email_verified?: boolean;
       };
       if (!profile.sub || !profile.email) throw new AppError("OAUTH_FAILED");
+      if (profile.email_verified !== true) {
+        throw new AppError("OAUTH_FAILED", { message: "Google email is not verified" });
+      }
 
       const user = await findOrCreateGoogleUser({
         providerAccountId: profile.sub,

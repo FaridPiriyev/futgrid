@@ -82,6 +82,7 @@ if (!parsed.success) {
 
 export const config = {
   ...parsed.data,
+  SWAGGER_ENABLED: parsed.data.NODE_ENV === "production" ? false : parsed.data.SWAGGER_ENABLED,
   corsOrigins: parsed.data.CORS_ORIGINS.split(",")
     .map((origin) => origin.trim())
     .filter(Boolean),
@@ -97,6 +98,17 @@ if (config.isProduction) {
   ].filter(([, value]) => value.includes("change-me") || value.length < 24);
   if (weak.length) {
     throw new Error(`Production secrets are weak or missing: ${weak.map(([key]) => key).join(", ")}`);
+  }
+  const r2 = Boolean(
+    config.R2_ACCOUNT_ID &&
+      config.R2_ACCESS_KEY_ID &&
+      config.R2_SECRET_ACCESS_KEY &&
+      config.R2_BUCKET,
+  );
+  if (!r2 && /localhost|127\.0\.0\.1/.test(config.MEDIA_BASE_URL)) {
+    throw new Error(
+      "Production media is not persistent: configure R2 or set a public MEDIA_BASE_URL with a volume.",
+    );
   }
 }
 

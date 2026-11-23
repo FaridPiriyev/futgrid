@@ -134,6 +134,25 @@ export default function AuctionDuel({ data, settings, onSettingsChange, onSettin
     <DuelLobby
       duel={duel}
       onBack={onSettings}
+      waitingActions={
+        duel.room?.status === "waiting" ? (
+          <div className="rounded-[14px] border border-accent/30 bg-accent/5 p-4 text-center">
+            <p className={`${FONT} text-sm text-muted`}>
+              {tr("Hərrac 2–4 oyunçu ilə başlayır. Host başladır.")}
+            </p>
+            {duel.room?.hostId === duel.myId ? (
+              <button
+                type="button"
+                disabled={(duel.room?.players?.length ?? 0) < 2}
+                onClick={() => void duel.startGame()}
+                className={`mt-3 inline-flex h-11 items-center rounded-[10px] bg-accent-lo px-5 ${FONT} text-sm font-bold uppercase tracking-[0.08em] text-white disabled:opacity-40`}
+              >
+                {tr("Hərracı başlat")}
+              </button>
+            ) : null}
+          </div>
+        ) : null
+      }
       summary={auctionSummary(duel.room?.settings)}
       setup={({ create, connected }) => (
         <AuctionSettings
@@ -149,6 +168,18 @@ export default function AuctionDuel({ data, settings, onSettingsChange, onSettin
       <style>{AUCTION_KEYFRAMES}</style>
       {state && !finished ? (
         <div className="space-y-4">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {(duel.room?.players ?? []).map((player) => {
+              const team = raw?.teams?.[player.id];
+              return (
+                <div key={player.id} className="rounded-xl border border-line/15 bg-surface p-3">
+                  <p className={`truncate ${FONT} text-sm font-bold uppercase text-ink`}>{nameOf(player)}</p>
+                  <p className={`${FONT} text-xs text-muted`}>{tr("Büdcə")}: {team ? team.money / 2 : "—"}₼</p>
+                  <p className={`${FONT} text-xs text-muted`}>{tr("Heyət")}: {(team?.slots ?? []).filter((slot) => slot.pick).length}/{(team?.slots ?? []).length || 5}</p>
+                </div>
+              );
+            })}
+          </div>
           <div className="flex items-center justify-between gap-3">
             <p className={`${FONT} text-sm uppercase tracking-[0.2em] text-muted`}>
               {tr("Lot")} <span className="font-bold text-ink">{state.lotNo}</span>

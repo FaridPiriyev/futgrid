@@ -30,6 +30,10 @@ export const verifyEmailSchema = z.object({
   token: z.string().min(20).max(500),
 });
 
+export const resendVerificationSchema = z.object({
+  email,
+});
+
 export const forgotPasswordSchema = z.object({
   email,
 });
