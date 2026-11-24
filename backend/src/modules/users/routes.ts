@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
+import { z } from "zod";
 import { requireUser } from "../../lib/auth.js";
 import { AppError } from "../../lib/errors.js";
 import {
@@ -7,6 +8,7 @@ import {
   exportMe,
   getMe,
   getMyDuels,
+  getMyHistory,
   getMyRatings,
   importGuest,
   putSettings,
@@ -116,6 +118,28 @@ export async function registerUserRoutes(fastify: FastifyInstance): Promise<void
     const user = requireUser(request);
     return getMyDuels(user.id);
   });
+
+  app.get(
+    "/me/history",
+    {
+      schema: {
+        tags: ["users"],
+        querystring: z.object({
+          type: z.enum(["all", "duel", "solo"]).default("all"),
+          limit: z.coerce.number().int().min(1).max(50).default(20),
+          before: z.string().datetime().optional(),
+        }),
+      },
+    },
+    async (request) => {
+      const user = requireUser(request);
+      return getMyHistory(user.id, {
+        type: request.query.type,
+        limit: request.query.limit,
+        before: request.query.before ? new Date(request.query.before) : undefined,
+      });
+    },
+  );
 
   app.post(
     "/me/push-tokens",

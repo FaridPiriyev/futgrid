@@ -7,6 +7,7 @@ import { config } from "../../config.js";
 import { getGameData } from "../../lib/data.js";
 import { isUuid, verifyAccessToken } from "../../lib/crypto.js";
 import { logger } from "../../lib/logger.js";
+import { Prisma } from "@prisma/client";
 import { prisma } from "../../lib/prisma.js";
 import { sendPushToUser } from "../../lib/push.js";
 import {
@@ -24,6 +25,24 @@ import {
   type Room,
 } from "./store.js";
 import type { Ctx, GameModule } from "./games/common.js";
+import {
+  ELO_START,
+  MIN_RATED_QUIT_MS,
+  OVERALL_GAME,
+  PAIR_DAILY_LIMIT,
+  QUIT_REASONS,
+  computeElo,
+  pairResults,
+} from "./rating.js";
+import {
+  ACTIVE_QUEUES_KEY,
+  findPairs,
+  queueKey,
+  queueLockKey,
+  recentKey,
+  whereKey,
+  type QueueEntry,
+} from "./matchmaking.js";
 import { xox } from "./games/xox.js";
 import { orta } from "./games/orta.js";
 import { higherLower } from "./games/higherLower.js";
@@ -41,6 +60,9 @@ const GAMES: Record<DuelGame, GameModule> = {
   sekil,
   auction,
 };
+
+/** Növbə nə qədər tez-tez yoxlanılır. */
+const MATCH_TICK_MS = 1500;
 
 /** Bağlantı kəsiləndən neçə ms sonra oyunçu texniki məğlub sayılır. */
 const forfeitMs = () => Number(process.env.DUEL_FORFEIT_MS ?? 30_000);
@@ -133,6 +155,7 @@ function publicState(room: Room, ctx: Ctx) {
       forfeitAt: player.forfeitAt ?? null,
     })),
     hostId: room.hostSeat,
+    random: room.random ?? false,
     rematch: room.rematch,
     winnerId: room.winnerSeat ?? null,
     loserId: room.loserSeat ?? null,
@@ -142,89 +165,176 @@ function publicState(room: Room, ctx: Ctx) {
   };
 }
 
-async function updateRatings(game: string, winnerId: string, loserId: string): Promise<void> {
-  const [winner, loser] = await Promise.all([
-    prisma.userRating.upsert({
-      where: { userId_gameId: { userId: winnerId, gameId: game } },
-      update: {},
-      create: { userId: winnerId, gameId: game },
-    }),
-    prisma.userRating.upsert({
-      where: { userId_gameId: { userId: loserId, gameId: game } },
-      update: {},
-      create: { userId: loserId, gameId: game },
-    }),
-  ]);
-  const expected = 1 / (1 + 10 ** ((loser.rating - winner.rating) / 400));
-  const delta = 16 * (1 - expected);
-  await prisma.$transaction([
-    prisma.userRating.update({
-      where: { id: winner.id },
-      data: {
-        rating: Math.round((winner.rating + delta) * 10) / 10,
-        games: { increment: 1 },
-        wins: { increment: 1 },
-      },
-    }),
-    prisma.userRating.update({
-      where: { id: loser.id },
-      data: {
-        rating: Math.round((loser.rating - delta) * 10) / 10,
-        games: { increment: 1 },
-        losses: { increment: 1 },
-      },
-    }),
-  ]);
+type RatingRow = { id: string; userId: string; gameId: string; rating: number; games: number };
+
+/** Hər oyunçu üçün reytinq sətrini yaradır (yoxdursa) və kilidləyib oxuyur. */
+async function lockRatings(
+  tx: Prisma.TransactionClient,
+  userIds: string[],
+  gameIds: string[],
+): Promise<RatingRow[]> {
+  await tx.userRating.createMany({
+    data: userIds.flatMap((userId) =>
+      gameIds.map((gameId) => ({ userId, gameId, rating: ELO_START, peak: ELO_START })),
+    ),
+    skipDuplicates: true,
+  });
+  // Eyni oyunçunun iki matçı eyni anda bitərsə, reytinq üst-üstə yazılmasın.
+  return tx.$queryRaw<RatingRow[]>`
+    SELECT id, user_id AS "userId", game_id AS "gameId", rating, games
+    FROM user_ratings
+    WHERE user_id = ANY(${userIds}::uuid[]) AND game_id = ANY(${gameIds}::text[])
+    ORDER BY id
+    FOR UPDATE`;
+}
+
+export interface DuelRatingEvent {
+  code: string;
+  rated: boolean;
+  reason: string | null;
+  /** seat → dəyişiklik. Real istifadəçi ID-si göndərilmir. */
+  changes: Record<
+    string,
+    { before: number; after: number; delta: number; overallBefore: number; overallAfter: number; overallDelta: number }
+  >;
 }
 
 // Nəticə bazaya yazılır. Xəta oyunu heç vaxt dayandırmır (oyunçular nəticəni artıq görüb).
-// Reytinq yalnız qeydiyyatlı istifadəçilər üçündür — qonaq ID-ləri users cədvəlində yoxdur.
-async function recordMatch(room: Room): Promise<void> {
+// Elo yalnız qeydiyyatlı istifadəçilər arasında hesablanır — qonaq ID-ləri users cədvəlində yoxdur.
+async function recordMatch(room: Room): Promise<DuelRatingEvent | null> {
   try {
     const bySeat = new Map(room.players.map((player) => [player.seat, player]));
     const winner = room.winnerSeat ? bySeat.get(room.winnerSeat) : undefined;
     const loser = room.loserSeat ? bySeat.get(room.loserSeat) : undefined;
-    await prisma.duelMatch.create({
-      data: {
-        gameId: room.game,
-        roomCode: room.code,
-        winnerId: winner && !winner.guest ? winner.identityId : null,
-        loserId: loser && !loser.guest ? loser.identityId : null,
-        playerIds: room.players.map((player) => player.identityId),
-        score: JSON.parse(
-          JSON.stringify({
-            scores: room.state.scores ?? null,
-            strength: room.state.strength ?? null,
-          }),
-        ),
-        durationMs: room.startedAt ? Date.now() - room.startedAt : null,
-        endedReason: room.endedReason ?? "finished",
-      },
-    });
     const users = room.players.filter((player) => !player.guest);
-    if (winner && loser && !winner.guest && !loser.guest) {
-      await updateRatings(room.game, winner.identityId, loser.identityId);
-    } else {
-      for (const player of users) {
-        const won = player.seat === room.winnerSeat;
-        const lost = player.seat === room.loserSeat;
-        await prisma.userRating.upsert({
-          where: { userId_gameId: { userId: player.identityId, gameId: room.game } },
-          update: {
-            games: { increment: 1 },
-            ...(won ? { wins: { increment: 1 } } : {}),
-            ...(lost ? { losses: { increment: 1 } } : {}),
-          },
-          create: {
-            userId: player.identityId,
-            gameId: room.game,
-            games: 1,
-            wins: won ? 1 : 0,
-            losses: lost ? 1 : 0,
-          },
-        });
-      }
+    const durationMs = room.startedAt ? Date.now() - room.startedAt : null;
+    const endedReason = room.endedReason ?? "finished";
+
+    const pairs = pairResults({
+      players: users.map((player) => ({ seat: player.seat, id: player.identityId, guest: false })),
+      winnerSeat: room.winnerSeat ?? null,
+      loserSeat: room.loserSeat ?? null,
+      endedReason,
+      strength: room.state?.strength ?? null,
+    });
+
+    let reason: string | null = null;
+    if (users.length < 2 || users.length !== room.players.length) reason = "guest";
+    else if (!pairs.length) reason = "no_result";
+    else if (QUIT_REASONS.has(endedReason) && durationMs !== null && durationMs < MIN_RATED_QUIT_MS) {
+      reason = "too_short";
+    } else if (users.length === 2) {
+      const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+      const recent = await prisma.duelMatch.count({
+        where: {
+          rated: true,
+          createdAt: { gte: since },
+          playerIds: { hasEvery: users.map((player) => player.identityId) },
+        },
+      });
+      if (recent >= PAIR_DAILY_LIMIT) reason = "pair_limit";
     }
+
+    const score = JSON.parse(
+      JSON.stringify({
+        scores: room.state.scores ?? null,
+        strength: room.state.strength ?? null,
+        // playerIds ilə eyni sıra — tarixçədə "mənim hesabım"ı tapmaq üçün.
+        seats: room.players.map((player) => player.seat),
+        winnerSeat: room.winnerSeat ?? null,
+        loserSeat: room.loserSeat ?? null,
+      }),
+    );
+    const base = {
+      gameId: room.game,
+      roomCode: room.code,
+      winnerId: winner && !winner.guest ? winner.identityId : null,
+      loserId: loser && !loser.guest ? loser.identityId : null,
+      playerIds: room.players.map((player) => player.identityId),
+      score,
+      durationMs,
+      endedReason,
+    };
+
+    let event: DuelRatingEvent = { code: room.code, rated: false, reason, changes: {} };
+
+    if (reason) {
+      await prisma.duelMatch.create({
+        data: { ...base, rated: false, ratingChanges: { reason, players: {} } },
+      });
+    } else {
+      const userIds = users.map((player) => player.identityId);
+      event = await prisma.$transaction(async (tx) => {
+        const rows = await lockRatings(tx, userIds, [room.game, OVERALL_GAME]);
+        const row = (userId: string, gameId: string) =>
+          rows.find((entry) => entry.userId === userId && entry.gameId === gameId)!;
+        const seatToUser = new Map(users.map((player) => [player.seat, player.identityId]));
+        const toIds = (gameId: string) =>
+          users.map((player) => {
+            const r = row(player.identityId, gameId);
+            return { id: player.seat, rating: r.rating, games: r.games };
+          });
+        const gameDelta = computeElo(toIds(room.game), pairs);
+        const overallDelta = computeElo(toIds(OVERALL_GAME), pairs);
+
+        const tally = new Map<string, { wins: number; losses: number; draws: number }>();
+        for (const { a, b, scoreA } of pairs) {
+          for (const [seat, s] of [
+            [a, scoreA],
+            [b, 1 - scoreA],
+          ] as const) {
+            const t = tally.get(seat) ?? { wins: 0, losses: 0, draws: 0 };
+            if (s === 1) t.wins++;
+            else if (s === 0) t.losses++;
+            else t.draws++;
+            tally.set(seat, t);
+          }
+        }
+
+        const changes: DuelRatingEvent["changes"] = {};
+        const stored: Record<string, unknown> = {};
+        for (const player of users) {
+          const userId = seatToUser.get(player.seat)!;
+          const t = tally.get(player.seat) ?? { wins: 0, losses: 0, draws: 0 };
+          // Çox oyunçulu matç bir oyun sayılır: yekun nəticə qələbə/məğlubiyyət/heç-heçə.
+          const net = t.wins - t.losses;
+          const result = net > 0 ? "wins" : net < 0 ? "losses" : "draws";
+          const g = row(userId, room.game);
+          const o = row(userId, OVERALL_GAME);
+          const dg = gameDelta.get(player.seat) ?? 0;
+          const dov = overallDelta.get(player.seat) ?? 0;
+          const after = g.rating + dg;
+          const overallAfter = o.rating + dov;
+          for (const [r, value] of [
+            [g, after],
+            [o, overallAfter],
+          ] as const) {
+            await tx.$executeRaw`
+              UPDATE user_ratings
+              SET rating = ${value},
+                  peak = GREATEST(peak, ${value}),
+                  games = games + 1,
+                  ${Prisma.raw(`"${result}" = "${result}" + 1`)},
+                  updated_at = NOW()
+              WHERE id = ${r.id}::uuid`;
+          }
+          changes[player.seat] = {
+            before: g.rating,
+            after,
+            delta: dg,
+            overallBefore: o.rating,
+            overallAfter,
+            overallDelta: dov,
+          };
+          stored[userId] = { ...changes[player.seat], seat: player.seat, result };
+        }
+        await tx.duelMatch.create({
+          data: { ...base, rated: true, ratingChanges: { players: stored } as unknown as Prisma.InputJsonValue },
+        });
+        return { code: room.code, rated: true, reason: null, changes };
+      });
+    }
+
     for (const player of users) {
       const won = player.seat === room.winnerSeat;
       void sendPushToUser(
@@ -234,8 +344,10 @@ async function recordMatch(room: Room): Promise<void> {
         { type: "duel_result", code: room.code, game: room.game },
       ).catch(() => {});
     }
+    return event;
   } catch (error) {
     logger.error({ err: error, code: room.code, game: room.game }, "failed to record duel match");
+    return null;
   }
 }
 
@@ -301,14 +413,17 @@ export function setupDuels(httpServer: HttpServer) {
       const ctx: Ctx = {
         now: Date.now(),
         data: getGameData(),
-        finish(winnerSeat, reason) {
+        finish(winnerSeat, reason, loserSeat) {
           if (room.status !== "playing") return;
           room.status = "finished";
           room.endedReason = reason;
           room.winnerSeat = winnerSeat;
-          room.loserSeat = winnerSeat
-            ? (room.players.find((player) => player.seat !== winnerSeat)?.seat ?? null)
-            : null;
+          room.loserSeat =
+            loserSeat !== undefined
+              ? loserSeat
+              : winnerSeat
+                ? (room.players.find((player) => player.seat !== winnerSeat)?.seat ?? null)
+                : null;
           room.state.deadline = null;
           for (const player of room.players) player.forfeitAt = null;
           finished = true;
@@ -322,7 +437,12 @@ export function setupDuels(httpServer: HttpServer) {
       else io.to(code).emit(outcome.event ?? "game:state", payload);
       return { ...outcome, room, ctx };
     });
-    if (finished && result.room) void recordMatch(result.room);
+    if (finished && result.room) {
+      const finishedRoom = result.room;
+      void recordMatch(finishedRoom).then((rating) => {
+        if (rating) io.to(finishedRoom.code).emit("duel:rating", rating);
+      });
+    }
     return result;
   }
 
@@ -355,8 +475,9 @@ export function setupDuels(httpServer: HttpServer) {
             (player) => !player.connected && player.forfeitAt && player.forfeitAt <= ctx.now,
           );
           if (gone) {
-            const other = room.players.find((player) => player.seat !== gone.seat);
-            ctx.finish(other?.seat ?? null, "disconnect");
+            const others = room.players.filter((player) => player.seat !== gone.seat);
+            // 3–4 nəfərlik auksionda konkret qalib yoxdur — çıxan hamıya uduzur.
+            ctx.finish(others.length === 1 ? others[0]!.seat : null, "disconnect", gone.seat);
             return { changed: true };
           }
           const deadline = Number(room.state.deadline);
@@ -372,6 +493,122 @@ export function setupDuels(httpServer: HttpServer) {
   }
   const sweeper = setInterval(() => void sweep(), SWEEP_MS);
   let closing = false;
+
+  // ---------- Matchmaking: təsadüfi rəqib ----------
+
+  async function leaveQueue(identityId: string, socketId?: string): Promise<void> {
+    const game = await redis.get(whereKey(identityId));
+    if (!game) return;
+    if (socketId) {
+      // Başqa tabdan yenidən növbəyə giribsə, köhnə tabın bağlanması onu çıxarmasın.
+      const raw = await redis.hget(queueKey(game), identityId);
+      const entry = raw ? (JSON.parse(raw) as QueueEntry) : null;
+      if (entry && entry.socketId !== socketId) return;
+    }
+    await redis.multi().hdel(queueKey(game), identityId).del(whereKey(identityId)).exec();
+  }
+
+  const socketAlive = async (socketId: string) => (await io.in(socketId).fetchSockets()).length > 0;
+
+  async function createMatch(game: DuelGame, a: QueueEntry, b: QueueEntry): Promise<void> {
+    let code = code6();
+    while (await roomExists(redis, code)) code = code6();
+    const toPlayer = (entry: QueueEntry): DuelPlayer => ({
+      seat: newSeat(),
+      identityId: entry.id,
+      name: entry.name,
+      username: entry.username,
+      displayName: entry.displayName,
+      avatarUrl: entry.avatarUrl,
+      guest: entry.guest,
+      socketId: entry.socketId,
+      connected: true,
+      forfeitAt: null,
+    });
+    const players = [toPlayer(a), toPlayer(b)];
+    // Kim başlayacaq — təsadüfi.
+    if (randomInt(2) === 1) players.reverse();
+    const room: Room = {
+      v: 2,
+      code,
+      game,
+      players,
+      hostSeat: players[0]!.seat,
+      status: "waiting",
+      seed: 0,
+      rematch: [],
+      state: {},
+      settings: GAMES[game].settings?.({}) ?? {},
+      createdAt: Date.now(),
+      random: true,
+    };
+    await saveRoom(redis, room);
+    for (const player of players) {
+      io.in(player.socketId).socketsJoin(code);
+      io.to(player.socketId).emit("match:found", { code, game, youId: player.seat });
+    }
+    await redis
+      .multi()
+      .set(recentKey(a.id), b.id, "EX", 120)
+      .set(recentKey(b.id), a.id, "EX", 120)
+      .exec();
+    await mutate(code, (current, ctx) => {
+      if (current.status !== "waiting") return { changed: false };
+      startRoom(current, ctx);
+      return { event: "game:state" };
+    });
+  }
+
+  async function matchGame(game: DuelGame): Promise<void> {
+    const lock = await redis.set(queueLockKey(game), "1", "PX", 5000, "NX");
+    if (lock !== "OK") return;
+    try {
+      const raw = await redis.hgetall(queueKey(game));
+      const entries = Object.values(raw).map((value) => JSON.parse(value) as QueueEntry);
+      if (entries.length < 2) {
+        if (!entries.length) await redis.srem(ACTIVE_QUEUES_KEY, game);
+        return;
+      }
+      for (const [a, b] of findPairs(entries, Date.now())) {
+        const [aliveA, aliveB] = await Promise.all([socketAlive(a.socketId), socketAlive(b.socketId)]);
+        if (!aliveA || !aliveB) {
+          // Bağlantısı kəsilmiş oyunçu növbədən çıxır, digəri növbəti dəfə başqası ilə birləşir.
+          if (!aliveA) await leaveQueue(a.id);
+          if (!aliveB) await leaveQueue(b.id);
+          continue;
+        }
+        await redis
+          .multi()
+          .hdel(queueKey(game), a.id, b.id)
+          .del(whereKey(a.id), whereKey(b.id))
+          .exec();
+        await createMatch(game, a, b).catch((error) =>
+          logger.error({ err: error, game }, "matchmaking room creation failed"),
+        );
+      }
+    } finally {
+      await redis.del(queueLockKey(game));
+    }
+  }
+
+  let matching = false;
+  async function matchTick() {
+    if (matching) return;
+    matching = true;
+    try {
+      const games = (await redis.smembers(ACTIVE_QUEUES_KEY)) as DuelGame[];
+      for (const game of games) {
+        if (!SUPPORTED_GAMES.includes(game)) continue;
+        await matchGame(game).catch((error) => logger.warn({ err: error, game }, "matchmaking tick failed"));
+      }
+    } catch (error) {
+      logger.warn({ err: error }, "matchmaking tick failed");
+    } finally {
+      matching = false;
+    }
+  }
+  const matcher = setInterval(() => void matchTick(), MATCH_TICK_MS);
+
 
   io.on("connection", async (socket) => {
     let identity: SocketIdentity | null = null;
@@ -425,9 +662,52 @@ export function setupDuels(httpServer: HttpServer) {
       });
     };
 
+    // Təsadüfi rəqib axtarışına qoşul.
+    on("queue:join", async (payload, ack) => {
+      const game = payload.game as DuelGame;
+      if (!SUPPORTED_GAMES.includes(game)) return fail(ack, "GAME_NOT_AVAILABLE");
+      await leaveQueue(me.id);
+      let rating = ELO_START;
+      if (!me.guest) {
+        const row = await prisma.userRating.findUnique({
+          where: { userId_gameId: { userId: me.id, gameId: game } },
+          select: { rating: true },
+        });
+        rating = row?.rating ?? ELO_START;
+      }
+      const entry: QueueEntry = {
+        id: me.id,
+        socketId: socket.id,
+        rating,
+        guest: me.guest,
+        joinedAt: Date.now(),
+        name: me.name,
+        username: me.username,
+        displayName: me.displayName,
+        avatarUrl: me.avatarUrl,
+        avoid: await redis.get(recentKey(me.id)),
+      };
+      await redis
+        .multi()
+        .hset(queueKey(game), me.id, JSON.stringify(entry))
+        .set(whereKey(me.id), game, "EX", 60 * 30)
+        .sadd(ACTIVE_QUEUES_KEY, game)
+        .exec();
+      const searching = await redis.hlen(queueKey(game));
+      reply(ack, { ok: true, game, rating: Math.round(rating), searching });
+      // Növbədə artıq kimsə varsa, gözlətmədən yoxlayaq.
+      if (searching >= 2) void matchGame(game).catch(() => {});
+    });
+
+    on("queue:leave", async (_payload, ack) => {
+      await leaveQueue(me.id);
+      reply(ack, { ok: true });
+    });
+
     on("room:create", async (payload, ack) => {
       const game = payload.game as DuelGame;
       if (!SUPPORTED_GAMES.includes(game)) return fail(ack, "GAME_NOT_AVAILABLE");
+      await leaveQueue(me.id);
       let code = code6();
       while (await roomExists(redis, code)) code = code6();
       const player = newPlayer(me, socket);
@@ -454,6 +734,7 @@ export function setupDuels(httpServer: HttpServer) {
       const code = cleanCode(payload.code);
       if (code.length !== 6) return fail(ack, "ROOM_NOT_FOUND");
       if (!payload.game) return fail(ack, "GAME_REQUIRED");
+      await leaveQueue(me.id);
       let seat = "";
       const result = await mutate(code, (room, ctx) => {
         if (room.game !== payload.game) return { error: "ROOM_GAME_MISMATCH" };
@@ -497,10 +778,8 @@ export function setupDuels(httpServer: HttpServer) {
         const player = room.players.find((entry) => entry.identityId === me.id);
         if (!player) return { error: "NOT_IN_ROOM" };
         if (room.status === "playing") {
-          ctx.finish(
-            room.players.find((entry) => entry.seat !== player.seat)?.seat ?? null,
-            "left",
-          );
+          const others = room.players.filter((entry) => entry.seat !== player.seat);
+          ctx.finish(others.length === 1 ? others[0]!.seat : null, "left", player.seat);
           return { changed: true };
         }
         room.players = room.players.filter((entry) => entry.seat !== player.seat);
@@ -527,10 +806,8 @@ export function setupDuels(httpServer: HttpServer) {
         const player = room.players.find((entry) => entry.identityId === me.id);
         if (!player) return { error: "NOT_IN_ROOM" };
         if (room.status !== "playing") return { error: "GAME_NOT_ACTIVE" };
-        ctx.finish(
-          room.players.find((entry) => entry.seat !== player.seat)?.seat ?? null,
-          "surrender",
-        );
+        const others = room.players.filter((entry) => entry.seat !== player.seat);
+        ctx.finish(others.length === 1 ? others[0]!.seat : null, "surrender", player.seat);
         return { changed: true };
       });
       if (result.error) return fail(ack, result.error);
@@ -589,6 +866,7 @@ export function setupDuels(httpServer: HttpServer) {
     // "disconnect" anında socket.rooms artıq boş olur — otaqları "disconnecting"-də götürürük.
     socket.on("disconnecting", () => {
       if (closing) return;
+      void leaveQueue(me.id, socket.id).catch(() => {});
       const codes = [...socket.rooms].filter((room) => room !== socket.id);
       for (const code of codes) {
         void mutate(code, (room, ctx) => {
@@ -607,6 +885,7 @@ export function setupDuels(httpServer: HttpServer) {
     async close() {
       closing = true;
       clearInterval(sweeper);
+      clearInterval(matcher);
       await new Promise<void>((resolve) => io.close(() => resolve()));
       await Promise.all([pubClient.quit(), subClient.quit(), redis.quit()]);
       logger.info("duel socket server closed");

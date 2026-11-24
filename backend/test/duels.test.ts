@@ -139,6 +139,53 @@ afterAll(async () => {
   await prisma.$disconnect();
 });
 
+describe("matchmaking", () => {
+  it("puts two searching players into the same room and starts the game", async () => {
+    const a = client();
+    const b = client();
+    await Promise.all([connected(a), connected(b)]);
+    const foundA = new Promise<any>((resolve) => a.once("match:found", resolve));
+    const foundB = new Promise<any>((resolve) => b.once("match:found", resolve));
+    const playing = next(a, ["game:state"], (state) => state.status === "playing");
+    const first = await ack(a, "queue:join", { game: "xox" });
+    expect(first.ok).toBe(true);
+    await ack(b, "queue:join", { game: "xox" });
+    const [matchA, matchB] = await Promise.all([foundA, foundB]);
+    expect(matchA.code).toBe(matchB.code);
+    expect(matchA.youId).not.toBe(matchB.youId);
+    const state = await playing;
+    expect(state.code).toBe(matchA.code);
+    expect(state.players).toHaveLength(2);
+    const redis = await getRedis();
+    expect(await redis.hlen("mm:q:xox")).toBe(0);
+  });
+
+  it("does not match players from different games and lets them cancel", async () => {
+    const a = client();
+    const b = client();
+    await Promise.all([connected(a), connected(b)]);
+    let matched = false;
+    a.once("match:found", () => (matched = true));
+    await ack(a, "queue:join", { game: "xox" });
+    await ack(b, "queue:join", { game: "orta" });
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    expect(matched).toBe(false);
+    await ack(a, "queue:leave", {});
+    const redis = await getRedis();
+    expect(await redis.hlen("mm:q:xox")).toBe(0);
+  });
+
+  it("removes a player from the queue when the socket disconnects", async () => {
+    const a = client();
+    await connected(a);
+    await ack(a, "queue:join", { game: "sual" });
+    a.disconnect();
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const redis = await getRedis();
+    expect(await redis.hlen("mm:q:sual")).toBe(0);
+  });
+});
+
 describe("duel server", () => {
   it("finishes a guest-vs-guest match without crashing and records it", async () => {
     const { a, b, code, aSeat } = await pair("orta", { era: "all", target: 1 });

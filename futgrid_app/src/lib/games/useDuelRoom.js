@@ -76,10 +76,19 @@ const ERRORS = {
   get UNAUTHENTICATED() {
     return tr("Serverə qoşulmaq üçün səhifəni yenilə.");
   },
+  get GAME_NOT_AVAILABLE() {
+    return tr("Bu oyun üçün onlayn axtarış hələ yoxdur.");
+  },
   get NOT_ENOUGH_PLAYERS() {
     return tr("Oyun üçün iki oyunçu lazımdır.");
   },
 };
+
+// "Onlayn rəqib" kartı basılanda duel ekranı açılan kimi axtarış avtomatik başlasın.
+let autoMatchAt = 0;
+export function requestAutoMatch() {
+  autoMatchAt = Date.now();
+}
 
 export const duelErrorText = (code) => ERRORS[code] ?? tr("Xəta baş verdi ({code}).", { code: code || "?" });
 
@@ -125,6 +134,15 @@ export function useDuelRoom({ game, invitedCode = "" }) {
   const [error, setError] = useState("");
   const [seat, setSeat] = useState(null);
   const [joining, setJoining] = useState(Boolean(codeRef.current));
+  // Son matçın Elo nəticəsi (server "duel:rating" göndərir).
+  const [rating, setRating] = useState(null);
+  // Təsadüfi rəqib axtarışı: { since, searching } və ya null.
+  const [searching, setSearchingState] = useState(null);
+  const searchingRef = useRef(null);
+  const setSearching = useCallback((value) => {
+    searchingRef.current = value;
+    setSearchingState(value);
+  }, []);
 
   const setRoom = useCallback(
     (state) => {
@@ -134,6 +152,8 @@ export function useDuelRoom({ game, invitedCode = "" }) {
         return;
       }
       if (typeof state.serverNow === "number") offsetRef.current = state.serverNow - Date.now();
+      // Yeni oyun başlayanda köhnə reytinq nəticəsi gizlənir.
+      if (state.status !== "finished") setRating(null);
       roomRef.current = state;
       codeRef.current = state.code;
       writeStored(game, state.code);
@@ -189,6 +209,12 @@ export function useDuelRoom({ game, invitedCode = "" }) {
 
     socket.on("connect", () => {
       setConnected(true);
+      // Axtarış zamanı internet kəsilib qayıdıbsa, növbəyə yenidən qoşuluruq.
+      if (searchingRef.current && !roomRef.current) {
+        socket.emit("queue:join", { game }, (response) => {
+          if (response?.error) setSearching(null);
+        });
+      }
       // İnternet kəsilib qayıdanda və ya səhifə yenilənəndə otağa avtomatik qayıdırıq.
       const code = roomRef.current?.code ?? codeRef.current;
       if (code) void join(socket, code, { silent: Boolean(roomRef.current) || !invitedCode });
@@ -202,11 +228,24 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     socket.on("room:state", setRoom);
     socket.on("game:state", setRoom);
     socket.on("game:result", setRoom);
+    socket.on("match:found", (payload) => {
+      if (!payload?.code) return;
+      setSearching(null);
+      if (payload.youId) setSeat(payload.youId);
+      codeRef.current = payload.code;
+      writeStored(game, payload.code);
+      // Otağın tam vəziyyətini alırıq (oyun artıq başlayıb).
+      void join(socket, payload.code, { silent: true });
+    });
+    socket.on("duel:rating", (payload) => {
+      if (!payload || payload.code !== roomRef.current?.code) return;
+      setRating(payload);
+    });
     socket.on("error", (payload) => {
       const code = payload?.error?.code;
       if (code === "UNAUTHENTICATED") setError(duelErrorText(code));
     });
-  }, [invitedCode, join, setRoom, user]);
+  }, [game, invitedCode, join, setRoom, setSearching, user]);
 
   useEffect(() => {
     if (loading) return;
@@ -308,6 +347,41 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     }
   }, [emit, game, setRoom]);
 
+  /** Təsadüfi rəqib axtar (standart qaydalarla). */
+  const findMatch = useCallback(async () => {
+    setError("");
+    setRating(null);
+    setSearching({ since: Date.now(), searching: 1 });
+    const response = await emit("queue:join", { game });
+    if (response?.error) {
+      setSearching(null);
+      setError(duelErrorText(response.error.code));
+      return false;
+    }
+    // match:found cavabdan əvvəl gəlibsə, axtarış artıq bitib.
+    if (searchingRef.current) setSearching({ ...searchingRef.current, searching: response.searching ?? 1 });
+    return true;
+  }, [emit, game, setSearching]);
+
+  const cancelMatch = useCallback(async () => {
+    setSearching(null);
+    await emit("queue:leave", {});
+  }, [emit, setSearching]);
+
+  useEffect(() => {
+    if (!autoMatchAt || !connected || loading || joining || room || searchingRef.current) return;
+    // Köhnə sorğu (məsələn, istifadəçi geri qayıdıb) unudulur.
+    const fresh = Date.now() - autoMatchAt < 20_000;
+    autoMatchAt = 0;
+    if (fresh) void findMatch();
+  }, [connected, findMatch, joining, loading, room]);
+
+  /** Bitmiş təsadüfi oyundan sonra yeni rəqib. */
+  const findNext = useCallback(async () => {
+    await leaveRoom();
+    await findMatch();
+  }, [findMatch, leaveRoom]);
+
   const players = room?.players ?? [];
   const myId = seat ?? null;
   const me = players.find((player) => player.id === myId) ?? null;
@@ -322,12 +396,19 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     myId,
     me,
     opponent,
+    /** { rated, reason, mine: { before, after, delta, overallAfter, overallDelta } | null } */
+    rating: rating ? { rated: rating.rated, reason: rating.reason, mine: rating.changes?.[myId] ?? null } : null,
     /** Serverin indiki vaxtı (taymerlər üçün). */
     serverNow: () => Date.now() + offsetRef.current,
     offset: offsetRef.current,
     createRoom,
     joinRoom,
     leaveRoom,
+    /** null və ya { since, searching } — axtarış gedir. */
+    searching,
+    findMatch,
+    cancelMatch,
+    findNext,
     move,
     startGame,
     rematch,

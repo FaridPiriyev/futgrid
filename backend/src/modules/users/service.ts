@@ -373,3 +373,163 @@ export async function setAvatar(
 export async function clearAvatar(userId: string): Promise<void> {
   await prisma.user.update({ where: { id: userId }, data: { avatarUrl: null } });
 }
+
+type HistoryResult = "win" | "loss" | "draw";
+
+interface StoredRatingChange {
+  delta?: number;
+  after?: number;
+  result?: "wins" | "losses" | "draws";
+}
+
+interface StoredScore {
+  scores?: Record<string, number> | null;
+  strength?: Record<string, { total?: number }> | null;
+  seats?: string[];
+  winnerSeat?: string | null;
+  loserSeat?: string | null;
+}
+
+/** Duel nəticəsi istifadəçinin baxışından. Köhnə yazılarda seat yoxdur — ID-lərə baxırıq. */
+function duelResultFor(
+  userId: string,
+  match: { winnerId: string | null; loserId: string | null; endedReason: string; playerIds: string[] },
+  score: StoredScore,
+  change: StoredRatingChange | undefined,
+): HistoryResult {
+  if (change?.result) return change.result === "wins" ? "win" : change.result === "losses" ? "loss" : "draw";
+  const index = match.playerIds.indexOf(userId);
+  const seat = index >= 0 ? score.seats?.[index] : undefined;
+  if (seat && score.seats) {
+    if (score.winnerSeat === seat) return "win";
+    if (score.loserSeat === seat || score.winnerSeat) return "loss";
+    return "draw";
+  }
+  if (match.winnerId === userId) return "win";
+  if (match.loserId === userId || match.winnerId) return "loss";
+  return "draw";
+}
+
+export async function getMyHistory(
+  userId: string,
+  options: { type: "all" | "duel" | "solo"; limit: number; before?: Date },
+) {
+  const { type, limit, before } = options;
+  const [duels, solos] = await Promise.all([
+    type === "solo"
+      ? []
+      : prisma.duelMatch.findMany({
+          where: { playerIds: { has: userId }, ...(before ? { createdAt: { lt: before } } : {}) },
+          orderBy: { createdAt: "desc" },
+          take: limit,
+        }),
+    type === "duel"
+      ? []
+      : prisma.gameSession.findMany({
+          where: {
+            userId,
+            status: "finished",
+            ...(before ? { finishedAt: { lt: before } } : {}),
+          },
+          orderBy: { finishedAt: "desc" },
+          take: limit,
+          select: {
+            id: true,
+            gameId: true,
+            mode: true,
+            difficulty: true,
+            score: true,
+            points: true,
+            flagged: true,
+            startedAt: true,
+            finishedAt: true,
+          },
+        }),
+  ]);
+
+  const opponentIds = new Set<string>();
+  for (const match of duels) for (const id of match.playerIds) if (id !== userId) opponentIds.add(id);
+  const people = opponentIds.size
+    ? await prisma.user.findMany({
+        where: { id: { in: [...opponentIds] } },
+        select: { id: true, username: true, displayName: true, avatarUrl: true, deletedAt: true },
+      })
+    : [];
+  const personById = new Map(people.map((person) => [person.id, person]));
+
+  const items = [
+    ...duels.map((match) => {
+      const score = (match.score ?? {}) as unknown as StoredScore;
+      const changes = (match.ratingChanges ?? {}) as unknown as { players?: Record<string, StoredRatingChange> };
+      const change = changes.players?.[userId];
+      const index = match.playerIds.indexOf(userId);
+      const seats = score.seats ?? [];
+      const mySeat = seats[index];
+      const opponents = match.playerIds
+        .map((id, i) => ({ id, seat: seats[i] }))
+        .filter((entry) => entry.id !== userId)
+        .map((entry) => {
+          const person = personById.get(entry.id);
+          const entryScore =
+            entry.seat && score.scores ? (score.scores[entry.seat] ?? null) : null;
+          if (!person) return { username: null, displayName: null, avatarUrl: null, guest: true, deleted: false, score: entryScore };
+          return {
+            username: person.deletedAt ? null : person.username,
+            displayName: person.deletedAt ? "Deleted user" : (person.displayName ?? person.username),
+            avatarUrl: person.deletedAt ? null : person.avatarUrl,
+            guest: false,
+            deleted: Boolean(person.deletedAt),
+            score: entryScore,
+          };
+        });
+      return {
+        kind: "duel" as const,
+        id: match.id,
+        gameId: match.gameId,
+        at: match.createdAt.toISOString(),
+        result: duelResultFor(userId, match, score, change),
+        endedReason: match.endedReason,
+        durationMs: match.durationMs,
+        myScore: mySeat && score.scores ? (score.scores[mySeat] ?? null) : null,
+        opponents,
+        rated: match.rated,
+        ratingDelta: change?.delta ?? null,
+        ratingAfter: change?.after ?? null,
+      };
+    }),
+    ...solos.map((session) => ({
+      kind: "solo" as const,
+      id: session.id,
+      gameId: session.gameId,
+      at: (session.finishedAt ?? session.startedAt).toISOString(),
+      mode: session.mode,
+      difficulty: session.difficulty,
+      score: session.score,
+      points: session.points ?? 0,
+      flagged: session.flagged,
+    })),
+  ]
+    .sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0))
+    .slice(0, limit);
+
+  const ratings = await prisma.userRating.findMany({
+    where: { userId },
+    orderBy: { rating: "desc" },
+    select: { gameId: true, rating: true, peak: true, games: true, wins: true, losses: true, draws: true },
+  });
+  const [duelCount, soloCount] = await Promise.all([
+    prisma.duelMatch.count({ where: { playerIds: { has: userId } } }),
+    prisma.gameSession.count({ where: { userId, status: "finished" } }),
+  ]);
+
+  return {
+    entries: items,
+    nextBefore: items.length === limit ? items[items.length - 1]!.at : null,
+    summary: {
+      duels: duelCount,
+      solo: soloCount,
+      overall: ratings.find((row) => row.gameId === "overall") ?? null,
+      games: ratings.filter((row) => row.gameId !== "overall"),
+    },
+  };
+}

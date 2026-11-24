@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, DoorOpen, KeyRound, Plus, RotateCcw, Share2, Swords, Wifi } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, Check, Copy, DoorOpen, KeyRound, Loader2, Plus, RotateCcw, Share2, Shuffle, Swords, Wifi, X } from "lucide-react";
 import { DUEL_KEYFRAMES, DuelFinished, nameOf } from "./DuelKit";
 import { Loader, Notice } from "./GameStatus";
 import { FONT } from "./ui";
@@ -123,6 +123,68 @@ function JoinBox({ onJoin }) {
         {tr("Qoşul")}
       </button>
     </form>
+  );
+}
+
+function useElapsed(since) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!since) return undefined;
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [since]);
+  const seconds = since ? Math.max(0, Math.floor((now - since) / 1000)) : 0;
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+/** Təsadüfi rəqib: onlayn olan başqa oyunçu ilə avtomatik eşləşmə. */
+function RandomMatch({ duel }) {
+  const searching = duel.searching;
+  const elapsed = useElapsed(searching?.since);
+  if (searching) {
+    return (
+      <div className="relative overflow-hidden rounded-[18px] border border-accent/30 bg-accent/8 p-5 text-center animate-[duelIn_0.35s_ease-out] sm:p-7">
+        <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent/15 text-accent">
+          <Loader2 className="h-8 w-8 animate-spin motion-reduce:animate-none" />
+        </span>
+        <p className={`mt-4 ${FONT} text-2xl font-extrabold uppercase text-ink`}>{tr("Rəqib axtarılır…")}</p>
+        <p className={`mt-1 ${DIGITS} text-3xl font-bold text-accent`} aria-live="off">
+          {elapsed}
+        </p>
+        <p className={`mt-2 ${FONT} text-sm text-muted`}>
+          {searching.searching > 1
+            ? tr("Növbədə {n} oyunçu var", { n: searching.searching })
+            : tr("Reytinqi sənə yaxın oyunçu axtarırıq. Gözləmə uzandıqca axtarış genişlənir.")}
+        </p>
+        <button type="button" onClick={() => void duel.cancelMatch()} className={`${BTN_LINE} mt-5`}>
+          <X className="h-4.5 w-4.5" />
+          {tr("Ləğv et")}
+        </button>
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-col items-start gap-4 rounded-[18px] border border-accent/25 bg-gradient-to-br from-accent/12 to-transparent p-5 sm:flex-row sm:items-center sm:p-6">
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-accent">
+        <Shuffle className="h-6 w-6" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className={`${FONT} text-xs font-bold uppercase tracking-[0.18em] text-accent`}>{tr("Təsadüfi rəqib")}</p>
+        <p className={`${FONT} text-xl font-extrabold uppercase text-ink`}>{tr("Onlayn rəqiblə oyna")}</p>
+        <p className={`mt-0.5 ${FONT} text-sm text-muted`}>
+          {tr("Sistem səni hazırda onlayn olan, reytinqi yaxın oyunçu ilə eşləşdirir. Standart qaydalarla oynanılır.")}
+        </p>
+      </div>
+      <button
+        type="button"
+        disabled={!duel.connected}
+        onClick={() => void duel.findMatch()}
+        className={`${BTN_MAIN} w-full shrink-0 sm:w-auto`}
+      >
+        <Swords className="h-4.5 w-4.5" />
+        {tr("Rəqib tap")}
+      </button>
+    </div>
   );
 }
 
@@ -261,7 +323,6 @@ export default function DuelLobby({ duel, children, finishedDetail = null, onBac
   return (
     <div className="space-y-4">
       <style>{DUEL_KEYFRAMES}</style>
-      {!duel.room && setup ? <SetupStage duel={duel} setup={setup} /> : null}
       {!duel.room && onBack && !setup ? (
         <div className="flex justify-end">
           <button type="button" onClick={onBack} className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-wider text-muted hover:text-ink`}>
@@ -270,56 +331,63 @@ export default function DuelLobby({ duel, children, finishedDetail = null, onBac
           </button>
         </div>
       ) : null}
-      {!duel.room && !setup ? (
-        <div className="overflow-hidden rounded-[18px] border border-line/10 bg-surface">
-          <div className="flex items-center gap-3 border-b border-line/8 px-5 py-4 sm:px-7">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent/15 text-accent">
-              <Swords className="h-5 w-5" />
-            </span>
-            <div className="min-w-0">
-              <p className={`${FONT} text-xs font-bold uppercase tracking-[0.18em] text-accent`}>{tr("Dostla oyna")}</p>
-              <p className={`${FONT} text-xl font-extrabold uppercase text-ink`}>{tr("Onlayn duel")}</p>
-            </div>
-            <span className={`ml-auto hidden items-center gap-1.5 ${FONT} text-xs text-muted sm:inline-flex`}>
-              <Wifi className={`h-4 w-4 ${duel.connected ? "text-good-hi" : "text-faint"}`} />
-              {duel.connected ? tr("Serverə qoşuldu") : tr("Serverə qoşulur...")}
-            </span>
-          </div>
-          <div className="grid md:grid-cols-2">
-            <div className="flex flex-col border-b border-line/8 p-5 sm:p-7 md:border-b-0 md:border-r">
-              <div className="flex items-center gap-3">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-accent">
-                  <Plus className="h-5 w-5" />
+      {!duel.room && duel.findMatch ? <RandomMatch duel={duel} /> : null}
+      {!duel.room && duel.searching ? null : (
+        <>
+          {!duel.room && setup ? <SetupStage duel={duel} setup={setup} /> : null}
+          {!duel.room && !setup ? (
+            <div className="overflow-hidden rounded-[18px] border border-line/10 bg-surface">
+              <div className="flex items-center gap-3 border-b border-line/8 px-5 py-4 sm:px-7">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent/15 text-accent">
+                  <Swords className="h-5 w-5" />
                 </span>
-                <div>
-                  <p className={`${FONT} text-lg font-extrabold uppercase text-ink`}>{tr("Otaq yarat")}</p>
-                  <p className={`${FONT} text-sm text-muted`}>{tr("Kod alacaqsan, dostuna göndərəcəksən")}</p>
+                <div className="min-w-0">
+                  <p className={`${FONT} text-xs font-bold uppercase tracking-[0.18em] text-accent`}>{tr("Dostla oyna")}</p>
+                  <p className={`${FONT} text-xl font-extrabold uppercase text-ink`}>{tr("Onlayn duel")}</p>
+                </div>
+                <span className={`ml-auto hidden items-center gap-1.5 ${FONT} text-xs text-muted sm:inline-flex`}>
+                  <Wifi className={`h-4 w-4 ${duel.connected ? "text-good-hi" : "text-faint"}`} />
+                  {duel.connected ? tr("Serverə qoşuldu") : tr("Serverə qoşulur...")}
+                </span>
+              </div>
+              <div className="grid md:grid-cols-2">
+                <div className="flex flex-col border-b border-line/8 p-5 sm:p-7 md:border-b-0 md:border-r">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-accent">
+                      <Plus className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <p className={`${FONT} text-lg font-extrabold uppercase text-ink`}>{tr("Otaq yarat")}</p>
+                      <p className={`${FONT} text-sm text-muted`}>{tr("Kod alacaqsan, dostuna göndərəcəksən")}</p>
+                    </div>
+                  </div>
+                  <ol className={`mt-5 space-y-2 p-0 md:mb-6 ${FONT} text-sm text-muted`}>
+                    {[tr("Otaq yarat"), tr("6 rəqəmli kodu dostuna göndər"), tr("Dostun qoşulan kimi oyun başlayır")].map((t, i) => (
+                      <li key={t} className="flex list-none items-center gap-2.5">
+                        <span className={`grid h-6 w-6 place-items-center rounded-full bg-line/8 ${DIGITS} text-xs font-bold text-ink`}>{i + 1}</span>
+                        {t}
+                      </li>
+                    ))}
+                  </ol>
+                  <button
+                    type="button"
+                    disabled={!duel.connected}
+                    onClick={() => void duel.createRoom()}
+                    className={`${BTN_MAIN} mt-5 w-full md:mt-auto`}
+                  >
+                    <Plus className="h-4.5 w-4.5" strokeWidth={2.4} />
+                    {tr("Otaq yarat")}
+                  </button>
+                </div>
+                <div className="p-5 sm:p-7">
+                  <JoinBox onJoin={(code) => void duel.joinRoom(code)} />
                 </div>
               </div>
-              <ol className={`mt-5 space-y-2 p-0 md:mb-6 ${FONT} text-sm text-muted`}>
-                {[tr("Otaq yarat"), tr("6 rəqəmli kodu dostuna göndər"), tr("Dostun qoşulan kimi oyun başlayır")].map((t, i) => (
-                  <li key={t} className="flex list-none items-center gap-2.5">
-                    <span className={`grid h-6 w-6 place-items-center rounded-full bg-line/8 ${DIGITS} text-xs font-bold text-ink`}>{i + 1}</span>
-                    {t}
-                  </li>
-                ))}
-              </ol>
-              <button
-                type="button"
-                disabled={!duel.connected}
-                onClick={() => void duel.createRoom()}
-                className={`${BTN_MAIN} mt-5 w-full md:mt-auto`}
-              >
-                <Plus className="h-4.5 w-4.5" strokeWidth={2.4} />
-                {tr("Otaq yarat")}
-              </button>
             </div>
-            <div className="p-5 sm:p-7">
-              <JoinBox onJoin={(code) => void duel.joinRoom(code)} />
-            </div>
-          </div>
-        </div>
-      ) : null}
+          ) : null}
+
+        </>
+      )}
 
       {waiting ? <VersusBar players={players} myId={duel.myId} live={false} /> : null}
       {waiting ? <WaitingRoom code={duel.room.code} onLeave={() => void duel.leaveRoom()} summary={summary} /> : null}

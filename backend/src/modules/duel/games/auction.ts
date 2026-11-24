@@ -243,12 +243,17 @@ function finishAuction(room: Room, ctx: Ctx) {
     seats(room).map((seat) => [seat, teamStrength(ctx.data, state.teams[seat])]),
   );
   state.strength = strength;
-  const [a, b] = seats(room);
-  const sa = a ? strength[a]!.total : 0;
-  const sb = b ? strength[b]!.total : 0;
+  // 2–4 oyunçu: ən güclü komanda qalibdir; birinci yeri bölüşən varsa heç-heçə.
+  const ranked = seats(room)
+    .map((seat) => ({ seat, total: strength[seat]!.total }))
+    .sort((x, y) => y.total - x.total);
+  const top = ranked[0];
+  const bottom = ranked[ranked.length - 1];
+  const tiedTop = !top || ranked.filter((entry) => entry.total === top.total).length > 1;
   ctx.finish(
-    sa === sb ? null : sa > sb ? (a as string) : (b as string),
-    sa === sb ? "draw" : "win",
+    tiedTop ? null : top.seat,
+    tiedTop ? "draw" : "win",
+    tiedTop || !bottom || bottom.seat === top?.seat ? null : bottom.seat,
   );
 }
 

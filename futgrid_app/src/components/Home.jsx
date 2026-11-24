@@ -12,6 +12,8 @@ import {
   MessageSquare,
   Plus,
   CalendarDays,
+  Swords,
+  TrendingUp,
 } from "lucide-react";
 import { SOCIAL_LINKS, externalProps } from "../lib/socials";
 import { GAME_CATALOG } from "../lib/games/catalog";
@@ -42,6 +44,12 @@ const PERIODS = [
     key: "all",
     get label() {
       return tr("Bütün zamanlar");
+    },
+  },
+  {
+    key: "elo",
+    get label() {
+      return tr("Duel Elo");
     },
   },
 ];
@@ -902,6 +910,7 @@ const PODIUM_TITLE = {
   week: () => tr("Bu həftənin podiumu"),
   month: () => tr("Bu ayın podiumu"),
   all: () => tr("Bütün zamanların podiumu"),
+  elo: () => tr("Duel reytinqi"),
 };
 
 function EmptyPodium({ period }) {
@@ -915,7 +924,9 @@ function EmptyPodium({ period }) {
         {PODIUM_TITLE[period]()}
       </p>
       <p className={`mt-1.5 ${FONT} text-xl font-bold text-ink sm:text-2xl`}>
-        {tr("Hələ heç kim xal toplamayıb —")}{" "}
+        {period === "elo"
+          ? tr("Hələ reytinqli duel oyunçusu yoxdur —")
+          : tr("Hələ heç kim xal toplamayıb —")}{" "}
         <span className={HIGHLIGHT}>{tr("ilk sən ol")}</span>
       </p>
       <div
@@ -947,6 +958,71 @@ function EmptyPodium({ period }) {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function HowElo({ signedIn }) {
+  const rows = [
+    {
+      Icon: Swords,
+      tone: "bg-accent/15 text-accent",
+      title: tr("Dostunla və ya rəqiblə duel et"),
+      text: tr("Hamı 1000 Elo ilə başlayır. Hər qələbə reytinqini artırır, məğlubiyyət azaldır."),
+    },
+    {
+      Icon: TrendingUp,
+      tone: `bg-yellow/15 ${HIGHLIGHT}`,
+      title: tr("Güclünü ud — çox qazan"),
+      text: tr(
+        "Şahmatdakı kimi: özündən güclünü udanda çox, zəifi udanda az xal alırsan. Zəifə uduzmaq isə çox xal aparır.",
+      ),
+    },
+    {
+      Icon: Trophy,
+      tone: "bg-accent/15 text-accent",
+      title: tr("Cədvələ düş"),
+      text: tr("Ən azı 5 reytinqli duel oynayan hesablar cədvəldə görünür."),
+    },
+  ];
+  return (
+    <div className={`flex flex-col p-5 sm:p-8 ${PANEL}`}>
+      <p
+        className={`${FONT} text-[13px] font-bold uppercase tracking-[0.16em] text-muted`}
+      >
+        {tr("Elo necə işləyir?")}
+      </p>
+      <ul className="mt-3 flex flex-col p-0 sm:mt-5">
+        {rows.map(({ Icon, tone, title, text }) => (
+          <li
+            key={title}
+            className="flex list-none gap-4 border-b border-line/6 py-3.5 last:border-b-0"
+          >
+            <span
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${tone}`}
+            >
+              <Icon className="h-5 w-5" strokeWidth={1.8} />
+            </span>
+            <span className="min-w-0">
+              <span
+                className={`block ${FONT} text-[17px] font-bold uppercase text-ink sm:text-[19px]`}
+              >
+                {title}
+              </span>
+              <span
+                className={`mt-1 block ${BODY} text-sm leading-normal text-muted sm:text-[15px]`}
+              >
+                {text}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-auto grid grid-cols-2 gap-2.5 pt-5 sm:flex sm:gap-3 sm:pt-6">
+        <Link to={signedIn ? "/oyunlar" : "/hesab"} className={BTN_PRIMARY}>
+          {signedIn ? tr("Duel oyunları") : tr("Hesab yarat")}
+        </Link>
       </div>
     </div>
   );
@@ -1380,8 +1456,24 @@ export default function Home() {
           .then((data) => [key, data.entries ?? []])
           .catch(() => [key, []]),
       ),
-    ).then((results) => {
+    ).then(async (results) => {
       const boards = {};
+      // Duel Elo cədvəli (şahmat sistemi) — xal əvəzinə reytinq.
+      const elo = await api
+        .get("/leaderboard/elo?limit=10")
+        .then((data) => data.entries ?? [])
+        .catch(() => []);
+      boards.elo = elo.map((entry) => ({
+        id: entry.userId,
+        name: entry.displayName,
+        username: entry.username,
+        avatarUrl: entry.avatarUrl,
+        team: tr("{n} duel", { n: entry.games }),
+        record: `${entry.wins}–${entry.losses}–${entry.draws}`,
+        matches: entry.games ?? 0,
+        winRate: entry.winRate ?? 0,
+        points: { value: entry.rating },
+      }));
       for (const [key, entries] of results) {
         boards[key] = entries
           .filter((e) => (e.points ?? 0) > 0)
@@ -1454,7 +1546,7 @@ export default function Home() {
             style={{ transitionDelay: "150ms" }}
           >
             <div
-              className="flex gap-1 rounded-full border border-line/8 bg-surface p-1"
+              className="flex max-w-full gap-1 overflow-x-auto rounded-full border border-line/8 bg-surface p-1 [scrollbar-width:none]"
               role="tablist"
               aria-label={tr("Dövr")}
             >
@@ -1467,7 +1559,7 @@ export default function Home() {
                     role="tab"
                     aria-selected={on}
                     onClick={() => changePeriod(p.key)}
-                    className={`h-10 rounded-full px-3.5 ${FONT} text-[13px] font-bold uppercase tracking-[0.08em] transition-colors duration-300 sm:h-11 sm:px-5.5 sm:text-sm ${
+                    className={`h-10 shrink-0 whitespace-nowrap rounded-full px-3 ${FONT} text-[12px] font-bold uppercase tracking-[0.06em] transition-colors duration-300 sm:h-11 sm:px-5.5 sm:text-sm ${
                       on
                         ? "bg-accent-lo text-white"
                         : "text-muted hover:text-ink"
@@ -1487,7 +1579,7 @@ export default function Home() {
               className={`${REVEAL.up} mt-8 grid gap-4 md:mt-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6`}
             >
               <EmptyPodium period={period} />
-              <HowToScore signedIn={signedIn} />
+              {period === "elo" ? <HowElo signedIn={signedIn} /> : <HowToScore signedIn={signedIn} />}
             </div>
           ) : (
             <div
@@ -1511,8 +1603,10 @@ export default function Home() {
                 >
                   <span>#</span>
                   <span>{tr("Oyunçu")}</span>
-                  <span className="hidden md:block">{tr("Komanda")}</span>
-                  <span className="text-right">{tr("Xal")}</span>
+                  <span className="hidden md:block">
+                    {period === "elo" ? tr("Q–M–H") : tr("Komanda")}
+                  </span>
+                  <span className="text-right">{period === "elo" ? "Elo" : tr("Xal")}</span>
                 </div>
 
                 {rows.slice(3).map((player, j) => {
@@ -1565,7 +1659,7 @@ export default function Home() {
                         <span
                           className={`hidden truncate ${BODY} text-sm text-muted md:block`}
                         >
-                          {player.team}
+                          {player.record ?? player.team}
                         </span>
                         <span
                           className={`text-right ${FONT} text-lg font-black text-ink md:text-[19px]`}
@@ -1589,7 +1683,9 @@ export default function Home() {
               className={`mt-5 flex items-center justify-center gap-2 ${BODY} text-xs text-muted`}
             >
               <Trophy className="h-3.5 w-3.5 text-gold" />
-              {tr("Reytinq hər həftə bazar ertəsi yenilənir")}
+              {period === "elo"
+                ? tr("Elo hər duel bitəndə yenilənir · cədvəldə ən azı 5 duel oynayanlar görünür")
+                : tr("Reytinq hər həftə bazar ertəsi yenilənir")}
             </p>
           )}
         </div>

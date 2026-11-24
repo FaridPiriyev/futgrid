@@ -2,6 +2,7 @@ import { Monitor, User, Users, Wifi } from "lucide-react";
 import { FONT } from "../common/ui";
 
 import { tr } from "../../../i18n";
+import { requestAutoMatch } from "../../../lib/games/useDuelRoom";
 const MODES = [
   { key: "friend", Icon: Users, get title() {
     return tr("Dostla");
@@ -12,7 +13,7 @@ const MODES = [
     return tr("Onlayn rəqib");
   }, get text() {
     return tr("Başqa futbol azarkeşi ilə yarış");
-  }, soon: true },
+  }, soon: true, live: true },
   { key: "same", Icon: Monitor, get title() {
     return tr("Eyni ekran");
   }, get text() {
@@ -26,16 +27,23 @@ const MODES = [
 ];
 
 export default function X0XModeSelect({ onPick }) {
+  const modes = MODES.map((mode) => (mode.live ? { ...mode, soon: false } : mode));
   return (
     <div>
       <h2 className={`${FONT} text-sm font-bold uppercase tracking-wide text-soft md:text-lg`}>{tr("Rejim seç")}</h2>
       <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 md:mt-4 lg:grid-cols-4">
-        {[...MODES].sort((a, b) => Number(Boolean(a.soon)) - Number(Boolean(b.soon))).map(({ key, Icon, title, text, soon }) => (
+        {[...modes].sort((a, b) => Number(Boolean(a.soon)) - Number(Boolean(b.soon))).map(({ key, Icon, title, text, soon }) => (
           <button
             key={key}
             type="button"
             disabled={soon}
-            onClick={() => onPick(key)}
+            onClick={() => {
+              // Onlayn rəqib = dostla rejiminin ekranı + avtomatik rəqib axtarışı.
+              if (key === "online") {
+                requestAutoMatch();
+                onPick("friend");
+              } else onPick(key);
+            }}
             className="group relative flex items-center gap-3.5 rounded-xl border border-line/10 bg-surface/85 px-4 py-3.5 text-left transition-all duration-300 sm:flex-col sm:gap-3 sm:rounded-none sm:px-5 sm:py-8 sm:text-center sm:order-none enabled:hover:-translate-y-1 enabled:hover:border-accent enabled:hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {soon && (

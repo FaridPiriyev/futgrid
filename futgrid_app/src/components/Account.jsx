@@ -18,6 +18,8 @@ import {
 import { API_URL, api } from "../lib/api";
 import { initialsOf, useAuth } from "../lib/auth";
 import { tr } from "../i18n";
+import { gameName } from "../lib/games/names";
+import GameHistory from "./account/GameHistory";
 import heroPhoto from "../assets/slider2.webp";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
@@ -469,7 +471,7 @@ function Profile({ user }) {
           <ul className="mt-3 divide-y divide-line/10">
             {stats.map((row) => (
               <li key={row.gameId} className="flex items-center justify-between py-2 text-sm">
-                <span className="font-semibold text-ink">{row.gameId}</span>
+                <span className="font-semibold text-ink">{gameName(row.gameId)}</span>
                 <span className="text-muted">
                   {tr("Rekord")}: {row.bestScore} · {tr("Oyun")}: {row.played} · {tr("Xal")}:{" "}
                   {row.totalPoints}
@@ -481,6 +483,8 @@ function Profile({ user }) {
           <p className="mt-2 text-sm text-muted">{tr("Hələ oyun nəticəsi yoxdur.")}</p>
         )}
       </section>
+
+      <GameHistory />
 
       <div className="flex flex-wrap gap-2">
         {user.role === "admin" ? (

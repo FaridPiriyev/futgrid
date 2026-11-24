@@ -399,7 +399,19 @@ POST /v1/me/push-tokens
 DELETE /v1/me/push-tokens
 GET /v1/me/ratings
 GET /v1/me/duels
+GET /v1/me/history?type=all|duel|solo&limit=20&before=ISO
+GET /v1/leaderboard/elo?game=overall|xox|orta|...&limit=10
+GET /v1/leaderboard/elo/me?game=overall
 ```
+
+Duel reytinqi şahmat (FIDE) tipli Elo-dur: başlanğıc 1000, K = 40 (ilk 20 oyun), 20, 1800+ üçün 10.
+Qonaqla, 15 saniyədən qısa təslim/çıxış və eyni rəqiblə 24 saatda 6-dan çox oyun reytinqə təsir etmir.
+Hər duel həm oyunun öz reytinqini, həm də ümumi (`overall`) reytinqi dəyişir. Socket: `duel:rating` hadisəsi.
+
+**Təsadüfi rəqib (matchmaking).** Socket hadisələri: `queue:join { game }` → `{ ok, searching, rating }`,
+`queue:leave`, serverdən `match:found { code, game, youId }`. Növbə Redis-dədir (`mm:q:<oyun>`), hər 1.5 saniyədə
+yoxlanılır. Başlanğıcda ±150 Elo fərqi, hər saniyə +30, 40 saniyədən sonra hər kəs; qonaq ilə hesablı oyunçu
+10 saniyədən sonra birləşir; bayaqkı rəqiblə 20 saniyə ərzində yenə düşmür. Bağlantı kəsilən növbədən çıxır.
 
 For real FCM delivery, set `FCM_SERVICE_ACCOUNT_JSON` to the one-line Firebase service
 account JSON. Without it, tokens are stored but no push is sent.

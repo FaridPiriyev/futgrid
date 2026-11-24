@@ -37,6 +37,8 @@ export interface Room {
   winnerSeat?: string | null;
   loserSeat?: string | null;
   endedReason?: string | null;
+  /** Təsadüfi rəqib axtarışı ilə yaradılıb. */
+  random?: boolean;
   createdAt: number;
 }
 

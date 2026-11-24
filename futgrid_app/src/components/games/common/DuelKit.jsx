@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Check, Crown, DoorOpen, Flag as FlagIcon, Handshake, RotateCcw, Trophy, WifiOff, X } from "lucide-react";
+import { Check, Crown, DoorOpen, Flag as FlagIcon, Handshake, RotateCcw, Swords, Trophy, WifiOff, X } from "lucide-react";
 import { FONT } from "./ui";
 import { tr } from "../../../i18n";
 
@@ -191,14 +191,56 @@ const REASON = {
   surrender: (won) => (won ? tr("Rəqib təslim oldu.") : tr("Təslim oldun.")),
 };
 
+const UNRATED = {
+  guest: () => tr("Qonaqla oyun reytinqə təsir etmir."),
+  too_short: () => tr("Oyun çox tez bitdi — reytinq dəyişmədi."),
+  pair_limit: () => tr("Bu rəqiblə bu gün çox oynamısınız — reytinq dəyişmədi."),
+  no_result: () => tr("Bu oyun reytinqə təsir etmədi."),
+};
+
+/** Duel sonunda Elo dəyişikliyi (şahmat sistemi). */
+function EloLine({ duel }) {
+  const rating = duel.rating;
+  if (duel.me?.guest) {
+    return (
+      <p className={`mt-3 ${FONT} text-xs text-muted`}>
+        {tr("Hesabla oynasan, hər duel Elo reytinqinə yazılır.")}
+      </p>
+    );
+  }
+  if (!rating) return null;
+  if (!rating.rated || !rating.mine) {
+    const text = UNRATED[rating.reason]?.() ?? UNRATED.no_result();
+    return <p className={`mt-3 ${FONT} text-xs text-muted`}>{text}</p>;
+  }
+  const { after, delta } = rating.mine;
+  const tone = delta > 0 ? "text-good-hi" : delta < 0 ? "text-bad-hi" : "text-muted";
+  return (
+    <p
+      className={`mx-auto mt-3 inline-flex items-center gap-2 rounded-full border border-line/15 bg-line/5 px-3.5 py-1.5 ${FONT} text-sm font-bold animate-[duelIn_0.35s_ease-out]`}
+    >
+      <span className="uppercase tracking-wider text-muted">Elo</span>
+      <span className="text-ink">{Math.round(after)}</span>
+      <span className={tone}>
+        ({delta > 0 ? "+" : ""}
+        {delta})
+      </span>
+    </p>
+  );
+}
+
 /** Oyun bitəndə: nəticə, revanş və çıxış. */
 export function DuelFinished({ duel, detail }) {
   const room = duel.room;
-  const won = room.winnerId && room.winnerId === duel.myId;
-  const draw = !room.winnerId;
+  // 3–4 nəfərlik auksionda oyundan çıxan olarsa konkret qalib yoxdur: çıxan uduzur, qalanlar qazanır.
+  const quit = Boolean(REASON[room.endedReason]) && !room.winnerId && Boolean(room.loserId);
+  const lostAlone = quit && room.loserId === duel.myId;
+  const won = (Boolean(room.winnerId) && room.winnerId === duel.myId) || (quit && !lostAlone);
+  const draw = !room.winnerId && !quit;
   const iAsked = room.rematch?.includes(duel.myId);
   const theyAsked = duel.opponent && room.rematch?.includes(duel.opponent.id);
-  const reason = room.endedReason && REASON[room.endedReason] ? REASON[room.endedReason](won) : null;
+  const reason =
+    room.endedReason && REASON[room.endedReason] ? REASON[room.endedReason](room.loserId !== duel.myId) : null;
   const opponentGone = !duel.opponent || !duel.opponent.connected;
   return (
     <div
@@ -210,8 +252,17 @@ export function DuelFinished({ duel, detail }) {
         {won ? <Trophy className="h-7 w-7" /> : draw ? <Handshake className="h-7 w-7" /> : <Crown className="h-7 w-7" />}
       </span>
       <p className={`mt-3 ${FONT} text-3xl font-extrabold uppercase ${won ? "text-good-hi" : draw ? "text-ink" : "text-bad-hi"}`}>
-        {won ? tr("Qazandın!") : draw ? tr("Heç-heçə") : tr("{name} qazandı", { name: nameOf(duel.opponent) })}
+        {won
+          ? tr("Qazandın!")
+          : draw
+            ? tr("Heç-heçə")
+            : lostAlone
+              ? tr("Uduzdun")
+              : tr("{name} qazandı", {
+                  name: nameOf(room.players?.find((player) => player.id === room.winnerId) ?? duel.opponent),
+                })}
       </p>
+      <EloLine duel={duel} />
       {detail ? <div className={`mt-1 ${FONT} text-sm text-muted`}>{detail}</div> : null}
       {reason ? <p className={`mt-1 ${FONT} text-sm text-muted`}>{reason}</p> : null}
       <div className="mt-5 flex flex-wrap justify-center gap-2.5">
@@ -219,6 +270,12 @@ export function DuelFinished({ duel, detail }) {
           <RotateCcw className="h-4 w-4" />
           {iAsked ? tr("Rəqib gözlənilir…") : theyAsked ? tr("Revanşı qəbul et") : tr("Revanş")}
         </button>
+        {room.random && duel.findNext ? (
+          <button type="button" onClick={() => void duel.findNext()} className={DUEL_BTN_LINE}>
+            <Swords className="h-4 w-4" />
+            {tr("Yeni rəqib")}
+          </button>
+        ) : null}
         <button type="button" onClick={() => void duel.leaveRoom()} className={DUEL_BTN_LINE}>
           <DoorOpen className="h-4 w-4" />
           {tr("Otaqdan çıx")}

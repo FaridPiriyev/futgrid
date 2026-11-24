@@ -2,6 +2,7 @@ import { Monitor, User, Users, Wifi } from "lucide-react";
 import { FONT } from "./ui";
 
 import { tr } from "../../../i18n";
+import { requestAutoMatch } from "../../../lib/games/useDuelRoom";
 const DEFAULT_MODES = [
   { key: "friend", Icon: Users, get title() {
     return tr("Dostla");
@@ -12,7 +13,7 @@ const DEFAULT_MODES = [
     return tr("Onlayn rəqib");
   }, get text() {
     return tr("Başqa futbol azarkeşi ilə yarış");
-  }, soon: true },
+  }, soon: true, live: true },
   { key: "same", Icon: Monitor, get title() {
     return tr("Eyni ekran");
   }, get text() {
@@ -27,7 +28,7 @@ const DEFAULT_MODES = [
 
 export default function ModeSelect({ onPick, texts = {}, friends = false }) {
   const modes = DEFAULT_MODES.map((mode) =>
-    mode.key === "friend" && friends ? { ...mode, soon: false } : mode,
+    (mode.key === "friend" || mode.key === "online") && friends ? { ...mode, soon: false } : mode,
   );
   return (
     <div>
@@ -38,7 +39,13 @@ export default function ModeSelect({ onPick, texts = {}, friends = false }) {
             key={key}
             type="button"
             disabled={soon}
-            onClick={() => onPick(key)}
+            onClick={() => {
+              // Onlayn rəqib = dostla rejiminin ekranı + avtomatik rəqib axtarışı.
+              if (key === "online") {
+                requestAutoMatch();
+                onPick("friend");
+              } else onPick(key);
+            }}
             className="group relative flex items-center gap-3.5 rounded-xl border border-line/10 bg-surface/85 px-4 py-3.5 text-left transition-all duration-300 sm:flex-col sm:gap-3 sm:rounded-none sm:px-5 sm:py-8 sm:text-center sm:order-none enabled:hover:-translate-y-1 enabled:hover:border-accent enabled:hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {soon && (

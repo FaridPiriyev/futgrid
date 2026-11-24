@@ -4,8 +4,11 @@ import type { Room } from "../store.js";
 export interface Ctx {
   now: number;
   data: GameData;
-  /** Oyunu bitirir (qalib yoxdursa null). Nəticə kilid bağlananda göndərilir. */
-  finish(winnerSeat: string | null, reason: string): void;
+  /**
+   * Oyunu bitirir (qalib yoxdursa null). Nəticə kilid bağlananda göndərilir.
+   * `loserSeat` verilməsə, qalibdən başqa ilk oyunçu məğlub sayılır (2 nəfərlik oyunlar).
+   */
+  finish(winnerSeat: string | null, reason: string, loserSeat?: string | null): void;
 }
 
 export interface GameModule {

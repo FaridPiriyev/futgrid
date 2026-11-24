@@ -425,3 +425,83 @@ export async function removeUserFromLeaderboards(userId: string): Promise<void> 
   for (const key of keys) multi.zrem(key, userId);
   await multi.exec();
 }
+
+/** Duel Elo reytinqi (şahmat sistemi). `overall` — bütün duel oyunları birlikdə. */
+export async function getEloLeaderboard(gameId: string, limit: number, minGames: number) {
+  const rows = await prisma.userRating.findMany({
+    where: {
+      gameId,
+      games: { gte: minGames },
+      user: { deletedAt: null, blockedAt: null },
+    },
+    orderBy: [{ rating: "desc" }, { games: "desc" }],
+    take: limit,
+    select: {
+      rating: true,
+      peak: true,
+      games: true,
+      wins: true,
+      losses: true,
+      draws: true,
+      user: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+          avatarUrl: true,
+          team: { select: { id: true, name: true, slug: true, logoUrl: true } },
+        },
+      },
+    },
+  });
+  return {
+    game: gameId,
+    minGames,
+    entries: rows.map((row, index) => ({
+      rank: index + 1,
+      userId: row.user.id,
+      username: row.user.username,
+      displayName: row.user.displayName ?? row.user.username,
+      avatarUrl: row.user.avatarUrl,
+      team: row.user.team,
+      rating: Math.round(row.rating),
+      peak: Math.round(row.peak),
+      games: row.games,
+      wins: row.wins,
+      losses: row.losses,
+      draws: row.draws,
+      winRate: row.games ? Math.round((row.wins / row.games) * 1000) / 10 : 0,
+    })),
+  };
+}
+
+/** İstifadəçinin Elo yeri (cədvəldə olmasa da reytinqi qaytarılır). */
+export async function getMyEloRank(userId: string, gameId: string, minGames: number) {
+  const mine = await prisma.userRating.findUnique({
+    where: { userId_gameId: { userId, gameId } },
+    select: { rating: true, peak: true, games: true, wins: true, losses: true, draws: true },
+  });
+  if (!mine) return { game: gameId, rank: null, rating: null, games: 0, minGames };
+  const ranked = mine.games >= minGames;
+  const above = ranked
+    ? await prisma.userRating.count({
+        where: {
+          gameId,
+          games: { gte: minGames },
+          rating: { gt: mine.rating },
+          user: { deletedAt: null, blockedAt: null },
+        },
+      })
+    : null;
+  return {
+    game: gameId,
+    rank: above === null ? null : above + 1,
+    rating: Math.round(mine.rating),
+    peak: Math.round(mine.peak),
+    games: mine.games,
+    wins: mine.wins,
+    losses: mine.losses,
+    draws: mine.draws,
+    minGames,
+  };
+}

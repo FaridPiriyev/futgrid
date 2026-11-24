@@ -4,8 +4,12 @@ import { normalizeGameKey } from "@futgrid/game-core";
 import { z } from "zod";
 import { requireUser } from "../../lib/auth.js";
 import { AppError } from "../../lib/errors.js";
+import { SUPPORTED_GAMES } from "../duel/store.js";
+import { ELO_MIN_GAMES, OVERALL_GAME } from "../duel/rating.js";
 import {
+  getEloLeaderboard,
   getLeaderboard,
+  getMyEloRank,
   getMyRank,
   getTeamLeaderboard,
   type LeaderboardPeriod,
@@ -27,6 +31,11 @@ const meQuery = z.object({
 
 const teamsQuery = z.object({
   period: periodSchema,
+  limit: z.coerce.number().int().min(1).max(100).default(10),
+});
+
+const eloQuery = z.object({
+  game: z.enum([OVERALL_GAME, ...SUPPORTED_GAMES] as [string, ...string[]]).default(OVERALL_GAME),
   limit: z.coerce.number().int().min(1).max(100).default(10),
 });
 
@@ -66,6 +75,21 @@ export async function registerLeaderboardRoutes(fastify: FastifyInstance): Promi
         request.query.period as LeaderboardPeriod,
         resolveGame(request.query.game),
       );
+    },
+  );
+
+  app.get(
+    "/leaderboard/elo",
+    { schema: { tags: ["leaderboard"], querystring: eloQuery } },
+    async (request) => getEloLeaderboard(request.query.game, request.query.limit, ELO_MIN_GAMES),
+  );
+
+  app.get(
+    "/leaderboard/elo/me",
+    { schema: { tags: ["leaderboard"], querystring: eloQuery.pick({ game: true }) } },
+    async (request) => {
+      const user = requireUser(request);
+      return getMyEloRank(user.id, request.query.game, ELO_MIN_GAMES);
     },
   );
 
