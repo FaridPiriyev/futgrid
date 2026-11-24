@@ -273,6 +273,12 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     [emit],
   );
 
+  const startGame = useCallback(async () => {
+    const code = roomRef.current?.code;
+    if (!code) return { error: { code: "GAME_NOT_ACTIVE" } };
+    return emit("game:start", { code, game });
+  }, [emit, game]);
+
   const rematch = useCallback(async () => {
     const code = roomRef.current?.code;
     if (!code) return;
@@ -323,6 +329,7 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     joinRoom,
     leaveRoom,
     move,
+    startGame,
     rematch,
     surrender,
     reconnect: connect,

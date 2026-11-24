@@ -203,7 +203,8 @@ async function isFlagged(
   const timed = input.answers.filter((answer) => answer.ms !== undefined);
   if (timed.length >= 5) {
     const avg = timed.reduce((sum, answer) => sum + (answer.ms ?? 0), 0) / timed.length;
-    if (avg >= 600 && avg <= 1600) return true;
+    // Only clearly impossible human timing is suspicious. 0.6–1.6s is normal fast play.
+    if (avg < 150) return true;
   }
   return false;
 }
