@@ -913924,10 +913924,14 @@
       },
       {
         "id": "la_liga",
-        "count": 2
+        "count": 4
       },
       {
         "id": "copa_del_rey",
+        "count": 1
+      },
+      {
+        "id": "ligue_1",
         "count": 1
       }
     ],
@@ -925401,7 +925405,13 @@
       }
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/tuncay-sanli.jpg"
+    "photo_url": "/images/players/tuncay-sanli.jpg",
+    "trophies": [
+      {
+        "id": "super_lig",
+        "count": 3
+      }
+    ]
   },
   {
     "id": 18311,
@@ -931760,7 +931770,17 @@
       }
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/andrey-arshavin.jpg"
+    "photo_url": "/images/players/andrey-arshavin.jpg",
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "uefa_super_cup",
+        "count": 1
+      }
+    ]
   },
   {
     "id": 18376,
@@ -933346,6 +933366,10 @@
       {
         "id": "fa_cup",
         "count": 2
+      },
+      {
+        "id": "europa_league",
+        "count": 1
       }
     ],
     "data_as_of": "2026-10",
@@ -1025552,6 +1025576,4206 @@
         "id": "bundesliga",
         "count": 1
       }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21008,
+    "name": "Anatoli Banişevski",
+    "slug": "anatoliy-banishevskiy",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Anatoliy Banishevskiy",
+      "Anatoli Banishevski"
+    ],
+    "is_active": false,
+    "birth_date": "1946-02-23",
+    "retired_year": 1978,
+    "club_history": [
+      384
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21009,
+    "name": "Ələkbər Məmmədov",
+    "slug": "alakbar-mammadov",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Alakbar Mammadov",
+      "Alekper Mamedov"
+    ],
+    "is_active": false,
+    "birth_date": "1930-05-09",
+    "retired_year": 1962,
+    "club_history": [
+      384,
+      437,
+      384
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21010,
+    "name": "Qurban Qurbanov",
+    "slug": "gurban-gurbanov",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Gurban Gurbanov"
+    ],
+    "is_active": false,
+    "birth_date": "1972-04-13",
+    "retired_year": 2006,
+    "club_history": [
+      388,
+      384,
+      561,
+      549,
+      550,
+      384,
+      551,
+      384,
+      535
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21011,
+    "name": "Mahmud Qurbanov",
+    "slug": "mahmud-gurbanov",
+    "nationality_code": "AZ",
+    "position": "MF",
+    "aka": [
+      "Mahmud Gurbanov"
+    ],
+    "is_active": false,
+    "birth_date": "1973-05-10",
+    "retired_year": 2012,
+    "club_history": [
+      534,
+      384,
+      537,
+      567,
+      563,
+      384,
+      538,
+      535,
+      536,
+      387
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21012,
+    "name": "Rəşad Sadıqov",
+    "slug": "rashad-sadygov",
+    "nationality_code": "AZ",
+    "position": "DF",
+    "aka": [
+      "Rashad Sadygov",
+      "Rashad Sadigov"
+    ],
+    "is_active": false,
+    "birth_date": "1982-06-16",
+    "preferred_foot": "right",
+    "retired_year": 2020,
+    "club_history": [
+      388,
+      384,
+      380,
+      384,
+      571,
+      216,
+      572,
+      216
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21013,
+    "name": "Aslan Kərimov",
+    "slug": "aslan-kerimov",
+    "nationality_code": "AZ",
+    "position": "DF",
+    "aka": [
+      "Aslan Kerimov",
+      "Aslan Karimov"
+    ],
+    "is_active": false,
+    "birth_date": "1973-01-01",
+    "retired_year": 2011,
+    "club_history": [
+      384,
+      543,
+      544,
+      216,
+      384,
+      534,
+      549,
+      545,
+      537,
+      216,
+      387
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21014,
+    "name": "Tərlan Əhmədov",
+    "slug": "tarlan-ahmadov",
+    "nationality_code": "AZ",
+    "position": "DF",
+    "aka": [
+      "Tarlan Ahmadov",
+      "Tarlan Akhmedov"
+    ],
+    "is_active": false,
+    "birth_date": "1971-11-17",
+    "retired_year": 2009,
+    "club_history": [
+      546,
+      384,
+      388,
+      560,
+      216,
+      384,
+      550,
+      298,
+      565,
+      216,
+      540,
+      541
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21015,
+    "name": "Emin Ağayev",
+    "slug": "emin-agayev",
+    "nationality_code": "AZ",
+    "position": "DF",
+    "aka": [
+      "Emin Agayev",
+      "Emin Agaev"
+    ],
+    "is_active": false,
+    "birth_date": "1973-08-10",
+    "club_history": [
+      552,
+      553,
+      554,
+      549,
+      555
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21016,
+    "name": "Vaqif Cavadov",
+    "slug": "vagif-javadov",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Vagif Javadov"
+    ],
+    "is_active": false,
+    "birth_date": "1989-05-25",
+    "preferred_foot": "right",
+    "retired_year": 2020,
+    "club_history": [
+      216,
+      536,
+      556,
+      216,
+      535,
+      383,
+      573,
+      538,
+      390,
+      387,
+      541,
+      542
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21017,
+    "name": "Rauf Əliyev",
+    "slug": "rauf-aliyev",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Rauf Aliyev"
+    ],
+    "is_active": false,
+    "birth_date": "1989-02-12",
+    "retired_year": 2023,
+    "club_history": [
+      536,
+      216,
+      535,
+      575,
+      390,
+      539,
+      534
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21018,
+    "name": "İqor Ponomaryov",
+    "slug": "igor-ponomaryov",
+    "nationality_code": "AZ",
+    "position": "MF",
+    "aka": [
+      "Igor Ponomaryov",
+      "Igor Ponomarev"
+    ],
+    "is_active": false,
+    "birth_date": "1960-02-24",
+    "retired_year": 1989,
+    "club_history": [
+      384,
+      434,
+      384,
+      641
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21019,
+    "name": "Nazim Süleymanov",
+    "slug": "nazim-suleymanov",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Nazim Suleymanov"
+    ],
+    "is_active": false,
+    "birth_date": "1965-02-17",
+    "retired_year": 2000,
+    "club_history": [
+      384,
+      547,
+      548
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21020,
+    "name": "Kazbek Tuayev",
+    "slug": "kazbek-tuayev",
+    "nationality_code": "AZ",
+    "position": "FW",
+    "aka": [
+      "Kazbek Tuaev"
+    ],
+    "is_active": false,
+    "birth_date": "1940-11-13",
+    "retired_year": 1972,
+    "club_history": [
+      384,
+      547,
+      384
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21021,
+    "name": "Eduard Streltsov",
+    "slug": "eduard-streltsov",
+    "nationality_code": "RU",
+    "position": "FW",
+    "aka": [
+      "Eduard Streltzov"
+    ],
+    "is_active": false,
+    "birth_date": "1937-07-21",
+    "retired_year": 1970,
+    "club_history": [
+      553
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21022,
+    "name": "Igor Netto",
+    "slug": "igor-netto",
+    "nationality_code": "RU",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1930-01-09",
+    "retired_year": 1966,
+    "club_history": [
+      433
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "olympic_gold",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21023,
+    "name": "Valentin Ivanov",
+    "slug": "valentin-ivanov",
+    "nationality_code": "RU",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1934-11-19",
+    "retired_year": 1966,
+    "club_history": [
+      553
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "olympic_gold",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21024,
+    "name": "Anatoliy Byshovets",
+    "slug": "anatoliy-byshovets",
+    "nationality_code": "UA",
+    "position": "FW",
+    "aka": [
+      "Anatoli Byshovets",
+      "Anatoliy Bışovets"
+    ],
+    "is_active": false,
+    "birth_date": "1946-04-23",
+    "retired_year": 1973,
+    "club_history": [
+      201
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21025,
+    "name": "Oleg Blokhin",
+    "slug": "oleg-blokhin",
+    "nationality_code": "UA",
+    "position": "FW",
+    "aka": [
+      "Oleq Bloxin"
+    ],
+    "is_active": false,
+    "birth_date": "1952-11-05",
+    "preferred_foot": "left",
+    "retired_year": 1990,
+    "club_history": [
+      201,
+      578,
+      580
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      },
+      {
+        "id": "uefa_super_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21026,
+    "name": "Igor Belanov",
+    "slug": "igor-belanov",
+    "nationality_code": "UA",
+    "position": "FW",
+    "aka": [
+      "İqor Belanov"
+    ],
+    "is_active": false,
+    "birth_date": "1960-09-25",
+    "retired_year": 1997,
+    "club_history": [
+      562,
+      201,
+      166,
+      616,
+      564,
+      562
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21027,
+    "name": "Rinat Dasayev",
+    "slug": "rinat-dasayev",
+    "nationality_code": "RU",
+    "position": "GK",
+    "aka": [
+      "Rinat Dasaev"
+    ],
+    "is_active": false,
+    "birth_date": "1957-06-13",
+    "retired_year": 1991,
+    "club_history": [
+      551,
+      433,
+      135
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21028,
+    "name": "Sergei Aleinikov",
+    "slug": "sergei-aleinikov",
+    "nationality_code": "BY",
+    "position": "MF",
+    "aka": [
+      "Sergey Aleynikov",
+      "Siarhei Aleinikau"
+    ],
+    "is_active": false,
+    "birth_date": "1961-11-07",
+    "retired_year": 1996,
+    "club_history": [
+      566,
+      112,
+      178,
+      508
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21029,
+    "name": "Serhiy Rebrov",
+    "slug": "serhiy-rebrov",
+    "nationality_code": "UA",
+    "position": "FW",
+    "aka": [
+      "Sergei Rebrov",
+      "Sergey Rebrov"
+    ],
+    "is_active": false,
+    "birth_date": "1974-06-03",
+    "retired_year": 2009,
+    "club_history": [
+      152,
+      201,
+      122,
+      150,
+      136,
+      201,
+      557
+    ],
+    "trophies": [
+      {
+        "id": "super_lig",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21030,
+    "name": "Aleksandr Mostovoi",
+    "slug": "aleksandr-mostovoi",
+    "nationality_code": "RU",
+    "position": "MF",
+    "aka": [
+      "Aleksandr Mostovoy",
+      "Alexander Mostovoi"
+    ],
+    "is_active": false,
+    "birth_date": "1968-08-22",
+    "retired_year": 2005,
+    "club_history": [
+      433,
+      115,
+      597,
+      191,
+      183,
+      185
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21031,
+    "name": "Valeri Karpin",
+    "slug": "valeri-karpin",
+    "nationality_code": "RU",
+    "position": "MF",
+    "aka": [
+      "Valery Karpin"
+    ],
+    "is_active": false,
+    "birth_date": "1969-02-02",
+    "retired_year": 2005,
+    "club_history": [
+      433,
+      125,
+      179,
+      183,
+      125
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21032,
+    "name": "Andrei Kanchelskis",
+    "slug": "andrei-kanchelskis",
+    "nationality_code": "RU",
+    "position": "MF",
+    "aka": [
+      "Andrey Kanchelskis",
+      "Andrei Kancelskis"
+    ],
+    "is_active": false,
+    "birth_date": "1969-01-23",
+    "retired_year": 2007,
+    "club_history": [
+      201,
+      152,
+      123,
+      158,
+      140,
+      199,
+      102,
+      305,
+      279
+    ],
+    "trophies": [
+      {
+        "id": "premier_league",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21033,
+    "name": "Kakha Kaladze",
+    "slug": "kakha-kaladze",
+    "nationality_code": "GE",
+    "position": "DF",
+    "aka": [
+      "Kaxa Kaladze"
+    ],
+    "is_active": false,
+    "birth_date": "1978-02-27",
+    "preferred_foot": "left",
+    "retired_year": 2012,
+    "club_history": [
+      429,
+      201,
+      114,
+      173
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21034,
+    "name": "Shota Arveladze",
+    "slug": "shota-arveladze",
+    "nationality_code": "GE",
+    "position": "FW",
+    "aka": [
+      "Şota Arveladze"
+    ],
+    "is_active": false,
+    "birth_date": "1973-02-22",
+    "retired_year": 2008,
+    "club_history": [
+      429,
+      214,
+      130,
+      199,
+      155,
+      318
+    ],
+    "trophies": [
+      {
+        "id": "eredivisie",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21035,
+    "name": "Georgi Kinkladze",
+    "slug": "georgi-kinkladze",
+    "nationality_code": "GE",
+    "position": "MF",
+    "aka": [
+      "Georgiou Kinkladze",
+      "Georgi Kinkladze"
+    ],
+    "is_active": false,
+    "birth_date": "1973-07-06",
+    "preferred_foot": "left",
+    "retired_year": 2006,
+    "club_history": [
+      429,
+      102,
+      130,
+      584,
+      581,
+      557
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21036,
+    "name": "David Kipiani",
+    "slug": "david-kipiani",
+    "nationality_code": "GE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1951-11-18",
+    "retired_year": 1982,
+    "club_history": [
+      429
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21037,
+    "name": "Ramaz Shengelia",
+    "slug": "ramaz-shengelia",
+    "nationality_code": "GE",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1957-01-01",
+    "retired_year": 1989,
+    "club_history": [
+      576,
+      429
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21038,
+    "name": "Khoren Hovhannisyan",
+    "slug": "khoren-hovhannisyan",
+    "nationality_code": "AM",
+    "position": "MF",
+    "aka": [
+      "Khoren Oganesian",
+      "Xoren Oqanesyan"
+    ],
+    "is_active": false,
+    "birth_date": "1955-01-10",
+    "club_history": [
+      577
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21039,
+    "name": "Giuseppe Meazza",
+    "slug": "giuseppe-meazza",
+    "nationality_code": "IT",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1910-08-23",
+    "retired_year": 1947,
+    "club_history": [
+      105,
+      114,
+      112,
+      605,
+      113,
+      105
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21040,
+    "name": "Silvio Piola",
+    "slug": "silvio-piola",
+    "nationality_code": "IT",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1913-09-29",
+    "retired_year": 1954,
+    "club_history": [
+      608,
+      127,
+      172,
+      112,
+      609
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21041,
+    "name": "Giacinto Facchetti",
+    "slug": "giacinto-facchetti",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1942-07-18",
+    "retired_year": 1978,
+    "club_history": [
+      105
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "intercontinental_cup",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21042,
+    "name": "Sandro Mazzola",
+    "slug": "sandro-mazzola",
+    "nationality_code": "IT",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1942-11-08",
+    "retired_year": 1977,
+    "club_history": [
+      105
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "intercontinental_cup",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21043,
+    "name": "Gaetano Scirea",
+    "slug": "gaetano-scirea",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1953-05-25",
+    "retired_year": 1988,
+    "club_history": [
+      113,
+      112
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "intercontinental_cup",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 7
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21044,
+    "name": "Marco Tardelli",
+    "slug": "marco-tardelli",
+    "nationality_code": "IT",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1954-09-24",
+    "retired_year": 1988,
+    "club_history": [
+      339,
+      336,
+      112,
+      105,
+      410
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21045,
+    "name": "Claudio Gentile",
+    "slug": "claudio-gentile",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1953-09-27",
+    "retired_year": 1988,
+    "club_history": [
+      605,
+      112,
+      140,
+      610
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 6
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21046,
+    "name": "Antonio Cabrini",
+    "slug": "antonio-cabrini",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1957-10-08",
+    "preferred_foot": "left",
+    "retired_year": 1991,
+    "club_history": [
+      337,
+      113,
+      112,
+      142
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 6
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21047,
+    "name": "Giuseppe Bergomi",
+    "slug": "giuseppe-bergomi",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1963-12-22",
+    "retired_year": 1999,
+    "club_history": [
+      105
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 3
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21048,
+    "name": "Walter Zenga",
+    "slug": "walter-zenga",
+    "nationality_code": "IT",
+    "position": "GK",
+    "is_active": false,
+    "birth_date": "1960-04-28",
+    "retired_year": 1999,
+    "club_history": [
+      105,
+      342,
+      611,
+      668
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21049,
+    "name": "Roberto Mancini",
+    "slug": "roberto-mancini",
+    "nationality_code": "IT",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1964-11-27",
+    "retired_year": 2001,
+    "club_history": [
+      142,
+      342,
+      127,
+      304
+    ],
+    "trophies": [
+      {
+        "id": "serie_a",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21050,
+    "name": "Roberto Donadoni",
+    "slug": "roberto-donadoni",
+    "nationality_code": "IT",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1963-09-09",
+    "retired_year": 2000,
+    "club_history": [
+      113,
+      114,
+      477,
+      114,
+      281
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 3
+      },
+      {
+        "id": "intercontinental_cup",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 6
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21051,
+    "name": "Alessandro Costacurta",
+    "slug": "alessandro-costacurta",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1966-04-24",
+    "retired_year": 2007,
+    "club_history": [
+      114,
+      174,
+      114
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 5
+      },
+      {
+        "id": "serie_a",
+        "count": 7
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21052,
+    "name": "Gianluca Zambrotta",
+    "slug": "gianluca-zambrotta",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1977-02-19",
+    "retired_year": 2014,
+    "club_history": [
+      336,
+      607,
+      112,
+      107,
+      114,
+      653
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21053,
+    "name": "Marco Materazzi",
+    "slug": "marco-materazzi",
+    "nationality_code": "IT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1973-08-19",
+    "retired_year": 2014,
+    "club_history": [
+      612,
+      606,
+      613,
+      158,
+      606,
+      105,
+      687
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21054,
+    "name": "Fritz Walter",
+    "slug": "fritz-walter",
+    "nationality_code": "DE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1920-10-31",
+    "retired_year": 1959,
+    "club_history": [
+      333
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21055,
+    "name": "Uwe Seeler",
+    "slug": "uwe-seeler",
+    "nationality_code": "DE",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1936-11-05",
+    "retired_year": 1972,
+    "club_history": [
+      325
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21056,
+    "name": "Wolfgang Overath",
+    "slug": "wolfgang-overath",
+    "nationality_code": "DE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1943-09-29",
+    "preferred_foot": "left",
+    "retired_year": 1977,
+    "club_history": [
+      324
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21057,
+    "name": "Günter Netzer",
+    "slug": "gunter-netzer",
+    "nationality_code": "DE",
+    "position": "MF",
+    "aka": [
+      "Guenter Netzer"
+    ],
+    "is_active": false,
+    "birth_date": "1944-09-14",
+    "retired_year": 1977,
+    "club_history": [
+      166,
+      101,
+      651
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      },
+      {
+        "id": "bundesliga",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21058,
+    "name": "Berti Vogts",
+    "slug": "berti-vogts",
+    "nationality_code": "DE",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1946-12-30",
+    "retired_year": 1979,
+    "club_history": [
+      166
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 2
+      },
+      {
+        "id": "bundesliga",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21059,
+    "name": "Paul Breitner",
+    "slug": "paul-breitner",
+    "nationality_code": "DE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1951-09-05",
+    "retired_year": 1983,
+    "club_history": [
+      103,
+      101,
+      616,
+      103
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      },
+      {
+        "id": "bundesliga",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21060,
+    "name": "Bernd Schuster",
+    "slug": "bernd-schuster",
+    "nationality_code": "DE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1959-12-22",
+    "retired_year": 1997,
+    "club_history": [
+      324,
+      107,
+      101,
+      110,
+      109,
+      273
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21061,
+    "name": "Pierre Littbarski",
+    "slug": "pierre-littbarski",
+    "nationality_code": "DE",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1960-04-16",
+    "retired_year": 1997,
+    "club_history": [
+      324,
+      603,
+      324,
+      690,
+      691
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21062,
+    "name": "Rudi Völler",
+    "slug": "rudi-voller",
+    "nationality_code": "DE",
+    "position": "FW",
+    "aka": [
+      "Rudi Voeller"
+    ],
+    "is_active": false,
+    "birth_date": "1960-04-13",
+    "retired_year": 1996,
+    "club_history": [
+      618,
+      617,
+      168,
+      126,
+      145,
+      109
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21063,
+    "name": "Andreas Brehme",
+    "slug": "andreas-brehme",
+    "nationality_code": "DE",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1960-11-09",
+    "retired_year": 1998,
+    "club_history": [
+      619,
+      333,
+      103,
+      105,
+      623,
+      333
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "bundesliga",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21064,
+    "name": "Thomas Häßler",
+    "slug": "thomas-hassler",
+    "nationality_code": "DE",
+    "position": "MF",
+    "aka": [
+      "Thomas Hassler",
+      "Thomas Haessler"
+    ],
+    "is_active": false,
+    "birth_date": "1966-05-30",
+    "retired_year": 2004,
+    "club_history": [
+      324,
+      112,
+      126,
+      620,
+      111,
+      617,
+      579
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21065,
+    "name": "Matthias Sammer",
+    "slug": "matthias-sammer",
+    "nationality_code": "DE",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1967-09-05",
+    "retired_year": 1998,
+    "club_history": [
+      621,
+      141,
+      105,
+      111
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "bundesliga",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21066,
+    "name": "Just Fontaine",
+    "slug": "just-fontaine",
+    "nationality_code": "FR",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1933-08-18",
+    "retired_year": 1962,
+    "club_history": [
+      604,
+      187,
+      189
+    ],
+    "trophies": [
+      {
+        "id": "ligue_1",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21067,
+    "name": "Raymond Kopa",
+    "slug": "raymond-kopa",
+    "nationality_code": "FR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1931-10-13",
+    "retired_year": 1967,
+    "club_history": [
+      345,
+      189,
+      101,
+      189
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 3
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      },
+      {
+        "id": "ligue_1",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21068,
+    "name": "Jean Tigana",
+    "slug": "jean-tigana",
+    "nationality_code": "FR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1955-06-23",
+    "retired_year": 1995,
+    "club_history": [
+      601,
+      146,
+      596,
+      145
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ligue_1",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21069,
+    "name": "Alain Giresse",
+    "slug": "alain-giresse",
+    "nationality_code": "FR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1952-08-02",
+    "retired_year": 1988,
+    "club_history": [
+      596,
+      145
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ligue_1",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21070,
+    "name": "Youri Djorkaeff",
+    "slug": "youri-djorkaeff",
+    "nationality_code": "FR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1968-03-09",
+    "retired_year": 2006,
+    "club_history": [
+      602,
+      191,
+      143,
+      106,
+      105,
+      333,
+      583,
+      582,
+      477
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21071,
+    "name": "Emmanuel Petit",
+    "slug": "emmanuel-petit",
+    "nationality_code": "FR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1970-09-22",
+    "preferred_foot": "left",
+    "retired_year": 2004,
+    "club_history": [
+      143,
+      104,
+      107,
+      120
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "premier_league",
+        "count": 1
+      },
+      {
+        "id": "ligue_1",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21072,
+    "name": "Bixente Lizarazu",
+    "slug": "bixente-lizarazu",
+    "nationality_code": "FR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1969-12-09",
+    "preferred_foot": "left",
+    "retired_year": 2006,
+    "club_history": [
+      596,
+      139,
+      103,
+      145,
+      103
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "bundesliga",
+        "count": 6
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21073,
+    "name": "Fabien Barthez",
+    "slug": "fabien-barthez",
+    "nationality_code": "FR",
+    "position": "GK",
+    "is_active": false,
+    "birth_date": "1971-06-28",
+    "retired_year": 2007,
+    "club_history": [
+      190,
+      145,
+      143,
+      123,
+      145,
+      193
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "premier_league",
+        "count": 2
+      },
+      {
+        "id": "ligue_1",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21074,
+    "name": "David Trezeguet",
+    "slug": "david-trezeguet",
+    "nationality_code": "FR",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1977-10-15",
+    "retired_year": 2014,
+    "club_history": [
+      676,
+      143,
+      112,
+      629,
+      686,
+      252,
+      452,
+      688
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 2
+      },
+      {
+        "id": "ligue_1",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21075,
+    "name": "Paco Gento",
+    "slug": "paco-gento",
+    "nationality_code": "ES",
+    "position": "FW",
+    "aka": [
+      "Francisco Gento"
+    ],
+    "is_active": false,
+    "birth_date": "1933-10-21",
+    "preferred_foot": "left",
+    "retired_year": 1971,
+    "club_history": [
+      625,
+      101
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 6
+      },
+      {
+        "id": "la_liga",
+        "count": 12
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21076,
+    "name": "Amancio Amaro",
+    "slug": "amancio-amaro",
+    "nationality_code": "ES",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1939-10-16",
+    "retired_year": 1976,
+    "club_history": [
+      628,
+      101
+    ],
+    "trophies": [
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 9
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21077,
+    "name": "Luis Suárez Miramontes",
+    "slug": "luis-suarez-miramontes",
+    "nationality_code": "ES",
+    "position": "MF",
+    "aka": [
+      "Luis Suarez"
+    ],
+    "is_active": false,
+    "birth_date": "1935-05-02",
+    "retired_year": 1973,
+    "club_history": [
+      628,
+      107,
+      105,
+      342
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      },
+      {
+        "id": "euro",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "intercontinental_cup",
+        "count": 2
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21078,
+    "name": "Telmo Zarra",
+    "slug": "telmo-zarra",
+    "nationality_code": "ES",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1921-01-20",
+    "retired_year": 1957,
+    "club_history": [
+      139
+    ],
+    "trophies": [
+      {
+        "id": "la_liga",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21079,
+    "name": "Gaizka Mendieta",
+    "slug": "gaizka-mendieta",
+    "nationality_code": "ES",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1974-03-27",
+    "retired_year": 2008,
+    "club_history": [
+      626,
+      179,
+      127,
+      107,
+      310
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21080,
+    "name": "Míchel Salgado",
+    "slug": "michel-salgado",
+    "nationality_code": "ES",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1975-10-22",
+    "retired_year": 2012,
+    "club_history": [
+      183,
+      624,
+      183,
+      101,
+      582
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "la_liga",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21081,
+    "name": "Stanley Matthews",
+    "slug": "stanley-matthews",
+    "nationality_code": "GB-ENG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1915-02-01",
+    "retired_year": 1965,
+    "club_history": [
+      312,
+      587,
+      312
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21082,
+    "name": "Tom Finney",
+    "slug": "tom-finney",
+    "nationality_code": "GB-ENG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1922-04-05",
+    "retired_year": 1960,
+    "club_history": [
+      588
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21083,
+    "name": "Jimmy Greaves",
+    "slug": "jimmy-greaves",
+    "nationality_code": "GB-ENG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1940-02-20",
+    "retired_year": 1971,
+    "club_history": [
+      120,
+      114,
+      122,
+      136
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21084,
+    "name": "Geoff Hurst",
+    "slug": "geoff-hurst",
+    "nationality_code": "GB-ENG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1941-12-08",
+    "retired_year": 1976,
+    "club_history": [
+      136,
+      312,
+      308
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21085,
+    "name": "Peter Shilton",
+    "slug": "peter-shilton",
+    "nationality_code": "GB-ENG",
+    "position": "GK",
+    "is_active": false,
+    "birth_date": "1949-09-18",
+    "retired_year": 1997,
+    "club_history": [
+      304,
+      312,
+      163,
+      305,
+      584,
+      589
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21086,
+    "name": "Glenn Hoddle",
+    "slug": "glenn-hoddle",
+    "nationality_code": "GB-ENG",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1957-10-27",
+    "retired_year": 1995,
+    "club_history": [
+      122,
+      143,
+      590,
+      120
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "ligue_1",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21087,
+    "name": "Paul Gascoigne",
+    "slug": "paul-gascoigne",
+    "nationality_code": "GB-ENG",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1967-05-27",
+    "retired_year": 2004,
+    "club_history": [
+      124,
+      122,
+      127,
+      199,
+      310,
+      158,
+      301
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21088,
+    "name": "Ian Wright",
+    "slug": "ian-wright",
+    "nationality_code": "GB-ENG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1963-11-03",
+    "retired_year": 2000,
+    "club_history": [
+      157,
+      104,
+      136,
+      163,
+      198,
+      301
+    ],
+    "trophies": [
+      {
+        "id": "premier_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21089,
+    "name": "Teddy Sheringham",
+    "slug": "teddy-sheringham",
+    "nationality_code": "GB-ENG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1966-04-02",
+    "retired_year": 2008,
+    "club_history": [
+      585,
+      163,
+      122,
+      123,
+      122,
+      586,
+      136,
+      311
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "premier_league",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21090,
+    "name": "Matt Le Tissier",
+    "slug": "matt-le-tissier",
+    "nationality_code": "GB-ENG",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1968-10-14",
+    "preferred_foot": "right",
+    "retired_year": 2002,
+    "club_history": [
+      305
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21091,
+    "name": "Steve McManaman",
+    "slug": "steve-mcmanaman",
+    "nationality_code": "GB-ENG",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1972-02-11",
+    "retired_year": 2005,
+    "club_history": [
+      108,
+      101,
+      102
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21092,
+    "name": "Denis Law",
+    "slug": "denis-law",
+    "nationality_code": "GB-SCT",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1940-02-24",
+    "retired_year": 1974,
+    "club_history": [
+      591,
+      102,
+      172,
+      123,
+      102
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      },
+      {
+        "id": "ucl",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21093,
+    "name": "Graeme Souness",
+    "slug": "graeme-souness",
+    "nationality_code": "GB-SCT",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1953-05-06",
+    "retired_year": 1991,
+    "club_history": [
+      122,
+      310,
+      108,
+      342,
+      199
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21094,
+    "name": "Alan Hansen",
+    "slug": "alan-hansen",
+    "nationality_code": "GB-SCT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1955-06-13",
+    "retired_year": 1991,
+    "club_history": [
+      595,
+      108
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21095,
+    "name": "Mark Hughes",
+    "slug": "mark-hughes",
+    "nationality_code": "GB-WLS",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1963-11-01",
+    "retired_year": 2002,
+    "club_history": [
+      123,
+      107,
+      103,
+      123,
+      120,
+      305,
+      158,
+      582
+    ],
+    "trophies": [
+      {
+        "id": "premier_league",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21096,
+    "name": "Johan Neeskens",
+    "slug": "johan-neeskens",
+    "nationality_code": "NL",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1951-09-15",
+    "retired_year": 1991,
+    "club_history": [
+      630,
+      130,
+      107
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 3
+      },
+      {
+        "id": "eredivisie",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21097,
+    "name": "Ruud Krol",
+    "slug": "ruud-krol",
+    "nationality_code": "NL",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1949-03-24",
+    "retired_year": 1986,
+    "club_history": [
+      130,
+      121,
+      600
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 3
+      },
+      {
+        "id": "eredivisie",
+        "count": 6
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21098,
+    "name": "Johnny Rep",
+    "slug": "johnny-rep",
+    "nationality_code": "NL",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1951-11-25",
+    "retired_year": 1987,
+    "club_history": [
+      130,
+      179,
+      598,
+      350,
+      355,
+      129,
+      630
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "ligue_1",
+        "count": 1
+      },
+      {
+        "id": "eredivisie",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21099,
+    "name": "Rob Rensenbrink",
+    "slug": "rob-rensenbrink",
+    "nationality_code": "NL",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1947-07-03",
+    "preferred_foot": "left",
+    "retired_year": 1982,
+    "club_history": [
+      633,
+      133,
+      195,
+      190
+    ],
+    "trophies": [
+      {
+        "id": "belgian_pro_league",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21100,
+    "name": "Frank de Boer",
+    "slug": "frank-de-boer",
+    "nationality_code": "NL",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1970-05-15",
+    "retired_year": 2006,
+    "club_history": [
+      130,
+      107,
+      149,
+      199,
+      497
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 1
+      },
+      {
+        "id": "eredivisie",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21101,
+    "name": "Ronald de Boer",
+    "slug": "ronald-de-boer",
+    "nationality_code": "NL",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1970-05-15",
+    "retired_year": 2008,
+    "club_history": [
+      130,
+      154,
+      130,
+      107,
+      199,
+      497
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 1
+      },
+      {
+        "id": "eredivisie",
+        "count": 5
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21102,
+    "name": "Phillip Cocu",
+    "slug": "phillip-cocu",
+    "nationality_code": "NL",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1970-10-29",
+    "retired_year": 2008,
+    "club_history": [
+      155,
+      242,
+      128,
+      107,
+      128,
+      685
+    ],
+    "trophies": [
+      {
+        "id": "la_liga",
+        "count": 1
+      },
+      {
+        "id": "eredivisie",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21103,
+    "name": "Giovanni van Bronckhorst",
+    "slug": "giovanni-van-bronckhorst",
+    "nationality_code": "NL",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1975-02-05",
+    "preferred_foot": "left",
+    "retired_year": 2010,
+    "club_history": [
+      632,
+      129,
+      199,
+      104,
+      107,
+      129
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21104,
+    "name": "Paul Van Himst",
+    "slug": "paul-van-himst",
+    "nationality_code": "BE",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1943-10-02",
+    "retired_year": 1977,
+    "club_history": [
+      195,
+      635,
+      636
+    ],
+    "trophies": [
+      {
+        "id": "belgian_pro_league",
+        "count": 8
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21105,
+    "name": "Jan Ceulemans",
+    "slug": "jan-ceulemans",
+    "nationality_code": "BE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1957-02-28",
+    "retired_year": 1992,
+    "club_history": [
+      637,
+      133
+    ],
+    "trophies": [
+      {
+        "id": "belgian_pro_league",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21106,
+    "name": "Enzo Scifo",
+    "slug": "enzo-scifo",
+    "nationality_code": "BE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1966-02-19",
+    "retired_year": 2001,
+    "club_history": [
+      195,
+      105,
+      596,
+      344,
+      172,
+      143,
+      195,
+      371
+    ],
+    "trophies": [
+      {
+        "id": "ligue_1",
+        "count": 1
+      },
+      {
+        "id": "belgian_pro_league",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21107,
+    "name": "Paulo Futre",
+    "slug": "paulo-futre",
+    "nationality_code": "PT",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1966-02-28",
+    "preferred_foot": "left",
+    "retired_year": 1998,
+    "club_history": [
+      116,
+      117,
+      110,
+      115,
+      145,
+      614,
+      114,
+      136,
+      110
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "primeira_liga",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21108,
+    "name": "Pauleta",
+    "slug": "pauleta",
+    "nationality_code": "PT",
+    "position": "FW",
+    "aka": [
+      "Pedro Pauleta",
+      "Pedro Miguel Pauleta"
+    ],
+    "is_active": false,
+    "birth_date": "1973-04-28",
+    "retired_year": 2008,
+    "club_history": [
+      248,
+      624,
+      628,
+      596,
+      106
+    ],
+    "trophies": [
+      {
+        "id": "la_liga",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21109,
+    "name": "Nuno Gomes",
+    "slug": "nuno-gomes",
+    "nationality_code": "PT",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1976-07-05",
+    "retired_year": 2014,
+    "club_history": [
+      244,
+      115,
+      140,
+      115,
+      131,
+      582
+    ],
+    "trophies": [
+      {
+        "id": "primeira_liga",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21110,
+    "name": "Fernando Couto",
+    "slug": "fernando-couto",
+    "nationality_code": "PT",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1969-08-02",
+    "retired_year": 2008,
+    "club_history": [
+      117,
+      245,
+      639,
+      117,
+      338,
+      107,
+      127,
+      131
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      },
+      {
+        "id": "primeira_liga",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21111,
+    "name": "Gunnar Nordahl",
+    "slug": "gunnar-nordahl",
+    "nationality_code": "SE",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1921-10-19",
+    "retired_year": 1958,
+    "club_history": [
+      642,
+      641,
+      114,
+      126
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21112,
+    "name": "Nils Liedholm",
+    "slug": "nils-liedholm",
+    "nationality_code": "SE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1922-10-08",
+    "retired_year": 1961,
+    "club_history": [
+      641,
+      114
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 4
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21113,
+    "name": "Tomas Brolin",
+    "slug": "tomas-brolin",
+    "nationality_code": "SE",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1969-11-29",
+    "retired_year": 1998,
+    "club_history": [
+      643,
+      641,
+      338,
+      302,
+      407,
+      338,
+      157
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21114,
+    "name": "Preben Elkjær",
+    "slug": "preben-elkjaer",
+    "nationality_code": "DK",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1957-09-11",
+    "retired_year": 1990,
+    "club_history": [
+      645,
+      324,
+      634,
+      176,
+      644
+    ],
+    "trophies": [
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21115,
+    "name": "Allan Simonsen",
+    "slug": "allan-simonsen",
+    "nationality_code": "DK",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1952-12-15",
+    "retired_year": 1989,
+    "club_history": [
+      644,
+      166,
+      107,
+      592,
+      644
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 2
+      },
+      {
+        "id": "bundesliga",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21116,
+    "name": "Jon Dahl Tomasson",
+    "slug": "jon-dahl-tomasson",
+    "nationality_code": "DK",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1976-08-29",
+    "retired_year": 2011,
+    "club_history": [
+      646,
+      240,
+      124,
+      129,
+      114,
+      141,
+      134,
+      129
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21117,
+    "name": "Sami Hyypiä",
+    "slug": "sami-hyypia",
+    "nationality_code": "FI",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1973-10-07",
+    "retired_year": 2011,
+    "club_history": [
+      647,
+      648,
+      631,
+      108,
+      109
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21118,
+    "name": "Sándor Kocsis",
+    "slug": "sandor-kocsis",
+    "nationality_code": "HU",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1929-09-21",
+    "retired_year": 1966,
+    "club_history": [
+      222,
+      649,
+      650,
+      107
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21119,
+    "name": "Flórián Albert",
+    "slug": "florian-albert",
+    "nationality_code": "HU",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1941-09-15",
+    "retired_year": 1974,
+    "club_history": [
+      222
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21120,
+    "name": "Josef Masopust",
+    "slug": "josef-masopust",
+    "nationality_code": "CZ",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1931-02-09",
+    "retired_year": 1970,
+    "club_history": [
+      654,
+      655,
+      638
+    ],
+    "trophies": [
+      {
+        "id": "ballon_dor",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21121,
+    "name": "Karel Poborský",
+    "slug": "karel-poborsky",
+    "nationality_code": "CZ",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1972-03-30",
+    "retired_year": 2007,
+    "club_history": [
+      657,
+      656,
+      202,
+      123,
+      115,
+      127,
+      203,
+      657
+    ],
+    "trophies": [
+      {
+        "id": "premier_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21122,
+    "name": "Zbigniew Boniek",
+    "slug": "zbigniew-boniek",
+    "nationality_code": "PL",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1956-03-03",
+    "retired_year": 1988,
+    "club_history": [
+      658,
+      659,
+      112,
+      126
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21123,
+    "name": "Grzegorz Lato",
+    "slug": "grzegorz-lato",
+    "nationality_code": "PL",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1950-04-08",
+    "retired_year": 1984,
+    "club_history": [
+      660,
+      634,
+      669
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21124,
+    "name": "Kazimierz Deyna",
+    "slug": "kazimierz-deyna",
+    "nationality_code": "PL",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1947-10-23",
+    "retired_year": 1987,
+    "club_history": [
+      661,
+      225,
+      102,
+      665
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21125,
+    "name": "Gheorghe Popescu",
+    "slug": "gheorghe-popescu",
+    "nationality_code": "RO",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1967-10-09",
+    "retired_year": 2003,
+    "club_history": [
+      421,
+      229,
+      421,
+      128,
+      122,
+      107,
+      149,
+      178,
+      331
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "eredivisie",
+        "count": 2
+      },
+      {
+        "id": "super_lig",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21126,
+    "name": "Robert Prosinečki",
+    "slug": "robert-prosinecki",
+    "nationality_code": "HR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1969-01-12",
+    "retired_year": 2004,
+    "club_history": [
+      205,
+      223,
+      101,
+      319,
+      107,
+      135,
+      205,
+      239,
+      586
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21127,
+    "name": "Dragan Stojković",
+    "slug": "dragan-stojkovic",
+    "nationality_code": "RS",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1965-03-03",
+    "retired_year": 2001,
+    "club_history": [
+      662,
+      223,
+      145,
+      176,
+      145,
+      510
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21128,
+    "name": "Dejan Savićević",
+    "slug": "dejan-savicevic",
+    "nationality_code": "ME",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1966-09-15",
+    "preferred_foot": "left",
+    "retired_year": 2001,
+    "club_history": [
+      664,
+      223,
+      114,
+      223,
+      236
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 2
+      },
+      {
+        "id": "serie_a",
+        "count": 3
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21129,
+    "name": "Siniša Mihajlović",
+    "slug": "sinisa-mihajlovic",
+    "nationality_code": "RS",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1969-02-20",
+    "preferred_foot": "left",
+    "retired_year": 2006,
+    "club_history": [
+      663,
+      223,
+      126,
+      342,
+      127,
+      105
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21130,
+    "name": "Nihat Kahveci",
+    "slug": "nihat-kahveci",
+    "nationality_code": "TR",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1979-11-23",
+    "retired_year": 2011,
+    "club_history": [
+      151,
+      125,
+      134,
+      151
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21131,
+    "name": "Didi",
+    "slug": "didi",
+    "nationality_code": "BR",
+    "position": "MF",
+    "aka": [
+      "Waldyr Pereira"
+    ],
+    "is_active": false,
+    "birth_date": "1928-10-08",
+    "preferred_foot": "right",
+    "retired_year": 1966,
+    "club_history": [
+      671,
+      259,
+      438,
+      101,
+      438,
+      469
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21132,
+    "name": "Nílton Santos",
+    "slug": "nilton-santos",
+    "nationality_code": "BR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1925-05-16",
+    "retired_year": 1964,
+    "club_history": [
+      438
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21133,
+    "name": "Carlos Alberto Torres",
+    "slug": "carlos-alberto-torres",
+    "nationality_code": "BR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1944-07-17",
+    "retired_year": 1982,
+    "club_history": [
+      259,
+      443,
+      438,
+      259,
+      253,
+      666
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21134,
+    "name": "Jairzinho",
+    "slug": "jairzinho",
+    "nationality_code": "BR",
+    "position": "FW",
+    "aka": [
+      "Jair Ventura Filho"
+    ],
+    "is_active": false,
+    "birth_date": "1944-12-25",
+    "club_history": [
+      438,
+      145,
+      288,
+      260
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21135,
+    "name": "Tostão",
+    "slug": "tostao",
+    "nationality_code": "BR",
+    "position": "FW",
+    "aka": [
+      "Eduardo Goncalves de Andrade"
+    ],
+    "is_active": false,
+    "birth_date": "1947-01-25",
+    "retired_year": 1973,
+    "club_history": [
+      672,
+      260,
+      439
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21136,
+    "name": "Falcão",
+    "slug": "paulo-roberto-falcao",
+    "nationality_code": "BR",
+    "position": "MF",
+    "aka": [
+      "Paulo Roberto Falcao",
+      "Paulo Roberto Falcão"
+    ],
+    "is_active": false,
+    "birth_date": "1953-10-16",
+    "retired_year": 1986,
+    "club_history": [
+      440,
+      126,
+      255
+    ],
+    "trophies": [
+      {
+        "id": "serie_a",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21137,
+    "name": "Mario Kempes",
+    "slug": "mario-kempes",
+    "nationality_code": "AR",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1954-07-15",
+    "preferred_foot": "left",
+    "retired_year": 1996,
+    "club_history": [
+      673,
+      451,
+      179,
+      252,
+      179,
+      629
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21138,
+    "name": "Daniel Passarella",
+    "slug": "daniel-passarella",
+    "nationality_code": "AR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1953-05-25",
+    "retired_year": 1989,
+    "club_history": [
+      674,
+      252,
+      140,
+      105,
+      252
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21139,
+    "name": "Claudio Caniggia",
+    "slug": "claudio-caniggia",
+    "nationality_code": "AR",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1967-01-09",
+    "retired_year": 2004,
+    "club_history": [
+      252,
+      176,
+      113,
+      126,
+      115,
+      251,
+      113,
+      594,
+      199,
+      683
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21140,
+    "name": "Ariel Ortega",
+    "slug": "ariel-ortega",
+    "nationality_code": "AR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1974-03-04",
+    "preferred_foot": "right",
+    "retired_year": 2012,
+    "club_history": [
+      252,
+      179,
+      342,
+      338,
+      252,
+      150,
+      452,
+      252
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21141,
+    "name": "Juan Pablo Sorín",
+    "slug": "juan-pablo-sorin",
+    "nationality_code": "AR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1976-05-05",
+    "preferred_foot": "left",
+    "retired_year": 2009,
+    "club_history": [
+      453,
+      112,
+      252,
+      260,
+      127,
+      107,
+      106,
+      134,
+      325,
+      260
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21142,
+    "name": "Roberto Ayala",
+    "slug": "roberto-ayala",
+    "nationality_code": "AR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1973-04-14",
+    "retired_year": 2010,
+    "club_history": [
+      675,
+      252,
+      121,
+      114,
+      179,
+      134,
+      623,
+      262
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21143,
+    "name": "Juan Sebastián Verón",
+    "slug": "juan-sebastian-veron",
+    "nationality_code": "AR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1975-03-09",
+    "retired_year": 2014,
+    "club_history": [
+      447,
+      251,
+      342,
+      338,
+      127,
+      123,
+      120,
+      105,
+      447
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "premier_league",
+        "count": 1
+      },
+      {
+        "id": "serie_a",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21144,
+    "name": "Gabriel Heinze",
+    "slug": "gabriel-heinze",
+    "nationality_code": "AR",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1978-04-19",
+    "preferred_foot": "left",
+    "retired_year": 2014,
+    "club_history": [
+      452,
+      321,
+      116,
+      321,
+      106,
+      123,
+      101,
+      145,
+      126,
+      452
+    ],
+    "trophies": [
+      {
+        "id": "olympic_gold",
+        "count": 1
+      },
+      {
+        "id": "premier_league",
+        "count": 1
+      },
+      {
+        "id": "la_liga",
+        "count": 1
+      },
+      {
+        "id": "ligue_1",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21145,
+    "name": "Diego Forlán",
+    "slug": "diego-forlan",
+    "nationality_code": "UY",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1979-05-19",
+    "retired_year": 2019,
+    "club_history": [
+      261,
+      123,
+      134,
+      110,
+      105,
+      440,
+      509,
+      264
+    ],
+    "trophies": [
+      {
+        "id": "golden_shoe",
+        "count": 2
+      },
+      {
+        "id": "copa_america",
+        "count": 1
+      },
+      {
+        "id": "europa_league",
+        "count": 1
+      },
+      {
+        "id": "premier_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21146,
+    "name": "Obdulio Varela",
+    "slug": "obdulio-varela",
+    "nationality_code": "UY",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1917-09-20",
+    "retired_year": 1955,
+    "club_history": [
+      677,
+      264
+    ],
+    "trophies": [
+      {
+        "id": "world_cup",
+        "count": 1
+      },
+      {
+        "id": "copa_america",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21147,
+    "name": "Elías Figueroa",
+    "slug": "elias-figueroa",
+    "nationality_code": "CL",
+    "position": "DF",
+    "is_active": false,
+    "birth_date": "1946-10-25",
+    "retired_year": 1982,
+    "club_history": [
+      678,
+      264,
+      440,
+      679,
+      266
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21148,
+    "name": "Teófilo Cubillas",
+    "slug": "teofilo-cubillas",
+    "nationality_code": "PE",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1949-03-08",
+    "retired_year": 1989,
+    "club_history": [
+      468,
+      213,
+      117,
+      468
+    ],
+    "trophies": [
+      {
+        "id": "copa_america",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21149,
+    "name": "Faustino Asprilla",
+    "slug": "faustino-asprilla",
+    "nationality_code": "CO",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1969-11-10",
+    "retired_year": 2004,
+    "club_history": [
+      680,
+      456,
+      338,
+      124,
+      338,
+      254,
+      259,
+      267,
+      447
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21150,
+    "name": "Freddy Rincón",
+    "slug": "freddy-rincon",
+    "nationality_code": "CO",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1966-08-14",
+    "retired_year": 2004,
+    "club_history": [
+      681,
+      458,
+      254,
+      121,
+      101,
+      254,
+      256,
+      443,
+      260,
+      256
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21151,
+    "name": "Cuauhtémoc Blanco",
+    "slug": "cuauhtemoc-blanco",
+    "nationality_code": "MX",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1973-01-17",
+    "retired_year": 2016,
+    "club_history": [
+      268,
+      321,
+      268,
+      533
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21152,
+    "name": "Jorge Campos",
+    "slug": "jorge-campos",
+    "nationality_code": "MX",
+    "position": "GK",
+    "is_active": false,
+    "birth_date": "1966-10-15",
+    "retired_year": 2004,
+    "club_history": [
+      273,
+      669,
+      274,
+      270,
+      533,
+      273,
+      272,
+      670
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21153,
+    "name": "Landon Donovan",
+    "slug": "landon-donovan",
+    "nationality_code": "US",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1982-03-04",
+    "retired_year": 2018,
+    "club_history": [
+      109,
+      667,
+      109,
+      274,
+      103,
+      274,
+      158,
+      274,
+      473
+    ],
+    "trophies": [
+      {
+        "id": "mls_cup",
+        "count": 6
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21154,
+    "name": "Brian McBride",
+    "slug": "brian-mcbride",
+    "nationality_code": "US",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1972-06-19",
+    "retired_year": 2010,
+    "club_history": [
+      164,
+      476,
+      158,
+      159,
+      533
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21155,
+    "name": "Rashidi Yekini",
+    "slug": "rashidi-yekini",
+    "nationality_code": "NG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1963-10-23",
+    "retired_year": 2005,
+    "club_history": [
+      640,
+      206,
+      627,
+      407
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21156,
+    "name": "Hossam Hassan",
+    "slug": "hossam-hassan",
+    "nationality_code": "EG",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1966-08-10",
+    "retired_year": 2007,
+    "club_history": [
+      283,
+      207,
+      652,
+      283,
+      284,
+      682
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21157,
+    "name": "Lakhdar Belloumi",
+    "slug": "lakhdar-belloumi",
+    "nationality_code": "DZ",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1958-12-29",
+    "club_history": [
+      696,
+      531,
+      696
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21158,
+    "name": "El Hadji Diouf",
+    "slug": "el-hadji-diouf",
+    "nationality_code": "SN",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1981-01-15",
+    "retired_year": 2015,
+    "club_history": [
+      599,
+      148,
+      147,
+      108,
+      583,
+      303,
+      582,
+      199,
+      593,
+      302
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21159,
+    "name": "Frédéric Kanouté",
+    "slug": "frederic-kanoute",
+    "nationality_code": "ML",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1977-09-02",
+    "retired_year": 2013,
+    "club_history": [
+      146,
+      136,
+      122,
+      135,
+      517
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 2
+      },
+      {
+        "id": "uefa_super_cup",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21160,
+    "name": "Cha Bum-kun",
+    "slug": "cha-bum-kun",
+    "nationality_code": "KR",
+    "position": "FW",
+    "aka": [
+      "Cha Bum Kun",
+      "Bum-kun Cha"
+    ],
+    "is_active": false,
+    "birth_date": "1953-05-22",
+    "retired_year": 1989,
+    "club_history": [
+      334,
+      132,
+      109
+    ],
+    "trophies": [
+      {
+        "id": "europa_league",
+        "count": 2
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21161,
+    "name": "Shunsuke Nakamura",
+    "slug": "shunsuke-nakamura",
+    "nationality_code": "JP",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1978-06-24",
+    "preferred_foot": "left",
+    "retired_year": 2022,
+    "club_history": [
+      291,
+      615,
+      198,
+      317,
+      291,
+      692,
+      693
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21162,
+    "name": "Mehdi Mahdavikia",
+    "slug": "mehdi-mahdavikia",
+    "nationality_code": "IR",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1977-07-24",
+    "retired_year": 2013,
+    "club_history": [
+      568,
+      299,
+      328,
+      325,
+      132,
+      569,
+      570
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21163,
+    "name": "Sami Al-Jaber",
+    "slug": "sami-al-jaber",
+    "nationality_code": "SA",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1972-12-11",
+    "retired_year": 2008,
+    "club_history": [
+      279,
+      162,
+      279
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21164,
+    "name": "Tim Cahill",
+    "slug": "tim-cahill",
+    "nationality_code": "AU",
+    "position": "MF",
+    "is_active": false,
+    "birth_date": "1979-12-06",
+    "retired_year": 2019,
+    "club_history": [
+      585,
+      158,
+      477,
+      516,
+      694,
+      518,
+      585,
+      689
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21165,
+    "name": "Harry Kewell",
+    "slug": "harry-kewell",
+    "nationality_code": "AU",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1978-09-22",
+    "preferred_foot": "left",
+    "retired_year": 2014,
+    "club_history": [
+      302,
+      108,
+      149,
+      297,
+      684,
+      518
+    ],
+    "trophies": [
+      {
+        "id": "ucl",
+        "count": 1
+      }
+    ],
+    "source": "manual"
+  },
+  {
+    "id": 21166,
+    "name": "Mark Viduka",
+    "slug": "mark-viduka",
+    "nationality_code": "AU",
+    "position": "FW",
+    "is_active": false,
+    "birth_date": "1975-10-09",
+    "retired_year": 2009,
+    "club_history": [
+      695,
+      205,
+      198,
+      302,
+      310,
+      124
     ],
     "source": "manual"
   }

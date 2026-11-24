@@ -2632,7 +2632,6 @@
     "name": "SK Brann",
     "short_name": "BRN",
     "slug": "sk-brann",
-    "logo_url": null,
     "country_id": "NO",
     "league": "Eliteserien"
   },
@@ -3895,5 +3894,1309 @@
     "logo_url": "/logos/chicago-fire-fc.png",
     "country_id": "US",
     "league": "MLS"
+  },
+  {
+    "id": 534,
+    "name": "Kapaz PFK",
+    "short_name": "KAP",
+    "slug": "kapaz-pfk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 535,
+    "name": "Inter Baku PIK",
+    "short_name": "INT",
+    "slug": "inter-baku-pik",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 536,
+    "name": "FK Baku",
+    "short_name": "FKB",
+    "slug": "fk-baku",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 537,
+    "name": "Shamkir FK",
+    "short_name": "SHA",
+    "slug": "shamkir-fk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 538,
+    "name": "Khazar Lankaran FK",
+    "short_name": "KHA",
+    "slug": "khazar-lankaran-fk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 539,
+    "name": "Sabail FK",
+    "short_name": "SAB",
+    "slug": "sabail-fk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 540,
+    "name": "Karvan FK",
+    "short_name": "KAR",
+    "slug": "karvan-fk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 541,
+    "name": "AZAL PFK",
+    "short_name": "AZA",
+    "slug": "azal-pfk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 542,
+    "name": "Kesla FK",
+    "short_name": "KES",
+    "slug": "kesla-fk",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 543,
+    "name": "Dinamo Baku",
+    "short_name": "DIN",
+    "slug": "dinamo-baku",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 544,
+    "name": "Azeri Baku",
+    "short_name": "AZE",
+    "slug": "azeri-baku",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 545,
+    "name": "ANS Pivani",
+    "short_name": "ANS",
+    "slug": "ans-pivani",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 546,
+    "name": "Termist Baku",
+    "short_name": "TER",
+    "slug": "termist-baku",
+    "country_id": "AZ",
+    "league": "Azerbaijan Premier League"
+  },
+  {
+    "id": 547,
+    "name": "Alania Vladikavkaz",
+    "short_name": "ALA",
+    "slug": "alania-vladikavkaz",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 548,
+    "name": "Zhemchuzhina Sochi",
+    "short_name": "ZHE",
+    "slug": "zhemchuzhina-sochi",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 549,
+    "name": "Baltika Kaliningrad",
+    "short_name": "BAL",
+    "slug": "baltika-kaliningrad",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 550,
+    "name": "Fakel Voronezh",
+    "short_name": "FAK",
+    "slug": "fakel-voronezh",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 551,
+    "name": "Volgar Astrakhan",
+    "short_name": "VOL",
+    "slug": "volgar-astrakhan",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 552,
+    "name": "Anzhi Makhachkala",
+    "short_name": "ANZ",
+    "slug": "anzhi-makhachkala",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 553,
+    "name": "Torpedo Moscow",
+    "short_name": "TOR",
+    "slug": "torpedo-moscow",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 554,
+    "name": "Khimki",
+    "short_name": "KHI",
+    "slug": "khimki",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 555,
+    "name": "Dynamo Bryansk",
+    "short_name": "DYN",
+    "slug": "dynamo-bryansk",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 556,
+    "name": "Volga Nizhny Novgorod",
+    "short_name": "VOL",
+    "slug": "volga-nizhny-novgorod",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 557,
+    "name": "Rubin Kazan",
+    "short_name": "RUB",
+    "slug": "rubin-kazan",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 558,
+    "name": "Kuban Krasnodar",
+    "short_name": "KUB",
+    "slug": "kuban-krasnodar",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 559,
+    "name": "Spartak Tambov",
+    "short_name": "SPA",
+    "slug": "spartak-tambov",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 560,
+    "name": "Akhmat Grozny",
+    "short_name": "AKH",
+    "slug": "akhmat-grozny",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 561,
+    "name": "Dinamo Stavropol",
+    "short_name": "DIN",
+    "slug": "dinamo-stavropol",
+    "country_id": "RU",
+    "league": "Other"
+  },
+  {
+    "id": 562,
+    "name": "Chornomorets Odesa",
+    "short_name": "CHO",
+    "slug": "chornomorets-odesa",
+    "country_id": "UA",
+    "league": "Other"
+  },
+  {
+    "id": 563,
+    "name": "Tavriya Simferopol",
+    "short_name": "TAV",
+    "slug": "tavriya-simferopol",
+    "country_id": "UA",
+    "league": "Other"
+  },
+  {
+    "id": 564,
+    "name": "Metalurh Zaporizhzhia",
+    "short_name": "MET",
+    "slug": "metalurh-zaporizhzhia",
+    "country_id": "UA",
+    "league": "Other"
+  },
+  {
+    "id": 565,
+    "name": "Volyn Lutsk",
+    "short_name": "VOL",
+    "slug": "volyn-lutsk",
+    "country_id": "UA",
+    "league": "Other"
+  },
+  {
+    "id": 566,
+    "name": "Dinamo Minsk",
+    "short_name": "DIN",
+    "slug": "dinamo-minsk",
+    "country_id": "BY",
+    "league": "Other"
+  },
+  {
+    "id": 567,
+    "name": "Foolad",
+    "short_name": "FOO",
+    "slug": "foolad",
+    "country_id": "IR",
+    "league": "Other"
+  },
+  {
+    "id": 568,
+    "name": "Bank Melli",
+    "short_name": "BAN",
+    "slug": "bank-melli",
+    "country_id": "IR",
+    "league": "Other"
+  },
+  {
+    "id": 569,
+    "name": "Steel Azin",
+    "short_name": "STE",
+    "slug": "steel-azin",
+    "country_id": "IR",
+    "league": "Other"
+  },
+  {
+    "id": 570,
+    "name": "Damash Gilan",
+    "short_name": "DAM",
+    "slug": "damash-gilan",
+    "country_id": "IR",
+    "league": "Other"
+  },
+  {
+    "id": 571,
+    "name": "Kocaelispor",
+    "short_name": "KOC",
+    "slug": "kocaelispor",
+    "country_id": "TR",
+    "league": "Other"
+  },
+  {
+    "id": 572,
+    "name": "Eskisehirspor",
+    "short_name": "ESK",
+    "slug": "eskisehirspor",
+    "country_id": "TR",
+    "league": "Other"
+  },
+  {
+    "id": 573,
+    "name": "Boluspor",
+    "short_name": "BOL",
+    "slug": "boluspor",
+    "country_id": "TR",
+    "league": "Other"
+  },
+  {
+    "id": 574,
+    "name": "Sakaryaspor",
+    "short_name": "SAK",
+    "slug": "sakaryaspor",
+    "country_id": "TR",
+    "league": "Other"
+  },
+  {
+    "id": 575,
+    "name": "Kukesi",
+    "short_name": "KUK",
+    "slug": "kukesi",
+    "country_id": "AL",
+    "league": "Other"
+  },
+  {
+    "id": 576,
+    "name": "Torpedo Kutaisi",
+    "short_name": "TOR",
+    "slug": "torpedo-kutaisi",
+    "country_id": "GE",
+    "league": "Other"
+  },
+  {
+    "id": 577,
+    "name": "Ararat Yerevan",
+    "short_name": "ARA",
+    "slug": "ararat-yerevan",
+    "country_id": "AM",
+    "league": "Other"
+  },
+  {
+    "id": 578,
+    "name": "Vorwarts Steyr",
+    "short_name": "VOR",
+    "slug": "vorwarts-steyr",
+    "country_id": "AT",
+    "league": "Other"
+  },
+  {
+    "id": 579,
+    "name": "Austria Salzburg",
+    "short_name": "AUS",
+    "slug": "austria-salzburg",
+    "country_id": "AT",
+    "league": "Other"
+  },
+  {
+    "id": 580,
+    "name": "Aris Limassol",
+    "short_name": "ARI",
+    "slug": "aris-limassol",
+    "country_id": "CY",
+    "league": "Other"
+  },
+  {
+    "id": 581,
+    "name": "Anorthosis Famagusta",
+    "short_name": "ANO",
+    "slug": "anorthosis-famagusta",
+    "country_id": "CY",
+    "league": "Other"
+  },
+  {
+    "id": 582,
+    "name": "Blackburn Rovers",
+    "short_name": "BLA",
+    "slug": "blackburn-rovers",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 583,
+    "name": "Bolton Wanderers",
+    "short_name": "BOL",
+    "slug": "bolton-wanderers",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 584,
+    "name": "Derby County",
+    "short_name": "DER",
+    "slug": "derby-county",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 585,
+    "name": "Millwall",
+    "short_name": "MIL",
+    "slug": "millwall",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 586,
+    "name": "Portsmouth",
+    "short_name": "POR",
+    "slug": "portsmouth",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 587,
+    "name": "Blackpool",
+    "short_name": "BLA",
+    "slug": "blackpool",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 588,
+    "name": "Preston North End",
+    "short_name": "PRE",
+    "slug": "preston-north-end",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 589,
+    "name": "Plymouth Argyle",
+    "short_name": "PLY",
+    "slug": "plymouth-argyle",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 590,
+    "name": "Swindon Town",
+    "short_name": "SWI",
+    "slug": "swindon-town",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 591,
+    "name": "Huddersfield Town",
+    "short_name": "HUD",
+    "slug": "huddersfield-town",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 592,
+    "name": "Charlton Athletic",
+    "short_name": "CHA",
+    "slug": "charlton-athletic",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 593,
+    "name": "Doncaster Rovers",
+    "short_name": "DON",
+    "slug": "doncaster-rovers",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 594,
+    "name": "Dundee",
+    "short_name": "DUN",
+    "slug": "dundee",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 595,
+    "name": "Partick Thistle",
+    "short_name": "PAR",
+    "slug": "partick-thistle",
+    "country_id": "GB",
+    "league": "Other"
+  },
+  {
+    "id": 596,
+    "name": "Bordeaux",
+    "short_name": "BOR",
+    "slug": "bordeaux",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 597,
+    "name": "Caen",
+    "short_name": "CAE",
+    "slug": "caen",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 598,
+    "name": "Bastia",
+    "short_name": "BAS",
+    "slug": "bastia",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 599,
+    "name": "Sochaux",
+    "short_name": "SOC",
+    "slug": "sochaux",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 600,
+    "name": "Cannes",
+    "short_name": "CAN",
+    "slug": "cannes",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 601,
+    "name": "Toulon",
+    "short_name": "TOU",
+    "slug": "toulon",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 602,
+    "name": "Grenoble",
+    "short_name": "GRE",
+    "slug": "grenoble",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 603,
+    "name": "Racing Paris",
+    "short_name": "RAC",
+    "slug": "racing-paris",
+    "country_id": "FR",
+    "league": "Other"
+  },
+  {
+    "id": 604,
+    "name": "USM Casablanca",
+    "short_name": "USM",
+    "slug": "usm-casablanca",
+    "country_id": "MA",
+    "league": "Other"
+  },
+  {
+    "id": 605,
+    "name": "Varese",
+    "short_name": "VAR",
+    "slug": "varese",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 606,
+    "name": "Perugia",
+    "short_name": "PER",
+    "slug": "perugia",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 607,
+    "name": "Bari",
+    "short_name": "BAR",
+    "slug": "bari",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 608,
+    "name": "Pro Vercelli",
+    "short_name": "PRO",
+    "slug": "pro-vercelli",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 609,
+    "name": "Novara",
+    "short_name": "NOV",
+    "slug": "novara",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 610,
+    "name": "Piacenza",
+    "short_name": "PIA",
+    "slug": "piacenza",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 611,
+    "name": "Padova",
+    "short_name": "PAD",
+    "slug": "padova",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 612,
+    "name": "Trapani",
+    "short_name": "TRA",
+    "slug": "trapani",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 613,
+    "name": "Carpi",
+    "short_name": "CAR",
+    "slug": "carpi",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 614,
+    "name": "Reggiana",
+    "short_name": "REG",
+    "slug": "reggiana",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 615,
+    "name": "Reggina",
+    "short_name": "REG",
+    "slug": "reggina",
+    "country_id": "IT",
+    "league": "Other"
+  },
+  {
+    "id": 616,
+    "name": "Eintracht Braunschweig",
+    "short_name": "EIN",
+    "slug": "eintracht-braunschweig",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 617,
+    "name": "1860 Munich",
+    "short_name": "MUN",
+    "slug": "1860-munich",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 618,
+    "name": "Kickers Offenbach",
+    "short_name": "KIC",
+    "slug": "kickers-offenbach",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 619,
+    "name": "1. FC Saarbrucken",
+    "short_name": "FCS",
+    "slug": "1-fc-saarbrucken",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 620,
+    "name": "Karlsruher SC",
+    "short_name": "KAR",
+    "slug": "karlsruher-sc",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 621,
+    "name": "Dynamo Dresden",
+    "short_name": "DYN",
+    "slug": "dynamo-dresden",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 622,
+    "name": "SG Wattenscheid 09",
+    "short_name": "SGW",
+    "slug": "sg-wattenscheid-09",
+    "country_id": "DE",
+    "league": "Other"
+  },
+  {
+    "id": 623,
+    "name": "Real Zaragoza",
+    "short_name": "REA",
+    "slug": "real-zaragoza",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 624,
+    "name": "UD Salamanca",
+    "short_name": "UDS",
+    "slug": "ud-salamanca",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 625,
+    "name": "Racing Santander",
+    "short_name": "RAC",
+    "slug": "racing-santander",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 626,
+    "name": "CD Castellon",
+    "short_name": "CDC",
+    "slug": "cd-castellon",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 627,
+    "name": "Sporting Gijon",
+    "short_name": "SPO",
+    "slug": "sporting-gijon",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 628,
+    "name": "Deportivo La Coruna",
+    "short_name": "DEP",
+    "slug": "deportivo-la-coruna",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 629,
+    "name": "Hercules CF",
+    "short_name": "HER",
+    "slug": "hercules-cf",
+    "country_id": "ES",
+    "league": "Other"
+  },
+  {
+    "id": 630,
+    "name": "HFC Haarlem",
+    "short_name": "HFC",
+    "slug": "hfc-haarlem",
+    "country_id": "NL",
+    "league": "Other"
+  },
+  {
+    "id": 631,
+    "name": "Willem II",
+    "short_name": "WIL",
+    "slug": "willem-ii",
+    "country_id": "NL",
+    "league": "Other"
+  },
+  {
+    "id": 632,
+    "name": "RKC Waalwijk",
+    "short_name": "RKC",
+    "slug": "rkc-waalwijk",
+    "country_id": "NL",
+    "league": "Other"
+  },
+  {
+    "id": 633,
+    "name": "DWS Amsterdam",
+    "short_name": "DWS",
+    "slug": "dws-amsterdam",
+    "country_id": "NL",
+    "league": "Other"
+  },
+  {
+    "id": 634,
+    "name": "KSC Lokeren",
+    "short_name": "KSC",
+    "slug": "ksc-lokeren",
+    "country_id": "BE",
+    "league": "Other"
+  },
+  {
+    "id": 635,
+    "name": "RWD Molenbeek",
+    "short_name": "RWD",
+    "slug": "rwd-molenbeek",
+    "country_id": "BE",
+    "league": "Other"
+  },
+  {
+    "id": 636,
+    "name": "Eendracht Aalst",
+    "short_name": "EEN",
+    "slug": "eendracht-aalst",
+    "country_id": "BE",
+    "league": "Other"
+  },
+  {
+    "id": 637,
+    "name": "Lierse",
+    "short_name": "LIE",
+    "slug": "lierse",
+    "country_id": "BE",
+    "league": "Other"
+  },
+  {
+    "id": 638,
+    "name": "Crossing Molenbeek",
+    "short_name": "CRO",
+    "slug": "crossing-molenbeek",
+    "country_id": "BE",
+    "league": "Other"
+  },
+  {
+    "id": 639,
+    "name": "Academica",
+    "short_name": "ACA",
+    "slug": "academica",
+    "country_id": "PT",
+    "league": "Other"
+  },
+  {
+    "id": 640,
+    "name": "Vitoria Setubal",
+    "short_name": "VIT",
+    "slug": "vitoria-setubal",
+    "country_id": "PT",
+    "league": "Other"
+  },
+  {
+    "id": 641,
+    "name": "IFK Norrkoping",
+    "short_name": "IFK",
+    "slug": "ifk-norrkoping",
+    "country_id": "SE",
+    "league": "Other"
+  },
+  {
+    "id": 642,
+    "name": "Degerfors IF",
+    "short_name": "DEG",
+    "slug": "degerfors-if",
+    "country_id": "SE",
+    "league": "Other"
+  },
+  {
+    "id": 643,
+    "name": "GIF Sundsvall",
+    "short_name": "GIF",
+    "slug": "gif-sundsvall",
+    "country_id": "SE",
+    "league": "Other"
+  },
+  {
+    "id": 644,
+    "name": "Vejle BK",
+    "short_name": "VEJ",
+    "slug": "vejle-bk",
+    "country_id": "DK",
+    "league": "Other"
+  },
+  {
+    "id": 645,
+    "name": "Vanlose",
+    "short_name": "VAN",
+    "slug": "vanlose",
+    "country_id": "DK",
+    "league": "Other"
+  },
+  {
+    "id": 646,
+    "name": "Koge BK",
+    "short_name": "KOG",
+    "slug": "koge-bk",
+    "country_id": "DK",
+    "league": "Other"
+  },
+  {
+    "id": 647,
+    "name": "KuMu",
+    "short_name": "KUM",
+    "slug": "kumu",
+    "country_id": "FI",
+    "league": "Other"
+  },
+  {
+    "id": 648,
+    "name": "MyPa",
+    "short_name": "MYP",
+    "slug": "mypa",
+    "country_id": "FI",
+    "league": "Other"
+  },
+  {
+    "id": 649,
+    "name": "Budapest Honved",
+    "short_name": "BUD",
+    "slug": "budapest-honved",
+    "country_id": "HU",
+    "league": "Other"
+  },
+  {
+    "id": 650,
+    "name": "Young Fellows Zurich",
+    "short_name": "YOU",
+    "slug": "young-fellows-zurich",
+    "country_id": "CH",
+    "league": "Other"
+  },
+  {
+    "id": 651,
+    "name": "Grasshoppers",
+    "short_name": "GRA",
+    "slug": "grasshoppers",
+    "country_id": "CH",
+    "league": "Other"
+  },
+  {
+    "id": 652,
+    "name": "Neuchatel Xamax",
+    "short_name": "NEU",
+    "slug": "neuchatel-xamax",
+    "country_id": "CH",
+    "league": "Other"
+  },
+  {
+    "id": 653,
+    "name": "Chiasso",
+    "short_name": "CHI",
+    "slug": "chiasso",
+    "country_id": "CH",
+    "league": "Other"
+  },
+  {
+    "id": 654,
+    "name": "Teplice",
+    "short_name": "TEP",
+    "slug": "teplice",
+    "country_id": "CZ",
+    "league": "Other"
+  },
+  {
+    "id": 655,
+    "name": "Dukla Prague",
+    "short_name": "DUK",
+    "slug": "dukla-prague",
+    "country_id": "CZ",
+    "league": "Other"
+  },
+  {
+    "id": 656,
+    "name": "Viktoria Zizkov",
+    "short_name": "VIK",
+    "slug": "viktoria-zizkov",
+    "country_id": "CZ",
+    "league": "Other"
+  },
+  {
+    "id": 657,
+    "name": "Ceske Budejovice",
+    "short_name": "CES",
+    "slug": "ceske-budejovice",
+    "country_id": "CZ",
+    "league": "Other"
+  },
+  {
+    "id": 658,
+    "name": "Zawisza Bydgoszcz",
+    "short_name": "ZAW",
+    "slug": "zawisza-bydgoszcz",
+    "country_id": "PL",
+    "league": "Other"
+  },
+  {
+    "id": 659,
+    "name": "Widzew Lodz",
+    "short_name": "WID",
+    "slug": "widzew-lodz",
+    "country_id": "PL",
+    "league": "Other"
+  },
+  {
+    "id": 660,
+    "name": "Stal Mielec",
+    "short_name": "STA",
+    "slug": "stal-mielec",
+    "country_id": "PL",
+    "league": "Other"
+  },
+  {
+    "id": 661,
+    "name": "LKS Lodz",
+    "short_name": "LKS",
+    "slug": "lks-lodz",
+    "country_id": "PL",
+    "league": "Other"
+  },
+  {
+    "id": 662,
+    "name": "Radnicki Nis",
+    "short_name": "RAD",
+    "slug": "radnicki-nis",
+    "country_id": "RS",
+    "league": "Other"
+  },
+  {
+    "id": 663,
+    "name": "Vojvodina",
+    "short_name": "VOJ",
+    "slug": "vojvodina",
+    "country_id": "RS",
+    "league": "Other"
+  },
+  {
+    "id": 664,
+    "name": "Buducnost Podgorica",
+    "short_name": "BUD",
+    "slug": "buducnost-podgorica",
+    "country_id": "ME",
+    "league": "Other"
+  },
+  {
+    "id": 665,
+    "name": "San Diego Sockers",
+    "short_name": "SAN",
+    "slug": "san-diego-sockers",
+    "country_id": "US",
+    "league": "Other"
+  },
+  {
+    "id": 666,
+    "name": "New York Cosmos",
+    "short_name": "NEW",
+    "slug": "new-york-cosmos",
+    "country_id": "US",
+    "league": "Other"
+  },
+  {
+    "id": 667,
+    "name": "San Jose Earthquakes",
+    "short_name": "SAN",
+    "slug": "san-jose-earthquakes",
+    "country_id": "US",
+    "league": "Other"
+  },
+  {
+    "id": 668,
+    "name": "New England Revolution",
+    "short_name": "NEW",
+    "slug": "new-england-revolution",
+    "country_id": "US",
+    "league": "Other"
+  },
+  {
+    "id": 669,
+    "name": "Atlante",
+    "short_name": "ATL",
+    "slug": "atlante",
+    "country_id": "MX",
+    "league": "Other"
+  },
+  {
+    "id": 670,
+    "name": "Puebla",
+    "short_name": "PUE",
+    "slug": "puebla",
+    "country_id": "MX",
+    "league": "Other"
+  },
+  {
+    "id": 671,
+    "name": "Madureira",
+    "short_name": "MAD",
+    "slug": "madureira",
+    "country_id": "BR",
+    "league": "Other"
+  },
+  {
+    "id": 672,
+    "name": "America Mineiro",
+    "short_name": "AME",
+    "slug": "america-mineiro",
+    "country_id": "BR",
+    "league": "Other"
+  },
+  {
+    "id": 673,
+    "name": "Instituto",
+    "short_name": "INS",
+    "slug": "instituto",
+    "country_id": "AR",
+    "league": "Other"
+  },
+  {
+    "id": 674,
+    "name": "Sarmiento",
+    "short_name": "SAR",
+    "slug": "sarmiento",
+    "country_id": "AR",
+    "league": "Other"
+  },
+  {
+    "id": 675,
+    "name": "Ferro Carril Oeste",
+    "short_name": "FER",
+    "slug": "ferro-carril-oeste",
+    "country_id": "AR",
+    "league": "Other"
+  },
+  {
+    "id": 676,
+    "name": "Platense",
+    "short_name": "PLA",
+    "slug": "platense",
+    "country_id": "AR",
+    "league": "Other"
+  },
+  {
+    "id": 677,
+    "name": "Montevideo Wanderers",
+    "short_name": "MON",
+    "slug": "montevideo-wanderers",
+    "country_id": "UY",
+    "league": "Other"
+  },
+  {
+    "id": 678,
+    "name": "Santiago Wanderers",
+    "short_name": "SAN",
+    "slug": "santiago-wanderers",
+    "country_id": "CL",
+    "league": "Other"
+  },
+  {
+    "id": 679,
+    "name": "Palestino",
+    "short_name": "PAL",
+    "slug": "palestino",
+    "country_id": "CL",
+    "league": "Other"
+  },
+  {
+    "id": 680,
+    "name": "Deportivo Cali",
+    "short_name": "DEP",
+    "slug": "deportivo-cali",
+    "country_id": "CO",
+    "league": "Other"
+  },
+  {
+    "id": 681,
+    "name": "Independiente Santa Fe",
+    "short_name": "IND",
+    "slug": "independiente-santa-fe",
+    "country_id": "CO",
+    "league": "Other"
+  },
+  {
+    "id": 682,
+    "name": "Al Masry",
+    "short_name": "ALM",
+    "slug": "al-masry",
+    "country_id": "EG",
+    "league": "Other"
+  },
+  {
+    "id": 683,
+    "name": "Qatar SC",
+    "short_name": "QAT",
+    "slug": "qatar-sc",
+    "country_id": "QA",
+    "league": "Other"
+  },
+  {
+    "id": 684,
+    "name": "Al-Gharafa",
+    "short_name": "ALG",
+    "slug": "al-gharafa",
+    "country_id": "QA",
+    "league": "Other"
+  },
+  {
+    "id": 685,
+    "name": "Al Jazira",
+    "short_name": "ALJ",
+    "slug": "al-jazira",
+    "country_id": "AE",
+    "league": "Other"
+  },
+  {
+    "id": 686,
+    "name": "Baniyas",
+    "short_name": "BAN",
+    "slug": "baniyas",
+    "country_id": "AE",
+    "league": "Other"
+  },
+  {
+    "id": 687,
+    "name": "Chennaiyin FC",
+    "short_name": "CHE",
+    "slug": "chennaiyin-fc",
+    "country_id": "IN",
+    "league": "Other"
+  },
+  {
+    "id": 688,
+    "name": "FC Pune City",
+    "short_name": "FCP",
+    "slug": "fc-pune-city",
+    "country_id": "IN",
+    "league": "Other"
+  },
+  {
+    "id": 689,
+    "name": "Jamshedpur FC",
+    "short_name": "JAM",
+    "slug": "jamshedpur-fc",
+    "country_id": "IN",
+    "league": "Other"
+  },
+  {
+    "id": 690,
+    "name": "JEF United",
+    "short_name": "JEF",
+    "slug": "jef-united",
+    "country_id": "JP",
+    "league": "Other"
+  },
+  {
+    "id": 691,
+    "name": "Brummell Sendai",
+    "short_name": "BRU",
+    "slug": "brummell-sendai",
+    "country_id": "JP",
+    "league": "Other"
+  },
+  {
+    "id": 692,
+    "name": "Jubilo Iwata",
+    "short_name": "JUB",
+    "slug": "jubilo-iwata",
+    "country_id": "JP",
+    "league": "Other"
+  },
+  {
+    "id": 693,
+    "name": "Yokohama FC",
+    "short_name": "YOK",
+    "slug": "yokohama-fc",
+    "country_id": "JP",
+    "league": "Other"
+  },
+  {
+    "id": 694,
+    "name": "Hangzhou Greentown",
+    "short_name": "HAN",
+    "slug": "hangzhou-greentown",
+    "country_id": "CN",
+    "league": "Other"
+  },
+  {
+    "id": 695,
+    "name": "Melbourne Knights",
+    "short_name": "MEL",
+    "slug": "melbourne-knights",
+    "country_id": "AU",
+    "league": "Other"
+  },
+  {
+    "id": 696,
+    "name": "GC Mascara",
+    "short_name": "GCM",
+    "slug": "gc-mascara",
+    "country_id": "DZ",
+    "league": "Other"
   }
 ]

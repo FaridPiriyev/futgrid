@@ -1328,5 +1328,13 @@
   "{name} hərf seçir…": "{name} выбирает букву…",
   "Sən {l} seçdin. Rəqib ikinci hərfi seçir.": "Ты выбрал {l}. Соперник выбирает вторую букву.",
   "Birinci hərfi rəqib seçir, ikincini sən seçəcəksən.": "Первую букву выбирает соперник, вторую — ты.",
-  "Növbə səndədir!": "Твой ход!"
+  "Növbə səndədir!": "Твой ход!",
+  "Google ilə davam et": "Продолжить с Google",
+  "və ya": "или",
+  "Google ilə giriş ləğv edildi.": "Вход через Google отменён.",
+  "Bu hesab bloklanıb.": "Этот аккаунт заблокирован.",
+  "Bu hesab silinib.": "Этот аккаунт удалён.",
+  "Google hesabının e-poçtu təsdiqlənməyib.": "E-mail вашего аккаунта Google не подтверждён.",
+  "Google ilə giriş hələ aktiv deyil.": "Вход через Google пока не включён.",
+  "Google ilə giriş alınmadı. Yenidən cəhd et.": "Не удалось войти через Google. Попробуйте ещё раз."
 }

@@ -43,12 +43,6 @@ const CONTENT = {
           ],
         },
         {
-          h: "Uşaqlar",
-          p: [
-            "Sayt hər yaş üçün açıqdır, amma 16 yaşdan kiçik istifadəçilərdən bilərəkdən şəxsi məlumat toplamırıq. Belə bir məlumatın göndərildiyini düşünürsənsə, bizə yaz, silək.",
-          ],
-        },
-        {
           h: "Hüquqların",
           p: [
             "Bizə göndərdiyin məlumatlara baxmaq, onları düzəltmək və ya silinməsini istəmək hüququn var. Bunun üçün aşağıdakı ünvana yazmaq kifayətdir.",
@@ -98,12 +92,6 @@ const CONTENT = {
           ],
         },
         {
-          h: "Children",
-          p: [
-            "The site is open to all ages, but we do not knowingly collect personal data from users under 16. If you believe such data was sent to us, write to us and we will delete it.",
-          ],
-        },
-        {
           h: "Your rights",
           p: [
             "You have the right to see, correct or request deletion of the data you sent us. Just write to the address below.",
@@ -150,12 +138,6 @@ const CONTENT = {
           h: "Файлы cookie",
           p: [
             "Мы не используем рекламные и отслеживающие cookie. Используется только память браузера, необходимая для работы сайта.",
-          ],
-        },
-        {
-          h: "Дети",
-          p: [
-            "Сайт открыт для всех возрастов, но мы сознательно не собираем личные данные пользователей младше 16 лет. Если вы считаете, что такие данные были отправлены, напишите нам — мы их удалим.",
           ],
         },
         {

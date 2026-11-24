@@ -107,7 +107,9 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
     else if (BAD_PHOTOS.has(norm(p.slug)) || BAD_PHOTOS.has(norm(p.name)))
       delete p.photo_url;
     p._name = norm(p.name);
-    p._tokens = p._name.split(" ");
+    // "aka": başqa yazılışlar (Qurban Qurbanov ↔ Gurban Gurbanov) — axtarışda da tapılsın
+    p._aka = (p.aka ?? []).map(norm).filter(Boolean);
+    p._tokens = [...new Set([p._name, ...p._aka].join(" ").split(" "))];
     applyValueFix(p);
     playersById.set(p.id, p);
     for (const clubId of new Set(p.club_history ?? [])) {
@@ -203,9 +205,14 @@ export function searchPlayers(data, query, limit = 8) {
       Math.max(Math.log10(money + 1e4), legend) +
       Math.min(p.international?.caps ?? 0, 150) / 60 +
       Math.min(cups, 2);
-    const last = p._tokens[p._tokens.length - 1] ?? "";
-    const bonus = p._name.startsWith(q) ? 1 : last.startsWith(words[words.length - 1]) ? 0.8 : 0;
-    hits.push({ p, rank: p._name === q ? 0 : 1, score: fame + bonus });
+    const names = [p._name, ...p._aka];
+    const lastWord = words[words.length - 1];
+    const bonus = names.some((n) => n.startsWith(q))
+      ? 1
+      : names.some((n) => n.split(" ").at(-1).startsWith(lastWord))
+        ? 0.8
+        : 0;
+    hits.push({ p, rank: names.includes(q) ? 0 : 1, score: fame + bonus });
   }
 
   hits.sort((a, b) => a.rank - b.rank || b.score - a.score);
@@ -243,10 +250,11 @@ function fullNameIndex(data) {
     if (!map.get(key).includes(p)) map.get(key).push(p);
   };
   for (const p of data.players) {
-    const name = p._name ?? norm(p.name);
-    add(name, p);
-    const t = name.split(" ");
-    if (t.length > 2) add(`${t[0]} ${t[t.length - 1]}`, p);
+    for (const name of [p._name ?? norm(p.name), ...(p._aka ?? [])]) {
+      add(name, p);
+      const t = name.split(" ");
+      if (t.length > 2) add(`${t[0]} ${t[t.length - 1]}`, p);
+    }
   }
   data._fullNames = map;
   return map;

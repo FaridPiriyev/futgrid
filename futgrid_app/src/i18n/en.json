@@ -1328,5 +1328,13 @@
   "{name} hərf seçir…": "{name} is picking a letter…",
   "Sən {l} seçdin. Rəqib ikinci hərfi seçir.": "You picked {l}. Your opponent picks the second letter.",
   "Birinci hərfi rəqib seçir, ikincini sən seçəcəksən.": "Your opponent picks the first letter, you'll pick the second.",
-  "Növbə səndədir!": "Your turn!"
+  "Növbə səndədir!": "Your turn!",
+  "Google ilə davam et": "Continue with Google",
+  "və ya": "or",
+  "Google ilə giriş ləğv edildi.": "Google sign-in was cancelled.",
+  "Bu hesab bloklanıb.": "This account is blocked.",
+  "Bu hesab silinib.": "This account has been deleted.",
+  "Google hesabının e-poçtu təsdiqlənməyib.": "Your Google account's email isn't verified.",
+  "Google ilə giriş hələ aktiv deyil.": "Google sign-in isn't enabled yet.",
+  "Google ilə giriş alınmadı. Yenidən cəhd et.": "Google sign-in failed. Please try again."
 }
