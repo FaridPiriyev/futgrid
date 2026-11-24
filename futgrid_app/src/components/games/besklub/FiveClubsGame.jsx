@@ -17,8 +17,6 @@ export const FIVE_KEYFRAMES = `
 @keyframes fcLock { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--fg-accent) 75%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
 `;
 
-// Klublar "slot" məntiqi ilə gəlir: hər kartda loqolar sürətlə dəyişir,
-// sonra kartlar soldan sağa bir-bir dayanır.
 const SPIN_FIRST_STOP = 1100;
 const SPIN_STEP = 260;
 const SHUFFLE_MS = 95;
@@ -113,7 +111,6 @@ export default function FiveClubsGame({ data, difficulty, seconds }) {
 
   const answers = set.answers;
 
-  // Slot maşını: hər yeni klub dəstində barabanlar fırlanır və bir-bir dayanır.
   const [stopped, setStopped] = useState(5);
   useEffect(() => {
     if (reducedMotion()) {

@@ -135,7 +135,6 @@ describe("online duels", () => {
     const raw = await redis.get(`duel:room:${code}`);
     expect(raw).toBeTruthy();
     const room = JSON.parse(raw as string) as { seed: number };
-    // Onlayn X0X raundlarla oynanılır: 1-ci raundun cədvəli seed + 7919 ilə qurulur.
     const puzzle = buildPuzzle("xox", getGameData(), (room.seed + 7_919) >>> 0, {
       difficulty: "normal",
       categories: { country: true, trophy: true, coach: true },
@@ -163,7 +162,6 @@ describe("online duels", () => {
     await emitAck(b, "room:join", { code, game: "orta" });
     await statePromise;
 
-    // Hər oyunçu öz kartını seçir; kartlar açılandan sonra ortaq oyunçunu yazan xal alır.
     const data = getGameData();
     const clubs = entityIndex(data).clubs.filter((club) => club.ids.size > 200);
     let pair: { a: (typeof clubs)[number]; b: (typeof clubs)[number]; id: number } | null = null;
@@ -179,7 +177,6 @@ describe("online duels", () => {
       if (pair) break;
     }
     expect(pair).toBeTruthy();
-    // Kartlar ikisi də seçiləndə açılır — "answer" mərhələsini gözləyirik.
     const revealed = new Promise<{ state: { phase: string } }>((resolve) => {
       const handler = (payload: { state: { phase: string } }) => {
         if (payload.state.phase !== "answer") return;
@@ -236,7 +233,6 @@ describe("online duels", () => {
     const tlStarted = waitFor(b, "game:state");
     await emitAck(b, "room:join", { code: tlCode, game: "twoLetters" });
     await tlStarted;
-    // Hərfləri oyunçular seçir: əvvəl otağı quran, sonra rəqib.
     const playing = new Promise<{ state: { phase: string; letters: string[] } }>((resolve) => {
       const handler = (payload: { state: { phase: string; letters: string[] } }) => {
         if (payload.state.phase !== "play") return;

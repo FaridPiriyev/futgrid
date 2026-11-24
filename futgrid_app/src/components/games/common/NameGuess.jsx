@@ -5,11 +5,6 @@ import { FONT } from "./ui";
 
 import { tr } from "../../../i18n";
 
-/**
- * Təklifsiz ad girişi: oyunçu adı bütöv yazılmalıdır, siyahı açılmır.
- * onGuess(player) yalnız ad tam tanınanda çağırılır; tanınmayanda onUnknown(text).
- * pickFrom(candidates) eyni adlı bir neçə futbolçu olanda uyğun olanı seçmək üçündür.
- */
 export default function NameGuess({ data, onGuess, onUnknown, disabled = false, focusKey, placeholder, pickFrom }) {
   const [text, setText] = useState("");
   const inputRef = useRef(null);

@@ -3,11 +3,6 @@ import { datasetFor } from "../data";
 import { byFame } from "./fame";
 import { ageOf } from "./playerInfo";
 
-/*
- * "20 sual" oyunu: gizli futbolçu haqqında bəli/xeyr sualları.
- * Hər sualın cavabını sistem datadan özü hesablayır: true (bəli), false (xeyr), null (məlum deyil).
- */
-
 const TOP5 = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"];
 const BIG_SIX = /^(arsenal|chelsea|liverpool|manchester-city|manchester-united|tottenham-hotspur)$/;
 
@@ -117,7 +112,6 @@ export const QUESTION_GROUPS = [
 
 export const QUESTIONS = new Map(QUESTION_GROUPS.flatMap((g) => g.items.map((q) => [q.id, { ...q, group: g.key }])));
 
-/** Klub və ya ölkə haqqında xüsusi sual (EntitySearch-dən seçilən). */
 export function entityQuestion(entity) {
   if (entity.type === "club")
     return {
@@ -145,7 +139,6 @@ export function answerOf(question, player, data) {
 
 const POOLS = { easy: 120, normal: 450, hard: 1400 };
 
-/** Suallara cavab verməyə kifayət qədər məlumatı olan məşhur futbolçular. */
 export function secretPool(data, { difficulty = "normal", era = "all" } = {}) {
   const key = `_qpool_${difficulty}_${era}`;
   if (data[key]) return data[key];

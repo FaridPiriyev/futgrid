@@ -4,8 +4,6 @@ import type { Random } from "../random.js";
 
 export const CAREER_ROUNDS = 10;
 export const CAREER_MAX_WRONG = 3;
-// Səviyyələr tanınmışlığa görə ayrı zolaqlardır (frontend futgrid_app/src/lib/games/career.js ilə eynidir):
-// asan — hamının tanıdığı ulduzlar, orta — tanınmış oyunçular, çətin — yaxından izləyənlər üçün.
 export const CAREER_TIERS = {
   easy: { minPeak: 40e6, from: 0, to: 100 },
   normal: { minPeak: 15e6, from: 50, to: 450 },

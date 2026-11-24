@@ -7,6 +7,7 @@ import { SiteLogo } from "./Navbar";
 
 
 import { tr } from "../i18n";
+import { CONTACT_EMAIL } from "../lib/contact";
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
@@ -49,8 +50,8 @@ const FOOTER_CONTACT = [
     get label() {
     return tr("E-poçt");
   },
-    value: "info@futgrid.az",
-    href: "mailto:info@futgrid.az",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
   },
   {
     Icon: MapPin,

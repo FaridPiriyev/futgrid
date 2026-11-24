@@ -803,7 +803,6 @@
   "{turn} xananı oğurladı: {name}!": "{turn} украл клетку: {name}!",
   "{turn}, oğurlama: {name} əvəzinə başqa düzgün oyunçu yaz.": "{turn}, кража: напиши другого подходящего игрока вместо {name}.",
   "{turn}: xana seç": "{turn}: выбери клетку",
-  "{v1} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.": "{v1} Попробуй чуть позже или напиши напрямую на info@futgrid.az.",
   "{v1} seçir": "{v1} выбирает",
   "{winner} qalib gəldi": "Победил {winner}",
   "{winner} qazandı!": "{winner} побеждает!",
@@ -1387,5 +1386,16 @@
   "Onlayn rəqiblə oyna": "Играй с соперником онлайн",
   "Sistem səni hazırda onlayn olan, reytinqi yaxın oyunçu ilə eşləşdirir. Standart qaydalarla oynanılır.": "Мы подберём тебе онлайн-соперника с близким рейтингом. Игра по стандартным правилам.",
   "Rəqib tap": "Найти соперника",
-  "Yeni rəqib": "Новый соперник"
+  "Yeni rəqib": "Новый соперник",
+  "{v1} Bir az sonra yenidən cəhd et və ya birbaşa {email} ünvanına yaz.": "{v1} Попробуй чуть позже или напиши напрямую на {email}.",
+  "Test mərhələsi": "Тестовый режим",
+  "Sayt hələ test rejimindədir": "Сайт ещё в тестовом режиме",
+  "Bəzi oyunlarda xəta (bug) və ya yavaşlıq ola bilər. Gördüyün problemi anketdə yazmağı unutma — hər mesajı oxuyuruq.": "В некоторых играх возможны ошибки или задержки. Не забудь написать о проблеме в анкете — мы читаем каждое сообщение.",
+  "Problemi bildir": "Сообщить о проблеме",
+  "Anladım": "Понятно",
+  "və ya yaz:": "или напиши:",
+  "Test mərhələsi haqqında": "О тестовом режиме",
+  "Həftə": "Неделя",
+  "Ay": "Месяц",
+  "Elo": "Elo"
 }

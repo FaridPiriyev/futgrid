@@ -14,7 +14,6 @@ export const SUAL_KEYFRAMES = `
 @keyframes sqShake { 0%,100% { transform: translateX(0); } 25%,75% { transform: translateX(-6px); } 50% { transform: translateX(6px); } }
 `;
 
-/** Bəli / xeyr / məlum deyil nişanı. */
 export function Mark({ value, size = "h-7 w-7", icon = "h-4 w-4" }) {
   const cls =
     value === true ? "bg-good text-white" : value === false ? "bg-bad text-white" : "bg-line/15 text-muted";
@@ -26,7 +25,6 @@ export function Mark({ value, size = "h-7 w-7", icon = "h-4 w-4" }) {
   );
 }
 
-/** Verilmiş suallar lövhəsi (HTalks üslubunda). */
 export function AnswerBoard({ title, items, used, max, accent = "text-yellow", empty, active = true, compact = false }) {
   return (
     <section
@@ -70,7 +68,6 @@ const GROUP_ICON = {
   numbers: Hash,
 };
 
-/** Sual bankı: qruplar tab şəklində (az sürüşdürmə) + klub/ölkə üzrə öz sualın. */
 export function QuestionBank({ data, asked, onAsk, disabled = false, accent = "border-accent" }) {
   const [tab, setTab] = useState(QUESTION_GROUPS[0].key);
   const group = QUESTION_GROUPS.find((g) => g.key === tab);
@@ -179,7 +176,6 @@ export function QuestionBank({ data, asked, onAsk, disabled = false, accent = "b
   );
 }
 
-/** Gizli futbolçu kartı: oyun gedəndə sual işarəsi, sonda futbolçu. */
 export function SecretCard({ label, sub, tone = "bg-accent" }) {
   return (
     <div className="flex items-center gap-3">

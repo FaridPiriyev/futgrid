@@ -51,7 +51,6 @@ function TextInput({ icon, ...props }) {
   return <input className={`${inputClass} ${icon ? "pl-11" : ""}`} {...props} />;
 }
 
-// Şifrə sahəsi: göz düyməsi ilə yazılanı göstərmək/gizlətmək olur.
 function PasswordInput({ withIcon = true, className = "", ...props }) {
   const [show, setShow] = useState(false);
   return (
@@ -90,7 +89,6 @@ function Notice({ tone = "good", children }) {
   );
 }
 
-/** Google-un rəsmi rəngli "G" loqosu (dizayn qaydalarına uyğun). */
 function GoogleLogo() {
   return (
     <svg viewBox="0 0 48 48" aria-hidden="true" className="h-5 w-5 shrink-0">
@@ -102,7 +100,6 @@ function GoogleLogo() {
   );
 }
 
-/** "Google ilə davam et" — backend-in /auth/google ünvanına yönləndirir, qayıdanda sessiya hazır olur. */
 function GoogleButton() {
   return (
     <>
@@ -537,12 +534,10 @@ export default function Account() {
     };
   }, [token]);
 
-  // Google-dan qayıdış: uğurludursa sessiyanı yeniləyirik, xətadırsa səbəbini göstəririk.
   useEffect(() => {
     if (!oauth) return;
     if (oauth === "ok") void refresh();
     else setNotice(OAUTH_ERRORS[oauthReason] ?? tr("Google ilə giriş alınmadı. Yenidən cəhd et."));
-    // Parametrləri ünvandan silirik ki, səhifə yenilənəndə təkrar işləməsin.
     setParams(
       (current) => {
         const next = new URLSearchParams(current);
@@ -567,7 +562,6 @@ export default function Account() {
         className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--fg-accent)_16%,transparent),transparent)]"
       />
       <div className="relative mx-auto grid w-full max-w-275 overflow-hidden rounded-[22px] border border-line/10 bg-surface shadow-[0_40px_80px_-50px_var(--fg-shadow)] lg:grid-cols-[1fr_1.05fr]">
-        {/* Sol panel: şəkil və üstünlüklər (telefonda qısa zolaq kimi) */}
         <aside className="relative isolate overflow-hidden bg-navy text-white">
           <img
             src={heroPhoto}
@@ -607,7 +601,6 @@ export default function Account() {
           </div>
         </aside>
 
-        {/* Sağ panel: forma */}
         <section className="p-6 sm:p-8 lg:p-11">
           {notice ? (
             <div className="mb-5">

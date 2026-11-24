@@ -3,10 +3,6 @@ export const MAX_WRONG = 3;
 import { clubFameTier } from "./fame";
 import { tr } from "../../i18n";
 
-// Səviyyələr tanınmışlıq reytinqinə görə ayrı zolaqlardır:
-// asan — futbola baxanların demək olar hamısının tanıdığı ulduzlar,
-// orta — azarkeşlərin bildiyi tanınmış oyunçular,
-// çətin — futbolu yaxından izləyənlərin bildiyi oyunçular.
 export const TIERS = {
   easy: { minPeak: 40e6, from: 0, to: 100 },
   normal: { minPeak: 15e6, from: 50, to: 450 },
@@ -35,8 +31,6 @@ export const pathKey = (data, p) => pathIds(data, p).join(">");
 
 const time = (d) => (d ? Date.parse(d) : NaN);
 
-// Stintləri xronoloji sıraya qoyur və eyni klubun ardıcıl stintlərini birləşdirir
-// (məs. Groningen gənclər 1996–2000 + əsas komanda 2000–2002).
 function stintRuns(p) {
   const list = (p.club_stints ?? [])
     .filter((s) => s.club_id != null && !Number.isNaN(time(s.from)))
@@ -50,9 +44,6 @@ function stintRuns(p) {
   return runs;
 }
 
-// Klub ardıcıllığı (pathIds) dəyişmir — ranked yoxlaması onunla işləyir. Yalnız illər
-// stintlərə ardıcıl (LCS) uyğunlaşdırılır: hər addım özündən əvvəlkindən geri getmir.
-// Uyğun stint tapılmayan addımda il göstərilmir (səhv il göstərməkdənsə).
 function alignYears(ids, runs) {
   const n = ids.length;
   const m = runs.length;
@@ -80,7 +71,6 @@ function alignYears(ids, runs) {
 export function careerPath(data, p) {
   const ids = pathIds(data, p);
   const spans = alignYears(ids, stintRuns(p));
-  // Ortada bitmə tarixi olmayan stint "indi" deyil — növbəti klubun başlanğıcına qədərdir.
   spans.forEach((s, k) => {
     if (!s || year(s.to)) return;
     const next = spans.slice(k + 1).find(Boolean);
@@ -97,7 +87,6 @@ export function careerPath(data, p) {
   });
 }
 
-// Tanınmışlıq: pik bazar dəyəri əsasdır, böyük kuboklar, millidəki oyunlar və böyük klublar əlavə xal verir.
 function recognition(data, p) {
   let t = 0;
   for (const x of p.trophies ?? []) t += (RECOGNITION_TROPHY[x.id] ?? 0) * Math.min(x.count ?? 1, 3);

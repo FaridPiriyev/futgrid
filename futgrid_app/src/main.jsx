@@ -6,7 +6,6 @@ import { readTheme } from './components/ThemeToggle.jsx'
 import favicon from './assets/icons/favicon-32.png'
 import appleIcon from './assets/icons/apple-touch-icon.png'
 
-// Tema ilk renderdən əvvəl tətbiq olunur ki, açıq rəng bir anlıq yanıb-sönməsin.
 document.documentElement.dataset.theme = readTheme()
 
 for (const old of document.head.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')) old.remove()
@@ -31,8 +30,6 @@ if (!document.head.querySelector('meta[name="theme-color"]')) {
 const FONTS =
   'https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;600;700;800;900&family=Roboto:wght@400;500;700&family=Tektur:wght@500;600;700&display=swap'
 
-// index.html-də şrift linki varsa, amma içində Tektur yoxdursa, Tektur heç yüklənmirdi.
-// İndi yalnız Tektur daxil olan link tapılanda təkrar yükləmirik.
 if (!document.querySelector('link[href^="https://fonts.googleapis.com/css2"][href*="Tektur"]')) {
   for (const [rel, href, cors] of [
     ['preconnect', 'https://fonts.googleapis.com'],

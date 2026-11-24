@@ -132,7 +132,6 @@ function Match({ duel, data }) {
     return res;
   };
 
-  // Son hadisədən mesaj (eyni ekrandakı kimi qısa müddət görünür).
   const e = state.lastEvent;
   const fresh = e && now - (e.at ?? 0) < 2400;
   let message = error ? { bad: true, text: error } : null;

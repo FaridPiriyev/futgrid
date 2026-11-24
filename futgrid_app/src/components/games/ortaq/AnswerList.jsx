@@ -11,8 +11,6 @@ const initials = (name) =>
     .join("")
     .toUpperCase();
 
-// Oyunçu çipi: adı uzun olanda kəsilir, üstünə gələndə (və ya toxunanda)
-// böyüdülmüş şəkil və tam ad olan kart animasiya ilə açılır.
 export function PlayerChip({ player, highlight = "" }) {
   const [broken, setBroken] = useState(false);
   const hasPhoto = player.photo_url && !broken;

@@ -603,7 +603,6 @@ model UserRating {
   wins      Int      @default(0)
   losses    Int      @default(0)
   draws     Int      @default(0)
-  /// Ən yüksək çatdığı reytinq (profil üçün).
   peak      Float    @default(1000)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -640,9 +639,7 @@ model DuelMatch {
   score       Json?
   durationMs  Int?     @map("duration_ms")
   endedReason String   @map("ended_reason")
-  /// Elo reytinqinə təsir edibmi (qonaq, çox qısa oyun və ya eyni rəqiblə limit — yox).
   rated       Boolean  @default(false)
-  /// { reason?, players: { [userId]: { seat, before, after, delta, overallBefore, overallAfter, overallDelta } } }
   ratingChanges Json?  @map("rating_changes")
   createdAt   DateTime @default(now()) @map("created_at")
 

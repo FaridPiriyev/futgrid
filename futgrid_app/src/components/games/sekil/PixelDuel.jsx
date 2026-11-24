@@ -181,7 +181,6 @@ function Match({ duel, data }) {
     if (res?.error) setError(duelErrorText(res.error.code));
   };
 
-  // Masaüstündə boşluq, A və ya L ilə də "bilirəm" demək olar.
   const buzzRef = useRef(null);
   buzzRef.current = canBuzz ? () => void send({ action: "buzz" }) : null;
   useEffect(() => {

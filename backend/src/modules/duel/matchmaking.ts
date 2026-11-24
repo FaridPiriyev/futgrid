@@ -1,9 +1,3 @@
-// Təsadüfi rəqib axtarışı (matchmaking).
-//
-// Oyunçu "Rəqib tap" basanda növbəyə düşür (Redis hash: mm:q:<oyun>). Hər bir neçə saniyədən bir
-// növbə yoxlanılır və reytinqi yaxın olan iki oyunçu bir otağa salınır. Gözləmə uzandıqca icazə
-// verilən Elo fərqi genişlənir — heç kim uzun müddət tək qalmasın.
-
 export interface QueueEntry {
   id: string;
   socketId: string;
@@ -14,20 +8,16 @@ export interface QueueEntry {
   username?: string;
   displayName?: string | null;
   avatarUrl?: string | null;
-  /** Bayaq oynadığı rəqib — dərhal yenə eyni adama düşməsin. */
   avoid?: string | null;
 }
 
-/** Başlanğıcda ±150 Elo, hər saniyə +30, 40 saniyədən sonra fərq nəzərə alınmır. */
 export function ratingWindow(waitMs: number): number {
   const seconds = Math.max(0, waitMs) / 1000;
   if (seconds >= 40) return Number.POSITIVE_INFINITY;
   return 150 + 30 * Math.floor(seconds);
 }
 
-/** Qonaq ilə hesablı oyunçu yalnız bu qədər gözləyəndən sonra birləşir (reytinqsiz oyun olur). */
 export const MIXED_AFTER_MS = 10_000;
-/** Eyni rəqiblə təkrar düşməmək üçün gözləmə. Hər ikisi bundan çox gözləsə, icazə var. */
 export const AVOID_AFTER_MS = 20_000;
 
 export function compatible(a: QueueEntry, b: QueueEntry, now: number): boolean {
@@ -39,7 +29,6 @@ export function compatible(a: QueueEntry, b: QueueEntry, now: number): boolean {
   return Math.abs(a.rating - b.rating) <= ratingWindow(wait);
 }
 
-/** Ən çox gözləyəndən başlayaraq hər kəsə reytinqcə ən yaxın uyğun rəqibi tapır. */
 export function findPairs(entries: QueueEntry[], now: number): [QueueEntry, QueueEntry][] {
   const queue = [...entries].sort((x, y) => x.joinedAt - y.joinedAt);
   const used = new Set<string>();
@@ -62,8 +51,6 @@ export function findPairs(entries: QueueEntry[], now: number): [QueueEntry, Queu
 
 export const queueKey = (game: string) => `mm:q:${game}`;
 export const queueLockKey = (game: string) => `mm:lock:${game}`;
-/** İstifadəçi hansı oyunun növbəsindədir (bir anda yalnız bir növbə). */
 export const whereKey = (id: string) => `mm:where:${id}`;
 export const recentKey = (id: string) => `mm:recent:${id}`;
-/** Növbəsi boş olmayan oyunlar. */
 export const ACTIVE_QUEUES_KEY = "mm:games";

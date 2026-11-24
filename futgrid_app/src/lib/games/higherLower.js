@@ -14,9 +14,7 @@ export const METRIC = {
 };
 
 export const POOL_SIZE = { easy: 200, normal: 450, hard: 5000 };
-// Hovuza düşmək üçün minimum cari dəyər (€) — ucuz veteranlar oyunu sönükləşdirməsin.
 const MIN_VALUE = { easy: 20e6, normal: 8e6, hard: 1e6 };
-// Ən bahalı oyunçular hər səviyyədə hovuzda olur.
 const TOP_BY_VALUE = { easy: 250, normal: 400, hard: 800 };
 
 export function buildPool(data, difficulty) {
@@ -40,7 +38,6 @@ export function buildPool(data, difficulty) {
   return pool.length >= 2 ? pool : valued.sort(byFame).slice(0, size);
 }
 
-// Bahalı oyunçular daha tez-tez çıxsın: çəki dəyərlə artır.
 const weightOf = (p) => Math.pow(Math.max(1, METRIC.get(p) / 1e6), 0.7);
 
 function weightedPick(list, random) {
@@ -63,7 +60,6 @@ function band(streak) {
 
 export function pickChallenger(pool, a, streak, recent, random) {
   const va = METRIC.get(a);
-  // Ucuz oyunçudan sonra yuxarı "sıçrayış" üçün aralığı genişləndir.
   const k = va < 15e6 ? Math.max(band(streak), 8) : band(streak);
   const ok = (b) => {
     if (!b || b.id === a.id || recent.has(b.id)) return false;
@@ -107,8 +103,6 @@ export function saveBest(difficulty, value) {
   } catch {}
 }
 
-// "Rəqəm" rejimi: bir oyunçu və bir məbləğ — dəyəri bundan çoxdur, azdır, yoxsa bərabər?
-// Məbləğ Transfermarkt-ın adətən istifadə etdiyi yuvarlaq pillələrdən seçilir.
 const LADDER = [
   0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2, 1.5, 1.8, 2, 2.5, 3, 3.5,
   4, 4.5, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 20, 22, 25, 28, 30, 32, 35, 38, 40, 45, 50, 55, 60,
@@ -117,7 +111,6 @@ const LADDER = [
 
 export function pickLine(player, random) {
   const v = METRIC.get(player);
-  // Təxminən hər 4 sualdan biri dəqiq dəyərin özüdür ("bərabər").
   if (random() < 0.25) return v;
   let i = LADDER.findIndex((x) => x >= v);
   if (i < 0) i = LADDER.length - 1;

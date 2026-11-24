@@ -20,15 +20,12 @@ export function seedFrom(text) {
   return h >>> 0;
 }
 
-// Gündəlik oyunlar Bakı vaxtı ilə 00:00-da yenilənir (backend-dəki bakuDateKey ilə eyni hesab).
 const BAKU_OFFSET_MS = 4 * 60 * 60 * 1000;
 export const todayKey = (date = new Date()) =>
   new Date(date.getTime() + BAKU_OFFSET_MS).toISOString().slice(0, 10);
 
-// Brauzerlərin çoxunda Azərbaycan dili üçün ay adları yoxdur ("M11 22" çıxır), ona görə əl ilə yazırıq.
 const AZ_MONTHS = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avqust", "sentyabr", "oktyabr", "noyabr", "dekabr"];
 const LOCALE = { en: "en-GB", ru: "ru-RU" };
-// "2026-11-22" → "22 noyabr" (dil seçiminə görə)
 export function todayLabel(date = new Date()) {
   const key = todayKey(date);
   const [, month, day] = key.split("-").map(Number);

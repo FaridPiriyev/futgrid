@@ -15,7 +15,6 @@ export const DUEL_BTN = `inline-flex h-11 items-center justify-center gap-2 roun
 export const DUEL_BTN_MAIN = `${DUEL_BTN} bg-accent-lo text-white enabled:hover:bg-accent`;
 export const DUEL_BTN_LINE = `${DUEL_BTN} border border-line/20 text-ink enabled:hover:border-accent enabled:hover:text-accent`;
 
-/** Mənim rəngim mavi, rəqibinki sarı. */
 export const TONE = {
   me: { text: "text-accent", bg: "bg-accent-lo", soft: "bg-accent/12", border: "border-accent/60", c: "var(--fg-accent)" },
   them: { text: "text-yellow", bg: "bg-yellow", soft: "bg-yellow/15", border: "border-yellow/70", c: "var(--fg-yellow)" },
@@ -23,12 +22,10 @@ export const TONE = {
 export const toneOf = (duel, seat) => (seat === duel.myId ? TONE.me : TONE.them);
 export const nameOf = (player) => {
   if (!player) return tr("Rəqib");
-  // Qonaq adları serverdə azərbaycanca yaranır ("Qonaq 1A2B") — interfeys dilinə çeviririk.
   if (player.guest && /^Qonaq [0-9A-F]{4}$/.test(player.name ?? "")) return `${tr("Qonaq")} ${player.name.slice(6)}`;
   return player.displayName || player.name || tr("Rəqib");
 };
 
-/** Hər `ms`-də yenilənən saat (server vaxtı ilə). */
 export function useDuelClock(duel, active = true, ms = 200) {
   const [, setTick] = useState(0);
   useEffect(() => {
@@ -62,7 +59,6 @@ function PlayerCard({ duel, player, score, active, now, mark, align }) {
         align === "right" ? "flex-row-reverse text-right" : ""
       } ${active ? `${tone.border} ${tone.soft} animate-[duelPulse_1.6s_ease-in-out_infinite]` : "border-line/10 bg-surface"}`}
     >
-      {/* Telefonda xal olan oyunlarda ad üçün yer açırıq — avatar yalnız böyük ekranda. */}
       <div className={`relative shrink-0 ${score != null ? "hidden sm:block" : ""}`}>
         <DuelAvatar player={player} tone={tone} size="h-9 w-9 sm:h-11 sm:w-11" />
         {mark ? (
@@ -97,7 +93,6 @@ function PlayerCard({ duel, player, score, active, now, mark, align }) {
   );
 }
 
-/** Taymer zolağı: deadline — server vaxtı ilə (ms). */
 export function TimerBar({ deadline, total, now, className = "" }) {
   if (!deadline || !total) return <div className={`h-1.5 ${className}`} />;
   const left = Math.max(0, deadline - now);
@@ -113,10 +108,6 @@ export function TimerBar({ deadline, total, now, className = "" }) {
   );
 }
 
-/**
- * Hesab tablosu: iki oyunçu, xal, kimin növbəsidir, taymer.
- * `turn` — növbəsi olan oyunçunun seat ID-si (eyni vaxtda oynananlarda null).
- */
 export function DuelScoreboard({ duel, scores, turn = null, deadline = null, total = null, label, sub, marks = {}, now }) {
   const me = duel.me;
   const them = duel.opponent;
@@ -141,7 +132,6 @@ export function DuelScoreboard({ duel, scores, turn = null, deadline = null, tot
   );
 }
 
-/** Xəta mesajı yalnız həmin addımda görünsün: növbə/raund/hadisə dəyişən kimi özü itir. */
 export const stepKeyOf = (state) => `${state?.round ?? state?.index ?? state?.lotNo ?? 0}-${state?.turn ?? ""}-${state?.lastEvent?.at ?? 0}`;
 
 export function useStepFeedback(stepKey) {
@@ -150,14 +140,12 @@ export function useStepFeedback(stepKey) {
   return [value.key === stepKey ? value.text : "", set];
 }
 
-/** Son hadisəni (səhv cavab, vaxt bitdi və s.) bir neçə saniyə göstərir. */
 export function EventToast({ event, describe }) {
   const [shown, setShown] = useState(null);
   const lastAt = useRef(undefined);
   useEffect(() => {
     const at = event?.at ?? null;
     if (lastAt.current === undefined) {
-      // Komponent açılanda olan (köhnə) hadisəni göstərmirik, yalnız sonrakıları.
       lastAt.current = at;
       return;
     }
@@ -198,7 +186,6 @@ const UNRATED = {
   no_result: () => tr("Bu oyun reytinqə təsir etmədi."),
 };
 
-/** Duel sonunda Elo dəyişikliyi (şahmat sistemi). */
 function EloLine({ duel }) {
   const rating = duel.rating;
   if (duel.me?.guest) {
@@ -229,10 +216,8 @@ function EloLine({ duel }) {
   );
 }
 
-/** Oyun bitəndə: nəticə, revanş və çıxış. */
 export function DuelFinished({ duel, detail }) {
   const room = duel.room;
-  // 3–4 nəfərlik auksionda oyundan çıxan olarsa konkret qalib yoxdur: çıxan uduzur, qalanlar qazanır.
   const quit = Boolean(REASON[room.endedReason]) && !room.winnerId && Boolean(room.loserId);
   const lostAlone = quit && room.loserId === duel.myId;
   const won = (Boolean(room.winnerId) && room.winnerId === duel.myId) || (quit && !lostAlone);
@@ -289,7 +274,6 @@ export function DuelFinished({ duel, detail }) {
   );
 }
 
-/** Oyun ekranının altındakı kiçik keçidlər. */
 export function DuelFooter({ duel, onSettings }) {
   return (
     <div className={`flex flex-wrap items-center justify-center gap-4 pt-1 ${FONT} text-xs uppercase tracking-wider text-muted`}>

@@ -1,20 +1,8 @@
-// Şahmat (FIDE) tipli Elo reytinqi.
-//
-// - Hər kəs 1000 ilə başlayır.
-// - Gözlənilən nəticə: E = 1 / (1 + 10^((Rrəqib − Rsən) / 400)).
-//   Güclü rəqibi udmaq çox, zəif rəqibi udmaq az xal verir. Zəifə uduzmaq çox xal aparır.
-// - Dəyişiklik: Δ = K × (S − E). S: qələbə 1, heç-heçə 0.5, məğlubiyyət 0.
-// - K faktoru: ilk 20 oyunda 40 (reytinq tez yerinə otursun), sonra 20, 1800-dən yuxarı 10.
-// - Çox oyunçulu oyunda (auksion, 3–4 nəfər) hər cütlük ayrıca hesablanır və K rəqib sayına bölünür.
-
 export const ELO_START = 1000;
 export const ELO_FLOOR = 100;
 export const OVERALL_GAME = "overall";
-/** Reytinq cədvəlində görünmək üçün minimum reytinqli oyun sayı. */
 export const ELO_MIN_GAMES = 5;
-/** Eyni iki oyunçu 24 saatda ən çox neçə reytinqli oyun oynaya bilər (xal "yığmağın" qarşısı). */
 export const PAIR_DAILY_LIMIT = 6;
-/** Bu müddətdən qısa təslim/çıxış oyunları reytinqə təsir etmir. */
 export const MIN_RATED_QUIT_MS = 15_000;
 
 export const QUIT_REASONS = new Set(["surrender", "left", "disconnect"]);
@@ -35,14 +23,12 @@ export interface EloPlayer {
   games: number;
 }
 
-/** a-nın b-yə qarşı nəticəsi: 1 qələbə, 0.5 heç-heçə, 0 məğlubiyyət. */
 export interface PairResult {
   a: string;
   b: string;
   scoreA: number;
 }
 
-/** Hər oyunçunun reytinq dəyişikliyi (tam ədəd). */
 export function computeElo(players: EloPlayer[], pairs: PairResult[]): Map<string, number> {
   const byId = new Map(players.map((player) => [player.id, player]));
   const opponents = new Map<string, number>();
@@ -67,7 +53,6 @@ export function computeElo(players: EloPlayer[], pairs: PairResult[]): Map<strin
   const deltas = new Map<string, number>();
   for (const [id, value] of raw) {
     let delta = Math.round(value);
-    // Qalib heç vaxt 0 almasın, məğlub heç vaxt 0 itirməsin (çox zəif rəqib olsa belə ±1).
     const net = outcome.get(id) ?? 0;
     if (net > 0 && delta < 1) delta = 1;
     if (net < 0 && delta > -1) delta = -1;
@@ -84,11 +69,6 @@ export interface OutcomePlayer {
   guest: boolean;
 }
 
-/**
- * Bitmiş otaqdan cütlük nəticələri (seat-lərlə).
- * - 2 oyunçu: qalib/məğlub və ya heç-heçə.
- * - 3–4 oyunçu (auksion): oyundan çıxan hamıya uduzur; normal bitəndə komanda gücləri müqayisə olunur.
- */
 export function pairResults(input: {
   players: OutcomePlayer[];
   winnerSeat: string | null;

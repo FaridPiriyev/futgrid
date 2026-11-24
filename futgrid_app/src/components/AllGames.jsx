@@ -27,7 +27,7 @@ import { tr } from "../i18n";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
-const BACKGROUND = "/images/background_games.jpg";
+const BACKGROUND = "/images/background_games.webp";
 
 const STYLE = `
 @keyframes agIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
@@ -51,7 +51,6 @@ const FILTERS = [
 
 const COVER_ICONS = { wordle: Type, karyera: Route, heyet: Shirt, besklub: Link2, sirala: ListOrdered, piramida: Triangle, goat: Crown, ikiherf: Keyboard, sual: HelpCircle, sekil: Grid3x3 };
 
-// "Tək oyunçu" və "2 oyunçu" teqləri kartda artıq rejim çipi kimi göstərilir, təkrarlanmasın.
 const isModeTag = (tag) => tag === tr("Tək oyunçu") || tag === tr("2 oyunçu");
 
 function Cover({ game }) {
@@ -114,14 +113,14 @@ function GameCard({ game, index }) {
     >
       <Link
         to={game.href}
-        className="group/tile flex h-full overflow-hidden rounded-2xl border border-line/10 bg-surface transition-[translate,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] sm:flex-col"
+        className="group/tile flex h-full flex-col overflow-hidden rounded-xl border border-line/10 bg-surface transition-[translate,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_24px_48px_-28px_color-mix(in_srgb,var(--fg-accent)_70%,transparent)] sm:rounded-2xl"
       >
         <div
           data-theme="dark"
-          className="relative w-28 shrink-0 overflow-hidden bg-surface-2 sm:aspect-16/10 sm:w-auto"
+          className="relative aspect-16/10 w-full shrink-0 overflow-hidden bg-surface-2"
         >
           <Cover game={game} />
-          <div className="absolute inset-0 hidden bg-linear-to-t from-black/55 via-transparent to-transparent sm:block" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-transparent" />
           {(game.isNew || soon) && (
             <span
               className={`absolute left-2 top-2 z-10 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 ${FONT} text-[10px] font-bold uppercase tracking-wider sm:left-3 sm:top-3 sm:px-2 sm:text-[11px] ${
@@ -140,19 +139,19 @@ function GameCard({ game, index }) {
           </span>
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col gap-2 p-3.5 sm:gap-2.5 sm:p-5">
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5 p-3 sm:gap-2.5 sm:p-5">
           <p
-            className={`truncate ${FONT} text-[11px] font-bold uppercase tracking-[0.16em] text-accent sm:text-xs`}
+            className={`truncate ${FONT} text-[10px] font-bold uppercase tracking-[0.12em] text-accent sm:text-xs sm:tracking-[0.16em]`}
           >
             {game.genre}
           </p>
           <h2
-            className={`${FONT} text-lg font-bold uppercase leading-tight text-ink sm:text-[22px]`}
+            className={`${FONT} text-[15px] font-bold uppercase leading-tight text-ink sm:text-[22px]`}
           >
             {game.title}
           </h2>
           <p
-            className={`line-clamp-2 ${BODY} text-[13px] leading-relaxed text-muted sm:line-clamp-3 sm:text-[15px]`}
+            className={`hidden ${BODY} text-[15px] leading-relaxed text-muted sm:line-clamp-3`}
           >
             {game.description}
           </p>
@@ -190,7 +189,6 @@ function Header({ total }) {
         style={{ backgroundImage: `url(${BACKGROUND})` }}
       />
       <div aria-hidden="true" className="absolute inset-0 bg-page/80 light:bg-page/90" />
-      {/* Yuxarı hissə tünd qalır ki, menyunun loqo qalxanı fonla qarışmasın */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-linear-to-b from-page from-30% via-page/80 to-transparent"
@@ -334,7 +332,7 @@ export default function AllGames() {
           {list.length ? (
             <ul
               key={`${filter}-${q}`}
-              className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 md:mt-8 lg:grid-cols-3"
+              className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:mt-8 lg:grid-cols-3"
             >
               {list.map((g, i) => (
                 <GameCard key={g.key} game={g} index={i} />

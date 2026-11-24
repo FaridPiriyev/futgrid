@@ -1,15 +1,3 @@
-/*
- * Bütün oyunçu şəkillərini bir səhifədə göstərir ki, səhvləri tez tapasan.
- *
- * futgrid_app qovluğunda:
- *   node scripts/photo-sheet.mjs
- *   node scripts/photo-sheet.mjs --unverified   → yalnız avtomatik yoxlana bilməyən şəkillər
- *                                                 (əvvəlcə photos-add.mjs işlədilməlidir)
- * Sonra data-raw/photo-sheet.html faylını brauzerdə aç (iki dəfə klik).
- *
- * Səhv şəklin üstünə klik et → qırmızı olur. Bitəndə "Siyahını kopyala" bas
- * və src/data/bad-photos.txt faylına yapışdır. Seçimlər brauzerdə yadda qalır.
- */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const players = JSON.parse(await readFile("public/data/players.json", "utf8"));

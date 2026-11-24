@@ -1,8 +1,3 @@
-// src/data/legends.json-dakı əfsanələri birbaşa public/data/players.json-a yazır.
-// data-raw (Transfermarkt) lazım deyil — tam build-players işlətmədən yeni
-// əfsanə əlavə etmək üçündür. Təkrar işlətmək təhlükəsizdir.
-//
-//   cd futgrid_app && node scripts/apply-legends.mjs
 import fs from "node:fs";
 
 const read = (f) => JSON.parse(fs.readFileSync(f, "utf8"));
@@ -57,13 +52,11 @@ for (const L of legends) {
     `${norm(L.name)}|${L.birth_date?.slice(0, 4) ?? ""}`,
   );
   if (found) {
-    // Transfermarkt-dan gələn oyunçu: kubokları və klubları birləşdir
     const tro = new Map((found.trophies ?? []).map((t) => [t.id, t.count]));
     for (const t of L.trophies ?? [])
       tro.set(t.id, Math.max(tro.get(t.id) ?? 0, t.count));
     if (tro.size)
       found.trophies = [...tro].map(([id, count]) => ({ id, count }));
-    // Karyera Transfermarkt-dan daha dəqiqdir (club_stints da var) — yalnız boşdursa doldur
     if (!found.club_history?.length) found.club_history = hist(L);
     if (!found.is_active && L.retired_year) found.retired_year = L.retired_year;
     merged++;

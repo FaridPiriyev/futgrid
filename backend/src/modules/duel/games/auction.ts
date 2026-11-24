@@ -9,9 +9,6 @@ import type { Room } from "../store.js";
 import { pickClue } from "../auctionClues.js";
 import { asObject, event, oneOf, otherSeat, seats, type Ctx, type GameModule } from "./common.js";
 
-// Açıq artırma — frontend-dəki futgrid_app/src/lib/games/auction.js qaydaları ilə eyni:
-// pul "yarım manat" ilə saxlanılır (2 = 1 ₼), büdcə 20 ₼, heyət 5 oyunçu (formasiyanı otağı quran seçir).
-// Hər lotu növbə ilə bir oyunçu ən azı 1 ₼-a açır; rəqib ya artırır, ya keçir — keçsə oyunçu təklif verənə gedir.
 export const BUDGET = 40;
 export const MIN_BID = 2;
 const SOLD_MS = 2_500;
@@ -109,7 +106,6 @@ function canBid(state: Record<string, any>, seat: string): boolean {
 }
 
 function random(room: Room, salt = 0) {
-  // Hər lot üçün ayrıca, otağın seed-indən asılı təsadüfi ədəd.
   return seeded((room.seed + (room.state.lotNo ?? 0) * 7_368_787 + salt) >>> 0);
 }
 
@@ -120,7 +116,6 @@ function pickLot(room: Room, data: GameData) {
   const teams = state.teams as Record<string, Team>;
   const used = new Set<number>(state.used);
   const rnd = random(room);
-  // Hər iki komandada boş yeri olan mövqelər üstündür — onda lot həqiqi hərraca çıxır.
   const weightsFor = (list: string[]) => {
     const weights: Record<string, number> = {};
     for (const pos of POS_ORDER) {
@@ -243,7 +238,6 @@ function finishAuction(room: Room, ctx: Ctx) {
     seats(room).map((seat) => [seat, teamStrength(ctx.data, state.teams[seat])]),
   );
   state.strength = strength;
-  // 2–4 oyunçu: ən güclü komanda qalibdir; birinci yeri bölüşən varsa heç-heçə.
   const ranked = seats(room)
     .map((seat) => ({ seat, total: strength[seat]!.total }))
     .sort((x, y) => y.total - x.total);
@@ -290,12 +284,10 @@ function openLot(room: Room, ctx: Ctx) {
   state.phase = "bid";
   state.outcome = null;
   state.deadline = ctx.now + actionMs(room);
-  // Bu mövqedə yalnız bir komandanın yeri qalıbsa, oyunçu ona minimum qiymətə gedir.
   if (takers.length === 1) {
     assign(room, ctx, opener, Math.min(MIN_BID, (teams[opener] as Team).money), { auto: true });
     return;
   }
-  // Açanın 1 ₼-ı yoxdursa, qalan pulu (0 da ola bilər) avtomatik təklif olunur.
   if ((teams[opener] as Team).money < MIN_BID)
     openWith(room, ctx, opener, (teams[opener] as Team).money);
 }
@@ -321,7 +313,6 @@ function close(room: Room, ctx: Ctx) {
   assign(room, ctx, lot.leader, lot.price);
 }
 
-/** Gizli rejimdə satış bitənə qədər oyunçunun kim olduğu (və reytinqi) göndərilmir. */
 function lotView(room: Room) {
   const lot = room.state.lot as Lot | null;
   if (!lot) return null;
@@ -377,7 +368,6 @@ export const auction: GameModule = {
     lot.history.unshift({ seat, amount });
     state.lastEvent = event(ctx, "bid", seat, { amount });
     state.deadline = ctx.now + actionMs(room);
-    // Rəqib artıq təklif verə bilmirsə (pulu çatmır), lot dərhal satılır.
     if (!seats(room).some((entry) => canBid(state, entry))) close(room, ctx);
     return null;
   },
@@ -391,7 +381,6 @@ export const auction: GameModule = {
     const lot = state.lot as Lot | null;
     if (state.phase !== "bid" || !lot) return;
     if (!lot.leader) {
-      // Açan vaxtında təklif verməsə, onun adından minimum 1 ₼ təklif olunur.
       const cash = (state.teams[lot.opener] as Team).money;
       openWith(room, ctx, lot.opener, Math.min(MIN_BID, cash));
       state.lastEvent = event(ctx, "auto_open", lot.opener, { amount: lot.price });

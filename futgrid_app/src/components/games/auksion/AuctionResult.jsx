@@ -155,7 +155,6 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
 }
 
 export default function AuctionResult(props) {
-  // Sərbəst rejimdə də sonda sistem hər oyunçuya reytinq verir və qalibi müəyyən edir.
   return <RatedResult {...props} />;
 }
 

@@ -12,9 +12,6 @@ export const PIXEL_KEYFRAMES = `
 @keyframes pxBuzz { 0%,100% { box-shadow: 0 0 0 0 var(--px-glow); } 50% { box-shadow: 0 0 0 10px transparent; } }
 `;
 
-/**
- * Şəkil + xana örtüyü. order: açılma sırası, opened: neçə xana açılıb, all: hamısını aç.
- */
 export default function PixelBoard({ player, size, order, opened, all = false, onReady, onBroken, className = "" }) {
   const { cols, rows } = GRIDS[size] ?? GRIDS[16];
   const [state, setState] = useState("loading");

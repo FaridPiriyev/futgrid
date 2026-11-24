@@ -803,7 +803,6 @@
   "{turn} xananı oğurladı: {name}!": "{turn} stole the cell: {name}!",
   "{turn}, oğurlama: {name} əvəzinə başqa düzgün oyunçu yaz.": "{turn}, steal: type another correct player instead of {name}.",
   "{turn}: xana seç": "{turn}: pick a cell",
-  "{v1} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.": "{v1} Try again a bit later or write directly to info@futgrid.az.",
   "{v1} seçir": "{v1} is picking",
   "{winner} qalib gəldi": "{winner} won",
   "{winner} qazandı!": "{winner} wins!",
@@ -1387,5 +1386,16 @@
   "Onlayn rəqiblə oyna": "Play someone online",
   "Sistem səni hazırda onlayn olan, reytinqi yaxın oyunçu ilə eşləşdirir. Standart qaydalarla oynanılır.": "We'll pair you with an online player close to your rating. Standard rules apply.",
   "Rəqib tap": "Find opponent",
-  "Yeni rəqib": "New opponent"
+  "Yeni rəqib": "New opponent",
+  "{v1} Bir az sonra yenidən cəhd et və ya birbaşa {email} ünvanına yaz.": "{v1} Try again a bit later or write directly to {email}.",
+  "Test mərhələsi": "Testing phase",
+  "Sayt hələ test rejimindədir": "The site is still in testing",
+  "Bəzi oyunlarda xəta (bug) və ya yavaşlıq ola bilər. Gördüyün problemi anketdə yazmağı unutma — hər mesajı oxuyuruq.": "Some games may have bugs or run slowly. Don't forget to report any problem in the form — we read every message.",
+  "Problemi bildir": "Report a problem",
+  "Anladım": "Got it",
+  "və ya yaz:": "or email:",
+  "Test mərhələsi haqqında": "About the testing phase",
+  "Həftə": "Week",
+  "Ay": "Month",
+  "Elo": "Elo"
 }

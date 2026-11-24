@@ -6,8 +6,6 @@ export const POS_ORDER = ["GK", "DF", "MF", "FW"];
 export const TEAM_SIZE = 5;
 export const DEFAULT_FORMATION = { GK: 1, DF: 1, MF: 1, FW: 2 };
 
-// Heyət filteri: hər mövqedən neçə oyunçu (0 = mövqe bağlıdır). Cəm 5 olmalıdır.
-// Sərbəst rejim: mövqe yoxdur, 10 təsadüfi oyunçu gəlir, sonda reytinq göstərilmir.
 export const ANY = "ANY";
 export const FREE_FORMATION = { ANY: TEAM_SIZE };
 export const isFree = (f) => Number(f?.ANY) === TEAM_SIZE;
@@ -24,8 +22,6 @@ const fits = (slot, pos) => slot.pos === pos || slot.pos === ANY;
 
 export const SLOTS = formationSlots(DEFAULT_FORMATION);
 
-// Meydançada yerləşmə: hər mövqe öz xəttində bərabər paylanır,
-// xətdə 4+ oyunçu olanda üst-üstə düşməsinlər deyə pilləli düzülür.
 const LINE_Y = { GK: 86, DF: 64, MF: 41, FW: 16 };
 export function pitchSpots(positions) {
   const total = {};
@@ -40,7 +36,6 @@ export function pitchSpots(positions) {
   });
 }
 export const BUDGET = 40;
-// Pul "yarım manat" vahidi ilə saxlanılır: 2 = 1 ₼. Hər lotun açılış təklifi ən azı 1 ₼-dır.
 export const MIN_BID = 2;
 export const MAX_LOTS = 30;
 export const SOLD_MS = 1700;
@@ -86,7 +81,6 @@ export function buildPool(data, key, { mystery = false } = {}) {
           b.market_value.amount_eur - a.market_value.amount_eur,
       )
       .slice(0, sizes[pos]);
-  // Gizli rejim: oyunçu ipucu ilə seçilir (bax auctionClues.js).
   if (mystery) Object.defineProperty(by, "mystery", { value: data, enumerable: false });
   return by;
 }
@@ -99,12 +93,10 @@ export const newTeam = (formation) => ({
 export const openCount = (team, pos) =>
   team.slots.filter((s) => !s.pick && (!pos || fits(s, pos))).length;
 
-// Meydançada göstərmək üçün yerin real mövqeyi (sərbəst rejimdə oyunçunun öz mövqeyi).
 export const slotPos = (s) => (s.pos === ANY ? s.pick?.player?.position ?? ANY : s.pos);
 
 export const isFull = (team) => openCount(team) === 0;
 
-// Bütün büdcə bir oyunçuya da xərclənə bilər (boş yerlər üçün pul saxlamaq lazım deyil).
 export function maxBid(team) {
   return openCount(team) ? team.money : -1;
 }
@@ -113,8 +105,6 @@ export const otherSide = (side) => (side === "A" ? "B" : "A");
 export const isBroke = (team) => openCount(team) > 0 && team.money <= 0;
 const canBuy = (team) => openCount(team) > 0 && team.money > 0;
 
-// Bir tərəfin pulu bitib, digərinin həm pulu, həm boş yeri var:
-// qalan oyunçuları pulu olan tərəf paylayır (özünə götürür və ya rəqibə verir).
 export function deciderOf(teams) {
   for (const side of SIDE_KEYS) {
     const other = otherSide(side);
@@ -136,7 +126,6 @@ export function decideOptions(state) {
 
 export const nextPrice = (lot) => (lot.leader ? lot.price + 1 : MIN_BID);
 
-// Lotu növbə ilə bir tərəf açır: açan ən azı 1 ₼ təklif etməlidir, o vaxta qədər rəqib gözləyir.
 export function canBid(state, side) {
   const { lot, teams, phase } = state;
   if (phase !== "bid" || !lot) return false;
@@ -146,11 +135,9 @@ export function canBid(state, side) {
   return openCount(team, lot.pos) > 0 && maxBid(team) >= nextPrice(lot);
 }
 
-// Açan təklif verməmişdən keçə bilməz; rəqib isə yalnız təklif olandan sonra keçir.
 export const canPass = (state, side) =>
   state.phase === "bid" && Boolean(state.lot?.leader) && state.lot.leader !== side && !state.lot.passed[side];
 
-// Sürətli düymələr: açılışda 1 · 2 · 4 ₼, sonra +0.5 · +1 · +2 ₼.
 export function bidAmount(lot, inc) {
   return lot.leader ? lot.price + inc : MIN_BID * inc;
 }
@@ -179,7 +166,6 @@ export function botLimit(lot, team, difficulty, random) {
 }
 
 function pickLot(pool, teams, used, random) {
-  // Hər iki komandada boş yeri olan mövqelər üstündür — onda lot həqiqi hərraca çıxır.
   const weightsFor = (sides) => {
     const weights = {};
     const FREE_W = { GK: 1, DF: 3, MF: 3, FW: 3 };
@@ -265,7 +251,6 @@ export function openLot(state, pool, random, now, timerMs) {
   const used = new Set(state.used);
   used.add(info.player.id);
   const takers = SIDE_KEYS.filter((side) => openCount(state.teams[side], info.pos) > 0);
-  // Növbə ilə açan: hər lotda dəyişir.
   const turn = state.nextOpener ?? "A";
   const opener = takers.includes(turn) ? turn : takers[0];
   const lot = {
@@ -288,9 +273,7 @@ export function openLot(state, pool, random, now, timerMs) {
     deadline: now + timerMs,
     lot,
   };
-  // Bu mövqedə yalnız bir komandanın yeri qalıbsa, oyunçu ona minimum qiymətə gedir.
   if (takers.length === 1) return assign(next, opener, Math.min(MIN_BID, state.teams[opener].money), now, { auto: true });
-  // Açanın 1 ₼-ı yoxdursa, onun adından qalan pulu (0 da ola bilər) avtomatik təklif olunur.
   if (state.teams[opener].money < MIN_BID) return openWith(next, opener, state.teams[opener].money, now, timerMs);
   return next;
 }
@@ -327,7 +310,6 @@ export function placeBid(state, side, inc, now, timerMs) {
   return placeBidExact(state, side, bidAmount(state.lot, inc), now, timerMs);
 }
 
-// İstənilən məbləğ (yarım manatla): məs. birbaşa 20 ₼ = 40.
 export function placeBidExact(state, side, amount, now, timerMs) {
   if (!canBid(state, side)) return state;
   const lot = state.lot;
@@ -375,7 +357,6 @@ function assign(state, winner, price, now, extra = {}) {
   };
 }
 
-// Pulu olan tərəfin qərarı: "take" (özünə, başlanğıc qiymətə), "give" (rəqibə, pulsuz), "skip".
 export function decideLot(state, choice, now) {
   const opts = decideOptions(state);
   if (!opts[choice]) return state;
@@ -394,7 +375,6 @@ export function decideLot(state, choice, now) {
   };
 }
 
-// Bot qərar verəndə: güclü oyunçunu özünə götürür, zəifini rəqibə verir.
 export function botDecision(state) {
   const opts = decideOptions(state);
   const { lot } = state;
@@ -445,7 +425,6 @@ export function tick(state, pool, random, now, timerMs) {
   if (state.phase !== "bid" || !state.lot) return state;
   const lot = state.lot;
   if (!lot.leader) {
-    // Açan vaxtında təklif verməsə, onun adından minimum 1 ₼ təklif olunur.
     if (now < state.deadline) return state;
     const cash = state.teams[lot.opener].money;
     return openWith(state, lot.opener, Math.min(MIN_BID, cash), now, timerMs);

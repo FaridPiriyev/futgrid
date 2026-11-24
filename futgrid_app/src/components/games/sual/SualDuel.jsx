@@ -28,7 +28,6 @@ export function sualSummary(settings) {
   ];
 }
 
-/** Serverdəki sual ID-sindən mətn (klub/ölkə sualları da daxil). */
 function questionText(data, id) {
   const fixed = QUESTIONS.get(id);
   if (fixed) return fixed.text;

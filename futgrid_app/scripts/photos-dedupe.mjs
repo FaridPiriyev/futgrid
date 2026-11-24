@@ -1,6 +1,3 @@
-// Eyni şəkil bir neçə oyunçuda varsa (məs. API-Football-un boz siluet şəkli), onları silir.
-//   node scripts/photos-dedupe.mjs --dry   → yalnız göstərir
-//   node scripts/photos-dedupe.mjs         → silir, həmin oyunçularda baş hərflər görünəcək
 import { readFile, writeFile, unlink, access } from "node:fs/promises";
 import { createHash } from "node:crypto";
 

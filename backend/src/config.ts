@@ -42,6 +42,7 @@ const envSchema = z.object({
   DATA_VERSION: z.string().default("v1"),
   RESEND_API_KEY: z.string().optional(),
   EMAIL_FROM: z.string().default("FutGrid <info@futgrid.az>"),
+  CONTACT_TO: z.string().email().default("futgrid.az@gmail.com"),
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
   GOOGLE_REDIRECT_URI: z.string().default("http://localhost:3000/v1/auth/google/callback"),

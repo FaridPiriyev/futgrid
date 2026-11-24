@@ -6,6 +6,7 @@ import { sendMail } from "../../lib/mail.js";
 import { logger } from "../../lib/logger.js";
 import { parseLocale } from "../../lib/i18n.js";
 import { prisma } from "../../lib/prisma.js";
+import { config } from "../../config.js";
 
 export const contactSchema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -33,7 +34,8 @@ export async function submitContact(input: ContactInput, request: FastifyRequest
 
   try {
     await sendMail({
-      to: "info@futgrid.az",
+      to: config.CONTACT_TO,
+      replyTo: input.email,
       subject: `FutGrid contact: ${input.name}`,
       text: `From: ${input.name} <${input.email}>\nLocale: ${locale}\n\n${input.message}`,
       html: `<p><strong>From:</strong> ${input.name} &lt;${input.email}&gt;</p>

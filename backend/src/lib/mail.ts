@@ -9,6 +9,7 @@ interface MailOptions {
   subject: string;
   html: string;
   text: string;
+  replyTo?: string;
 }
 
 const copy = {
@@ -83,6 +84,7 @@ export async function sendMail(options: MailOptions): Promise<void> {
       subject: options.subject,
       html: options.html,
       text: options.text,
+      ...(options.replyTo ? { reply_to: options.replyTo } : {}),
     }),
   });
   if (!response.ok) {

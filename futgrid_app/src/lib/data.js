@@ -40,11 +40,6 @@ export function manualPhoto(slug, name) {
   return manualBySlug.get(slug) ?? manualByName.get(norm(name)) ?? null;
 }
 
-/*
- * Bazar dəyəri düzəlişləri: src/data/market-values.csv faylında "new_m" sütununa
- * yazılan dəyər (milyon €, məs. 45 və ya 3,5) players.json-dakı dəyərin yerinə keçir.
- * Sətirdə id varsa id ilə, yoxdursa adla tapılır. 0 yazsan dəyər sıfırlanır.
- */
 export function parseValueFixes(text) {
   const byId = new Map();
   const byName = new Map();
@@ -87,7 +82,6 @@ function applyValueFix(p) {
   p.market_value = mv;
 }
 
-// src/data/bad-photos.txt: səhv şəkli olan oyunçular (ad və ya slug, hər sətirdə bir).
 const BAD_PHOTOS = new Set(
   String(badPhotosTxt ?? "")
     .split(/\r?\n/)
@@ -107,7 +101,6 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
     else if (BAD_PHOTOS.has(norm(p.slug)) || BAD_PHOTOS.has(norm(p.name)))
       delete p.photo_url;
     p._name = norm(p.name);
-    // "aka": başqa yazılışlar (Qurban Qurbanov ↔ Gurban Gurbanov) — axtarışda da tapılsın
     p._aka = (p.aka ?? []).map(norm).filter(Boolean);
     p._tokens = [...new Set([p._name, ...p._aka].join(" ").split(" "))];
     applyValueFix(p);
@@ -133,7 +126,6 @@ function buildIndex({ clubs, players, trophies, countries, coaches }) {
   };
 }
 
-// Yalnız klublar (loqolar üçün) — ana səhifədəki zolaq bütün datanı gözləmədən istifadə edir.
 let clubsCache = null;
 export function loadClubs() {
   if (!clubsCache)
@@ -193,11 +185,8 @@ export function searchPlayers(data, query, limit = 8) {
 
   for (const p of data.players) {
     if (!words.every((w) => p._tokens.some((t) => t.startsWith(w)))) continue;
-    // Tam ad uyğunluğu həmişə birinci; qalanları tanınmışlığa görə sıralanır ki,
-    // "mes" yazanda Messi az tanınan "Meschack ..."-dan əvvəl çıxsın.
     const mv = p.market_value ?? {};
     const money = Math.max(mv.amount_eur ?? 0, (mv.highest_eur ?? 0) * 0.5);
-    // Əl ilə əlavə olunmuş əfsanələrin (Pelé, Maradona...) bazar dəyəri yoxdur — onlara baza xal veririk.
     const legend = !money && p.is_active === false ? 8 : 0;
     let cups = 0;
     for (const t of p.trophies ?? []) cups += SEARCH_TROPHY[t.id] ?? 0;
@@ -260,10 +249,6 @@ function fullNameIndex(data) {
   return map;
 }
 
-/**
- * Yazılan mətni yalnız futbolçunun TAM adı ilə uyğunlaşdırır (təklif siyahısı olmadan).
- * "messi" və ya "l m" kimi yarımçıq yazı qəbul olunmur; uzun adlarda 1-2 hərflik səhvə icazə var.
- */
 export function findByFullName(data, text) {
   const q = norm(text);
   if (q.length < 3) return [];

@@ -14,8 +14,6 @@ export const BTN_GHOST = `group/btn relative isolate inline-flex items-center ju
 
 const MOBILE = "(max-width: 767px)";
 const TOP_GAP = 76;
-// Telefonda oyun inputuna yazarkən saytın yapışqan menyusu gizlənir (bax index.css: html.fg-typing),
-// ona görə input ekranın lap yuxarısına qədər qalxa bilər.
 const TYPING_GAP = 12;
 const typing = () => document.documentElement.classList.contains("fg-typing");
 const gap = () => (typing() ? TYPING_GAP : TOP_GAP);
@@ -30,7 +28,6 @@ export function useMobileInput(ref) {
     const timers = [];
     const measure = () => {
       if (!mq.matches) {
-        // Masaüstü: aşağıda yer azdırsa siyahı yuxarı açılır, hündürlük ekrana sığır
         const r = el.getBoundingClientRect();
         const below = window.innerHeight - r.bottom - 12;
         const above = r.top - gap();
@@ -66,14 +63,11 @@ export function useMobileInput(ref) {
     };
     const onBlur = () => {
       shown = false;
-      // Başqa inputa keçid zamanı menyu yanıb-sönməsin deyə bir az gözləyirik.
       setTimeout(() => {
         const a = document.activeElement;
         if (!a || !/^(INPUT|TEXTAREA)$/.test(a.tagName)) document.documentElement.classList.remove("fg-typing");
       }, 120);
     };
-    // Yazı zamanı ölçü növbəti kadra qalır: input hadisəsinin içində state dəyişsə,
-    // React onChange-dən əvvəl render edir və ilk yazılan hərf itir.
     let frame = 0;
     const onInput = () => {
       cancelAnimationFrame(frame);

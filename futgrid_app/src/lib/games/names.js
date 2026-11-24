@@ -1,6 +1,5 @@
 import { tr } from "../../i18n";
 
-// Backend oyun ID-ləri → oxunaqlı ad (tarixçə və reytinq üçün).
 const NAMES = {
   overall: () => tr("Bütün duellər"),
   xox: () => tr("Futbol X0X"),
@@ -20,5 +19,4 @@ const NAMES = {
 
 export const gameName = (id) => (NAMES[id] ? NAMES[id]() : id);
 
-/** Duel oyunları (Elo cədvəlindəki filtr üçün). */
 export const DUEL_GAME_IDS = ["xox", "orta", "auction", "higherLower", "twoLetters", "sual", "sekil"];

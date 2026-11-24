@@ -1,19 +1,3 @@
-/*
- * Transfermarkt bazar dəyərlərini toplu yeniləyir.
- *
- * Mənbə: açıq "transfermarkt-datasets" toplusu (github.com/dcaribou/transfermarkt-datasets),
- * Transfermarkt-dan hər həftə yığılır. Bizim oyunçular src/data/player-ids.json-dakı
- * "tm:<transfermarkt id>" açarı ilə tapılır, ona görə ad uyğunsuzluğu problemi olmur.
- *
- * İstifadə (futgrid_app qovluğunda):
- *   node scripts/tm-sync.mjs --dry      → yalnız hesabat, heç nə yazmır
- *   node scripts/tm-sync.mjs            → players.json fayllarını yeniləyir
- *   node scripts/tm-sync.mjs --file players.csv.gz [--valuations player_valuations.csv.gz]
- *                                        → internetdən yox, əl ilə endirilmiş fayldan oxuyur
- *
- * Yazılan fayllar: public/data/players.json və (varsa) ../packages/game-core/data/players.json
- * src/data/market-values.csv-dəki "new_m" düzəlişləri saytda yenə bunların üstündən keçir.
- */
 import { readFile, writeFile, access } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
 
@@ -48,7 +32,6 @@ async function loadText(source) {
   return buf.toString("utf8").replace(/^﻿/, "");
 }
 
-// Dırnaqlı sahələri (vergüllü adlar və s.) düzgün oxuyan sadə CSV oxuyucu.
 function* csvRows(text) {
   let row = [];
   let field = "";
@@ -165,7 +148,6 @@ async function main() {
       continue;
     }
     const old = p.market_value ?? {};
-    // Əl ilə daha yeni tarixlə yazılmış dəyəri köhnə məlumatla əvəz etmirik.
     if (t.date && old.updated_at && old.updated_at > t.date) {
       ourNewer++;
       continue;

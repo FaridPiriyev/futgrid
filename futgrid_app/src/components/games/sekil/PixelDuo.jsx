@@ -12,7 +12,6 @@ import { tr } from "../../../i18n";
 const ANSWER_TIME = 10;
 const LAST_CALL = 8;
 const KEYS = { A: "a", B: "l" };
-// Səhv cavab verən oyunçu növbəti bu qədər xana açılana qədər gözləyir.
 const LOCK_TILES = 4;
 
 function BuzzButton({ side, name, locked, wait, onBuzz, disabled }) {
@@ -56,10 +55,8 @@ export default function PixelDuo({ data, settings, names }) {
   const [phase, setPhase] = useState("play");
   const [answering, setAnswering] = useState(null);
   const [answerLeft, setAnswerLeft] = useState(ANSWER_TIME);
-  // Hər oyunçu üçün: neçənci xana açılanda kilid açılır (0 = kilid yoxdur).
   const [lockUntil, setLockUntil] = useState({ A: 0, B: 0 });
   const locked = { A: opened < lockUntil.A, B: opened < lockUntil.B };
-  // Bütün xanalar açılıbsa, artıq açılacaq xana qalmır — kilid raundun sonuna qədər qalır.
   const waitFor = (side) => (lockUntil[side] > size ? 0 : Math.max(0, lockUntil[side] - opened));
   const [lastCall, setLastCall] = useState(LAST_CALL);
   const [message, setMessage] = useState(null);
@@ -98,7 +95,6 @@ export default function PixelDuo({ data, settings, names }) {
       if (tag === "INPUT" || tag === "TEXTAREA") return;
       const side = { [KEYS.A]: "A", [KEYS.B]: "B" }[e.key.toLowerCase()];
       if (!side) return;
-      // Hərf açılan xanaya yazılmasın
       e.preventDefault();
       buzz(side);
     };
@@ -125,7 +121,6 @@ export default function PixelDuo({ data, settings, names }) {
           ? `${why} · ${tr("{name} bu raundda daha cavab verə bilməz", { name: names[side] })}`
           : `${why} · ${tr("{name} növbəti {n} xana açılana qədər gözləyir", { name: names[side], n: LOCK_TILES })}`,
     });
-    // Hər ikisi raundun sonuna qədər bağlıdırsa, raund bitir.
     if (next.A > size && next.B > size) finishRound(null);
   }
 

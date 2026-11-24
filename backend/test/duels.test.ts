@@ -93,7 +93,6 @@ async function rawRoom(code: string) {
   return JSON.parse((await redis.get(`duel:room:${code}`)) as string);
 }
 
-/** Taymeri dərhal bitirir (sweeper 0.5 saniyəyə işləyir). */
 async function expire(code: string) {
   const redis = await getRedis();
   const room = await rawRoom(code);
@@ -102,7 +101,6 @@ async function expire(code: string) {
   await redis.zadd("duel:timers", Date.now() - 1, code);
 }
 
-/** Ortaq oyunçusu olan iki klub tapır (Ortaq oyunçu testləri üçün). */
 function clubPair() {
   const data = getGameData();
   const index = entityIndex(data);

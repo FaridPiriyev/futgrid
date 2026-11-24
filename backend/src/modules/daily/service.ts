@@ -217,7 +217,6 @@ async function updateStreak(actor: Actor, game: DailyGame, date: string, solved:
   const existing = await prisma.dailyStreak.findUnique({ where });
   let current = existing?.currentStreak ?? 0;
   if (existing?.lastDate === date) {
-    // Already counted for today.
   } else if (solved) {
     current = existing?.lastDate === previousDate(date) ? current + 1 : 1;
   } else {
@@ -542,7 +541,6 @@ export async function regenerateDailyPuzzle(id: string) {
   const seed = randomBytes(4).readUInt32BE(0);
   const built = buildDaily(puzzle.game as DailyGame, puzzle.difficulty, puzzle.date);
   const stored = built.stored;
-  // Rebuild with the new random seed so the published puzzle and seed agree.
   const rebuilt = buildPuzzle(
     puzzle.game as DailyGame,
     getGameData(),

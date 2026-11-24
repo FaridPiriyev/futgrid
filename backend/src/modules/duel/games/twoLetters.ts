@@ -20,8 +20,6 @@ import {
   type GameModule,
 } from "./common.js";
 
-// İki hərf — "Eyni ekran" qaydaları ilə: raundu başlayan birinci hərfi, rəqib ikincini seçir.
-// Sonra növbə ilə adında hər iki hərf olan futbolçu yazılır; vaxtında yaza bilməyən raundu uduzur.
 const PICK_MS = 30_000;
 const NEXT_MS = 12_000;
 
@@ -44,7 +42,6 @@ function normalize(raw: unknown): TwoLettersSettings {
 
 const settingsOf = (room: Room) => normalize(room.settings);
 
-/** Frontend-dəki letterOptions ilə eyni: az futbolçusu olan hərfləri seçmək olmur. */
 const optionCache = new Map<string, Record<string, boolean>>();
 export function letterOptions(
   data: GameData,
@@ -74,7 +71,6 @@ const pickerOf = (room: Room) => pickers(room)[(room.state.letters as string[]).
 function startRound(room: Room, ctx: Ctx) {
   const state = room.state;
   state.round = (state.round ?? 0) + 1;
-  // Tək raundları birinci oyunçu, cütləri ikinci başlayır (eyni ekrandakı kimi).
   state.starter = state.round % 2 === 1 ? room.players[0]?.seat : room.players[1]?.seat;
   state.letters = [];
   state.used = [];
@@ -162,7 +158,6 @@ export const twoLetters: GameModule = {
       return "PLAYER_USED";
     const [a, b] = state.letters as string[];
     if (!hasLetters(ctx.data, player, a!, b!)) {
-      // Səhv cavab: növbədən 3 saniyə gedir.
       state.penalties = (state.penalties ?? 0) + 1;
       state.deadline = Math.max(ctx.now, state.deadline - TWO_LETTERS_PENALTY * 1000);
       state.lastEvent = event(ctx, "wrong", seat, {
@@ -181,7 +176,6 @@ export const twoLetters: GameModule = {
   tick(room, ctx) {
     const state = room.state;
     if (state.phase === "pick") {
-      // Vaxtında seçilməyən hərfi təsadüfi veririk.
       const options = letterOptions(
         ctx.data,
         state.letters[0] ?? null,

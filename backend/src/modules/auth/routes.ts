@@ -171,7 +171,6 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
 
   app.get("/auth/google", { schema: { tags: ["auth"] } }, async (_request, reply) => {
     if (!config.GOOGLE_CLIENT_ID || !config.GOOGLE_CLIENT_SECRET) {
-      // Açarlar qurulmayıbsa, düyməni basan istifadəçi JSON xəta yox, izah görsün.
       return reply.redirect(`${config.APP_URL}/hesab?oauth=error&reason=not_configured`);
     }
     const state = randomToken(24);
@@ -188,7 +187,6 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
       response_type: "code",
       scope: "openid email profile",
       state,
-      // Hər dəfə hesab seçimi göstərilsin (bir neçə Google hesabı olanlar üçün).
       prompt: "select_account",
     });
     return reply.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
@@ -199,7 +197,6 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
     {
       schema: {
         tags: ["auth"],
-        // İstifadəçi Google pəncərəsində "Ləğv et" basanda code yox, error gəlir.
         querystring: z.object({
           code: z.string().optional(),
           state: z.string().optional(),
@@ -208,7 +205,6 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
       },
     },
     async (request, reply) => {
-      // Xəta olsa istifadəçiyə JSON yox, saytın hesab səhifəsini göstəririk.
       const fail = (reason: string) =>
         reply.redirect(`${config.APP_URL}/hesab?oauth=error&reason=${encodeURIComponent(reason)}`);
       reply.clearCookie(OAUTH_STATE_COOKIE, { path: "/v1/auth/google" });

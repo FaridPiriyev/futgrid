@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, FileText, ShieldCheck } from "lucide-react";
+import { CONTACT_EMAIL } from "../lib/contact";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
-const CONTACT = "info@futgrid.az";
+const CONTACT = CONTACT_EMAIL;
 
 const CONTENT = {
   privacy: {

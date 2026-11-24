@@ -19,6 +19,5 @@ export async function invalidateCache(pattern: string): Promise<void> {
     const keys = await redis.keys(pattern);
     if (keys.length) await redis.del(...keys);
   } catch {
-    // Cache invalidation is best-effort.
   }
 }

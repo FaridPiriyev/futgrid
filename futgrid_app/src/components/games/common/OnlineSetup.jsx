@@ -3,7 +3,6 @@ import { SETTINGS_CARD, SettingsHeader } from "./controls";
 import { BTN_GHOST, BTN_PRIMARY, SWEEP_BLUE, SWEEP_WHITE } from "./ui";
 import { tr } from "../../../i18n";
 
-/** "Otaq yarat" + "Rejimlər" düymələri — bütün onlayn parametr ekranlarında eyni. */
 export function OnlineSetupActions({ onCreate, onBack, connected = true, disabled = false }) {
   return (
     <div className="mt-7 flex flex-wrap gap-3 border-t border-edge pt-5">
@@ -31,10 +30,6 @@ export function OnlineSetupActions({ onCreate, onBack, connected = true, disable
 export const ONLINE_TITLE = () => tr("Dostla onlayn");
 export const ONLINE_STEP = () => tr("Parametrləri sən seçirsən");
 
-/**
- * Onlayn oyunun parametr kartı: eyni ekran rejimindəki kartla eyni görünür,
- * sadəcə ad xanaları yoxdur və düymə "Otaq yarat"-dır.
- */
 export default function OnlineSetup({ sub, children, onCreate, onBack, connected, disabled = false, width = "max-w-3xl" }) {
   return (
     <section className={`mx-auto ${width} ${SETTINGS_CARD}`}>

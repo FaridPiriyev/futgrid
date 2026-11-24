@@ -7,8 +7,6 @@ import {
 } from "@futgrid/game-core";
 import { getTrophyWinners } from "../../lib/data.js";
 
-// Açıq artırmanın "Gizli oyunçu" rejimi — frontend-dəki futgrid_app/src/lib/games/auctionClues.js ilə eyni.
-// Server yalnız ipucunun açarını göndərir; mətni frontend öz dilində özü qurur.
 const POSITIONS = ["GK", "DF", "MF", "FW"];
 const MIN_CANDIDATES = 3;
 const CLUB_TROPHIES = [
@@ -133,7 +131,6 @@ export interface ClueHit {
   expected: number;
 }
 
-/** Mövqe üçün təsadüfi ipucu və onun altından təsadüfi oyunçu seçir. */
 export function pickClue(
   data: GameData,
   pos: string,

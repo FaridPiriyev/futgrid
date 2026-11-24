@@ -86,7 +86,6 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
       setState((cur) => {
         if (!canBid(cur, "B")) return cur;
         const limit = botRef.current.lotId === cur.lot.id ? botRef.current.limit : 0;
-        // Bot lotu açırsa, mütləq təklif verməlidir: güclü oyunçuya bəzən birbaşa böyük məbləğ.
         if (!cur.lot.leader) {
           const open = limit >= 10 && Math.random() < 0.35 ? Math.min(limit, 2 * Math.ceil(limit / 4)) : nextPrice(cur.lot);
           return placeBidExact(cur, "B", Math.max(nextPrice(cur.lot), open), Date.now(), timerMs);
@@ -100,7 +99,6 @@ export default function AuctionGame({ data, mode, settings, onSettings }) {
     return () => clearTimeout(t);
   }, [botKey, settings.bot, timerMs]);
 
-  // Bot pulu olan tərəfdirsə, oyunçunu özünə götürmək və ya rəqibə vermək qərarını verir.
   const decideKey =
     solo && state.phase === "decide" && lot?.decider === "B" ? lot.id : null;
   useEffect(() => {

@@ -53,7 +53,6 @@ export default function FutbolWordle() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [settings, setSettings] = useState(load);
-  // Mobildə parametrlər paneli lövhəni ekrandan aşağı itələyirdi: indi qısa sətir kimi görünür, toxunanda açılır.
   const [panelOpen, setPanelOpen] = useState(false);
 
   useEffect(() => {

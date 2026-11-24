@@ -178,7 +178,6 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
       if (done) return;
       if (key === "enter") {
         if (current.length < answer.length) return fail(tr("{n} hərf lazımdır", { n: answer.length }));
-        // İstənilən hərf birləşməsi qəbul olunur (məs. "asuhdis") — bazada olması şərt deyil.
         if (mode === "endless") ranked.record({ round: rows.length, guess: current });
         if (mode === "daily") {
           if (dailyBusy) return;
@@ -221,8 +220,6 @@ export default function WordleGame({ data, mode, difficulty, showHints = true })
   const next = () => {
     void startEndless();
   };
-
-
 
   const hints = hintsFor(data, target, done ? MAX_TRIES : misses);
   const club = clubOf(data, target);

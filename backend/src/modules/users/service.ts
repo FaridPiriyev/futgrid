@@ -390,7 +390,6 @@ interface StoredScore {
   loserSeat?: string | null;
 }
 
-/** Duel nəticəsi istifadəçinin baxışından. Köhnə yazılarda seat yoxdur — ID-lərə baxırıq. */
 function duelResultFor(
   userId: string,
   match: { winnerId: string | null; loserId: string | null; endedReason: string; playerIds: string[] },

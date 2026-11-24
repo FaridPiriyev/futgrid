@@ -28,14 +28,12 @@ export function auctionSummary(settings) {
 
 const UNKNOWN = { id: "?", name: "?" };
 
-// Gizli rejimdə server ipucunun yalnız açarını göndərir — mətni brauzerdəki eyni indeksdən götürürük.
 function clueOf(data, clue) {
   if (!clue) return null;
   const local = buildClueIndex(data).find((c) => c.key === clue.key);
   return { ...clue, label: local?.label ?? (() => tr("Gizli oyunçu")) };
 }
 
-// Server vəziyyətini lokal hərrac komponentlərinin dilinə çeviririk: mən "A", rəqib "B".
 function toLocal(data, s, me, them, offset) {
   if (!s?.teams || !me || !them) return null;
   const sideOf = (seat) => (seat === me ? "A" : seat === them ? "B" : null);
@@ -67,7 +65,6 @@ function toLocal(data, s, me, them, offset) {
     phase: s.phase,
     lot,
     lotNo: s.lotNo,
-    // Lokal komponentlər brauzer saatı ilə işləyir.
     deadline: s.deadline ? s.deadline - offset : 0,
     outcome: s.outcome ? { ...s.outcome, winner: sideOf(s.outcome.seat) } : null,
     teams: { A: team(me), B: team(them) },
@@ -98,7 +95,6 @@ export default function AuctionDuel({ data, settings, onSettingsChange, onSettin
   const bidExact = (side, amount) => void send({ action: "bid", amount });
   const bid = (side, inc) => {
     if (!lot) return;
-    // Sürətli düymələr: açılışda 1 · 2 · 4 ₼, sonra +0.5 · +1 · +2 ₼ (yarım manat vahidi).
     const amount = lot.leader ? lot.price + inc : 2 * inc;
     void send({ action: "bid", amount });
   };
@@ -118,7 +114,6 @@ export default function AuctionDuel({ data, settings, onSettingsChange, onSettin
     [data, me],
   );
 
-  // Təslim/çıxış/bağlantı ilə bitəndə komanda müqayisəsi göstərmirik — qalibi server artıq müəyyən edib.
   const forfeited = ["surrender", "left", "disconnect"].includes(duel.room?.endedReason);
   if (finished && state && !forfeited && raw?.strength) {
     const strength = raw.strength;

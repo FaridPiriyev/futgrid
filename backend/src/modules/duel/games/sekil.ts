@@ -12,13 +12,10 @@ import {
   type GameModule,
 } from "./common.js";
 
-// Kimdir bu? — "Eyni ekran" qaydaları ilə: şəkil hər iki oyunçuda eyni anda açılır.
-// Tanıyan "bilirəm" düyməsini basır, xanalar dayanır və 10 saniyədə adı yazır.
-// Düz cavab raundu qazandırır, səhv cavab verən növbəti 4 xana açılana qədər kilidlənir.
 export const ANSWER_MS = 10_000;
 const LAST_CALL_MS = 8_000;
 const LOCK_TILES = 4;
-const START_MS = 1_500; // şəkil yüklənsin deyə raundun əvvəlində qısa fasilə
+const START_MS = 1_500;
 const FIRST_TILE_MS = 400;
 const NEXT_MS = 10_000;
 
@@ -64,7 +61,6 @@ function photoPool(data: GameData, settings: SekilSettings): RawPlayer[] {
   return list;
 }
 
-/** Frontend-dəki revealOrder ilə eyni: üzə yaxın xanalar ən sona saxlanılır. */
 export function revealOrder(size: number, random: () => number): number[] {
   const { cols, rows } = GRIDS[size] ?? GRIDS[16]!;
   const face = { x: 0.5, y: 0.42 };
@@ -104,7 +100,6 @@ export function revealOrder(size: number, random: () => number): number[] {
   return [...order, ...tail, (face3[0] as { i: number }).i];
 }
 
-/** Növbəti avtomatik addımın vaxtı: cavab vaxtı, növbəti xana və ya son saniyələr. */
 function schedule(room: Room) {
   const state = room.state;
   if (state.answering) state.deadline = state.answerDeadline;
@@ -161,7 +156,6 @@ function endRound(room: Room, ctx: Ctx, winner: string | null) {
   state.deadline = ctx.now + NEXT_MS;
 }
 
-/** Cavab verilən müddətdə xanalar dayanır — qalan vaxtı saxlayıb sonra davam edirik. */
 function resume(room: Room, ctx: Ctx) {
   const state = room.state;
   const left = Math.max(0, state.paused ?? 0);
@@ -282,7 +276,6 @@ export const sekil: GameModule = {
       round,
       scores,
       phase,
-      // Oyun gedərkən futbolçunun ID-si göndərilmir — yalnız şəkil.
       photoUrl,
       size,
       order,

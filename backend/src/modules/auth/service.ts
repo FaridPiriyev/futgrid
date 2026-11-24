@@ -171,17 +171,12 @@ export async function refresh(
   if (!stored) throw new AppError("TOKEN_INVALID");
 
   if (stored.revokedAt) {
-    // Multi-tab race: a token rotated milliseconds ago in another tab is not theft.
-    // Güzəşt YALNIZ yeni tokenlə əvəzlənmiş (rotasiya olunmuş) token üçündür.
-    // Logout, "bütün cihazlardan çıx", şifrə sıfırlama və s. tokeni replacedByTokenHash
-    // olmadan ləğv edir — belə tokenlə yenidən sessiya almaq olmaz.
     const graceMs = 30_000;
     const withinGrace = Date.now() - stored.revokedAt.getTime() <= graceMs;
     const replacement =
       withinGrace && stored.replacedByTokenHash
         ? await prisma.refreshToken.findUnique({ where: { tokenHash: stored.replacedByTokenHash } })
         : null;
-    // Əvəz edən token hələ aktivdirsə (və ya o da sadəcə rotasiya olunubsa) — bu, çox tab yarışıdır.
     const rotationOnly =
       replacement && (!replacement.revokedAt || Boolean(replacement.replacedByTokenHash));
     if (

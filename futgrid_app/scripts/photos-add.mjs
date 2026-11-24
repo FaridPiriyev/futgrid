@@ -1,27 +1,3 @@
-/*
- * Oyunçu şəkillərini avtomatik düzəldir və tamamlayır — bir-bir baxmağa ehtiyac yoxdur.
- *
- * Nə edir:
- *  1. Wikidata-da hər oyunçunu Transfermarkt id-si ilə tapır (adla yox — ona görə
- *     başqa adamın şəkli gəlmir) və oradakı şəkli götürür. Bu, səhv şəkilləri
- *     avtomatik düzgünü ilə əvəz edir, şəkli olmayanlara da şəkil qoyur.
- *  2. Wikidata-da şəkli olmayan, bizdə də şəkli olmayan oyunçular üçün
- *     API-Football (api-sports) şəklini götürür (--no-api ilə söndürmək olar).
- *  3. Wikidata ilə yoxlana bilməyən köhnə şəkilləri data-raw/unverified-photos.json-a
- *     yazır — istəsən yalnız onlara baxarsan: node scripts/photo-sheet.mjs --unverified
- *
- * futgrid_app qovluğunda:
- *   node scripts/photos-add.mjs --dry   → nə qədər şəkil dəyişəcəyini göstərir
- *   node scripts/photos-add.mjs         → endirir və players.json-u yeniləyir
- *
- * Seçimlər:
- *   --no-api       API-Football şəkillərindən istifadə etmə
- *   --no-replace   mövcud şəkillərə toxunma, yalnız şəkli olmayanlara əlavə et
- *   --limit N      yalnız ən tanınmış N oyunçu (sınaq üçün)
- *
- * Yarımçıq qalsa eyni əmri yenidən işlət — hazır olanlar təkrar endirilmir.
- * src/assets/players/ qovluğuna əl ilə qoyduğun şəkillərə toxunulmur.
- */
 import { access, mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
@@ -171,7 +147,6 @@ async function main() {
   const apiJobs = [];
   const unverified = [];
   for (const p of pool) {
-    // photos-prime.mjs-in seçdiyi "oynadığı illər" şəklinə toxunmuruq.
     if (credits[p.slug]?.source === "commons-prime" && p.photo_url && !isBad(p)) continue;
     const file = tmOf.has(p.id) ? files.get(tmOf.get(p.id)) : null;
     if (file && (!NO_REPLACE || !p.photo_url || isBad(p))) {
@@ -236,7 +211,6 @@ async function main() {
     }
   };
 
-  // 1) Wikidata
   let done = 0,
     failed = 0;
   for (const { p, file } of wdJobs) {
@@ -259,14 +233,11 @@ async function main() {
   await save();
   if (wdJobs.length) process.stdout.write("\n");
 
-  // 2) API-Football
   if (!NO_API && apiJobs.length && !stopped) {
-    // Şəkli olmayan oyunçu üçün api-sports boz siluet qaytarır — onu tanıyıb atırıq.
     let placeholder = null;
     try {
       placeholder = md5(Buffer.from(await (await politeFetch(API_SPORTS_IMG(999999999))).arrayBuffer()));
     } catch {
-      /* 404 qaytarırsa siluet yoxdur */
     }
     let got = 0,
       none = 0,

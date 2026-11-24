@@ -19,10 +19,7 @@ import {
   type GameModule,
 } from "./common.js";
 
-// Futbol X0X — "Eyni ekran" rejiminin qaydaları ilə:
-// raundlar oynanılır, raund qalibi 3-ü bir xəttə düzəndir; parametrləri otağı quran seçir.
 const NEXT_MS = 12_000;
-// Növbə vaxtı limitsizdirsə, raund sonsuz uzanmasın deyə gediş limiti.
 const MAX_TURNS = 60;
 
 const LINES = [
@@ -165,7 +162,6 @@ export const xox: GameModule = {
       return null;
     }
     if (state.phase !== "play") return "ROUND_OVER";
-    // Raundu təslim etmək növbədən asılı deyil.
     if (payload.action === "giveup") {
       state.lastEvent = event(ctx, "giveup", seat);
       endRound(room, ctx, otherSeat(room, seat), { type: "win", gaveUp: seat, line: [] });

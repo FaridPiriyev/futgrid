@@ -3,7 +3,6 @@ const KEY = "futgrid:yuksek:settings";
 
 export const DEFAULT_SETTINGS = {
   difficulty: "normal",
-  // compare: iki oyunçunun dəyəri müqayisə olunur; line: oyunçunun dəyəri verilmiş məbləğdən çox/az/bərabər?
   mode: "compare",
 };
 

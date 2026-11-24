@@ -13,7 +13,6 @@ export const registerSchema = z.object({
   displayName,
   teamId: z.number().int().positive().optional(),
   locale: z.enum(LOCALES as [string, ...string[]]).default("az"),
-  // Yaş təsdiqi qeydiyyat formasından çıxarılıb — köhnə müştərilər göndərsə də qəbul olunur.
   ageConfirmed: z.boolean().optional(),
 });
 

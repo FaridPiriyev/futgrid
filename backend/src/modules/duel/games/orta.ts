@@ -21,9 +21,6 @@ import {
   type GameModule,
 } from "./common.js";
 
-// Ortaq oyunçu — "Eyni ekran" qaydaları ilə: hər raundda hər oyunçu gizlicə kart seçir
-// (raundu başlayan yalnız klub, digəri klub və ya ölkə). Kartlar birlikdə açılır,
-// ortaq oyunçunu birinci yazan +1, səhv yazan −1 xal alır.
 export const PICK_MS = 45_000;
 export const ANSWER_MS = 75_000;
 const NEXT_MS = 12_000;
@@ -62,7 +59,6 @@ function startRound(room: Room, ctx: Ctx, starter: string) {
   state.deadline = ctx.now + PICK_MS;
 }
 
-/** Vaxtında seçməyənə məşhur klublardan biri avtomatik verilir. */
 function autoPick(room: Room, ctx: Ctx, seat: string) {
   const data = dataOf(room, ctx);
   const random = seeded((room.seed + room.state.round * 31 + seat.length) >>> 0);
@@ -78,7 +74,6 @@ function reveal(room: Room, ctx: Ctx) {
   const data = dataOf(room, ctx);
   const [a, b] = seats(room).map((seat) => entityOf(data, state.picks[seat]));
   if (!a || !b || a.key === b.key) {
-    // Eyni kart seçilibsə, raund yenidən seçimlə başlayır.
     state.lastEvent = event(ctx, "same", null);
     state.picks = {};
     state.deadline = ctx.now + PICK_MS;
@@ -207,7 +202,6 @@ export const orta: GameModule = {
       round,
       starter,
       phase,
-      // Kartlar açılana qədər kimin nə seçdiyi gizlidir — yalnız "seçib" məlumatı gedir.
       picked: Object.fromEntries(Object.keys(picks ?? {}).map((seat) => [seat, true])),
       picks: revealed ? picks : null,
       scores,

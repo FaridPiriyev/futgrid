@@ -1,34 +1,3 @@
-/*
- * Bazar dəyərlərini birbaşa Transfermarkt-dan (öz kompüterində işləyən
- * transfermarkt-api vasitəsilə) götürüb players.json-a yazır.
- *
- * Əvvəlcə API-ni başlat (bir dəfəlik quraşdırma):
- *   git clone https://github.com/felipeall/transfermarkt-api.git
- *   cd transfermarkt-api
- *   docker build -t transfermarkt-api .
- *   docker run -d -p 8000:8000 --name tm-api transfermarkt-api
- *
- * Sonra futgrid_app qovluğunda:
- *   node scripts/tm-live.mjs --only "Foden,Bernal" --dry   → 2 oyunçu ilə sınaq
- *   node scripts/tm-live.mjs --limit 300 --dry             → ən tanınmış 300 oyunçu, yazmadan
- *   node scripts/tm-live.mjs --limit 300                   → yaz
- *   node scripts/tm-live.mjs --clubs                       → bütün klubların bütün oyunçuları
- *
- * Seçimlər:
- *   --api URL      API ünvanı (standart http://localhost:8000)
- *   --limit N      ən tanınmış N aktiv oyunçu (standart 300)
- *   --delay MS     sorğular arası gözləmə (standart 3000 ms; azaltma, Transfermarkt bloklaya bilər)
- *   --only "a,b"   yalnız adında bu sözlər olan oyunçular
- *   --all          limitsiz: bütün aktiv oyunçular tək-tək (çox uzun çəkir, ~17 saat)
- *   --clubs        BÜTÜN oyunçular üçün sürətli yol: hər klubun heyətini bir sorğu ilə
- *                  götürür (~430 klub, ~1 saat). Sonra heyətlərdə tapılmayanlar üçün
- *                  --all ilə işlədə bilərsən, klubda tapılanlar təkrar soruşulmur.
- *   --refresh      son 7 gündə yoxlanmış oyunçuları da yenidən soruş
- *   --dry          heç nə yazma, yalnız hesabat
- *
- * Yarımçıq qalsa (Ctrl+C, internet), yenidən işlət — artıq yoxlananlar
- * scripts/.tm-live-cache.json-dan götürülür, Transfermarkt-a təkrar sorğu getmir.
- */
 import { readFile, writeFile, access } from "node:fs/promises";
 
 const TARGETS = [
@@ -80,7 +49,6 @@ const exists = (p) =>
 const fmt = (eur) =>
   eur ? `${String(Math.round(eur / 1e5) / 10).replace(".", ",")} mln €` : "—";
 
-// "€65.00m", "€800k", "65000000", 65000000 → avro
 function money(v) {
   if (typeof v === "number") return v > 0 ? Math.round(v) : null;
   if (typeof v !== "string") return null;
@@ -156,11 +124,9 @@ async function getJson(path) {
   return res.json();
 }
 
-// Gənclər / ehtiyat komandaları (U21, II, B, "2") — onları seçmirik.
 const RESERVE =
   /\b(u\s?1[5-9]|u\s?2[0-3]|ii|b|2|reserves?|youth|juniors?|sub-?\d+|primavera|jong|castilla)\b/i;
 
-// Transfermarkt-da fərqli yazılan klublar (bizim ad → Transfermarkt adı).
 const CLUB_ALIASES = {
   "Qəbələ FK": "Gabala FK",
   "Zirə FK": "Zira FK",
@@ -174,7 +140,6 @@ const CLUB_ALIASES = {
 const isReserve = (name) =>
   RESERVE.test(String(name ?? "").replace(/\b(fc|sc)\s?2\b/i, ""));
 
-// Axtarış üçün adın bir neçə variantı: "Brighton & Hove Albion" → "Brighton", "Bodø/Glimt" → "Bodo Glimt" ...
 function searchVariants(name) {
   const plain = String(name)
     .replace(/ø/gi, "o")
@@ -219,7 +184,6 @@ const similarity = (a, b) => {
   return common / Math.max(A.size, B.size);
 };
 
-// Bizim klub adını Transfermarkt klub id-sinə çevirir (ən uyğun axtarış nəticəsi).
 async function findClubId(club) {
   for (const q of searchVariants(club.name)) {
     const data = await getJson(`/clubs/search/${encodeURIComponent(q)}`);
@@ -235,7 +199,6 @@ async function findClubId(club) {
         }))
         .sort((a, b) => b.score - a.score || b.value - a.value);
       const best = scored[0];
-      // Ad heç oxşamırsa, amma yeganə nəticədirsə və ya ilk (tam adla) axtarışdırsa, onu götürürük.
       if (best.score > 0 || q === club.name || q === CLUB_ALIASES[club.name])
         return { id: String(best.r.id), name: best.r.name };
     }
@@ -300,7 +263,6 @@ async function main() {
     for (let i = 0; i < list.length && !stopped; i++) {
       const club = list[i];
       let done = cache.__clubs[club.id];
-      // Əvvəl tapılmayan və ya səhvən ehtiyat komandası seçilən klubları yenidən yoxlayırıq.
       if (done && (!done.tm || isReserve(done.tm.name))) done = undefined;
       if (!REFRESH && done?.fetchedAt && Date.now() - done.fetchedAt < WEEK)
         continue;

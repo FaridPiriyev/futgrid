@@ -23,6 +23,7 @@ import { useAuth } from "../lib/auth";
 import heroPhoto from "../assets/slider2.webp";
 
 import { tr } from "../i18n";
+import { CONTACT_EMAIL } from "../lib/contact";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 const HERO_FONT = "font-['Tektur',sans-serif]";
@@ -33,11 +34,17 @@ const PERIODS = [
     get label() {
       return tr("Həftəlik");
     },
+    get short() {
+      return tr("Həftə");
+    },
   },
   {
     key: "month",
     get label() {
       return tr("Aylıq");
+    },
+    get short() {
+      return tr("Ay");
     },
   },
   {
@@ -45,11 +52,17 @@ const PERIODS = [
     get label() {
       return tr("Bütün zamanlar");
     },
+    get short() {
+      return tr("Hamısı");
+    },
   },
   {
     key: "elo",
     get label() {
       return tr("Duel Elo");
+    },
+    get short() {
+      return tr("Elo");
     },
   },
 ];
@@ -89,8 +102,8 @@ const CONTACT_INFO = [
     get label() {
       return tr("E-poçt");
     },
-    value: "info@futgrid.az",
-    href: "mailto:info@futgrid.az",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
   },
   {
     Icon: MapPin,
@@ -203,8 +216,6 @@ function useReveal(rootRef) {
       { threshold: 0.15, rootMargin: "0px 0px -6% 0px" },
     );
     pending().forEach((el) => io.observe(el));
-    // Ehtiyat: bəzi brauzerlərdə (sürətli sürüşdürmə, zoom) müşahidəçi gec işləyir və
-    // element gizli qalır. Ekrana girmiş hər elementi sürüşdürmə zamanı da açırıq.
     let frame = 0;
     const sweep = () => {
       frame = 0;
@@ -299,7 +310,6 @@ function Marquee({ items, className, sep, sepClass, reverse = false }) {
   );
 }
 
-// Saytda nə qədər futbolçu/məşqçi olduğunu yuvarlaq göstəririk: 20 690 → "20 000+".
 const roundDown = (n, step = 1000) =>
   `${String(Math.floor(n / step) * step).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}+`;
 
@@ -471,7 +481,7 @@ function Hero({ stats }) {
             <img
               src={heroPhoto}
               alt={tr("Stadionda telefonda FutGrid oynayan azarkeş")}
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
               className="fg-kb absolute inset-0 h-full w-full object-cover object-[center_40%]"
             />
@@ -1258,8 +1268,8 @@ function ContactForm() {
     } catch (err) {
       setError(
         tr(
-          "{v1} Bir az sonra yenidən cəhd et və ya birbaşa info@futgrid.az ünvanına yaz.",
-          { v1: err.message || "Mesaj göndərilmədi." },
+          "{v1} Bir az sonra yenidən cəhd et və ya birbaşa {email} ünvanına yaz.",
+          { v1: err.message || "Mesaj göndərilmədi.", email: CONTACT_EMAIL },
         ),
       );
       setStatus("error");
@@ -1448,7 +1458,6 @@ export default function Home() {
       .get("/stats")
       .then(setHomeStats)
       .catch(() => {});
-    // Hər dövr üçün backend-in qaytardığı ilk 10 oyunçu ayrıca saxlanılır.
     Promise.all(
       ["week", "month", "all"].map((key) =>
         api
@@ -1458,7 +1467,6 @@ export default function Home() {
       ),
     ).then(async (results) => {
       const boards = {};
-      // Duel Elo cədvəli (şahmat sistemi) — xal əvəzinə reytinq.
       const elo = await api
         .get("/leaderboard/elo?limit=10")
         .then((data) => data.entries ?? [])
@@ -1565,7 +1573,8 @@ export default function Home() {
                         : "text-muted hover:text-ink"
                     }`}
                   >
-                    {p.label}
+                    <span className="sm:hidden">{p.short}</span>
+                    <span className="hidden sm:inline">{p.label}</span>
                   </button>
                 );
               })}

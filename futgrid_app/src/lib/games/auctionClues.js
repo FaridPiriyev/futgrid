@@ -1,6 +1,3 @@
-// "Gizli oyunçu" rejimi üçün ipucları: oyunçunun adı yox, onu təsvir edən cümlə göstərilir
-// (məs. "FC Barcelona ilə Çempionlar Liqası qazanıb"). Satışdan sonra hansı oyunçu
-// olduğu açılır — Messi də çıxa bilər, Mascherano da.
 import winners from "../../data/trophy-winners.json";
 import { clubFameTier, countryFameTier } from "./fame";
 import { countryName } from "./x0xCategories";
@@ -49,7 +46,6 @@ const trophyCount = (p, id) => p.trophies?.find((t) => t.id === id)?.count ?? 0;
 const DAY = 86400000;
 const time = (s) => (s ? new Date(s).getTime() : NaN);
 
-// Oyunçu həmin mövsümün sonunda (± bir neçə ay) bu klubda idimi?
 function wasAt(p, clubId, when) {
   for (const s of p.club_stints ?? []) {
     if (s.club_id !== clubId) continue;
@@ -60,7 +56,6 @@ function wasAt(p, clubId, when) {
   return false;
 }
 
-// Gizli rejimdə yalnız real reytinqi olan oyunçular iştirak edir (tamamilə naməlum gənclər yox).
 const eligible = (p) =>
   p.position &&
   POSITIONS.includes(p.position) &&
@@ -91,7 +86,6 @@ export function buildClueIndex(data) {
   const famousClubs = data.clubs.filter((c) => clubFameTier(c) === 1);
   const clubName = (c) => c.name;
 
-  // 1) Klub + kubok ("FC Barcelona ilə Çempionlar Liqası qazanıb")
   for (const c of famousClubs) {
     for (const trophyId of CLUB_TROPHIES) {
       const dates = seasonsWon(trophyId, c.slug);
@@ -109,7 +103,6 @@ export function buildClueIndex(data) {
     }
   }
 
-  // 2) Milli komanda + kubok ("Argentina millisi ilə Dünya Kuboku qazanıb")
   for (const trophyId of NATION_TROPHIES) {
     const codes = new Set(Object.values(winners.trophies?.[trophyId]?.seasons ?? {}));
     for (const code of codes) {
@@ -124,13 +117,11 @@ export function buildClueIndex(data) {
     }
   }
 
-  // 3) Qızıl Top
   {
     const list = players.filter((p) => trophyCount(p, "ballon_dor") > 0);
     if (list.length >= MIN_CANDIDATES) add("ballon", () => tr("Qızıl Top qazanıb"), list, 2);
   }
 
-  // 4) İki böyük klubda oynayıb ("Real Madrid və Juventus-da oynayıb")
   for (let i = 0; i < famousClubs.length; i++)
     for (let j = i + 1; j < famousClubs.length; j++) {
       const a = famousClubs[i];
@@ -140,7 +131,6 @@ export function buildClueIndex(data) {
         add(`pair:${a.id}:${b.id}`, () => tr("Həm {a}, həm də {b} klubunda oynayıb", { a: clubName(a), b: clubName(b) }), list, 1);
     }
 
-  // 5) Ölkə + klub ("Braziliya vətəndaşı, FC Barcelona-da oynayıb")
   const famousCountries = [...new Set(players.map((p) => p.nationality_code))].filter(
     (code) => code && countryFameTier(code) === 1,
   );
@@ -160,7 +150,6 @@ export function buildClueIndex(data) {
   return clues;
 }
 
-// Mövqe üçün təsadüfi ipucu və onun altından təsadüfi oyunçu seçir.
 export function pickClue(data, pos, used, random) {
   const options = buildClueIndex(data)
     .map((c) => ({ c, ids: (c.byPos[pos] ?? []).filter((id) => !used.has(id)) }))

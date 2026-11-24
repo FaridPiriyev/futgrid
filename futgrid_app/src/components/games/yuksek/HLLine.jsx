@@ -34,7 +34,6 @@ function freshRound(pool, recent) {
   return { player, line: pickLine(player, Math.random) };
 }
 
-// "Rəqəmlə" rejimi: oyunçunun bazar dəyəri verilmiş məbləğdən çox, az, yoxsa bərabərdir?
 export default function HLLine({ data, settings, onSettings }) {
   const { difficulty } = settings;
   const bestKey = `${difficulty}:line`;
@@ -43,7 +42,7 @@ export default function HLLine({ data, settings, onSettings }) {
   const [best, setBest] = useState(() => loadBest(bestKey));
   const [streak, setStreak] = useState(0);
   const [round, setRound] = useState(() => freshRound(pool, recent.current));
-  const [phase, setPhase] = useState("guess"); // guess | right | wrong | over
+  const [phase, setPhase] = useState("guess");
   const [picked, setPicked] = useState(null);
   const timer = useRef(null);
 

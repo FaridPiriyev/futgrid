@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
+import BetaNotice from "./components/BetaNotice";
 import { LanguageProvider, tr, useLang } from "./i18n";
 import { AuthProvider } from "./lib/auth";
 import { GAME_CATALOG } from "./lib/games/catalog";
@@ -202,6 +203,7 @@ function AppShell() {
         </Routes>
       </Suspense>
       <Footer />
+      <BetaNotice />
     </BrowserRouter>
   );
 }

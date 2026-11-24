@@ -118,7 +118,6 @@ async function rebuild(period: LeaderboardPeriod, gameId?: string): Promise<void
   await multi.exec();
 }
 
-
 export async function removePoints(input: {
   userId: string;
   gameId: string;
@@ -426,7 +425,6 @@ export async function removeUserFromLeaderboards(userId: string): Promise<void> 
   await multi.exec();
 }
 
-/** Duel Elo reytinqi (şahmat sistemi). `overall` — bütün duel oyunları birlikdə. */
 export async function getEloLeaderboard(gameId: string, limit: number, minGames: number) {
   const rows = await prisma.userRating.findMany({
     where: {
@@ -475,7 +473,6 @@ export async function getEloLeaderboard(gameId: string, limit: number, minGames:
   };
 }
 
-/** İstifadəçinin Elo yeri (cədvəldə olmasa da reytinqi qaytarılır). */
 export async function getMyEloRank(userId: string, gameId: string, minGames: number) {
   const mine = await prisma.userRating.findUnique({
     where: { userId_gameId: { userId, gameId } },

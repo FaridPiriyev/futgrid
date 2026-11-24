@@ -71,7 +71,6 @@ export function SideMark({ side, isBot, className = "h-8 w-8" }) {
   );
 }
 
-// Gizli oyunçu: ad və şəkil yox, yalnız ipucu görünür. Satılandan sonra açılır.
 function MysteryLotCard({ data, lot, phase, outcome, names }) {
   const revealed = phase === "sold";
   const p = lot.player;
@@ -312,7 +311,6 @@ function statusText(state, side) {
   return null;
 }
 
-// Bir tərəfin pulu bitəndə: pulu olan tərəf hər oyunçunu özünə götürür və ya rəqibə verir.
 export function DecidePanel({ state, names, onDecide, botSide, keys }) {
   const lot = state.lot;
   const d = lot.decider;
@@ -477,7 +475,6 @@ export function BidControls({ side, state, names, onBid, onBidExact, onPass, sho
           )}
         </button>
       </div>
-      {/* İstədiyin məbləği yaz: məs. birbaşa 20 ₼ */}
       <form onSubmit={submitCustom} className="mt-2 flex gap-2">
         <label className="relative min-w-0 flex-1">
           <input

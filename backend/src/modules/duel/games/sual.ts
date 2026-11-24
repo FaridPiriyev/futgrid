@@ -14,8 +14,6 @@ import {
   type GameModule,
 } from "./common.js";
 
-// 20 sual — "Eyni ekran" qaydaları ilə: hər oyunçu rəqibi üçün gizli futbolçu seçir,
-// sonra növbə ilə sual verirsiniz. Rəqibin futbolçusunu daha az sualla tapan qalibdir.
 export const SECRET_MS = 60_000;
 export const TURN_MS = 60_000;
 
@@ -39,7 +37,6 @@ function normalize(raw: unknown): SualSettings {
 const settingsOf = (room: Room) => normalize(room.settings);
 
 const poolCache = new WeakMap<GameData, Map<string, RawPlayer[]>>();
-/** Frontend-dəki secretPool ilə eyni: tanınmış, məlumatı tam olan futbolçular. */
 function secretPool(data: GameData, settings: SualSettings): RawPlayer[] {
   const set = dataFor(data, settings.era);
   let byKey = poolCache.get(set);
@@ -92,7 +89,6 @@ function finish(room: Room, ctx: Ctx, winner: string | null) {
   ctx.finish(winner, winner ? "win" : "draw");
 }
 
-/** Hər "dövrədə" əvvəl A, sonra B oynayır (eyni ekrandakı qayda). */
 function after(room: Room, ctx: Ctx, side: string) {
   const state = room.state;
   const max = settingsOf(room).maxQuestions;
@@ -129,7 +125,6 @@ function record(room: Room, ctx: Ctx, seat: string, item: Item, found = false) {
   state.items[seat].push(item);
   if (found) state.found[seat] = usedOf(state.items[seat]);
   if (item.answer === null) {
-    // Məlumat yoxdursa sual sayılmır, növbə də keçmir.
     state.deadline = ctx.now + TURN_MS;
     return;
   }
@@ -215,7 +210,6 @@ export const sual: GameModule = {
     }
     if (state.phase !== "play") return;
     const seat = state.turn as string;
-    // Vaxtında oynamayana 1 sual yazılır ki, oyun dayanmasın.
     state.lastEvent = event(ctx, "timeout", seat);
     record(room, ctx, seat, { id: `t-${ctx.now}`, kind: "timeout", answer: false, at: ctx.now });
   },
@@ -225,7 +219,6 @@ export const sual: GameModule = {
       room.state;
     return {
       phase,
-      // Gizli futbolçular yalnız oyun bitəndə açılır.
       chosen: Object.fromEntries(Object.keys(secrets ?? {}).map((seat) => [seat, true])),
       secrets: phase === "done" || room.status === "finished" ? secrets : null,
       items,

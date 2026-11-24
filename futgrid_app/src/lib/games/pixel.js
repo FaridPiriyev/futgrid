@@ -1,10 +1,6 @@
 import { datasetFor } from "../data";
 import { byFame } from "./fame";
 
-/*
- * "Kimdir bu?" oyunu: futbolçunun şəkli 16 və ya 24 xanaya bölünür, hər dəfə bir xana açılır.
- */
-
 export const GRIDS = {
   16: { cols: 4, rows: 4 },
   24: { cols: 4, rows: 6 },
@@ -28,11 +24,6 @@ export function pickPhoto(data, settings, avoid = new Set()) {
   return list[Math.floor(Math.random() * list.length)] ?? null;
 }
 
-/**
- * Xanaların açılma sırası — idarə olunan qarışıq:
- * üzə ən yaxın bir neçə xana sona saxlanılır, qalanları isə növbə ilə
- * bir kənardan, bir ortadan açılır (hamısı kənardan gəlmir).
- */
 export function revealOrder(size, random = Math.random) {
   const { cols, rows } = GRIDS[size] ?? GRIDS[16];
   const face = { x: 0.5, y: 0.42 };
@@ -68,10 +59,8 @@ export function revealOrder(size, random = Math.random) {
     order.push(src.shift().i);
     fromEdge = !fromEdge;
   }
-  // Üz xanaları ən sonda: ən mərkəzi olan lap axırda açılır.
   const tail = shuffle(face3.slice(1)).map((t) => t.i);
   return [...order, ...tail, face3[0].i];
 }
 
-/** Tapılanda qazanılan xal: bağlı qalan xanalar + 1. */
 export const pointsFor = (size, opened) => Math.max(1, size - opened + 1);

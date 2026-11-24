@@ -1,9 +1,5 @@
 import type { GameData, RawPlayer } from "@futgrid/game-core";
 
-// "20 sual" onlayn rejimi üçün sualların cavabı. Sual ID-ləri frontend-dəki
-// futgrid_app/src/lib/games/questions.js ilə eynidir — mətnlər orda, cavab burada hesablanır.
-// Cavab: true (bəli), false (xeyr), null (məlum deyil).
-
 type Answer = boolean | null;
 type Test = (player: RawPlayer, data: GameData) => Answer;
 
@@ -80,7 +76,6 @@ export interface AskedQuestion {
   answer: Answer;
 }
 
-/** Hazır sual (`questionId`) və ya klub/ölkə sualı (`club:123`, `country:BR`). */
 export function askQuestion(data: GameData, secret: RawPlayer, id: string): AskedQuestion | null {
   const test = QUESTION_TESTS[id];
   if (test) {

@@ -1,7 +1,3 @@
-// Ultimate 11: hər raundda KOMANDA + DÖVR barabanı fırlanır, həmin komandada
-// həmin dövrdə oynamış futbolçulardan biri heyətə seçilir. Reytinqlər oyun
-// bitənə qədər gizlidir. Adi klub+5 illik dövr kombinasiyalarından əlavə,
-// əl ilə yığılmış əfsanəvi komandalar da düşür (2005 Milan, 2002 Braziliya...).
 import { clubFameTier, playerFame } from "./fame";
 import { playerRating } from "./rating";
 import { countryName } from "./x0xCategories";
@@ -14,7 +10,6 @@ const ERA_STEP = 5;
 const FIRST_ERA = 1985;
 const LEGEND_SHARE = 0.38;
 
-// Meydançada yerlər (x, y faizlə; y=0 rəqib qapısı tərəfi). side: -1 sol, 0 mərkəz, 1 sağ
 export const FORMATIONS = {
   "4-3-3": [
     ["GK", "GK", 50, 89],
@@ -55,7 +50,6 @@ export const comboEra = (combo) => combo.eraText ?? eraLabel(combo.era);
 const MIN_FAME = { easy: 2.2, normal: 1.4, hard: 0.6 };
 const CLUB_TIER = { easy: 1, normal: 2, hard: 3 };
 
-// ---------- əfsanəvi komandalar ----------
 const nameKey = (s) =>
   String(s ?? "")
     .normalize("NFD")
@@ -138,7 +132,6 @@ export function buildLegendCombos(data) {
         nationality_code: nat ?? sq.nation ?? null,
         stub: true,
       };
-      // Mövqe və reytinq həmin komandaya görədir (orijinal obyektə toxunmuruq).
       players.push({ ...base, position: pos, role, _rating: Number(rating), _fame: undefined });
     }
     if (players.length < 8) continue;
@@ -155,8 +148,6 @@ export function buildLegendCombos(data) {
   return out;
 }
 
-// ---------- adi klub + dövr kombinasiyaları ----------
-// ən azı 6 oyunçu və 3 fərqli mövqe olanlar.
 export function buildCombos(data, difficulty = "normal") {
   const cacheKey = `_ultimate2_${difficulty}`;
   if (data[cacheKey]) return data[cacheKey];
@@ -226,11 +217,9 @@ const fitting = (combo, lineup) => {
   return combo.players.filter((p) => !used.has(p.id) && open.has(p.position));
 };
 
-// Seçimlər: yalnız boş mövqeyə uyğun futbolçular, qarışıq sırada.
 function drawOptions(combo, lineup, random) {
   const pool = fitting(combo, lineup);
   const out = [];
-  // hər boş xətdən ən azı bir nəfər düşsün deyə əvvəl müxtəlif mövqelər
   const byPos = new Map();
   for (const p of pool) {
     if (!byPos.has(p.position)) byPos.set(p.position, []);
@@ -265,8 +254,6 @@ export function spin(combos, lineup, random, { avoid } = {}) {
   return { combo, options: drawOptions(combo, lineup, random) };
 }
 
-// Ən uyğun boş yer. Əfsanəvi komandalarda rol məlumdur (LB, RW...); qalanlarda
-// mərkəz üstündür, müdafiədə boy (uzun — mərkəz, qısa — cinah), cinahda isə ayaq nəzərə alınır.
 export function bestSlot(lineup, player) {
   const roleSide = player.role ? ROLE_SIDE[player.role] : undefined;
   const foot = player.preferred_foot === "left" ? -1 : player.preferred_foot === "right" ? 1 : 0;
@@ -301,7 +288,6 @@ export function place(lineup, player, combo, slotIndex = null) {
   return next;
 }
 
-// Eyni xəttdə iki yerin dəyişdirilməsi (boş yerə köçürmək də olar).
 export function swapSlots(lineup, a, b) {
   if (a === b || lineup[a]?.pos !== lineup[b]?.pos) return lineup;
   const next = [...lineup];
@@ -312,7 +298,6 @@ export function swapSlots(lineup, a, b) {
 
 export const isComplete = (lineup) => lineup.every((s) => s.pick);
 
-// Komanda reytinqi: orta reytinq + kimya (eyni klub+dövr +0.75, eyni ölkə +0.25; maks +5)
 export function teamScore(lineup) {
   const picks = lineup.filter((s) => s.pick).map((s) => s.pick);
   if (!picks.length) return { overall: 0, avg: 0, chem: 0, links: [] };

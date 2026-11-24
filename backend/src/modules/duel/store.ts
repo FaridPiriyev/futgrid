@@ -1,8 +1,6 @@
 import { randomBytes } from "node:crypto";
 import type Redis from "ioredis";
 
-// Onlayn duel otağı. Oyunçular otaqda "seat" (yer) ID-si ilə tanınır — real istifadəçi və ya
-// qonaq ID-si heç vaxt rəqibə göndərilmir (qonaq ID-si ilə başqasının yerinə qoşulmaq olmasın).
 export type DuelGame = "xox" | "higherLower" | "twoLetters" | "orta" | "sual" | "sekil" | "auction";
 export const SUPPORTED_GAMES: DuelGame[] = ["xox", "higherLower", "twoLetters", "orta", "sual", "sekil", "auction"];
 
@@ -16,7 +14,6 @@ export interface DuelPlayer {
   guest: boolean;
   socketId: string;
   connected: boolean;
-  /** Bağlantı kəsiləndən sonra texniki məğlubiyyət vaxtı (ms). */
   forfeitAt?: number | null;
 }
 
@@ -30,14 +27,11 @@ export interface Room {
   seed: number;
   startedAt?: number;
   rematch: string[];
-  // Hər oyun öz vəziyyətini saxlayır. `deadline` — növbəti avtomatik addımın vaxtı (ms).
   state: Record<string, any>;
-  /** Otağı quranın seçdiyi parametrlər (hər oyun özü yoxlayır və tamamlayır). */
   settings?: Record<string, any>;
   winnerSeat?: string | null;
   loserSeat?: string | null;
   endedReason?: string | null;
-  /** Təsadüfi rəqib axtarışı ilə yaradılıb. */
   random?: boolean;
   createdAt: number;
 }
@@ -61,7 +55,6 @@ export async function roomExists(redis: Redis, code: string): Promise<boolean> {
   return (await redis.exists(roomKey(code))) === 1;
 }
 
-/** Otağın növbəti avtomatik addımı: oyun taymeri və ya bağlantısı kəsilən oyunçunun məğlubiyyəti. */
 export function nextDue(room: Room): number | null {
   if (room.status !== "playing") return null;
   const times: number[] = [];
@@ -89,9 +82,6 @@ export async function dueRooms(redis: Redis, now: number, limit = 25): Promise<s
   return redis.zrangebyscore(TIMERS_KEY, 0, now, "LIMIT", 0, limit);
 }
 
-// ---- Kilid ----
-// Eyni otağa eyni anda gələn hərəkətlər növbəyə düzülür: əvvəl prosesin daxilində (promise zənciri),
-// sonra Redis kilidi ilə (bir neçə server nüsxəsi olanda da vəziyyət itməsin).
 const chains = new Map<string, Promise<unknown>>();
 const RELEASE_SCRIPT =
   "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";

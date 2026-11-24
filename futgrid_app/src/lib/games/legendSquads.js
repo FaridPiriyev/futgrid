@@ -1,8 +1,3 @@
-// Ultimate 11 üçün əfsanəvi komandalar (klub və millilər).
-// Hər sətir: "ROL REYTİNQ Ad" — rol: GK, CB/LB/RB, MF/LM/RM, ST/LW/RW.
-// Reytinq həmin dövrə görədir (oyunçunun indiki dəyərinə yox).
-// Ad datada tapılmasa, alternativ adlar "/" ilə yazılır; "@XX" — datada olmayan oyunçu üçün ölkə kodu.
-
 export const LEGEND_SQUADS = [
   {
     id: "milan-2005", club: 114, season: "2004–05", year: 2005,

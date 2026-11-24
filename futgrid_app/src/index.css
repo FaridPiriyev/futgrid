@@ -52,12 +52,10 @@ body {
   color: var(--fg-ink);
 }
 
-/* Menyu yuxarıda sabitdir: bölməyə keçid edəndə başlıq menyunun altında qalmasın */
 section[id] {
   scroll-margin-top: 5rem;
 }
 
-/* Səliqəli nazik scrollbar: axtarış siyahıları və uzun panellər üçün */
 .fg-scroll {
   scrollbar-gutter: stable;
 }
@@ -91,9 +89,6 @@ section[id] {
   }
 }
 
-/* Telefonda oyunda yazı rejimi: klaviatura açıq olanda yapışqan menyu gizlənir,
-   oyunun altında boş yer yaranır ki, input ekranın yuxarısına qalxa bilsin
-   və təkliflər siyahısı klaviaturanın altında qalmasın. */
 @media (max-width: 767px) {
   html.fg-typing .fg-sticky-nav {
     visibility: hidden;

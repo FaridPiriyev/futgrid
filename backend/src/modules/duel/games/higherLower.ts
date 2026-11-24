@@ -49,7 +49,6 @@ export const higherLower: GameModule = {
     return {
       index,
       scores,
-      // Kimin cavab verdiyini göstəririk, nə cavab verdiyini yox.
       answered: Object.keys(answers),
       revealed,
       current: current ? { aId: current.aId, bId: current.bId, aValue: current.aValue } : null,

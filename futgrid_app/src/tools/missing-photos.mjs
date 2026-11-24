@@ -1,17 +1,4 @@
 #!/usr/bin/env node
-/**
- * Şəkli olmayan məşhur oyunçuların siyahısını çıxarır (istəyə görə istifadə et).
- * futgrid_app qovluğunda işə sal:
- *
- *   node src/tools/missing-photos.mjs
- *   node src/tools/missing-photos.mjs --top=500
- *
- * Hər oyunçunun yanında şəklin hansı adla saxlanmalı olduğu yazılır.
- * Şəkli src/assets/players/ qovluğuna həmin adla at, sayt onu özü tapır.
- * Tam siyahı data-raw/missing-photos.csv faylına da yazılır (Excel-də açılır).
- *
- * Bu fayl sayta daxil edilmir, yalnız sənin kompüterində işləyir.
- */
 import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 

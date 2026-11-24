@@ -45,7 +45,6 @@ export default function PixelSolo({ data, settings }) {
 
   const score = history.reduce((s, h) => s + h.points, 0);
 
-  // Hər N saniyədən bir növbəti xana açılır; hamısı açılandan sonra son 8 saniyə.
   useEffect(() => {
     if (phase !== "play" || !ready) return;
     if (opened < size) {

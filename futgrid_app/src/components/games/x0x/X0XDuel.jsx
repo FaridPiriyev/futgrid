@@ -17,8 +17,6 @@ import { catText } from "./CategoryHeader";
 import { OPTIONS } from "./settings";
 import { tr } from "../../../i18n";
 
-// Serverin göndərdiyi kateqoriyanı brauzerdəki eyni kateqoriya ilə əvəz edirik (oyunçu siyahısı ilə birlikdə),
-// belə ki, lövhə, cavablar və çoxseçimli variantlar eyni ekrandakı kimi işləsin.
 function resolveCategory(data, byKey, cat) {
   const local = byKey.get(cat.key);
   if (local) return local;
@@ -85,7 +83,6 @@ function Match({ duel, data, settings }) {
   const board = useMemo(() => (state.cells ?? Array(9).fill(null)).map((c) => (c ? { mark: c.mark, playerId: c.playerId, name: c.name } : null)), [state.cells]);
   const withIds = Boolean(grid && [...grid.rows, ...grid.cols].every((c) => c.ids));
 
-  // Seçilmiş xana yalnız həmin növbədə qüvvədədir.
   const turnKey = `${round}-${state.turn}-${state.lastEvent?.at ?? 0}`;
   const activeCell = myTurn && pick.key === turnKey ? pick.cell : null;
   const steals = state.steals;

@@ -38,7 +38,6 @@ export default function X0XModeSelect({ onPick }) {
             type="button"
             disabled={soon}
             onClick={() => {
-              // Onlayn rəqib = dostla rejiminin ekranı + avtomatik rəqib axtarışı.
               if (key === "online") {
                 requestAutoMatch();
                 onPick("friend");

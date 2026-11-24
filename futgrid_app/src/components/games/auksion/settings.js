@@ -8,11 +8,9 @@ export const DEFAULT_SETTINGS = {
   bot: "normal",
   names: { A: "", B: "" },
   formation: DEFAULT_FORMATION,
-  // Gizli oyunçu: lotda ad yox, ipucu görünür ("Barcelona ilə ÇL qazanıb").
   mystery: false,
 };
 
-// Hazır heyət şablonları (qapıçı · müdafiə · orta · hücum)
 export const FORMATION_PRESETS = [
   { key: "classic", f: { GK: 1, DF: 1, MF: 1, FW: 2 }, get label() {
     return tr("Klassik");

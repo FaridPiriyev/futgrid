@@ -61,10 +61,8 @@ const GAMES: Record<DuelGame, GameModule> = {
   auction,
 };
 
-/** Növbə nə qədər tez-tez yoxlanılır. */
 const MATCH_TICK_MS = 1500;
 
-/** Bağlantı kəsiləndən neçə ms sonra oyunçu texniki məğlub sayılır. */
 const forfeitMs = () => Number(process.env.DUEL_FORFEIT_MS ?? 30_000);
 const SWEEP_MS = 500;
 
@@ -167,7 +165,6 @@ function publicState(room: Room, ctx: Ctx) {
 
 type RatingRow = { id: string; userId: string; gameId: string; rating: number; games: number };
 
-/** Hər oyunçu üçün reytinq sətrini yaradır (yoxdursa) və kilidləyib oxuyur. */
 async function lockRatings(
   tx: Prisma.TransactionClient,
   userIds: string[],
@@ -179,7 +176,6 @@ async function lockRatings(
     ),
     skipDuplicates: true,
   });
-  // Eyni oyunçunun iki matçı eyni anda bitərsə, reytinq üst-üstə yazılmasın.
   return tx.$queryRaw<RatingRow[]>`
     SELECT id, user_id AS "userId", game_id AS "gameId", rating, games
     FROM user_ratings
@@ -192,15 +188,12 @@ export interface DuelRatingEvent {
   code: string;
   rated: boolean;
   reason: string | null;
-  /** seat → dəyişiklik. Real istifadəçi ID-si göndərilmir. */
   changes: Record<
     string,
     { before: number; after: number; delta: number; overallBefore: number; overallAfter: number; overallDelta: number }
   >;
 }
 
-// Nəticə bazaya yazılır. Xəta oyunu heç vaxt dayandırmır (oyunçular nəticəni artıq görüb).
-// Elo yalnız qeydiyyatlı istifadəçilər arasında hesablanır — qonaq ID-ləri users cədvəlində yoxdur.
 async function recordMatch(room: Room): Promise<DuelRatingEvent | null> {
   try {
     const bySeat = new Map(room.players.map((player) => [player.seat, player]));
@@ -239,7 +232,6 @@ async function recordMatch(room: Room): Promise<DuelRatingEvent | null> {
       JSON.stringify({
         scores: room.state.scores ?? null,
         strength: room.state.strength ?? null,
-        // playerIds ilə eyni sıra — tarixçədə "mənim hesabım"ı tapmaq üçün.
         seats: room.players.map((player) => player.seat),
         winnerSeat: room.winnerSeat ?? null,
         loserSeat: room.loserSeat ?? null,
@@ -296,7 +288,6 @@ async function recordMatch(room: Room): Promise<DuelRatingEvent | null> {
         for (const player of users) {
           const userId = seatToUser.get(player.seat)!;
           const t = tally.get(player.seat) ?? { wins: 0, losses: 0, draws: 0 };
-          // Çox oyunçulu matç bir oyun sayılır: yekun nəticə qələbə/məğlubiyyət/heç-heçə.
           const net = t.wins - t.losses;
           const result = net > 0 ? "wins" : net < 0 ? "losses" : "draws";
           const g = row(userId, room.game);
@@ -398,10 +389,6 @@ export function setupDuels(httpServer: HttpServer) {
     value?: unknown;
   };
 
-  /**
-   * Otağı kilid altında dəyişir, saxlayır və hamıya göndərir.
-   * `fn` xəta qaytararsa heç nə saxlanılmır.
-   */
   async function mutate(
     code: string,
     fn: (room: Room, ctx: Ctx) => Outcome | Promise<Outcome>,
@@ -470,13 +457,11 @@ export function setupDuels(httpServer: HttpServer) {
       try {
         const result = await mutate(code, (room, ctx) => {
           if (room.status !== "playing") return { changed: true };
-          // Bağlantısı kəsilib qayıtmayan oyunçu məğlub sayılır.
           const gone = room.players.find(
             (player) => !player.connected && player.forfeitAt && player.forfeitAt <= ctx.now,
           );
           if (gone) {
             const others = room.players.filter((player) => player.seat !== gone.seat);
-            // 3–4 nəfərlik auksionda konkret qalib yoxdur — çıxan hamıya uduzur.
             ctx.finish(others.length === 1 ? others[0]!.seat : null, "disconnect", gone.seat);
             return { changed: true };
           }
@@ -484,7 +469,6 @@ export function setupDuels(httpServer: HttpServer) {
           if (deadline && deadline <= ctx.now) GAMES[room.game].tick?.(room, ctx);
           return { changed: true };
         });
-        // Otaq vaxtı keçib silinibsə, taymer siyahısından da çıxarılır.
         if (result.error === "ROOM_NOT_FOUND") await redis.zrem(TIMERS_KEY, code);
       } catch (error) {
         logger.warn({ err: error, code }, "duel tick failed");
@@ -494,13 +478,10 @@ export function setupDuels(httpServer: HttpServer) {
   const sweeper = setInterval(() => void sweep(), SWEEP_MS);
   let closing = false;
 
-  // ---------- Matchmaking: təsadüfi rəqib ----------
-
   async function leaveQueue(identityId: string, socketId?: string): Promise<void> {
     const game = await redis.get(whereKey(identityId));
     if (!game) return;
     if (socketId) {
-      // Başqa tabdan yenidən növbəyə giribsə, köhnə tabın bağlanması onu çıxarmasın.
       const raw = await redis.hget(queueKey(game), identityId);
       const entry = raw ? (JSON.parse(raw) as QueueEntry) : null;
       if (entry && entry.socketId !== socketId) return;
@@ -526,7 +507,6 @@ export function setupDuels(httpServer: HttpServer) {
       forfeitAt: null,
     });
     const players = [toPlayer(a), toPlayer(b)];
-    // Kim başlayacaq — təsadüfi.
     if (randomInt(2) === 1) players.reverse();
     const room: Room = {
       v: 2,
@@ -572,7 +552,6 @@ export function setupDuels(httpServer: HttpServer) {
       for (const [a, b] of findPairs(entries, Date.now())) {
         const [aliveA, aliveB] = await Promise.all([socketAlive(a.socketId), socketAlive(b.socketId)]);
         if (!aliveA || !aliveB) {
-          // Bağlantısı kəsilmiş oyunçu növbədən çıxır, digəri növbəti dəfə başqası ilə birləşir.
           if (!aliveA) await leaveQueue(a.id);
           if (!aliveB) await leaveQueue(b.id);
           continue;
@@ -609,7 +588,6 @@ export function setupDuels(httpServer: HttpServer) {
   }
   const matcher = setInterval(() => void matchTick(), MATCH_TICK_MS);
 
-
   io.on("connection", async (socket) => {
     let identity: SocketIdentity | null = null;
     try {
@@ -626,7 +604,6 @@ export function setupDuels(httpServer: HttpServer) {
     }
     const me = identity;
 
-    // Sadə qoruma: bir socket-dən saniyədə çox hadisə gəlməsin.
     let bucket = 20;
     const refill = setInterval(() => (bucket = Math.min(20, bucket + 10)), 1000);
     socket.on("disconnect", () => clearInterval(refill));
@@ -662,7 +639,6 @@ export function setupDuels(httpServer: HttpServer) {
       });
     };
 
-    // Təsadüfi rəqib axtarışına qoşul.
     on("queue:join", async (payload, ack) => {
       const game = payload.game as DuelGame;
       if (!SUPPORTED_GAMES.includes(game)) return fail(ack, "GAME_NOT_AVAILABLE");
@@ -695,7 +671,6 @@ export function setupDuels(httpServer: HttpServer) {
         .exec();
       const searching = await redis.hlen(queueKey(game));
       reply(ack, { ok: true, game, rating: Math.round(rating), searching });
-      // Növbədə artıq kimsə varsa, gözlətmədən yoxlayaq.
       if (searching >= 2) void matchGame(game).catch(() => {});
     });
 
@@ -750,7 +725,6 @@ export function setupDuels(httpServer: HttpServer) {
           player.forfeitAt = null;
         }
         seat = player.seat;
-        // Auction supports 2-4 players, so the host starts it manually.
         if (room.status === "waiting" && room.players.length === 2 && room.game !== "auction") {
           startRoom(room, ctx);
           return { event: "game:state" };
@@ -759,7 +733,6 @@ export function setupDuels(httpServer: HttpServer) {
       });
       if (result.error) return fail(ack, result.error);
       await socket.join(code);
-      // Kilid bitəndən sonra qoşulan socket son vəziyyəti də alsın.
       if (result.room && result.ctx)
         socket.emit(
           result.room.status === "waiting" ? "room:state" : "game:state",
@@ -789,7 +762,6 @@ export function setupDuels(httpServer: HttpServer) {
           return { changed: false };
         }
         if (room.hostSeat === player.seat) room.hostSeat = room.players[0]!.seat;
-        // Bitmiş oyundan biri çıxanda otaq yenidən gözləmə rejiminə keçir.
         room.status = "waiting";
         return { event: "room:state" };
       });
@@ -799,7 +771,6 @@ export function setupDuels(httpServer: HttpServer) {
       reply(ack, { ok: true });
     });
 
-    // Təslim ol: oyun bitir, amma oyunçu otaqda qalır — nəticəni görür və revanş istəyə bilir.
     on("game:surrender", async (payload, ack) => {
       const code = cleanCode(payload.code);
       const result = await mutate(code, (room, ctx) => {
@@ -852,7 +823,6 @@ export function setupDuels(httpServer: HttpServer) {
         if (room.status !== "finished") return { error: "GAME_NOT_FINISHED" };
         if (!room.rematch.includes(player.seat)) room.rematch.push(player.seat);
         if (room.players.length === 2 && room.rematch.length >= room.players.length) {
-          // Revanşda o biri oyunçu başlayır.
           room.players.reverse();
           startRoom(room, ctx);
           return { event: "game:state" };
@@ -863,7 +833,6 @@ export function setupDuels(httpServer: HttpServer) {
       reply(ack, { ok: true });
     });
 
-    // "disconnect" anında socket.rooms artıq boş olur — otaqları "disconnecting"-də götürürük.
     socket.on("disconnecting", () => {
       if (closing) return;
       void leaveQueue(me.id, socket.id).catch(() => {});

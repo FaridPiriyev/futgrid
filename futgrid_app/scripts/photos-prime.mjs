@@ -1,31 +1,3 @@
-/*
- * Əfsanələrə (karyerasını bitirmiş oyunçulara) futbol oynadıqları illərdən şəkil qoyur.
- * Məsələn Hagi üçün bugünkü yaşlı şəklin yerinə 1990-cı illərdən şəkil.
- *
- * Necə tapır: Wikidata-da oyunçunu Transfermarkt id-si ilə (Pelé, Hagi kimi əl ilə
- * əlavə olunmuş əfsanələri isə ad + doğum ili ilə) tapır, onun Wikimedia Commons
- * kateqoriyasındakı bütün şəkillərə baxır, çəkilmə tarixinə görə oyunçunun 19–33 yaşı
- * arasında çəkilənləri seçir və ən uyğununu (portret, adı faylda, ~27 yaş) götürür.
- * Şəkillər pulsuz lisenziyalıdır, müəllif məlumatı data-raw/images/players-credits.json-a yazılır.
- *
- * futgrid_app qovluğunda (photos-add.mjs-dən SONRA işlət):
- *   node scripts/photos-prime.mjs --dry              → kimə hansı şəklin seçiləcəyini göstərir
- *   node scripts/photos-prime.mjs                    → bütün əfsanələri (~920) yeniləyir
- *   node scripts/photos-prime.mjs --limit 100   → yalnız ən tanınmış 100
- *   node scripts/photos-prime.mjs --only "Hagi,Zidane"
- *
- * ƏL İLƏ SEÇMƏK (daha keyfiyyətli):
- *   node scripts/photos-prime.mjs --pick --limit 150
- *     → data-raw/prime-picker.html yaradır: hər əfsanə üçün oynadığı illərdən bütün
- *       şəkilləri göstərir, birinə klik edirsən, sonda "Seçimləri yadda saxla" basırsan
- *       (prime-choices.json Downloads-a düşür).
- *   node scripts/photos-prime.mjs --apply ~/Downloads/prime-choices.json
- *     → seçdiyin şəkilləri endirir və saytda qoyur.
- *
- * Seçilən şəkil xoşuna gəlməsə: oyunçunun adını src/data/bad-photos.txt-ə yaz
- * və ya öz şəklini src/assets/players/ qovluğuna at (o həmişə üstündür).
- * photos-add.mjs bu şəkillərin üstünə yazmır.
- */
 import { access, mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -101,7 +73,6 @@ function fame(p) {
   return Math.max(0, Math.log10(value / 1e6)) * 1.2 + Math.min(p.international?.caps ?? 0, 150) / 60 + Math.min(t, 6);
 }
 
-// Transfermarkt id → Commons kateqoriyası
 async function commonsCategories(tmIds) {
   const out = new Map();
   for (let i = 0; i < tmIds.length; i += 200) {
@@ -121,8 +92,6 @@ async function commonsCategories(tmIds) {
   return out;
 }
 
-// Transfermarkt id-si olmayan əl ilə əlavə edilmiş əfsanələr (Pelé, Maradona, Hagi...):
-// Wikidata-da ad + doğum ili + "futbolçu" peşəsi ilə tapırıq — bu üçü birlikdə dəqiqdir.
 async function categoryByName(person) {
   const year = Number(person.birth_date?.slice(0, 4));
   if (!year) return null;
@@ -135,7 +104,6 @@ async function categoryByName(person) {
     body: new URLSearchParams({ query }).toString(),
   });
   const rows = (await res.json()).results?.bindings ?? [];
-  // İki fərqli adam çıxırsa, risk etmirik.
   const cats = [...new Set(rows.map((r) => r.cat?.value).filter(Boolean))];
   return cats.length === 1 ? cats[0] : null;
 }
@@ -169,7 +137,6 @@ async function categoryFiles(cat) {
   };
   await take(cat);
   await sleep(DELAY);
-  // Bir səviyyə alt kateqoriyalar: "X in 1994", "X with Romania national team" və s.
   const subs = await commonsQuery({ action: "query", list: "categorymembers", cmtitle: `Category:${cat}`, cmtype: "subcat", cmlimit: "50" });
   for (const s of (subs.query?.categorymembers ?? []).slice(0, 12)) {
     await sleep(DELAY);
@@ -178,10 +145,8 @@ async function categoryFiles(cat) {
   return files;
 }
 
-// Foto olmayan şeylər (divar rəsmi, qrafiti, jurnal üz qabığı, heykəl, marka...) — heç götürmürük.
 const NOT_PHOTO =
   /\b(mural|mur|wall|graffiti|painting|drawing|caricature|cartoon|illustration|cover|magazine|revista|el ?grafi(co|to)|poster|stamp|sello|card|sticker|panini|figurine|wax|tussauds|statue|bust|banner|tifo|flag|jersey|shirt|boots|signature|autograph|grave|logo)\b/i;
-// Qrup/oyun şəkilləri — olar, amma portret üstündür.
 const GROUP = /\b(team|squad|line-?up|players|vs\.?|versus|match|stadium|coach|manager|press|conference|award|ceremony|wedding|with|and|und|e|y|et)\b/i;
 
 function pickPrime(files, person) {
@@ -194,13 +159,11 @@ function pickPrime(files, person) {
       const age = f.year - born;
       if (age < MIN_AGE || age > MAX_AGE) return null;
       const t = norm(f.title);
-      // Faylın adında oyunçunun adı olmalıdır — yoxsa başqasının şəkli ola bilər.
       if (!nameWords.some((w) => t.split(" ").includes(w))) return null;
-      // Mötərizədə başqa adam adı varsa ("... (Rıdvan Yılmaz)"), şəkil onundur.
       const paren = norm((f.title.match(/\(([^)]*)\)/g) ?? []).join(" ").replace(/crop(ped)?|\d+/gi, ""));
       if (paren && !nameWords.some((w) => paren.includes(w))) return null;
       let score = 10 - Math.abs(age - 27) * 0.5;
-      if (f.h >= f.w) score += 3; // portret
+      if (f.h >= f.w) score += 3;
       if (/crop/i.test(f.title)) score += 2;
       if (GROUP.test(t)) score -= 5;
       if (f.w < 200) score -= 4;
@@ -211,7 +174,6 @@ function pickPrime(files, person) {
   return scored[0] ?? null;
 }
 
-// Seçim səhifəsi üçün: oynadığı yaşlardan bütün foto namizədləri (ən uyğunlar əvvəldə).
 function candidates(files, person) {
   const born = Number(person.birth_date?.slice(0, 4));
   if (!born) return [];
@@ -346,7 +308,6 @@ async function main() {
       const cat = await categoryByName(noTm[i]);
       if (cat) cats.set(noTm[i].id, cat);
     } catch {
-      /* növbətiyə keç */
     }
     process.stdout.write(`\r   Ad ilə axtarılan əfsanələr: ${i + 1}/${noTm.length}   `);
     await sleep(DELAY);
@@ -384,7 +345,6 @@ async function main() {
             cands,
           });
       } catch {
-        /* keç */
       }
       process.stdout.write(`\r   ${i + 1}/${todo.length} · seçim üçün şəkli olan: ${items.length}   `);
       await sleep(DELAY);

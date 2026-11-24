@@ -62,7 +62,6 @@ function ClubMark({ club, size = "h-12 w-12" }) {
 
 const clubLabel = (club) => (club.nation ? club.name : club.short_name || club.name);
 
-// İki baraban: KOMANDA (sarı) və DÖVR (mavi)
 function Reels({ round, spinning, shuffleClubs, shuffleEras }) {
   const sClub = useShuffle(spinning, shuffleClubs);
   const sEra = useShuffle(spinning, shuffleEras, 70);
@@ -117,7 +116,6 @@ function Reels({ round, spinning, shuffleClubs, shuffleEras }) {
   );
 }
 
-// Meydança. reveal=true olanda (oyun sonu) reytinqlər görünür.
 function Pitch({ lineup, lastSeat, selected, onSlot, reveal = false }) {
   const pickedPos = selected != null ? lineup[selected]?.pos : null;
   return (

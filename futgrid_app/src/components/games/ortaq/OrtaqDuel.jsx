@@ -54,7 +54,6 @@ function Match({ duel, data }) {
 
   const me = duel.myId;
   const opp = duel.opponent?.id;
-  // Hər oyunçu özünü solda (mavi), rəqibi sağda (sarı) görür.
   const sideOf = (seat) => (seat === me ? "A" : "B");
   const names = { A: nameOf(duel.me), B: nameOf(duel.opponent) };
   const phase = state.phase;

@@ -1,7 +1,6 @@
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import { tr } from "../i18n";
 
-// Sosial şəbəkə linkləri bir yerdə saxlanır: navbar, mobil menyu, əlaqə bölməsi və footer buradan oxuyur.
 export const SOCIAL_LINKS = [
   {
     key: "instagram",

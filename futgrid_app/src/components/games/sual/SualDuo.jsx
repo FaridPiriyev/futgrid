@@ -103,7 +103,6 @@ export default function SualDuo({ data, settings, names }) {
     setPhase("done");
   };
 
-  // Hər "dövrədə" əvvəl A, sonra B oynayır: kim daha az sualla tapsa, o qalib gəlir.
   const after = (side, nextItems, nextFound) => {
     const usedA = usedOf(nextItems.A);
     const usedB = usedOf(nextItems.B);

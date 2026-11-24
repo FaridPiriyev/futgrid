@@ -104,7 +104,6 @@ function JoinBox({ onJoin }) {
           <p className={`${FONT} text-sm text-muted`}>{tr("Dostunun göndərdiyi 6 rəqəmi yaz")}</p>
         </div>
       </div>
-      {/* Görünən 6 xana — əslində bir input, üstünə basanda klaviatura açılır */}
       <label className="relative mt-5 block cursor-text" onClick={() => inputRef.current?.focus()}>
         <CodeTiles value={code} size="small" />
         <input
@@ -137,7 +136,6 @@ function useElapsed(since) {
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
-/** Təsadüfi rəqib: onlayn olan başqa oyunçu ilə avtomatik eşləşmə. */
 function RandomMatch({ duel }) {
   const searching = duel.searching;
   const elapsed = useElapsed(searching?.since);
@@ -188,7 +186,6 @@ function RandomMatch({ duel }) {
   );
 }
 
-/** Otağın parametrləri: hər iki oyunçu eyni qaydaları görür. */
 export function SettingsSummary({ items, dark = false }) {
   if (!items?.length) return null;
   return (
@@ -217,14 +214,12 @@ function WaitingRoom({ code, onLeave, summary }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      /* brauzer icazə vermədi */
     }
   };
   const share = async () => {
     try {
       await navigator.share({ title: "FutGrid", text: tr("FutGrid-də mənə qoşul! Otaq kodu: {code}", { code }), url: link });
     } catch {
-      /* paylaşım ləğv olundu */
     }
   };
   return (
@@ -277,7 +272,6 @@ function WaitingRoom({ code, onLeave, summary }) {
   );
 }
 
-/** Otaq yaradılmayıbsa: oyunun öz parametr ekranı (otağı quran üçün) + kodla qoşulma. */
 function SetupStage({ duel, setup }) {
   return (
     <div className="space-y-4">
