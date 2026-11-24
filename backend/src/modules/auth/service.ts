@@ -345,6 +345,7 @@ export async function findOrCreateGoogleUser(input: {
   providerAccountId: string;
   email: string;
   name?: string;
+  picture?: string;
 }): Promise<User> {
   const existingOauth = await prisma.oAuthAccount.findUnique({
     where: {
@@ -355,7 +356,15 @@ export async function findOrCreateGoogleUser(input: {
     },
     include: { user: true },
   });
-  if (existingOauth) return existingOauth.user;
+  if (existingOauth) {
+    if (input.picture && !existingOauth.user.avatarUrl) {
+      return prisma.user.update({
+        where: { id: existingOauth.user.id },
+        data: { avatarUrl: input.picture },
+      });
+    }
+    return existingOauth.user;
+  }
 
   const email = input.email.trim().toLowerCase();
   let user = await prisma.user.findUnique({ where: { email } });
@@ -376,6 +385,7 @@ export async function findOrCreateGoogleUser(input: {
         email,
         username,
         displayName: input.name?.slice(0, 40) ?? null,
+        avatarUrl: input.picture ?? null,
         emailVerifiedAt: new Date(),
         ageConfirmedAt: new Date(),
         locale: "az",
@@ -397,6 +407,12 @@ export async function findOrCreateGoogleUser(input: {
       email,
     },
   });
+  if (input.picture && !user.avatarUrl) {
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: { avatarUrl: input.picture },
+    });
+  }
   return user;
 }
 

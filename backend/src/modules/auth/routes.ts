@@ -243,6 +243,7 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
           email?: string;
           name?: string;
           email_verified?: boolean;
+          picture?: string;
         };
         if (!profile.sub || !profile.email) throw new AppError("OAUTH_FAILED");
         if (profile.email_verified !== true) {
@@ -253,6 +254,7 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
           providerAccountId: profile.sub,
           email: profile.email,
           name: profile.name,
+          picture: profile.picture,
         });
         if (user.deletedAt) return fail("deleted");
         if (user.blockedAt) return fail("blocked");

@@ -242,6 +242,8 @@ export async function deleteMe(userId: string): Promise<void> {
       where: { userId, revokedAt: null },
       data: { revokedAt: new Date() },
     }),
+
+    prisma.oAuthAccount.deleteMany({ where: { userId } }),
     prisma.user.update({
       where: { id: userId },
       data: {
@@ -251,6 +253,7 @@ export async function deleteMe(userId: string): Promise<void> {
         displayName: "Deleted user",
         teamId: null,
         deletedAt: new Date(),
+        avatarUrl: null,
       },
     }),
   ]);
