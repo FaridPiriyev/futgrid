@@ -151,11 +151,7 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
     "/auth/forgot-password",
     { schema: { tags: ["auth"], body: forgotPasswordSchema } },
     async (request, reply) => {
-      await enforceScopedLimit(
-        rateLimitKey("forgot", request.ip, request.body.email),
-        3,
-        60 * 60,
-      );
+      await enforceScopedLimit(rateLimitKey("forgot", request.ip, request.body.email), 3, 60 * 60);
       await forgotPassword(request.body.email);
       return reply.send({
         ok: true,
@@ -175,7 +171,8 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
 
   app.get("/auth/google", { schema: { tags: ["auth"] } }, async (_request, reply) => {
     if (!config.GOOGLE_CLIENT_ID || !config.GOOGLE_CLIENT_SECRET) {
-      throw new AppError("OAUTH_NOT_CONFIGURED");
+      // Açarlar qurulmayıbsa, düyməni basan istifadəçi JSON xəta yox, izah görsün.
+      return reply.redirect(`${config.APP_URL}/hesab?oauth=error&reason=not_configured`);
     }
     const state = randomToken(24);
     reply.setCookie(OAUTH_STATE_COOKIE, state, {
@@ -191,8 +188,8 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
       response_type: "code",
       scope: "openid email profile",
       state,
-      access_type: "offline",
-      prompt: "consent",
+      // Hər dəfə hesab seçimi göstərilsin (bir neçə Google hesabı olanlar üçün).
+      prompt: "select_account",
     });
     return reply.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
   });
@@ -202,60 +199,72 @@ export async function registerAuthRoutes(fastify: FastifyInstance): Promise<void
     {
       schema: {
         tags: ["auth"],
+        // İstifadəçi Google pəncərəsində "Ləğv et" basanda code yox, error gəlir.
         querystring: z.object({
-          code: z.string().min(10),
-          state: z.string().min(10),
+          code: z.string().optional(),
+          state: z.string().optional(),
+          error: z.string().optional(),
         }),
       },
     },
     async (request, reply) => {
-      if (!config.GOOGLE_CLIENT_ID || !config.GOOGLE_CLIENT_SECRET) {
-        throw new AppError("OAUTH_NOT_CONFIGURED");
-      }
-      const cookieState = request.cookies[OAUTH_STATE_COOKIE];
-      if (!cookieState || cookieState !== request.query.state) {
-        throw new AppError("OAUTH_FAILED", { message: "Invalid OAuth state" });
-      }
+      // Xəta olsa istifadəçiyə JSON yox, saytın hesab səhifəsini göstəririk.
+      const fail = (reason: string) =>
+        reply.redirect(`${config.APP_URL}/hesab?oauth=error&reason=${encodeURIComponent(reason)}`);
       reply.clearCookie(OAUTH_STATE_COOKIE, { path: "/v1/auth/google" });
-
-      const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          code: request.query.code,
-          client_id: config.GOOGLE_CLIENT_ID,
-          client_secret: config.GOOGLE_CLIENT_SECRET,
-          redirect_uri: config.GOOGLE_REDIRECT_URI,
-          grant_type: "authorization_code",
-        }),
-      });
-      if (!tokenResponse.ok) throw new AppError("OAUTH_FAILED");
-      const tokenData = (await tokenResponse.json()) as { access_token?: string };
-      if (!tokenData.access_token) throw new AppError("OAUTH_FAILED");
-
-      const profileResponse = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
-        headers: { Authorization: `Bearer ${tokenData.access_token}` },
-      });
-      if (!profileResponse.ok) throw new AppError("OAUTH_FAILED");
-      const profile = (await profileResponse.json()) as {
-        sub?: string;
-        email?: string;
-        name?: string;
-        email_verified?: boolean;
-      };
-      if (!profile.sub || !profile.email) throw new AppError("OAUTH_FAILED");
-      if (profile.email_verified !== true) {
-        throw new AppError("OAUTH_FAILED", { message: "Google email is not verified" });
+      if (!config.GOOGLE_CLIENT_ID || !config.GOOGLE_CLIENT_SECRET) return fail("not_configured");
+      if (request.query.error) return fail("cancelled");
+      const cookieState = request.cookies[OAUTH_STATE_COOKIE];
+      if (!request.query.code || !cookieState || cookieState !== request.query.state) {
+        return fail("state");
       }
+      try {
+        const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            code: request.query.code as string,
+            client_id: config.GOOGLE_CLIENT_ID,
+            client_secret: config.GOOGLE_CLIENT_SECRET,
+            redirect_uri: config.GOOGLE_REDIRECT_URI,
+            grant_type: "authorization_code",
+          }),
+        });
+        if (!tokenResponse.ok) throw new AppError("OAUTH_FAILED");
+        const tokenData = (await tokenResponse.json()) as { access_token?: string };
+        if (!tokenData.access_token) throw new AppError("OAUTH_FAILED");
 
-      const user = await findOrCreateGoogleUser({
-        providerAccountId: profile.sub,
-        email: profile.email,
-        name: profile.name,
-      });
-      const tokens = await oauthIssueTokens(user, request);
-      setAuthCookies(reply, tokens);
-      return reply.redirect(`${config.APP_URL}/hesab?oauth=ok`);
+        const profileResponse = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
+          headers: { Authorization: `Bearer ${tokenData.access_token}` },
+        });
+        if (!profileResponse.ok) throw new AppError("OAUTH_FAILED");
+        const profile = (await profileResponse.json()) as {
+          sub?: string;
+          email?: string;
+          name?: string;
+          email_verified?: boolean;
+        };
+        if (!profile.sub || !profile.email) throw new AppError("OAUTH_FAILED");
+        if (profile.email_verified !== true) {
+          throw new AppError("OAUTH_FAILED", { message: "Google email is not verified" });
+        }
+
+        const user = await findOrCreateGoogleUser({
+          providerAccountId: profile.sub,
+          email: profile.email,
+          name: profile.name,
+        });
+        if (user.deletedAt) return fail("deleted");
+        if (user.blockedAt) return fail("blocked");
+        const tokens = await oauthIssueTokens(user, request);
+        setAuthCookies(reply, tokens);
+        return reply.redirect(`${config.APP_URL}/hesab?oauth=ok`);
+      } catch (error) {
+        request.log.warn({ err: error }, "google oauth failed");
+        return fail(
+          error instanceof AppError && /verified/i.test(error.message) ? "unverified" : "failed",
+        );
+      }
     },
   );
 

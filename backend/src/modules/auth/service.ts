@@ -172,8 +172,24 @@ export async function refresh(
 
   if (stored.revokedAt) {
     // Multi-tab race: a token rotated milliseconds ago in another tab is not theft.
+    // Güzəşt YALNIZ yeni tokenlə əvəzlənmiş (rotasiya olunmuş) token üçündür.
+    // Logout, "bütün cihazlardan çıx", şifrə sıfırlama və s. tokeni replacedByTokenHash
+    // olmadan ləğv edir — belə tokenlə yenidən sessiya almaq olmaz.
     const graceMs = 30_000;
-    if (Date.now() - stored.revokedAt.getTime() <= graceMs) {
+    const withinGrace = Date.now() - stored.revokedAt.getTime() <= graceMs;
+    const replacement =
+      withinGrace && stored.replacedByTokenHash
+        ? await prisma.refreshToken.findUnique({ where: { tokenHash: stored.replacedByTokenHash } })
+        : null;
+    // Əvəz edən token hələ aktivdirsə (və ya o da sadəcə rotasiya olunubsa) — bu, çox tab yarışıdır.
+    const rotationOnly =
+      replacement && (!replacement.revokedAt || Boolean(replacement.replacedByTokenHash));
+    if (
+      rotationOnly &&
+      stored.expiresAt.getTime() > Date.now() &&
+      !stored.user.deletedAt &&
+      !stored.user.blockedAt
+    ) {
       const accessToken = await signAccessToken(stored.user.id, stored.user.role);
       const replacement = randomToken();
       const replacementHash = hashToken(replacement);
@@ -253,7 +269,12 @@ export async function verifyEmail(token: string): Promise<void> {
   const record = await prisma.emailToken.findUnique({
     where: { tokenHash: hashToken(token) },
   });
-  if (!record || record.type !== "verify" || record.usedAt || record.expiresAt.getTime() <= Date.now()) {
+  if (
+    !record ||
+    record.type !== "verify" ||
+    record.usedAt ||
+    record.expiresAt.getTime() <= Date.now()
+  ) {
     throw new AppError("TOKEN_INVALID");
   }
   await prisma.$transaction([
@@ -301,7 +322,12 @@ export async function resetPassword(token: string, password: string): Promise<vo
   const record = await prisma.emailToken.findUnique({
     where: { tokenHash: hashToken(token) },
   });
-  if (!record || record.type !== "reset" || record.usedAt || record.expiresAt.getTime() <= Date.now()) {
+  if (
+    !record ||
+    record.type !== "reset" ||
+    record.usedAt ||
+    record.expiresAt.getTime() <= Date.now()
+  ) {
     throw new AppError("TOKEN_INVALID");
   }
   const passwordHash = await hashPassword(password);
@@ -334,7 +360,11 @@ export async function findOrCreateGoogleUser(input: {
   const email = input.email.trim().toLowerCase();
   let user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
-    const base = email.split("@")[0]?.replace(/[^A-Za-z0-9_]/g, "_").slice(0, 14) || "player";
+    const base =
+      email
+        .split("@")[0]
+        ?.replace(/[^A-Za-z0-9_]/g, "_")
+        .slice(0, 14) || "player";
     let username = base;
     let suffix = 0;
     while (await prisma.user.findUnique({ where: { username } })) {
@@ -370,10 +400,7 @@ export async function findOrCreateGoogleUser(input: {
   return user;
 }
 
-export async function oauthIssueTokens(
-  user: User,
-  request: FastifyRequest,
-): Promise<TokenPair> {
+export async function oauthIssueTokens(user: User, request: FastifyRequest): Promise<TokenPair> {
   return issueTokens(user, request);
 }
 
