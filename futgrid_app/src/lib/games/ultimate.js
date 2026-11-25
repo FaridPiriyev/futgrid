@@ -44,7 +44,7 @@ export const newLineup = (formation) =>
   }));
 
 const year = (d) => (d ? Number(String(d).slice(0, 4)) : null);
-export const eraLabel = (start) => `${start}–${String(start + ERA_STEP - 1).slice(2)}`;
+export const eraLabel = (start) => `${start}–${String(Math.min(start + ERA_STEP - 1, new Date().getFullYear())).slice(2)}`;
 export const comboEra = (combo) => combo.eraText ?? eraLabel(combo.era);
 
 const MIN_FAME = { easy: 2.2, normal: 1.4, hard: 0.6 };

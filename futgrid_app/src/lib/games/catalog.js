@@ -33,7 +33,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Kartları gizli seç, açılanda ortaq futbolçunu birinci tap.");
   },
-    image: ortaqCover,
+    image: "/images/game2.png",
     href: "/oyunlar/ortaq-oyuncu",
     get tags() {
     return ["Kart dueli", "2 oyunçu", "Tək oyunçu"].map((s) => tr(s));
@@ -204,7 +204,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("128 ikonik futbolçu, hər turda ikisindən biri. 64, 32, 16… sonda tək bir əfsanə qalır.");
   },
-    image: "/images/game11.webp",
+    image: "/images/game11.png",
     href: "/oyunlar/tarixin-en-yaxsisi",
     get tags() {
     return ["Tək oyunçu", "128 əfsanə", "Turnir"].map((s) => tr(s));
@@ -242,7 +242,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Gizli futbolçunu bəli/xeyr sualları ilə tap: aktivdir? hücumçudur? Premyer Liqada oynayıb? Ən az sualla tapan qalib olur.");
   },
-    image: "/images/game13.webp",
+    image: "/images/game13.png",
     href: "/oyunlar/20-sual",
     get tags() {
     return ["Tək oyunçu", "2 oyunçu", "Bəli / Xeyr"].map((s) => tr(s));
@@ -282,7 +282,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Klub və dövr barabanlarını fırlat, hər raundda o illərin futbolçusundan birini seç və 11 raundda ən güclü heyəti qur.");
   },
-    image: ultimateCover,
+    image: "/images/game15.png",
     href: "/oyunlar/ultimate-11",
     get tags() {
     return ["Tək oyunçu", "Gündəlik", "11 raund"].map((s) => tr(s));

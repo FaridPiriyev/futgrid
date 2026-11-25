@@ -583,7 +583,7 @@ function HowItWorks({ signedIn }) {
   const more = GAME_CATALOG.length - 4;
   const steps = [
     {
-      image: "/images/card2.webp",
+      image: "/images/card2.png",
       alt: tr("Soyunma otağında taktika lövhəsi"),
       title: tr("Oyununu seç"),
       text: tr(
