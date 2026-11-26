@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /hesab
+Disallow: /admin
 
 Sitemap: https://futgrid.az/sitemap.xml

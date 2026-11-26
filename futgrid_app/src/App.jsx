@@ -8,6 +8,7 @@ import { LanguageProvider, tr, useLang } from "./i18n";
 import { AuthProvider } from "./lib/auth";
 import { GAME_CATALOG } from "./lib/games/catalog";
 import ogImage from "./assets/og-image.jpg";
+import { NOINDEX_PATHS } from "./seo/routes";
 
 const AllGames = lazy(() => import("./components/AllGames"));
 const FutbolX0X = lazy(() => import("./components/games/x0x/FutbolX0X"));
@@ -38,6 +39,7 @@ const Ultimate = lazy(() => import("./components/games/ultimate/Ultimate"));
 const Legal = lazy(() => import("./components/Legal"));
 const Account = lazy(() => import("./components/Account"));
 const Admin = lazy(() => import("./components/Admin"));
+const NotFound = lazy(() => import("./components/NotFound"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -124,7 +126,15 @@ function RouteMeta() {
     const full = path === "/" ? title : `${title} | FutGrid`;
     const url = SITE + (path === "/" ? "/" : path);
 
+    const known = Boolean(game) || Object.hasOwn(PAGES, path);
+    const indexable = known && !NOINDEX_PATHS.has(path);
+
     document.title = full;
+    setMeta(
+      "name",
+      "robots",
+      indexable ? "index,follow,max-image-preview:large" : "noindex,nofollow",
+    );
     setMeta("name", "description", description);
     setMeta("property", "og:title", full);
     setMeta("property", "og:description", description);
@@ -200,6 +210,7 @@ function AppShell() {
             path="/istifade-sertleri"
             element={<Legal page="terms" lang={lang} />}
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Footer />
