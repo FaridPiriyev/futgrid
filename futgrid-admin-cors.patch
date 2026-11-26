@@ -1,0 +1,12 @@
+diff --git a/backend/src/app.ts b/backend/src/app.ts
+index 625b7921..c0cc6486 100644
+--- a/backend/src/app.ts
++++ b/backend/src/app.ts
+@@ -61,6 +61,7 @@ export async function buildApp() {
+       "Accept-Language",
+       "X-Guest-Id",
+       "X-Client",
++      "X-Admin-TOTP",
+     ],
+   });
+   mkdirSync(storageDir("data"), { recursive: true });

@@ -61,6 +61,7 @@ export async function buildApp() {
       "Accept-Language",
       "X-Guest-Id",
       "X-Client",
+      "X-Admin-TOTP",
     ],
   });
   mkdirSync(storageDir("data"), { recursive: true });

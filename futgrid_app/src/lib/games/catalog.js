@@ -12,7 +12,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Sətir və sütundakı klub, ölkə, məşqçi və kubokların kəsişməsində oynamış futbolçunu tap. Üç xananı bir xətdə tutan qalib olur.");
   },
-    image: "/images/game1.webp",
+    image: "/images/game1.png",
     href: "/oyunlar/futbol-x0x",
     get tags() {
     return ["2 oyunçu", "Tək oyunçu", "3 səviyyə"].map((s) => tr(s));
@@ -126,7 +126,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Təsadüfi məşhur oyun və komanda gəlir. Başlanğıc heyəti xatırla, boş yerləri adlarla doldur.");
   },
-    image: "/images/game7.webp",
+    image: "/images/game7.png",
     href: "/oyunlar/heyeti-xatirla",
     get tags() {
     return ["Tək oyunçu", "Məşhur oyunlar"].map((s) => tr(s));

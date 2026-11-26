@@ -597,6 +597,16 @@ function HowItWorks({ signedIn }) {
       href: "/oyunlar",
     },
     {
+      image: "/images/card3.webp",
+      alt: tr("Stadiona çıxan tunel"),
+      title: tr("Xal topla, reytinqə qalx"),
+      text: tr(
+        "Hesabla oynadığın hər oyun xal gətirir. Həftəlik, aylıq və bütün zamanlar cədvəlində yerini tut.",
+      ),
+      chips: PERIODS.map((p) => ({ label: p.label })),
+      href: "#leaderboard",
+    },
+    {
       image: "/images/card1.png",
       alt: tr("Divanda telefonla oynayan iki dost"),
       title: tr("Tək və ya dostla oyna"),
@@ -608,16 +618,6 @@ function HowItWorks({ signedIn }) {
         { label: tr("Onlayn otaq"), hot: true },
       ],
       href: "/oyunlar?filter=duo",
-    },
-    {
-      image: "/images/card3.webp",
-      alt: tr("Stadiona çıxan tunel"),
-      title: tr("Xal topla, reytinqə qalx"),
-      text: tr(
-        "Hesabla oynadığın hər oyun xal gətirir. Həftəlik, aylıq və bütün zamanlar cədvəlində yerini tut.",
-      ),
-      chips: PERIODS.map((p) => ({ label: p.label })),
-      href: "#leaderboard",
     },
   ];
 
@@ -979,7 +979,9 @@ function HowElo({ signedIn }) {
       Icon: Swords,
       tone: "bg-accent/15 text-accent",
       title: tr("Dostunla və ya rəqiblə duel et"),
-      text: tr("Hamı 1000 Elo ilə başlayır. Hər qələbə reytinqini artırır, məğlubiyyət azaldır."),
+      text: tr(
+        "Hamı 1000 Elo ilə başlayır. Hər qələbə reytinqini artırır, məğlubiyyət azaldır.",
+      ),
     },
     {
       Icon: TrendingUp,
@@ -1588,7 +1590,11 @@ export default function Home() {
               className={`${REVEAL.up} mt-8 grid gap-4 md:mt-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6`}
             >
               <EmptyPodium period={period} />
-              {period === "elo" ? <HowElo signedIn={signedIn} /> : <HowToScore signedIn={signedIn} />}
+              {period === "elo" ? (
+                <HowElo signedIn={signedIn} />
+              ) : (
+                <HowToScore signedIn={signedIn} />
+              )}
             </div>
           ) : (
             <div
@@ -1615,7 +1621,9 @@ export default function Home() {
                   <span className="hidden md:block">
                     {period === "elo" ? tr("Q–M–H") : tr("Komanda")}
                   </span>
-                  <span className="text-right">{period === "elo" ? "Elo" : tr("Xal")}</span>
+                  <span className="text-right">
+                    {period === "elo" ? "Elo" : tr("Xal")}
+                  </span>
                 </div>
 
                 {rows.slice(3).map((player, j) => {
@@ -1693,7 +1701,9 @@ export default function Home() {
             >
               <Trophy className="h-3.5 w-3.5 text-gold" />
               {period === "elo"
-                ? tr("Elo hər duel bitəndə yenilənir · cədvəldə ən azı 5 duel oynayanlar görünür")
+                ? tr(
+                    "Elo hər duel bitəndə yenilənir · cədvəldə ən azı 5 duel oynayanlar görünür",
+                  )
                 : tr("Reytinq hər həftə bazar ertəsi yenilənir")}
             </p>
           )}
