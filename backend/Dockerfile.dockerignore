@@ -1,0 +1,8 @@
+**/node_modules
+**/dist
+.git
+futgrid_app/public
+futgrid_app/src
+futgrid_app/scripts
+**/.env
+**/.env.*
