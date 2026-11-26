@@ -1,6 +1,4 @@
 import { tr } from "../../i18n";
-import ultimateCover from "../../assets/games/ultimate-11.webp";
-import ortaqCover from "../../assets/games/ortaq-oyuncu.webp";
 
 export const GAME_CATALOG = [
   {

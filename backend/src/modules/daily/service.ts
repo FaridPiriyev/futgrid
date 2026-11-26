@@ -216,11 +216,8 @@ async function updateStreak(actor: Actor, game: DailyGame, date: string, solved:
     : { guestId_game: { guestId: actor.guestId as string, game } };
   const existing = await prisma.dailyStreak.findUnique({ where });
   let current = existing?.currentStreak ?? 0;
-  if (existing?.lastDate === date) {
-  } else if (solved) {
-    current = existing?.lastDate === previousDate(date) ? current + 1 : 1;
-  } else {
-    current = 0;
+  if (existing?.lastDate !== date) {
+    current = solved ? (existing?.lastDate === previousDate(date) ? current + 1 : 1) : 0;
   }
   await prisma.dailyStreak.upsert({
     where,

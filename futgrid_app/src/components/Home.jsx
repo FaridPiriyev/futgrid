@@ -597,7 +597,7 @@ function HowItWorks({ signedIn }) {
       href: "/oyunlar",
     },
     {
-      image: "/images/card1.webp",
+      image: "/images/card1.png",
       alt: tr("Divanda telefonla oynayan iki dost"),
       title: tr("Tək və ya dostla oyna"),
       text: tr(
