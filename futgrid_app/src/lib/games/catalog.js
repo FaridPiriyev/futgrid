@@ -69,7 +69,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("İki futbolçudan hansının bazar dəyəri daha yüksəkdir? Düzgün tap, seriyanı uzat.");
   },
-    image: "/images/game4.webp",
+    image: "/images/game4.png",
     href: "/oyunlar/yuksek-asagi",
     get tags() {
     return ["Tək oyunçu", "Seriya", "Bazar dəyəri"].map((s) => tr(s));
@@ -145,7 +145,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("5 klub gəlir. Ortaq klubları seç və onların hamısında oynamış futbolçunu yaz: 2 klub 2 xal, 3 klub 3 xal.");
   },
-    image: "/images/game8.jpg",
+    image: "/images/game8.png",
     href: "/oyunlar/5-klub",
     get tags() {
     return ["Tək oyunçu", "Vaxta qarşı"].map((s) => tr(s));
@@ -164,7 +164,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Futbolçu gəlir, qutular onun klublarının sayı qədərdir. Qutuya toxun və klubları karyera sırası ilə düz.");
   },
-    image: "/images/game9.webp",
+    image: "/images/game9.png",
     href: "/oyunlar/klublari-sirala",
     get tags() {
     return ["Tək oyunçu", "10 raund"].map((s) => tr(s));
@@ -183,7 +183,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("5-4-3-2-1: hər səviyyədə iki şərtə uyğun futbolçuları vaxt bitməmiş yaz və zirvəyə qalx.");
   },
-    image: "/images/game10.webp",
+    image: "/images/game10.png",
     href: "/oyunlar/piramida",
     get tags() {
     return ["Tək oyunçu", "Vaxta qarşı", "5 səviyyə"].map((s) => tr(s));
@@ -260,7 +260,7 @@ export const GAME_CATALOG = [
     get description() {
     return tr("Futbolçunun şəkli 16 və ya 24 xanaya bölünüb, hər dəfə bir xana açılır. Şəkildəki futbolçunu ilk tanıyan qalib olur.");
   },
-    image: "/images/game14.webp",
+    image: "/images/game14.png",
     href: "/oyunlar/kimdir-bu",
     get tags() {
     return ["Tək oyunçu", "2 oyunçu", "16 / 24 xana"].map((s) => tr(s));
