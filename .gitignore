@@ -17,3 +17,4 @@ backend/.mail-outbox/
 cdn-data/
 cdn-media/
 *.rar*.bundle
+*.rar
