@@ -8,6 +8,7 @@ import {
   formationTotal,
   pitchSpots,
   validFormation,
+  CHEM,
 } from "../../../lib/games/auction";
 import { POS_NAME, POS_SHORT, POS_STYLE } from "../../../lib/games/playerInfo";
 import {
@@ -63,7 +64,13 @@ const rules = (f, mystery) => [
   mystery
     ? tr("Gizli oyunçu: ad yox, ipucu görünür. Kim olduğu satışdan sonra açılır.")
     : tr("Pulu bitən komandanın qalan oyunçuları 0 ₼-a gəlir."),
-  tr("Sonda sistem hər oyunçuya reytinq verir, kimya bonusu əlavə olunur və güclü komanda qalib olur."),
+  tr("Sonda sistem hər oyunçuya reytinq verir və güclü komanda qalib olur."),
+  tr("Kimya: hər cüt oyunçu üçün eyni klub +{club}, eyni ölkə +{country}, eyni liqa +{league} (maksimum +{cap}).", {
+    club: CHEM.club,
+    country: CHEM.country,
+    league: CHEM.league,
+    cap: CHEM.cap,
+  }),
 ];
 
 function MiniPitch({ formation }) {

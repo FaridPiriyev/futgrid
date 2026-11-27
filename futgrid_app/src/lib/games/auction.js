@@ -40,7 +40,7 @@ export const MIN_BID = 2;
 export const MAX_LOTS = 30;
 export const SOLD_MS = 1700;
 /** Automatic sales: the card is shown alone for this long before the "Avtomatik" stamp lands. */
-export const AUTO_REVEAL_MS = 1100;
+export const AUTO_REVEAL_MS = 1300;
 export const SIDE_KEYS = ["A", "B"];
 
 export const TIERS = [

@@ -8,6 +8,7 @@ import { SiteLogo } from "./Navbar";
 
 import { tr } from "../i18n";
 import { CONTACT_EMAIL } from "../lib/contact";
+import { BUILD_ID } from "../lib/buildId";
 const HEAD = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
@@ -255,6 +256,9 @@ export default function Footer() {
             className={`${BODY} text-center text-[13px] text-navy-soft md:text-left`}
           >
             © {year} {tr("FutGrid. Bütün hüquqlar qorunur.")}
+            <span className="ml-2 opacity-50" title={tr("Saytın versiyası")}>
+              v{BUILD_ID}
+            </span>
           </p>
 
           <div

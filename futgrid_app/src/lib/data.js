@@ -1,5 +1,6 @@
 import { tr } from "../i18n";
 import { MANUAL_PHOTOS } from "./manualPhotos";
+import { BUILD_ID } from "./buildId";
 import marketValuesCsv from "../data/market-values.csv?raw";
 import badPhotosTxt from "../data/bad-photos.txt?raw";
 const BASE = "/data";
@@ -22,7 +23,7 @@ export const norm = (s) =>
     .trim();
 
 const getJson = async (file, optional = false) => {
-  const res = await fetch(`${BASE}/${file}`);
+  const res = await fetch(`${BASE}/${file}?v=${BUILD_ID}`);
   const text = res.ok ? await res.text() : "";
   if (!res.ok || text.trimStart().startsWith("<")) {
     if (optional) return null;

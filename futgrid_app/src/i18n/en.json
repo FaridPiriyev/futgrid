@@ -1549,5 +1549,8 @@
   "Kimya əlaqələri": "Chemistry links",
   "Reytinqlərin cəmi + kimya: hər cüt oyunçu üçün eyni klub +{club}, eyni ölkə +{country}, eyni liqa +{league} (maksimum +{cap})": "Sum of ratings + chemistry: for every pair of players same club +{club}, same country +{country}, same league +{league} (max +{cap})",
   "avtomatik": "automatic",
-  "kimya": "chemistry"
+  "kimya": "chemistry",
+  "Sonda sistem hər oyunçuya reytinq verir və güclü komanda qalib olur.": "At the end every player gets a rating and the stronger team wins.",
+  "Kimya: hər cüt oyunçu üçün eyni klub +{club}, eyni ölkə +{country}, eyni liqa +{league} (maksimum +{cap}).": "Chemistry: for every pair of players, same club +{club}, same country +{country}, same league +{league} (max +{cap}).",
+  "Saytın versiyası": "Site version"
 }
