@@ -103,6 +103,8 @@ const ERRORS = {
 
 export const duelErrorText = (code) => ERRORS[code] ?? tr("Xəta baş verdi ({code}).", { code: code || "?" });
 
+const socketToken = { value: "", at: 0, user: null };
+
 export function useDuelRoom({ game, invitedCode = "" }) {
   const { user, loading } = useAuth();
   const socketRef = useRef(null);
@@ -171,8 +173,13 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     // player who comes back after switching apps is not kicked as UNAUTHENTICATED.
     const authFor = async () => {
       if (!user) return { guestId: getGuestId() };
+      // Reuse a token for 10 minutes (they live 15) so connecting doesn't wait on an extra request.
+      if (socketToken.value && socketToken.user === user.id && Date.now() - socketToken.at < 10 * 60 * 1000) {
+        return { token: socketToken.value };
+      }
       try {
         const { token } = await api.get("/auth/socket-token");
+        if (token) Object.assign(socketToken, { value: token, at: Date.now(), user: user.id });
         return token ? { token } : { guestId: getGuestId() };
       } catch {
         return { guestId: getGuestId() };
@@ -269,6 +276,21 @@ export function useDuelRoom({ game, invitedCode = "" }) {
       window.removeEventListener("online", onVisible);
     };
   }, []);
+
+  // Never leave the player staring at "Otağa qoşulur..." — give up after 7 seconds.
+  useEffect(() => {
+    if (!joining) return undefined;
+    const id = setTimeout(() => {
+      setJoining(false);
+      if (!roomRef.current && !invitedCode) {
+        codeRef.current = "";
+        writeStored(game, "");
+      } else if (!roomRef.current) {
+        setError(tr("Otağa qoşulmaq alınmadı. İnterneti yoxla və yenidən cəhd et."));
+      }
+    }, 7000);
+    return () => clearTimeout(id);
+  }, [joining, invitedCode, game]);
 
   const emit = useCallback(
     (event, payload) =>

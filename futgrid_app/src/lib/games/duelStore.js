@@ -39,7 +39,20 @@ const readEntry = (game) => {
     return null;
   }
 };
-export const readStored = (game) => readEntry(game)?.code ?? "";
+const WAITING_RESUME_MS = 15 * 60 * 1000;
+
+/**
+ * Only rooms worth going back to: a match still being played, or a room you created
+ * in the last 15 minutes that is still waiting for a friend. Finished games are not
+ * reopened, so visiting a game page shows the normal mode picker.
+ */
+export const readStored = (game) => {
+  const entry = readEntry(game);
+  if (!entry) return "";
+  if (entry.status === "playing") return entry.code;
+  if (entry.status === "waiting" && Date.now() - Number(entry.at) < WAITING_RESUME_MS) return entry.code;
+  return "";
+};
 export const writeStored = (game, code, status) => {
   try {
     if (code) localStorage.setItem(storeKey(game), JSON.stringify({ code, status: status ?? null, at: Date.now() }));
