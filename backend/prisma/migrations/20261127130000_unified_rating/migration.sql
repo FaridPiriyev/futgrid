@@ -5,6 +5,7 @@ CREATE TABLE "rating_events" (
     "game_id" TEXT NOT NULL,
     "delta" DOUBLE PRECISION NOT NULL,
     "source" TEXT NOT NULL,
+    "session_id" UUID,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "rating_events_pkey" PRIMARY KEY ("id")
@@ -13,6 +14,7 @@ CREATE TABLE "rating_events" (
 CREATE INDEX "rating_events_created_at_idx" ON "rating_events"("created_at");
 CREATE INDEX "rating_events_user_id_created_at_idx" ON "rating_events"("user_id", "created_at");
 CREATE INDEX "rating_events_game_id_created_at_idx" ON "rating_events"("game_id", "created_at");
+CREATE INDEX "rating_events_session_id_idx" ON "rating_events"("session_id");
 
 ALTER TABLE "rating_events" ADD CONSTRAINT "rating_events_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 

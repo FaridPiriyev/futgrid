@@ -344,7 +344,7 @@ export async function finishSession(
     if (user?.emailVerifiedAt && !user.blockedAt && !user.deletedAt) {
       // Site-wide rating: this game's rating and the overall rating (both start at 1000).
       try {
-        rating = await applySoloResult(identity.userId, game, breakdown.score, session.difficulty);
+        rating = await applySoloResult(identity.userId, game, breakdown.score, session.difficulty, session.id);
       } catch (error) {
         logger.error({ err: error, userId: identity.userId }, "rating update failed");
       }

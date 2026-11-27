@@ -5,6 +5,8 @@ import { fetchProfile } from "../../lib/useProfile";
 import { useAuth } from "../../lib/auth";
 import { useSocial } from "../../lib/social";
 import { gameName } from "../../lib/games/names";
+import { nextTier, tierOf } from "../../lib/tiers";
+import TierBadge from "./TierBadge";
 import { getLang, tr } from "../../i18n";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
@@ -132,6 +134,7 @@ export default function ProfileCard({ username }) {
   const letter = (profile.displayName || profile.username || "?").slice(0, 1).toUpperCase();
   const overall = profile.duel?.rating ?? 1000;
   const ratings = [...profile.ratings].sort((a, b) => b.rating - a.rating);
+  const upcoming = nextTier(overall);
 
   return (
     <div>
@@ -165,6 +168,7 @@ export default function ProfileCard({ username }) {
         <div className="min-w-0 pb-1">
           <p className={`truncate ${FONT} text-2xl font-black uppercase leading-tight text-ink`}>{profile.displayName}</p>
           <p className={`truncate ${FONT} text-sm text-muted`}>@{profile.username}</p>
+          <TierBadge rating={overall} size="lg" className="mt-1.5" />
         </div>
       </div>
 
@@ -188,6 +192,23 @@ export default function ProfileCard({ username }) {
           value={profile.duel?.games ? Math.round((profile.duel.wins / profile.duel.games) * 100) : profile.totals.winRate}
         />
       </div>
+
+      {upcoming ? (
+        <div className="mt-3">
+          <div className={`flex justify-between ${FONT} text-[11px] font-bold uppercase tracking-[0.12em] text-muted`}>
+            <span>{tierOf(overall).label()}</span>
+            <span>{tr("{tier} üçün {n} xal", { tier: upcoming.tier.label(), n: upcoming.missing })}</span>
+          </div>
+          <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-line/10">
+            <span
+              className="block h-full rounded-full bg-linear-to-r from-accent to-yellow"
+              style={{
+                width: `${Math.max(4, Math.min(100, ((overall - tierOf(overall).min) / (upcoming.tier.min - tierOf(overall).min)) * 100))}%`,
+              }}
+            />
+          </div>
+        </div>
+      ) : null}
 
       {profile.duel ? (
         <p className={`mt-2 text-center ${FONT} text-xs text-muted`}>

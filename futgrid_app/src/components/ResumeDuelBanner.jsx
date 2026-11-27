@@ -20,7 +20,7 @@ export default function ResumeDuelBanner() {
   if (!entry) return null;
   const href = `${DUEL_GAME_PATHS[entry.game]}?otaq=${entry.code}`;
   return (
-    <div className="fixed inset-x-3 bottom-3 z-[55] mx-auto flex max-w-xl items-center gap-3 rounded-[14px] border border-accent/40 bg-surface/95 p-3 shadow-2xl backdrop-blur sm:bottom-5">
+    <div className="fixed inset-x-3 bottom-[84px] z-[55] md:bottom-5 mx-auto flex max-w-xl items-center gap-3 rounded-[14px] border border-accent/40 bg-surface/95 p-3 shadow-2xl backdrop-blur">
       <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/15 text-accent">
         <Swords className="h-5 w-5" />
       </span>

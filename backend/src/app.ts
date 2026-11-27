@@ -65,6 +65,7 @@ export async function buildApp() {
       "X-Guest-Id",
       "X-Client",
       "X-Admin-TOTP",
+      "X-Admin-Session",
     ],
   });
   mkdirSync(storageDir("data"), { recursive: true });

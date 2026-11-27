@@ -17,3 +17,5 @@ Hələ açıq:
 - "Kimdir bu" onlayn: şəkil tam yüklənir, xanalar yalnız brauzerdə örtülür (devtools ilə baxmaq mümkündür)
 - Ardıcıl 19 mükəmməl nəticə "flagged" sayılır — qayda yumşaldılmalıdır (indi heç olmasa oyunçuya bildiriş göstərilir)
 - Oyunçu şəkilləri (13 845 fayl, ~570 MB) repoda saxlanılır — R2/obyekt yaddaşına köçürmək
+- Admin: TOTP qurulanda QR kod yoxdur (açar əl ilə yazılır) — qrcode paketi əlavə etmək lazımdır
+- Admin: data build/publish hələ də bir HTTP sorğusunda (3 dəq) — arxa fon işinə (job) keçirmək

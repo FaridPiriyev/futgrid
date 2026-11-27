@@ -3,6 +3,7 @@ import { useSocial } from "../../../lib/social";
 import { useProfile } from "../../../lib/useProfile";
 import { gameName } from "../../../lib/games/names";
 import { nameOf } from "./DuelKit";
+import TierBadge from "../../social/TierBadge";
 import { FONT } from "./ui";
 import { tr } from "../../../i18n";
 
@@ -101,6 +102,7 @@ function Side({ player, game, align, mine, ratingVersion }) {
               {gameName(game)}
               <span className={`${DIGITS} text-[13px] text-ink`}>{gameRating ?? 1000}</span>
             </span>
+            <TierBadge rating={overall ?? 1000} />
             {overall ? (
               <span className={`hidden items-center gap-1 rounded-md bg-line/8 px-2 py-0.5 ${FONT} text-[11px] font-bold uppercase tracking-wide text-muted sm:inline-flex`}>
                 {tr("Ümumi")}

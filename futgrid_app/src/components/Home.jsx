@@ -20,6 +20,9 @@ import { api } from "../lib/api";
 import { useAuth } from "../lib/auth";
 import { useSocial } from "../lib/social";
 import { RATED_GAME_IDS, gameName } from "../lib/games/names";
+import { playingNow, useLive } from "../lib/live";
+import LiveBadge from "./games/common/LiveBadge";
+import TierBadge from "./social/TierBadge";
 import heroPhoto from "../assets/slider2.webp";
 
 import { tr } from "../i18n";
@@ -680,7 +683,7 @@ function ModeChips({ game }) {
   );
 }
 
-function GameCard({ game, badge, index }) {
+function GameCard({ game, badge, index, playing = 0 }) {
   return (
     <li
       data-reveal
@@ -705,6 +708,7 @@ function GameCard({ game, badge, index }) {
               {badge}
             </span>
           )}
+          <LiveBadge count={playing} className="absolute right-3.5 top-3.5" />
         </span>
         <span className="flex flex-1 flex-col gap-2 p-5 sm:gap-2.5 sm:px-6 sm:pb-6 sm:pt-5.5">
           <span
@@ -848,6 +852,7 @@ function DuelBanner() {
 }
 
 function PopularGames() {
+  const live = useLive();
   const games = POPULAR.map((p) => ({
     game: GAME_CATALOG.find((g) => g.key === p.key),
     badge: p.badge?.(),
@@ -872,7 +877,7 @@ function PopularGames() {
 
         <ul className="-mx-4 mt-7 flex snap-x snap-mandatory gap-3.5 overflow-x-auto scroll-px-4 px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:mt-10 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-6 [&::-webkit-scrollbar]:hidden">
           {games.map(({ game, badge }, i) => (
-            <GameCard key={game.key} game={game} badge={badge} index={i} />
+            <GameCard key={game.key} game={game} badge={badge} index={i} playing={playingNow(live, game.key)} />
           ))}
         </ul>
 
@@ -1108,9 +1113,12 @@ function TopCard({ player, rank, run, onOpen }) {
           >
             {player.name}
           </span>
-          <span className={`block truncate ${BODY} text-[13px] text-muted`}>
-            {player.team} · {player.winRate}
-            {tr("% qələbə")}
+          <span className={`flex min-w-0 items-center gap-2 ${BODY} text-[13px] text-muted`}>
+            {player.tierRating ? <TierBadge rating={player.tierRating} /> : null}
+            <span className="truncate">
+              {player.team} · {player.winRate}
+              {tr("% qələbə")}
+            </span>
           </span>
         </span>
         <span
@@ -1420,6 +1428,8 @@ export default function Home() {
           matches: entry.games ?? 0,
           winRate: entry.winRate ?? 0,
           gain: key !== "all",
+          // Tier always reflects the overall rating, so only show it on the overall board.
+          tierRating: !ratingGame && key === "all" ? entry.rating : null,
           points: { value: key === "all" ? entry.rating : entry.points },
         }));
       }
@@ -1619,9 +1629,10 @@ export default function Home() {
                               {player.name}
                             </p>
                             <p
-                              className={`truncate ${BODY} text-xs text-muted md:hidden`}
+                              className={`flex min-w-0 items-center gap-1.5 ${BODY} text-xs text-muted`}
                             >
-                              {player.team}
+                              {player.tierRating ? <TierBadge rating={player.tierRating} /> : null}
+                              <span className="truncate md:hidden">{player.team}</span>
                             </p>
                           </div>
                         </div>

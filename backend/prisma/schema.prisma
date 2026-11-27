@@ -677,11 +677,13 @@ model RatingEvent {
   gameId    String   @map("game_id")
   delta     Float
   source    String
+  sessionId String?  @map("session_id") @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([createdAt])
+  @@index([sessionId])
   @@index([userId, createdAt])
   @@index([gameId, createdAt])
   @@map("rating_events")

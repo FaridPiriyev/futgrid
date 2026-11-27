@@ -48,3 +48,20 @@ export const RATED_GAME_IDS = [
   "clubOrder",
   "pyramid",
 ];
+
+/** Catalog card key → rating/game id used by the API. */
+export const CATALOG_GAME_ID = {
+  x0x: "xox",
+  ortaq: "orta",
+  auksion: "auction",
+  yuksek: "higherLower",
+  wordle: "wordle",
+  karyera: "career",
+  heyet: "lineups",
+  besklub: "fiveClubs",
+  sirala: "clubOrder",
+  piramida: "pyramid",
+  ikiherf: "twoLetters",
+  sual: "sual",
+  sekil: "sekil",
+};

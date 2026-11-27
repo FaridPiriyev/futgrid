@@ -7,7 +7,7 @@ const FONT = "font-['Roboto_Condensed',sans-serif]";
 /** Bottom-right toast for incoming friend game invites. */
 export default function InviteToast({ invites, onAccept, onDismiss }) {
   return (
-    <div className="pointer-events-none fixed inset-x-3 bottom-3 z-[70] flex flex-col items-end gap-2 sm:inset-x-auto sm:right-5 sm:bottom-5">
+    <div className="pointer-events-none fixed inset-x-3 bottom-[84px] z-[70] md:bottom-5 flex flex-col items-end gap-2 sm:inset-x-auto sm:right-5">
       {invites.map((invite) => {
         const name = invite.from?.displayName || invite.from?.name || invite.from?.username || "?";
         return (

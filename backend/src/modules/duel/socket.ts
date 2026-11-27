@@ -335,6 +335,13 @@ function newPlayer(identity: SocketIdentity, socket: Socket): DuelPlayer {
   };
 }
 
+let activeIo: Server | null = null;
+
+/** Disconnects every socket of a user (e.g. right after an admin blocks them). */
+export function kickUser(userId: string): void {
+  activeIo?.in(`user:${userId}`).disconnectSockets(true);
+}
+
 export function setupDuels(httpServer: HttpServer) {
   const io = new Server(httpServer, {
     cors: { origin: config.corsOrigins, credentials: true },
@@ -342,6 +349,7 @@ export function setupDuels(httpServer: HttpServer) {
     pingInterval: 20_000,
     pingTimeout: 25_000,
   });
+  activeIo = io;
   const pubClient = new Redis(config.REDIS_URL);
   const subClient = pubClient.duplicate();
   const redis = new Redis(config.REDIS_URL);
@@ -852,6 +860,7 @@ export function setupDuels(httpServer: HttpServer) {
     io,
     async close() {
       closing = true;
+      if (activeIo === io) activeIo = null;
       clearInterval(sweeper);
       clearInterval(matcher);
       await new Promise<void>((resolve) => io.close(() => resolve()));

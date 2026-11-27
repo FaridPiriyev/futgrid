@@ -4,6 +4,7 @@ import { api } from "../../lib/api";
 import { gameName } from "../../lib/games/names";
 import { getLang, tr } from "../../i18n";
 import { useSocial } from "../../lib/social";
+import TierBadge from "../social/TierBadge";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
@@ -158,6 +159,7 @@ function EloSummary({ summary }) {
       <h2 className={`flex items-center gap-2 ${FONT} text-lg font-bold uppercase text-ink`}>
         <TrendingUp className="h-5 w-5 text-accent" />
         {tr("Reytinq")}
+        {overall && overall.games > 0 ? <TierBadge rating={overall.rating} size="lg" className="ml-auto" /> : null}
       </h2>
       {overall && overall.games > 0 ? (
         <>

@@ -1483,5 +1483,15 @@
   "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "Ты ещё не играл в рейтинговые игры. Все начинают с 1000: победа над ботом даёт +3/+5/+8, над другом — около +20.",
   "Oyunlar üzrə reytinq": "Рейтинг по играм",
   "Qonaq oyunçu": "Гость",
-  "Son duellər": "Последние дуэли"
+  "Son duellər": "Последние дуэли",
+  "Almaz": "Алмаз",
+  "Bürünc": "Бронза",
+  "Giriş": "Вход",
+  "Gümüş": "Серебро",
+  "Platin": "Платина",
+  "Qızıl": "Золото",
+  "{n} oynayır": "играют: {n}",
+  "{tier} üçün {n} xal": "до {tier}: {n} очк.",
+  "Əsas": "Главная",
+  "Duel": "Дуэль"
 }

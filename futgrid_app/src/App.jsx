@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import BetaNotice from "./components/BetaNotice";
 import ResumeDuelBanner from "./components/ResumeDuelBanner";
 import NoticeToast from "./components/NoticeToast";
+import MobileTabBar from "./components/MobileTabBar";
 import { LanguageProvider, tr, useLang } from "./i18n";
 import { AuthProvider } from "./lib/auth";
 import { SocialProvider } from "./lib/social";
@@ -224,6 +225,7 @@ function AppShell() {
       <Footer />
       <BetaNotice />
       <ResumeDuelBanner />
+      <MobileTabBar />
       <NoticeToast />
       </SocialProvider>
     </BrowserRouter>

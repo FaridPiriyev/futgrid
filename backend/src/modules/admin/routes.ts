@@ -3,7 +3,20 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { requireUser } from "../../lib/auth.js";
 import { AppError } from "../../lib/errors.js";
-import { audit, enableAdminTotp, requireAdminTotp, setupAdminTotp } from "../../lib/admin.js";
+import {
+  audit,
+  createAdminSession,
+  enableAdminTotp,
+  endAdminSession,
+  requireAdminTotp,
+  setupAdminTotp,
+  type StaffRole,
+} from "../../lib/admin.js";
+import { getRedis } from "../../lib/redis.js";
+import { dayStartBaku } from "../../lib/time.js";
+import { kickUser } from "../duel/socket.js";
+import { PRESENCE_KEY, PRESENCE_MS } from "../social/service.js";
+import { resetUserRatings, revertSessionRating } from "../ratings/service.js";
 import { prisma } from "../../lib/prisma.js";
 import { goatPlayers, GOAT_SIZES } from "../../lib/goatData.js";
 import { removePoints, removeUserFromLeaderboards } from "../leaderboard/service.js";
@@ -23,11 +36,13 @@ const playerParams = z.object({ id: z.coerce.number().int() });
 const gameParams = z.object({ id: z.string().min(1).max(40) });
 const limitQuery = z.object({ limit: z.coerce.number().int().min(1).max(200).default(50) });
 
-function requireAdminRole(request: FastifyRequest) {
+function requireStaffRole(request: FastifyRequest) {
   const user = requireUser(request);
-  if (user.role !== "admin") throw new AppError("FORBIDDEN");
+  if (user.role !== "admin" && user.role !== "moderator") throw new AppError("FORBIDDEN");
   return user;
 }
+
+const STAFF: StaffRole[] = ["admin", "moderator"];
 
 async function userBefore(id: string) {
   return prisma.user.findUnique({
@@ -47,7 +62,7 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
   const app = fastify.withTypeProvider<ZodTypeProvider>();
 
   app.get("/admin/auth/setup", { schema: { tags: ["admin"] } }, async (request) => {
-    const user = requireAdminRole(request);
+    const user = requireStaffRole(request);
     return setupAdminTotp(user.id);
   });
 
@@ -55,14 +70,33 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
     "/admin/auth/verify",
     { schema: { tags: ["admin"], body: z.object({ token: z.string().min(6).max(10) }) } },
     async (request) => {
-      const user = requireAdminRole(request);
+      const user = requireStaffRole(request);
       return enableAdminTotp(user.id, request.body.token);
     },
   );
 
+  // One TOTP code → a 45-minute admin session (the panel no longer breaks every 30 seconds).
+  app.post(
+    "/admin/auth/session",
+    { schema: { tags: ["admin"], body: z.object({ token: z.string().min(6).max(10) }) } },
+    async (request) => {
+      const user = requireStaffRole(request);
+      const session = await createAdminSession(user.id, request.body.token);
+      return { ...session, role: user.role };
+    },
+  );
+
+  app.delete("/admin/auth/session", { schema: { tags: ["admin"] } }, async (request) => {
+    await endAdminSession(String(request.headers["x-admin-session"] ?? ""));
+    return { ok: true };
+  });
+
   app.get("/admin/overview", { schema: { tags: ["admin"] } }, async (request) => {
-    await requireAdminTotp(request);
-    const [users, sessions, flagged, contactNew, votes, releases, auditRows] = await Promise.all([
+    await requireAdminTotp(request, STAFF);
+    const today = dayStartBaku(new Date());
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const redis = await getRedis();
+    const [users, sessions, flagged, contactNew, votes, releases, auditRows, extra] = await Promise.all([
       prisma.user.count({ where: { deletedAt: null } }),
       prisma.gameSession.count(),
       prisma.gameSession.count({ where: { flagged: true } }),
@@ -70,9 +104,26 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
       prisma.goatVote.count({ where: { counted: true } }),
       prisma.dataRelease.count(),
       prisma.auditLog.findMany({ orderBy: { createdAt: "desc" }, take: 10 }),
+      Promise.all([
+        prisma.user.count({ where: { createdAt: { gte: today }, deletedAt: null } }),
+        prisma.user.count({ where: { createdAt: { gte: weekAgo }, deletedAt: null } }),
+        prisma.gameSession.count({ where: { startedAt: { gte: today } } }),
+        prisma.duelMatch.count({ where: { createdAt: { gte: today } } }),
+        prisma.duelMatch.count({ where: { createdAt: { gte: weekAgo } } }),
+        redis.zcount(PRESENCE_KEY, Date.now() - PRESENCE_MS, "+inf"),
+        prisma.user.count({ where: { blockedAt: { not: null } } }),
+      ]),
     ]);
+    const [newUsersToday, newUsersWeek, gamesToday, duelsToday, duelsWeek, onlineNow, blocked] = extra;
     return {
+      onlineNow,
+      newUsersToday,
+      newUsersWeek,
+      gamesToday,
+      duelsToday,
+      duelsWeek,
       users,
+      blocked,
       sessions,
       flagged,
       contactNew,
@@ -90,24 +141,36 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
         tags: ["admin"],
         querystring: z.object({
           query: z.string().max(200).optional(),
+          status: z.enum(["all", "blocked", "unverified", "staff"]).default("all"),
           limit: z.coerce.number().int().min(1).max(200).default(50),
+          offset: z.coerce.number().int().min(0).default(0),
         }),
       },
     },
     async (request) => {
-      await requireAdminTotp(request);
+      await requireAdminTotp(request, STAFF);
       const query = request.query.query?.trim();
-      const users = await prisma.user.findMany({
-        where: query
+      const status = request.query.status;
+      const where = {
+        ...(query
           ? {
               OR: [
-                { email: { contains: query, mode: "insensitive" } },
-                { username: { contains: query, mode: "insensitive" } },
-                { displayName: { contains: query, mode: "insensitive" } },
+                { email: { contains: query, mode: "insensitive" as const } },
+                { username: { contains: query, mode: "insensitive" as const } },
+                { displayName: { contains: query, mode: "insensitive" as const } },
               ],
             }
-          : {},
+          : {}),
+        ...(status === "blocked" ? { blockedAt: { not: null } } : {}),
+        ...(status === "unverified" ? { emailVerifiedAt: null } : {}),
+        ...(status === "staff" ? { role: { in: ["admin", "moderator"] } } : {}),
+      };
+      const [total, users] = await Promise.all([
+        prisma.user.count({ where }),
+        prisma.user.findMany({
+        where,
         orderBy: { createdAt: "desc" },
+        skip: request.query.offset,
         take: request.query.limit,
         select: {
           id: true,
@@ -122,8 +185,9 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
           createdAt: true,
           stats: { select: { gameId: true, totalPoints: true, bestScore: true } },
         },
-      });
-      return { entries: users };
+        }),
+      ]);
+      return { entries: users, total, offset: request.query.offset, limit: request.query.limit };
     },
   );
 
@@ -137,14 +201,24 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
       },
     },
     async (request) => {
-      const admin = await requireAdminTotp(request);
+      const admin = await requireAdminTotp(request, STAFF);
       const before = await userBefore(request.params.id);
       if (!before) throw new AppError("NOT_FOUND");
+      if (before.id === admin.id) throw new AppError("CONFLICT", { message: "You cannot block yourself" });
+      if (admin.role !== "admin" && before.role !== "user") throw new AppError("FORBIDDEN");
       const after = await prisma.user.update({
         where: { id: request.params.id },
         data: { blockedAt: request.body.blocked ? new Date() : null },
       });
-      if (request.body.blocked) await removeUserFromLeaderboards(request.params.id);
+      if (request.body.blocked) {
+        await removeUserFromLeaderboards(request.params.id);
+        // Sign them out everywhere and drop live game sockets right away.
+        await prisma.refreshToken.updateMany({
+          where: { userId: request.params.id, revokedAt: null },
+          data: { revokedAt: new Date() },
+        });
+        kickUser(request.params.id);
+      }
       await audit(admin.id, "user.block", "user", request.params.id, before, {
         blockedAt: after.blockedAt,
       });
@@ -165,10 +239,16 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
       const admin = await requireAdminTotp(request);
       const before = await userBefore(request.params.id);
       if (!before) throw new AppError("NOT_FOUND");
+      if (before.id === admin.id) throw new AppError("CONFLICT", { message: "You cannot change your own role" });
+      if (before.role === "admin" && request.body.role !== "admin") {
+        const admins = await prisma.user.count({ where: { role: "admin", deletedAt: null, blockedAt: null } });
+        if (admins <= 1) throw new AppError("CONFLICT", { message: "The last admin cannot be demoted" });
+      }
       const after = await prisma.user.update({
         where: { id: request.params.id },
         data: { role: request.body.role },
       });
+      if (request.body.role === "user") kickUser(request.params.id);
       await audit(admin.id, "user.role", "user", request.params.id, before, { role: after.role });
       return { ok: true, role: after.role };
     },
@@ -190,7 +270,7 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
     "/admin/users/:id/sessions",
     { schema: { tags: ["admin"], params: idParams, querystring: limitQuery } },
     async (request) => {
-      await requireAdminTotp(request);
+      await requireAdminTotp(request, STAFF);
       return {
         entries: await prisma.gameSession.findMany({
           where: { userId: request.params.id },
@@ -213,12 +293,17 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
       },
     },
     async (request) => {
-      await requireAdminTotp(request);
+      await requireAdminTotp(request, STAFF);
       return {
         entries: await prisma.gameSession.findMany({
-          where: request.query.flagged === undefined ? {} : { flagged: request.query.flagged },
+          where: {
+            status: "finished",
+            userId: { not: null },
+            ...(request.query.flagged === undefined ? {} : { flagged: request.query.flagged }),
+          },
           orderBy: { startedAt: "desc" },
           take: request.query.limit,
+          include: { user: { select: { username: true, displayName: true } } },
         }),
       };
     },
@@ -228,7 +313,7 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
     "/admin/results/:id/revoke",
     { schema: { tags: ["admin"], params: idParams } },
     async (request) => {
-      const admin = await requireAdminTotp(request);
+      const admin = await requireAdminTotp(request, STAFF);
       const session = await prisma.gameSession.findUnique({ where: { id: request.params.id } });
       if (!session) throw new AppError("NOT_FOUND");
       if (!session.userId) throw new AppError("CONFLICT", { message: "Guest results cannot be revoked" });
@@ -236,13 +321,18 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
         where: { sessionId: session.id, reason: "session", points: { gt: 0 } },
         orderBy: { createdAt: "desc" },
       });
-      if (!ledger) throw new AppError("CONFLICT", { message: "No points to revoke" });
-      const user = await prisma.user.findUnique({
-        where: { id: session.userId },
-        select: { teamId: true },
+      const already = await prisma.pointsLedger.findFirst({
+        where: { sessionId: session.id, reason: "revoked" },
       });
-      await prisma.$transaction([
-        prisma.pointsLedger.create({
+      // Site-wide rating first (rating_events), then the legacy points ledger if it still holds points.
+      const revertedRating = await revertSessionRating(session.id);
+      let revokedPoints = 0;
+      if (ledger && !already) {
+        const user = await prisma.user.findUnique({
+          where: { id: session.userId },
+          select: { teamId: true },
+        });
+        await prisma.pointsLedger.create({
           data: {
             userId: session.userId,
             sessionId: session.id,
@@ -254,21 +344,84 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
             periodMonth: ledger.periodMonth,
             reason: "revoked",
           },
-        }),
-        prisma.gameSession.update({ where: { id: session.id }, data: { flagged: true } }),
-      ]);
-      await removePoints({
-        userId: session.userId,
-        gameId: session.gameId,
-        points: ledger.points,
-        periodWeek: ledger.periodWeek,
-        periodMonth: ledger.periodMonth,
-        teamId: user?.teamId ?? null,
-      });
+        }).catch(() => null);
+        await removePoints({
+          userId: session.userId,
+          gameId: session.gameId,
+          points: ledger.points,
+          periodWeek: ledger.periodWeek,
+          periodMonth: ledger.periodMonth,
+          teamId: user?.teamId ?? null,
+        });
+        revokedPoints = ledger.points;
+      }
+      if (!revertedRating && !revokedPoints) throw new AppError("CONFLICT", { message: "Nothing to revoke" });
+      await prisma.gameSession.update({ where: { id: session.id }, data: { flagged: true } });
       await audit(admin.id, "result.revoke", "game_session", session.id, ledger, {
-        revokedPoints: ledger.points,
+        revokedPoints,
+        revertedRating,
       });
-      return { ok: true, revokedPoints: ledger.points };
+      return { ok: true, revokedPoints, revertedRating };
+    },
+  );
+
+  app.get(
+    "/admin/users/:id/summary",
+    { schema: { tags: ["admin"], params: idParams } },
+    async (request) => {
+      await requireAdminTotp(request, STAFF);
+      const id = request.params.id;
+      const [user, ratings, sessions, duels, friends, events] = await Promise.all([
+        prisma.user.findUnique({
+          where: { id },
+          select: {
+            id: true,
+            email: true,
+            username: true,
+            displayName: true,
+            role: true,
+            emailVerifiedAt: true,
+            blockedAt: true,
+            deletedAt: true,
+            createdAt: true,
+            avatarUrl: true,
+          },
+        }),
+        prisma.userRating.findMany({ where: { userId: id }, orderBy: { rating: "desc" } }),
+        prisma.gameSession.findMany({
+          where: { userId: id },
+          orderBy: { startedAt: "desc" },
+          take: 15,
+          select: { id: true, gameId: true, status: true, score: true, points: true, flagged: true, startedAt: true, difficulty: true },
+        }),
+        prisma.duelMatch.count({ where: { playerIds: { has: id } } }),
+        prisma.friendship.count({ where: { status: "accepted", OR: [{ requesterId: id }, { addresseeId: id }] } }),
+        prisma.ratingEvent.findMany({ where: { userId: id }, orderBy: { createdAt: "desc" }, take: 15 }),
+      ]);
+      if (!user) throw new AppError("NOT_FOUND");
+      return {
+        user,
+        ratings: ratings.map((r) => ({ gameId: r.gameId, rating: Math.round(r.rating), games: r.games, wins: r.wins, losses: r.losses })),
+        sessions,
+        duels,
+        friends,
+        ratingEvents: events.map((e) => ({ ...e, id: e.id.toString() })),
+      };
+    },
+  );
+
+  app.post(
+    "/admin/users/:id/rating-reset",
+    { schema: { tags: ["admin"], params: idParams } },
+    async (request) => {
+      const admin = await requireAdminTotp(request);
+      const before = await prisma.userRating.findMany({
+        where: { userId: request.params.id },
+        select: { gameId: true, rating: true },
+      });
+      const result = await resetUserRatings(request.params.id);
+      await audit(admin.id, "user.rating_reset", "user", request.params.id, before, result);
+      return { ok: true, ...result };
     },
   );
 
@@ -284,7 +437,7 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
       },
     },
     async (request) => {
-      await requireAdminTotp(request);
+      await requireAdminTotp(request, STAFF);
       return {
         entries: await prisma.contactMessage.findMany({
           where: request.query.status ? { status: request.query.status } : {},
@@ -305,7 +458,7 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
       },
     },
     async (request) => {
-      const admin = await requireAdminTotp(request);
+      const admin = await requireAdminTotp(request, STAFF);
       const before = await prisma.contactMessage.findUnique({ where: { id: request.params.id } });
       if (!before) throw new AppError("NOT_FOUND");
       const after = await prisma.contactMessage.update({
@@ -585,12 +738,23 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
     "/admin/audit-log",
     { schema: { tags: ["admin"], querystring: limitQuery } },
     async (request) => {
-      await requireAdminTotp(request);
+      await requireAdminTotp(request, STAFF);
       const rows = await prisma.auditLog.findMany({
         orderBy: { createdAt: "desc" },
         take: request.query.limit,
       });
-      return { entries: rows.map((row) => ({ ...row, id: row.id.toString() })) };
+      const admins = await prisma.user.findMany({
+        where: { id: { in: [...new Set(rows.map((row) => row.adminId).filter(Boolean) as string[])] } },
+        select: { id: true, username: true },
+      });
+      const nameOf = new Map(admins.map((a) => [a.id, a.username]));
+      return {
+        entries: rows.map((row) => ({
+          ...row,
+          id: row.id.toString(),
+          adminUsername: row.adminId ? (nameOf.get(row.adminId) ?? null) : null,
+        })),
+      };
     },
   );
 

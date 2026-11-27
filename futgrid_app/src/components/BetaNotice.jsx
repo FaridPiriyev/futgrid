@@ -58,7 +58,7 @@ export default function BetaNotice() {
         <aside
           role="status"
           aria-label={tr("Test mərhələsi")}
-          className="fg-beta-anim fixed inset-x-3 bottom-3 z-40 animate-[fgBetaIn_0.5s_cubic-bezier(0.2,0.8,0.2,1)_both] sm:inset-x-auto sm:bottom-5 sm:left-5 sm:w-[22rem]"
+          className="fg-beta-anim fixed inset-x-3 bottom-[84px] z-40 animate-[fgBetaIn_0.5s_cubic-bezier(0.2,0.8,0.2,1)_both] sm:inset-x-auto md:bottom-5 sm:left-5 sm:w-[22rem]"
         >
           <div className="relative overflow-hidden rounded-2xl border border-yellow/40 bg-surface shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
             <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-yellow" />
@@ -124,7 +124,7 @@ export default function BetaNotice() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label={tr("Test mərhələsi haqqında")}
-          className={`fg-beta-anim fixed bottom-24 left-0 z-40 flex animate-[fgBetaTab_0.4s_ease-out_both] items-center gap-1.5 rounded-r-lg border border-l-0 border-yellow/40 bg-surface py-2 pl-1.5 pr-2 ${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-yellow shadow-lg transition-[padding] hover:pl-3`}
+          className={`fg-beta-anim fixed bottom-36 md:bottom-24 left-0 z-40 flex animate-[fgBetaTab_0.4s_ease-out_both] items-center gap-1.5 rounded-r-lg border border-l-0 border-yellow/40 bg-surface py-2 pl-1.5 pr-2 ${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-yellow shadow-lg transition-[padding] hover:pl-3`}
         >
           <FlaskConical className="h-3.5 w-3.5" />
           Beta

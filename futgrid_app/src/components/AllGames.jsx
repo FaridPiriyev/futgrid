@@ -24,6 +24,8 @@ import { norm, prefetchData } from "../lib/data";
 import AuctionArt from "./games/common/AuctionArt";
 
 import { tr } from "../i18n";
+import LiveBadge from "./games/common/LiveBadge";
+import { playingNow, useLive } from "../lib/live";
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
 
@@ -102,7 +104,7 @@ function ModeChips({ modes }) {
   );
 }
 
-function GameCard({ game, index }) {
+function GameCard({ game, index, playing = 0 }) {
   const soon = game.status === "soon";
   const extraTags = game.tags.filter((t) => !isModeTag(t) && t !== game.genre);
 
@@ -131,6 +133,7 @@ function GameCard({ game, index }) {
               {soon ? tr("Tezliklə") : tr("Yeni")}
             </span>
           )}
+          <LiveBadge count={playing} className="absolute right-2 top-2 z-10 sm:right-3 sm:top-3" />
           <span
             aria-hidden="true"
             className="absolute bottom-3 right-3 z-10 hidden h-10 w-10 place-items-center rounded-full bg-accent text-white opacity-0 transition-[opacity,translate] duration-300 group-hover/tile:translate-y-0 group-hover/tile:opacity-100 sm:grid sm:translate-y-1"
@@ -252,6 +255,7 @@ function Header({ total }) {
 
 export default function AllGames() {
   useEffect(() => prefetchData(), []);
+  const live = useLive();
   const [query, setQuery] = useState("");
   const [params, setParams] = useSearchParams();
   const fromUrl = params.get("filter");
@@ -335,7 +339,7 @@ export default function AllGames() {
               className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:mt-8 lg:grid-cols-3"
             >
               {list.map((g, i) => (
-                <GameCard key={g.key} game={g} index={i} />
+                <GameCard key={g.key} game={g} index={i} playing={playingNow(live, g.key)} />
               ))}
             </ul>
           ) : (

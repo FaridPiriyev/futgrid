@@ -123,6 +123,42 @@ describe("admin security", () => {
   });
 });
 
+describe("admin sessions and guards", () => {
+  it("one TOTP code opens a reusable admin session; the same code can't be reused", async () => {
+    const base = { cookie: adminCookie, origin: "http://localhost:5173" };
+    const code = generateSync({ secret: adminSecret });
+    const opened = await app.inject({ method: "POST", url: "/v1/admin/auth/session", headers: base, payload: { token: code } });
+    expect(opened.statusCode, opened.body).toBe(200);
+    const session = opened.json().session as string;
+    for (let i = 0; i < 3; i++) {
+      const res = await app.inject({ method: "GET", url: "/v1/admin/overview", headers: { ...base, "x-admin-session": session } });
+      expect(res.statusCode).toBe(200);
+    }
+    const replay = await app.inject({ method: "POST", url: "/v1/admin/auth/session", headers: base, payload: { token: code } });
+    expect(replay.statusCode).toBe(403);
+    const bogus = await app.inject({ method: "GET", url: "/v1/admin/overview", headers: { ...base, "x-admin-session": "nope" } });
+    expect(bogus.statusCode).toBe(403);
+  });
+
+  it("an admin can't demote or block themselves", async () => {
+    const admin = await prisma.user.findUniqueOrThrow({ where: { email: "admin@example.com" } });
+    const demote = await app.inject({
+      method: "PATCH",
+      url: `/v1/admin/users/${admin.id}/role`,
+      headers: adminHeaders(),
+      payload: { role: "user" },
+    });
+    expect(demote.statusCode).toBe(409);
+    const block = await app.inject({
+      method: "PATCH",
+      url: `/v1/admin/users/${admin.id}/block`,
+      headers: adminHeaders(),
+      payload: { blocked: true },
+    });
+    expect(block.statusCode).toBe(409);
+  });
+});
+
 describe("admin operations", () => {
   it("blocks users, manages games, and writes audit entries", async () => {
     const target = await prisma.user.create({

@@ -23,6 +23,7 @@ export interface RatingChange {
   delta: number;
   result: RatingResult;
   source: "solo" | "duel";
+  sessionId?: string;
 }
 
 type RatingRow = { id: string; userId: string; gameId: string; rating: number; games: number };
@@ -96,7 +97,13 @@ export async function applyRatingChanges(
     g.rating = after;
     o.rating = overallAfter;
     await tx.ratingEvent.create({
-      data: { userId: change.userId, gameId: change.gameId, delta, source: change.source },
+      data: {
+        userId: change.userId,
+        gameId: change.gameId,
+        delta,
+        source: change.source,
+        sessionId: change.sessionId ?? null,
+      },
     });
     out.set(change.userId, {
       before: after - delta,
@@ -121,12 +128,62 @@ export function soloDelta(score: number, difficulty: string): { delta: number; r
   return { delta: SOLO_LOSS[level], result: "losses" };
 }
 
-export async function applySoloResult(userId: string, gameId: string, score: number, difficulty: string) {
+export async function applySoloResult(
+  userId: string,
+  gameId: string,
+  score: number,
+  difficulty: string,
+  sessionId?: string,
+) {
   const { delta, result } = soloDelta(score, difficulty);
   const applied = await prisma.$transaction((tx) =>
-    applyRatingChanges(tx, [{ userId, gameId, delta, result, source: "solo" }]),
+    applyRatingChanges(tx, [{ userId, gameId, delta, result, source: "solo", sessionId }]),
   );
   return applied.get(userId) ?? null;
+}
+
+/** Moves a rating (and the overall rating) by `delta` without counting a game. Used by admin tools. */
+async function adjust(
+  tx: Prisma.TransactionClient,
+  userId: string,
+  gameId: string,
+  delta: number,
+  source: string,
+  sessionId?: string,
+) {
+  const rows = await lockRatings(tx, [userId], [gameId, OVERALL_GAME]);
+  for (const row of rows) {
+    const value = Math.max(ELO_FLOOR, row.rating + delta);
+    await tx.$executeRaw`UPDATE user_ratings SET rating = ${value}, updated_at = NOW() WHERE id = ${row.id}::uuid`;
+  }
+  await tx.ratingEvent.create({ data: { userId, gameId, delta, source, sessionId: sessionId ?? null } });
+}
+
+/** Undo the rating a solo session gave (admin "revoke result"). Returns the reverted delta. */
+export async function revertSessionRating(sessionId: string): Promise<number> {
+  return prisma.$transaction(async (tx) => {
+    const events = await tx.ratingEvent.findMany({ where: { sessionId } });
+    const net = events.reduce((sum, e) => sum + e.delta, 0);
+    const original = events.find((e) => e.source === "solo");
+    if (!original || net === 0) return 0;
+    await adjust(tx, original.userId, original.gameId, -net, "revoke", sessionId);
+    return net;
+  });
+}
+
+/** Admin tool for cheaters: puts every rating of the user back to 1000 (history stays). */
+export async function resetUserRatings(userId: string) {
+  return prisma.$transaction(async (tx) => {
+    const rows = await tx.userRating.findMany({ where: { userId } });
+    for (const row of rows) {
+      if (row.gameId === OVERALL_GAME || row.rating === ELO_START) continue;
+      await tx.ratingEvent.create({
+        data: { userId, gameId: row.gameId, delta: ELO_START - row.rating, source: "reset" },
+      });
+    }
+    await tx.userRating.updateMany({ where: { userId }, data: { rating: ELO_START, peak: ELO_START } });
+    return { reset: rows.length };
+  });
 }
 
 export type RatingPeriod = "week" | "month" | "all";
