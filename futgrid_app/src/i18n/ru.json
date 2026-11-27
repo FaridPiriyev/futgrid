@@ -1536,5 +1536,6 @@
   "İstənilən oyunda ilk qələbəni qazan": "Одержи первую победу в любой игре",
   "Əla oyun! Hesab açsan, bu nəticələr reytinqinə yazılacaq — hamı 1000 xalla başlayır.": "Отличная игра! Создай аккаунт, и такие результаты будут идти в рейтинг — все начинают с 1000.",
   "“Paylaş” → “Ana ekrana əlavə et” seç": "«Поделиться» → «На экран Домой»",
-  "Otağa qoşulmaq alınmadı. İnterneti yoxla və yenidən cəhd et.": "Не удалось войти в комнату. Проверь интернет и попробуй снова."
+  "Otağa qoşulmaq alınmadı. İnterneti yoxla və yenidən cəhd et.": "Не удалось войти в комнату. Проверь интернет и попробуй снова.",
+  "serverdən yüklənmədi ({code})": "не загрузилось с сервера ({code})"
 }

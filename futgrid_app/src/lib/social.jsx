@@ -26,6 +26,7 @@ export function SocialProvider({ children }) {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [friends, setFriends] = useState(null);
+  const [friendsError, setFriendsError] = useState(null);
   const [invites, setInvites] = useState([]);
   const socketRef = useRef(null);
 
@@ -37,8 +38,10 @@ export function SocialProvider({ children }) {
     try {
       const list = await api.get("/friends");
       setFriends(list);
+      setFriendsError(null);
       return list;
-    } catch {
+    } catch (error) {
+      setFriendsError(error?.status ?? "network");
       return null;
     }
   }, [user]);
@@ -111,8 +114,8 @@ export function SocialProvider({ children }) {
   );
 
   const value = useMemo(
-    () => ({ openProfile: setProfile, friends, refreshFriends, setFriend }),
-    [friends, refreshFriends, setFriend],
+    () => ({ openProfile: setProfile, friends, friendsError, refreshFriends, setFriend }),
+    [friends, friendsError, refreshFriends, setFriend],
   );
 
   return (

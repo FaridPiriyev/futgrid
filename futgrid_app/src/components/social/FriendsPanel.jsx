@@ -40,13 +40,25 @@ function Person({ person, children }) {
  * With `onInvite` it becomes an invite picker for a waiting duel room (online friends first).
  */
 export default function FriendsPanel({ onInvite = null, compact = false }) {
-  const { friends, setFriend } = useSocial();
+  const { friends, friendsError, refreshFriends, setFriend } = useSocial();
   const [name, setName] = useState("");
   const [busy, setBusy] = useState("");
   const [note, setNote] = useState("");
   const [sent, setSent] = useState({});
 
-  if (!friends) return null;
+  if (!friends) {
+    if (onInvite || !friendsError) return null;
+    return (
+      <section className={`${CARD} flex flex-wrap items-center justify-between gap-2`}>
+        <p className={`${FONT} text-sm text-muted`}>
+          <span className="font-bold uppercase text-ink">{tr("Dostlar")}</span> · {tr("serverdən yüklənmədi ({code})", { code: friendsError })}
+        </p>
+        <button type="button" onClick={() => void refreshFriends()} className={`${FONT} text-xs font-bold uppercase text-accent`}>
+          {tr("Yenidən cəhd et")}
+        </button>
+      </section>
+    );
+  }
 
   const act = async (username, action) => {
     setBusy(username);
