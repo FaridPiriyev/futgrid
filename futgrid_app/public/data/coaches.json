@@ -4,7 +4,7 @@
     "name": "José Mourinho",
     "slug": "jose-mourinho",
     "photo_url": "/images/coaches/jose-mourinho.jpg",
-    "current_club_id": 150,
+    "current_club_id": 101,
     "stints": [
       {
         "club_id": 115,
@@ -69,16 +69,22 @@
       {
         "club_id": 150,
         "from": "2024-07-23",
-        "games": 58
+        "games": 58,
+        "to": "2025-08-29"
       },
       {
         "club_id": 115,
         "from": "2025-09-20",
         "to": "2026-05-16",
         "games": 41
+      },
+      {
+        "club_id": 101,
+        "from": "2026-07-13",
+        "source": "manual"
       }
     ],
-    "players_count": 315
+    "players_count": 351
   },
   {
     "id": "unai-emery",
@@ -207,7 +213,8 @@
       {
         "country_code": "BR",
         "from": "2026-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-14"
       }
     ],
     "players_count": 251
@@ -393,7 +400,6 @@
     "id": "michel",
     "name": "Michel",
     "slug": "michel",
-    "current_club_id": 156,
     "stints": [
       {
         "club_id": 135,
@@ -440,7 +446,8 @@
       {
         "club_id": 156,
         "from": "2022-08-14",
-        "games": 171
+        "games": 171,
+        "to": "2022-10-02"
       },
       {
         "club_id": 206,
@@ -503,7 +510,8 @@
       {
         "country_code": "TR",
         "from": "2026-06-14",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-15"
       }
     ],
     "players_count": 189
@@ -513,7 +521,7 @@
     "name": "Eusebio Di Francesco",
     "slug": "eusebio-di-francesco",
     "photo_url": "/images/coaches/eusebio-di-francesco.jpg",
-    "current_club_id": 341,
+    "current_club_id": 178,
     "stints": [
       {
         "club_id": 340,
@@ -554,7 +562,8 @@
       {
         "club_id": 341,
         "from": "2024-08-11",
-        "games": 39
+        "games": 39,
+        "to": "2025-08-15"
       },
       {
         "club_id": 178,
@@ -668,7 +677,6 @@
     "name": "Roberto De Zerbi",
     "slug": "roberto-de-zerbi",
     "photo_url": "/images/coaches/roberto-de-zerbi.jpg",
-    "current_club_id": 145,
     "stints": [
       {
         "club_id": 343,
@@ -697,7 +705,8 @@
       {
         "club_id": 145,
         "from": "2024-08-17",
-        "games": 64
+        "games": 64,
+        "to": "2026-02-20"
       },
       {
         "club_id": 122,
@@ -754,7 +763,8 @@
       {
         "country_code": "GB-ENG",
         "from": "2026-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-18"
       }
     ],
     "players_count": 179
@@ -764,7 +774,6 @@
     "name": "Nuno Espírito Santo",
     "slug": "nuno-espirito-santo",
     "photo_url": "/images/coaches/nuno-espirito-santo.jpg",
-    "current_club_id": 163,
     "stints": [
       {
         "club_id": 247,
@@ -805,7 +814,8 @@
       {
         "club_id": 163,
         "from": "2023-12-23",
-        "games": 71
+        "games": 71,
+        "to": "2025-09-13"
       },
       {
         "club_id": 136,
@@ -821,7 +831,6 @@
     "name": "Igor Tudor",
     "slug": "igor-tudor",
     "photo_url": "/images/coaches/igor-tudor.jpg",
-    "current_club_id": 112,
     "stints": [
       {
         "club_id": 417,
@@ -880,7 +889,8 @@
       {
         "club_id": 112,
         "from": "2025-03-29",
-        "games": 24
+        "games": 24,
+        "to": "2025-10-27"
       },
       {
         "club_id": 122,
@@ -941,7 +951,6 @@
     "name": "Stefano Pioli",
     "slug": "stefano-pioli",
     "photo_url": "/images/coaches/stefano-pioli.jpg",
-    "current_club_id": 140,
     "stints": [
       {
         "club_id": 142,
@@ -982,7 +991,8 @@
       {
         "club_id": 140,
         "from": "2025-08-21",
-        "games": 14
+        "games": 14,
+        "to": "2025-11-09"
       }
     ],
     "players_count": 169
@@ -992,7 +1002,6 @@
     "name": "Antonio Conte",
     "slug": "antonio-conte",
     "photo_url": "/images/coaches/antonio-conte.jpg",
-    "current_club_id": 121,
     "stints": [
       {
         "club_id": 112,
@@ -1033,7 +1042,8 @@
       {
         "club_id": 121,
         "from": "2024-08-10",
-        "games": 91
+        "games": 91,
+        "to": "2026-05-31"
       }
     ],
     "players_count": 175
@@ -1043,7 +1053,6 @@
     "name": "Ivan Juric",
     "slug": "ivan-juric",
     "photo_url": "/images/coaches/ivan-juric.png",
-    "current_club_id": 113,
     "stints": [
       {
         "club_id": 173,
@@ -1084,7 +1093,8 @@
       {
         "club_id": 113,
         "from": "2025-08-24",
-        "games": 15
+        "games": 15,
+        "to": "2025-11-22"
       }
     ],
     "players_count": 166
@@ -1192,7 +1202,8 @@
       {
         "country_code": "US",
         "from": "2026-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-14"
       }
     ],
     "players_count": 174
@@ -1240,7 +1251,7 @@
     "name": "Brendan Rodgers",
     "slug": "brendan-rodgers",
     "photo_url": "/images/coaches/brendan-rodgers.jpg",
-    "current_club_id": 198,
+    "current_club_id": 494,
     "stints": [
       {
         "club_id": 108,
@@ -1263,7 +1274,8 @@
       {
         "club_id": 198,
         "from": "2023-08-05",
-        "games": 106
+        "games": 106,
+        "to": "2025-10-29"
       },
       {
         "club_id": 494,
@@ -1304,7 +1316,7 @@
         "games": 49
       }
     ],
-    "players_count": 159
+    "players_count": 174
   },
   {
     "id": "julen-lopetegui",
@@ -1346,7 +1358,8 @@
       {
         "country_code": "QA",
         "from": "2026-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-14"
       }
     ],
     "players_count": 156
@@ -1394,7 +1407,7 @@
         "games": 72
       }
     ],
-    "players_count": 155
+    "players_count": 170
   },
   {
     "id": "felice-mazzu",
@@ -1452,7 +1465,6 @@
     "name": "Ivan Leko",
     "slug": "ivan-leko",
     "photo_url": "/images/coaches/ivan-leko.png",
-    "current_club_id": 238,
     "stints": [
       {
         "club_id": 369,
@@ -1493,7 +1505,8 @@
       {
         "club_id": 238,
         "from": "2025-07-27",
-        "games": 17
+        "games": 17,
+        "to": "2025-12-10"
       },
       {
         "club_id": 133,
@@ -1589,7 +1602,8 @@
       {
         "country_code": "BE",
         "from": "2026-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-16"
       }
     ],
     "players_count": 157
@@ -1764,7 +1778,7 @@
     "name": "Massimiliano Allegri",
     "slug": "massimiliano-allegri",
     "photo_url": "/images/coaches/massimiliano-allegri.jpg",
-    "current_club_id": 114,
+    "current_club_id": 121,
     "stints": [
       {
         "club_id": 335,
@@ -1799,10 +1813,16 @@
       {
         "club_id": 114,
         "from": "2025-08-17",
-        "games": 42
+        "games": 42,
+        "to": "2026-05-31"
+      },
+      {
+        "club_id": 121,
+        "from": "2026-07-03",
+        "source": "manual"
       }
     ],
-    "players_count": 158
+    "players_count": 186
   },
   {
     "id": "sergio-conceicao",
@@ -1901,16 +1921,17 @@
       {
         "country_code": "IT",
         "from": "2024-06-15",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-16"
       },
       {
         "club_id": 112,
         "from": "2025-11-01",
-        "to": "2026-05-24",
         "games": 38
       }
     ],
-    "players_count": 165
+    "players_count": 191,
+    "current_club_id": 112
   },
   {
     "id": "oscar-garcia",
@@ -1984,7 +2005,6 @@
     "id": "vitor-pereira",
     "name": "Vítor Pereira",
     "slug": "vitor-pereira",
-    "current_club_id": 162,
     "stints": [
       {
         "club_id": 117,
@@ -2025,7 +2045,8 @@
       {
         "club_id": 162,
         "from": "2024-12-22",
-        "games": 38
+        "games": 38,
+        "to": "2025-11-22"
       },
       {
         "club_id": 163,
@@ -2080,7 +2101,7 @@
     "name": "Marco Silva",
     "slug": "marco-silva",
     "photo_url": "/images/coaches/marco-silva.jpg",
-    "current_club_id": 159,
+    "current_club_id": 115,
     "stints": [
       {
         "club_id": 248,
@@ -2109,10 +2130,16 @@
       {
         "club_id": 159,
         "from": "2022-01-08",
-        "games": 179
+        "games": 179,
+        "to": "2026-06-02"
+      },
+      {
+        "club_id": 115,
+        "from": "2026-06-10",
+        "source": "manual"
       }
     ],
-    "players_count": 135
+    "players_count": 167
   },
   {
     "id": "francesco-farioli",
@@ -2286,7 +2313,7 @@
     "name": "Emre Belözoğlu",
     "slug": "emre-belozoglu",
     "photo_url": "/images/coaches/emre-belozoglu.jpg",
-    "current_club_id": 378,
+    "current_club_id": 150,
     "stints": [
       {
         "club_id": 150,
@@ -2303,23 +2330,28 @@
       {
         "club_id": 378,
         "from": "2025-01-19",
-        "games": 26
+        "games": 26,
+        "to": "2025-10-19"
       },
       {
         "club_id": 376,
         "from": "2025-12-07",
         "to": "2026-05-17",
         "games": 20
+      },
+      {
+        "club_id": 150,
+        "from": "2026-11-03",
+        "source": "manual"
       }
     ],
-    "players_count": 132
+    "players_count": 159
   },
   {
     "id": "erik-ten-hag",
     "name": "Erik ten Hag",
     "slug": "erik-ten-hag",
     "photo_url": "/images/coaches/erik-ten-hag.jpg",
-    "current_club_id": 109,
     "stints": [
       {
         "club_id": 352,
@@ -2348,7 +2380,8 @@
       {
         "club_id": 109,
         "from": "2025-08-15",
-        "games": 3
+        "games": 3,
+        "to": "2025-09-01"
       }
     ],
     "players_count": 132
@@ -2358,7 +2391,7 @@
     "name": "Maurizio Sarri",
     "slug": "maurizio-sarri",
     "photo_url": "/images/coaches/maurizio-sarri.jpg",
-    "current_club_id": 127,
+    "current_club_id": 113,
     "stints": [
       {
         "club_id": 177,
@@ -2405,17 +2438,22 @@
       {
         "club_id": 127,
         "from": "2025-08-24",
-        "games": 42
+        "games": 42,
+        "to": "2026-05-27"
+      },
+      {
+        "club_id": 113,
+        "from": "2026-06-15",
+        "source": "manual"
       }
     ],
-    "players_count": 132
+    "players_count": 166
   },
   {
     "id": "roberto-d-aversa",
     "name": "Roberto D'Aversa",
     "slug": "roberto-d-aversa",
     "photo_url": "/images/coaches/roberto-d-aversa.jpg",
-    "current_club_id": 177,
     "stints": [
       {
         "club_id": 338,
@@ -2444,7 +2482,8 @@
       {
         "club_id": 177,
         "from": "2024-08-10",
-        "games": 44
+        "games": 44,
+        "to": "2026-03-01"
       },
       {
         "club_id": 172,
@@ -2460,7 +2499,6 @@
     "name": "Graham Potter",
     "slug": "graham-potter",
     "photo_url": "/images/coaches/graham-potter.jpg",
-    "current_club_id": 136,
     "stints": [
       {
         "club_id": 137,
@@ -2477,12 +2515,14 @@
       {
         "club_id": 136,
         "from": "2025-01-10",
-        "games": 25
+        "games": 25,
+        "to": "2025-09-29"
       },
       {
         "country_code": "SE",
         "from": "2026-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-16"
       }
     ],
     "players_count": 131
@@ -2570,7 +2610,6 @@
     "name": "Marco Baroni",
     "slug": "marco-baroni",
     "photo_url": "/images/coaches/marco-baroni.jpg",
-    "current_club_id": 172,
     "stints": [
       {
         "club_id": 337,
@@ -2599,7 +2638,8 @@
       {
         "club_id": 172,
         "from": "2025-08-18",
-        "games": 30
+        "games": 30,
+        "to": "2026-03-01"
       }
     ],
     "players_count": 129
@@ -2608,7 +2648,6 @@
     "id": "pep-guardiola",
     "name": "Pep Guardiola",
     "slug": "pep-guardiola",
-    "current_club_id": 102,
     "stints": [
       {
         "club_id": 107,
@@ -2625,7 +2664,8 @@
       {
         "club_id": 102,
         "from": "2016-08-13",
-        "games": 560
+        "games": 560,
+        "to": "2026-05-24"
       }
     ],
     "players_count": 175
@@ -2688,7 +2728,7 @@
         "games": 768
       }
     ],
-    "players_count": 129
+    "players_count": 151
   },
   {
     "id": "ernesto-valverde",
@@ -2728,7 +2768,6 @@
     "name": "Markus Gisdol",
     "slug": "markus-gisdol",
     "photo_url": "/images/coaches/markus-gisdol.jpg",
-    "current_club_id": 380,
     "stints": [
       {
         "club_id": 167,
@@ -2763,7 +2802,8 @@
       {
         "club_id": 380,
         "from": "2025-08-17",
-        "games": 8
+        "games": 8,
+        "to": "2025-10-19"
       }
     ],
     "players_count": 125
@@ -2913,7 +2953,6 @@
     "name": "Patrick Vieira",
     "slug": "patrick-vieira",
     "photo_url": "/images/coaches/patrick-vieira.jpg",
-    "current_club_id": 173,
     "stints": [
       {
         "club_id": 187,
@@ -2936,7 +2975,8 @@
       {
         "club_id": 173,
         "from": "2024-11-24",
-        "games": 37
+        "games": 37,
+        "to": "2025-11-09"
       }
     ],
     "players_count": 123
@@ -2975,7 +3015,8 @@
       {
         "country_code": "DE",
         "from": "2026-06-14",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-15"
       }
     ],
     "players_count": 121
@@ -3024,7 +3065,6 @@
     "name": "Arne Slot",
     "slug": "arne-slot",
     "photo_url": "/images/coaches/arne-slot.jpg",
-    "current_club_id": 108,
     "stints": [
       {
         "club_id": 155,
@@ -3041,7 +3081,8 @@
       {
         "club_id": 108,
         "from": "2024-08-17",
-        "games": 107
+        "games": 107,
+        "to": "2026-05-30"
       }
     ],
     "players_count": 119
@@ -3071,14 +3112,14 @@
         "games": 180
       }
     ],
-    "players_count": 118
+    "players_count": 133
   },
   {
     "id": "ruben-amorim",
     "name": "Rúben Amorim",
     "slug": "ruben-amorim",
     "photo_url": "/images/coaches/ruben-amorim.png",
-    "current_club_id": 123,
+    "current_club_id": 114,
     "stints": [
       {
         "club_id": 131,
@@ -3095,17 +3136,22 @@
       {
         "club_id": 123,
         "from": "2024-11-24",
-        "games": 62
+        "games": 62,
+        "to": "2026-01-05"
+      },
+      {
+        "club_id": 114,
+        "from": "2026-06-16",
+        "source": "manual"
       }
     ],
-    "players_count": 118
+    "players_count": 150
   },
   {
     "id": "ivo-vieira",
     "name": "Ivo Vieira",
     "slug": "ivo-vieira",
     "photo_url": "/images/coaches/ivo-vieira.png",
-    "current_club_id": 367,
     "stints": [
       {
         "club_id": 248,
@@ -3140,7 +3186,8 @@
       {
         "club_id": 367,
         "from": "2025-08-10",
-        "games": 12
+        "games": 12,
+        "to": "2025-11-29"
       }
     ],
     "players_count": 117
@@ -3247,7 +3294,8 @@
       {
         "country_code": "NL",
         "from": "2026-06-14",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-15"
       }
     ],
     "players_count": 147
@@ -3397,7 +3445,7 @@
     "id": "luis-castro",
     "name": "Luís Castro",
     "slug": "luis-castro",
-    "current_club_id": 193,
+    "current_club_id": 257,
     "stints": [
       {
         "club_id": 117,
@@ -3432,7 +3480,8 @@
       {
         "club_id": 193,
         "from": "2025-08-17",
-        "games": 15
+        "games": 15,
+        "to": "2025-12-12"
       },
       {
         "club_id": 318,
@@ -3506,7 +3555,7 @@
         "games": 110
       }
     ],
-    "players_count": 114
+    "players_count": 124
   },
   {
     "id": "pellegrino-matarazzo",
@@ -3740,7 +3789,6 @@
     "name": "Franck Haise",
     "slug": "franck-haise",
     "photo_url": "/images/coaches/franck-haise.jpg",
-    "current_club_id": 187,
     "stints": [
       {
         "club_id": 347,
@@ -3757,7 +3805,8 @@
       {
         "club_id": 187,
         "from": "2024-08-18",
-        "games": 66
+        "games": 66,
+        "to": "2026-01-03"
       },
       {
         "club_id": 148,
@@ -3845,7 +3894,6 @@
     "name": "Steve Cooper",
     "slug": "steve-cooper",
     "photo_url": "/images/coaches/steve-cooper.jpg",
-    "current_club_id": 304,
     "stints": [
       {
         "club_id": 163,
@@ -3856,7 +3904,8 @@
       {
         "club_id": 304,
         "from": "2024-08-19",
-        "games": 13
+        "games": 13,
+        "to": "2024-12-03"
       },
       {
         "club_id": 395,
@@ -3905,7 +3954,7 @@
     "name": "Oliver Glasner",
     "slug": "oliver-glasner",
     "photo_url": "/images/coaches/oliver-glasner.jpg",
-    "current_club_id": 157,
+    "current_club_id": 163,
     "stints": [
       {
         "club_id": 234,
@@ -3928,10 +3977,16 @@
       {
         "club_id": 157,
         "from": "2024-02-24",
-        "games": 117
+        "games": 117,
+        "to": "2026-05-27"
+      },
+      {
+        "club_id": 163,
+        "from": "2026-07-06",
+        "source": "manual"
       }
     ],
-    "players_count": 108
+    "players_count": 135
   },
   {
     "id": "senol-gunes",
@@ -4099,7 +4154,6 @@
     "name": "Paolo Zanetti",
     "slug": "paolo-zanetti",
     "photo_url": "/images/coaches/paolo-zanetti.jpg",
-    "current_club_id": 176,
     "stints": [
       {
         "club_id": 341,
@@ -4122,7 +4176,8 @@
       {
         "club_id": 176,
         "from": "2024-08-10",
-        "games": 64
+        "games": 64,
+        "to": "2026-02-06"
       }
     ],
     "players_count": 107
@@ -4165,7 +4220,6 @@
     "name": "Bruno Lage",
     "slug": "bruno-lage",
     "photo_url": "/images/coaches/bruno-lage.jpg",
-    "current_club_id": 115,
     "stints": [
       {
         "club_id": 115,
@@ -4182,7 +4236,8 @@
       {
         "club_id": 115,
         "from": "2024-09-14",
-        "games": 59
+        "games": 59,
+        "to": "2025-09-17"
       }
     ],
     "players_count": 103
@@ -4380,7 +4435,6 @@
     "name": "Besnik Hasi",
     "slug": "besnik-hasi",
     "photo_url": "/images/coaches/besnik-hasi.jpg",
-    "current_club_id": 195,
     "stints": [
       {
         "club_id": 195,
@@ -4409,7 +4463,8 @@
       {
         "club_id": 195,
         "from": "2025-07-24",
-        "games": 29
+        "games": 29,
+        "to": "2026-02-15"
       }
     ],
     "players_count": 101
@@ -4518,7 +4573,6 @@
     "name": "Scott Parker",
     "slug": "scott-parker",
     "photo_url": "/images/coaches/scott-parker.jpg",
-    "current_club_id": 301,
     "stints": [
       {
         "club_id": 159,
@@ -4553,7 +4607,8 @@
       {
         "club_id": 301,
         "from": "2024-08-28",
-        "games": 42
+        "games": 42,
+        "to": "2026-05-01"
       }
     ],
     "players_count": 101
@@ -4701,7 +4756,6 @@
     "name": "Joseph Oosting",
     "slug": "joseph-oosting",
     "photo_url": "/images/coaches/joseph-oosting.png",
-    "current_club_id": 154,
     "stints": [
       {
         "club_id": 242,
@@ -4712,7 +4766,8 @@
       {
         "club_id": 154,
         "from": "2023-07-27",
-        "games": 93
+        "games": 93,
+        "to": "2025-09-19"
       },
       {
         "club_id": 237,
@@ -4864,12 +4919,13 @@
     "id": "joao-pereira",
     "name": "João Pereira",
     "slug": "joao-pereira",
-    "current_club_id": 250,
+    "current_club_id": 377,
     "stints": [
       {
         "club_id": 250,
         "from": "2024-08-17",
-        "games": 42
+        "games": 42,
+        "to": "2024-11-26"
       },
       {
         "club_id": 116,
@@ -4890,7 +4946,6 @@
     "name": "Luka Elsner",
     "slug": "luka-elsner",
     "photo_url": "/images/coaches/luka-elsner.jpg",
-    "current_club_id": 189,
     "stints": [
       {
         "club_id": 239,
@@ -4907,7 +4962,8 @@
       {
         "club_id": 189,
         "from": "2024-08-17",
-        "games": 20
+        "games": 20,
+        "to": "2025-02-09"
       }
     ],
     "players_count": 96
@@ -4941,9 +4997,15 @@
         "from": "2022-09-10",
         "to": "2025-03-29",
         "games": 124
+      },
+      {
+        "club_id": 161,
+        "from": "2026-06-01",
+        "source": "manual"
       }
     ],
-    "players_count": 96
+    "players_count": 128,
+    "current_club_id": 161
   },
   {
     "id": "quique-setien",
@@ -4983,7 +5045,6 @@
     "name": "Adi Hütter",
     "slug": "adi-hutter",
     "photo_url": "/images/coaches/adi-hutter.png",
-    "current_club_id": 143,
     "stints": [
       {
         "club_id": 153,
@@ -5018,7 +5079,8 @@
       {
         "club_id": 143,
         "from": "2023-08-13",
-        "games": 88
+        "games": 88,
+        "to": "2025-10-18"
       }
     ],
     "players_count": 95
@@ -5028,7 +5090,6 @@
     "name": "Çağdaş Atan",
     "slug": "cagdas-atan",
     "photo_url": "/images/coaches/cagdas-atan.jpg",
-    "current_club_id": 215,
     "stints": [
       {
         "club_id": 377,
@@ -5045,7 +5106,8 @@
       {
         "club_id": 215,
         "from": "2023-09-17",
-        "games": 91
+        "games": 91,
+        "to": "2025-09-17"
       },
       {
         "club_id": 379,
@@ -5060,12 +5122,12 @@
     "id": "cristiano-bacci",
     "name": "Cristiano Bacci",
     "slug": "cristiano-bacci",
-    "current_club_id": 244,
     "stints": [
       {
         "club_id": 244,
         "from": "2024-08-10",
-        "games": 20
+        "games": 20,
+        "to": "2025-02-14"
       },
       {
         "club_id": 361,
@@ -5156,9 +5218,15 @@
         "from": "2026-01-18",
         "to": "2026-05-17",
         "games": 23
+      },
+      {
+        "club_id": 306,
+        "from": "2026-06-23",
+        "source": "manual"
       }
     ],
-    "players_count": 95
+    "players_count": 124,
+    "current_club_id": 306
   },
   {
     "id": "ole-gunnar-solskjaer",
@@ -5249,7 +5317,6 @@
     "name": "Recep Uçar",
     "slug": "recep-ucar",
     "photo_url": "/images/coaches/recep-ucar.jpg",
-    "current_club_id": 379,
     "stints": [
       {
         "club_id": 151,
@@ -5266,7 +5333,8 @@
       {
         "club_id": 379,
         "from": "2024-11-03",
-        "games": 37
+        "games": 37,
+        "to": "2025-11-09"
       },
       {
         "club_id": 381,
@@ -5452,7 +5520,7 @@
         "games": 158
       }
     ],
-    "players_count": 112
+    "players_count": 120
   },
   {
     "id": "cesar-peixoto",
@@ -5486,7 +5554,6 @@
     "name": "İlhan Palut",
     "slug": "ilhan-palut",
     "photo_url": "/images/coaches/ilhan-palut.jpg",
-    "current_club_id": 381,
     "stints": [
       {
         "club_id": 374,
@@ -5503,7 +5570,8 @@
       {
         "club_id": 381,
         "from": "2023-08-13",
-        "games": 88
+        "games": 88,
+        "to": "2025-12-06"
       },
       {
         "club_id": 379,
@@ -5585,7 +5653,6 @@
     "name": "Michel Der Zakarian",
     "slug": "michel-der-zakarian",
     "photo_url": "/images/coaches/michel-der-zakarian.jpg",
-    "current_club_id": 192,
     "stints": [
       {
         "club_id": 193,
@@ -5608,7 +5675,8 @@
       {
         "club_id": 192,
         "from": "2023-02-12",
-        "games": 58
+        "games": 58,
+        "to": "2024-10-27"
       }
     ],
     "players_count": 93
@@ -5896,7 +5964,6 @@
     "name": "Jagoba Arrasate",
     "slug": "jagoba-arrasate",
     "photo_url": "/images/coaches/jagoba-arrasate.jpg",
-    "current_club_id": 182,
     "stints": [
       {
         "club_id": 125,
@@ -5919,7 +5986,8 @@
       {
         "club_id": 182,
         "from": "2024-08-18",
-        "games": 68
+        "games": 68,
+        "to": "2026-03-07"
       }
     ],
     "players_count": 90
@@ -5964,7 +6032,8 @@
       {
         "country_code": "MX",
         "from": "2026-06-11",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-12"
       }
     ],
     "players_count": 90
@@ -6056,7 +6125,6 @@
     "id": "thorsten-fink",
     "name": "Thorsten Fink",
     "slug": "thorsten-fink",
-    "current_club_id": 197,
     "stints": [
       {
         "club_id": 325,
@@ -6085,7 +6153,8 @@
       {
         "club_id": 197,
         "from": "2024-07-28",
-        "games": 56
+        "games": 56,
+        "to": "2025-12-26"
       },
       {
         "club_id": 375,
@@ -6121,7 +6190,6 @@
     "name": "Gerardo Seoane",
     "slug": "gerardo-seoane",
     "photo_url": "/images/coaches/gerardo-seoane.jpg",
-    "current_club_id": 166,
     "stints": [
       {
         "club_id": 212,
@@ -6150,7 +6218,8 @@
       {
         "club_id": 166,
         "from": "2023-08-11",
-        "games": 78
+        "games": 78,
+        "to": "2025-09-21"
       },
       {
         "club_id": 212,
@@ -6426,7 +6495,6 @@
     "name": "Thomas Frank",
     "slug": "thomas-frank",
     "photo_url": "/images/coaches/thomas-frank.jpg",
-    "current_club_id": 122,
     "stints": [
       {
         "club_id": 395,
@@ -6461,7 +6529,8 @@
       {
         "club_id": 122,
         "from": "2025-08-13",
-        "games": 38
+        "games": 38,
+        "to": "2026-02-11"
       }
     ],
     "players_count": 88
@@ -6689,7 +6758,8 @@
       {
         "country_code": "UY",
         "from": "2026-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-16"
       }
     ],
     "players_count": 91
@@ -6699,7 +6769,6 @@
     "name": "Olivier Dall'Oglio",
     "slug": "olivier-dall-oglio",
     "photo_url": "/images/coaches/olivier-dall-oglio.jpg",
-    "current_club_id": 350,
     "stints": [
       {
         "club_id": 188,
@@ -6716,7 +6785,8 @@
       {
         "club_id": 350,
         "from": "2024-08-17",
-        "games": 15
+        "games": 15,
+        "to": "2025-01-04"
       }
     ],
     "players_count": 87
@@ -6806,7 +6876,6 @@
     "name": "Thomas Reis",
     "slug": "thomas-reis",
     "photo_url": "/images/coaches/thomas-reis.jpg",
-    "current_club_id": 375,
     "stints": [
       {
         "club_id": 328,
@@ -6829,7 +6898,8 @@
       {
         "club_id": 375,
         "from": "2024-08-11",
-        "games": 66
+        "games": 66,
+        "to": "2026-02-19"
       }
     ],
     "players_count": 85
@@ -6839,7 +6909,6 @@
     "name": "David Hubert",
     "slug": "david-hubert",
     "photo_url": "/images/coaches/david-hubert.jpg",
-    "current_club_id": 369,
     "stints": [
       {
         "club_id": 195,
@@ -6850,7 +6919,8 @@
       {
         "club_id": 369,
         "from": "2025-07-27",
-        "games": 10
+        "games": 10,
+        "to": "2025-10-18"
       },
       {
         "club_id": 196,
@@ -6922,7 +6992,7 @@
     "name": "Eduardo Coudet",
     "slug": "eduardo-coudet",
     "photo_url": "/images/coaches/eduardo-coudet.png",
-    "current_club_id": 185,
+    "current_club_id": 252,
     "stints": [
       {
         "club_id": 183,
@@ -6933,7 +7003,8 @@
       {
         "club_id": 185,
         "from": "2024-12-05",
-        "games": 55
+        "games": 55,
+        "to": "2026-03-08"
       },
       {
         "club_id": 252,
@@ -6992,7 +7063,6 @@
     "id": "nicky-hayen",
     "name": "Nicky Hayen",
     "slug": "nicky-hayen",
-    "current_club_id": 133,
     "stints": [
       {
         "club_id": 373,
@@ -7003,7 +7073,8 @@
       {
         "club_id": 133,
         "from": "2024-04-11",
-        "games": 74
+        "games": 74,
+        "to": "2025-12-10"
       },
       {
         "club_id": 197,
@@ -7063,7 +7134,6 @@
     "name": "Bo Henriksen",
     "slug": "bo-henriksen",
     "photo_url": "/images/coaches/bo-henriksen.jpg",
-    "current_club_id": 171,
     "stints": [
       {
         "club_id": 220,
@@ -7080,7 +7150,8 @@
       {
         "club_id": 171,
         "from": "2024-02-17",
-        "games": 69
+        "games": 69,
+        "to": "2025-12-11"
       }
     ],
     "players_count": 81
@@ -7264,7 +7335,7 @@
     "name": "Andoni Iraola",
     "slug": "andoni-iraola",
     "photo_url": "/images/coaches/andoni-iraola.webp",
-    "current_club_id": 161,
+    "current_club_id": 108,
     "stints": [
       {
         "club_id": 184,
@@ -7275,10 +7346,16 @@
       {
         "club_id": 161,
         "from": "2023-08-12",
-        "games": 127
+        "games": 127,
+        "to": "2026-05-24"
+      },
+      {
+        "club_id": 108,
+        "from": "2026-06-04",
+        "source": "manual"
       }
     ],
-    "players_count": 80
+    "players_count": 112
   },
   {
     "id": "fatih-tekke",
@@ -7351,7 +7428,6 @@
     "name": "Alberto Gilardino",
     "slug": "alberto-gilardino",
     "photo_url": "/images/coaches/alberto-gilardino.jpg",
-    "current_club_id": 339,
     "stints": [
       {
         "club_id": 173,
@@ -7368,7 +7444,8 @@
       {
         "club_id": 339,
         "from": "2025-08-17",
-        "games": 25
+        "games": 25,
+        "to": "2026-02-06"
       }
     ],
     "players_count": 79
@@ -7448,7 +7525,6 @@
     "name": "José Mota",
     "slug": "jose-mota",
     "photo_url": "/images/coaches/jose-mota.png",
-    "current_club_id": 365,
     "stints": [
       {
         "club_id": 194,
@@ -7465,7 +7541,8 @@
       {
         "club_id": 365,
         "from": "2025-05-11",
-        "games": 7
+        "games": 7,
+        "to": "2025-09-27"
       }
     ],
     "players_count": 79
@@ -7529,7 +7606,6 @@
     "name": "Steffen Baumgart",
     "slug": "steffen-baumgart",
     "photo_url": "/images/coaches/steffen-baumgart.jpg",
-    "current_club_id": 169,
     "stints": [
       {
         "club_id": 324,
@@ -7546,7 +7622,8 @@
       {
         "club_id": 169,
         "from": "2025-01-11",
-        "games": 51
+        "games": 51,
+        "to": "2026-04-18"
       }
     ],
     "players_count": 79
@@ -7556,7 +7633,6 @@
     "name": "Eddie Howe",
     "slug": "eddie-howe",
     "photo_url": "/images/coaches/eddie-howe.jpg",
-    "current_club_id": 124,
     "stints": [
       {
         "club_id": 161,
@@ -7579,7 +7655,8 @@
       {
         "club_id": 124,
         "from": "2021-11-20",
-        "games": 218
+        "games": 218,
+        "to": "2026-07-30"
       }
     ],
     "players_count": 78
@@ -7789,7 +7866,8 @@
       {
         "country_code": "CA",
         "from": "2026-06-12",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-13"
       }
     ],
     "players_count": 77
@@ -8009,7 +8087,7 @@
         "games": 117
       }
     ],
-    "players_count": 76
+    "players_count": 92
   },
   {
     "id": "mircea-lucescu",
@@ -8049,7 +8127,7 @@
     "name": "Xabi Alonso",
     "slug": "xabi-alonso",
     "photo_url": "/images/coaches/xabi-alonso.jpg",
-    "current_club_id": 101,
+    "current_club_id": 120,
     "stints": [
       {
         "club_id": 109,
@@ -8060,10 +8138,16 @@
       {
         "club_id": 101,
         "from": "2025-06-18",
-        "games": 34
+        "games": 34,
+        "to": "2026-01-12"
+      },
+      {
+        "club_id": 120,
+        "from": "2026-07-01",
+        "source": "manual"
       }
     ],
-    "players_count": 76
+    "players_count": 106
   },
   {
     "id": "didier-digard",
@@ -8296,7 +8380,8 @@
       {
         "country_code": "AT",
         "from": "2026-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-18"
       }
     ],
     "players_count": 75
@@ -8405,7 +8490,6 @@
     "name": "Răzvan Lucescu",
     "slug": "razvan-lucescu",
     "photo_url": "/images/coaches/razvan-lucescu.jpg",
-    "current_club_id": 207,
     "stints": [
       {
         "club_id": 207,
@@ -8422,7 +8506,8 @@
       {
         "club_id": 207,
         "from": "2021-08-03",
-        "games": 215
+        "games": 215,
+        "to": "2024-10-27"
       }
     ],
     "players_count": 74
@@ -8594,7 +8679,6 @@
     "name": "Peter Stöger",
     "slug": "peter-stoger",
     "photo_url": "/images/coaches/peter-stoger.jpg",
-    "current_club_id": 236,
     "stints": [
       {
         "club_id": 324,
@@ -8623,7 +8707,8 @@
       {
         "club_id": 236,
         "from": "2025-07-24",
-        "games": 24
+        "games": 24,
+        "to": "2026-02-07"
       }
     ],
     "players_count": 71
@@ -8633,12 +8718,12 @@
     "name": "Habib Beye",
     "slug": "habib-beye",
     "photo_url": "/images/coaches/habib-beye.jpg",
-    "current_club_id": 148,
     "stints": [
       {
         "club_id": 148,
         "from": "2025-02-02",
-        "games": 36
+        "games": 36,
+        "to": "2026-02-20"
       },
       {
         "club_id": 145,
@@ -8654,12 +8739,12 @@
     "name": "Liam Rosenior",
     "slug": "liam-rosenior",
     "photo_url": "/images/coaches/liam-rosenior.jpg",
-    "current_club_id": 191,
     "stints": [
       {
         "club_id": 191,
         "from": "2024-08-18",
-        "games": 59
+        "games": 59,
+        "to": "2026-01-10"
       },
       {
         "club_id": 120,
@@ -8999,7 +9084,7 @@
     "name": "Pierre Sage",
     "slug": "pierre-sage",
     "photo_url": "/images/coaches/pierre-sage.jpg",
-    "current_club_id": 147,
+    "current_club_id": 157,
     "stints": [
       {
         "club_id": 146,
@@ -9010,10 +9095,16 @@
       {
         "club_id": 147,
         "from": "2025-08-16",
-        "games": 34
+        "games": 34,
+        "to": "2026-06-15"
+      },
+      {
+        "club_id": 157,
+        "from": "2026-06-15",
+        "source": "manual"
       }
     ],
-    "players_count": 69
+    "players_count": 105
   },
   {
     "id": "andre-breitenreiter",
@@ -9116,7 +9207,6 @@
     "name": "Matías Almeyda",
     "slug": "matias-almeyda",
     "photo_url": "/images/coaches/matias-almeyda.jpg",
-    "current_club_id": 135,
     "stints": [
       {
         "club_id": 208,
@@ -9127,7 +9217,8 @@
       {
         "club_id": 135,
         "from": "2025-08-17",
-        "games": 32
+        "games": 32,
+        "to": "2026-04-05"
       }
     ],
     "players_count": 68
@@ -9272,7 +9363,6 @@
     "name": "Abel Ferreira",
     "slug": "abel-ferreira",
     "photo_url": "/images/coaches/abel-ferreira.jpg",
-    "current_club_id": 254,
     "stints": [
       {
         "club_id": 131,
@@ -9301,7 +9391,8 @@
       {
         "club_id": 254,
         "from": "2025-03-30",
-        "games": 58
+        "games": 58,
+        "to": "2025-05-18"
       }
     ],
     "players_count": 66
@@ -9344,7 +9435,6 @@
     "name": "Ole Werner",
     "slug": "ole-werner",
     "photo_url": "/images/coaches/ole-werner.jpg",
-    "current_club_id": 118,
     "stints": [
       {
         "club_id": 329,
@@ -9367,7 +9457,8 @@
       {
         "club_id": 118,
         "from": "2025-08-16",
-        "games": 38
+        "games": 38,
+        "to": "2026-07-01"
       }
     ],
     "players_count": 66
@@ -9377,17 +9468,18 @@
     "name": "Russell Martin",
     "slug": "russell-martin",
     "photo_url": "/images/coaches/russell-martin.jpg",
-    "current_club_id": 305,
     "stints": [
       {
         "club_id": 305,
         "from": "2023-08-08",
-        "games": 22
+        "games": 22,
+        "to": "2024-12-22"
       },
       {
         "club_id": 199,
         "from": "2025-07-22",
-        "games": 15
+        "games": 15,
+        "to": "2025-10-23"
       }
     ],
     "players_count": 66
@@ -9450,7 +9542,6 @@
     "id": "francisco-rodriguez",
     "name": "Francisco Rodríguez",
     "slug": "francisco-rodriguez",
-    "current_club_id": 474,
     "stints": [
       {
         "club_id": 156,
@@ -9473,7 +9564,8 @@
       {
         "club_id": 474,
         "from": "2026-01-11",
-        "games": 5
+        "games": 5,
+        "to": "2026-01-15"
       }
     ],
     "players_count": 65
@@ -9627,12 +9719,12 @@
     "name": "Sébastien Pocognoli",
     "slug": "sebastien-pocognoli",
     "photo_url": "/images/coaches/sebastien-pocognoli.jpg",
-    "current_club_id": 196,
     "stints": [
       {
         "club_id": 196,
         "from": "2024-07-20",
-        "games": 56
+        "games": 56,
+        "to": "2025-10-18"
       },
       {
         "club_id": 143,
@@ -9710,7 +9802,8 @@
       {
         "country_code": "DK",
         "from": "2024-06-16",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-17"
       },
       {
         "club_id": 109,
@@ -9980,12 +10073,12 @@
     "name": "Thomas Thomasberg",
     "slug": "thomas-thomasberg",
     "photo_url": "/images/coaches/thomas-thomasberg.jpg",
-    "current_club_id": 220,
     "stints": [
       {
         "club_id": 220,
         "from": "2023-07-21",
-        "games": 84
+        "games": 84,
+        "to": "2025-09-14"
       },
       {
         "club_id": 420,
@@ -10022,7 +10115,6 @@
     "name": "Paul Simonis",
     "slug": "paul-simonis",
     "photo_url": "/images/coaches/paul-simonis.jpg",
-    "current_club_id": 164,
     "stints": [
       {
         "club_id": 352,
@@ -10039,7 +10131,8 @@
       {
         "club_id": 164,
         "from": "2025-08-16",
-        "games": 12
+        "games": 12,
+        "to": "2026-03-14"
       }
     ],
     "players_count": 62
@@ -10066,7 +10159,8 @@
       {
         "country_code": "NO",
         "from": "2026-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-17"
       }
     ],
     "players_count": 62
@@ -10340,7 +10434,7 @@
         "games": 57
       }
     ],
-    "players_count": 60
+    "players_count": 71
   },
   {
     "id": "edward-still",
@@ -10722,7 +10816,6 @@
     "name": "Vladan Milojevic",
     "slug": "vladan-milojevic",
     "photo_url": "/images/coaches/vladan-milojevic.jpg",
-    "current_club_id": 223,
     "stints": [
       {
         "club_id": 223,
@@ -10745,7 +10838,8 @@
       {
         "club_id": 223,
         "from": "2024-07-20",
-        "games": 71
+        "games": 71,
+        "to": "2025-12-04"
       }
     ],
     "players_count": 58
@@ -10925,7 +11019,8 @@
       {
         "country_code": "DZ",
         "from": "2025-12-24",
-        "games": 8
+        "games": 8,
+        "to": "2026-06-11"
       }
     ],
     "players_count": 57
@@ -11323,7 +11418,6 @@
     "name": "Shota Arveladze",
     "slug": "shota-arveladze",
     "photo_url": "/images/coaches/shota-arveladze.png",
-    "current_club_id": 376,
     "stints": [
       {
         "club_id": 380,
@@ -11352,7 +11446,8 @@
       {
         "club_id": 376,
         "from": "2025-08-09",
-        "games": 14
+        "games": 14,
+        "to": "2025-12-07"
       }
     ],
     "players_count": 55
@@ -11509,7 +11604,6 @@
     "name": "Dan Petrescu",
     "slug": "dan-petrescu",
     "photo_url": "/images/coaches/dan-petrescu.jpg",
-    "current_club_id": 228,
     "stints": [
       {
         "club_id": 435,
@@ -11550,7 +11644,8 @@
       {
         "club_id": 228,
         "from": "2024-07-14",
-        "games": 48
+        "games": 48,
+        "to": "2025-08-24"
       }
     ],
     "players_count": 53
@@ -11581,7 +11676,6 @@
     "name": "Eduardo Berizzo",
     "slug": "eduardo-berizzo",
     "photo_url": "/images/coaches/eduardo-berizzo.jpg",
-    "current_club_id": 473,
     "stints": [
       {
         "club_id": 183,
@@ -11604,7 +11698,8 @@
       {
         "club_id": 473,
         "from": "2025-01-19",
-        "games": 10
+        "games": 10,
+        "to": "2026-01-11"
       }
     ],
     "players_count": 53
@@ -11779,12 +11874,12 @@
     "id": "luis-carrion",
     "name": "Luis Carrión",
     "slug": "luis-carrion",
-    "current_club_id": 186,
     "stints": [
       {
         "club_id": 186,
         "from": "2024-08-16",
-        "games": 9
+        "games": 9,
+        "to": "2024-10-21"
       },
       {
         "club_id": 319,
@@ -11858,12 +11953,12 @@
     "id": "xavi",
     "name": "Xavi",
     "slug": "xavi",
-    "current_club_id": 300,
     "stints": [
       {
         "club_id": 300,
         "from": "2019-12-10",
-        "games": 3
+        "games": 3,
+        "to": "2021-11-20"
       },
       {
         "club_id": 107,
@@ -12042,12 +12137,12 @@
     "name": "Radomir Djalovic",
     "slug": "radomir-djalovic",
     "photo_url": "/images/coaches/radomir-djalovic.jpg",
-    "current_club_id": 418,
     "stints": [
       {
         "club_id": 418,
         "from": "2024-10-18",
-        "games": 33
+        "games": 33,
+        "to": "2025-09-13"
       },
       {
         "club_id": 380,
@@ -12098,7 +12193,8 @@
       {
         "country_code": "PT",
         "from": "2026-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-18"
       }
     ],
     "players_count": 51
@@ -12461,12 +12557,12 @@
     "id": "jose-faria",
     "name": "José Faria",
     "slug": "jose-faria",
-    "current_club_id": 364,
     "stints": [
       {
         "club_id": 364,
         "from": "2024-09-28",
-        "games": 31
+        "games": 31,
+        "to": "2025-08-16"
       }
     ],
     "players_count": 49
@@ -12687,12 +12783,12 @@
     "name": "Dino Toppmöller",
     "slug": "dino-toppmoller",
     "photo_url": "/images/coaches/dino-toppmoller.jpg",
-    "current_club_id": 132,
     "stints": [
       {
         "club_id": 132,
         "from": "2023-08-13",
-        "games": 121
+        "games": 121,
+        "to": "2026-01-21"
       }
     ],
     "players_count": 48
@@ -12755,12 +12851,12 @@
     "name": "Maarten Martens",
     "slug": "maarten-martens",
     "photo_url": "/images/coaches/maarten-martens.jpg",
-    "current_club_id": 155,
     "stints": [
       {
         "club_id": 155,
         "from": "2024-01-20",
-        "games": 101
+        "games": 101,
+        "to": "2026-01-21"
       }
     ],
     "players_count": 48
@@ -12864,15 +12960,21 @@
     "name": "Carles Martínez",
     "slug": "carles-martinez",
     "photo_url": "/images/coaches/carles-martinez.jpg",
-    "current_club_id": 190,
+    "current_club_id": 109,
     "stints": [
       {
         "club_id": 190,
         "from": "2023-08-13",
-        "games": 110
+        "games": 110,
+        "to": "2026-07-01"
+      },
+      {
+        "club_id": 109,
+        "from": "2026-07-01",
+        "source": "manual"
       }
     ],
-    "players_count": 47
+    "players_count": 77
   },
   {
     "id": "dick-schreuder",
@@ -13053,7 +13155,6 @@
     "name": "Miroslav Koubek",
     "slug": "miroslav-koubek",
     "photo_url": "/images/coaches/miroslav-koubek.jpg",
-    "current_club_id": 204,
     "stints": [
       {
         "club_id": 204,
@@ -13064,12 +13165,14 @@
       {
         "club_id": 204,
         "from": "2023-07-27",
-        "games": 77
+        "games": 77,
+        "to": "2025-10-18"
       },
       {
         "country_code": "CZ",
         "from": "2026-06-12",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-13"
       }
     ],
     "players_count": 47
@@ -13079,7 +13182,6 @@
     "name": "Peter Zeidler",
     "slug": "peter-zeidler",
     "photo_url": "/images/coaches/peter-zeidler.jpg",
-    "current_club_id": 328,
     "stints": [
       {
         "club_id": 153,
@@ -13102,7 +13204,8 @@
       {
         "club_id": 328,
         "from": "2024-08-18",
-        "games": 8
+        "games": 8,
+        "to": "2024-11-09"
       },
       {
         "club_id": 411,
@@ -13699,7 +13802,7 @@
     "name": "Enzo Maresca",
     "slug": "enzo-maresca",
     "photo_url": "/images/coaches/enzo-maresca.jpg",
-    "current_club_id": 120,
+    "current_club_id": 102,
     "stints": [
       {
         "club_id": 338,
@@ -13716,10 +13819,16 @@
       {
         "club_id": 120,
         "from": "2024-08-18",
-        "games": 90
+        "games": 90,
+        "to": "2026-01-01"
+      },
+      {
+        "club_id": 102,
+        "from": "2026-06-29",
+        "source": "manual"
       }
     ],
-    "players_count": 44
+    "players_count": 70
   },
   {
     "id": "jens-olsen",
@@ -13768,11 +13877,11 @@
       {
         "club_id": 123,
         "from": "2026-01-17",
-        "to": "2026-05-24",
         "games": 17
       }
     ],
-    "players_count": 44
+    "players_count": 61,
+    "current_club_id": 123
   },
   {
     "id": "pascal-dupraz",
@@ -14541,7 +14650,7 @@
     "name": "Paulo Pezzolano",
     "slug": "paulo-pezzolano",
     "photo_url": "/images/coaches/paulo-pezzolano.jpg",
-    "current_club_id": 321,
+    "current_club_id": 440,
     "stints": [
       {
         "club_id": 321,
@@ -14552,7 +14661,8 @@
       {
         "club_id": 321,
         "from": "2024-08-19",
-        "games": 16
+        "games": 16,
+        "to": "2024-12-03"
       },
       {
         "club_id": 440,
@@ -14602,12 +14712,12 @@
     "name": "Jimmy Thelin",
     "slug": "jimmy-thelin",
     "photo_url": "/images/coaches/jimmy-thelin.webp",
-    "current_club_id": 313,
     "stints": [
       {
         "club_id": 313,
         "from": "2024-08-05",
-        "games": 66
+        "games": 66,
+        "to": "2026-01-06"
       }
     ],
     "players_count": 40
@@ -14617,7 +14727,6 @@
     "name": "Mircea Rednic",
     "slug": "mircea-rednic",
     "photo_url": "/images/coaches/mircea-rednic.jpg",
-    "current_club_id": 239,
     "stints": [
       {
         "club_id": 239,
@@ -14634,7 +14743,8 @@
       {
         "club_id": 239,
         "from": "2025-07-26",
-        "games": 5
+        "games": 5,
+        "to": "2025-08-31"
       }
     ],
     "players_count": 40
@@ -14785,7 +14895,6 @@
     "name": "Mirel Rădoi",
     "slug": "mirel-radoi",
     "photo_url": "/images/coaches/mirel-radoi.jpg",
-    "current_club_id": 421,
     "stints": [
       {
         "club_id": 229,
@@ -14802,7 +14911,8 @@
       {
         "club_id": 421,
         "from": "2025-02-02",
-        "games": 32
+        "games": 32,
+        "to": "2025-11-21"
       },
       {
         "club_id": 383,
@@ -15001,7 +15111,8 @@
       {
         "country_code": "IE",
         "from": "2016-06-13",
-        "games": 4
+        "games": 4,
+        "to": "2016-06-14"
       },
       {
         "club_id": 198,
@@ -15059,12 +15170,12 @@
     "name": "Oleksandr Shovkovskyi",
     "slug": "oleksandr-shovkovskyi",
     "photo_url": "/images/coaches/oleksandr-shovkovskyi.jpg",
-    "current_club_id": 201,
     "stints": [
       {
         "club_id": 201,
         "from": "2023-04-28",
-        "games": 101
+        "games": 101,
+        "to": "2025-12-01"
       }
     ],
     "players_count": 38
@@ -15115,12 +15226,12 @@
     "name": "Alessandro Nesta",
     "slug": "alessandro-nesta",
     "photo_url": "/images/coaches/alessandro-nesta.jpg",
-    "current_club_id": 174,
     "stints": [
       {
         "club_id": 174,
         "from": "2024-08-09",
-        "games": 34
+        "games": 34,
+        "to": "2024-12-28"
       }
     ],
     "players_count": 37
@@ -15193,7 +15304,6 @@
     "name": "Kieran McKenna",
     "slug": "kieran-mckenna",
     "photo_url": "/images/coaches/kieran-mckenna.jpg",
-    "current_club_id": 306,
     "stints": [
       {
         "club_id": 306,
@@ -15204,7 +15314,8 @@
       {
         "club_id": 306,
         "from": "2024-08-17",
-        "games": 45
+        "games": 45,
+        "to": "2026-06-23"
       }
     ],
     "players_count": 37
@@ -15290,7 +15401,8 @@
       {
         "country_code": "CH",
         "from": "2026-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-14"
       }
     ],
     "players_count": 37
@@ -15696,7 +15808,8 @@
       {
         "country_code": "EC",
         "from": "2026-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-16"
       }
     ],
     "players_count": 36
@@ -16041,7 +16154,6 @@
     "id": "vasyl-baranov",
     "name": "Vasyl Baranov",
     "slug": "vasyl-baranov",
-    "current_club_id": 233,
     "stints": [
       {
         "club_id": 233,
@@ -16052,7 +16164,8 @@
       {
         "club_id": 233,
         "from": "2025-08-03",
-        "games": 27
+        "games": 27,
+        "to": "2026-05-08"
       }
     ],
     "players_count": 35
@@ -16089,9 +16202,15 @@
         "from": "2026-01-14",
         "to": "2026-05-23",
         "games": 28
+      },
+      {
+        "club_id": 159,
+        "from": "2026-07-07",
+        "source": "manual"
       }
     ],
-    "players_count": 34
+    "players_count": 59,
+    "current_club_id": 159
   },
   {
     "id": "clarence-seedorf",
@@ -16399,7 +16518,8 @@
       {
         "country_code": "GB-SCT",
         "from": "2026-06-14",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-15"
       }
     ],
     "players_count": 34
@@ -16620,12 +16740,12 @@
     "name": "Rolan Gusev",
     "slug": "rolan-gusev",
     "photo_url": "/images/coaches/rolan-gusev.jpg",
-    "current_club_id": 437,
     "stints": [
       {
         "club_id": 437,
         "from": "2025-05-05",
-        "games": 24
+        "games": 24,
+        "to": "2025-07-18"
       }
     ],
     "players_count": 33
@@ -16808,7 +16928,6 @@
     "name": "Sabri Lamouchi",
     "slug": "sabri-lamouchi",
     "photo_url": "/images/coaches/sabri-lamouchi.jpg",
-    "current_club_id": 496,
     "stints": [
       {
         "club_id": 148,
@@ -16825,7 +16944,8 @@
       {
         "club_id": 496,
         "from": "2021-02-04",
-        "games": 2
+        "games": 2,
+        "to": "2026-06-15"
       },
       {
         "country_code": "TN",
@@ -16852,7 +16972,8 @@
       {
         "country_code": "GE",
         "from": "2024-06-18",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-21"
       }
     ],
     "players_count": 32
@@ -17008,12 +17129,12 @@
     "name": "Stéphane Gilli",
     "slug": "stephane-gilli",
     "photo_url": "/images/coaches/stephane-gilli.jpg",
-    "current_club_id": 348,
     "stints": [
       {
         "club_id": 348,
         "from": "2025-08-17",
-        "games": 23
+        "games": 23,
+        "to": "2026-03-01"
       }
     ],
     "players_count": 31
@@ -17048,7 +17169,6 @@
     "id": "vasco-matos",
     "name": "Vasco Matos",
     "slug": "vasco-matos",
-    "current_club_id": 362,
     "stints": [
       {
         "club_id": 362,
@@ -17059,7 +17179,8 @@
       {
         "club_id": 362,
         "from": "2024-08-11",
-        "games": 60
+        "games": 60,
+        "to": "2026-02-07"
       }
     ],
     "players_count": 31
@@ -17258,7 +17379,8 @@
       {
         "country_code": "SA",
         "from": "2026-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-16"
       }
     ],
     "players_count": 30
@@ -17392,12 +17514,12 @@
     "id": "luis-pinto",
     "name": "Luís Pinto",
     "slug": "luis-pinto",
-    "current_club_id": 194,
     "stints": [
       {
         "club_id": 194,
         "from": "2025-08-11",
-        "games": 28
+        "games": 28,
+        "to": "2026-03-14"
       }
     ],
     "players_count": 30
@@ -17406,12 +17528,12 @@
     "id": "lukas-kwasniok",
     "name": "Lukas Kwasniok",
     "slug": "lukas-kwasniok",
-    "current_club_id": 324,
     "stints": [
       {
         "club_id": 324,
         "from": "2025-08-17",
-        "games": 29
+        "games": 29,
+        "to": "2026-04-05"
       }
     ],
     "players_count": 30
@@ -17825,7 +17947,8 @@
       {
         "country_code": "GR",
         "from": "2014-06-14",
-        "games": 4
+        "games": 4,
+        "to": "2014-06-15"
       },
       {
         "country_code": "PT",
@@ -17935,12 +18058,12 @@
     "id": "ismet-tasdemir",
     "name": "İsmet Taşdemir",
     "slug": "ismet-tasdemir",
-    "current_club_id": 383,
     "stints": [
       {
         "club_id": 383,
         "from": "2025-08-08",
-        "games": 2
+        "games": 2,
+        "to": "2025-08-23"
       }
     ],
     "players_count": 29
@@ -18000,7 +18123,6 @@
     "name": "Julián Calero",
     "slug": "julian-calero",
     "photo_url": "/images/coaches/julian-calero.png",
-    "current_club_id": 318,
     "stints": [
       {
         "club_id": 318,
@@ -18011,7 +18133,8 @@
       {
         "club_id": 318,
         "from": "2025-08-16",
-        "games": 15
+        "games": 15,
+        "to": "2025-12-03"
       }
     ],
     "players_count": 29
@@ -18176,12 +18299,12 @@
     "id": "sergio-francisco",
     "name": "Sergio Francisco",
     "slug": "sergio-francisco",
-    "current_club_id": 125,
     "stints": [
       {
         "club_id": 125,
         "from": "2025-08-16",
-        "games": 18
+        "games": 18,
+        "to": "2026-01-04"
       }
     ],
     "players_count": 29
@@ -18399,12 +18522,12 @@
     "name": "Horst Steffen",
     "slug": "horst-steffen",
     "photo_url": "/images/coaches/horst-steffen.jpg",
-    "current_club_id": 168,
     "stints": [
       {
         "club_id": 168,
         "from": "2025-08-15",
-        "games": 21
+        "games": 21,
+        "to": "2026-02-07"
       }
     ],
     "players_count": 28
@@ -18488,12 +18611,12 @@
     "id": "stef-wils",
     "name": "Stef Wils",
     "slug": "stef-wils",
-    "current_club_id": 237,
     "stints": [
       {
         "club_id": 237,
         "from": "2025-07-25",
-        "games": 15
+        "games": 15,
+        "to": "2025-11-30"
       }
     ],
     "players_count": 28
@@ -18565,7 +18688,6 @@
     "name": "Veljko Paunovic",
     "slug": "veljko-paunovic",
     "photo_url": "/images/coaches/veljko-paunovic.jpg",
-    "current_club_id": 319,
     "stints": [
       {
         "club_id": 272,
@@ -18576,7 +18698,8 @@
       {
         "club_id": 319,
         "from": "2025-08-15",
-        "games": 8
+        "games": 8,
+        "to": "2025-10-17"
       }
     ],
     "players_count": 28
@@ -18662,7 +18785,6 @@
     "name": "Ferdinand Feldhofer",
     "slug": "ferdinand-feldhofer",
     "photo_url": "/images/coaches/ferdinand-feldhofer.jpg",
-    "current_club_id": 429,
     "stints": [
       {
         "club_id": 406,
@@ -18679,7 +18801,8 @@
       {
         "club_id": 429,
         "from": "2024-07-11",
-        "games": 2
+        "games": 2,
+        "to": "2024-12-12"
       },
       {
         "club_id": 368,
@@ -18695,12 +18818,12 @@
     "name": "Frederik Birk",
     "slug": "frederik-birk",
     "photo_url": "/images/coaches/frederik-birk.png",
-    "current_club_id": 395,
     "stints": [
       {
         "club_id": 395,
         "from": "2024-10-27",
-        "games": 23
+        "games": 23,
+        "to": "2025-09-13"
       }
     ],
     "players_count": 27
@@ -18844,12 +18967,12 @@
     "name": "Onur Cinel",
     "slug": "onur-cinel",
     "photo_url": "/images/coaches/onur-cinel.jpg",
-    "current_club_id": 368,
     "stints": [
       {
         "club_id": 368,
         "from": "2025-07-26",
-        "games": 29
+        "games": 29,
+        "to": "2026-04-04"
       }
     ],
     "players_count": 27
@@ -19034,12 +19157,12 @@
     "name": "Giorgio Contini",
     "slug": "giorgio-contini",
     "photo_url": "/images/coaches/giorgio-contini.jpg",
-    "current_club_id": 212,
     "stints": [
       {
         "club_id": 212,
         "from": "2025-01-18",
-        "games": 33
+        "games": 33,
+        "to": "2025-11-02"
       }
     ],
     "players_count": 26
@@ -19095,12 +19218,12 @@
     "name": "John Heitinga",
     "slug": "john-heitinga",
     "photo_url": "/images/coaches/john-heitinga.jpg",
-    "current_club_id": 130,
     "stints": [
       {
         "club_id": 130,
         "from": "2025-08-10",
-        "games": 15
+        "games": 15,
+        "to": "2025-11-09"
       }
     ],
     "players_count": 26
@@ -19177,9 +19300,15 @@
         "from": "2026-03-07",
         "to": "2026-05-23",
         "games": 12
+      },
+      {
+        "club_id": 118,
+        "from": "2026-07-01",
+        "source": "manual"
       }
     ],
-    "players_count": 26
+    "players_count": 56,
+    "current_club_id": 118
   },
   {
     "id": "miroslav-djukic",
@@ -19248,7 +19377,8 @@
       {
         "country_code": "SN",
         "from": "2025-12-23",
-        "games": 10
+        "games": 10,
+        "to": "2025-12-24"
       }
     ],
     "players_count": 26
@@ -19328,12 +19458,12 @@
     "id": "stephane-le-mignan",
     "name": "Stéphane Le Mignan",
     "slug": "stephane-le-mignan",
-    "current_club_id": 349,
     "stints": [
       {
         "club_id": 349,
         "from": "2025-08-17",
-        "games": 18
+        "games": 18,
+        "to": "2026-01-25"
       }
     ],
     "players_count": 26
@@ -19501,7 +19631,6 @@
     "name": "Domènec Torrent",
     "slug": "domenec-torrent",
     "photo_url": "/images/coaches/domenec-torrent.jpg",
-    "current_club_id": 271,
     "stints": [
       {
         "club_id": 149,
@@ -19512,7 +19641,8 @@
       {
         "club_id": 271,
         "from": "2025-06-18",
-        "games": 11
+        "games": 11,
+        "to": "2026-02-01"
       }
     ],
     "players_count": 25
@@ -19566,12 +19696,14 @@
       {
         "country_code": "RO",
         "from": "2024-06-17",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-18"
       },
       {
         "club_id": 225,
         "from": "2025-07-10",
-        "games": 22
+        "games": 22,
+        "to": "2025-11-02"
       }
     ],
     "players_count": 25
@@ -19747,7 +19879,6 @@
     "name": "Ludovic Magnin",
     "slug": "ludovic-magnin",
     "photo_url": "/images/coaches/ludovic-magnin.jpg",
-    "current_club_id": 213,
     "stints": [
       {
         "club_id": 407,
@@ -19764,7 +19895,8 @@
       {
         "club_id": 213,
         "from": "2025-07-26",
-        "games": 30
+        "games": 30,
+        "to": "2026-01-29"
       }
     ],
     "players_count": 25
@@ -20169,7 +20301,8 @@
       {
         "country_code": "AR",
         "from": "2026-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-18"
       }
     ],
     "players_count": 24
@@ -20215,12 +20348,12 @@
     "name": "Sandro Wagner",
     "slug": "sandro-wagner",
     "photo_url": "/images/coaches/sandro-wagner.jpg",
-    "current_club_id": 170,
     "stints": [
       {
         "club_id": 170,
         "from": "2025-08-17",
-        "games": 14
+        "games": 14,
+        "to": "2025-12-06"
       }
     ],
     "players_count": 24
@@ -20356,12 +20489,12 @@
     "name": "Bas Sibum",
     "slug": "bas-sibum",
     "photo_url": "/images/coaches/bas-sibum.jpg",
-    "current_club_id": 354,
     "stints": [
       {
         "club_id": 354,
         "from": "2025-08-10",
-        "games": 9
+        "games": 9,
+        "to": "2025-09-14"
       }
     ],
     "players_count": 23
@@ -20483,7 +20616,8 @@
       {
         "country_code": "JP",
         "from": "2026-06-14",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-15"
       }
     ],
     "players_count": 23
@@ -20558,7 +20692,8 @@
       {
         "country_code": "ZA",
         "from": "2025-12-22",
-        "games": 7
+        "games": 7,
+        "to": "2025-12-23"
       }
     ],
     "players_count": 23
@@ -20691,12 +20826,12 @@
     "id": "selcuk-sahin",
     "name": "Selçuk Şahin",
     "slug": "selcuk-sahin",
-    "current_club_id": 382,
     "stints": [
       {
         "club_id": 382,
         "from": "2025-08-10",
-        "games": 8
+        "games": 8,
+        "to": "2025-10-20"
       }
     ],
     "players_count": 23
@@ -20961,7 +21096,6 @@
     "name": "Dietmar Kühbauer",
     "slug": "dietmar-kuhbauer",
     "photo_url": "/images/coaches/dietmar-kuhbauer.jpg",
-    "current_club_id": 406,
     "stints": [
       {
         "club_id": 406,
@@ -20990,7 +21124,8 @@
       {
         "club_id": 406,
         "from": "2024-08-03",
-        "games": 38
+        "games": 38,
+        "to": "2025-10-18"
       },
       {
         "club_id": 234,
@@ -21032,7 +21167,8 @@
       {
         "country_code": "SK",
         "from": "2024-06-17",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-18"
       }
     ],
     "players_count": 22
@@ -21298,7 +21434,6 @@
     "id": "srdjan-blagojevic",
     "name": "Srdjan Blagojevic",
     "slug": "srdjan-blagojevic",
-    "current_club_id": 224,
     "stints": [
       {
         "club_id": 427,
@@ -21309,7 +21444,8 @@
       {
         "club_id": 224,
         "from": "2025-02-01",
-        "games": 32
+        "games": 32,
+        "to": "2025-10-04"
       }
     ],
     "players_count": 22
@@ -21402,7 +21538,8 @@
       {
         "country_code": "CN",
         "from": "2024-01-13",
-        "games": 3
+        "games": 3,
+        "to": "2024-01-14"
       }
     ],
     "players_count": 21
@@ -21622,7 +21759,8 @@
       {
         "country_code": "FR",
         "from": "2026-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-17"
       }
     ],
     "players_count": 61
@@ -21713,7 +21851,8 @@
       {
         "country_code": "EG",
         "from": "2025-12-22",
-        "games": 10
+        "games": 10,
+        "to": "2025-12-23"
       }
     ],
     "players_count": 21
@@ -21805,7 +21944,6 @@
     "name": "Marek Papszun",
     "slug": "marek-papszun",
     "photo_url": "/images/coaches/marek-papszun.png",
-    "current_club_id": 226,
     "stints": [
       {
         "club_id": 226,
@@ -21822,7 +21960,8 @@
       {
         "club_id": 226,
         "from": "2024-07-21",
-        "games": 64
+        "games": 64,
+        "to": "2026-02-01"
       },
       {
         "club_id": 225,
@@ -22178,12 +22317,14 @@
       {
         "country_code": "CR",
         "from": "2024-06-25",
-        "games": 3
+        "games": 3,
+        "to": "2025-12-21"
       },
       {
         "country_code": "PY",
         "from": "2026-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-14"
       }
     ],
     "players_count": 20
@@ -22351,7 +22492,8 @@
       {
         "country_code": "MA",
         "from": "2026-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-14"
       }
     ],
     "players_count": 20
@@ -22945,7 +23087,8 @@
       {
         "country_code": "BA",
         "from": "2026-06-12",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-13"
       }
     ],
     "players_count": 19
@@ -22992,7 +23135,8 @@
       {
         "country_code": "RU",
         "from": "2021-06-12",
-        "games": 3
+        "games": 3,
+        "to": "2021-06-13"
       },
       {
         "club_id": 222,
@@ -23110,7 +23254,8 @@
       {
         "country_code": "HR",
         "from": "2026-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-18"
       }
     ],
     "players_count": 19
@@ -23175,7 +23320,8 @@
       {
         "country_code": "IR",
         "from": "2026-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-17"
       }
     ],
     "players_count": 18
@@ -23465,7 +23611,8 @@
       {
         "country_code": "ES",
         "from": "2026-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-16"
       }
     ],
     "players_count": 18
@@ -23596,7 +23743,8 @@
       {
         "country_code": "AL",
         "from": "2024-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-16"
       }
     ],
     "players_count": 18
@@ -23606,12 +23754,12 @@
     "name": "Thomas Häberli",
     "slug": "thomas-haberli",
     "photo_url": "/images/coaches/thomas-haberli.jpg",
-    "current_club_id": 408,
     "stints": [
       {
         "club_id": 408,
         "from": "2024-07-21",
-        "games": 43
+        "games": 43,
+        "to": "2025-08-14"
       }
     ],
     "players_count": 18
@@ -23771,7 +23919,8 @@
       {
         "country_code": "NG",
         "from": "2025-12-23",
-        "games": 7
+        "games": 7,
+        "to": "2025-12-24"
       }
     ],
     "players_count": 17
@@ -24089,7 +24238,8 @@
       {
         "country_code": "UA",
         "from": "2024-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-18"
       }
     ],
     "players_count": 17
@@ -24568,7 +24718,8 @@
       {
         "country_code": "AE",
         "from": "2024-01-14",
-        "games": 4
+        "games": 4,
+        "to": "2024-01-15"
       }
     ],
     "players_count": 16
@@ -25252,7 +25403,8 @@
       {
         "country_code": "KR",
         "from": "2026-06-12",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-13"
       }
     ],
     "players_count": 15
@@ -26062,7 +26214,8 @@
       {
         "country_code": "AU",
         "from": "2026-06-14",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-15"
       }
     ],
     "players_count": 14
@@ -26379,7 +26532,6 @@
     "name": "Jaime Lozano",
     "slug": "jaime-lozano",
     "photo_url": "/images/coaches/jaime-lozano.jpg",
-    "current_club_id": 472,
     "stints": [
       {
         "country_code": "MX",
@@ -26390,7 +26542,8 @@
       {
         "club_id": 472,
         "from": "2025-06-18",
-        "games": 3
+        "games": 3,
+        "to": "2026-01-10"
       }
     ],
     "players_count": 13
@@ -27441,7 +27594,8 @@
       {
         "country_code": "IQ",
         "from": "2026-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-17"
       }
     ],
     "players_count": 11
@@ -27886,7 +28040,8 @@
       {
         "country_code": "NZ",
         "from": "2026-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-17"
       }
     ],
     "players_count": 10
@@ -28875,7 +29030,8 @@
       {
         "country_code": "MY",
         "from": "2024-01-15",
-        "games": 3
+        "games": 3,
+        "to": "2024-01-16"
       },
       {
         "club_id": 294,
@@ -30790,7 +30946,8 @@
       {
         "country_code": "JO",
         "from": "2026-06-17",
-        "games": 3
+        "games": 3,
+        "to": "2026-06-18"
       }
     ],
     "players_count": 6
@@ -31821,7 +31978,8 @@
       {
         "country_code": "SI",
         "from": "2024-06-16",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-17"
       }
     ],
     "players_count": 5
@@ -32666,7 +32824,8 @@
       {
         "country_code": "KM",
         "from": "2025-12-21",
-        "games": 3
+        "games": 3,
+        "to": "2025-12-22"
       }
     ],
     "players_count": 4
@@ -33088,7 +33247,7 @@
     "id": "jose-riveiro",
     "name": "José Riveiro",
     "slug": "jose-riveiro",
-    "current_club_id": 283,
+    "current_club_id": 398,
     "stints": [
       {
         "club_id": 105,
@@ -33111,7 +33270,8 @@
       {
         "club_id": 283,
         "from": "2025-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2026-04-05"
       },
       {
         "club_id": 398,
@@ -33299,12 +33459,13 @@
     "id": "miika-nuutinen",
     "name": "Miika Nuutinen",
     "slug": "miika-nuutinen",
-    "current_club_id": 231,
+    "current_club_id": 404,
     "stints": [
       {
         "club_id": 231,
         "from": "2025-07-10",
-        "games": 4
+        "games": 4,
+        "to": "2026-02-19"
       },
       {
         "club_id": 404,
@@ -34555,7 +34716,7 @@
     "name": "Matthias Jaissle",
     "slug": "matthias-jaissle",
     "photo_url": "/images/coaches/matthias-jaissle.jpg",
-    "current_club_id": 282,
+    "current_club_id": 124,
     "stints": [
       {
         "club_id": 153,
@@ -34566,10 +34727,16 @@
       {
         "club_id": 282,
         "from": "2024-08-23",
-        "games": 68
+        "games": 68,
+        "to": "2026-08-05"
+      },
+      {
+        "club_id": 124,
+        "from": "2026-08-05",
+        "source": "manual"
       }
     ],
-    "players_count": 2
+    "players_count": 35
   },
   {
     "id": "mikael-stahre",
@@ -35470,7 +35637,8 @@
       {
         "country_code": "IN",
         "from": "2024-01-13",
-        "games": 3
+        "games": 3,
+        "to": "2024-01-14"
       }
     ],
     "players_count": 1
@@ -35863,7 +36031,8 @@
       {
         "country_code": "HU",
         "from": "2024-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-16"
       }
     ],
     "players_count": 1
@@ -35969,7 +36138,8 @@
       {
         "country_code": "GB-NIR",
         "from": "2016-06-12",
-        "games": 4
+        "games": 4,
+        "to": "2016-06-13"
       },
       {
         "club_id": 312,
@@ -36116,7 +36286,8 @@
       {
         "country_code": "UG",
         "from": "2025-12-23",
-        "games": 3
+        "games": 3,
+        "to": "2025-12-24"
       }
     ],
     "players_count": 1
@@ -36297,7 +36468,8 @@
       {
         "country_code": "KG",
         "from": "2024-01-16",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-14"
       }
     ],
     "players_count": 1
@@ -36760,12 +36932,12 @@
     "id": "alen-stajcic",
     "name": "Alen Stajcic",
     "slug": "alen-stajcic",
-    "current_club_id": 519,
     "stints": [
       {
         "club_id": 519,
         "from": "2024-10-19",
-        "games": 38
+        "games": 38,
+        "to": "2026-01-25"
       }
     ]
   },
@@ -37085,7 +37257,8 @@
       {
         "country_code": "BO",
         "from": "2024-06-23",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-24"
       }
     ]
   },
@@ -37342,7 +37515,8 @@
       {
         "country_code": "OM",
         "from": "2024-01-16",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-14"
       }
     ]
   },
@@ -37993,7 +38167,8 @@
       {
         "country_code": "RS",
         "from": "2024-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-17"
       }
     ]
   },
@@ -38370,7 +38545,8 @@
       {
         "country_code": "VE",
         "from": "2024-06-22",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-23"
       }
     ]
   },
@@ -38712,12 +38888,12 @@
     "id": "gerald-scheiblehner",
     "name": "Gerald Scheiblehner",
     "slug": "gerald-scheiblehner",
-    "current_club_id": 407,
     "stints": [
       {
         "club_id": 407,
         "from": "2025-07-26",
-        "games": 30
+        "games": 30,
+        "to": "2025-10-26"
       }
     ]
   },
@@ -38904,12 +39080,12 @@
     "id": "gonzalo-pineda",
     "name": "Gonzalo Pineda",
     "slug": "gonzalo-pineda",
-    "current_club_id": 475,
     "stints": [
       {
         "club_id": 475,
         "from": "2025-01-12",
-        "games": 10
+        "games": 10,
+        "to": "2026-01-10"
       }
     ]
   },
@@ -39125,12 +39301,14 @@
       {
         "country_code": "IS",
         "from": "2018-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2018-06-17"
       },
       {
         "country_code": "JM",
         "from": "2024-06-23",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-24"
       }
     ]
   },
@@ -39287,7 +39465,8 @@
       {
         "country_code": "MK",
         "from": "2021-06-13",
-        "games": 3
+        "games": 3,
+        "to": "2021-06-14"
       }
     ]
   },
@@ -39771,12 +39950,12 @@
     "name": "João Sacramento",
     "slug": "joao-sacramento",
     "photo_url": "/images/coaches/joao-sacramento.jpg",
-    "current_club_id": 234,
     "stints": [
       {
         "club_id": 234,
         "from": "2025-08-01",
-        "games": 7
+        "games": 7,
+        "to": "2025-10-19"
       }
     ]
   },
@@ -39863,7 +40042,8 @@
       {
         "country_code": "PE",
         "from": "2024-06-22",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-23"
       }
     ]
   },
@@ -39904,7 +40084,8 @@
       {
         "country_code": "HK",
         "from": "2024-01-14",
-        "games": 3
+        "games": 3,
+        "to": "2024-01-15"
       }
     ]
   },
@@ -40643,7 +40824,8 @@
       {
         "country_code": "HN",
         "from": "2014-06-15",
-        "games": 3
+        "games": 3,
+        "to": "2014-06-16"
       },
       {
         "country_code": "CR",
@@ -41110,12 +41292,12 @@
     "id": "mark-jackson",
     "name": "Mark Jackson",
     "slug": "mark-jackson",
-    "current_club_id": 520,
     "stints": [
       {
         "club_id": 520,
         "from": "2024-10-18",
-        "games": 26
+        "games": 26,
+        "to": "2025-10-19"
       }
     ]
   },
@@ -41142,7 +41324,8 @@
       {
         "country_code": "FI",
         "from": "2021-06-12",
-        "games": 3
+        "games": 3,
+        "to": "2021-06-13"
       }
     ]
   },
@@ -41247,7 +41430,8 @@
       {
         "country_code": "TH",
         "from": "2024-01-16",
-        "games": 4
+        "games": 4,
+        "to": "2024-06-14"
       }
     ]
   },
@@ -41334,7 +41518,8 @@
       {
         "country_code": "PL",
         "from": "2024-06-16",
-        "games": 3
+        "games": 3,
+        "to": "2024-06-17"
       }
     ]
   },
@@ -41570,7 +41755,8 @@
       {
         "country_code": "LB",
         "from": "2024-01-12",
-        "games": 3
+        "games": 3,
+        "to": "2024-01-13"
       }
     ]
   },
@@ -42458,7 +42644,8 @@
       {
         "country_code": "TJ",
         "from": "2024-01-13",
-        "games": 5
+        "games": 5,
+        "to": "2024-01-14"
       }
     ]
   },
@@ -42565,7 +42752,8 @@
       {
         "country_code": "VN",
         "from": "2024-01-14",
-        "games": 3
+        "games": 3,
+        "to": "2024-01-15"
       }
     ]
   },
@@ -42869,7 +43057,8 @@
       {
         "country_code": "GB-WLS",
         "from": "2022-11-21",
-        "games": 3
+        "games": 3,
+        "to": "2022-11-22"
       }
     ]
   },
@@ -42878,12 +43067,12 @@
     "name": "Robert Kolendowicz",
     "slug": "robert-kolendowicz",
     "photo_url": "/images/coaches/robert-kolendowicz.jpg",
-    "current_club_id": 420,
     "stints": [
       {
         "club_id": 420,
         "from": "2024-08-17",
-        "games": 38
+        "games": 38,
+        "to": "2025-10-03"
       }
     ]
   },
@@ -43221,12 +43410,12 @@
     "name": "Sebastián Oliveros",
     "slug": "sebastian-oliveros",
     "photo_url": "/images/coaches/sebastian-oliveros.jpg",
-    "current_club_id": 442,
     "stints": [
       {
         "club_id": 442,
         "from": "2025-07-12",
-        "games": 20
+        "games": 20,
+        "to": "2025-07-19"
       }
     ]
   },
@@ -43271,7 +43460,8 @@
       {
         "country_code": "CL",
         "from": "2024-06-30",
-        "games": 1
+        "games": 1,
+        "to": "2025-12-21"
       }
     ]
   },
@@ -43554,7 +43744,8 @@
       {
         "country_code": "ID",
         "from": "2024-01-15",
-        "games": 4
+        "games": 4,
+        "to": "2024-01-16"
       },
       {
         "club_id": 294,
@@ -43842,12 +44033,12 @@
     "id": "ufuk-talay",
     "name": "Ufuk Talay",
     "slug": "ufuk-talay",
-    "current_club_id": 296,
     "stints": [
       {
         "club_id": 296,
         "from": "2024-10-19",
-        "games": 49
+        "games": 49,
+        "to": "2026-04-11"
       }
     ]
   },

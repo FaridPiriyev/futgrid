@@ -126,7 +126,8 @@
       "marco-rose",
       "edin-terzic",
       "jesse-marsch",
-      "stale-solbakken"
+      "stale-solbakken",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 220000000,
@@ -249,7 +250,8 @@
       "unai-emery",
       "xabi-alonso",
       "alvaro-arbeloa",
-      "didier-deschamps"
+      "didier-deschamps",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 200000000,
@@ -804,7 +806,8 @@
       "xabi-alonso",
       "santiago-solari",
       "alvaro-arbeloa",
-      "julen-lopetegui"
+      "julen-lopetegui",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 130000000,
@@ -900,7 +903,8 @@
       "xabi-alonso",
       "lucien-favre",
       "alvaro-arbeloa",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 160000000,
@@ -1526,7 +1530,8 @@
       "liam-rosenior",
       "graham-potter",
       "calum-mcfarlane",
-      "sebastian-beccacece"
+      "sebastian-beccacece",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 100000000,
@@ -1600,7 +1605,8 @@
       "mauricio-pochettino",
       "pep-guardiola",
       "liam-rosenior",
-      "calum-mcfarlane"
+      "calum-mcfarlane",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 110000000,
@@ -1761,7 +1767,8 @@
       "marco-rose",
       "domenico-tedesco",
       "jesse-marsch",
-      "achim-beierlorzer"
+      "achim-beierlorzer",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 100000000,
@@ -1840,7 +1847,8 @@
       "peter-bosz",
       "gerardo-seoane",
       "hannes-wolf",
-      "julian-nagelsmann"
+      "julian-nagelsmann",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 85000000,
@@ -2125,7 +2133,8 @@
     "coach_ids": [
       "unai-emery",
       "michael-carrick",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 120000000,
@@ -2200,7 +2209,8 @@
       "fabio-grosso",
       "didier-deschamps",
       "jean-francois-vulliez",
-      "jorge-maciel"
+      "jorge-maciel",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 110000000,
@@ -2277,7 +2287,8 @@
       "ismail-kartal",
       "vitor-pereira",
       "vincenzo-montella",
-      "joao-de-deus"
+      "joao-de-deus",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 100000000,
@@ -2364,7 +2375,8 @@
       "pepe-mel",
       "clarence-seedorf",
       "marcelo-bielsa",
-      "julen-lopetegui"
+      "julen-lopetegui",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 90000000,
@@ -2457,7 +2469,8 @@
     },
     "coach_ids": [
       "ole-werner",
-      "borja-jimenez"
+      "borja-jimenez",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 90000000,
@@ -2717,7 +2730,8 @@
       "peter-bosz",
       "rikard-norling",
       "graham-potter",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 90000000,
@@ -2794,7 +2808,8 @@
       "enzo-maresca",
       "liam-rosenior",
       "abel-ferreira",
-      "calum-mcfarlane"
+      "calum-mcfarlane",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 80000000,
@@ -2867,7 +2882,8 @@
       "roy-hodgson",
       "calum-mcfarlane",
       "nigel-pearson",
-      "xisco-munoz"
+      "xisco-munoz",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 100000000,
@@ -3082,7 +3098,8 @@
       "julian-nagelsmann",
       "thomas-tuchel",
       "ronald-koeman",
-      "mark-van-bommel"
+      "mark-van-bommel",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 75000000,
@@ -3170,7 +3187,8 @@
       "pep-guardiola",
       "gary-o-neil",
       "carlos-queiroz",
-      "nigel-pearson"
+      "nigel-pearson",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 80000000,
@@ -4180,7 +4198,8 @@
       "ange-postecoglou",
       "thomas-tuchel",
       "steve-bruce",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 120000000,
@@ -4253,7 +4272,8 @@
       "vincent-kompany",
       "simon-davies",
       "rudi-garcia",
-      "philippe-bizeul"
+      "philippe-bizeul",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 75000000,
@@ -4580,7 +4600,8 @@
     },
     "coach_ids": [
       "andoni-iraola",
-      "regis-le-bris"
+      "regis-le-bris",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 70000000,
@@ -4972,7 +4993,8 @@
       "oliver-glasner",
       "jon-dahl-tomasson",
       "roy-hodgson",
-      "ray-lewington"
+      "ray-lewington",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 70000000,
@@ -5171,7 +5193,8 @@
       "jurgen-klopp",
       "roberto-de-zerbi",
       "lionel-scaloni",
-      "bjorn-hamberg"
+      "bjorn-hamberg",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 70000000,
@@ -5254,7 +5277,8 @@
       "luis-enrique",
       "laurent-blanc",
       "peter-bosz",
-      "didier-deschamps"
+      "didier-deschamps",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 100000000,
@@ -5357,7 +5381,8 @@
       "roy-hodgson",
       "pep-guardiola",
       "thomas-tuchel",
-      "patrick-mccarthy"
+      "patrick-mccarthy",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 75000000,
@@ -5438,7 +5463,8 @@
       "domenico-tedesco",
       "jesse-marsch",
       "zlatko-dalic",
-      "achim-beierlorzer"
+      "achim-beierlorzer",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 75000000,
@@ -5514,7 +5540,8 @@
       "goals": 4
     },
     "coach_ids": [
-      "pep-guardiola"
+      "pep-guardiola",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 65000000,
@@ -5594,7 +5621,8 @@
     },
     "coach_ids": [
       "pep-guardiola",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 70000000,
@@ -5755,7 +5783,8 @@
       "vitor-pereira",
       "ange-postecoglou",
       "bruno-lage",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 80000000,
@@ -5823,7 +5852,8 @@
       "paulo-sousa",
       "gustavo-poyet",
       "robert-moreno",
-      "didier-deschamps"
+      "didier-deschamps",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 70000000,
@@ -6250,7 +6280,8 @@
       "carlo-ancelotti",
       "thomas-tuchel",
       "sam-allardyce",
-      "duncan-ferguson"
+      "duncan-ferguson",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 80000000,
@@ -6488,7 +6519,8 @@
     },
     "coach_ids": [
       "andoni-iraola",
-      "carlo-ancelotti"
+      "carlo-ancelotti",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -6823,7 +6855,8 @@
       "mauricio-pochettino",
       "liam-rosenior",
       "calum-mcfarlane",
-      "bruno-saltor"
+      "bruno-saltor",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -6932,7 +6965,8 @@
       "simone-inzaghi",
       "calum-mcfarlane",
       "abel-ferreira",
-      "roberto-martinez"
+      "roberto-martinez",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -7188,7 +7222,8 @@
       "ruud-van-nistelrooy",
       "ernest-faber",
       "ronald-koeman",
-      "phillip-cocu"
+      "phillip-cocu",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 75000000,
@@ -7297,7 +7332,8 @@
       "jess-thorup",
       "ruud-van-nistelrooy",
       "christian-ilzer",
-      "hjalte-bo-norregaard"
+      "hjalte-bo-norregaard",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -7366,7 +7402,8 @@
       "jurgen-klopp",
       "arne-slot",
       "alvaro-arbeloa",
-      "xabi-alonso"
+      "xabi-alonso",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -7877,7 +7914,8 @@
       "ralf-rangnick",
       "thomas-tuchel",
       "unai-emery",
-      "jacques-abardonado"
+      "jacques-abardonado",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -7963,7 +8001,8 @@
       "sebastian-hoeness",
       "ole-werner",
       "florian-kohfeldt",
-      "horst-steffen"
+      "horst-steffen",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -8033,7 +8072,8 @@
     },
     "coach_ids": [
       "habib-beye",
-      "julien-stephan"
+      "julien-stephan",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 65000000,
@@ -8097,7 +8137,8 @@
       "rui-vitoria",
       "nelson-verissimo",
       "jorge-jesus",
-      "roberto-martinez"
+      "roberto-martinez",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -8207,7 +8248,8 @@
       "marcelino",
       "jacques-abardonado",
       "paul-heckingbottom",
-      "leighton-baines"
+      "leighton-baines",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 65000000,
@@ -8273,7 +8315,8 @@
     "coach_ids": [
       "fabian-hurzeler",
       "roberto-de-zerbi",
-      "paulo-fonseca"
+      "paulo-fonseca",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 65000000,
@@ -8322,7 +8365,8 @@
       }
     ],
     "coach_ids": [
-      "andoni-iraola"
+      "andoni-iraola",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 70000000,
@@ -8897,7 +8941,8 @@
       "mauricio-pochettino",
       "roberto-de-zerbi",
       "calum-mcfarlane",
-      "graham-potter"
+      "graham-potter",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -8976,7 +9021,8 @@
       "florian-kohfeldt",
       "mark-van-bommel",
       "ralph-hasenhuttl",
-      "didier-deschamps"
+      "didier-deschamps",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -9134,7 +9180,8 @@
       "javier-calleja",
       "fran-escriba",
       "marcelino",
-      "luis-de-la-fuente"
+      "luis-de-la-fuente",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -9314,7 +9361,8 @@
       "paulo-fonseca",
       "marco-giampaolo",
       "jorge-jesus",
-      "roberto-martinez"
+      "roberto-martinez",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -9791,7 +9839,8 @@
       "pep-guardiola",
       "franck-haise",
       "will-still",
-      "fabio-cannavaro"
+      "fabio-cannavaro",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -9861,7 +9910,8 @@
     "coach_ids": [
       "bruno-genesio",
       "paulo-fonseca",
-      "mohamed-ouahbi"
+      "mohamed-ouahbi",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 90000000,
@@ -9938,7 +9988,8 @@
       "bruno-lage",
       "steve-davis",
       "gary-o-neil",
-      "roberto-martinez"
+      "roberto-martinez",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -10085,7 +10136,8 @@
       "vitor-pereira",
       "steve-cooper",
       "ange-postecoglou",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -10149,7 +10201,8 @@
       "sebastien-pocognoli",
       "philippe-clement",
       "niko-kovac",
-      "didier-deschamps"
+      "didier-deschamps",
+      "luis-enrique"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -10226,7 +10279,8 @@
       "pep-guardiola",
       "albert-celades",
       "voro",
-      "luis-de-la-fuente"
+      "luis-de-la-fuente",
+      "luis-enrique"
     ],
     "market_value": {
       "amount_eur": 55000000,
@@ -10311,7 +10365,8 @@
       "ole-werner",
       "laurent-blanc",
       "zsolt-low",
-      "alexander-zickler"
+      "alexander-zickler",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -10406,7 +10461,8 @@
       "roger-schmidt",
       "alvaro-arbeloa",
       "paco-lopez",
-      "alexander-medina"
+      "alexander-medina",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -10522,7 +10578,8 @@
       "ernesto-valverde",
       "michel",
       "bjorn-hamberg",
-      "bruno-saltor"
+      "bruno-saltor",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 60000000,
@@ -10600,7 +10657,8 @@
       "alvaro-arbeloa",
       "xabi-alonso",
       "bruno-genesio",
-      "philippe-bizeul"
+      "philippe-bizeul",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -11499,7 +11557,8 @@
       "davide-nicola",
       "ivan-juric",
       "stefano-colantuono",
-      "carlo-ancelotti"
+      "carlo-ancelotti",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -11622,7 +11681,8 @@
       "ryan-mason",
       "igor-tudor",
       "lionel-scaloni",
-      "roberto-de-zerbi"
+      "roberto-de-zerbi",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -11701,7 +11761,8 @@
       "rui-borges",
       "ruben-amorim",
       "marco-baroni",
-      "joao-pereira"
+      "joao-pereira",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -11769,7 +11830,8 @@
       "jurgen-klopp",
       "arne-slot",
       "erik-ten-hag",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -11841,7 +11903,8 @@
       "kasper-hjulmand",
       "erik-ten-hag",
       "vladimir-petkovic",
-      "pal-dardai"
+      "pal-dardai",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -12424,7 +12487,8 @@
       "sinisa-mihajlovic",
       "mauricio-pochettino",
       "cristian-brocchi",
-      "marco-giampaolo"
+      "marco-giampaolo",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -12607,7 +12671,8 @@
     "coach_ids": [
       "eddie-howe",
       "ralph-hasenhuttl",
-      "ruben-selles"
+      "ruben-selles",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -12688,7 +12753,8 @@
       "david-wagner",
       "frank-kramer",
       "huub-stevens",
-      "julian-nagelsmann"
+      "julian-nagelsmann",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -12757,7 +12823,8 @@
       "ralf-rangnick",
       "julian-nagelsmann",
       "ralph-hasenhuttl",
-      "didier-deschamps"
+      "didier-deschamps",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -13088,7 +13155,8 @@
     "coach_ids": [
       "ruben-amorim",
       "rui-borges",
-      "joao-pereira"
+      "joao-pereira",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 42000000,
@@ -13269,7 +13337,8 @@
       "paulo-fonseca",
       "yves-vanderhaeghe",
       "paul-clement",
-      "niko-kovac"
+      "niko-kovac",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -13354,7 +13423,8 @@
       "peter-bosz",
       "paulo-fonseca",
       "graham-potter",
-      "mauricio-pochettino"
+      "mauricio-pochettino",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -14581,7 +14651,8 @@
     },
     "coach_ids": [
       "kasper-hjulmand",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -14659,7 +14730,8 @@
       "dino-toppmoller",
       "albert-riera",
       "dennis-schmitt",
-      "julian-nagelsmann"
+      "julian-nagelsmann",
+      "vincent-kompany"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -14960,7 +15032,8 @@
       "walid-regragui",
       "mohamed-ouahbi",
       "roger-schmidt",
-      "fred-rutten"
+      "fred-rutten",
+      "vincent-kompany"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -15497,7 +15570,8 @@
       "calum-mcfarlane",
       "hedwiges-maduro",
       "michael-valkanis",
-      "alfred-schreuder"
+      "alfred-schreuder",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -15593,7 +15667,8 @@
       "gary-o-neil",
       "xavier-garcia-pimienta",
       "roberto-de-zerbi",
-      "lionel-scaloni"
+      "lionel-scaloni",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -15794,7 +15869,8 @@
       "frank-wormuth",
       "adrie-poldervaart",
       "jamie-collins",
-      "stale-solbakken"
+      "stale-solbakken",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -15885,7 +15961,8 @@
       "quique-sanchez-flores",
       "marcelino",
       "claudio-ranieri",
-      "javi-gracia"
+      "javi-gracia",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -16151,7 +16228,8 @@
       "edin-terzic",
       "niko-kovac",
       "nuri-sahin",
-      "mike-tullberg"
+      "mike-tullberg",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -16437,7 +16515,8 @@
       "stephane-moulin",
       "julen-lopetegui",
       "vladimir-petkovic",
-      "steve-davis"
+      "steve-davis",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -16638,7 +16717,8 @@
       "enzo-maresca",
       "patrick-vieira",
       "calum-mcfarlane",
-      "steve-cooper"
+      "steve-cooper",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -16814,7 +16894,8 @@
       "jose-mourinho",
       "ralf-rangnick",
       "michael-carrick",
-      "steve-clarke"
+      "steve-clarke",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -16898,7 +16979,8 @@
     "coach_ids": [
       "eddie-howe",
       "graham-potter",
-      "frank-lampard"
+      "frank-lampard",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 55000000,
@@ -16994,7 +17076,8 @@
       "ronald-koeman",
       "sergi-barjuan",
       "jose-tavares",
-      "martin-anselmi"
+      "martin-anselmi",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -17076,7 +17159,8 @@
       "goals": 2
     },
     "coach_ids": [
-      "christian-ilzer"
+      "christian-ilzer",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -17304,7 +17388,8 @@
       "zsolt-low",
       "marcel-rapp",
       "julian-nagelsmann",
-      "alexander-zickler"
+      "alexander-zickler",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -17552,7 +17637,8 @@
     "coach_ids": [
       "carlo-ancelotti",
       "paulo-fonseca",
-      "xabi-alonso"
+      "xabi-alonso",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -18045,7 +18131,8 @@
       "francesco-farioli",
       "martin-anselmi",
       "vitor-bruno",
-      "jose-tavares"
+      "jose-tavares",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 38000000,
@@ -18105,7 +18192,8 @@
     "coach_ids": [
       "gian-piero-gasperini",
       "raffaele-palladino",
-      "ivan-juric"
+      "ivan-juric",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 38000000,
@@ -18340,7 +18428,8 @@
       "sergio-conceicao",
       "andoni-iraola",
       "vitor-bruno",
-      "siramana-dembele"
+      "siramana-dembele",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -18867,7 +18956,8 @@
       "gerardo-seoane",
       "ivo-vieira",
       "hannes-wolf",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -19121,7 +19211,8 @@
     "coach_ids": [
       "thorsten-fink",
       "nicky-hayen",
-      "domenico-olivieri"
+      "domenico-olivieri",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -19195,7 +19286,8 @@
     "coach_ids": [
       "mikel-arteta",
       "habib-beye",
-      "roberto-de-zerbi"
+      "roberto-de-zerbi",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -19569,7 +19661,8 @@
       "laurent-blanc",
       "calum-mcfarlane",
       "rudi-garcia",
-      "didier-deschamps"
+      "didier-deschamps",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -19649,7 +19742,8 @@
     },
     "coach_ids": [
       "fabio-pisacane",
-      "gian-piero-gasperini"
+      "gian-piero-gasperini",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -20350,7 +20444,8 @@
       "arne-slot",
       "peter-bosz",
       "hannes-wolf",
-      "gavin-strachan"
+      "gavin-strachan",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -20673,7 +20768,8 @@
       "eddie-howe",
       "christophe-galtier",
       "jocelyn-gourvennec",
-      "johnny-jansen"
+      "johnny-jansen",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -20746,7 +20842,8 @@
       "eddie-howe",
       "steven-gerrard",
       "dean-smith",
-      "aaron-danks"
+      "aaron-danks",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -20813,7 +20910,8 @@
       "bruno-genesio",
       "hein-vanhaezebrouck",
       "wouter-vrancken",
-      "rudi-garcia"
+      "rudi-garcia",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 55000000,
@@ -20955,7 +21053,8 @@
       "oscar-garcia",
       "johnny-heitinga",
       "maurice-steijn",
-      "hedwiges-maduro"
+      "hedwiges-maduro",
+      "luis-enrique"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -21044,7 +21143,8 @@
       "pep-guardiola",
       "walid-regragui",
       "santiago-solari",
-      "mohamed-ouahbi"
+      "mohamed-ouahbi",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -22176,7 +22276,8 @@
     ],
     "coach_ids": [
       "vincenzo-italiano",
-      "thiago-motta"
+      "thiago-motta",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 32000000,
@@ -22975,7 +23076,8 @@
     },
     "coach_ids": [
       "ivan-leko",
-      "nicky-hayen"
+      "nicky-hayen",
+      "cristian-chivu"
     ],
     "market_value": {
       "amount_eur": 32000000,
@@ -23140,7 +23242,8 @@
       "dean-smith",
       "adam-sadler",
       "claudio-ranieri",
-      "mike-stowell"
+      "mike-stowell",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -23218,7 +23321,8 @@
       "steve-cooper",
       "graham-potter",
       "ole-gunnar-solskjaer",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -23330,7 +23434,8 @@
       "ange-postecoglou",
       "nuno-espirito-santo",
       "murat-yakin",
-      "timo-schultz"
+      "timo-schultz",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -23405,7 +23510,8 @@
       "zsolt-low",
       "stale-solbakken",
       "alfred-schreuder",
-      "alexander-zickler"
+      "alexander-zickler",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -23562,7 +23668,8 @@
     "coach_ids": [
       "maurizio-sarri",
       "marco-baroni",
-      "igor-tudor"
+      "igor-tudor",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -23653,7 +23760,8 @@
       "sean-dyche",
       "ange-postecoglou",
       "graham-potter",
-      "nuno-espirito-santo"
+      "nuno-espirito-santo",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -23732,7 +23840,8 @@
       "roger-schmidt",
       "jorge-jesus",
       "nelson-verissimo",
-      "roberto-martinez"
+      "roberto-martinez",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -23822,7 +23931,8 @@
       "habib-beye",
       "jorge-sampaoli",
       "philippe-bizeul",
-      "sebastien-tambouret"
+      "sebastien-tambouret",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -24444,7 +24554,8 @@
       "raffaele-palladino",
       "davide-ballardini",
       "ivan-juric",
-      "massimiliano-alvini"
+      "massimiliano-alvini",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -24532,7 +24643,8 @@
       "alfred-schreuder",
       "ivan-juric",
       "rudi-garcia",
-      "rik-de-mil"
+      "rik-de-mil",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -24619,7 +24731,8 @@
       "luca-gotti",
       "ivan-juric",
       "adrian-gula",
-      "eusebio-di-francesco"
+      "eusebio-di-francesco",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -24758,7 +24871,8 @@
       "yves-vanderhaeghe",
       "igor-tudor",
       "jesse-marsch",
-      "massimo-brambilla"
+      "massimo-brambilla",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -24857,7 +24971,8 @@
       "michael-beale",
       "julian-nagelsmann",
       "mauricio-pochettino",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -25165,7 +25280,8 @@
       "niko-kovac",
       "liam-rosenior",
       "marco-rose",
-      "mike-tullberg"
+      "mike-tullberg",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -25481,7 +25597,8 @@
       "raffaele-palladino",
       "ivan-juric",
       "patrick-vieira",
-      "alberto-gilardino"
+      "alberto-gilardino",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -25578,7 +25695,8 @@
       "jan-siewert",
       "bo-svensson",
       "ray-lewington",
-      "didier-deschamps"
+      "didier-deschamps",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -25653,7 +25771,8 @@
       "quique-setien",
       "pacheta",
       "luis-de-la-fuente",
-      "miguel-angel-tena"
+      "miguel-angel-tena",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -26342,7 +26461,8 @@
       "roberto-de-zerbi",
       "antonio-conte",
       "igor-tudor",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "cristian-chivu"
     ],
     "market_value": {
       "amount_eur": 35000000,
@@ -26532,7 +26652,8 @@
       "roberto-de-zerbi",
       "cristian-stellini",
       "ryan-mason",
-      "pape-thiaw"
+      "pape-thiaw",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -26823,7 +26944,8 @@
     "coach_ids": [
       "alessio-lisci",
       "carlo-ancelotti",
-      "xabi-alonso"
+      "xabi-alonso",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -26882,7 +27004,8 @@
       "goals": 1
     },
     "coach_ids": [
-      "arne-slot"
+      "arne-slot",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 50000000,
@@ -27119,7 +27242,8 @@
       "peter-bosz",
       "marcel-keizer",
       "ruud-van-nistelrooy",
-      "michael-reiziger"
+      "michael-reiziger",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -27244,7 +27368,8 @@
       "claude-puel",
       "david-sesa",
       "franck-passi",
-      "mike-stowell"
+      "mike-stowell",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -27326,7 +27451,8 @@
       "antonio-conte",
       "davide-nicola",
       "marco-giampaolo",
-      "walter-mazzarri"
+      "walter-mazzarri",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -27415,7 +27541,8 @@
       "antonio-conte",
       "rui-pedro-silva",
       "marko-nikolic",
-      "javi-gracia"
+      "javi-gracia",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -27857,7 +27984,8 @@
     ],
     "coach_ids": [
       "ole-werner",
-      "stanimir-stoilov"
+      "stanimir-stoilov",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -28002,7 +28130,8 @@
       "roger-schmidt",
       "daniel-sousa",
       "ivo-vieira",
-      "roberto-martinez"
+      "roberto-martinez",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -28083,7 +28212,8 @@
       "jose-mourinho",
       "johannes-thorup",
       "roger-schmidt",
-      "stale-solbakken"
+      "stale-solbakken",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -28885,7 +29015,8 @@
     "coach_ids": [
       "andoni-iraola",
       "mauricio-pochettino",
-      "liam-rosenior"
+      "liam-rosenior",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -29272,7 +29403,8 @@
     "coach_ids": [
       "vincenzo-italiano",
       "roberto-de-zerbi",
-      "dean-smith"
+      "dean-smith",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 33000000,
@@ -29654,7 +29786,8 @@
       "thomas-tuchel",
       "jean-louis-gasset",
       "stephane-moulin",
-      "bruno-saltor"
+      "bruno-saltor",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 32000000,
@@ -29750,7 +29883,8 @@
       "ole-gunnar-solskjaer",
       "steve-cooper",
       "roy-hodgson",
-      "ralf-rangnick"
+      "ralf-rangnick",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -29819,7 +29953,8 @@
     },
     "coach_ids": [
       "oliver-glasner",
-      "carles-martinez"
+      "carles-martinez",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -29914,7 +30049,8 @@
       "patrick-vieira",
       "julian-nagelsmann",
       "mauricio-pochettino",
-      "ray-lewington"
+      "ray-lewington",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30002,7 +30138,8 @@
       "alfred-schreuder",
       "steven-gerrard",
       "johnny-heitinga",
-      "eric-chelle"
+      "eric-chelle",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30069,7 +30206,8 @@
     "coach_ids": [
       "pep-guardiola",
       "marco-silva",
-      "stale-solbakken"
+      "stale-solbakken",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30150,7 +30288,8 @@
       "dino-toppmoller",
       "albert-riera",
       "dennis-schmitt",
-      "jan-fiesser"
+      "jan-fiesser",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 23000000,
@@ -30209,7 +30348,8 @@
       "goals": 4
     },
     "coach_ids": [
-      "mikhail-galaktionov"
+      "mikhail-galaktionov",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30447,7 +30587,8 @@
       "pepe-bordalas",
       "carlos-corberan",
       "arne-slot",
-      "voro"
+      "voro",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30500,7 +30641,8 @@
       "goals": 2
     },
     "coach_ids": [
-      "pep-guardiola"
+      "pep-guardiola",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -30612,7 +30754,8 @@
     ],
     "coach_ids": [
       "rui-borges",
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30678,7 +30821,8 @@
     "coach_ids": [
       "eddie-howe",
       "chris-wilder",
-      "paul-heckingbottom"
+      "paul-heckingbottom",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 32000000,
@@ -30758,7 +30902,8 @@
       "cesare-prandelli",
       "vitor-pereira",
       "ange-postecoglou",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -30837,7 +30982,8 @@
       "ange-postecoglou",
       "neil-critchley",
       "marco-silva",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 32000000,
@@ -30925,7 +31071,8 @@
       "enzo-maresca",
       "calum-mcfarlane",
       "pep-guardiola",
-      "alex-neil"
+      "alex-neil",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -31199,7 +31346,8 @@
       "michel-der-zakarian",
       "vincent-kompany",
       "romain-pitau",
-      "mike-jackson"
+      "mike-jackson",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -31259,7 +31407,8 @@
     },
     "coach_ids": [
       "ole-werner",
-      "marco-rose"
+      "marco-rose",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -31339,7 +31488,8 @@
       "ole-werner",
       "bo-svensson",
       "bo-henriksen",
-      "jan-siewert"
+      "jan-siewert",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -31419,7 +31569,8 @@
       "bruno-lage",
       "jose-mourinho",
       "maarten-martens",
-      "roger-schmidt"
+      "roger-schmidt",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 28000000,
@@ -32121,7 +32272,8 @@
       "sylvain-ripoll",
       "franck-haise",
       "giovanni-martusciello",
-      "zeki-murat-gole"
+      "zeki-murat-gole",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 27000000,
@@ -32311,7 +32463,8 @@
     "coach_ids": [
       "nicky-hayen",
       "massimiliano-allegri",
-      "murat-yakin"
+      "murat-yakin",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -32404,7 +32557,8 @@
       "fabio-grosso",
       "roger-schmidt",
       "mauricio-pochettino",
-      "jean-francois-vulliez"
+      "jean-francois-vulliez",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 45000000,
@@ -32473,7 +32627,8 @@
       "andoni-iraola",
       "alain-casanova",
       "denis-zanko",
-      "antoine-kombouare"
+      "antoine-kombouare",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -32533,7 +32688,8 @@
     "coach_ids": [
       "roger-schmidt",
       "bruno-lage",
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -32623,7 +32779,8 @@
       "javi-gracia",
       "michael-skubala",
       "mauricio-pochettino",
-      "achim-beierlorzer"
+      "achim-beierlorzer",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -32689,7 +32846,8 @@
     "coach_ids": [
       "andoni-iraola",
       "gary-o-neil",
-      "scott-parker"
+      "scott-parker",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -32800,7 +32958,8 @@
       "claudio-ranieri",
       "michael-reiziger",
       "voro",
-      "ronald-koeman"
+      "ronald-koeman",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -33432,7 +33591,8 @@
       "ralph-hasenhuttl",
       "daniel-bauer",
       "paul-simonis",
-      "dieter-hecking"
+      "dieter-hecking",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -33547,7 +33707,8 @@
       "john-van-t-schip",
       "ivan-juric",
       "cristian-bucchi",
-      "giuseppe-iachini"
+      "giuseppe-iachini",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -33759,7 +33920,8 @@
       "xabi-alonso",
       "thomas-tuchel",
       "hannes-wolf",
-      "walter-zenga"
+      "walter-zenga",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -34064,7 +34226,8 @@
       "ruud-van-nistelrooy",
       "roger-schmidt",
       "fred-rutten",
-      "hennie-spijkerman"
+      "hennie-spijkerman",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -34417,7 +34580,8 @@
     "coach_ids": [
       "liam-rosenior",
       "gary-o-neil",
-      "thorsten-fink"
+      "thorsten-fink",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -34477,7 +34641,8 @@
       "enzo-maresca",
       "liam-rosenior",
       "calum-mcfarlane",
-      "mauricio-pochettino"
+      "mauricio-pochettino",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -34568,7 +34733,8 @@
       "liam-rosenior",
       "patrick-vieira",
       "gary-o-neil",
-      "brian-priske"
+      "brian-priske",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -34820,7 +34986,8 @@
       "patrick-vieira",
       "roy-hodgson",
       "patrick-mccarthy",
-      "ray-lewington"
+      "ray-lewington",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -34911,7 +35078,8 @@
       "sipke-hulshoff",
       "pascal-bosschaart",
       "jacques-abardonado",
-      "ronald-koeman"
+      "ronald-koeman",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -35025,7 +35193,8 @@
       "christophe-galtier",
       "oliver-glasner",
       "patrick-vieira",
-      "pierre-aristouy"
+      "pierre-aristouy",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -35550,7 +35719,8 @@
       "felice-mazzu",
       "hannes-wolf",
       "paul-heckingbottom",
-      "stale-solbakken"
+      "stale-solbakken",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -35603,7 +35773,8 @@
       "goals": 1
     },
     "coach_ids": [
-      "marco-silva"
+      "marco-silva",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 40000000,
@@ -35670,7 +35841,8 @@
     "coach_ids": [
       "marino-pusic",
       "marco-silva",
-      "arda-turan"
+      "arda-turan",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -35828,7 +36000,8 @@
       "peter-bosz",
       "hannes-wolf",
       "erik-ten-hag",
-      "lionel-scaloni"
+      "lionel-scaloni",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -36935,7 +37108,8 @@
       "steve-bruce",
       "julian-nagelsmann",
       "graeme-jones",
-      "huub-stevens"
+      "huub-stevens",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -36993,7 +37167,8 @@
       "caps": 5
     },
     "coach_ids": [
-      "eddie-howe"
+      "eddie-howe",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -37083,7 +37258,8 @@
       "thomas-frank",
       "christophe-pelissier",
       "eddie-howe",
-      "stephane-moulin"
+      "stephane-moulin",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -37152,7 +37328,8 @@
       "vitor-pereira",
       "ange-postecoglou",
       "renato-paiva",
-      "nuno-espirito-santo"
+      "nuno-espirito-santo",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -37267,7 +37444,8 @@
       "dennis-schmitt",
       "thomas-tuchel",
       "christophe-galtier",
-      "sebastien-tambouret"
+      "sebastien-tambouret",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -37653,7 +37831,8 @@
       "domenico-tedesco",
       "zsolt-low",
       "julian-nagelsmann",
-      "alexander-zickler"
+      "alexander-zickler",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -37721,7 +37900,8 @@
       "marco-rose",
       "ole-werner",
       "zsolt-low",
-      "ralf-rangnick"
+      "ralf-rangnick",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -37808,7 +37988,8 @@
       "jesse-marsch",
       "mauricio-pochettino",
       "laurent-blanc",
-      "achim-beierlorzer"
+      "achim-beierlorzer",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -38151,7 +38332,8 @@
       "ernest-faber",
       "ronald-koeman",
       "michael-reiziger",
-      "lars-kornetka"
+      "lars-kornetka",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -38559,7 +38741,8 @@
       "jose-mourinho",
       "igor-jovicevic",
       "luis-castro",
-      "roberto-de-zerbi"
+      "roberto-de-zerbi",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -40187,7 +40370,8 @@
       "alberto-gilardino",
       "massimiliano-allegri",
       "patrick-vieira",
-      "paolo-zanetti"
+      "paolo-zanetti",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -40259,7 +40443,8 @@
       "andoni-iraola",
       "robbie-neilson",
       "jon-dahl-tomasson",
-      "steven-naismith"
+      "steven-naismith",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -40396,7 +40581,8 @@
     },
     "coach_ids": [
       "sebastien-pocognoli",
-      "david-hubert"
+      "david-hubert",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 23000000,
@@ -40971,7 +41157,8 @@
       "antonio-conte",
       "marcel-keizer",
       "peter-bosz",
-      "michael-reiziger"
+      "michael-reiziger",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -41054,7 +41241,8 @@
       "franck-haise",
       "will-still",
       "walid-regragui",
-      "mohamed-ouahbi"
+      "mohamed-ouahbi",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -41308,7 +41496,8 @@
       "massimiliano-allegri",
       "stefano-pioli",
       "sergio-conceicao",
-      "paulo-fonseca"
+      "paulo-fonseca",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -41554,7 +41743,8 @@
       "salvatore-bocchetti",
       "thomas-lagerlof",
       "graham-potter",
-      "kim-bergstrand"
+      "kim-bergstrand",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -41649,7 +41839,8 @@
       "walter-mazzarri",
       "raffaele-palladino",
       "francesco-calzona",
-      "diego-simeone"
+      "diego-simeone",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -41793,7 +41984,8 @@
       "michel",
       "antonio-conte",
       "zinedine-zidane",
-      "carlo-ancelotti"
+      "carlo-ancelotti",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 27000000,
@@ -41867,7 +42059,8 @@
       "razvan-lucescu",
       "gianpaolo-castorina",
       "michael-valkanis",
-      "pablo-garcia"
+      "pablo-garcia",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -42365,7 +42558,8 @@
       "nathan-jones",
       "ralph-hasenhuttl",
       "calum-mcfarlane",
-      "mauricio-pochettino"
+      "mauricio-pochettino",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -42768,7 +42962,8 @@
     "coach_ids": [
       "marco-silva",
       "scott-parker",
-      "mauricio-pochettino"
+      "mauricio-pochettino",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -42854,7 +43049,8 @@
       "jose-mourinho",
       "mauricio-pochettino",
       "nuno-espirito-santo",
-      "ange-postecoglou"
+      "ange-postecoglou",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -42942,7 +43138,8 @@
       "ivan-juric",
       "russell-martin",
       "simon-rusk",
-      "mike-jackson"
+      "mike-jackson",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -43114,7 +43311,8 @@
       "sinisa-mihajlovic",
       "nestor-lorenzo",
       "domenico-olivieri",
-      "luca-vigiani"
+      "luca-vigiani",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -43221,7 +43419,8 @@
       "igor-tudor",
       "tayfun-korkut",
       "nico-willig",
-      "lionel-scaloni"
+      "lionel-scaloni",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -43589,7 +43788,8 @@
       "pascal-jansen",
       "vincenzo-italiano",
       "thiago-motta",
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -43712,7 +43912,8 @@
       "rik-de-mil",
       "ronald-koeman",
       "john-van-den-brom",
-      "dick-lukkien"
+      "dick-lukkien",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -44200,7 +44401,8 @@
       "pep-guardiola",
       "leonardo-jardim",
       "jorge-jesus",
-      "roberto-martinez"
+      "roberto-martinez",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -45273,7 +45475,8 @@
     },
     "coach_ids": [
       "thomas-letsch",
-      "sergej-barbarez"
+      "sergej-barbarez",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 32000000,
@@ -45379,7 +45582,8 @@
       "fernando-da-cruz",
       "herve-renard",
       "didier-deschamps",
-      "patrick-collot"
+      "patrick-collot",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -45494,7 +45698,8 @@
       "karim-belhocine",
       "daniele-de-rossi",
       "rudi-garcia",
-      "paulo-fonseca"
+      "paulo-fonseca",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -45570,7 +45775,8 @@
       "andoni-iraola",
       "denis-zanko",
       "antoine-kombouare",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -46855,7 +47061,8 @@
     ],
     "coach_ids": [
       "raffaele-palladino",
-      "ivan-juric"
+      "ivan-juric",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -46938,7 +47145,8 @@
       "simone-inzaghi",
       "claudio-ranieri",
       "paulo-fonseca",
-      "cristian-chivu"
+      "cristian-chivu",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -47086,7 +47294,8 @@
       "kasper-hjulmand",
       "nelson-verissimo",
       "erik-ten-hag",
-      "arnaldo-teixeira"
+      "arnaldo-teixeira",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -47514,7 +47723,8 @@
       "jorge-sampaoli",
       "diego-alonso",
       "joaquin-caparros",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -47588,7 +47798,8 @@
       "liam-rosenior",
       "julien-stephan",
       "gary-o-neil",
-      "bruno-genesio"
+      "bruno-genesio",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -47648,7 +47859,8 @@
       }
     ],
     "coach_ids": [
-      "kasper-hjulmand"
+      "kasper-hjulmand",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -47746,7 +47958,8 @@
       "pep-guardiola",
       "erik-ten-hag",
       "manuel-pellegrini",
-      "dennis-schmitt"
+      "dennis-schmitt",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -47808,7 +48021,8 @@
       "adi-hutter",
       "philippe-clement",
       "kasper-hjulmand",
-      "walid-regragui"
+      "walid-regragui",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -47874,7 +48088,8 @@
       "paulo-fonseca",
       "vitor-campelos",
       "ruben-amorim",
-      "rui-borges"
+      "rui-borges",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -49010,7 +49225,8 @@
       "zeki-murat-gole",
       "jorge-jesus",
       "fabio-pecchia",
-      "joao-de-deus"
+      "joao-de-deus",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -49087,7 +49303,8 @@
       "domenico-tedesco",
       "domenec-torrent",
       "zeki-murat-gole",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -49341,7 +49558,8 @@
       "caps": 1
     },
     "coach_ids": [
-      "eder-sarabia"
+      "eder-sarabia",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -49439,7 +49657,8 @@
       "oliver-glasner",
       "sylvinho",
       "alfred-schreuder",
-      "ray-lewington"
+      "ray-lewington",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 16000000,
@@ -49512,7 +49731,8 @@
       "sean-dyche",
       "rafael-benitez",
       "eric-chelle",
-      "duncan-ferguson"
+      "duncan-ferguson",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -49589,7 +49809,8 @@
       "ralf-rangnick",
       "freddie-ljungberg",
       "qurban-qurbanov",
-      "albert-stuivenberg"
+      "albert-stuivenberg",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -49656,7 +49877,8 @@
       }
     ],
     "coach_ids": [
-      "marco-silva"
+      "marco-silva",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -49930,7 +50152,8 @@
     "coach_ids": [
       "kieran-mckenna",
       "marcelo-bielsa",
-      "scott-parker"
+      "scott-parker",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -50000,7 +50223,8 @@
     "coach_ids": [
       "steve-cooper",
       "ruben-amorim",
-      "carlos-queiroz"
+      "carlos-queiroz",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 23000000,
@@ -50224,7 +50448,8 @@
       "roberto-de-zerbi",
       "vahid-halilhodzic",
       "patrick-collot",
-      "dino-toppmoller"
+      "dino-toppmoller",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -50457,7 +50682,8 @@
       "ronald-koeman",
       "quique-setien",
       "sergi-barjuan",
-      "ernesto-valverde"
+      "ernesto-valverde",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -50522,7 +50748,8 @@
       }
     ],
     "coach_ids": [
-      "abel-ferreira"
+      "abel-ferreira",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -50749,7 +50976,8 @@
       "leonardo-semplici",
       "michel-preud-homme",
       "davide-nicola",
-      "walter-mazzarri"
+      "walter-mazzarri",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -50833,7 +51061,8 @@
       "thomas-tuchel",
       "daniel-farke",
       "fabian-hurzeler",
-      "graham-potter"
+      "graham-potter",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -50964,7 +51193,8 @@
       "vitor-pereira",
       "fabio-cannavaro",
       "johnny-heitinga",
-      "sean-dyche"
+      "sean-dyche",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -51043,7 +51273,8 @@
       "peter-bosz",
       "ange-postecoglou",
       "lars-kornetka",
-      "fred-rutten"
+      "fred-rutten",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -51652,7 +51883,8 @@
       "dennis-schmitt",
       "daniel-farke",
       "markus-pflanz",
-      "sil-rouvrois"
+      "sil-rouvrois",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -51715,7 +51947,8 @@
       "peter-bosz",
       "ruud-van-nistelrooy",
       "ole-werner",
-      "fred-rutten"
+      "fred-rutten",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -51835,7 +52068,8 @@
     "coach_ids": [
       "carlo-ancelotti",
       "xabi-alonso",
-      "alvaro-arbeloa"
+      "alvaro-arbeloa",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -51911,7 +52145,8 @@
       "sergio-conceicao",
       "xabi-alonso",
       "alvaro-arbeloa",
-      "vitor-bruno"
+      "vitor-bruno",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -52006,7 +52241,9 @@
       "caps": 8
     },
     "coach_ids": [
-      "alvaro-arbeloa"
+      "alvaro-arbeloa",
+      "diego-simeone",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -52066,7 +52303,8 @@
     "coach_ids": [
       "luis-castro",
       "julian-calero",
-      "alvaro-del-moral"
+      "alvaro-del-moral",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -52435,7 +52673,8 @@
     "coach_ids": [
       "jose-mourinho",
       "bruno-lage",
-      "roger-schmidt"
+      "roger-schmidt",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -54547,7 +54786,8 @@
       "alain-casanova",
       "carlo-ancelotti",
       "didier-deschamps",
-      "paolo-montero"
+      "paolo-montero",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -54646,7 +54886,8 @@
       "luis-garcia",
       "eric-chelle",
       "massimo-carrera",
-      "massimiliano-allegri"
+      "massimiliano-allegri",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -55024,7 +55265,8 @@
       "lucien-favre",
       "marcelino",
       "nasser-larguet",
-      "jacques-abardonado"
+      "jacques-abardonado",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -55562,7 +55804,8 @@
       "roberto-de-zerbi",
       "habib-beye",
       "lionel-scaloni",
-      "jacques-abardonado"
+      "jacques-abardonado",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -55669,7 +55912,8 @@
       "hannes-wolf",
       "claudio-ranieri",
       "erik-ten-hag",
-      "miroslav-koubek"
+      "miroslav-koubek",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -56682,7 +56926,8 @@
       "xavi",
       "carlos-carvalhal",
       "eduardo-coudet",
-      "sergi-barjuan"
+      "sergi-barjuan",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -56756,7 +57001,8 @@
       "david-moyes",
       "frank-lampard",
       "mike-jackson",
-      "ian-woan"
+      "ian-woan",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -57181,7 +57427,8 @@
       "ole-werner",
       "zsolt-low",
       "mauricio-pochettino",
-      "alexander-zickler"
+      "alexander-zickler",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -57456,7 +57703,8 @@
       "unai-emery",
       "kieran-mckenna",
       "dean-smith",
-      "steven-gerrard"
+      "steven-gerrard",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -57556,7 +57804,8 @@
       "paolo-zanetti",
       "igor-tudor",
       "leonardo-semplici",
-      "eusebio-di-francesco"
+      "eusebio-di-francesco",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -57675,7 +57924,8 @@
       "sean-dyche",
       "igor-tudor",
       "ange-postecoglou",
-      "aaron-danks"
+      "aaron-danks",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -57740,7 +57990,8 @@
     "coach_ids": [
       "patrick-vieira",
       "daniele-de-rossi",
-      "alberto-gilardino"
+      "alberto-gilardino",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -58085,7 +58336,8 @@
     "coach_ids": [
       "carlos-vicens",
       "carlos-carvalhal",
-      "artur-jorge"
+      "artur-jorge",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 27000000,
@@ -58144,7 +58396,8 @@
     },
     "coach_ids": [
       "sebastien-pocognoli",
-      "adi-hutter"
+      "adi-hutter",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -58245,7 +58498,8 @@
       "sean-dyche",
       "antonio-conte",
       "nigel-adkins",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -58334,7 +58588,8 @@
       "paul-heckingbottom",
       "sean-dyche",
       "ange-postecoglou",
-      "nuno-espirito-santo"
+      "nuno-espirito-santo",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -59223,7 +59478,8 @@
       "jan-moritz-lichte",
       "roger-schmidt",
       "sandro-schwarz",
-      "babak-keyhanfar"
+      "babak-keyhanfar",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -60913,7 +61169,8 @@
       "pacheta",
       "marcelino",
       "quique-setien",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -61009,7 +61266,8 @@
       "sergio-conceicao",
       "paulo-fonseca",
       "guus-hiddink",
-      "nigel-adkins"
+      "nigel-adkins",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -61183,7 +61441,8 @@
       "simon-rusk",
       "russell-martin",
       "nathan-jones",
-      "carlos-queiroz"
+      "carlos-queiroz",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -61803,7 +62062,8 @@
     },
     "coach_ids": [
       "pep-guardiola",
-      "mikel-arteta"
+      "mikel-arteta",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -62330,7 +62590,8 @@
       "lukas-kwasniok",
       "ralph-hasenhuttl",
       "rene-wagner",
-      "daniel-bauer"
+      "daniel-bauer",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -62982,7 +63243,8 @@
       "julian-nagelsmann",
       "fabio-cannavaro",
       "bruno-labbadia",
-      "kosta-runjaic"
+      "kosta-runjaic",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 16000000,
@@ -64273,7 +64535,8 @@
       }
     ],
     "coach_ids": [
-      "kieran-mckenna"
+      "kieran-mckenna",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 17000000,
@@ -64333,7 +64596,8 @@
       "kieran-mckenna",
       "vincent-kompany",
       "sam-allardyce",
-      "slaven-bilic"
+      "slaven-bilic",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -64434,7 +64698,8 @@
       "niko-kovac",
       "michel",
       "mike-jackson",
-      "nelson-verissimo"
+      "nelson-verissimo",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 16000000,
@@ -64587,7 +64852,8 @@
       "pepijn-lijnders",
       "bruno-lage",
       "thomas-letsch",
-      "sergej-barbarez"
+      "sergej-barbarez",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 30000000,
@@ -64656,7 +64922,8 @@
       "chris-coleman",
       "marc-brys",
       "eddy-vanhemel",
-      "hans-somers"
+      "hans-somers",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -65570,7 +65837,8 @@
       "eusebio-di-francesco",
       "paulo-fonseca",
       "sergio-conceicao",
-      "stefano-pioli"
+      "stefano-pioli",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -65650,7 +65918,8 @@
     "coach_ids": [
       "jurgen-klopp",
       "andoni-iraola",
-      "steve-clarke"
+      "steve-clarke",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -66686,7 +66955,8 @@
       "luca-gotti",
       "gabriele-cioffi",
       "lionel-scaloni",
-      "nelson-vivas"
+      "nelson-vivas",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -66870,7 +67140,8 @@
       "gian-piero-gasperini",
       "raffaele-palladino",
       "ivan-juric",
-      "rik-de-mil"
+      "rik-de-mil",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -66985,7 +67256,8 @@
       "paolo-vanoli",
       "paulo-sousa",
       "massimo-oddo",
-      "leonardo-semplici"
+      "leonardo-semplici",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -67358,7 +67630,8 @@
       "goals": 3
     },
     "coach_ids": [
-      "kasper-hjulmand"
+      "kasper-hjulmand",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -67432,7 +67705,8 @@
       "ralph-hasenhuttl",
       "kasper-hjulmand",
       "vincent-kompany",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -68640,7 +68914,8 @@
       "david-guion",
       "nuno-espirito-santo",
       "unai-emery",
-      "enzo-maresca"
+      "enzo-maresca",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -68724,7 +68999,8 @@
       "manuel-pellegrini",
       "oliver-glasner",
       "mohamed-ouahbi",
-      "xavi"
+      "xavi",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -68801,7 +69077,8 @@
     "coach_ids": [
       "thomas-thomasberg",
       "mike-tullberg",
-      "allan-jepsen"
+      "allan-jepsen",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -69430,7 +69707,8 @@
       "unai-emery",
       "julen-lopetegui",
       "sergio",
-      "zeki-murat-gole"
+      "zeki-murat-gole",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -69534,7 +69812,8 @@
       "jorge-jesus",
       "zeki-murat-gole",
       "vincenzo-montella",
-      "erol-bulut"
+      "erol-bulut",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -69868,7 +70147,8 @@
       "will-still",
       "tonda-eckert",
       "pep-guardiola",
-      "danny-rohl"
+      "danny-rohl",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -70553,7 +70833,8 @@
     "coach_ids": [
       "kieran-mckenna",
       "jose-mourinho",
-      "nuno-espirito-santo"
+      "nuno-espirito-santo",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -71191,7 +71472,8 @@
       "arne-slot",
       "eusebio-di-francesco",
       "luciano-spalletti",
-      "carlo-ancelotti"
+      "carlo-ancelotti",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -71297,7 +71579,8 @@
       "robert-maaskant",
       "claude-puel",
       "mauricio-pellegrino",
-      "erwin-van-de-looi"
+      "erwin-van-de-looi",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -71491,7 +71774,8 @@
       "robert-moreno",
       "frank-lampard",
       "franck-passi",
-      "calum-mcfarlane"
+      "calum-mcfarlane",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -71584,7 +71868,8 @@
       "francesco-calzona",
       "michel",
       "walter-mazzarri",
-      "marcelo-bielsa"
+      "marcelo-bielsa",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -71687,7 +71972,8 @@
       "franck-passi",
       "slavisa-jokanovic",
       "michel",
-      "claudio-ranieri"
+      "claudio-ranieri",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -71751,7 +72037,8 @@
       }
     ],
     "coach_ids": [
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 20000000,
@@ -71819,7 +72106,8 @@
       "vitor-pereira",
       "renato-paiva",
       "ange-postecoglou",
-      "sean-dyche"
+      "sean-dyche",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -71901,7 +72189,8 @@
       "steve-cooper",
       "rui-pedro-silva",
       "miroslav-tanjga",
-      "ange-postecoglou"
+      "ange-postecoglou",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 13000000,
@@ -73182,7 +73471,8 @@
       "hannes-wolf",
       "zsolt-low",
       "jess-thorup",
-      "kevin-van-dessel"
+      "kevin-van-dessel",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -74605,7 +74895,8 @@
       "ron-jans",
       "rogier-meijer",
       "michael-silberbauer",
-      "rob-penders"
+      "rob-penders",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -74675,7 +74966,8 @@
       "arne-slot",
       "jose-mourinho",
       "erling-moe",
-      "stale-solbakken"
+      "stale-solbakken",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -74778,7 +75070,8 @@
       "michel",
       "kasper-hjulmand",
       "pep-guardiola",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -75004,7 +75297,8 @@
       "unai-emery",
       "domenico-tedesco",
       "sergey-semak",
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -75140,7 +75434,8 @@
       "alexander-nouri",
       "matias-almeyda",
       "javi-gracia",
-      "rudi-garcia"
+      "rudi-garcia",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -77774,7 +78069,8 @@
       "ruben-baraja",
       "ivan-juric",
       "voro",
-      "massimiliano-allegri"
+      "massimiliano-allegri",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -79022,7 +79318,8 @@
       "team_code": "CL"
     },
     "coach_ids": [
-      "liam-manning"
+      "liam-manning",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 14000000,
@@ -79094,7 +79391,8 @@
       "claudio-ranieri",
       "daniele-de-rossi",
       "ivan-juric",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 14000000,
@@ -79375,7 +79673,8 @@
       "graeme-jones",
       "jan-siewert",
       "sean-dyche",
-      "maurizio-sarri"
+      "maurizio-sarri",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -80499,7 +80798,8 @@
       "rudi-garcia",
       "erwin-koeman",
       "aykut-kocaman",
-      "walter-mazzarri"
+      "walter-mazzarri",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 13000000,
@@ -81371,7 +81671,8 @@
       "martin-o-neill",
       "jose-gomes",
       "wilfried-nancy",
-      "hajime-moriyasu"
+      "hajime-moriyasu",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 13000000,
@@ -81590,7 +81891,8 @@
     "coach_ids": [
       "jurgen-klopp",
       "arne-slot",
-      "brendan-rodgers"
+      "brendan-rodgers",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 11000000,
@@ -81698,7 +82000,8 @@
       "paulo-sousa",
       "giuseppe-iachini",
       "vincenzo-montella",
-      "paolo-montero"
+      "paolo-montero",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -81974,7 +82277,8 @@
       "bruno-lage",
       "claudio-ranieri",
       "kim-bergstrand",
-      "ivan-juric"
+      "ivan-juric",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 13000000,
@@ -82328,7 +82632,8 @@
       "massimiliano-allegri",
       "graham-potter",
       "lucas-alcaraz",
-      "sebastian-beccacece"
+      "sebastian-beccacece",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -82459,7 +82764,8 @@
     },
     "coach_ids": [
       "robbie-keane",
-      "andoni-iraola"
+      "andoni-iraola",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -82537,7 +82843,8 @@
     "coach_ids": [
       "andoni-iraola",
       "eddie-howe",
-      "gary-o-neil"
+      "gary-o-neil",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -83374,7 +83681,8 @@
       "gabriele-cioffi",
       "fabio-cannavaro",
       "david-nielsen",
-      "andrea-sottil"
+      "andrea-sottil",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -83472,7 +83780,8 @@
       "xavi",
       "gian-piero-gasperini",
       "vincenzo-montella",
-      "marco-giampaolo"
+      "marco-giampaolo",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -85528,7 +85837,8 @@
       "fabio-cannavaro",
       "luca-gotti",
       "kosta-runjaic",
-      "jose-tavares"
+      "jose-tavares",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -85698,7 +86008,8 @@
       "rafael-benitez",
       "antonio-conte",
       "jose-mourinho",
-      "ronald-koeman"
+      "ronald-koeman",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -85798,7 +86109,8 @@
       "hein-vanhaezebrouck",
       "jose-mourinho",
       "danijel-milicevic",
-      "zeki-murat-gole"
+      "zeki-murat-gole",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -86605,7 +86917,8 @@
       "pep-guardiola",
       "roberto-martinez",
       "david-unsworth",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "cristian-chivu"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -86726,7 +87039,8 @@
       "john-stegeman",
       "mike-jackson",
       "gert-peter-de-gunst",
-      "francois-gesthuizen"
+      "francois-gesthuizen",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -86807,7 +87121,8 @@
       "jess-thorup",
       "daniel-bauer",
       "paul-simonis",
-      "dieter-hecking"
+      "dieter-hecking",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -87290,7 +87605,8 @@
     "coach_ids": [
       "luis-garcia",
       "marcelino",
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 16000000,
@@ -87369,7 +87685,8 @@
     },
     "coach_ids": [
       "paolo-zanetti",
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -87489,7 +87806,8 @@
       "garry-monk",
       "chris-hughton",
       "tony-mowbray",
-      "graeme-jones"
+      "graeme-jones",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -88167,7 +88485,8 @@
       "mark-van-bommel",
       "marco-rose",
       "zsolt-low",
-      "jan-moritz-lichte"
+      "jan-moritz-lichte",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -88247,7 +88566,8 @@
       "enzo-maresca",
       "xavi",
       "liam-rosenior",
-      "regis-le-bris"
+      "regis-le-bris",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -88626,7 +88946,8 @@
       "mauricio-pellegrino",
       "sergio",
       "xabi-alonso",
-      "zinedine-zidane"
+      "zinedine-zidane",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -89494,7 +89815,8 @@
       "carlos-cuesta",
       "fabio-pecchia",
       "tony-popovic",
-      "cristian-chivu"
+      "cristian-chivu",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -89587,7 +89909,8 @@
       "carlos-corberan",
       "ruben-baraja",
       "bruno-lage",
-      "massimiliano-allegri"
+      "massimiliano-allegri",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -92723,7 +93046,8 @@
       "andoni-iraola",
       "eddie-howe",
       "gary-o-neil",
-      "scott-parker"
+      "scott-parker",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 11000000,
@@ -93227,7 +93551,8 @@
       "habib-beye",
       "jorge-sampaoli",
       "erik-ten-hag",
-      "sebastien-tambouret"
+      "sebastien-tambouret",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -94034,7 +94359,8 @@
       "luciano-spalletti",
       "igor-tudor",
       "giovanni-stroppa",
-      "massimo-brambilla"
+      "massimo-brambilla",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -94109,7 +94435,8 @@
       "diego-alonso",
       "jose-luis-mendilibar",
       "luis-garcia",
-      "joaquin-caparros"
+      "joaquin-caparros",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -95667,7 +95994,10 @@
       "highest_eur": 10000000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/kaua-prates.png"
+    "photo_url": "/images/players/kaua-prates.png",
+    "coach_ids": [
+      "niko-kovac"
+    ]
   },
   {
     "id": 1210,
@@ -96509,7 +96839,8 @@
     "coach_ids": [
       "niko-kovac",
       "gary-o-neil",
-      "enzo-maresca"
+      "enzo-maresca",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -96572,7 +96903,8 @@
       "inigo-perez",
       "andoni-iraola",
       "francisco-rodriguez",
-      "jaime-ramos"
+      "jaime-ramos",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -97074,7 +97406,8 @@
       "liam-rosenior",
       "gary-o-neil",
       "mike-stowell",
-      "bruno-saltor"
+      "bruno-saltor",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -97158,7 +97491,8 @@
       "patrick-vieira",
       "roy-hodgson",
       "oliver-glasner",
-      "patrick-mccarthy"
+      "patrick-mccarthy",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -97234,7 +97568,8 @@
       "igor-tudor",
       "niko-kovac",
       "hajime-moriyasu",
-      "giovanni-martusciello"
+      "giovanni-martusciello",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -97322,7 +97657,8 @@
       "oliver-glasner",
       "arsene-wenger",
       "unai-emery",
-      "eddie-howe"
+      "eddie-howe",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -98690,7 +99026,8 @@
       "domenico-tedesco",
       "nuno-espirito-santo",
       "pedro-martins",
-      "arnaldo-teixeira"
+      "arnaldo-teixeira",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -98780,7 +99117,8 @@
     "coach_ids": [
       "franck-haise",
       "claude-puel",
-      "carlos-queiroz"
+      "carlos-queiroz",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -98872,7 +99210,8 @@
       "jose-mourinho",
       "adrian-gula",
       "vincenzo-montella",
-      "zeki-murat-gole"
+      "zeki-murat-gole",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -100030,7 +100369,8 @@
       "davide-nicola",
       "moreno-longo",
       "juan-muniz",
-      "paco-lopez"
+      "paco-lopez",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -100094,7 +100434,8 @@
       "steve-cooper",
       "kieran-mckenna",
       "brendan-rodgers",
-      "marti-cifuentes"
+      "marti-cifuentes",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -100895,7 +101236,8 @@
       "ante-cacic",
       "zlatko-dalic",
       "krunoslav-jurcic",
-      "bruno-saltor"
+      "bruno-saltor",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -101215,7 +101557,8 @@
       "gennaro-gattuso",
       "walter-mazzarri",
       "francesco-calzona",
-      "rudi-garcia"
+      "rudi-garcia",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -101300,7 +101643,8 @@
       "antonio-mohamed",
       "miguel-cardoso",
       "oscar-garcia",
-      "martin-sevela"
+      "martin-sevela",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -104758,7 +105102,8 @@
     "coach_ids": [
       "matias-almeyda",
       "luis-garcia",
-      "diego-alonso"
+      "diego-alonso",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -113565,7 +113910,8 @@
       "antonio-conte",
       "jose-mourinho",
       "sergio-conceicao",
-      "frank-de-boer"
+      "frank-de-boer",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 8500000,
@@ -114329,7 +114675,8 @@
       "xavier-garcia-pimienta",
       "andoni-iraola",
       "martin-o-neill",
-      "wilfried-nancy"
+      "wilfried-nancy",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -114393,7 +114740,8 @@
       "caps": 18
     },
     "coach_ids": [
-      "andoni-iraola"
+      "andoni-iraola",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -114489,7 +114837,8 @@
       "ronny-deila",
       "john-kennedy",
       "scott-parker",
-      "steve-clarke"
+      "steve-clarke",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -115713,7 +116062,8 @@
       "patrick-collot",
       "frederic-antonetti",
       "franck-passi",
-      "philippe-bizeul"
+      "philippe-bizeul",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -119542,7 +119892,8 @@
       "dean-smith",
       "rudi-garcia",
       "adam-sadler",
-      "rudy-cossey"
+      "rudy-cossey",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -119633,7 +119984,8 @@
       "michel",
       "pacheta",
       "unai-emery",
-      "miguel-angel-tena"
+      "miguel-angel-tena",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -119703,7 +120055,8 @@
       "scott-parker",
       "peter-bosz",
       "rudi-garcia",
-      "sylvinho"
+      "sylvinho",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -120579,7 +120932,8 @@
       "thomas-letsch",
       "chris-van-der-weerden",
       "graham-potter",
-      "markus-pflanz"
+      "markus-pflanz",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -120662,7 +121016,8 @@
       "manuel-pellegrini",
       "mickael-debeve",
       "dominique-arribage",
-      "mohamed-ouahbi"
+      "mohamed-ouahbi",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -120733,7 +121088,8 @@
     },
     "coach_ids": [
       "carles-martinez",
-      "stanimir-stoilov"
+      "stanimir-stoilov",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 25000000,
@@ -121681,7 +122037,8 @@
     },
     "coach_ids": [
       "arne-slot",
-      "jurgen-klopp"
+      "jurgen-klopp",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 18000000,
@@ -122432,7 +122789,8 @@
       "rudi-garcia",
       "leonardo-semplici",
       "walter-mazzarri",
-      "stefano-colantuono"
+      "stefano-colantuono",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -122548,7 +122906,8 @@
       "antonio-conte",
       "jose-mourinho",
       "rudi-garcia",
-      "wolfgang-rolff"
+      "wolfgang-rolff",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -122715,7 +123074,8 @@
       "pal-dardai",
       "vitor-pereira",
       "bruno-labbadia",
-      "sean-dyche"
+      "sean-dyche",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -125494,7 +125854,8 @@
     "coach_ids": [
       "tony-popovic",
       "paulo-pezzolano",
-      "javi-gracia"
+      "javi-gracia",
+      "vincent-kompany"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -127234,7 +127595,8 @@
       "fabio-capello",
       "marcello-lippi",
       "claudio-ranieri",
-      "didier-deschamps"
+      "didier-deschamps",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -129739,7 +130101,8 @@
       "walter-mazzarri",
       "rudi-garcia",
       "giuseppe-iachini",
-      "francesco-calzona"
+      "francesco-calzona",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 7500000,
@@ -129918,7 +130281,8 @@
     ],
     "coach_ids": [
       "alvaro-arbeloa",
-      "xabi-alonso"
+      "xabi-alonso",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 7500000,
@@ -135869,7 +136233,8 @@
       "ismail-kartal",
       "domenico-tedesco",
       "zeki-murat-gole",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -135936,7 +136301,8 @@
       "zeki-murat-gole",
       "ersun-yanal",
       "orhan-cikirikci",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 9000000,
@@ -137512,7 +137878,8 @@
     "coach_ids": [
       "roberto-d-aversa",
       "marco-baroni",
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -137655,7 +138022,8 @@
     "coach_ids": [
       "fred-grim",
       "oscar-garcia",
-      "francesco-farioli"
+      "francesco-farioli",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 22000000,
@@ -137860,7 +138228,8 @@
       "vitor-pereira",
       "sean-dyche",
       "ange-postecoglou",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -139307,7 +139676,8 @@
       "markus-krosche",
       "achim-beierlorzer",
       "franck-passi",
-      "alexander-zickler"
+      "alexander-zickler",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -139373,7 +139743,8 @@
     "coach_ids": [
       "samba-diawara",
       "will-still",
-      "luka-elsner"
+      "luka-elsner",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -141156,7 +141527,8 @@
       "glen-riddersholm",
       "bruno-lage",
       "jose-mourinho",
-      "jindrich-trpisovsky"
+      "jindrich-trpisovsky",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -141224,7 +141596,8 @@
       "bruno-lage",
       "daniel-sousa",
       "joao-aroso",
-      "rui-cunha"
+      "rui-cunha",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -145137,7 +145510,8 @@
       "claudio-ranieri",
       "walter-mazzarri",
       "rudi-garcia",
-      "carlo-ancelotti"
+      "carlo-ancelotti",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -146974,7 +147348,8 @@
     "coach_ids": [
       "andoni-iraola",
       "paul-heckingbottom",
-      "chris-wilder"
+      "chris-wilder",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -147858,7 +148233,8 @@
       "vincenzo-montella",
       "leonardo-jardim",
       "ivan-juric",
-      "zlatko-dalic"
+      "zlatko-dalic",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -148546,7 +148922,8 @@
       "christian-streich",
       "thomas-frank",
       "kasper-hjulmand",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -148620,7 +148997,8 @@
       "urs-fischer",
       "gerardo-seoane",
       "kasper-hjulmand",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -150367,7 +150745,8 @@
       "lucas-alcaraz",
       "scott-parker",
       "nestor-lorenzo",
-      "ray-lewington"
+      "ray-lewington",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -150444,7 +150823,10 @@
       "highest_eur": 6000000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/zavier-gozo.png"
+    "photo_url": "/images/players/zavier-gozo.png",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 1778,
@@ -150951,7 +151333,8 @@
     "coach_ids": [
       "alessandro-nesta",
       "simone-inzaghi",
-      "salvatore-bocchetti"
+      "salvatore-bocchetti",
+      "cristian-chivu"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -151805,7 +152188,8 @@
     "coach_ids": [
       "domenico-tedesco",
       "zeki-murat-gole",
-      "jose-mourinho"
+      "jose-mourinho",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -151888,7 +152272,8 @@
       "jose-mourinho",
       "zeki-murat-gole",
       "roberto-martinez",
-      "arnaldo-teixeira"
+      "arnaldo-teixeira",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -152057,7 +152442,8 @@
       "rudi-garcia",
       "david-unsworth",
       "andre-villas-boas",
-      "roberto-di-matteo"
+      "roberto-di-matteo",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -152572,7 +152958,8 @@
       "heiko-herrlich",
       "tayfun-korkut",
       "freddie-ljungberg",
-      "markus-krosche"
+      "markus-krosche",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -153692,7 +154079,8 @@
       "michael-valkanis",
       "steve-bruce",
       "neil-warnock",
-      "hedwiges-maduro"
+      "hedwiges-maduro",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 3500000,
@@ -154922,7 +155310,8 @@
       "quique-setien",
       "jagoba-arrasate",
       "maurice-steijn",
-      "jacques-abardonado"
+      "jacques-abardonado",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -156937,7 +157326,8 @@
       "alvaro-arbeloa",
       "xabi-alonso",
       "armin-veh",
-      "julian-nagelsmann"
+      "julian-nagelsmann",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -168000,7 +168390,8 @@
       "karel-geraerts",
       "horst-steffen",
       "kjetil-knutsen",
-      "morten-kalvenes"
+      "morten-kalvenes",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -169378,7 +169769,8 @@
       "joao-de-deus",
       "recep-karatepe",
       "zeki-murat-gole",
-      "erik-ten-hag"
+      "erik-ten-hag",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 3800000,
@@ -170378,7 +170770,8 @@
       "fred-grim",
       "oscar-garcia",
       "hajime-moriyasu",
-      "albert-stuivenberg"
+      "albert-stuivenberg",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -170438,7 +170831,8 @@
       "nigel-pearson",
       "quique-sanchez-flores",
       "marco-silva",
-      "patrick-mccarthy"
+      "patrick-mccarthy",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -172995,7 +173389,8 @@
       "david-wagner",
       "zeki-murat-gole",
       "francesco-farioli",
-      "dimitrios-grammozis"
+      "dimitrios-grammozis",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -173713,7 +174108,8 @@
       "martin-anselmi",
       "vitor-bruno",
       "jose-tavares",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 10000000,
@@ -175275,7 +175671,8 @@
       "caps": 5
     },
     "coach_ids": [
-      "ruben-amorim"
+      "ruben-amorim",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -175656,7 +176053,8 @@
       "rudi-garcia",
       "walter-mazzarri",
       "francesco-calzona",
-      "cristian-bucchi"
+      "cristian-bucchi",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -175961,7 +176359,8 @@
     "coach_ids": [
       "sean-dyche",
       "eddie-howe",
-      "mike-jackson"
+      "mike-jackson",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -176199,7 +176598,8 @@
     "coach_ids": [
       "sean-dyche",
       "renato-paiva",
-      "ange-postecoglou"
+      "ange-postecoglou",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 3500000,
@@ -176344,7 +176744,8 @@
       "nigel-pearson",
       "ange-postecoglou",
       "darren-bazeley",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -178440,7 +178841,8 @@
     "coach_ids": [
       "timo-schultz",
       "ole-werner",
-      "steffen-baumgart"
+      "steffen-baumgart",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -178507,7 +178909,8 @@
       "ole-werner",
       "domenico-tedesco",
       "jesse-marsch",
-      "zsolt-low"
+      "zsolt-low",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -178567,7 +178970,8 @@
     "coach_ids": [
       "ole-werner",
       "zsolt-low",
-      "marco-rose"
+      "marco-rose",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -180756,7 +181160,8 @@
       "goals": 1
     },
     "coach_ids": [
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -180807,7 +181212,8 @@
       "caps": 6
     },
     "coach_ids": [
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -186123,7 +186529,8 @@
       "jose-mourinho",
       "daniele-de-rossi",
       "raffaele-palladino",
-      "paulo-fonseca"
+      "paulo-fonseca",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -187522,7 +187929,8 @@
       "goals": 2
     },
     "coach_ids": [
-      "ruben-amorim"
+      "ruben-amorim",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -188281,7 +188689,8 @@
       "paulo-fonseca",
       "stefano-pioli",
       "gabriele-cioffi",
-      "salvatore-bocchetti"
+      "salvatore-bocchetti",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 4500000,
@@ -190397,7 +190806,8 @@
       "caps": 9
     },
     "coach_ids": [
-      "eder-sarabia"
+      "eder-sarabia",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -190771,7 +191181,8 @@
       "mehmet-ali-karaca",
       "zeki-murat-gole",
       "recep-karatepe",
-      "gustavo-siviero"
+      "gustavo-siviero",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 7000000,
@@ -191835,7 +192246,8 @@
       "arne-slot",
       "gian-piero-gasperini",
       "marco-silva",
-      "paulo-bento"
+      "paulo-bento",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 4500000,
@@ -198488,7 +198900,8 @@
       "huub-stevens",
       "freddie-ljungberg",
       "sergej-barbarez",
-      "peter-hermann"
+      "peter-hermann",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -199347,7 +199760,8 @@
       "peter-zeidler",
       "markus-feldhoff",
       "fabio-ingolitsch",
-      "kasper-hjulmand"
+      "kasper-hjulmand",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -201323,7 +201737,8 @@
       "lucien-favre",
       "adrian-ursea",
       "oliver-glasner",
-      "fred-rutten"
+      "fred-rutten",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -202318,7 +202733,8 @@
       "igor-biscan",
       "zlatko-dalic",
       "mario-kovacevic",
-      "zeki-murat-gole"
+      "zeki-murat-gole",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -202380,7 +202796,10 @@
       "highest_eur": 4000000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/mirza-catovic.png"
+    "photo_url": "/images/players/mirza-catovic.png",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16813,
@@ -203575,7 +203994,8 @@
       "domenico-tedesco",
       "zeki-murat-gole",
       "graham-potter",
-      "bruno-saltor"
+      "bruno-saltor",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -206453,7 +206873,8 @@
       "marc-brys",
       "bruno-labbadia",
       "sebastian-hoeness",
-      "michael-wimmer"
+      "michael-wimmer",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -206524,7 +206945,8 @@
     },
     "coach_ids": [
       "jurgen-klopp",
-      "sergej-jakirovic"
+      "sergej-jakirovic",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 8000000,
@@ -207419,7 +207841,8 @@
       "rene-meulensteen",
       "felix-magath",
       "chris-hughton",
-      "bjorn-hamberg"
+      "bjorn-hamberg",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -207498,7 +207921,8 @@
       "markus-gisdol",
       "pepe-mel",
       "clarence-seedorf",
-      "huub-stevens"
+      "huub-stevens",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -210613,7 +211037,8 @@
       "bruno-genesio",
       "zinedine-zidane",
       "alvaro-arbeloa",
-      "xabi-alonso"
+      "xabi-alonso",
+      "jose-mourinho"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -212779,7 +213204,8 @@
       "joaquin-caparros",
       "sergi-barjuan",
       "cristian-stellini",
-      "nelson-vivas"
+      "nelson-vivas",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 4000000,
@@ -222884,7 +223310,10 @@
       "updated_at": "2026-06-03",
       "highest_eur": 4000000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "michael-carrick"
+    ]
   },
   {
     "id": 14163,
@@ -223752,7 +224181,8 @@
       "julen-lopetegui",
       "xabi-alonso",
       "zlatko-dalic",
-      "harry-redknapp"
+      "harry-redknapp",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 3500000,
@@ -229720,7 +230150,8 @@
     "coach_ids": [
       "sam-allardyce",
       "slaven-bilic",
-      "chris-ramsey"
+      "chris-ramsey",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 2500000,
@@ -232006,7 +232437,8 @@
       "ange-postecoglou",
       "mathieu-le-scornet",
       "herman-vermeulen",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 3500000,
@@ -233895,7 +234327,8 @@
       "ole-werner",
       "zsolt-low",
       "achim-beierlorzer",
-      "alexander-zickler"
+      "alexander-zickler",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 3500000,
@@ -242269,7 +242702,8 @@
     },
     "coach_ids": [
       "edin-terzic",
-      "nuri-sahin"
+      "nuri-sahin",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 2500000,
@@ -245016,7 +245450,8 @@
       "jose-luis-mendilibar",
       "walid-regragui",
       "simone-inzaghi",
-      "mohamed-ouahbi"
+      "mohamed-ouahbi",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -248588,7 +249023,8 @@
       "caps": 1
     },
     "coach_ids": [
-      "florian-kohfeldt"
+      "florian-kohfeldt",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -248687,7 +249123,8 @@
       "quique-sanchez-flores",
       "louis-van-gaal",
       "javi-gracia",
-      "bjorn-hamberg"
+      "bjorn-hamberg",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -253201,7 +253638,8 @@
     },
     "coach_ids": [
       "marco-silva",
-      "vincent-kompany"
+      "vincent-kompany",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -254567,7 +255005,8 @@
       "giuseppe-iachini",
       "aurelio-andreazzoli",
       "igor-tudor",
-      "alessio-dionisi"
+      "alessio-dionisi",
+      "cristian-chivu"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -255007,7 +255446,8 @@
       "team_code": "IE"
     },
     "coach_ids": [
-      "kieran-mckenna"
+      "kieran-mckenna",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 2200000,
@@ -256317,7 +256757,8 @@
       "steve-bruce",
       "arne-slot",
       "steve-cooper",
-      "scott-parker"
+      "scott-parker",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -265043,7 +265484,8 @@
     "coach_ids": [
       "roger-schmidt",
       "bruno-lage",
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -265100,7 +265542,8 @@
       "caps": 3
     },
     "coach_ids": [
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -268841,7 +269284,8 @@
       "nuno-espirito-santo",
       "bruno-lage",
       "julen-lopetegui",
-      "javier-aguirre"
+      "javier-aguirre",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 2500000,
@@ -279259,7 +279703,8 @@
       "john-van-t-schip",
       "johnny-heitinga",
       "maurice-steijn",
-      "hedwiges-maduro"
+      "hedwiges-maduro",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 2500000,
@@ -279580,7 +280025,8 @@
       "dean-smith",
       "danny-rohl",
       "russell-martin",
-      "carlos-corberan"
+      "carlos-corberan",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 2500000,
@@ -299702,7 +300148,8 @@
     },
     "coach_ids": [
       "ole-gunnar-solskjaer",
-      "vitor-matos"
+      "vitor-matos",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 12000000,
@@ -312438,7 +312885,8 @@
       "samba-diawara",
       "karim-belhocine",
       "paul-cook",
-      "sam-allardyce"
+      "sam-allardyce",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -325017,7 +325465,8 @@
       "claude-puel",
       "mauricio-pochettino",
       "tony-mowbray",
-      "daniel-farke"
+      "daniel-farke",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 1300000,
@@ -329327,7 +329776,8 @@
     "coach_ids": [
       "jurgen-klopp",
       "john-heitinga",
-      "arne-slot"
+      "arne-slot",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 1500000,
@@ -333900,7 +334350,8 @@
       "nasser-larguet",
       "andrea-soncin",
       "niko-kovac",
-      "julian-nagelsmann"
+      "julian-nagelsmann",
+      "vincent-kompany"
     ],
     "market_value": {
       "amount_eur": 6000000,
@@ -355342,7 +355793,8 @@
     },
     "coach_ids": [
       "guillermo-almada",
-      "luis-carrion"
+      "luis-carrion",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 1500000,
@@ -373493,7 +373945,8 @@
     ],
     "coach_ids": [
       "roberto-d-aversa",
-      "sergen-yalcin"
+      "sergen-yalcin",
+      "gian-piero-gasperini"
     ],
     "market_value": {
       "amount_eur": 800000,
@@ -374674,7 +375127,8 @@
       "kasper-hjulmand",
       "rafael-benitez",
       "julen-lopetegui",
-      "xabi-alonso"
+      "xabi-alonso",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 1500000,
@@ -374793,7 +375247,8 @@
       "andre-schubert",
       "thomas-tuchel",
       "martin-schmidt",
-      "zeljko-buvac"
+      "zeljko-buvac",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 1500000,
@@ -382490,7 +382945,8 @@
       "ismail-kartal",
       "domenico-tedesco",
       "jose-mourinho",
-      "fatih-terim"
+      "fatih-terim",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 3000000,
@@ -382888,7 +383344,8 @@
       "caps": 4
     },
     "coach_ids": [
-      "atila-gerin"
+      "atila-gerin",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 2000000,
@@ -386859,7 +387316,8 @@
     ],
     "coach_ids": [
       "derek-mcinnes",
-      "jurgen-klopp"
+      "jurgen-klopp",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 1000000,
@@ -403425,7 +403883,8 @@
       "rene-hake",
       "dick-advocaat",
       "oscar-garcia",
-      "claudio-giraldez"
+      "claudio-giraldez",
+      "hansi-flick"
     ],
     "market_value": {
       "amount_eur": 1500000,
@@ -422854,7 +423313,8 @@
       "francesco-farioli",
       "keith-andrews",
       "john-van-t-schip",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "xabi-alonso"
     ],
     "market_value": {
       "amount_eur": 1200000,
@@ -429464,7 +429924,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luis-enrique"
+    ]
   },
   {
     "id": 13448,
@@ -441950,7 +442413,8 @@
     "coach_ids": [
       "jurgen-klopp",
       "arne-slot",
-      "rafael-benitez"
+      "rafael-benitez",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 1200000,
@@ -448148,7 +448612,8 @@
       "caps": 5
     },
     "coach_ids": [
-      "oliver-glasner"
+      "oliver-glasner",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 1000000,
@@ -457291,7 +457756,8 @@
       "goals": 1
     },
     "coach_ids": [
-      "ruben-amorim"
+      "ruben-amorim",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 1000000,
@@ -458465,7 +458931,8 @@
     "coach_ids": [
       "marco-silva",
       "alex-neil",
-      "robin-van-persie"
+      "robin-van-persie",
+      "oliver-glasner"
     ],
     "market_value": {
       "amount_eur": 1000000,
@@ -460360,7 +460827,8 @@
       "caps": 2
     },
     "coach_ids": [
-      "ole-werner"
+      "ole-werner",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 5000000,
@@ -476429,7 +476897,8 @@
       "rogier-meijer",
       "lars-friis",
       "oscar-hiljemark",
-      "thomas-thomasberg"
+      "thomas-thomasberg",
+      "okan-buruk"
     ],
     "market_value": {
       "amount_eur": 1000000,
@@ -482029,7 +482498,8 @@
       "cesare-prandelli",
       "stefano-pioli",
       "massimiliano-allegri",
-      "vincenzo-montella"
+      "vincenzo-montella",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 900000,
@@ -482845,7 +483315,8 @@
       "caps": 4
     },
     "coach_ids": [
-      "gian-piero-gasperini"
+      "gian-piero-gasperini",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 900000,
@@ -485402,7 +485873,8 @@
     },
     "coach_ids": [
       "kieran-mckenna",
-      "michael-appleton"
+      "michael-appleton",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 1000000,
@@ -485453,7 +485925,8 @@
     "coach_ids": [
       "kieran-mckenna",
       "paul-cook",
-      "graham-potter"
+      "graham-potter",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 2500000,
@@ -485660,7 +486133,8 @@
       "ernesto-valverde",
       "quique-setien",
       "xavi",
-      "mikel-arteta"
+      "mikel-arteta",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 900000,
@@ -489210,7 +489684,8 @@
     "coach_ids": [
       "constantin-galca",
       "kurban-berdyev",
-      "amir-ghalenoei"
+      "amir-ghalenoei",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 900000,
@@ -496736,7 +497211,8 @@
       "caps": 1
     },
     "coach_ids": [
-      "paulo-fonseca"
+      "paulo-fonseca",
+      "ruben-amorim"
     ],
     "market_value": {
       "amount_eur": 2000000,
@@ -497712,7 +498188,8 @@
       "raffaele-palladino",
       "paulo-sousa",
       "sergio-conceicao",
-      "paulo-fonseca"
+      "paulo-fonseca",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 800000,
@@ -497768,7 +498245,10 @@
       "highest_eur": 800000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/federico-steffanoni.png"
+    "photo_url": "/images/players/federico-steffanoni.png",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 12685,
@@ -502883,7 +503363,9 @@
       "christian-gourcuff",
       "zoumana-camara",
       "romain-pitau",
-      "franck-haise"
+      "franck-haise",
+      "diego-simeone",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 800000,
@@ -506464,7 +506946,8 @@
     },
     "coach_ids": [
       "jurgen-klopp",
-      "arne-slot"
+      "arne-slot",
+      "andoni-iraola"
     ],
     "market_value": {
       "amount_eur": 800000,
@@ -509456,7 +509939,8 @@
       "diego-alonso",
       "marco-rose",
       "stale-solbakken",
-      "luis-garcia"
+      "luis-garcia",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 800000,
@@ -512049,7 +512533,10 @@
       "highest_eur": 800000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/diogo-ferreira.png"
+    "photo_url": "/images/players/diogo-ferreira.png",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 5251,
@@ -532275,7 +532762,8 @@
       "kasper-hjulmand",
       "pepijn-lijnders",
       "domenico-tedesco",
-      "thomas-letsch"
+      "thomas-letsch",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 700000,
@@ -537340,7 +537828,10 @@
       "highest_eur": 800000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/christian-corradi.png"
+    "photo_url": "/images/players/christian-corradi.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 5482,
@@ -537368,7 +537859,10 @@
       "highest_eur": 800000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/augusto-owusu.png"
+    "photo_url": "/images/players/augusto-owusu.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 11799,
@@ -559996,7 +560490,8 @@
       "bulent-korkmaz",
       "domenico-tedesco",
       "ismail-kartal",
-      "stjepan-tomas"
+      "stjepan-tomas",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 600000,
@@ -583754,7 +584249,8 @@
     ],
     "coach_ids": [
       "edin-terzic",
-      "nuri-sahin"
+      "nuri-sahin",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 500000,
@@ -585163,7 +585659,10 @@
       "updated_at": "2026-06-03",
       "highest_eur": 550000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "xabi-alonso"
+    ]
   },
   {
     "id": 11910,
@@ -588191,7 +588690,8 @@
       "irfan-saraloglu",
       "ekrem-dag",
       "murat-sahin",
-      "burak-yilmaz"
+      "burak-yilmaz",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 300000,
@@ -588707,7 +589207,8 @@
       "marco-silva",
       "scott-parker",
       "claudio-ranieri",
-      "slavisa-jokanovic"
+      "slavisa-jokanovic",
+      "alvaro-arbeloa"
     ],
     "market_value": {
       "amount_eur": 500000,
@@ -592087,7 +592588,10 @@
         "red_cards": 0
       }
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "andoni-iraola"
+    ]
   },
   {
     "id": 11926,
@@ -599092,7 +599596,10 @@
       "highest_eur": 500000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/dimitri-legbo.png"
+    "photo_url": "/images/players/dimitri-legbo.png",
+    "coach_ids": [
+      "cristian-chivu"
+    ]
   },
   {
     "id": 14505,
@@ -606279,7 +606786,8 @@
     },
     "coach_ids": [
       "felix-magath",
-      "tayfun-korkut"
+      "tayfun-korkut",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 500000,
@@ -621700,7 +622208,8 @@
     },
     "coach_ids": [
       "ivo-vieira",
-      "rui-pedro-silva"
+      "rui-pedro-silva",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 450000,
@@ -622934,7 +623443,8 @@
       "ange-postecoglou",
       "ryan-mason",
       "ronny-deila",
-      "cristian-stellini"
+      "cristian-stellini",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 400000,
@@ -624674,7 +625184,8 @@
       "joseph-oosting",
       "fred-grim",
       "nuri-sahin",
-      "xabi-alonso"
+      "xabi-alonso",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 400000,
@@ -632176,7 +632687,8 @@
     "coach_ids": [
       "dejan-stankovic",
       "walter-mazzarri",
-      "antonio-conte"
+      "antonio-conte",
+      "massimiliano-allegri"
     ],
     "market_value": {
       "amount_eur": 400000,
@@ -632575,7 +633087,8 @@
       "goals": 1
     },
     "coach_ids": [
-      "eddie-howe"
+      "eddie-howe",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 400000,
@@ -655241,7 +655754,8 @@
       "alexis-trujillo",
       "david-unsworth",
       "jesse-marsch",
-      "bryant-lazaro"
+      "bryant-lazaro",
+      "diego-simeone"
     ],
     "market_value": {
       "amount_eur": 200000,
@@ -668958,7 +669472,8 @@
       "gary-o-neil",
       "scott-parker",
       "kenny-jackett",
-      "harry-redknapp"
+      "harry-redknapp",
+      "marco-rose"
     ],
     "market_value": {
       "amount_eur": 300000,
@@ -670993,7 +671508,8 @@
     "coach_ids": [
       "dieter-hecking",
       "peter-zeidler",
-      "markus-feldhoff"
+      "markus-feldhoff",
+      "niko-kovac"
     ],
     "market_value": {
       "amount_eur": 300000,
@@ -676816,7 +677332,8 @@
     "coach_ids": [
       "slavisa-jokanovic",
       "claudio-ranieri",
-      "thomas-tuchel"
+      "thomas-tuchel",
+      "enzo-maresca"
     ],
     "market_value": {
       "amount_eur": 300000,
@@ -679218,7 +679735,8 @@
       "caps": 1
     },
     "coach_ids": [
-      "steffen-baumgart"
+      "steffen-baumgart",
+      "martin-demichelis"
     ],
     "market_value": {
       "amount_eur": 300000,
@@ -693399,7 +693917,10 @@
       "updated_at": "2025-12-16",
       "highest_eur": 500000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "vincent-kompany"
+    ]
   },
   {
     "id": 6903,
@@ -700600,7 +701121,8 @@
       "peter-bosz",
       "sascha-lewandowski",
       "kenan-kocak",
-      "xabi-alonso"
+      "xabi-alonso",
+      "carles-martinez"
     ],
     "market_value": {
       "amount_eur": 250000,
@@ -702891,7 +703413,8 @@
     "coach_ids": [
       "chris-hughton",
       "sam-allardyce",
-      "graham-potter"
+      "graham-potter",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 50000,
@@ -702944,7 +703467,8 @@
     "coach_ids": [
       "jens-olsen",
       "johannes-thorup",
-      "kieran-mckenna"
+      "kieran-mckenna",
+      "gary-o-neil"
     ],
     "market_value": {
       "amount_eur": 15000000,
@@ -703769,7 +704293,8 @@
       "caps": 7
     },
     "coach_ids": [
-      "peter-maes"
+      "peter-maes",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 250000,
@@ -720516,7 +721041,10 @@
       "updated_at": "2025-12-19",
       "highest_eur": 200000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "niko-kovac"
+    ]
   },
   {
     "id": 12304,
@@ -721781,7 +722309,8 @@
     ],
     "coach_ids": [
       "jimmy-floyd-hasselbaink",
-      "roy-hodgson"
+      "roy-hodgson",
+      "pierre-sage"
     ],
     "market_value": {
       "amount_eur": 200000,
@@ -725004,7 +725533,8 @@
       "massimiliano-allegri",
       "maurizio-sarri",
       "andrea-pirlo",
-      "paolo-montero"
+      "paolo-montero",
+      "luciano-spalletti"
     ],
     "market_value": {
       "amount_eur": 200000,
@@ -726058,7 +726588,8 @@
       "rafael-benitez",
       "graeme-jones",
       "steve-mcclaren",
-      "eddie-howe"
+      "eddie-howe",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 200000,
@@ -726114,7 +726645,10 @@
       "highest_eur": 200000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/dermot-mee.png"
+    "photo_url": "/images/players/dermot-mee.png",
+    "coach_ids": [
+      "michael-carrick"
+    ]
   },
   {
     "id": 12325,
@@ -726524,7 +727058,10 @@
       "highest_eur": 8000000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/costantino-favasuli.png"
+    "photo_url": "/images/players/costantino-favasuli.png",
+    "coach_ids": [
+      "massimiliano-allegri"
+    ]
   },
   {
     "id": 7258,
@@ -726675,7 +727212,10 @@
       "highest_eur": 200000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/aidan-harris.png"
+    "photo_url": "/images/players/aidan-harris.png",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 14637,
@@ -728676,7 +729216,8 @@
       "caps": 4
     },
     "coach_ids": [
-      "custodio"
+      "custodio",
+      "marco-silva"
     ],
     "market_value": {
       "amount_eur": 200000,
@@ -741591,7 +742132,10 @@
       "updated_at": "2026-05-29",
       "highest_eur": 200000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 7485,
@@ -743186,7 +743730,10 @@
       "updated_at": "2026-06-03",
       "highest_eur": 175000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "niko-kovac"
+    ]
   },
   {
     "id": 12357,
@@ -761859,7 +762406,10 @@
       "updated_at": "2026-06-12",
       "highest_eur": 200000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "cristian-chivu"
+    ]
   },
   {
     "id": 7735,
@@ -767141,7 +767691,8 @@
       }
     ],
     "coach_ids": [
-      "gian-piero-gasperini"
+      "gian-piero-gasperini",
+      "maurizio-sarri"
     ],
     "market_value": {
       "amount_eur": 100000,
@@ -770265,7 +770816,8 @@
     ],
     "coach_ids": [
       "domenico-tedesco",
-      "zeki-murat-gole"
+      "zeki-murat-gole",
+      "emre-belozoglu"
     ],
     "market_value": {
       "amount_eur": 100000,
@@ -771927,7 +772479,8 @@
       "sean-dyche",
       "dean-smith",
       "ralf-rangnick",
-      "sir-alex-ferguson"
+      "sir-alex-ferguson",
+      "michael-carrick"
     ],
     "market_value": {
       "amount_eur": 100000,
@@ -772503,7 +773056,8 @@
       }
     ],
     "coach_ids": [
-      "stephen-robinson"
+      "stephen-robinson",
+      "matthias-jaissle"
     ],
     "market_value": {
       "amount_eur": 100000,
@@ -797694,7 +798248,10 @@
       "highest_eur": 50000
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/sergio-mestre.png"
+    "photo_url": "/images/players/sergio-mestre.png",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 8307,
@@ -804108,7 +804665,10 @@
       "updated_at": "2025-06-18",
       "highest_eur": 50000
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 8269,
@@ -804756,7 +805316,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 8288,
@@ -812253,7 +812816,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 9886,
@@ -812278,7 +812844,10 @@
       "caps": 1
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/matteo-pittarella.png"
+    "photo_url": "/images/players/matteo-pittarella.png",
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 16288,
@@ -812296,7 +812865,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 9681,
@@ -812326,7 +812898,10 @@
       "amount_eur": 800000,
       "highest_eur": 800000,
       "updated_at": "2026-11-22"
-    }
+    },
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 16289,
@@ -812345,7 +812920,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/c-comotto.png"
+    "photo_url": "/images/players/c-comotto.png",
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 16290,
@@ -812363,7 +812941,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 10164,
@@ -812385,7 +812966,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "ruben-amorim"
+    ]
   },
   {
     "id": 9911,
@@ -812411,7 +812995,8 @@
       "caps": 1
     },
     "coach_ids": [
-      "gary-o-neil"
+      "gary-o-neil",
+      "ruben-amorim"
     ],
     "stats": {
       "career": {
@@ -812825,7 +813410,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-rose"
+    ]
   },
   {
     "id": 16292,
@@ -812844,7 +813432,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/k-crampton.png"
+    "photo_url": "/images/players/k-crampton.png",
+    "coach_ids": [
+      "marco-rose"
+    ]
   },
   {
     "id": 16293,
@@ -812862,7 +813453,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-rose"
+    ]
   },
   {
     "id": 10242,
@@ -812883,7 +813477,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-rose"
+    ]
   },
   {
     "id": 9636,
@@ -812906,7 +813503,10 @@
     "international": {
       "caps": 8
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-rose"
+    ]
   },
   {
     "id": 19102,
@@ -812925,7 +813525,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/a-rodriguez.png"
+    "photo_url": "/images/players/a-rodriguez.png",
+    "coach_ids": [
+      "marco-rose"
+    ]
   },
   {
     "id": 12588,
@@ -820807,7 +821410,10 @@
       "highest_eur": 100000,
       "updated_at": "2026-11-22"
     },
-    "photo_url": "/images/players/giorgio-de-marzi.png"
+    "photo_url": "/images/players/giorgio-de-marzi.png",
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 9808,
@@ -820837,7 +821443,10 @@
       "amount_eur": 8000000,
       "highest_eur": 8000000,
       "updated_at": "2026-11-22"
-    }
+    },
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 9612,
@@ -820859,7 +821468,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 9531,
@@ -820880,7 +821492,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 16332,
@@ -820898,7 +821513,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 10071,
@@ -820968,7 +821586,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gian-piero-gasperini"
+    ]
   },
   {
     "id": 17121,
@@ -821453,7 +822074,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 16340,
@@ -821471,7 +822095,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 16341,
@@ -821489,7 +822116,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 9343,
@@ -821515,7 +822145,10 @@
     "international": {
       "caps": 1
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 16342,
@@ -821534,7 +822167,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/r-obria.png"
+    "photo_url": "/images/players/r-obria.png",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 16343,
@@ -821556,7 +822192,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 9786,
@@ -821583,7 +822222,10 @@
       "goals": 1
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/javison-idele.png"
+    "photo_url": "/images/players/javison-idele.png",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 8869,
@@ -821610,7 +822252,10 @@
       "goals": 2
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/sergej-levak.png"
+    "photo_url": "/images/players/sergej-levak.png",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 16344,
@@ -821628,7 +822273,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "maurizio-sarri"
+    ]
   },
   {
     "id": 9363,
@@ -822467,7 +823115,10 @@
       "caps": 2
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/salvi-esquivel.png"
+    "photo_url": "/images/players/salvi-esquivel.png",
+    "coach_ids": [
+      "diego-simeone"
+    ]
   },
   {
     "id": 16351,
@@ -822486,7 +823137,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/a-yaakobishvili.png"
+    "photo_url": "/images/players/a-yaakobishvili.png",
+    "coach_ids": [
+      "diego-simeone"
+    ]
   },
   {
     "id": 16352,
@@ -822504,7 +823158,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "diego-simeone"
+    ]
   },
   {
     "id": 16353,
@@ -822522,7 +823179,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "diego-simeone"
+    ]
   },
   {
     "id": 16354,
@@ -822540,7 +823200,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "diego-simeone"
+    ]
   },
   {
     "id": 9021,
@@ -822603,7 +823266,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "diego-simeone"
+    ]
   },
   {
     "id": 16359,
@@ -822626,7 +823292,8 @@
       }
     ],
     "coach_ids": [
-      "jacek-magiera"
+      "jacek-magiera",
+      "diego-simeone"
     ],
     "stats": {
       "career": {
@@ -824698,7 +825365,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/simeon-rapsch.png"
+    "photo_url": "/images/players/simeon-rapsch.png",
+    "coach_ids": [
+      "carles-martinez"
+    ]
   },
   {
     "id": 12743,
@@ -824724,7 +825394,10 @@
       "caps": 3
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/ben-hawighorst.png"
+    "photo_url": "/images/players/ben-hawighorst.png",
+    "coach_ids": [
+      "carles-martinez"
+    ]
   },
   {
     "id": 12744,
@@ -824742,7 +825415,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "carles-martinez"
+    ]
   },
   {
     "id": 12746,
@@ -824760,7 +825436,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "carles-martinez"
+    ]
   },
   {
     "id": 14932,
@@ -824778,7 +825457,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "vincent-kompany"
+    ]
   },
   {
     "id": 9723,
@@ -824809,7 +825491,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "vincent-kompany"
+    ]
   },
   {
     "id": 8731,
@@ -824831,7 +825516,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "vincent-kompany"
+    ]
   },
   {
     "id": 10353,
@@ -824963,7 +825651,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/guido-della-rovere.png"
+    "photo_url": "/images/players/guido-della-rovere.png",
+    "coach_ids": [
+      "vincent-kompany"
+    ]
   },
   {
     "id": 10333,
@@ -824994,7 +825685,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "vincent-kompany"
+    ]
   },
   {
     "id": 12747,
@@ -826358,7 +827052,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "niko-kovac"
+    ]
   },
   {
     "id": 16375,
@@ -826377,7 +827074,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/kouakou-joane-gadou.png"
+    "photo_url": "/images/players/kouakou-joane-gadou.png",
+    "coach_ids": [
+      "niko-kovac"
+    ]
   },
   {
     "id": 16376,
@@ -826396,7 +827096,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/justin-lerma.png"
+    "photo_url": "/images/players/justin-lerma.png",
+    "coach_ids": [
+      "niko-kovac"
+    ]
   },
   {
     "id": 9934,
@@ -830877,7 +831580,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/e-martinez.png"
+    "photo_url": "/images/players/e-martinez.png",
+    "coach_ids": [
+      "xabi-alonso"
+    ]
   },
   {
     "id": 16408,
@@ -830895,7 +831601,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "xabi-alonso"
+    ]
   },
   {
     "id": 16409,
@@ -830913,7 +831622,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "xabi-alonso"
+    ]
   },
   {
     "id": 10258,
@@ -830938,7 +831650,10 @@
       "caps": 6,
       "goals": 4
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "xabi-alonso"
+    ]
   },
   {
     "id": 16411,
@@ -830957,7 +831672,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/geovany-tcherno-quenda.png"
+    "photo_url": "/images/players/geovany-tcherno-quenda.png",
+    "coach_ids": [
+      "xabi-alonso"
+    ]
   },
   {
     "id": 12865,
@@ -835080,7 +835798,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 10136,
@@ -835105,7 +835826,10 @@
       "caps": 1,
       "goals": 1
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 9295,
@@ -835128,7 +835852,10 @@
     "international": {
       "caps": 1
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 10281,
@@ -835154,7 +835881,8 @@
       "caps": 6
     },
     "coach_ids": [
-      "oliver-glasner"
+      "oliver-glasner",
+      "pierre-sage"
     ],
     "stats": {
       "career": {
@@ -835192,7 +835920,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 16423,
@@ -835210,7 +835941,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 16424,
@@ -835233,7 +835967,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/adler-nascimento.png"
+    "photo_url": "/images/players/adler-nascimento.png",
+    "coach_ids": [
+      "pierre-sage"
+    ]
   },
   {
     "id": 9072,
@@ -842494,7 +843231,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16445,
@@ -842512,7 +843252,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16447,
@@ -842530,7 +843273,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16448,
@@ -842548,7 +843294,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16450,
@@ -842566,7 +843315,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16451,
@@ -842584,7 +843336,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 16452,
@@ -842618,7 +843373,8 @@
       "team_code": "EG"
     },
     "coach_ids": [
-      "hossam-hassan"
+      "hossam-hassan",
+      "hansi-flick"
     ],
     "stats": {
       "career": {
@@ -842662,7 +843418,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/j-bisiwu.png"
+    "photo_url": "/images/players/j-bisiwu.png",
+    "coach_ids": [
+      "hansi-flick"
+    ]
   },
   {
     "id": 17232,
@@ -846914,7 +847673,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "emre-belozoglu"
+    ]
   },
   {
     "id": 16471,
@@ -846933,7 +847695,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/o-mimovia.png"
+    "photo_url": "/images/players/o-mimovia.png",
+    "coach_ids": [
+      "emre-belozoglu"
+    ]
   },
   {
     "id": 10210,
@@ -846960,7 +847725,8 @@
       "goals": 2
     },
     "coach_ids": [
-      "domenico-tedesco"
+      "domenico-tedesco",
+      "emre-belozoglu"
     ],
     "stats": {
       "career": {
@@ -847004,7 +847770,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/n-dorgeles.png"
+    "photo_url": "/images/players/n-dorgeles.png",
+    "coach_ids": [
+      "emre-belozoglu"
+    ]
   },
   {
     "id": 15167,
@@ -849404,7 +850173,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/b-slade.png"
+    "photo_url": "/images/players/b-slade.png",
+    "coach_ids": [
+      "alvaro-arbeloa"
+    ]
   },
   {
     "id": 16484,
@@ -849423,7 +850195,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/c-nwoko.png"
+    "photo_url": "/images/players/c-nwoko.png",
+    "coach_ids": [
+      "alvaro-arbeloa"
+    ]
   },
   {
     "id": 16485,
@@ -849441,7 +850216,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "alvaro-arbeloa"
+    ]
   },
   {
     "id": 9582,
@@ -849466,7 +850244,10 @@
     "international": {
       "caps": 1
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 9838,
@@ -849492,7 +850273,10 @@
       "caps": 2
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/arda-yilmaz.png"
+    "photo_url": "/images/players/arda-yilmaz.png",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 10319,
@@ -849518,7 +850302,10 @@
       "goals": 1
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/daghan-kahraman.png"
+    "photo_url": "/images/players/daghan-kahraman.png",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 10013,
@@ -849547,7 +850334,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 9549,
@@ -849579,7 +850369,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/furkan-kocak.png"
+    "photo_url": "/images/players/furkan-kocak.png",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 10010,
@@ -849604,7 +850397,10 @@
       "caps": 22,
       "goals": 1
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "okan-buruk"
+    ]
   },
   {
     "id": 10011,
@@ -856734,7 +857530,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "cristian-chivu"
+    ]
   },
   {
     "id": 8863,
@@ -856799,7 +857598,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/c-jones.png"
+    "photo_url": "/images/players/c-jones.png",
+    "coach_ids": [
+      "cristian-chivu"
+    ]
   },
   {
     "id": 16513,
@@ -856817,7 +857619,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "cristian-chivu"
+    ]
   },
   {
     "id": 16515,
@@ -856835,7 +857640,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "cristian-chivu"
+    ]
   },
   {
     "id": 9188,
@@ -857149,7 +857957,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gary-o-neil"
+    ]
   },
   {
     "id": 16518,
@@ -857167,7 +857978,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "gary-o-neil"
+    ]
   },
   {
     "id": 16519,
@@ -857186,7 +858000,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/a-ouattara.png"
+    "photo_url": "/images/players/a-ouattara.png",
+    "coach_ids": [
+      "gary-o-neil"
+    ]
   },
   {
     "id": 8563,
@@ -857214,7 +858031,8 @@
     },
     "coach_ids": [
       "gerhard-struber",
-      "kieran-mckenna"
+      "kieran-mckenna",
+      "gary-o-neil"
     ],
     "stats": {
       "career": {
@@ -858065,7 +858883,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 9642,
@@ -858090,7 +858911,10 @@
     "international": {
       "caps": 1
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 9399,
@@ -858116,7 +858940,10 @@
       "caps": 10
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/alfonso-montero.png"
+    "photo_url": "/images/players/alfonso-montero.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 9271,
@@ -858142,7 +858969,10 @@
       "caps": 5
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/niccolo-rizzo.png"
+    "photo_url": "/images/players/niccolo-rizzo.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 16520,
@@ -858161,7 +858991,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/g-makiobo.png"
+    "photo_url": "/images/players/g-makiobo.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 9104,
@@ -858187,7 +859020,10 @@
       "caps": 1
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/filippo-pagnucco.png"
+    "photo_url": "/images/players/filippo-pagnucco.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 16521,
@@ -858206,7 +859042,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/kerim-sam-alajbegovic.png"
+    "photo_url": "/images/players/kerim-sam-alajbegovic.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 16522,
@@ -858224,7 +859063,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 16523,
@@ -858242,7 +859084,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 16524,
@@ -858261,7 +859106,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/j-oboavwoduo.png"
+    "photo_url": "/images/players/j-oboavwoduo.png",
+    "coach_ids": [
+      "luciano-spalletti"
+    ]
   },
   {
     "id": 17399,
@@ -864471,7 +865319,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/w-omoruyi.png"
+    "photo_url": "/images/players/w-omoruyi.png",
+    "coach_ids": [
+      "andoni-iraola"
+    ]
   },
   {
     "id": 10370,
@@ -864492,7 +865343,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "andoni-iraola"
+    ]
   },
   {
     "id": 16560,
@@ -864510,7 +865364,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "andoni-iraola"
+    ]
   },
   {
     "id": 16561,
@@ -864528,7 +865385,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "andoni-iraola"
+    ]
   },
   {
     "id": 13297,
@@ -866464,7 +867324,10 @@
       "caps": 3
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/kaden-braithwaite.png"
+    "photo_url": "/images/players/kaden-braithwaite.png",
+    "coach_ids": [
+      "enzo-maresca"
+    ]
   },
   {
     "id": 16568,
@@ -866483,7 +867346,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "enzo-maresca"
+    ]
   },
   {
     "id": 16569,
@@ -866502,7 +867368,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/e-fernandez.png"
+    "photo_url": "/images/players/e-fernandez.png",
+    "coach_ids": [
+      "enzo-maresca"
+    ]
   },
   {
     "id": 9896,
@@ -866529,7 +867398,8 @@
       "goals": 2
     },
     "coach_ids": [
-      "pep-guardiola"
+      "pep-guardiola",
+      "enzo-maresca"
     ],
     "stats": {
       "career": {
@@ -866601,7 +867471,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "enzo-maresca"
+    ]
   },
   {
     "id": 16572,
@@ -866619,7 +867492,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "michael-carrick"
+    ]
   },
   {
     "id": 9341,
@@ -866645,7 +867521,10 @@
       "caps": 2
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/jaydan-kamason.png"
+    "photo_url": "/images/players/jaydan-kamason.png",
+    "coach_ids": [
+      "michael-carrick"
+    ]
   },
   {
     "id": 9325,
@@ -866715,7 +867594,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "michael-carrick"
+    ]
   },
   {
     "id": 8943,
@@ -866796,7 +867678,10 @@
       "caps": 7
     },
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/tynan-thompson.png"
+    "photo_url": "/images/players/tynan-thompson.png",
+    "coach_ids": [
+      "michael-carrick"
+    ]
   },
   {
     "id": 13358,
@@ -870507,7 +871392,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "massimiliano-allegri"
+    ]
   },
   {
     "id": 10024,
@@ -870531,7 +871419,10 @@
     "international": {
       "caps": 4
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "massimiliano-allegri"
+    ]
   },
   {
     "id": 16576,
@@ -870549,7 +871440,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "massimiliano-allegri"
+    ]
   },
   {
     "id": 13442,
@@ -871234,7 +872128,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/e-jaouen.png"
+    "photo_url": "/images/players/e-jaouen.png",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 16578,
@@ -871252,7 +872149,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 9676,
@@ -871281,7 +872181,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/seung-soo-park.png"
+    "photo_url": "/images/players/seung-soo-park.png",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 16580,
@@ -871299,7 +872202,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 16581,
@@ -871318,7 +872224,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/v-salia.png"
+    "photo_url": "/images/players/v-salia.png",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 16582,
@@ -871336,7 +872245,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "matthias-jaissle"
+    ]
   },
   {
     "id": 15411,
@@ -872389,7 +873301,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/aaron-bott.png"
+    "photo_url": "/images/players/aaron-bott.png",
+    "coach_ids": [
+      "oliver-glasner"
+    ]
   },
   {
     "id": 9153,
@@ -872410,7 +873325,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/keehan-willows.png"
+    "photo_url": "/images/players/keehan-willows.png",
+    "coach_ids": [
+      "oliver-glasner"
+    ]
   },
   {
     "id": 16585,
@@ -872429,7 +873347,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/grady-mcdonnell.png"
+    "photo_url": "/images/players/grady-mcdonnell.png",
+    "coach_ids": [
+      "oliver-glasner"
+    ]
   },
   {
     "id": 9309,
@@ -872453,7 +873374,8 @@
     ],
     "coach_ids": [
       "sean-dyche",
-      "vitor-pereira"
+      "vitor-pereira",
+      "oliver-glasner"
     ],
     "stats": {
       "career": {
@@ -872495,7 +873417,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/archie-whitehall.png"
+    "photo_url": "/images/players/archie-whitehall.png",
+    "coach_ids": [
+      "oliver-glasner"
+    ]
   },
   {
     "id": 9340,
@@ -872516,7 +873441,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/zyan-blake.png"
+    "photo_url": "/images/players/zyan-blake.png",
+    "coach_ids": [
+      "oliver-glasner"
+    ]
   },
   {
     "id": 16586,
@@ -876327,7 +877255,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luis-enrique"
+    ]
   },
   {
     "id": 16604,
@@ -876345,7 +877276,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "luis-enrique"
+    ]
   },
   {
     "id": 16605,
@@ -876364,7 +877298,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/pedro-fernandez.png"
+    "photo_url": "/images/players/pedro-fernandez.png",
+    "coach_ids": [
+      "luis-enrique"
+    ]
   },
   {
     "id": 10314,
@@ -882113,7 +883050,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "martin-demichelis"
+    ]
   },
   {
     "id": 9645,
@@ -882136,7 +883076,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/lionel-voufack.png"
+    "photo_url": "/images/players/lionel-voufack.png",
+    "coach_ids": [
+      "martin-demichelis"
+    ]
   },
   {
     "id": 10130,
@@ -882158,7 +883101,10 @@
         "from": "2026-02-19"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "martin-demichelis"
+    ]
   },
   {
     "id": 16622,
@@ -882177,7 +883123,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/a-maksimovia.png"
+    "photo_url": "/images/players/a-maksimovia.png",
+    "coach_ids": [
+      "martin-demichelis"
+    ]
   },
   {
     "id": 9953,
@@ -882947,7 +883896,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 16636,
@@ -882965,7 +883917,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 9975,
@@ -882993,7 +883948,8 @@
     },
     "coach_ids": [
       "carlo-ancelotti",
-      "alvaro-arbeloa"
+      "alvaro-arbeloa",
+      "jose-mourinho"
     ],
     "stats": {
       "career": {
@@ -883042,7 +883998,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 8990,
@@ -883075,7 +884034,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/jesus-fortea.png"
+    "photo_url": "/images/players/jesus-fortea.png",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 9083,
@@ -883103,7 +884065,10 @@
         "count": 1
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 9820,
@@ -883135,7 +884100,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/mario-rivas.png"
+    "photo_url": "/images/players/mario-rivas.png",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 16639,
@@ -883153,7 +884121,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 16640,
@@ -883171,7 +884142,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "jose-mourinho"
+    ]
   },
   {
     "id": 8856,
@@ -883197,7 +884171,8 @@
       "caps": 1
     },
     "coach_ids": [
-      "alvaro-arbeloa"
+      "alvaro-arbeloa",
+      "jose-mourinho"
     ],
     "stats": {
       "career": {
@@ -883256,7 +884231,8 @@
     },
     "coach_ids": [
       "alvaro-arbeloa",
-      "carlo-ancelotti"
+      "carlo-ancelotti",
+      "jose-mourinho"
     ],
     "stats": {
       "career": {
@@ -895227,7 +896203,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 16681,
@@ -895245,7 +896224,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 10402,
@@ -895270,7 +896252,10 @@
     "international": {
       "caps": 5
     },
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 16682,
@@ -895289,7 +896274,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/a-chemong.png"
+    "photo_url": "/images/players/a-chemong.png",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 9398,
@@ -895316,7 +896304,8 @@
       "goals": 2
     },
     "coach_ids": [
-      "jose-mourinho"
+      "jose-mourinho",
+      "marco-silva"
     ],
     "stats": {
       "career": {
@@ -895355,7 +896344,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/h-sudakov.png"
+    "photo_url": "/images/players/h-sudakov.png",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 16686,
@@ -895373,7 +896365,10 @@
         "from": "2026-10-23"
       }
     ],
-    "data_as_of": "2026-10"
+    "data_as_of": "2026-10",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 16687,
@@ -895392,7 +896387,10 @@
       }
     ],
     "data_as_of": "2026-10",
-    "photo_url": "/images/players/rafa.png"
+    "photo_url": "/images/players/rafa.png",
+    "coach_ids": [
+      "marco-silva"
+    ]
   },
   {
     "id": 9062,
@@ -946094,7 +947092,8 @@
       "pep-guardiola",
       "jupp-heynckes",
       "stefano-pioli",
-      "felix-magath"
+      "felix-magath",
+      "diego-simeone"
     ],
     "market_value": {
       "highest_eur": 30000000,
@@ -959791,7 +960790,8 @@
       "sinisa-mihajlovic",
       "frank-de-boer",
       "andre-villas-boas",
-      "stefano-vecchi"
+      "stefano-vecchi",
+      "diego-simeone"
     ],
     "market_value": {
       "highest_eur": 12000000,
@@ -975175,7 +976175,8 @@
       "javier-aguirre",
       "slavisa-jokanovic",
       "pablo-machin",
-      "pep-guardiola"
+      "pep-guardiola",
+      "luis-enrique"
     ],
     "market_value": {
       "highest_eur": 20000000,
@@ -994449,7 +995450,8 @@
     },
     "data_as_of": "2026-10",
     "coach_ids": [
-      "rafael-benitez"
+      "rafael-benitez",
+      "andoni-iraola"
     ]
   },
   {

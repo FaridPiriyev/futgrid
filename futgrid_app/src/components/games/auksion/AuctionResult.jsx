@@ -107,7 +107,9 @@ const CHEM_META = {
 };
 
 function ChemGroup({ data, group }) {
-  const club = group.type === "club" ? data.clubsById?.get(group.key) : null;
+  // ClubLogo expects { name, logo }, while clubs.json stores the URL as logo_url.
+  const raw = group.type === "club" ? data.clubsById?.get(group.key) : null;
+  const club = raw ? { name: raw.name, logo: raw.logo_url ?? null } : null;
   const country = group.type === "country" ? countryOf(data, group.players[0]) : null;
   const name = club?.name ?? country?.name ?? group.label ?? group.key;
   return (

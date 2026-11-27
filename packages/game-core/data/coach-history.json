@@ -1,148 +1,95 @@
 {
-  "_note": "Head-coach club spells missing from the match-based source (it only covers ~2012 onwards). scripts/data/apply-coach-history.mjs adds these to coaches.json and adds the coach to every player whose club spell overlaps by at least minOverlapDays. Club names must match clubs.json exactly.",
+  "_note": "Head-coach club spells missing from the match-based source (it only covers ~2012 onwards). scripts/data/apply-coach-history.mjs adds these to coaches.json and adds the coach to every player whose club spell overlaps by at least minOverlapDays. Club names must match clubs.json exactly. 'recent' holds current jobs of big clubs (source stops at 2025/26).",
   "minOverlapDays": 120,
   "stints": {
-    "jose-mourinho": [
-      ["SL Benfica", "2000-09-20", "2000-12-05"],
-      ["FC Porto", "2002-01-23", "2004-05-26"],
-      ["Chelsea", "2004-06-02", "2007-09-20"],
-      ["Inter Milan", "2008-06-02", "2010-05-28"],
-      ["Real Madrid", "2010-05-31", "2012-08-18"]
-    ],
+    "jose-mourinho": [["SL Benfica", "2000-09-20", "2000-12-05"], ["FC Porto", "2002-01-23", "2004-05-26"], ["Chelsea", "2004-06-02", "2007-09-20"], ["Inter Milan", "2008-06-02", "2010-05-28"], ["Real Madrid", "2010-05-31", "2012-08-18"]],
     "pep-guardiola": [["FC Barcelona", "2008-07-01", "2012-06-30"]],
     "sir-alex-ferguson": [["Manchester United", "1986-11-06", "2012-08-01"]],
-    "arsene-wenger": [
-      ["AS Monaco", "1987-07-01", "1994-09-17"],
-      ["Arsenal", "1996-10-01", "2012-08-01"]
-    ],
-    "carlo-ancelotti": [
-      ["Parma", "1996-07-01", "1998-06-30"],
-      ["Juventus", "1999-02-09", "2001-06-17"],
-      ["AC Milan", "2001-11-06", "2009-05-31"],
-      ["Chelsea", "2009-07-01", "2011-05-22"],
-      ["Paris Saint-Germain", "2011-12-30", "2012-08-10"]
-    ],
-    "jurgen-klopp": [
-      ["Mainz 05", "2001-02-27", "2008-05-23"],
-      ["Borussia Dortmund", "2008-07-01", "2012-08-11"]
-    ],
+    "arsene-wenger": [["AS Monaco", "1987-07-01", "1994-09-17"], ["Arsenal", "1996-10-01", "2012-08-01"]],
+    "carlo-ancelotti": [["Parma", "1996-07-01", "1998-06-30"], ["Juventus", "1999-02-09", "2001-06-17"], ["AC Milan", "2001-11-06", "2009-05-31"], ["Chelsea", "2009-07-01", "2011-05-22"], ["Paris Saint-Germain", "2011-12-30", "2012-08-10"]],
+    "jurgen-klopp": [["Mainz 05", "2001-02-27", "2008-05-23"], ["Borussia Dortmund", "2008-07-01", "2012-08-11"]],
     "diego-simeone": [["Atletico Madrid", "2011-12-23", "2012-08-01"]],
     "antonio-conte": [["Juventus", "2011-05-31", "2012-08-01"]],
-    "massimiliano-allegri": [
-      ["Cagliari", "2008-07-01", "2010-04-13"],
-      ["AC Milan", "2010-06-25", "2012-08-01"]
-    ],
-    "rafael-benitez": [
-      ["Valencia CF", "2001-06-01", "2004-06-01"],
-      ["Liverpool", "2004-06-16", "2010-06-03"],
-      ["Inter Milan", "2010-06-10", "2010-12-23"]
-    ],
-    "louis-van-gaal": [
-      ["Ajax", "1991-09-28", "1997-06-30"],
-      ["FC Barcelona", "1997-07-01", "2000-05-20"],
-      ["FC Barcelona", "2002-07-01", "2003-01-28"],
-      ["AZ Alkmaar", "2005-07-01", "2009-06-30"],
-      ["Bayern Munich", "2009-07-01", "2011-04-10"]
-    ],
-    "fabio-capello": [
-      ["AC Milan", "1991-07-01", "1996-06-30"],
-      ["Real Madrid", "1996-07-01", "1997-06-30"],
-      ["AC Milan", "1997-07-01", "1998-06-30"],
-      ["AS Roma", "1999-07-01", "2004-05-27"],
-      ["Juventus", "2004-05-27", "2006-07-04"],
-      ["Real Madrid", "2006-07-05", "2007-06-28"]
-    ],
+    "massimiliano-allegri": [["Cagliari", "2008-07-01", "2010-04-13"], ["AC Milan", "2010-06-25", "2012-08-01"]],
+    "rafael-benitez": [["Valencia CF", "2001-06-01", "2004-06-01"], ["Liverpool", "2004-06-16", "2010-06-03"], ["Inter Milan", "2010-06-10", "2010-12-23"]],
+    "louis-van-gaal": [["Ajax", "1991-09-28", "1997-06-30"], ["FC Barcelona", "1997-07-01", "2000-05-20"], ["FC Barcelona", "2002-07-01", "2003-01-28"], ["AZ Alkmaar", "2005-07-01", "2009-06-30"], ["Bayern Munich", "2009-07-01", "2011-04-10"]],
+    "fabio-capello": [["AC Milan", "1991-07-01", "1996-06-30"], ["Real Madrid", "1996-07-01", "1997-06-30"], ["AC Milan", "1997-07-01", "1998-06-30"], ["AS Roma", "1999-07-01", "2004-05-27"], ["Juventus", "2004-05-27", "2006-07-04"], ["Real Madrid", "2006-07-05", "2007-06-28"]],
     "vicente-del-bosque": [["Real Madrid", "1999-11-17", "2003-06-23"]],
-    "manuel-pellegrini": [
-      ["Villarreal", "2004-07-01", "2009-06-01"],
-      ["Real Madrid", "2009-06-01", "2010-05-26"]
-    ],
-    "roberto-mancini": [
-      ["Lazio", "2002-07-01", "2004-06-30"],
-      ["Inter Milan", "2004-07-07", "2008-05-29"],
-      ["Manchester City", "2009-12-19", "2012-08-01"]
-    ],
-    "harry-redknapp": [
-      ["West Ham United", "1994-08-10", "2001-05-09"],
-      ["Tottenham Hotspur", "2008-10-25", "2012-06-13"]
-    ],
+    "manuel-pellegrini": [["Villarreal", "2004-07-01", "2009-06-01"], ["Real Madrid", "2009-06-01", "2010-05-26"]],
+    "roberto-mancini": [["Lazio", "2002-07-01", "2004-06-30"], ["Inter Milan", "2004-07-07", "2008-05-29"], ["Manchester City", "2009-12-19", "2012-08-01"]],
+    "harry-redknapp": [["West Ham United", "1994-08-10", "2001-05-09"], ["Tottenham Hotspur", "2008-10-25", "2012-06-13"]],
     "david-moyes": [["Everton", "2002-03-14", "2012-08-01"]],
     "unai-emery": [["Valencia CF", "2008-07-01", "2012-06-30"]],
-    "jupp-heynckes": [
-      ["Real Madrid", "1997-07-01", "1998-05-28"],
-      ["Bayern Munich", "2009-04-27", "2009-06-30"],
-      ["Bayer Leverkusen", "2009-07-01", "2011-06-30"],
-      ["Bayern Munich", "2011-07-01", "2012-08-01"]
-    ],
-    "ottmar-hitzfeld": [
-      ["Borussia Dortmund", "1991-07-01", "1997-06-30"],
-      ["Bayern Munich", "1998-07-01", "2004-06-30"],
-      ["Bayern Munich", "2007-07-01", "2008-06-30"]
-    ],
-    "marcello-lippi": [
-      ["Juventus", "1994-07-01", "1999-02-08"],
-      ["Inter Milan", "1999-07-01", "2000-10-03"],
-      ["Juventus", "2001-07-01", "2004-05-30"]
-    ],
-    "claudio-ranieri": [
-      ["Valencia CF", "1997-07-01", "1999-06-30"],
-      ["Atletico Madrid", "1999-07-01", "2000-03-03"],
-      ["Chelsea", "2000-09-18", "2004-05-31"],
-      ["Valencia CF", "2004-06-01", "2005-02-25"],
-      ["Juventus", "2007-07-01", "2009-05-18"],
-      ["AS Roma", "2009-09-01", "2011-02-20"],
-      ["Inter Milan", "2011-09-22", "2012-03-26"]
-    ],
-    "luciano-spalletti": [
-      ["Udinese", "2002-07-01", "2005-06-30"],
-      ["AS Roma", "2005-06-01", "2009-09-01"],
-      ["Zenit Saint Petersburg", "2009-12-11", "2012-08-01"]
-    ],
+    "jupp-heynckes": [["Real Madrid", "1997-07-01", "1998-05-28"], ["Bayern Munich", "2009-04-27", "2009-06-30"], ["Bayer Leverkusen", "2009-07-01", "2011-06-30"], ["Bayern Munich", "2011-07-01", "2012-08-01"]],
+    "ottmar-hitzfeld": [["Borussia Dortmund", "1991-07-01", "1997-06-30"], ["Bayern Munich", "1998-07-01", "2004-06-30"], ["Bayern Munich", "2007-07-01", "2008-06-30"]],
+    "marcello-lippi": [["Juventus", "1994-07-01", "1999-02-08"], ["Inter Milan", "1999-07-01", "2000-10-03"], ["Juventus", "2001-07-01", "2004-05-30"]],
+    "claudio-ranieri": [["Valencia CF", "1997-07-01", "1999-06-30"], ["Atletico Madrid", "1999-07-01", "2000-03-03"], ["Chelsea", "2000-09-18", "2004-05-31"], ["Valencia CF", "2004-06-01", "2005-02-25"], ["Juventus", "2007-07-01", "2009-05-18"], ["AS Roma", "2009-09-01", "2011-02-20"], ["Inter Milan", "2011-09-22", "2012-03-26"]],
+    "luciano-spalletti": [["Udinese", "2002-07-01", "2005-06-30"], ["AS Roma", "2005-06-01", "2009-09-01"], ["Zenit Saint Petersburg", "2009-12-11", "2012-08-01"]],
     "mauricio-pochettino": [["RCD Espanyol", "2009-01-20", "2012-08-01"]],
     "jorge-jesus": [["SL Benfica", "2009-06-01", "2012-08-01"]],
-    "andre-villas-boas": [
-      ["FC Porto", "2010-06-02", "2011-06-21"],
-      ["Chelsea", "2011-06-22", "2012-03-04"]
-    ],
+    "andre-villas-boas": [["FC Porto", "2010-06-02", "2011-06-21"], ["Chelsea", "2011-06-22", "2012-03-04"]],
     "luis-enrique": [["AS Roma", "2011-06-07", "2012-05-10"]],
     "marcelo-bielsa": [["Athletic Bilbao", "2011-07-07", "2012-08-01"]],
-    "didier-deschamps": [
-      ["AS Monaco", "2001-07-01", "2005-09-19"],
-      ["Juventus", "2006-07-01", "2007-05-26"],
-      ["Olympique de Marseille", "2009-07-01", "2012-07-02"]
-    ],
-    "guus-hiddink": [
-      ["Real Madrid", "1998-07-01", "1999-02-28"],
-      ["PSV Eindhoven", "2002-07-01", "2006-06-30"],
-      ["Chelsea", "2009-02-16", "2009-05-31"]
-    ],
-    "felix-magath": [
-      ["Bayern Munich", "2004-07-01", "2007-01-31"],
-      ["VfL Wolfsburg", "2007-07-01", "2009-06-30"],
-      ["Schalke 04", "2009-07-01", "2011-03-16"],
-      ["VfL Wolfsburg", "2011-03-18", "2012-08-01"]
-    ],
+    "didier-deschamps": [["AS Monaco", "2001-07-01", "2005-09-19"], ["Juventus", "2006-07-01", "2007-05-26"], ["Olympique de Marseille", "2009-07-01", "2012-07-02"]],
+    "guus-hiddink": [["Real Madrid", "1998-07-01", "1999-02-28"], ["PSV Eindhoven", "2002-07-01", "2006-06-30"], ["Chelsea", "2009-02-16", "2009-05-31"]],
+    "felix-magath": [["Bayern Munich", "2004-07-01", "2007-01-31"], ["VfL Wolfsburg", "2007-07-01", "2009-06-30"], ["Schalke 04", "2009-07-01", "2011-03-16"], ["VfL Wolfsburg", "2011-03-18", "2012-08-01"]],
     "thomas-tuchel": [["Mainz 05", "2009-08-03", "2012-08-01"]],
-    "ronald-koeman": [
-      ["Ajax", "2001-12-04", "2005-02-25"],
-      ["SL Benfica", "2005-07-01", "2006-06-30"],
-      ["PSV Eindhoven", "2006-11-01", "2007-10-31"],
-      ["Valencia CF", "2007-11-01", "2008-04-21"]
-    ],
+    "ronald-koeman": [["Ajax", "2001-12-04", "2005-02-25"], ["SL Benfica", "2005-07-01", "2006-06-30"], ["PSV Eindhoven", "2006-11-01", "2007-10-31"], ["Valencia CF", "2007-11-01", "2008-04-21"]],
     "roberto-di-matteo": [["Chelsea", "2012-03-04", "2012-08-01"]],
-    "leonardo": [
-      ["AC Milan", "2009-06-01", "2010-05-30"],
-      ["Inter Milan", "2010-12-24", "2011-06-18"]
-    ],
-    "sven-goran-eriksson": [
-      ["SL Benfica", "1982-07-01", "1984-06-30"],
-      ["AS Roma", "1984-07-01", "1987-06-30"],
-      ["Fiorentina", "1987-07-01", "1989-06-30"],
-      ["SL Benfica", "1989-07-01", "1992-06-30"],
-      ["Sampdoria", "1992-07-01", "1997-06-30"],
-      ["Lazio", "1997-07-01", "2001-01-09"],
-      ["Manchester City", "2007-07-06", "2008-06-02"]
-    ],
+    "leonardo": [["AC Milan", "2009-06-01", "2010-05-30"], ["Inter Milan", "2010-12-24", "2011-06-18"]],
+    "sven-goran-eriksson": [["SL Benfica", "1982-07-01", "1984-06-30"], ["AS Roma", "1984-07-01", "1987-06-30"], ["Fiorentina", "1987-07-01", "1989-06-30"], ["SL Benfica", "1989-07-01", "1992-06-30"], ["Sampdoria", "1992-07-01", "1997-06-30"], ["Lazio", "1997-07-01", "2001-01-09"], ["Manchester City", "2007-07-06", "2008-06-02"]],
     "rudi-garcia": [["Lille OSC", "2008-06-01", "2012-08-01"]]
+  },
+  "recent": {
+    "_note": "Current head-coach jobs of the big clubs, kept by hand (the match-based source stops at the end of 2025/26). [club, from, to|null]; null = still in charge. 'close' ends spells the source left open. Update when a big club changes coach, then run: node scripts/apply-coach-history.mjs",
+    "asOf": "2026-11-28",
+    "stints": {
+      "jose-mourinho": [["Real Madrid", "2026-07-13", null]],
+      "xabi-alonso": [["Chelsea", "2026-07-01", null]],
+      "enzo-maresca": [["Manchester City", "2026-06-29", null]],
+      "andoni-iraola": [["Liverpool", "2026-06-04", null]],
+      "alvaro-arbeloa": [["Fulham", "2026-07-07", null]],
+      "marco-rose": [["AFC Bournemouth", "2026-06-01", null]],
+      "pierre-sage": [["Crystal Palace", "2026-06-15", null]],
+      "gary-o-neil": [["Ipswich Town", "2026-06-23", null]],
+      "oliver-glasner": [["Nottingham Forest", "2026-07-06", null]],
+      "matthias-jaissle": [["Newcastle United", "2026-08-05", null]],
+      "michael-carrick": [["Manchester United", "2026-01-17", null]],
+      "ruben-amorim": [["AC Milan", "2026-06-16", null]],
+      "massimiliano-allegri": [["Napoli", "2026-07-03", null]],
+      "maurizio-sarri": [["Atalanta", "2026-06-15", null]],
+      "luciano-spalletti": [["Juventus", "2025-11-01", null]],
+      "cristian-chivu": [["Inter Milan", "2025-06-18", null]],
+      "gian-piero-gasperini": [["AS Roma", "2025-08-23", null]],
+      "marco-silva": [["SL Benfica", "2026-06-10", null]],
+      "martin-demichelis": [["RB Leipzig", "2026-07-01", null]],
+      "carles-martinez": [["Bayer Leverkusen", "2026-07-01", null]],
+      "emre-belozoglu": [["Fenerbahçe", "2026-11-03", null]],
+      "hansi-flick": [["FC Barcelona", "2024-08-17", null]],
+      "diego-simeone": [["Atletico Madrid", "2012-08-19", null]],
+      "vincent-kompany": [["Bayern Munich", "2024-08-16", null]],
+      "niko-kovac": [["Borussia Dortmund", "2025-02-08", null]],
+      "luis-enrique": [["Paris Saint-Germain", "2023-08-12", null]],
+      "okan-buruk": [["Galatasaray", "2022-08-07", null]]
+    },
+    "close": {
+      "jose-mourinho": [["Fenerbahçe", "2025-08-29"]],
+      "xabi-alonso": [["Real Madrid", "2026-01-12"]],
+      "enzo-maresca": [["Chelsea", "2026-01-01"]],
+      "ruben-amorim": [["Manchester United", "2026-01-05"]],
+      "thomas-frank": [["Tottenham Hotspur", "2026-02-11"]],
+      "igor-tudor": [["Juventus", "2025-10-27"]],
+      "bruno-lage": [["SL Benfica", "2025-09-17"]],
+      "erik-ten-hag": [["Bayer Leverkusen", "2025-09-01"]],
+      "pep-guardiola": [["Manchester City", "2026-05-24"]],
+      "arne-slot": [["Liverpool", "2026-05-30"]],
+      "eddie-howe": [["Newcastle United", "2026-07-30"]],
+      "antonio-conte": [["Napoli", "2026-05-31"]],
+      "massimiliano-allegri": [["AC Milan", "2026-05-31"]],
+      "andoni-iraola": [["AFC Bournemouth", "2026-05-24"]],
+      "oliver-glasner": [["Crystal Palace", "2026-05-27"]],
+      "marco-silva": [["Fulham", "2026-06-02"]],
+      "maurizio-sarri": [["Lazio", "2026-05-27"]]
+    }
   }
 }
