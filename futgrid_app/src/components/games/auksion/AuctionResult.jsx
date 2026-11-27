@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { RotateCcw, Settings2, Trophy } from "lucide-react";
-import { BUDGET, money, pitchSpots, slotPos, teamStrength } from "../../../lib/games/auction";
-import { clubOf, countryOf } from "../../../lib/games/playerInfo";
-import PlayerAvatar from "../common/PlayerAvatar";
+import { Link2, RotateCcw, Settings2, Shield, Trophy } from "lucide-react";
+import { BUDGET, CHEM, money, pitchSpots, slotPos, teamStrength } from "../../../lib/games/auction";
+import { countryOf } from "../../../lib/games/playerInfo";
+import PlayerAvatar, { ClubLogo, Flag } from "../common/PlayerAvatar";
 import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 import { shortName } from "./AuctionParts";
 import { SIDES } from "./settings";
@@ -30,7 +30,7 @@ function useCount(target, run, duration = 1200) {
   return v;
 }
 
-function Pitch({ team, side, hideRating = false }) {
+function Pitch({ team, side, hideRating = false, perPlayer }) {
   const positions = team.slots.map(slotPos);
   const spots = pitchSpots(positions);
   const crowded = positions.length > 0 && Math.max(...Object.values(positions.reduce((m, p) => ({ ...m, [p]: (m[p] ?? 0) + 1 }), {}))) >= 4;
@@ -59,6 +59,14 @@ function Pitch({ team, side, hideRating = false }) {
                   {s.pick.rating}
                 </span>
               )}
+              {perPlayer?.get(s.pick.player.id) ? (
+                <span
+                  title={tr("Kimya")}
+                  className="absolute -left-2.5 -top-1.5 rounded-full bg-good px-1.5 text-[10px] font-bold leading-4 text-black shadow"
+                >
+                  +{perPlayer.get(s.pick.player.id)}
+                </span>
+              ) : null}
             </span>
             <span
               className={`mt-1.5 block truncate ${FONT} text-[11px] font-bold text-ink [text-shadow:0_1px_4px_#000]`}
@@ -66,7 +74,7 @@ function Pitch({ team, side, hideRating = false }) {
               {shortName(s.pick.player.name)}
             </span>
             <span className={`block ${FONT} text-[10px] text-muted`}>
-              {s.pick.auto ? "avtomatik" : s.pick.gift ? tr("hədiyyə") : money(s.pick.price)}
+              {s.pick.auto ? tr("avtomatik") : s.pick.gift ? tr("hədiyyə") : money(s.pick.price)}
             </span>
           </div>
         );
@@ -92,16 +100,43 @@ function Bar({ label, value, width, color }) {
   );
 }
 
+const CHEM_META = {
+  club: { pts: CHEM.club, label: () => tr("Eyni klub") },
+  country: { pts: CHEM.country, label: () => tr("Eyni ölkə") },
+  league: { pts: CHEM.league, label: () => tr("Eyni liqa") },
+};
+
+function ChemGroup({ data, group }) {
+  const club = group.type === "club" ? data.clubsById?.get(group.key) : null;
+  const country = group.type === "country" ? countryOf(data, group.players[0]) : null;
+  const name = club?.name ?? country?.name ?? group.label ?? group.key;
+  return (
+    <li className="flex items-center gap-2.5 py-1.5">
+      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-line/6">
+        {club ? (
+          <ClubLogo club={club} />
+        ) : country ? (
+          <Flag country={country} />
+        ) : (
+          <Shield className="h-4 w-4 text-sky-300" />
+        )}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className={`block truncate ${FONT} text-sm font-bold text-ink`}>{name}</span>
+        <span className={`block truncate ${FONT} text-[11px] text-faint`}>
+          {CHEM_META[group.type].label()} · {group.players.map((p) => shortName(p.name)).join(", ")}
+        </span>
+      </span>
+      <span className={`shrink-0 rounded-md bg-good/15 px-2 py-0.5 ${FONT} text-sm font-bold text-good-hi`}>+{group.pts}</span>
+    </li>
+  );
+}
+
 function TeamCard({ data, side, name, team, res, place, delay }) {
   const best = team.slots
     .map((s) => s.pick)
     .filter((p) => p && !p.auto)
     .sort((a, b) => b.rating / Math.max(1, b.price) - a.rating / Math.max(1, a.price))[0];
-  const chemNotes = res.links.slice(0, 3).map((l) => {
-    const what =
-      l.type === "club" ? clubOf(data, l.a)?.name : countryOf(data, l.a)?.name;
-    return `${shortName(l.a.name)} + ${shortName(l.b.name)} — ${what}`;
-  });
   const total = useCount(res.total, true);
 
   return (
@@ -111,7 +146,7 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
       }`}
       style={{ animationDelay: delay }}
     >
-      <Pitch team={team} side={side} />
+      <Pitch team={team} side={side} perPlayer={res.perPlayer} />
       <div>
         <div className="flex items-center justify-between gap-2">
           <span className={`${FONT} text-xl font-bold uppercase ${SIDES[side].text}`}>{name}</span>
@@ -128,25 +163,44 @@ function TeamCard({ data, side, name, team, res, place, delay }) {
           {total}
           <span className="ml-2 text-sm font-normal text-faint">{tr("güc xalı")}</span>
         </p>
+        <p className={`mt-1 ${FONT} text-sm text-muted`}>
+          {res.ratings} <span className="text-faint">{tr("reytinq")}</span>
+          <span className="mx-1.5 text-dim">+</span>
+          <span className="font-bold text-good-hi">{res.chem}</span> <span className="text-faint">{tr("kimya")}</span>
+        </p>
         <div className="mt-4 space-y-3">
           <Bar label={tr("Reytinq cəmi")} value={res.ratings} width={(res.ratings / 495) * 100} color={SIDES[side].bar} />
-          <Bar label={tr("Kimya (eyni klub / ölkə)")} value={`+${res.chem}`} width={res.chem * 10} color="bg-good" />
+          <Bar
+            label={tr("Kimya")}
+            value={res.chemRaw > res.chem ? `+${res.chem} (${res.chemRaw}, maks. ${CHEM.cap})` : `+${res.chem} / ${CHEM.cap}`}
+            width={(res.chem / CHEM.cap) * 100}
+            color="bg-good"
+          />
           <Bar label={tr("Xərclənən")} value={money(res.spent)} width={(res.spent / BUDGET) * 100} color="bg-violet-400" />
         </div>
-        <div className={`mt-4 space-y-1 border-t border-line/8 pt-3 ${FONT} text-sm leading-relaxed text-muted`}>
+
+        <div className="mt-4 border-t border-line/8 pt-3">
+          <p className={`flex items-center gap-1.5 ${FONT} text-xs font-bold uppercase tracking-[0.16em] text-muted`}>
+            <Link2 className="h-3.5 w-3.5 text-good-hi" />
+            {tr("Kimya əlaqələri")}
+          </p>
+          {res.groups.length ? (
+            <ul className="mt-1 divide-y divide-line/6">
+              {res.groups.slice(0, 5).map((g) => (
+                <ChemGroup key={`${g.type}:${g.key}`} data={data} group={g} />
+              ))}
+            </ul>
+          ) : (
+            <p className={`mt-1.5 ${FONT} text-sm text-muted`}>{tr("Kimya bonusu yoxdur — oyunçular fərqli klub, ölkə və liqalardandır.")}</p>
+          )}
           {best && (
-            <p>
+            <p className={`mt-2 ${FONT} text-sm text-muted`}>
               {tr("Ən sərfəli alış:")}{" "}
               <span className="font-bold text-gold-hi">
                 {shortName(best.player.name)} · {money(best.price)}
               </span>{" "}
               ({best.rating})
             </p>
-          )}
-          {chemNotes.length ? (
-            chemNotes.map((n) => <p key={n}>{tr("Kimya:")}{" "} {n}</p>)
-          ) : (
-            <p>{tr("Kimya bonusu yoxdur.")}</p>
           )}
         </div>
       </div>
@@ -159,7 +213,7 @@ export default function AuctionResult(props) {
 }
 
 function RatedResult({ data, state, names, solo, onAgain, onSettings, header = true, actions = true }) {
-  const res = { A: teamStrength(state.teams.A), B: teamStrength(state.teams.B) };
+  const res = { A: teamStrength(state.teams.A, data), B: teamStrength(state.teams.B, data) };
   const winner =
     res.A.total === res.B.total ? null : res.A.total > res.B.total ? "A" : "B";
   const title = !winner
@@ -183,7 +237,12 @@ function RatedResult({ data, state, names, solo, onAgain, onSettings, header = t
           {title}
         </h2>
         <p className={`mt-2 ${FONT} text-sm text-muted`}>
-          {tr("Reytinqlərin cəmi + kimya bonusu (eyni klub +2, eyni ölkə +1, maksimum +10)")}
+          {tr("Reytinqlərin cəmi + kimya: hər cüt oyunçu üçün eyni klub +{club}, eyni ölkə +{country}, eyni liqa +{league} (maksimum +{cap})", {
+            club: CHEM.club,
+            country: CHEM.country,
+            league: CHEM.league,
+            cap: CHEM.cap,
+          })}
         </p>
         <div className={`mt-4 flex items-center justify-center gap-6 ${FONT} font-bold`}>
           <span className={`text-5xl md:text-6xl ${SIDES.A.text}`}>{a}</span>

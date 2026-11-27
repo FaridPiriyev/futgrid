@@ -434,26 +434,59 @@ export function tick(state, pool, random, now, timerMs) {
   return state;
 }
 
-export function teamStrength(team) {
+/** Chemistry points per pair of players (must match backend/src/modules/duel/games/auction.ts). */
+export const CHEM = { club: 3, country: 3, league: 1, cap: 20 };
+
+/**
+ * Team score = sum of ratings + chemistry.
+ * Every pair of players earns: same club +3, same country +3, same league (different club) +1.
+ * Chemistry is capped at +20. Also returns grouped links and per-player chemistry for the UI.
+ */
+export function teamStrength(team, data) {
   const picks = team.slots.map((s) => s.pick).filter(Boolean);
   const ratings = picks.reduce((s, p) => s + p.rating, 0);
-  let club = 0;
-  let nation = 0;
+  const leagueOf = (p) => data?.clubsById?.get(p.current_club_id)?.league ?? null;
   const links = [];
+  const groups = new Map();
+  const perPlayer = new Map();
+  let raw = 0;
+  const add = (type, key, label, a, b, pts) => {
+    links.push({ type, key, a, b, pts });
+    raw += pts;
+    perPlayer.set(a.id, (perPlayer.get(a.id) ?? 0) + pts);
+    perPlayer.set(b.id, (perPlayer.get(b.id) ?? 0) + pts);
+    const id = `${type}:${key}`;
+    if (!groups.has(id)) groups.set(id, { type, key, label, players: new Map(), pts: 0 });
+    const g = groups.get(id);
+    g.players.set(a.id, a);
+    g.players.set(b.id, b);
+    g.pts += pts;
+  };
   for (let i = 0; i < picks.length; i++)
     for (let j = i + 1; j < picks.length; j++) {
       const a = picks[i].player;
       const b = picks[j].player;
       if (a.current_club_id && a.current_club_id === b.current_club_id) {
-        club += 2;
-        links.push({ type: "club", a, b });
+        add("club", a.current_club_id, null, a, b, CHEM.club);
+      } else {
+        const la = leagueOf(a);
+        if (la && la === leagueOf(b)) add("league", la, la, a, b, CHEM.league);
       }
-      if (a.nationality_code && a.nationality_code === b.nationality_code) {
-        nation += 1;
-        links.push({ type: "country", a, b });
-      }
+      if (a.nationality_code && a.nationality_code === b.nationality_code)
+        add("country", a.nationality_code, null, a, b, CHEM.country);
     }
-  const chem = Math.min(10, club + nation);
+  const chem = Math.min(CHEM.cap, raw);
   const spent = picks.reduce((s, p) => s + p.price, 0);
-  return { ratings, chem, total: ratings + chem, links, spent };
+  return {
+    ratings,
+    chem,
+    chemRaw: raw,
+    total: ratings + chem,
+    links,
+    groups: [...groups.values()]
+      .map((g) => ({ ...g, players: [...g.players.values()] }))
+      .sort((x, y) => y.pts - x.pts),
+    perPlayer,
+    spent,
+  };
 }

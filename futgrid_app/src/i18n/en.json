@@ -1539,5 +1539,15 @@
   "Əla oyun! Hesab açsan, bu nəticələr reytinqinə yazılacaq — hamı 1000 xalla başlayır.": "Great game! Create an account and results like this will count towards your rating — everyone starts at 1000.",
   "“Paylaş” → “Ana ekrana əlavə et” seç": "“Share” → “Add to Home Screen”",
   "Otağa qoşulmaq alınmadı. İnterneti yoxla və yenidən cəhd et.": "Couldn't join the room. Check your connection and try again.",
-  "serverdən yüklənmədi ({code})": "couldn't load from the server ({code})"
+  "serverdən yüklənmədi ({code})": "couldn't load from the server ({code})",
+  "Eyni klub": "Same club",
+  "Eyni klub +3, eyni ölkə +3, eyni liqa +1": "Same club +3, same country +3, same league +1",
+  "Eyni liqa": "Same league",
+  "Eyni ölkə": "Same country",
+  "Kimya": "Chemistry",
+  "Kimya bonusu yoxdur — oyunçular fərqli klub, ölkə və liqalardandır.": "No chemistry — the players come from different clubs, countries and leagues.",
+  "Kimya əlaqələri": "Chemistry links",
+  "Reytinqlərin cəmi + kimya: hər cüt oyunçu üçün eyni klub +{club}, eyni ölkə +{country}, eyni liqa +{league} (maksimum +{cap})": "Sum of ratings + chemistry: for every pair of players same club +{club}, same country +{country}, same league +{league} (max +{cap})",
+  "avtomatik": "automatic",
+  "kimya": "chemistry"
 }

@@ -14,6 +14,7 @@ import {
   otherSide,
   slotPos,
   takePrice,
+  teamStrength,
 } from "../../../lib/games/auction";
 import {
   POS_NAME,
@@ -105,26 +106,32 @@ function MysteryLotCard({ data, lot, phase, outcome, names }) {
           ? [clubOf(data, p)?.name, countryOf(data, p)?.name].filter(Boolean).join(" · ")
           : tr("{pos} · {n} mümkün oyunçu — kim olduğu satışdan sonra açılır", { pos: POS_NAME[lot.pos], n: lot.clue.count })}
       </p>
-      <SoldStamp phase={phase} outcome={outcome} names={names} soft />
+      <SoldStamp phase={phase} outcome={outcome} names={names} />
     </div>
   );
 }
 
-function SoldStamp({ phase, outcome, names, soft = false }) {
+/**
+ * "Satıldı / Avtomatik / Hədiyyə" stamp. Sits on the lower part of the card (over the stats row)
+ * so the player's photo and name stay visible.
+ */
+function SoldStamp({ phase, outcome, names }) {
   if (phase !== "sold" || !outcome) return null;
+  const label = outcome.gift ? tr("Hədiyyə") : outcome.auto ? tr("Avtomatik") : outcome.winner ? tr("Satıldı") : tr("Satılmadı");
   return (
-    <div className={`absolute inset-0 z-10 grid place-items-center ${soft ? "items-start pt-4 bg-transparent" : "bg-black/65 backdrop-blur-[2px]"}`}>
+    <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center px-3">
       <div
-        className={`border-4 bg-black/60 px-6 py-3 text-center animate-[auStamp_0.5s_cubic-bezier(.2,.8,.2,1)_both] ${
+        className={`flex items-center gap-3 border-[3px] bg-black/80 px-4 py-1.5 shadow-2xl backdrop-blur-sm animate-[auStamp_0.5s_cubic-bezier(.2,.8,.2,1)_both] ${
           outcome.winner ? `${SIDES[outcome.winner].border} ${SIDES[outcome.winner].text}` : "border-faint text-muted"
         }`}
       >
-        <p className={`${FONT} text-3xl font-bold uppercase tracking-widest md:text-4xl`}>
-          {outcome.gift ? tr("Hədiyyə") : outcome.auto ? tr("Avtomatik") : outcome.winner ? tr("Satıldı") : tr("Satılmadı")}
-        </p>
+        <p className={`${FONT} text-xl font-bold uppercase tracking-widest md:text-2xl`}>{label}</p>
         {outcome.winner && (
-          <p className={`${FONT} mt-1 text-base font-bold uppercase text-ink`}>
-            {names[outcome.winner]} · {outcome.gift ? tr("pulsuz") : money(outcome.price)}
+          <p className={`border-l border-white/20 pl-3 ${FONT} text-sm font-bold uppercase leading-tight text-ink`}>
+            {names[outcome.winner]}
+            <span className="block text-xs font-normal text-muted">
+              {outcome.gift ? tr("pulsuz") : money(outcome.price)}
+            </span>
           </p>
         )}
       </div>
@@ -521,6 +528,7 @@ function Thinking({ state, side }) {
 }
 
 export function TeamPanel({ data, side, name, state, isBot }) {
+  const chem = teamStrength(state.teams[side], data).chem;
   const team = state.teams[side];
   const lot = state.phase === "bid" || state.phase === "decide" ? state.lot : null;
   const open = openCount(team);
@@ -557,14 +565,19 @@ export function TeamPanel({ data, side, name, state, isBot }) {
           style={{ width: `${(team.money / BUDGET) * 100}%` }}
         />
       </div>
-      <p className={`mt-2 ${FONT} text-xs text-faint`}>
-        {open ? (
-          <>
-            {tr("Maksimum təklif:")}{" "} <span className="font-bold text-ink">{money(cap)}</span>
-          </>
-        ) : (
-          tr("Bütün yerlər doludur")
-        )}
+      <p className={`mt-2 flex items-center justify-between gap-2 ${FONT} text-xs text-faint`}>
+        <span>
+          {open ? (
+            <>
+              {tr("Maksimum təklif:")}{" "} <span className="font-bold text-ink">{money(cap)}</span>
+            </>
+          ) : (
+            tr("Bütün yerlər doludur")
+          )}
+        </span>
+        <span title={tr("Eyni klub +3, eyni ölkə +3, eyni liqa +1")} className={chem ? "font-bold text-good-hi" : ""}>
+          {tr("Kimya")} +{chem}
+        </span>
       </p>
       <div className="mt-4 space-y-2">
         {team.slots.map((s, i) => (
@@ -587,7 +600,7 @@ export function TeamPanel({ data, side, name, state, isBot }) {
                     {shortName(s.pick.player.name)}
                   </span>
                   <span className={`block truncate ${FONT} text-[11px] text-faint`}>
-                    {s.pick.auto ? "avtomatik" : s.pick.gift ? tr("rəqibdən hədiyyə") : clubOf(data, s.pick.player)?.name}
+                    {s.pick.auto ? tr("avtomatik") : s.pick.gift ? tr("rəqibdən hədiyyə") : clubOf(data, s.pick.player)?.name}
                   </span>
                 </span>
                 <span className={`w-11 text-right ${FONT} text-xs font-bold ${s.pick.gift ? "text-good-hi" : "text-soft"}`}>

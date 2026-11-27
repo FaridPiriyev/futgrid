@@ -7,6 +7,36 @@
     "current_club_id": 150,
     "stints": [
       {
+        "club_id": 115,
+        "from": "2000-09-20",
+        "to": "2000-12-05",
+        "source": "manual"
+      },
+      {
+        "club_id": 117,
+        "from": "2002-01-23",
+        "to": "2004-05-26",
+        "source": "manual"
+      },
+      {
+        "club_id": 120,
+        "from": "2004-06-02",
+        "to": "2007-09-20",
+        "source": "manual"
+      },
+      {
+        "club_id": 105,
+        "from": "2008-06-02",
+        "to": "2010-05-28",
+        "source": "manual"
+      },
+      {
+        "club_id": 101,
+        "from": "2010-05-31",
+        "to": "2012-08-18",
+        "source": "manual"
+      },
+      {
         "club_id": 101,
         "from": "2012-08-19",
         "to": "2013-06-01",
@@ -48,7 +78,7 @@
         "games": 41
       }
     ],
-    "players_count": 258
+    "players_count": 315
   },
   {
     "id": "unai-emery",
@@ -57,6 +87,12 @@
     "photo_url": "/images/coaches/unai-emery.jpg",
     "current_club_id": 119,
     "stints": [
+      {
+        "club_id": 179,
+        "from": "2008-07-01",
+        "to": "2012-06-30",
+        "source": "manual"
+      },
       {
         "club_id": 433,
         "from": "2012-07-21",
@@ -93,7 +129,7 @@
         "games": 192
       }
     ],
-    "players_count": 203
+    "players_count": 230
   },
   {
     "id": "carlo-ancelotti",
@@ -102,6 +138,36 @@
     "photo_url": "/images/coaches/carlo-ancelotti.jpg",
     "current_country_code": "BR",
     "stints": [
+      {
+        "club_id": 338,
+        "from": "1996-07-01",
+        "to": "1998-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 112,
+        "from": "1999-02-09",
+        "to": "2001-06-17",
+        "source": "manual"
+      },
+      {
+        "club_id": 114,
+        "from": "2001-11-06",
+        "to": "2009-05-31",
+        "source": "manual"
+      },
+      {
+        "club_id": 120,
+        "from": "2009-07-01",
+        "to": "2011-05-22",
+        "source": "manual"
+      },
+      {
+        "club_id": 106,
+        "from": "2011-12-30",
+        "to": "2012-08-10",
+        "source": "manual"
+      },
       {
         "club_id": 106,
         "from": "2012-08-11",
@@ -144,7 +210,7 @@
         "games": 3
       }
     ],
-    "players_count": 201
+    "players_count": 251
   },
   {
     "id": "peter-bosz",
@@ -256,6 +322,24 @@
     "current_club_id": 209,
     "stints": [
       {
+        "club_id": 179,
+        "from": "2001-06-01",
+        "to": "2004-06-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 108,
+        "from": "2004-06-16",
+        "to": "2010-06-03",
+        "source": "manual"
+      },
+      {
+        "club_id": 105,
+        "from": "2010-06-10",
+        "to": "2010-12-23",
+        "source": "manual"
+      },
+      {
         "club_id": 120,
         "from": "2012-11-25",
         "to": "2013-05-19",
@@ -303,7 +387,7 @@
         "games": 35
       }
     ],
-    "players_count": 193
+    "players_count": 247
   },
   {
     "id": "michel",
@@ -487,6 +571,48 @@
     "photo_url": "/images/coaches/claudio-ranieri.png",
     "stints": [
       {
+        "club_id": 179,
+        "from": "1997-07-01",
+        "to": "1999-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 110,
+        "from": "1999-07-01",
+        "to": "2000-03-03",
+        "source": "manual"
+      },
+      {
+        "club_id": 120,
+        "from": "2000-09-18",
+        "to": "2004-05-31",
+        "source": "manual"
+      },
+      {
+        "club_id": 179,
+        "from": "2004-06-01",
+        "to": "2005-02-25",
+        "source": "manual"
+      },
+      {
+        "club_id": 112,
+        "from": "2007-07-01",
+        "to": "2009-05-18",
+        "source": "manual"
+      },
+      {
+        "club_id": 126,
+        "from": "2009-09-01",
+        "to": "2011-02-20",
+        "source": "manual"
+      },
+      {
+        "club_id": 105,
+        "from": "2011-09-22",
+        "to": "2012-03-26",
+        "source": "manual"
+      },
+      {
         "club_id": 143,
         "from": "2013-08-10",
         "to": "2014-05-17",
@@ -535,7 +661,7 @@
         "games": 36
       }
     ],
-    "players_count": 184
+    "players_count": 250
   },
   {
     "id": "roberto-de-zerbi",
@@ -591,6 +717,12 @@
     "stints": [
       {
         "club_id": 171,
+        "from": "2009-08-03",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 171,
         "from": "2012-08-19",
         "to": "2014-05-10",
         "games": 74
@@ -625,7 +757,7 @@
         "games": 3
       }
     ],
-    "players_count": 178
+    "players_count": 179
   },
   {
     "id": "nuno-espirito-santo",
@@ -864,6 +996,12 @@
     "stints": [
       {
         "club_id": 112,
+        "from": "2011-05-31",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 112,
         "from": "2012-09-19",
         "to": "2014-05-18",
         "games": 90
@@ -898,7 +1036,7 @@
         "games": 91
       }
     ],
-    "players_count": 167
+    "players_count": 175
   },
   {
     "id": "ivan-juric",
@@ -960,6 +1098,12 @@
     "stints": [
       {
         "club_id": 158,
+        "from": "2002-03-14",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 158,
         "from": "2012-08-20",
         "to": "2013-05-19",
         "games": 43
@@ -1000,7 +1144,7 @@
         "games": 61
       }
     ],
-    "players_count": 164
+    "players_count": 174
   },
   {
     "id": "mauricio-pochettino",
@@ -1009,6 +1153,12 @@
     "photo_url": "/images/coaches/mauricio-pochettino.jpg",
     "current_country_code": "US",
     "stints": [
+      {
+        "club_id": 317,
+        "from": "2009-01-20",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
       {
         "club_id": 317,
         "from": "2012-08-18",
@@ -1045,7 +1195,7 @@
         "games": 3
       }
     ],
-    "players_count": 163
+    "players_count": 174
   },
   {
     "id": "marcelino",
@@ -1362,6 +1512,18 @@
     "current_club_id": 138,
     "stints": [
       {
+        "club_id": 134,
+        "from": "2004-07-01",
+        "to": "2009-06-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 101,
+        "from": "2009-06-01",
+        "to": "2010-05-26",
+        "source": "manual"
+      },
+      {
         "club_id": 102,
         "from": "2013-08-19",
         "to": "2016-05-15",
@@ -1379,7 +1541,7 @@
         "games": 310
       }
     ],
-    "players_count": 151
+    "players_count": 196
   },
   {
     "id": "rudi-garcia",
@@ -1388,6 +1550,12 @@
     "photo_url": "/images/coaches/rudi-garcia.jpg",
     "current_country_code": "BE",
     "stints": [
+      {
+        "club_id": 144,
+        "from": "2008-06-01",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
       {
         "club_id": 144,
         "from": "2012-08-11",
@@ -1424,7 +1592,7 @@
         "games": 3
       }
     ],
-    "players_count": 151
+    "players_count": 157
   },
   {
     "id": "philippe-clement",
@@ -1543,6 +1711,12 @@
     "stints": [
       {
         "club_id": 115,
+        "from": "2009-06-01",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 115,
         "from": "2012-08-18",
         "to": "2015-05-29",
         "games": 145
@@ -1583,7 +1757,7 @@
         "games": 34
       }
     ],
-    "players_count": 144
+    "players_count": 154
   },
   {
     "id": "massimiliano-allegri",
@@ -1592,6 +1766,18 @@
     "photo_url": "/images/coaches/massimiliano-allegri.jpg",
     "current_club_id": 114,
     "stints": [
+      {
+        "club_id": 335,
+        "from": "2008-07-01",
+        "to": "2010-04-13",
+        "source": "manual"
+      },
+      {
+        "club_id": 114,
+        "from": "2010-06-25",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
       {
         "club_id": 114,
         "from": "2012-08-26",
@@ -1616,7 +1802,7 @@
         "games": 42
       }
     ],
-    "players_count": 143
+    "players_count": 158
   },
   {
     "id": "sergio-conceicao",
@@ -1671,6 +1857,24 @@
     "current_country_code": "IT",
     "stints": [
       {
+        "club_id": 175,
+        "from": "2002-07-01",
+        "to": "2005-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 126,
+        "from": "2005-06-01",
+        "to": "2009-09-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 432,
+        "from": "2009-12-11",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
         "club_id": 432,
         "from": "2012-07-14",
         "to": "2014-03-09",
@@ -1706,7 +1910,7 @@
         "games": 38
       }
     ],
-    "players_count": 142
+    "players_count": 165
   },
   {
     "id": "oscar-garcia",
@@ -2407,6 +2611,12 @@
     "current_club_id": 102,
     "stints": [
       {
+        "club_id": 107,
+        "from": "2008-07-01",
+        "to": "2012-06-30",
+        "source": "manual"
+      },
+      {
         "club_id": 103,
         "from": "2013-07-27",
         "to": "2016-05-21",
@@ -2418,7 +2628,7 @@
         "games": 560
       }
     ],
-    "players_count": 129
+    "players_count": 175
   },
   {
     "id": "quique-sanchez-flores",
@@ -2468,11 +2678,17 @@
     "stints": [
       {
         "club_id": 110,
+        "from": "2011-12-23",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 110,
         "from": "2012-08-19",
         "games": 768
       }
     ],
-    "players_count": 126
+    "players_count": 129
   },
   {
     "id": "ernesto-valverde",
@@ -2975,6 +3191,30 @@
     "current_country_code": "NL",
     "stints": [
       {
+        "club_id": 130,
+        "from": "2001-12-04",
+        "to": "2005-02-25",
+        "source": "manual"
+      },
+      {
+        "club_id": 115,
+        "from": "2005-07-01",
+        "to": "2006-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 128,
+        "from": "2006-11-01",
+        "to": "2007-10-31",
+        "source": "manual"
+      },
+      {
+        "club_id": 179,
+        "from": "2007-11-01",
+        "to": "2008-04-21",
+        "source": "manual"
+      },
+      {
         "club_id": 129,
         "from": "2012-07-31",
         "to": "2014-05-03",
@@ -3010,7 +3250,7 @@
         "games": 3
       }
     ],
-    "players_count": 116
+    "players_count": 147
   },
   {
     "id": "dieter-hecking",
@@ -3828,6 +4068,18 @@
     "photo_url": "/images/coaches/jurgen-klopp.jpg",
     "stints": [
       {
+        "club_id": 171,
+        "from": "2001-02-27",
+        "to": "2008-05-23",
+        "source": "manual"
+      },
+      {
+        "club_id": 111,
+        "from": "2008-07-01",
+        "to": "2012-08-11",
+        "source": "manual"
+      },
+      {
         "club_id": 111,
         "from": "2012-08-12",
         "to": "2015-05-30",
@@ -3840,7 +4092,7 @@
         "games": 464
       }
     ],
-    "players_count": 107
+    "players_count": 110
   },
   {
     "id": "paolo-zanetti",
@@ -5165,6 +5417,12 @@
     "current_club_id": 106,
     "stints": [
       {
+        "club_id": 126,
+        "from": "2011-06-07",
+        "to": "2012-05-10",
+        "source": "manual"
+      },
+      {
         "club_id": 183,
         "from": "2013-08-19",
         "to": "2014-05-17",
@@ -5194,7 +5452,7 @@
         "games": 158
       }
     ],
-    "players_count": 94
+    "players_count": 112
   },
   {
     "id": "cesar-peixoto",
@@ -5362,6 +5620,24 @@
     "photo_url": "/images/coaches/roberto-mancini.jpg",
     "stints": [
       {
+        "club_id": 127,
+        "from": "2002-07-01",
+        "to": "2004-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 105,
+        "from": "2004-07-07",
+        "to": "2008-05-29",
+        "source": "manual"
+      },
+      {
+        "club_id": 102,
+        "from": "2009-12-19",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
         "club_id": 102,
         "from": "2012-08-12",
         "to": "2013-05-11",
@@ -5398,7 +5674,7 @@
         "games": 4
       }
     ],
-    "players_count": 93
+    "players_count": 123
   },
   {
     "id": "hein-vanhaezebrouck",
@@ -6364,6 +6640,12 @@
       },
       {
         "club_id": 139,
+        "from": "2011-07-07",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 139,
         "from": "2012-08-02",
         "to": "2013-06-01",
         "games": 50
@@ -6410,7 +6692,7 @@
         "games": 3
       }
     ],
-    "players_count": 87
+    "players_count": 91
   },
   {
     "id": "olivier-dall-oglio",
@@ -7571,6 +7853,18 @@
     "photo_url": "/images/coaches/andre-villas-boas.jpg",
     "stints": [
       {
+        "club_id": 117,
+        "from": "2010-06-02",
+        "to": "2011-06-21",
+        "source": "manual"
+      },
+      {
+        "club_id": 120,
+        "from": "2011-06-22",
+        "to": "2012-03-04",
+        "source": "manual"
+      },
+      {
         "club_id": 122,
         "from": "2012-08-18",
         "to": "2013-12-15",
@@ -7589,7 +7883,7 @@
         "games": 55
       }
     ],
-    "players_count": 76
+    "players_count": 114
   },
   {
     "id": "aurelio-andreazzoli",
@@ -10463,13 +10757,25 @@
     "photo_url": "/images/coaches/arsene-wenger.jpg",
     "stints": [
       {
+        "club_id": 143,
+        "from": "1987-07-01",
+        "to": "1994-09-17",
+        "source": "manual"
+      },
+      {
+        "club_id": 104,
+        "from": "1996-10-01",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
         "club_id": 104,
         "from": "2012-08-18",
         "to": "2018-05-13",
         "games": 317
       }
     ],
-    "players_count": 57
+    "players_count": 81
   },
   {
     "id": "bulent-uygun",
@@ -11819,6 +12125,30 @@
     "photo_url": "/images/coaches/felix-magath.jpg",
     "stints": [
       {
+        "club_id": 103,
+        "from": "2004-07-01",
+        "to": "2007-01-31",
+        "source": "manual"
+      },
+      {
+        "club_id": 164,
+        "from": "2007-07-01",
+        "to": "2009-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 326,
+        "from": "2009-07-01",
+        "to": "2011-03-16",
+        "source": "manual"
+      },
+      {
+        "club_id": 164,
+        "from": "2011-03-18",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
         "club_id": 164,
         "from": "2012-08-18",
         "to": "2012-10-20",
@@ -11837,7 +12167,7 @@
         "games": 7
       }
     ],
-    "players_count": 50
+    "players_count": 85
   },
   {
     "id": "kosta-runjaic",
@@ -14383,6 +14713,30 @@
     "photo_url": "/images/coaches/jupp-heynckes.jpg",
     "stints": [
       {
+        "club_id": 101,
+        "from": "1997-07-01",
+        "to": "1998-05-28",
+        "source": "manual"
+      },
+      {
+        "club_id": 103,
+        "from": "2009-04-27",
+        "to": "2009-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 109,
+        "from": "2009-07-01",
+        "to": "2011-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 103,
+        "from": "2011-07-01",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
         "club_id": 103,
         "from": "2012-08-12",
         "to": "2013-06-01",
@@ -14395,7 +14749,7 @@
         "games": 41
       }
     ],
-    "players_count": 39
+    "players_count": 58
   },
   {
     "id": "michael-valkanis",
@@ -14581,6 +14935,36 @@
     "photo_url": "/images/coaches/louis-van-gaal.jpg",
     "stints": [
       {
+        "club_id": 130,
+        "from": "1991-09-28",
+        "to": "1997-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 107,
+        "from": "1997-07-01",
+        "to": "2000-05-20",
+        "source": "manual"
+      },
+      {
+        "club_id": 107,
+        "from": "2002-07-01",
+        "to": "2003-01-28",
+        "source": "manual"
+      },
+      {
+        "club_id": 155,
+        "from": "2005-07-01",
+        "to": "2009-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 103,
+        "from": "2009-07-01",
+        "to": "2011-04-10",
+        "source": "manual"
+      },
+      {
         "country_code": "NL",
         "from": "2014-06-13",
         "to": "2014-07-12",
@@ -14599,7 +14983,7 @@
         "games": 5
       }
     ],
-    "players_count": 38
+    "players_count": 77
   },
   {
     "id": "martin-o-neill",
@@ -14693,6 +15077,12 @@
     "stints": [
       {
         "club_id": 120,
+        "from": "2012-03-04",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 120,
         "from": "2012-08-12",
         "to": "2012-11-20",
         "games": 19
@@ -14704,7 +15094,7 @@
         "games": 33
       }
     ],
-    "players_count": 38
+    "players_count": 47
   },
   {
     "id": "stephen-robinson",
@@ -15156,6 +15546,18 @@
     "photo_url": "/images/coaches/guus-hiddink.jpg",
     "stints": [
       {
+        "club_id": 101,
+        "from": "1998-07-01",
+        "to": "1999-02-28",
+        "source": "manual"
+      },
+      {
+        "club_id": 128,
+        "from": "2002-07-01",
+        "to": "2006-06-30",
+        "source": "manual"
+      },
+      {
         "country_code": "AU",
         "from": "2006-06-12",
         "to": "2006-06-26",
@@ -15169,12 +15571,18 @@
       },
       {
         "club_id": 120,
+        "from": "2009-02-16",
+        "to": "2009-05-31",
+        "source": "manual"
+      },
+      {
+        "club_id": 120,
         "from": "2015-12-26",
         "to": "2016-05-15",
         "games": 27
       }
     ],
-    "players_count": 36
+    "players_count": 45
   },
   {
     "id": "igor-jovicevic",
@@ -19858,12 +20266,18 @@
     "stints": [
       {
         "club_id": 123,
+        "from": "1986-11-06",
+        "to": "2012-08-01",
+        "source": "manual"
+      },
+      {
+        "club_id": 123,
         "from": "2012-08-20",
         "to": "2013-05-19",
         "games": 52
       }
     ],
-    "players_count": 24
+    "players_count": 45
   },
   {
     "id": "stephan-helm",
@@ -20081,6 +20495,18 @@
     "photo_url": "/images/coaches/harry-redknapp.jpg",
     "stints": [
       {
+        "club_id": 136,
+        "from": "1994-08-10",
+        "to": "2001-05-09",
+        "source": "manual"
+      },
+      {
+        "club_id": 122,
+        "from": "2008-10-25",
+        "to": "2012-06-13",
+        "source": "manual"
+      },
+      {
         "club_id": 199,
         "from": "2012-11-27",
         "to": "2013-05-19",
@@ -20099,7 +20525,7 @@
         "games": 24
       }
     ],
-    "players_count": 23
+    "players_count": 60
   },
   {
     "id": "hubert-fournier",
@@ -21140,6 +21566,24 @@
     "current_country_code": "FR",
     "stints": [
       {
+        "club_id": 143,
+        "from": "2001-07-01",
+        "to": "2005-09-19",
+        "source": "manual"
+      },
+      {
+        "club_id": 112,
+        "from": "2006-07-01",
+        "to": "2007-05-26",
+        "source": "manual"
+      },
+      {
+        "club_id": 145,
+        "from": "2009-07-01",
+        "to": "2012-07-02",
+        "source": "manual"
+      },
+      {
         "country_code": "FR",
         "from": "2014-06-15",
         "to": "2014-07-04",
@@ -21181,7 +21625,7 @@
         "games": 3
       }
     ],
-    "players_count": 21
+    "players_count": 61
   },
   {
     "id": "glen-riddersholm",
@@ -31193,13 +31637,25 @@
     "slug": "leonardo",
     "stints": [
       {
+        "club_id": 114,
+        "from": "2009-06-01",
+        "to": "2010-05-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 105,
+        "from": "2010-12-24",
+        "to": "2011-06-18",
+        "source": "manual"
+      },
+      {
         "club_id": 378,
         "from": "2017-09-30",
         "to": "2017-12-04",
         "games": 8
       }
     ],
-    "players_count": 5
+    "players_count": 40
   },
   {
     "id": "luca-d-angelo",
@@ -37763,6 +38219,42 @@
     "photo_url": "/images/coaches/fabio-capello.jpg",
     "stints": [
       {
+        "club_id": 114,
+        "from": "1991-07-01",
+        "to": "1996-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 101,
+        "from": "1996-07-01",
+        "to": "1997-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 114,
+        "from": "1997-07-01",
+        "to": "1998-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 126,
+        "from": "1999-07-01",
+        "to": "2004-05-27",
+        "source": "manual"
+      },
+      {
+        "club_id": 112,
+        "from": "2004-05-27",
+        "to": "2006-07-04",
+        "source": "manual"
+      },
+      {
+        "club_id": 101,
+        "from": "2006-07-05",
+        "to": "2007-06-28",
+        "source": "manual"
+      },
+      {
         "country_code": "GB-ENG",
         "from": "2010-06-12",
         "to": "2010-06-27",
@@ -37774,7 +38266,8 @@
         "to": "2014-06-26",
         "games": 3
       }
-    ]
+    ],
+    "players_count": 46
   },
   {
     "id": "fabio-carille",
@@ -40397,6 +40890,24 @@
     "photo_url": "/images/coaches/marcello-lippi.jpg",
     "stints": [
       {
+        "club_id": 112,
+        "from": "1994-07-01",
+        "to": "1999-02-08",
+        "source": "manual"
+      },
+      {
+        "club_id": 105,
+        "from": "1999-07-01",
+        "to": "2000-10-03",
+        "source": "manual"
+      },
+      {
+        "club_id": 112,
+        "from": "2001-07-01",
+        "to": "2004-05-30",
+        "source": "manual"
+      },
+      {
         "country_code": "IT",
         "from": "2006-06-12",
         "to": "2006-07-09",
@@ -40408,7 +40919,8 @@
         "to": "2010-06-24",
         "games": 3
       }
-    ]
+    ],
+    "players_count": 13
   },
   {
     "id": "marcelo-bravo",
@@ -41624,6 +42136,24 @@
     "photo_url": "/images/coaches/ottmar-hitzfeld.jpg",
     "stints": [
       {
+        "club_id": 111,
+        "from": "1991-07-01",
+        "to": "1997-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 103,
+        "from": "1998-07-01",
+        "to": "2004-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 103,
+        "from": "2007-07-01",
+        "to": "2008-06-30",
+        "source": "manual"
+      },
+      {
         "country_code": "CH",
         "from": "2010-06-16",
         "to": "2010-06-25",
@@ -41635,7 +42165,8 @@
         "to": "2014-07-01",
         "games": 4
       }
-    ]
+    ],
+    "players_count": 21
   },
   {
     "id": "otto-addo",
@@ -42945,12 +43476,55 @@
     "photo_url": "/images/coaches/sven-goran-eriksson.jpg",
     "stints": [
       {
+        "club_id": 115,
+        "from": "1982-07-01",
+        "to": "1984-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 126,
+        "from": "1984-07-01",
+        "to": "1987-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 140,
+        "from": "1987-07-01",
+        "to": "1989-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 115,
+        "from": "1989-07-01",
+        "to": "1992-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 342,
+        "from": "1992-07-01",
+        "to": "1997-06-30",
+        "source": "manual"
+      },
+      {
+        "club_id": 127,
+        "from": "1997-07-01",
+        "to": "2001-01-09",
+        "source": "manual"
+      },
+      {
         "country_code": "GB-ENG",
         "from": "2006-06-10",
         "to": "2006-07-01",
         "games": 5
+      },
+      {
+        "club_id": 102,
+        "from": "2007-07-06",
+        "to": "2008-06-02",
+        "source": "manual"
       }
-    ]
+    ],
+    "players_count": 15
   },
   {
     "id": "tae-ha-park",
@@ -43368,6 +43942,12 @@
     "photo_url": "/images/coaches/vicente-del-bosque.jpg",
     "stints": [
       {
+        "club_id": 101,
+        "from": "1999-11-17",
+        "to": "2003-06-23",
+        "source": "manual"
+      },
+      {
         "country_code": "ES",
         "from": "2010-06-16",
         "to": "2010-07-11",
@@ -43391,7 +43971,8 @@
         "to": "2016-06-27",
         "games": 4
       }
-    ]
+    ],
+    "players_count": 2
   },
   {
     "id": "vicente-mir",

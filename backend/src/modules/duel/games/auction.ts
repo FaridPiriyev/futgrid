@@ -208,19 +208,31 @@ function autofill(room: Room, ctx: Ctx) {
   finishAuction(room, ctx);
 }
 
+/** Chemistry points per pair (must match futgrid_app/src/lib/games/auction.js). */
+export const CHEM = { club: 3, country: 3, league: 1, cap: 20 } as const;
+
+/** Sum of ratings + chemistry (same club +3, same country +3, same league +1; max +20). */
 export function teamStrength(data: GameData, team: Team) {
   const picks = team.slots.map((slot) => slot.pick).filter(Boolean) as Pick[];
   const ratings = picks.reduce((sum, pick) => sum + pick.rating, 0);
-  let chem = 0;
+  const leagueOf = (clubId?: number | null) => {
+    const league = clubId ? data.clubsById.get(clubId)?.league : null;
+    return typeof league === "string" ? league : null;
+  };
+  let raw = 0;
   for (let i = 0; i < picks.length; i++)
     for (let j = i + 1; j < picks.length; j++) {
       const a = data.playersById.get(picks[i]!.playerId);
       const b = data.playersById.get(picks[j]!.playerId);
       if (!a || !b) continue;
-      if (a.current_club_id && a.current_club_id === b.current_club_id) chem += 2;
-      if (a.nationality_code && a.nationality_code === b.nationality_code) chem += 1;
+      if (a.current_club_id && a.current_club_id === b.current_club_id) raw += CHEM.club;
+      else {
+        const la = leagueOf(a.current_club_id);
+        if (la && la === leagueOf(b.current_club_id)) raw += CHEM.league;
+      }
+      if (a.nationality_code && a.nationality_code === b.nationality_code) raw += CHEM.country;
     }
-  chem = Math.min(10, chem);
+  const chem = Math.min(CHEM.cap, raw);
   return {
     ratings,
     chem,

@@ -3,6 +3,8 @@ import { createReadStream } from "node:fs";
 import { createGunzip } from "node:zlib";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { applyCoachHistory } from "./apply-coach-history.mjs";
+import { applyPlayerRatings } from "./apply-player-ratings.mjs";
 
 const exists = (p) =>
   access(p).then(
@@ -1635,6 +1637,18 @@ export async function build({
       (squadSize.get(x.current_club_id) ?? 0) + 1,
     );
   const thin = clubs.filter((c) => (squadSize.get(c.id) ?? 0) < 15);
+
+  // Pre-2012 head-coach spells the match data doesn't cover (see apply-coach-history.mjs).
+  const historyPath = "../packages/game-core/data/coach-history.json";
+  if (await exists(historyPath)) {
+    const r = applyCoachHistory({ players, coaches, clubs, history: await readJson(historyPath) });
+    log(`Məşqçi tarixçəsi: +${r.links} əlaqə, +${r.stintsAdded} dövr`);
+  }
+  const ratingsPath = "../packages/game-core/data/player-ratings.json";
+  if (await exists(ratingsPath)) {
+    const r = applyPlayerRatings(players, await readJson(ratingsPath));
+    log(`Əl ilə reytinq: ${r.set} oyunçu`);
+  }
 
   await writeJson(outPath, players);
   await writeJson(idsPath, ids);

@@ -29,6 +29,8 @@ export interface GameSettings {
 export interface RawPlayer {
   id: number;
   name: string;
+  /** Curated FIFA-like rating (player-ratings.json); overrides the market-value formula. */
+  rating?: number;
   slug?: string;
   nationality_code?: string;
   position?: string;
@@ -52,6 +54,7 @@ export interface RawClub {
   slug?: string;
   short_name?: string;
   logo_url?: string;
+  league?: string;
   [key: string]: unknown;
 }
 
