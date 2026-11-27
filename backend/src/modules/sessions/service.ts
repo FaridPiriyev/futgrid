@@ -20,6 +20,7 @@ import { enforceScopedLimit, rateLimitKey } from "../../lib/rate-limit.js";
 import { dayStartBaku, isoWeekKey, monthKey } from "../../lib/time.js";
 import { applyPoints, getMyRank } from "../leaderboard/service.js";
 import type { CreateSessionInput, FinishSessionInput, AnswerInput } from "./schemas.js";
+import { applySoloResult } from "../ratings/service.js";
 
 function actorWhere(identity: { userId?: string; guestId?: string }) {
   return identity.userId ? { userId: identity.userId } : { guestId: identity.guestId };
@@ -334,12 +335,21 @@ export async function finishSession(
     });
   });
 
-  if (counts && identity.userId && points > 0) {
+  let rating: Awaited<ReturnType<typeof applySoloResult>> = null;
+  if (counts && identity.userId) {
     const user = await prisma.user.findUnique({
       where: { id: identity.userId },
       select: { teamId: true, emailVerifiedAt: true, blockedAt: true, deletedAt: true },
     });
     if (user?.emailVerifiedAt && !user.blockedAt && !user.deletedAt) {
+      // Site-wide rating: this game's rating and the overall rating (both start at 1000).
+      try {
+        rating = await applySoloResult(identity.userId, game, breakdown.score, session.difficulty);
+      } catch (error) {
+        logger.error({ err: error, userId: identity.userId }, "rating update failed");
+      }
+    }
+    if (points > 0 && user?.emailVerifiedAt && !user.blockedAt && !user.deletedAt) {
       try {
         await applyPoints({
           userId: identity.userId,
@@ -372,6 +382,7 @@ export async function finishSession(
     flagged,
     counted: counts,
     reason,
+    rating,
     details: breakdown,
   };
 }

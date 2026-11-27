@@ -157,13 +157,13 @@ function EloSummary({ summary }) {
     <section className={CARD}>
       <h2 className={`flex items-center gap-2 ${FONT} text-lg font-bold uppercase text-ink`}>
         <TrendingUp className="h-5 w-5 text-accent" />
-        {tr("Duel reytinqi")}
+        {tr("Reytinq")}
       </h2>
       {overall && overall.games > 0 ? (
         <>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {[
-              { label: "Elo", value: Math.round(overall.rating), strong: true },
+              { label: tr("Ümumi reytinq"), value: Math.round(overall.rating), strong: true },
               { label: tr("Ən yüksək"), value: Math.round(overall.peak) },
               { label: tr("Q–M–H"), value: `${overall.wins}–${overall.losses}–${overall.draws}` },
               {
@@ -192,15 +192,13 @@ function EloSummary({ summary }) {
               ))}
             </ul>
           ) : null}
-          {overall.games < 5 ? (
-            <p className={`mt-3 ${BODY} text-xs text-muted`}>
-              {tr("Reytinq cədvəlində görünmək üçün daha {n} duel oyna.", { n: 5 - overall.games })}
-            </p>
-          ) : null}
+          <p className={`mt-3 ${BODY} text-xs text-muted`}>
+            {tr("Hamı 1000 xalla başlayır · bot qələbəsi +3/+5/+8 · duel qələbəsi təxminən +20")}
+          </p>
         </>
       ) : (
         <p className={`mt-2 ${BODY} text-sm text-muted`}>
-          {tr("Hələ reytinqli duel oynamamısan. Hamı 1000 Elo ilə başlayır — güclü rəqibi udmaq daha çox xal gətirir.")}
+          {tr("Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.")}
         </p>
       )}
     </section>

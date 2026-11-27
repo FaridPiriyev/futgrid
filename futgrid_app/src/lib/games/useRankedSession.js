@@ -2,9 +2,26 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { api, queuePendingResult } from "../api";
 import { seeded } from "../random";
 import { tr } from "../../i18n";
+import { gameName } from "./names";
 
 /** Tell the player when a finished game earned no points, instead of failing silently. */
-function announce(result) {
+function announce(result, game) {
+  if (result?.rating && typeof window !== "undefined") {
+    const { after, delta, overallAfter } = result.rating;
+    const sign = delta > 0 ? "+" : "";
+    window.dispatchEvent(
+      new CustomEvent("fg:notice", {
+        detail: tr("{game} reytinqi: {after} ({sign}{delta}) · Ümumi reytinq: {overall}", {
+          game: gameName(game),
+          after: Math.round(after),
+          sign,
+          delta: Math.round(delta),
+          overall: Math.round(overallAfter),
+        }),
+      }),
+    );
+    return;
+  }
   const text =
     result?.reason === "flagged"
       ? tr("Bu oyunun nəticəsi avtomatik yoxlamaya düşdü və xal verilmədi. Narahat olma, növbəti oyunlar adi qaydada sayılır.")
@@ -68,7 +85,7 @@ export function useRankedSession({ game, mode = "ranked", difficulty = "normal",
     };
     try {
       const result = await api.post(`/sessions/${current.sessionId}/finish`, payload);
-      announce(result);
+      announce(result, game);
       return result;
     } catch (error) {
       if (!error?.status || error.status >= 500 || error.status === 429) {
@@ -79,7 +96,7 @@ export function useRankedSession({ game, mode = "ranked", difficulty = "normal",
       sessionRef.current = null;
       setSession(null);
     }
-  }, []);
+  }, [game]);
 
   const random = session ? seeded(session.seed) : null;
 

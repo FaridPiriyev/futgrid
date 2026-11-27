@@ -41,6 +41,7 @@ model User {
   goatVotes     GoatVote[]
   UserRating    UserRating[]
   PushToken     PushToken[]
+  ratingEvents    RatingEvent[]
   friendsSent     Friendship[] @relation("FriendshipRequester")
   friendsReceived Friendship[] @relation("FriendshipAddressee")
 
@@ -667,4 +668,21 @@ model Friendship {
   @@index([addresseeId, status])
   @@index([requesterId, status])
   @@map("friendships")
+}
+
+/// Hər reytinq dəyişikliyi (solo və ya duel). Həftəlik/aylıq cədvəllər bundan hesablanır.
+model RatingEvent {
+  id        BigInt   @id @default(autoincrement())
+  userId    String   @map("user_id") @db.Uuid
+  gameId    String   @map("game_id")
+  delta     Float
+  source    String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@index([gameId, createdAt])
+  @@map("rating_events")
 }

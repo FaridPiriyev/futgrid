@@ -147,7 +147,7 @@ export default function ProfileCard({ username }) {
           <div className="flex items-center justify-between gap-3">
             <p className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-[0.1em] text-ink`}>
               <Swords className="h-4 w-4 text-accent" />
-              {tr("Duel reytinqi")}
+              {tr("Ümumi reytinq")}
             </p>
             <p className={`${DIGITS} text-2xl font-bold text-ink`}>
               {profile.duel.rating}

@@ -1,7 +1,7 @@
 import { tr } from "../../i18n";
 
 const NAMES = {
-  overall: () => tr("Bütün duellər"),
+  overall: () => tr("Ümumi reytinq"),
   xox: () => tr("Futbol X0X"),
   orta: () => tr("Ortaq Oyunçu"),
   auction: () => tr("Açıq Artırma"),
@@ -31,3 +31,20 @@ export const DUEL_GAME_PATHS = {
   sual: "/oyunlar/20-sual",
   sekil: "/oyunlar/kimdir-bu",
 };
+
+/** Games that have their own rating (each starts at 1000), in menu order. */
+export const RATED_GAME_IDS = [
+  "xox",
+  "orta",
+  "auction",
+  "higherLower",
+  "twoLetters",
+  "sual",
+  "sekil",
+  "wordle",
+  "career",
+  "lineups",
+  "fiveClubs",
+  "clubOrder",
+  "pyramid",
+];

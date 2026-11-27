@@ -11,10 +11,7 @@ import {
   User,
   MessageSquare,
   Plus,
-  Shuffle,
-  CalendarDays,
   Swords,
-  TrendingUp,
 } from "lucide-react";
 import { SOCIAL_LINKS, externalProps } from "../lib/socials";
 import { GAME_CATALOG } from "../lib/games/catalog";
@@ -22,7 +19,7 @@ import { prefetchData } from "../lib/data";
 import { api } from "../lib/api";
 import { useAuth } from "../lib/auth";
 import { useSocial } from "../lib/social";
-import { requestAutoMatch } from "../lib/games/duelStore";
+import { RATED_GAME_IDS, gameName } from "../lib/games/names";
 import heroPhoto from "../assets/slider2.webp";
 
 import { tr } from "../i18n";
@@ -32,6 +29,15 @@ const BODY = "font-['Roboto',sans-serif]";
 const HERO_FONT = "font-['Tektur',sans-serif]";
 
 const PERIODS = [
+  {
+    key: "all",
+    get label() {
+      return tr("Ümumi reytinq");
+    },
+    get short() {
+      return tr("Reytinq");
+    },
+  },
   {
     key: "week",
     get label() {
@@ -48,24 +54,6 @@ const PERIODS = [
     },
     get short() {
       return tr("Ay");
-    },
-  },
-  {
-    key: "all",
-    get label() {
-      return tr("Bütün zamanlar");
-    },
-    get short() {
-      return tr("Hamısı");
-    },
-  },
-  {
-    key: "elo",
-    get label() {
-      return tr("Duel Elo");
-    },
-    get short() {
-      return tr("Elo");
     },
   },
 ];
@@ -798,25 +786,17 @@ function DuelBanner() {
         </ul>
         <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-6.5 sm:flex sm:flex-wrap sm:gap-3">
           <Link
-            to="/oyunlar/futbol-x0x?onlayn=1"
+            to="/oyunlar?filter=duo"
             className={`inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] bg-yellow px-4 ${FONT} text-sm sm:gap-2.5 sm:px-6 sm:text-[15px] font-extrabold uppercase tracking-[0.08em] text-on-yellow transition-[translate,filter] duration-200 hover:-translate-y-0.5 hover:brightness-110`}
           >
             <Plus className="h-4.5 w-4.5" strokeWidth={2.4} />
-            {tr("Dostu çağır")}
-          </Link>
-          <Link
-            to="/oyunlar/futbol-x0x?onlayn=1"
-            onClick={() => requestAutoMatch()}
-            className={`inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-4 ${FONT} text-sm sm:px-6 sm:text-[15px] font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:border-white/60`}
-          >
-            <Shuffle className="h-4.5 w-4.5" />
-            {tr("Təsadüfi rəqib")}
+            {tr("Otaq yarat")}
           </Link>
           <Link
             to="/oyunlar?filter=duo"
-            className={`col-span-2 inline-flex h-11 items-center justify-center whitespace-nowrap rounded-[10px] px-4 ${FONT} text-sm font-bold uppercase tracking-[0.08em] text-navy-soft transition-colors duration-200 hover:text-white sm:col-span-1 sm:h-13`}
+            className={`inline-flex h-13 items-center justify-center whitespace-nowrap rounded-[10px] border border-white/25 px-4 ${FONT} text-sm sm:px-6 sm:text-[15px] font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:border-white/60`}
           >
-            {tr("Bütün duel oyunları")}
+            {tr("Koda qoşul")}
           </Link>
         </div>
       </div>
@@ -930,8 +910,7 @@ const PEDESTALS = [
 const PODIUM_TITLE = {
   week: () => tr("Bu həftənin podiumu"),
   month: () => tr("Bu ayın podiumu"),
-  all: () => tr("Bütün zamanların podiumu"),
-  elo: () => tr("Duel reytinqi"),
+  all: () => tr("Reytinq podiumu"),
 };
 
 function EmptyPodium({ period }) {
@@ -945,9 +924,7 @@ function EmptyPodium({ period }) {
         {PODIUM_TITLE[period]()}
       </p>
       <p className={`mt-1.5 ${FONT} text-xl font-bold text-ink sm:text-2xl`}>
-        {period === "elo"
-          ? tr("Hələ reytinqli duel oyunçusu yoxdur —")
-          : tr("Hələ heç kim xal toplamayıb —")}{" "}
+        {tr("Hələ heç kim xal toplamayıb —")}{" "}
         <span className={HIGHLIGHT}>{tr("ilk sən ol")}</span>
       </p>
       <div
@@ -984,100 +961,34 @@ function EmptyPodium({ period }) {
   );
 }
 
-function HowElo({ signedIn }) {
-  const rows = [
-    {
-      Icon: Swords,
-      tone: "bg-accent/15 text-accent",
-      title: tr("Dostunla və ya rəqiblə duel et"),
-      text: tr(
-        "Hamı 1000 Elo ilə başlayır. Hər qələbə reytinqini artırır, məğlubiyyət azaldır.",
-      ),
-    },
-    {
-      Icon: TrendingUp,
-      tone: `bg-yellow/15 ${HIGHLIGHT}`,
-      title: tr("Güclünü ud — çox qazan"),
-      text: tr(
-        "Şahmatdakı kimi: özündən güclünü udanda çox, zəifi udanda az xal alırsan. Zəifə uduzmaq isə çox xal aparır.",
-      ),
-    },
-    {
-      Icon: Trophy,
-      tone: "bg-accent/15 text-accent",
-      title: tr("Cədvələ düş"),
-      text: tr("Ən azı 5 reytinqli duel oynayan hesablar cədvəldə görünür."),
-    },
-  ];
-  return (
-    <div className={`flex flex-col p-5 sm:p-8 ${PANEL}`}>
-      <p
-        className={`${FONT} text-[13px] font-bold uppercase tracking-[0.16em] text-muted`}
-      >
-        {tr("Elo necə işləyir?")}
-      </p>
-      <ul className="mt-3 flex flex-col p-0 sm:mt-5">
-        {rows.map(({ Icon, tone, title, text }) => (
-          <li
-            key={title}
-            className="flex list-none gap-4 border-b border-line/6 py-3.5 last:border-b-0"
-          >
-            <span
-              className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${tone}`}
-            >
-              <Icon className="h-5 w-5" strokeWidth={1.8} />
-            </span>
-            <span className="min-w-0">
-              <span
-                className={`block ${FONT} text-[17px] font-bold uppercase text-ink sm:text-[19px]`}
-              >
-                {title}
-              </span>
-              <span
-                className={`mt-1 block ${BODY} text-sm leading-normal text-muted sm:text-[15px]`}
-              >
-                {text}
-              </span>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-auto grid grid-cols-2 gap-2.5 pt-5 sm:flex sm:gap-3 sm:pt-6">
-        <Link to={signedIn ? "/oyunlar" : "/hesab"} className={BTN_PRIMARY}>
-          {signedIn ? tr("Duel oyunları") : tr("Hesab yarat")}
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 function HowToScore({ signedIn }) {
   const rows = [
     {
       Icon: User,
       tone: "bg-accent/15 text-accent",
-      title: tr("Pulsuz hesab aç"),
+      title: tr("Hamı 1000 xalla başlayır"),
       text: tr(
-        "Daxil olmadan da oynaya bilərsən, amma xal yalnız hesaba yazılır.",
+        "Hər oyunun öz reytinqi var: X0X 1000, Açıq Artırma 1000 və s. Ümumi reytinq isə bütün oyunlardakı dəyişikliklərin cəmidir. Xal yalnız hesaba yazılır.",
       ),
     },
     {
       Icon: Trophy,
       tone: "bg-accent/15 text-accent",
-      title: tr("Oyna və qazan"),
+      title: tr("Botu ud: +3 / +5 / +8"),
       text: tr(
-        "Hesabla oynadığın oyunların nəticəsi avtomatik olaraq xal kimi cədvələ düşür.",
+        "Tək oyunda qələbə asan səviyyədə +3, normalda +5, çətində +8 xal verir. Zəif nəticə bir neçə xal aparır.",
       ),
     },
     {
-      Icon: CalendarDays,
+      Icon: Swords,
       tone: `bg-yellow/15 ${HIGHLIGHT}`,
-      title: tr("Hər həftə yeni şans"),
+      title: tr("Dostunu ud: təxminən +20"),
       text: tr(
-        "Həftəlik cədvəl hər bazar ertəsi yenilənir — hər həftə liderliyə qalxmaq olar.",
+        "Onlayn duellərdə (dostla və ya təsadüfi rəqiblə) özündən güclünü udanda daha çox, zəifi udanda daha az qazanırsan.",
       ),
     },
   ];
+
   return (
     <div className={`flex flex-col p-5 sm:p-8 ${PANEL}`}>
       <p
@@ -1207,6 +1118,7 @@ function TopCard({ player, rank, run, onOpen }) {
             first ? "text-2xl md:text-[40px]" : "text-xl md:text-[34px]"
           }`}
         >
+          {player.gain ? "+" : ""}
           <CountUp value={player.points.value} run={run} />
         </span>
       </div>
@@ -1470,7 +1382,7 @@ function ContactForm() {
 
 export default function Home() {
   useEffect(() => prefetchData(), []);
-  const [period, setPeriod] = useState("week");
+  const [period, setPeriod] = useState("all");
   const [rowsIn, setRowsIn] = useState(false);
   const [homeStats, setHomeStats] = useState(null);
   const [livePlayers, setLivePlayers] = useState(null);
@@ -1480,49 +1392,43 @@ export default function Home() {
       .get("/stats")
       .then(setHomeStats)
       .catch(() => {});
+  }, []);
+
+  // One rating system: "all" = current rating (everyone starts at 1000),
+  // week/month = rating gained in that period. Optional per-game filter.
+  const [ratingGame, setRatingGame] = useState("");
+  useEffect(() => {
+    let alive = true;
+    const query = ratingGame ? `&game=${ratingGame}` : "";
     Promise.all(
       ["week", "month", "all"].map((key) =>
         api
-          .get(`/leaderboard?period=${key}&limit=10`)
+          .get(`/ratings/leaderboard?period=${key}&limit=10${query}`)
           .then((data) => [key, data.entries ?? []])
           .catch(() => [key, []]),
       ),
-    ).then(async (results) => {
+    ).then((results) => {
+      if (!alive) return;
       const boards = {};
-      const elo = await api
-        .get("/leaderboard/elo?limit=10")
-        .then((data) => data.entries ?? [])
-        .catch(() => []);
-      boards.elo = elo.map((entry) => ({
-        id: entry.userId,
-        name: entry.displayName,
-        username: entry.username,
-        avatarUrl: entry.avatarUrl,
-        team: tr("{n} duel", { n: entry.games }),
-        record: `${entry.wins}–${entry.losses}–${entry.draws}`,
-        matches: entry.games ?? 0,
-        winRate: entry.winRate ?? 0,
-        points: { value: entry.rating },
-      }));
       for (const [key, entries] of results) {
-        boards[key] = entries
-          .filter((e) => (e.points ?? 0) > 0)
-          .sort((a, b) => b.points - a.points)
-          .slice(0, 10)
-          .map((entry) => ({
-            id: entry.userId,
-            name: entry.displayName,
-            username: entry.username,
-            avatarUrl: entry.avatarUrl,
-            team: entry.team?.name ?? entry.team?.slug ?? "—",
-            matches: entry.games ?? 0,
-            winRate: entry.winRate ?? 0,
-            points: { value: entry.points },
-          }));
+        boards[key] = entries.map((entry) => ({
+          id: entry.userId,
+          name: entry.displayName,
+          username: entry.username,
+          avatarUrl: entry.avatarUrl,
+          team: entry.team?.name ?? entry.team?.slug ?? tr("{n} oyun", { n: entry.games ?? 0 }),
+          matches: entry.games ?? 0,
+          winRate: entry.winRate ?? 0,
+          gain: key !== "all",
+          points: { value: key === "all" ? entry.rating : entry.points },
+        }));
       }
       setLivePlayers(boards);
     });
-  }, []);
+    return () => {
+      alive = false;
+    };
+  }, [ratingGame]);
 
   const { user } = useAuth();
   const { openProfile } = useSocial();
@@ -1543,7 +1449,7 @@ export default function Home() {
       cancelAnimationFrame(r1);
       cancelAnimationFrame(r2);
     };
-  }, [lbInView, period]);
+  }, [lbInView, period, ratingGame]);
 
   const changePeriod = (key) => {
     if (key === period) return;
@@ -1558,9 +1464,9 @@ export default function Home() {
 
       <Hero stats={homeStats} />
 
-      <PopularGames />
-
       <HowItWorks signedIn={signedIn} />
+
+      <PopularGames />
 
       <section
         id="leaderboard"
@@ -1604,6 +1510,27 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="mt-3 flex justify-center">
+            <label className={`inline-flex items-center gap-2 ${FONT} text-xs font-bold uppercase tracking-[0.1em] text-muted`}>
+              {tr("Oyun")}:
+              <select
+                value={ratingGame}
+                onChange={(e) => {
+                  setRowsIn(false);
+                  setRatingGame(e.target.value);
+                }}
+                className={`h-9 rounded-full border border-line/12 bg-surface px-3 ${FONT} text-sm font-bold normal-case tracking-normal text-ink outline-none focus:border-accent`}
+              >
+                <option value="">{tr("Bütün oyunlar (ümumi)")}</option>
+                {RATED_GAME_IDS.map((id) => (
+                  <option key={id} value={id}>
+                    {gameName(id)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
           {rows.length === 0 ? (
             <div
               ref={panelRef}
@@ -1611,11 +1538,7 @@ export default function Home() {
               className={`${REVEAL.up} mt-8 grid gap-4 md:mt-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6`}
             >
               <EmptyPodium period={period} />
-              {period === "elo" ? (
-                <HowElo signedIn={signedIn} />
-              ) : (
-                <HowToScore signedIn={signedIn} />
-              )}
+              <HowToScore signedIn={signedIn} />
             </div>
           ) : (
             <div
@@ -1641,10 +1564,10 @@ export default function Home() {
                   <span>#</span>
                   <span>{tr("Oyunçu")}</span>
                   <span className="hidden md:block">
-                    {period === "elo" ? tr("Q–M–H") : tr("Komanda")}
+                    {tr("Komanda")}
                   </span>
                   <span className="text-right">
-                    {period === "elo" ? "Elo" : tr("Xal")}
+                    {period === "all" ? tr("Reytinq") : tr("Xal")}
                   </span>
                 </div>
 
@@ -1710,6 +1633,7 @@ export default function Home() {
                         <span
                           className={`text-right ${FONT} text-lg font-black text-ink md:text-[19px]`}
                         >
+                          {player.gain ? "+" : ""}
                           <CountUp
                             value={player.points.value}
                             run={rowsIn}
@@ -1729,11 +1653,9 @@ export default function Home() {
               className={`mt-5 flex items-center justify-center gap-2 ${BODY} text-xs text-muted`}
             >
               <Trophy className="h-3.5 w-3.5 text-gold" />
-              {period === "elo"
-                ? tr(
-                    "Elo hər duel bitəndə yenilənir · cədvəldə ən azı 5 duel oynayanlar görünür",
-                  )
-                : tr("Reytinq hər həftə bazar ertəsi yenilənir")}
+              {period === "all"
+                ? tr("Hamı 1000 xalla başlayır · bot qələbəsi +3/+5/+8 · duel qələbəsi təxminən +20")
+                : tr("Bu dövrdə qazanılan reytinq xalı · həftəlik cədvəl hər bazar ertəsi sıfırlanır")}
             </p>
           )}
         </div>

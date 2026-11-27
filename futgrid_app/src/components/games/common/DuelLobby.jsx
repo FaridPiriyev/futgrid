@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, DoorOpen, KeyRound, Loader2, Plus, RotateCcw, Share2, Shuffle, Swords, Wifi, X } from "lucide-react";
+import { ArrowLeft, Check, ClipboardPaste, DoorOpen, KeyRound, Loader2, Plus, RotateCcw, Share2, Shuffle, Swords, Wifi, X } from "lucide-react";
 import { DUEL_KEYFRAMES, DuelFinished, nameOf } from "./DuelKit";
 import { Loader, Notice } from "./GameStatus";
 import { FONT } from "./ui";
@@ -96,9 +96,32 @@ function CodeTiles({ value, size = "big" }) {
   );
 }
 
+/** Pulls a room code out of anything pasted: "645674", "645 674", a whole invite message or a ?otaq= link. */
+const codeFrom = (text) => {
+  const value = String(text ?? "");
+  const fromLink = value.match(/otaq=(\d{6})/);
+  if (fromLink) return fromLink[1];
+  const six = value.match(/\d{3}\s?\d{3}/);
+  if (six) return six[0].replace(/\s/g, "");
+  return value.replace(/\D/g, "").slice(0, 6);
+};
+
 function JoinBox({ onJoin }) {
   const [code, setCode] = useState("");
+  const [canPaste] = useState(() => typeof navigator !== "undefined" && Boolean(navigator.clipboard?.readText));
   const inputRef = useRef(null);
+  const accept = (text) => {
+    const next = codeFrom(text);
+    setCode(next);
+    if (next.length === 6) onJoin(next);
+  };
+  const pasteFromClipboard = async () => {
+    try {
+      accept(await navigator.clipboard.readText());
+    } catch {
+      inputRef.current?.focus();
+    }
+  };
   return (
     <form
       className="flex h-full flex-col"
@@ -113,7 +136,7 @@ function JoinBox({ onJoin }) {
         </span>
         <div>
           <p className={`${FONT} text-lg font-extrabold uppercase text-ink`}>{tr("Koda qoşul")}</p>
-          <p className={`${FONT} text-sm text-muted`}>{tr("Dostunun göndərdiyi 6 rəqəmi yaz")}</p>
+          <p className={`${FONT} text-sm text-muted`}>{tr("Dostunun göndərdiyi 6 rəqəmi yaz və ya yapışdır")}</p>
         </div>
       </div>
       <label className="relative mt-5 block cursor-text" onClick={() => inputRef.current?.focus()}>
@@ -121,18 +144,28 @@ function JoinBox({ onJoin }) {
         <input
           ref={inputRef}
           value={code}
-          onChange={(event) => setCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
+          onChange={(event) => setCode(codeFrom(event.target.value))}
+          onPaste={(event) => {
+            event.preventDefault();
+            accept(event.clipboardData.getData("text"));
+          }}
           inputMode="numeric"
           autoComplete="one-time-code"
-          pattern="[0-9]*"
-          maxLength={6}
           aria-label={tr("6 rəqəmli otaq ID")}
           className="absolute inset-0 h-full w-full cursor-text opacity-0"
         />
       </label>
-      <button type="submit" disabled={code.length !== 6} className={`${BTN_LINE} mt-4 w-full`}>
-        {tr("Qoşul")}
-      </button>
+      <div className="mt-4 flex gap-2">
+        {canPaste ? (
+          <button type="button" onClick={() => void pasteFromClipboard()} className={`${BTN_LINE} flex-1`}>
+            <ClipboardPaste className="h-4.5 w-4.5" />
+            {tr("Yapışdır")}
+          </button>
+        ) : null}
+        <button type="submit" disabled={code.length !== 6} className={`${BTN_LINE} flex-1`}>
+          {tr("Qoşul")}
+        </button>
+      </div>
     </form>
   );
 }
@@ -223,25 +256,23 @@ export function SettingsSummary({ items, dark = false }) {
 }
 
 function WaitingRoom({ code, game, onLeave, summary }) {
-  const [copied, setCopied] = useState("");
+  const [copied, setCopied] = useState(false);
   const link = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?otaq=${code}` : "";
   const message = tr("{game}-də səni gözləyirəm ⚽ Otaq kodu: {code}", { game: gameName(game), code });
-  const copy = async (what) => {
-    try {
-      await navigator.clipboard.writeText(what === "link" ? `${message}\n${link}` : String(code));
-      setCopied(what);
-      setTimeout(() => setCopied(""), 1800);
-    } catch {
-    }
-  };
+  // One button: the phone's share sheet (WhatsApp, Telegram, …) where available, otherwise copy.
   const share = async () => {
     try {
-      await navigator.share({ title: "FutGrid", text: message, url: link });
+      if (navigator.share) {
+        await navigator.share({ title: "FutGrid", text: message, url: link });
+        return;
+      }
+      await navigator.clipboard.writeText(`${message}\n${link}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
     } catch {
+      // share sheet closed
     }
   };
-  const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${message}\n${link}`)}`;
-  const telegram = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(message)}`;
   return (
     <div className="relative overflow-hidden rounded-[18px] border border-accent/25 bg-navy p-5 text-white sm:p-7">
       <span
@@ -260,28 +291,9 @@ function WaitingRoom({ code, game, onLeave, summary }) {
           </p>
         </div>
         <div className="flex flex-wrap gap-2.5 md:flex-col md:flex-nowrap">
-          {typeof navigator !== "undefined" && navigator.share ? (
-            <button type="button" onClick={() => void share()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
-              <Share2 className="h-4.5 w-4.5" />
-              {tr("Dostuna göndər")}
-            </button>
-          ) : (
-            <button type="button" onClick={() => void copy("link")} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
-              {copied === "link" ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
-              {copied === "link" ? tr("Kopyalandı") : tr("Dəvət linkini kopyala")}
-            </button>
-          )}
-          <div className="flex min-w-36 flex-1 gap-2 md:w-56 md:flex-none">
-            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className={`${BTN} flex-1 border border-white/25 px-3 text-white hover:border-[#25D366] hover:text-[#25D366]`}>
-              WhatsApp
-            </a>
-            <a href={telegram} target="_blank" rel="noopener noreferrer" className={`${BTN} flex-1 border border-white/25 px-3 text-white hover:border-[#2AABEE] hover:text-[#2AABEE]`}>
-              Telegram
-            </a>
-          </div>
-          <button type="button" onClick={() => void copy("code")} className={`${BTN} min-w-36 flex-1 whitespace-nowrap border border-white/25 text-white hover:border-white/60 md:w-56 md:flex-none`}>
-            {copied === "code" ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
-            {copied === "code" ? tr("Kopyalandı") : tr("Kodu kopyala")}
+          <button type="button" onClick={() => void share()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
+            {copied ? <Check className="h-4.5 w-4.5" /> : <Share2 className="h-4.5 w-4.5" />}
+            {copied ? tr("Kopyalandı") : tr("Kodu paylaş")}
           </button>
           <button type="button" onClick={onLeave} className={`${BTN} basis-full whitespace-nowrap text-navy-soft hover:text-white md:w-56 md:basis-auto`}>
             <DoorOpen className="h-4.5 w-4.5" />

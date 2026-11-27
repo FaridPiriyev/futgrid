@@ -1464,5 +1464,21 @@
   "İstək göndərildi.": "Заявка отправлена.",
   "İstəyi qəbul et": "Принять заявку",
   "Əlavə et": "Добавить",
-  "Rəqiblər": "Соперники"
+  "Rəqiblər": "Соперники",
+  "Botu ud: +3 / +5 / +8": "Победи бота: +3 / +5 / +8",
+  "Bu dövrdə qazanılan reytinq xalı · həftəlik cədvəl hər bazar ertəsi sıfırlanır": "Очки рейтинга за этот период · недельная таблица обнуляется каждый понедельник",
+  "Bütün oyunlar (ümumi)": "Все игры (общий)",
+  "Dostunu ud: təxminən +20": "Победи друга: около +20",
+  "Dostunun göndərdiyi 6 rəqəmi yaz və ya yapışdır": "Введи или вставь 6 цифр, которые прислал друг",
+  "Hamı 1000 xalla başlayır": "Все начинают с 1000",
+  "Hamı 1000 xalla başlayır · bot qələbəsi +3/+5/+8 · duel qələbəsi təxminən +20": "Все начинают с 1000 · победа над ботом +3/+5/+8 · победа в дуэли около +20",
+  "Hər oyunun öz reytinqi var: X0X 1000, Açıq Artırma 1000 və s. Ümumi reytinq isə bütün oyunlardakı dəyişikliklərin cəmidir. Xal yalnız hesaba yazılır.": "У каждой игры свой рейтинг: X0X 1000, Аукцион 1000 и т. д. Общий рейтинг — сумма изменений во всех играх. Очки сохраняются только в аккаунте.",
+  "Kodu paylaş": "Поделиться кодом",
+  "Onlayn duellərdə (dostla və ya təsadüfi rəqiblə) özündən güclünü udanda daha çox, zəifi udanda daha az qazanırsan.": "В онлайн-дуэлях (с другом или случайным соперником) победа над сильным даёт больше, над слабым — меньше.",
+  "Reytinq podiumu": "Подиум рейтинга",
+  "Tək oyunda qələbə asan səviyyədə +3, normalda +5, çətində +8 xal verir. Zəif nəticə bir neçə xal aparır.": "Победа в одиночной игре: +3 на лёгком, +5 на обычном, +8 на сложном. Слабый результат отнимает несколько очков.",
+  "Yapışdır": "Вставить",
+  "{game} reytinqi: {after} ({sign}{delta}) · Ümumi reytinq: {overall}": "Рейтинг {game}: {after} ({sign}{delta}) · Общий: {overall}",
+  "Ümumi reytinq": "Общий рейтинг",
+  "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "Ты ещё не играл в рейтинговые игры. Все начинают с 1000: победа над ботом даёт +3/+5/+8, над другом — около +20."
 }

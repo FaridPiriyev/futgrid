@@ -1466,5 +1466,21 @@
   "İstək göndərildi.": "Request sent.",
   "İstəyi qəbul et": "Accept request",
   "Əlavə et": "Add",
-  "Rəqiblər": "Opponents"
+  "Rəqiblər": "Opponents",
+  "Botu ud: +3 / +5 / +8": "Beat the bot: +3 / +5 / +8",
+  "Bu dövrdə qazanılan reytinq xalı · həftəlik cədvəl hər bazar ertəsi sıfırlanır": "Rating points gained in this period · the weekly table resets every Monday",
+  "Bütün oyunlar (ümumi)": "All games (overall)",
+  "Dostunu ud: təxminən +20": "Beat a friend: about +20",
+  "Dostunun göndərdiyi 6 rəqəmi yaz və ya yapışdır": "Type or paste the 6 digits your friend sent",
+  "Hamı 1000 xalla başlayır": "Everyone starts at 1000",
+  "Hamı 1000 xalla başlayır · bot qələbəsi +3/+5/+8 · duel qələbəsi təxminən +20": "Everyone starts at 1000 · bot win +3/+5/+8 · duel win about +20",
+  "Hər oyunun öz reytinqi var: X0X 1000, Açıq Artırma 1000 və s. Ümumi reytinq isə bütün oyunlardakı dəyişikliklərin cəmidir. Xal yalnız hesaba yazılır.": "Every game has its own rating: X0X 1000, Auction 1000 and so on. Your overall rating adds up the changes from all games. Points are saved only to an account.",
+  "Kodu paylaş": "Share code",
+  "Onlayn duellərdə (dostla və ya təsadüfi rəqiblə) özündən güclünü udanda daha çox, zəifi udanda daha az qazanırsan.": "In online duels (with a friend or a random opponent) beating a stronger player earns more, beating a weaker one earns less.",
+  "Reytinq podiumu": "Rating podium",
+  "Tək oyunda qələbə asan səviyyədə +3, normalda +5, çətində +8 xal verir. Zəif nəticə bir neçə xal aparır.": "A solo win gives +3 on easy, +5 on normal and +8 on hard. A poor result costs a few points.",
+  "Yapışdır": "Paste",
+  "{game} reytinqi: {after} ({sign}{delta}) · Ümumi reytinq: {overall}": "{game} rating: {after} ({sign}{delta}) · Overall: {overall}",
+  "Ümumi reytinq": "Overall rating",
+  "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "You haven't played a rated game yet. Everyone starts at 1000: beating the bot gives +3/+5/+8, beating a friend about +20."
 }

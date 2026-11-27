@@ -28,7 +28,6 @@ import type { Ctx, GameModule } from "./games/common.js";
 import {
   ELO_START,
   MIN_RATED_QUIT_MS,
-  OVERALL_GAME,
   PAIR_DAILY_LIMIT,
   QUIT_REASONS,
   computeElo,
@@ -51,6 +50,7 @@ import { sual } from "./games/sual.js";
 import { sekil } from "./games/sekil.js";
 import { auction } from "./games/auction.js";
 import { friendIdIfAccepted, touchPresence } from "../social/service.js";
+import { applyRatingChanges, lockRatings, type RatingResult } from "../ratings/service.js";
 
 const GAMES: Record<DuelGame, GameModule> = {
   xox,
@@ -164,27 +164,6 @@ function publicState(room: Room, ctx: Ctx) {
   };
 }
 
-type RatingRow = { id: string; userId: string; gameId: string; rating: number; games: number };
-
-async function lockRatings(
-  tx: Prisma.TransactionClient,
-  userIds: string[],
-  gameIds: string[],
-): Promise<RatingRow[]> {
-  await tx.userRating.createMany({
-    data: userIds.flatMap((userId) =>
-      gameIds.map((gameId) => ({ userId, gameId, rating: ELO_START, peak: ELO_START })),
-    ),
-    skipDuplicates: true,
-  });
-  return tx.$queryRaw<RatingRow[]>`
-    SELECT id, user_id AS "userId", game_id AS "gameId", rating, games
-    FROM user_ratings
-    WHERE user_id = ANY(${userIds}::uuid[]) AND game_id = ANY(${gameIds}::text[])
-    ORDER BY id
-    FOR UPDATE`;
-}
-
 export interface DuelRatingEvent {
   code: string;
   rated: boolean;
@@ -258,17 +237,14 @@ async function recordMatch(room: Room): Promise<DuelRatingEvent | null> {
     } else {
       const userIds = users.map((player) => player.identityId);
       event = await prisma.$transaction(async (tx) => {
-        const rows = await lockRatings(tx, userIds, [room.game, OVERALL_GAME]);
-        const row = (userId: string, gameId: string) =>
-          rows.find((entry) => entry.userId === userId && entry.gameId === gameId)!;
-        const seatToUser = new Map(users.map((player) => [player.seat, player.identityId]));
-        const toIds = (gameId: string) =>
+        // Elo on the game's own rating; the overall rating moves by the same amount.
+        const rows = await lockRatings(tx, userIds, [room.game]);
+        const toIds = () =>
           users.map((player) => {
-            const r = row(player.identityId, gameId);
+            const r = rows.find((entry) => entry.userId === player.identityId && entry.gameId === room.game)!;
             return { id: player.seat, rating: r.rating, games: r.games };
           });
-        const gameDelta = computeElo(toIds(room.game), pairs);
-        const overallDelta = computeElo(toIds(OVERALL_GAME), pairs);
+        const gameDelta = computeElo(toIds(), pairs);
 
         const tally = new Map<string, { wins: number; losses: number; draws: number }>();
         for (const { a, b, scoreA } of pairs) {
@@ -284,41 +260,29 @@ async function recordMatch(room: Room): Promise<DuelRatingEvent | null> {
           }
         }
 
+        const resultOf = (seat: string): RatingResult => {
+          const t = tally.get(seat) ?? { wins: 0, losses: 0, draws: 0 };
+          const net = t.wins - t.losses;
+          return net > 0 ? "wins" : net < 0 ? "losses" : "draws";
+        };
+        const applied = await applyRatingChanges(
+          tx,
+          users.map((player) => ({
+            userId: player.identityId,
+            gameId: room.game,
+            delta: gameDelta.get(player.seat) ?? 0,
+            result: resultOf(player.seat),
+            source: "duel" as const,
+          })),
+        );
+
         const changes: DuelRatingEvent["changes"] = {};
         const stored: Record<string, unknown> = {};
         for (const player of users) {
-          const userId = seatToUser.get(player.seat)!;
-          const t = tally.get(player.seat) ?? { wins: 0, losses: 0, draws: 0 };
-          const net = t.wins - t.losses;
-          const result = net > 0 ? "wins" : net < 0 ? "losses" : "draws";
-          const g = row(userId, room.game);
-          const o = row(userId, OVERALL_GAME);
-          const dg = gameDelta.get(player.seat) ?? 0;
-          const dov = overallDelta.get(player.seat) ?? 0;
-          const after = g.rating + dg;
-          const overallAfter = o.rating + dov;
-          for (const [r, value] of [
-            [g, after],
-            [o, overallAfter],
-          ] as const) {
-            await tx.$executeRaw`
-              UPDATE user_ratings
-              SET rating = ${value},
-                  peak = GREATEST(peak, ${value}),
-                  games = games + 1,
-                  ${Prisma.raw(`"${result}" = "${result}" + 1`)},
-                  updated_at = NOW()
-              WHERE id = ${r.id}::uuid`;
-          }
-          changes[player.seat] = {
-            before: g.rating,
-            after,
-            delta: dg,
-            overallBefore: o.rating,
-            overallAfter,
-            overallDelta: dov,
-          };
-          stored[userId] = { ...changes[player.seat], seat: player.seat, result };
+          const change = applied.get(player.identityId);
+          if (!change) continue;
+          changes[player.seat] = change;
+          stored[player.identityId] = { ...change, seat: player.seat, result: resultOf(player.seat) };
         }
         await tx.duelMatch.create({
           data: { ...base, rated: true, ratingChanges: { players: stored } as unknown as Prisma.InputJsonValue },
