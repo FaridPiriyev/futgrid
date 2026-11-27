@@ -12,6 +12,8 @@ import { asObject, event, oneOf, otherSeat, seats, type Ctx, type GameModule } f
 export const BUDGET = 40;
 export const MIN_BID = 2;
 const SOLD_MS = 2_500;
+/** Automatic sales show the card alone first (client delays the stamp by ~1.1s), so hold a bit longer. */
+const AUTO_EXTRA_MS = 1_200;
 const MAX_LOTS = 30;
 const TEAM_SIZE = 5;
 const POS_ORDER = ["GK", "DF", "MF", "FW"];
@@ -178,7 +180,7 @@ function assign(
   state.outcome = { seat: winner, price, playerId: lot.playerId, ...extra };
   state.log.push({ playerId: lot.playerId, seat: winner, price, ...extra });
   state.lastEvent = event(ctx, "sold", winner, { playerId: lot.playerId, price, ...extra });
-  state.deadline = ctx.now + SOLD_MS;
+  state.deadline = ctx.now + SOLD_MS + (extra.auto ? AUTO_EXTRA_MS : 0);
 }
 
 function autofill(room: Room, ctx: Ctx) {

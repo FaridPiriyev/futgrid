@@ -15,6 +15,7 @@ import {
   slotPos,
   takePrice,
   teamStrength,
+  AUTO_REVEAL_MS,
 } from "../../../lib/games/auction";
 import {
   POS_NAME,
@@ -118,9 +119,13 @@ function MysteryLotCard({ data, lot, phase, outcome, names }) {
 function SoldStamp({ phase, outcome, names }) {
   if (phase !== "sold" || !outcome) return null;
   const label = outcome.gift ? tr("Hədiyyə") : outcome.auto ? tr("Avtomatik") : outcome.winner ? tr("Satıldı") : tr("Satılmadı");
+  // An automatic sale opens and closes in the same moment, so the card would appear already stamped.
+  // Let the player's card show on its own first, then drop the stamp on it.
+  const delay = outcome.auto ? AUTO_REVEAL_MS : 0;
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center px-3">
       <div
+        style={{ animationDelay: `${delay}ms` }}
         className={`flex items-center gap-3 border-[3px] bg-black/80 px-4 py-1.5 shadow-2xl backdrop-blur-sm animate-[auStamp_0.5s_cubic-bezier(.2,.8,.2,1)_both] ${
           outcome.winner ? `${SIDES[outcome.winner].border} ${SIDES[outcome.winner].text}` : "border-faint text-muted"
         }`}

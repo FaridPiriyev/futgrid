@@ -39,6 +39,8 @@ export const BUDGET = 40;
 export const MIN_BID = 2;
 export const MAX_LOTS = 30;
 export const SOLD_MS = 1700;
+/** Automatic sales: the card is shown alone for this long before the "Avtomatik" stamp lands. */
+export const AUTO_REVEAL_MS = 1100;
 export const SIDE_KEYS = ["A", "B"];
 
 export const TIERS = [
@@ -417,7 +419,8 @@ function close(state, now) {
 
 export function tick(state, pool, random, now, timerMs) {
   if (state.phase === "sold") {
-    return now - state.soldAt >= SOLD_MS
+    const hold = state.outcome?.auto ? SOLD_MS + AUTO_REVEAL_MS : SOLD_MS;
+    return now - state.soldAt >= hold
       ? openLot(state, pool, random, now, timerMs)
       : state;
   }
