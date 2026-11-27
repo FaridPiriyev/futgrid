@@ -24,6 +24,8 @@ import {
 export const PICK_MS = 45_000;
 export const ANSWER_MS = 75_000;
 const NEXT_MS = 12_000;
+/** Every Nth wrong answer in a round costs one point (1st is a warning, 2nd is −1, …). */
+export const WRONGS_PER_PENALTY = 2;
 
 export interface OrtaSettings {
   era: "active" | "all";
@@ -56,6 +58,7 @@ function startRound(room: Room, ctx: Ctx, starter: string) {
   state.giveup = [];
   state.ready = [];
   state.answers = 0;
+  state.wrongs = Object.fromEntries(seats(room).map((seat) => [seat, 0]));
   state.deadline = ctx.now + PICK_MS;
 }
 
@@ -143,8 +146,16 @@ export const orta: GameModule = {
         state.lastEvent = event(ctx, "correct", seat, { playerId, name: player.name });
         finishRound(room, ctx, { seat, playerId });
       } else {
-        state.scores[seat] -= 1;
-        state.lastEvent = event(ctx, "wrong", seat, { playerId, name: playerName(data, playerId) });
+        state.wrongs ??= {};
+        state.wrongs[seat] = (state.wrongs[seat] ?? 0) + 1;
+        const penalty = state.wrongs[seat] % WRONGS_PER_PENALTY === 0;
+        if (penalty) state.scores[seat] -= 1;
+        state.lastEvent = event(ctx, "wrong", seat, {
+          playerId,
+          name: playerName(data, playerId),
+          penalty,
+          wrongs: state.wrongs[seat],
+        });
       }
       return null;
     }
@@ -194,6 +205,7 @@ export const orta: GameModule = {
       giveup,
       ready,
       answers,
+      wrongs,
       deadline,
       lastEvent,
     } = room.state;
@@ -209,6 +221,8 @@ export const orta: GameModule = {
       giveup,
       ready,
       answers,
+      wrongs: wrongs ?? {},
+      wrongsPerPenalty: WRONGS_PER_PENALTY,
       deadline,
       lastEvent,
       target: settingsOf(room).target,

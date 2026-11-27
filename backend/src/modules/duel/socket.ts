@@ -50,6 +50,7 @@ import { twoLetters } from "./games/twoLetters.js";
 import { sual } from "./games/sual.js";
 import { sekil } from "./games/sekil.js";
 import { auction } from "./games/auction.js";
+import { friendIdIfAccepted, touchPresence } from "../social/service.js";
 
 const GAMES: Record<DuelGame, GameModule> = {
   xox,
@@ -608,6 +609,15 @@ export function setupDuels(httpServer: HttpServer) {
     const refill = setInterval(() => (bucket = Math.min(20, bucket + 10)), 1000);
     socket.on("disconnect", () => clearInterval(refill));
 
+    // Presence + a personal room so friends can send game invites to every tab.
+    if (!me.guest) {
+      void socket.join(`user:${me.id}`);
+      const beat = () => void touchPresence(me.id).catch(() => {});
+      beat();
+      const presence = setInterval(beat, 30_000);
+      socket.on("disconnect", () => clearInterval(presence));
+    }
+
     const reply = (ack: Ack | undefined, value: unknown) => {
       if (typeof ack === "function") ack(value);
     };
@@ -672,6 +682,30 @@ export function setupDuels(httpServer: HttpServer) {
       const searching = await redis.hlen(queueKey(game));
       reply(ack, { ok: true, game, rating: Math.round(rating), searching });
       if (searching >= 2) void matchGame(game).catch(() => {});
+    });
+
+    on("invite:send", async (payload, ack) => {
+      if (me.guest) return fail(ack, "UNAUTHENTICATED");
+      const code = cleanCode(payload.code);
+      const username = String(payload.username ?? "").slice(0, 40);
+      const room = code.length === 6 ? await readRoom(redis, code) : null;
+      if (!room || !room.players.some((player) => player.identityId === me.id)) return fail(ack, "NOT_IN_ROOM");
+      if (room.status !== "waiting") return fail(ack, "ALREADY_STARTED");
+      const friendId = await friendIdIfAccepted(me.id, username);
+      if (!friendId) return fail(ack, "NOT_FRIENDS");
+      const invite = {
+        code,
+        game: room.game,
+        from: { username: me.username, displayName: me.displayName ?? null, avatarUrl: me.avatarUrl ?? null, name: me.name },
+        at: Date.now(),
+      };
+      io.to(`user:${friendId}`).emit("invite:received", invite);
+      void sendPushToUser(friendId, "FutGrid", `${me.name} səni oyuna çağırır`, {
+        type: "duel_invite",
+        code,
+        game: room.game,
+      }).catch(() => {});
+      reply(ack, { ok: true });
     });
 
     on("queue:leave", async (_payload, ack) => {
@@ -822,7 +856,8 @@ export function setupDuels(httpServer: HttpServer) {
         if (!player) return { error: "NOT_IN_ROOM" };
         if (room.status !== "finished") return { error: "GAME_NOT_FINISHED" };
         if (!room.rematch.includes(player.seat)) room.rematch.push(player.seat);
-        if (room.players.length === 2 && room.rematch.length >= room.players.length) {
+        // Starts once every seat asked (2-player games and 3–4 player auctions alike).
+        if (room.players.length >= 2 && room.rematch.length >= room.players.length) {
           room.players.reverse();
           startRoom(room, ctx);
           return { event: "game:state" };

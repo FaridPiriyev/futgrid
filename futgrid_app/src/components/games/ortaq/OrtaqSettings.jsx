@@ -126,9 +126,9 @@ export default function OrtaqSettings({
         step={online ? ONLINE_STEP() : undefined}
         sub={
           online
-            ? tr("Hər biriniz öz telefonunda gizlicə klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci yazan +1 xal alır, səhv yazan −1.")
+            ? tr("Hər biriniz öz telefonunda gizlicə klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci yazan +1 xal alır, hər 2 səhvə −1.")
             : versus
-            ? tr("Hər oyunçu gizli olaraq klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci tapan +1 xal alır, səhv deyən −1.")
+            ? tr("Hər oyunçu gizli olaraq klub və ya ölkə seçir. Kartlar birlikdə açılır, ortaq oyunçunu birinci tapan +1 xal alır, hər 2 səhvə −1.")
             : tr("Sistem bir klub və bir klub və ya ölkə verir. Hər ikisində oynamış oyunçunu tap.")
         }
       />

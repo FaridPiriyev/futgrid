@@ -95,6 +95,13 @@ function render(route) {
   html = setMeta(html, "property", "og:title", route.title);
   html = setMeta(html, "property", "og:description", route.description);
   html = setMeta(html, "property", "og:url", url);
+  // Per-game preview image so shared invite links show the game, not the generic card.
+  if (route.game) {
+    const slug = route.path.split("/").pop();
+    if (fs.existsSync(path.join(dist, "og", `${slug}.jpg`))) {
+      html = setMeta(html, "property", "og:image", `${SITE}/og/${slug}.jpg`);
+    }
+  }
   html = setMeta(
     html,
     "name",

@@ -11,6 +11,7 @@ import {
   User,
   MessageSquare,
   Plus,
+  Shuffle,
   CalendarDays,
   Swords,
   TrendingUp,
@@ -20,6 +21,8 @@ import { GAME_CATALOG } from "../lib/games/catalog";
 import { prefetchData } from "../lib/data";
 import { api } from "../lib/api";
 import { useAuth } from "../lib/auth";
+import { useSocial } from "../lib/social";
+import { requestAutoMatch } from "../lib/games/duelStore";
 import heroPhoto from "../assets/slider2.webp";
 
 import { tr } from "../i18n";
@@ -583,7 +586,7 @@ function HowItWorks({ signedIn }) {
   const more = GAME_CATALOG.length - 4;
   const steps = [
     {
-      image: "/images/card2.png",
+      image: "/images/card2.webp",
       alt: tr("Soyunma otağında taktika lövhəsi"),
       title: tr("Oyununu seç"),
       text: tr(
@@ -607,7 +610,7 @@ function HowItWorks({ signedIn }) {
       href: "#leaderboard",
     },
     {
-      image: "/images/card1.png",
+      image: "/images/card1.webp",
       alt: tr("Divanda telefonla oynayan iki dost"),
       title: tr("Tək və ya dostla oyna"),
       text: tr(
@@ -795,17 +798,25 @@ function DuelBanner() {
         </ul>
         <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-6.5 sm:flex sm:flex-wrap sm:gap-3">
           <Link
-            to="/oyunlar?filter=duo"
+            to="/oyunlar/futbol-x0x?onlayn=1"
             className={`inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] bg-yellow px-4 ${FONT} text-sm sm:gap-2.5 sm:px-6 sm:text-[15px] font-extrabold uppercase tracking-[0.08em] text-on-yellow transition-[translate,filter] duration-200 hover:-translate-y-0.5 hover:brightness-110`}
           >
             <Plus className="h-4.5 w-4.5" strokeWidth={2.4} />
-            {tr("Otaq yarat")}
+            {tr("Dostu çağır")}
+          </Link>
+          <Link
+            to="/oyunlar/futbol-x0x?onlayn=1"
+            onClick={() => requestAutoMatch()}
+            className={`inline-flex h-13 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-4 ${FONT} text-sm sm:px-6 sm:text-[15px] font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:border-white/60`}
+          >
+            <Shuffle className="h-4.5 w-4.5" />
+            {tr("Təsadüfi rəqib")}
           </Link>
           <Link
             to="/oyunlar?filter=duo"
-            className={`inline-flex h-13 items-center justify-center whitespace-nowrap rounded-[10px] border border-white/25 px-4 ${FONT} text-sm sm:px-6 sm:text-[15px] font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:border-white/60`}
+            className={`col-span-2 inline-flex h-11 items-center justify-center whitespace-nowrap rounded-[10px] px-4 ${FONT} text-sm font-bold uppercase tracking-[0.08em] text-navy-soft transition-colors duration-200 hover:text-white sm:col-span-1 sm:h-13`}
           >
-            {tr("Koda qoşul")}
+            {tr("Bütün duel oyunları")}
           </Link>
         </div>
       </div>
@@ -1122,7 +1133,7 @@ function HowToScore({ signedIn }) {
   );
 }
 
-function TopCard({ player, rank, run }) {
+function TopCard({ player, rank, run, onOpen }) {
   const s = PODIUM[rank];
   const first = rank === 0;
   return (
@@ -1133,7 +1144,12 @@ function TopCard({ player, rank, run }) {
       style={{ transitionDelay: `${rank * 120}ms` }}
     >
       <div
-        className={`relative flex items-center gap-3 overflow-hidden border-3 bg-surface px-4 transition-[translate] duration-300 hover:translate-x-2 sm:gap-4 md:px-5.5 ${s.card} ${
+        role={onOpen ? "button" : undefined}
+        tabIndex={onOpen ? 0 : undefined}
+        onClick={onOpen}
+        onKeyDown={onOpen ? (e) => e.key === "Enter" && onOpen() : undefined}
+        title={onOpen ? tr("Profilə bax") : undefined}
+        className={`relative flex items-center gap-3 overflow-hidden border-3 bg-surface px-4 transition-[translate] duration-300 hover:translate-x-2 sm:gap-4 md:px-5.5 ${onOpen ? "cursor-pointer" : ""} ${s.card} ${
           first ? "py-5" : "py-4"
         }`}
       >
@@ -1165,7 +1181,11 @@ function TopCard({ player, rank, run }) {
               : "h-11 w-11 text-base md:h-13 md:w-13 md:text-lg"
           }`}
         >
-          {initials(player.name)}
+          {player.avatarUrl ? (
+            <img src={player.avatarUrl} alt="" className="h-full w-full rounded-full object-cover" />
+          ) : (
+            initials(player.name)
+          )}
         </span>
         <span className="relative min-w-0 flex-1">
           <span
@@ -1505,6 +1525,7 @@ export default function Home() {
   }, []);
 
   const { user } = useAuth();
+  const { openProfile } = useSocial();
   const signedIn = Boolean(user);
   const rootRef = useRef(null);
   const panelRef = useRef(null);
@@ -1537,9 +1558,9 @@ export default function Home() {
 
       <Hero stats={homeStats} />
 
-      <HowItWorks signedIn={signedIn} />
-
       <PopularGames />
+
+      <HowItWorks signedIn={signedIn} />
 
       <section
         id="leaderboard"
@@ -1608,6 +1629,7 @@ export default function Home() {
                     player={player}
                     rank={rank}
                     run={rowsIn}
+                    onOpen={player.username ? () => openProfile(player.username) : undefined}
                   />
                 ))}
               </div>
@@ -1640,7 +1662,14 @@ export default function Home() {
                         transitionDelay: rowsIn ? `${400 + j * 70}ms` : "0ms",
                       }}
                     >
-                      <div className="group grid grid-cols-[32px_1fr_auto] items-center gap-3 px-4 py-3 transition-[background-color,box-shadow] duration-200 hover:bg-accent/5 hover:shadow-[inset_4px_0_0_var(--fg-accent)] md:grid-cols-[44px_1fr_140px_80px] md:px-5.5">
+                      <div
+                        role={player.username ? "button" : undefined}
+                        tabIndex={player.username ? 0 : undefined}
+                        onClick={player.username ? () => openProfile(player.username) : undefined}
+                        onKeyDown={player.username ? (e) => e.key === "Enter" && openProfile(player.username) : undefined}
+                        title={player.username ? tr("Profilə bax") : undefined}
+                        className={`group grid grid-cols-[32px_1fr_auto] items-center gap-3 px-4 py-3 transition-[background-color,box-shadow] duration-200 hover:bg-accent/5 hover:shadow-[inset_4px_0_0_var(--fg-accent)] md:grid-cols-[44px_1fr_140px_80px] md:px-5.5 ${player.username ? "cursor-pointer" : ""}`}
+                      >
                         <span
                           className={`${FONT} text-sm font-black text-muted transition-colors duration-200 group-hover:text-accent`}
                         >

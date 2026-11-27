@@ -20,3 +20,14 @@ const NAMES = {
 export const gameName = (id) => (NAMES[id] ? NAMES[id]() : id);
 
 export const DUEL_GAME_IDS = ["xox", "orta", "auction", "higherLower", "twoLetters", "sual", "sekil"];
+
+/** Online duel game id → page path (used for friend invites). */
+export const DUEL_GAME_PATHS = {
+  xox: "/oyunlar/futbol-x0x",
+  orta: "/oyunlar/ortaq-oyuncu",
+  auction: "/oyunlar/auksion",
+  higherLower: "/oyunlar/yuksek-asagi",
+  twoLetters: "/oyunlar/iki-herf",
+  sual: "/oyunlar/20-sual",
+  sekil: "/oyunlar/kimdir-bu",
+};

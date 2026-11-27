@@ -4,8 +4,11 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import BetaNotice from "./components/BetaNotice";
+import ResumeDuelBanner from "./components/ResumeDuelBanner";
+import NoticeToast from "./components/NoticeToast";
 import { LanguageProvider, tr, useLang } from "./i18n";
 import { AuthProvider } from "./lib/auth";
+import { SocialProvider } from "./lib/social";
 import { GAME_CATALOG } from "./lib/games/catalog";
 import ogImage from "./assets/og-image.jpg";
 import { NOINDEX_PATHS } from "./seo/routes";
@@ -40,6 +43,7 @@ const Legal = lazy(() => import("./components/Legal"));
 const Account = lazy(() => import("./components/Account"));
 const Admin = lazy(() => import("./components/Admin"));
 const NotFound = lazy(() => import("./components/NotFound"));
+const PlayerPage = lazy(() => import("./components/social/PlayerPage"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -144,7 +148,9 @@ function RouteMeta() {
     setMeta(
       "property",
       "og:image",
-      new URL(ogImage, window.location.origin).href,
+      game
+        ? `${SITE}/og/${game.href.split("/").pop()}.jpg`
+        : new URL(ogImage, window.location.origin).href,
     );
     setMeta("property", "og:locale", LOCALES[lang] ?? LOCALES.az);
     setMeta("name", "twitter:card", "summary_large_image");
@@ -175,6 +181,7 @@ function AppShell() {
   const { lang } = useLang();
   return (
     <BrowserRouter>
+      <SocialProvider>
       <ScrollManager />
       <RouteMeta />
       <Navbar />
@@ -201,6 +208,7 @@ function AppShell() {
           <Route path="/oyunlar/kimdir-bu" element={<KimdirBu />} />
           <Route path="/oyunlar/ultimate-11" element={<Ultimate />} />
           <Route path="/hesab" element={<Account />} />
+          <Route path="/oyuncu/:username" element={<PlayerPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route
             path="/mexfilik-siyaseti"
@@ -215,6 +223,9 @@ function AppShell() {
       </Suspense>
       <Footer />
       <BetaNotice />
+      <ResumeDuelBanner />
+      <NoticeToast />
+      </SocialProvider>
     </BrowserRouter>
   );
 }

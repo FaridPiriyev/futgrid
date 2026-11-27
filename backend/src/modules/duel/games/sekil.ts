@@ -272,11 +272,12 @@ export const sekil: GameModule = {
       lastEvent,
     } = room.state;
     const settings = settingsOf(room);
+    // Never expose the real file path (it contains the player's name).
     return {
       round,
       scores,
       phase,
-      photoUrl,
+      photoUrl: photoUrl ? `/duel/photo/${room.code}/${round}` : "",
       size,
       order,
       opened,

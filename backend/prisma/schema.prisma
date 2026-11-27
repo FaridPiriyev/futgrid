@@ -41,6 +41,8 @@ model User {
   goatVotes     GoatVote[]
   UserRating    UserRating[]
   PushToken     PushToken[]
+  friendsSent     Friendship[] @relation("FriendshipRequester")
+  friendsReceived Friendship[] @relation("FriendshipAddressee")
 
   @@index([teamId])
   @@index([role])
@@ -647,4 +649,22 @@ model DuelMatch {
   @@index([winnerId])
   @@index([playerIds], type: Gin)
   @@map("duel_matches")
+}
+
+/// Dostluq: requester istək göndərir, addressee qəbul edəndə status "accepted" olur.
+model Friendship {
+  id          String   @id @default(uuid()) @db.Uuid
+  requesterId String   @map("requester_id") @db.Uuid
+  addresseeId String   @map("addressee_id") @db.Uuid
+  status      String   @default("pending")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  requester User @relation("FriendshipRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User @relation("FriendshipAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, addresseeId])
+  @@index([addresseeId, status])
+  @@index([requesterId, status])
+  @@map("friendships")
 }

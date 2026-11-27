@@ -20,6 +20,7 @@ import { initialsOf, useAuth } from "../lib/auth";
 import { tr } from "../i18n";
 import { gameName } from "../lib/games/names";
 import GameHistory from "./account/GameHistory";
+import FriendsPanel from "./social/FriendsPanel";
 import heroPhoto from "../assets/slider2.webp";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
@@ -481,6 +482,7 @@ function Profile({ user }) {
         )}
       </section>
 
+      <FriendsPanel />
       <GameHistory />
 
       <div className="flex flex-wrap gap-2">

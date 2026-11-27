@@ -98,7 +98,12 @@ function Match({ duel, data }) {
   if (!feedback && e && playing) {
     const who = names[sideOf(e.seat)];
     if (e.type === "wrong" && phase === "answer")
-      feedback = { type: "wrong", text: tr("{answerer}: {name} ortaq oyunçu deyil. −1 xal", { answerer: who, name: e.name }) };
+      feedback = {
+        type: "wrong",
+        text: e.penalty
+          ? tr("{answerer}: {name} ortaq oyunçu deyil. −1 xal", { answerer: who, name: e.name })
+          : tr("{answerer}: {name} ortaq oyunçu deyil. Xəbərdarlıq — növbəti səhv −1 xal", { answerer: who, name: e.name }),
+      };
     else if (e.type === "same" && phase === "pick") feedback = { type: "wrong", text: tr("Hər iki oyunçu eyni şeyi seçib. Yenidən seçin.") };
     else if (e.type === "giveup" && phase === "answer")
       feedback = { type: "info", text: e.seat === me ? tr("Rəqib də razılaşsa, raund xalsız bitəcək.") : tr("{name} tapa bilmir. Sən də razısansa, “Tapa bilmədik” bas.", { name: who }) };
@@ -173,7 +178,7 @@ function Match({ duel, data }) {
                 data={gameData}
                 types={iStart ? CLUB_ONLY : ANY}
                 onSelect={(entity) => void send({ action: "pick", key: entity.key })}
-                focusKey={`${round}-pick-${state.lastEvent?.at ?? 0}`}
+                focusKey={`${round}-pick-${state.lastEvent?.type === "same" ? state.lastEvent.at : 0}`}
                 secret
                 accent={SIDES.A.border}
                 placeholder={iStart ? tr("Klubun adını yaz...") : tr("Klub və ya ölkə yaz...")}
@@ -186,12 +191,12 @@ function Match({ duel, data }) {
           <>
             <PlayerSearch
               data={gameData}
-              focusKey={`${round}-answer-${state.lastEvent?.at ?? 0}`}
+              focusKey={`${round}-answer`}
               placeholder={tr("{answerer}, ortaq oyunçunu yaz...", { answerer: names.A })}
               onSelect={(player) => void send({ action: "answer", playerId: player.id })}
             />
             <p className={`text-center ${FONT} text-xs text-faint`}>
-              {tr("Hər iki kartda oynamış futbolçunu yaz")} · {tr("{n} mümkün cavab", { n: state.answers ?? answers.length })} · {tr("səhv cavab −1 xal")}
+              {tr("Hər iki kartda oynamış futbolçunu yaz")} · {tr("{n} mümkün cavab", { n: state.answers ?? answers.length })} · {tr("hər 2 səhv −1 xal")}
             </p>
           </>
         ) : null}

@@ -1,4 +1,4 @@
-import { Play, Trophy } from "lucide-react";
+import { ArrowLeft, Play, Trophy } from "lucide-react";
 import { loadBest } from "../../../lib/games/higherLower";
 import {
   Field,
@@ -6,11 +6,11 @@ import {
   SETTINGS_CARD,
   SettingsHeader,
 } from "../common/controls";
-import { BTN_PRIMARY, FONT, SWEEP_WHITE } from "../common/ui";
+import { BTN_GHOST, BTN_PRIMARY, FONT, SWEEP_BLUE, SWEEP_WHITE } from "../common/ui";
 import { OPTIONS } from "./settings";
 
 import { tr } from "../../../i18n";
-export default function HLSettings({ settings, onChange, onStart }) {
+export default function HLSettings({ settings, onChange, onStart, onBack }) {
   const line = settings.mode === "line";
   const best = loadBest(line ? `${settings.difficulty}:line` : settings.difficulty);
 
@@ -59,6 +59,13 @@ export default function HLSettings({ settings, onChange, onStart }) {
           <Play className="h-4 w-4" />
           {tr("Oyuna başla")}
         </button>
+        {onBack ? (
+          <button type="button" onClick={onBack} className={BTN_GHOST}>
+            <span aria-hidden="true" className={SWEEP_BLUE} />
+            <ArrowLeft className="h-4 w-4" />
+            {tr("Rejimlər")}
+          </button>
+        ) : null}
       </div>
     </section>
   );

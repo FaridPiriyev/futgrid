@@ -306,7 +306,7 @@ export default function X0XDuel({ data, settings, onSettingsChange, available = 
           mode="online"
           settings={settings}
           onChange={onSettingsChange}
-          onStart={() => create({ ...settings, categories: settings.categories })}
+          onStart={() => create({ ...settings, timer: settings.timer || 40, categories: settings.categories })}
           onBack={onSettings}
           available={available}
           connected={connected}

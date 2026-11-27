@@ -220,6 +220,10 @@ describe("duel server", () => {
     expect(open.state.picks[aSeat]).toBe(clubA.key);
     expect(open.state.answers).toBe(common.length);
     const wrongId = getGameData().players.find((p) => !common.some((c) => c.id === p.id))!.id;
+    // 1st wrong answer is only a warning, the 2nd costs a point.
+    const warned = next(a, ["game:state"], (s) => s.state.wrongs?.[bSeat] === 1);
+    await ack(b, "game:move", { code, action: "answer", playerId: wrongId });
+    expect((await warned).state.scores[bSeat]).toBe(0);
     const minus = next(a, ["game:state"], (s) => s.state.scores[bSeat] === -1);
     await ack(b, "game:move", { code, action: "answer", playerId: wrongId });
     await minus;
@@ -253,6 +257,16 @@ describe("duel server", () => {
     ]);
     const state = await both;
     expect(state.state.index).toBe(1);
+  });
+
+  it("Yüksək-Aşağı: an idle opponent can't stall the round", async () => {
+    const { a, code, aSeat, state } = await pair("higherLower");
+    expect(state.state.deadline).toBeGreaterThan(state.serverNow);
+    await ack(a, "game:move", { code, direction: "up" });
+    const advanced = next(a, ["game:state", "game:result"], (s) => s.state.index === 1);
+    await expire(code);
+    const after = await advanced;
+    expect(after.state.revealed.answers[aSeat]).toBe("up");
   });
 
   it("marks a dropped player and forfeits them", async () => {
@@ -384,6 +398,9 @@ describe("duel server", () => {
     expect(state.state.size).toBe(24);
     expect(state.state.order).toHaveLength(24);
     expect(JSON.stringify(state.state)).not.toContain(`"playerId"`);
+    // The photo path must not leak the player's slug (file names are player names).
+    expect(state.state.photoUrl).toBe(`/duel/photo/${code}/1`);
+    expect(JSON.stringify(state.state)).not.toContain("/images/players/");
     const early = await ack(a, "game:move", { code, action: "buzz" });
     expect(early.error?.code).toBe("NOT_STARTED");
     await new Promise((resolve) => setTimeout(resolve, 1700));

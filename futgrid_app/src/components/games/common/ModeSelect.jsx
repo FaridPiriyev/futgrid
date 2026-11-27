@@ -26,8 +26,8 @@ const DEFAULT_MODES = [
   } },
 ];
 
-export default function ModeSelect({ onPick, texts = {}, friends = false }) {
-  const modes = DEFAULT_MODES.map((mode) =>
+export default function ModeSelect({ onPick, texts = {}, friends = false, hide = [] }) {
+  const modes = DEFAULT_MODES.filter((mode) => !hide.includes(mode.key)).map((mode) =>
     (mode.key === "friend" || mode.key === "online") && friends ? { ...mode, soon: false } : mode,
   );
   return (

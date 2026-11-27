@@ -3,13 +3,19 @@ import { io } from "socket.io-client";
 import { api, getGuestId } from "../api";
 import { useAuth } from "../auth";
 import { tr } from "../../i18n";
+import {
+  activeDuels,
+  forgetDuel,
+  hasAutoMatch,
+  hasDuelEntry,
+  readStored,
+  requestAutoMatch,
+  socketBase,
+  takeAutoMatch,
+  writeStored,
+} from "./duelStore";
 
-function socketBase() {
-  const explicit = import.meta.env.VITE_SOCKET_URL;
-  if (explicit) return explicit.replace(/\/$/, "");
-  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/v1";
-  return apiUrl.replace(/\/v1\/?$/, "").replace(/\/$/, "");
-}
+export { activeDuels, forgetDuel, hasDuelEntry, requestAutoMatch, socketBase };
 
 const ERRORS = {
   get ROOM_NOT_FOUND() {
@@ -78,42 +84,22 @@ const ERRORS = {
   get GAME_NOT_AVAILABLE() {
     return tr("Bu oyun üçün onlayn axtarış hələ yoxdur.");
   },
+  get NOT_FRIENDS() {
+    return tr("Yalnız dostlarını çağıra bilərsən.");
+  },
+  get NOT_IN_ROOM() {
+    return tr("Sən bu otaqda deyilsən.");
+  },
+  get ALREADY_STARTED() {
+    return tr("Oyun artıq başlayıb.");
+  },
   get NOT_ENOUGH_PLAYERS() {
     return tr("Oyun üçün iki oyunçu lazımdır.");
   },
 };
 
-let autoMatchAt = 0;
-export function requestAutoMatch() {
-  autoMatchAt = Date.now();
-}
 
 export const duelErrorText = (code) => ERRORS[code] ?? tr("Xəta baş verdi ({code}).", { code: code || "?" });
-
-const storeKey = (game) => `fg-duel:${game}`;
-const readStored = (game) => {
-  try {
-    return sessionStorage.getItem(storeKey(game)) ?? "";
-  } catch {
-    return "";
-  }
-};
-const writeStored = (game, code) => {
-  try {
-    if (code) sessionStorage.setItem(storeKey(game), code);
-    else sessionStorage.removeItem(storeKey(game));
-  } catch {
-  }
-};
-
-export function hasDuelEntry(game) {
-  if (typeof window === "undefined") return false;
-  try {
-    if (new URLSearchParams(window.location.search).get("otaq")) return true;
-  } catch {
-  }
-  return Boolean(readStored(game));
-}
 
 export function useDuelRoom({ game, invitedCode = "" }) {
   const { user, loading } = useAuth();
@@ -145,7 +131,7 @@ export function useDuelRoom({ game, invitedCode = "" }) {
       if (state.status !== "finished") setRating(null);
       roomRef.current = state;
       codeRef.current = state.code;
-      writeStored(game, state.code);
+      writeStored(game, state.code, state.status);
       setRoomState(state);
     },
     [game],
@@ -178,16 +164,22 @@ export function useDuelRoom({ game, invitedCode = "" }) {
   const connect = useCallback(async () => {
     socketRef.current?.disconnect();
     setError("");
-    let token = null;
-    if (user) {
+    // Access tokens live 15 minutes. Fetch a fresh one on every (re)connect so a
+    // player who comes back after switching apps is not kicked as UNAUTHENTICATED.
+    const authFor = async () => {
+      if (!user) return { guestId: getGuestId() };
       try {
-        token = (await api.get("/auth/socket-token")).token;
+        const { token } = await api.get("/auth/socket-token");
+        return token ? { token } : { guestId: getGuestId() };
       } catch {
-        token = null;
+        return { guestId: getGuestId() };
       }
-    }
+    };
+    let authRetries = 0;
     const socket = io(socketBase(), {
-      auth: token ? { token } : { guestId: getGuestId() },
+      auth: (cb) => {
+        void authFor().then(cb);
+      },
       withCredentials: true,
       transports: ["websocket", "polling"],
       reconnection: true,
@@ -197,6 +189,7 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     socketRef.current = socket;
 
     socket.on("connect", () => {
+      authRetries = 0;
       setConnected(true);
       if (searchingRef.current && !roomRef.current) {
         socket.emit("queue:join", { game }, (response) => {
@@ -211,7 +204,15 @@ export function useDuelRoom({ game, invitedCode = "" }) {
       setConnected(false);
       setJoining(false);
     });
-    socket.on("disconnect", () => setConnected(false));
+    socket.on("disconnect", (reason) => {
+      setConnected(false);
+      // The server drops sockets with a stale token; socket.io won't retry those
+      // by itself, so try again (a fresh token is fetched in `auth`).
+      if (reason === "io server disconnect" && authRetries < 3) {
+        authRetries += 1;
+        setTimeout(() => socket.connect(), 600 * authRetries);
+      }
+    });
     socket.on("room:state", setRoom);
     socket.on("game:state", setRoom);
     socket.on("game:result", setRoom);
@@ -242,6 +243,21 @@ export function useDuelRoom({ game, invitedCode = "" }) {
       socketRef.current = null;
     };
   }, [connect, game, loading]);
+
+  // Phones freeze background tabs; reconnect immediately when the player comes back
+  // instead of waiting for socket.io's backoff timer.
+  useEffect(() => {
+    const onVisible = () => {
+      const socket = socketRef.current;
+      if (document.visibilityState === "visible" && socket && !socket.connected) socket.connect();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("online", onVisible);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("online", onVisible);
+    };
+  }, []);
 
   const emit = useCallback(
     (event, payload) =>
@@ -324,9 +340,10 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     setSeat(null);
     setRoom(null);
     setError("");
-    if (typeof window !== "undefined" && window.location.search.includes("otaq=")) {
+    if (typeof window !== "undefined" && /[?&](otaq|onlayn)=/.test(window.location.search)) {
       const url = new URL(window.location.href);
       url.searchParams.delete("otaq");
+      url.searchParams.delete("onlayn");
       window.history.replaceState(null, "", url.toString());
     }
   }, [emit, game, setRoom]);
@@ -351,16 +368,59 @@ export function useDuelRoom({ game, invitedCode = "" }) {
   }, [emit, setSearching]);
 
   useEffect(() => {
-    if (!autoMatchAt || !connected || loading || joining || room || searchingRef.current) return;
-    const fresh = Date.now() - autoMatchAt < 20_000;
-    autoMatchAt = 0;
-    if (fresh) void findMatch();
+    if (!hasAutoMatch() || !connected || loading || joining || room || searchingRef.current) return;
+    if (takeAutoMatch()) void findMatch();
   }, [connected, findMatch, joining, loading, room]);
+
+  const invite = useCallback(
+    async (username) => {
+      const code = roomRef.current?.code;
+      if (!code) return { error: { code: "GAME_NOT_ACTIVE" } };
+      return emit("invite:send", { code, username });
+    },
+    [emit],
+  );
 
   const findNext = useCallback(async () => {
     await leaveRoom();
     await findMatch();
   }, [findMatch, leaveRoom]);
+
+  // Haptics + tab title: buzz on own right/wrong answers, and when it becomes your turn
+  // while the tab is in the background, show it in the title so you come back.
+  const lastEventAt = room?.state?.lastEvent?.at;
+  const turnSeat = room?.state?.turn ?? null;
+  const status = room?.status;
+  useEffect(() => {
+    const e = roomRef.current?.state?.lastEvent;
+    if (!e || e.seat !== seat || Date.now() + offsetRef.current - (e.at ?? 0) > 3000) return;
+    try {
+      if (e.type === "wrong") navigator.vibrate?.(120);
+      else if (e.type === "correct" || e.type === "found") navigator.vibrate?.([40, 40, 40]);
+    } catch {
+      // vibration is optional
+    }
+  }, [lastEventAt, seat]);
+  useEffect(() => {
+    if (typeof document === "undefined") return undefined;
+    const mine = status === "playing" && turnSeat && turnSeat === seat;
+    if (!mine) return undefined;
+    try {
+      navigator.vibrate?.(50);
+    } catch {
+      // vibration is optional
+    }
+    const base = document.title;
+    const flag = () => {
+      document.title = document.hidden ? `⚽ ${tr("Növbə səndə!")}` : base;
+    };
+    flag();
+    document.addEventListener("visibilitychange", flag);
+    return () => {
+      document.removeEventListener("visibilitychange", flag);
+      document.title = base;
+    };
+  }, [turnSeat, seat, status]);
 
   const players = room?.players ?? [];
   const myId = seat ?? null;
@@ -391,5 +451,7 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     rematch,
     surrender,
     reconnect: connect,
+    invite,
+    canInvite: Boolean(user),
   };
 }

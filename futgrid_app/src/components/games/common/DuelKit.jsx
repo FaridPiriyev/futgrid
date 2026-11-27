@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Check, Crown, DoorOpen, Flag as FlagIcon, Handshake, RotateCcw, Swords, Trophy, WifiOff, X } from "lucide-react";
+import { Check, Crown, DoorOpen, Flag as FlagIcon, Handshake, RotateCcw, Share2, Swords, Trophy, WifiOff, X } from "lucide-react";
 import { FONT } from "./ui";
 import { tr } from "../../../i18n";
+import { useSocial } from "../../../lib/social";
+import { DUEL_GAME_PATHS, gameName } from "../../../lib/games/names";
 
 export const DUEL_KEYFRAMES = `
 @keyframes duelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -47,6 +49,25 @@ export function DuelAvatar({ player, tone, size = "h-11 w-11" }) {
   );
 }
 
+/** Opponent/own name; tapping a registered player's name opens their profile. */
+export function PlayerName({ player, className = "" }) {
+  const { openProfile } = useSocial();
+  const base = `truncate ${FONT} text-sm font-extrabold uppercase text-ink sm:text-base ${className}`;
+  if (!player || player.guest || !player.username) return <p className={base}>{nameOf(player)}</p>;
+  return (
+    <p className={base}>
+      <button
+        type="button"
+        onClick={() => openProfile(player.username)}
+        title={tr("Profilə bax")}
+        className="uppercase underline-offset-4 hover:text-accent hover:underline"
+      >
+        {nameOf(player)}
+      </button>
+    </p>
+  );
+}
+
 function PlayerCard({ duel, player, score, active, now, mark, align }) {
   const tone = toneOf(duel, player?.id);
   const me = player?.id === duel.myId;
@@ -68,7 +89,7 @@ function PlayerCard({ duel, player, score, active, now, mark, align }) {
         ) : null}
       </div>
       <div className="min-w-0 flex-1">
-        <p className={`truncate ${FONT} text-sm font-extrabold uppercase text-ink sm:text-base`}>{nameOf(player)}</p>
+        <PlayerName player={player} />
         <p className={`truncate ${FONT} text-[11px] sm:text-xs ${offline ? "text-bad-hi" : active ? tone.text : "text-muted"}`}>
           {offline ? (
             <span className="inline-flex items-center gap-1">
@@ -216,6 +237,39 @@ function EloLine({ duel }) {
   );
 }
 
+/** "Share result" — free word of mouth: score line + link to the game. */
+function ShareResult({ duel, won, draw }) {
+  const [copied, setCopied] = useState(false);
+  const room = duel.room;
+  const path = DUEL_GAME_PATHS[room.game];
+  if (!path) return null;
+  const scores = room.state?.scores ?? {};
+  const mine = scores[duel.myId];
+  const theirs = duel.opponent ? scores[duel.opponent.id] : undefined;
+  const line = typeof mine === "number" && typeof theirs === "number" ? ` ${mine}–${theirs}` : "";
+  const verdict = won ? tr("qazandım 🏆") : draw ? tr("heç-heçə 🤝") : tr("uduzdum, revanş lazımdır 😤");
+  const text = `FutGrid · ${gameName(room.game)}: ${tr("{name} ilə", { name: nameOf(duel.opponent) })}${line} — ${verdict}`;
+  const url = `https://futgrid.az${path}`;
+  const share = async () => {
+    try {
+      if (navigator.share) await navigator.share({ title: "FutGrid", text, url });
+      else {
+        await navigator.clipboard.writeText(`${text}\n${url}`);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1800);
+      }
+    } catch {
+      // user cancelled
+    }
+  };
+  return (
+    <button type="button" onClick={() => void share()} className={DUEL_BTN_LINE}>
+      {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
+      {copied ? tr("Kopyalandı") : tr("Paylaş")}
+    </button>
+  );
+}
+
 export function DuelFinished({ duel, detail }) {
   const room = duel.room;
   const quit = Boolean(REASON[room.endedReason]) && !room.winnerId && Boolean(room.loserId);
@@ -261,11 +315,17 @@ export function DuelFinished({ duel, detail }) {
             {tr("Yeni rəqib")}
           </button>
         ) : null}
+        <ShareResult duel={duel} won={won} draw={draw} />
         <button type="button" onClick={() => void duel.leaveRoom()} className={DUEL_BTN_LINE}>
           <DoorOpen className="h-4 w-4" />
           {tr("Otaqdan çıx")}
         </button>
       </div>
+      {(room.players?.length ?? 0) > 2 && room.rematch?.length ? (
+        <p className={`mt-3 ${FONT} text-sm font-bold text-yellow`}>
+          {tr("Revanşa hazır: {n}/{total}", { n: room.rematch.length, total: room.players.length })}
+        </p>
+      ) : null}
       {theyAsked && !iAsked ? (
         <p className={`mt-3 ${FONT} text-sm font-bold text-yellow`}>{tr("{name} revanş istəyir!", { name: nameOf(duel.opponent) })}</p>
       ) : null}

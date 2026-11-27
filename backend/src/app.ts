@@ -30,6 +30,8 @@ import { registerGoatRoutes } from "./modules/goat/routes.js";
 import { registerContactRoutes } from "./modules/contact/routes.js";
 import { registerStatsRoutes } from "./modules/stats/routes.js";
 import { registerAdminRoutes } from "./modules/admin/routes.js";
+import { registerDuelRoutes } from "./modules/duel/routes.js";
+import { registerSocialRoutes } from "./modules/social/routes.js";
 import { storageDir } from "./lib/storage.js";
 
 export async function buildApp() {
@@ -166,6 +168,8 @@ export async function buildApp() {
       await registerContactRoutes(v1);
       await registerStatsRoutes(v1);
       await registerAdminRoutes(v1);
+      await registerDuelRoutes(v1);
+      await registerSocialRoutes(v1);
     },
     { prefix: "/v1" },
   );

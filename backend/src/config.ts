@@ -68,6 +68,8 @@ const envSchema = z.object({
   TRANSFERMARKT_CSV_URL: z.string().optional(),
   ADMIN_TOTP_ISSUER: z.string().default("FutGrid"),
   MEDIA_MAX_BYTES: z.coerce.number().int().positive().default(10_000_000),
+  PLAYER_PHOTO_MODE: z.enum(["accel", "redirect"]).default("redirect"),
+  PLAYER_PHOTO_ACCEL_PREFIX: z.string().default("/_player_photos/"),
   MEDIA_MAX_WIDTH: z.coerce.number().int().positive().default(640),
   FCM_SERVICE_ACCOUNT_JSON: z.string().optional(),
 });

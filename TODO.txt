@@ -1,24 +1,19 @@
-Critique — The ID completely breaks the game
-When guests' match ends, the entire server crashes. When the game ends, the server tries to write the guest's ID to the leaderboard, there is no such user in the database → error → the Node process stops. At that moment, everyone playing has their room closed. (socket.ts → recordMatch/updateRatings)
-The server doesn't see that the player has left. In the disconnect event, the room list is already empty. "Opponent left" never appears, and the 30-second technical loss doesn't work either (I waited 33 seconds and checked).
-Simultaneous answers overwrite each other. The room is kept with a "read → modify → write" pattern, without locks. In higher-lower, when two people answer at the same time, one is lost and the game doesn't progress. Shared player and auction are at the same risk.
-"Who is this" doesn't work online: there is no code on the server to open the image cells, the image never opens.
-"20 questions" doesn't work online: there is no way to ask a question either on the server or on the screen. The player just guesses blindly among 20 thousand footballers.
-The player who creates the room doesn't reconnect to the room when their internet drops for a moment and they come back. Switching to another app on the phone and coming back is enough, the game freezes.
-Important
-Online open auction is with the old rules: 40 ₼, 12 lots, "Pass" does nothing. The "Start auction" button gives an error. The screen says "2–4 players", but the server accepts 2 people.
-There is no time limit: in X0X and Two letters, if the player whose turn it is doesn't write, the game stops forever.
-Timers are in the server's memory: when deploy or restart happens, the auction lot gets stuck.
-Guest identity can be forged: players' IDs are sent to the opponent, the opponent can connect with that ID and play in your place.
-In online "Who is this" and "20 questions" there is no penalty for a wrong guess, you can guess as many times as you want.
-Account system
-There is no way to resend the confirmation email. If the email doesn't arrive, the account remains locked forever, and re-registration with the same email is also not possible.
-The registration limit is too strict: 3 per hour from one IP, wrong attempts are also counted. On mobile internet, many people come from the same IP, on advertising day people will get a "too many attempts" error.
-When several tabs are open, the server considers this theft and can log the user out of all devices.
-In Google login, the email's confirmation is not checked, it automatically links to an existing account. This is an account takeover risk.
-Rating and points
-Fast players are penalized: when the average time of answers is 0.6–1.6 seconds, the result is considered "suspicious" and 0 points are given. The player is told nothing about this. A normal person playing higher-lower is right in this range.
-Cheating in ranked is easy: correct answers can be calculated in the browser.
-Deploy
-Avatar links point to localhost by default. Avatars uploaded on Railway are lost on every deploy.
-API documentation (/docs) is open in production. Docker doesn't run database migrations itself.
+FutGrid — açıq işlər (yenilənib: 27.11.2026)
+
+Köhnə siyahıdakı bu iradlar kodda artıq düzəlib və silinib:
+qonaq ID ilə serverin çökməsi, disconnect/texniki məğlubiyyət, eyni anda cavabların itməsi (Redis kilidi),
+"Kimdir bu" və "20 sual" onlayn, otağa yenidən qoşulma, taymerlərin yaddaşda qalması, qonaq ID-nin saxtalaşdırılması,
+təsdiq məktubunun yenidən göndərilməsi, Google email_verified yoxlaması, /docs (SWAGGER_ENABLED), Docker miqrasiyaları.
+
+Bu budaqda düzəldilənlər (claude/online-ux-improvements):
+- "Kimdir bu" onlayn: şəkil faylının adı (= oyunçunun adı) artıq brauzerə getmir (/v1/duel/photo + nginx X-Accel-Redirect)
+- Socket token hər yenidən qoşulmada təzələnir (15 dəq sonra UNAUTHENTICATED olmur)
+- Yüksək-Aşağı onlayn: 20 san cavab vaxtı, oyun saytda açıldı; X0X onlaynda limitsiz taymer yoxdur
+- Ortaq Oyunçu: hər 2 səhv −1 xal; rəqib səhv edəndə sənin yazdığın silinmir
+- 3–4 nəfərlik auksionda revanş işləyir
+
+Hələ açıq:
+- Solo oyunlarda düzgün cavablar brauzerdə hesablana bilir (ranked fırıldaq riski) — server tərəfli sual seçimi lazımdır
+- "Kimdir bu" onlayn: şəkil tam yüklənir, xanalar yalnız brauzerdə örtülür (devtools ilə baxmaq mümkündür)
+- Ardıcıl 19 mükəmməl nəticə "flagged" sayılır — qayda yumşaldılmalıdır (indi heç olmasa oyunçuya bildiriş göstərilir)
+- Oyunçu şəkilləri (13 845 fayl, ~570 MB) repoda saxlanılır — R2/obyekt yaddaşına köçürmək

@@ -158,8 +158,8 @@ export default function X0XSettings({
               <Field label={tr("Növbə vaxtı")}>
                 <Segmented
                   label={tr("Növbə vaxtı")}
-                  options={OPTIONS.timer}
-                  value={settings.timer}
+                  options={online ? OPTIONS.timer.filter((o) => o.value !== 0) : OPTIONS.timer}
+                  value={online && !settings.timer ? 40 : settings.timer}
                   onChange={set("timer")}
                 />
               </Field>

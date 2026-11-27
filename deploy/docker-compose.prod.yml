@@ -46,6 +46,7 @@ services:
       CDN_MEDIA_DIR: /app/storage/cdn-media
       DATA_DIR: /app/packages/game-core/data
       TRUST_PROXY: "true"
+      PLAYER_PHOTO_MODE: accel
     volumes:
       - api_storage:/app/storage
     depends_on:

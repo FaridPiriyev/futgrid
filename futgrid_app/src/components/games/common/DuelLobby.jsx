@@ -4,6 +4,9 @@ import { DUEL_KEYFRAMES, DuelFinished, nameOf } from "./DuelKit";
 import { Loader, Notice } from "./GameStatus";
 import { FONT } from "./ui";
 import { tr } from "../../../i18n";
+import { useSocial } from "../../../lib/social";
+import { gameName } from "../../../lib/games/names";
+import FriendsPanel from "../../social/FriendsPanel";
 
 const DIGITS = "font-['Tektur',sans-serif]";
 const BTN = `inline-flex h-12 items-center justify-center gap-2.5 rounded-[10px] px-5 ${FONT} text-[15px] font-bold uppercase tracking-[0.08em] transition-[background-color,border-color,color,translate] duration-200 disabled:cursor-not-allowed disabled:opacity-45`;
@@ -30,8 +33,17 @@ function Avatar({ player, index, size = "h-11 w-11" }) {
 }
 
 function PlayerSide({ player, index, align = "left", me }) {
+  const { openProfile } = useSocial();
+  const profile = player && !player.guest && player.username ? () => openProfile(player.username) : null;
   return (
-    <div className={`flex min-w-0 items-center gap-3 ${align === "right" ? "flex-row-reverse text-right" : ""}`}>
+    <div
+      role={profile ? "button" : undefined}
+      tabIndex={profile ? 0 : undefined}
+      onClick={profile ?? undefined}
+      onKeyDown={profile ? (e) => (e.key === "Enter" ? profile() : null) : undefined}
+      title={profile ? tr("Profilə bax") : undefined}
+      className={`flex min-w-0 items-center gap-3 ${align === "right" ? "flex-row-reverse text-right" : ""} ${profile ? "cursor-pointer rounded-xl hover:opacity-85" : ""}`}
+    >
       <Avatar player={player} index={index} />
       <div className="min-w-0">
         <p className={`truncate ${FONT} text-base font-extrabold uppercase ${player ? "text-ink" : "text-faint"}`}>
@@ -133,12 +145,12 @@ function useElapsed(since) {
     return () => clearInterval(timer);
   }, [since]);
   const seconds = since ? Math.max(0, Math.floor((now - since) / 1000)) : 0;
-  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+  return { seconds, label: `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}` };
 }
 
 function RandomMatch({ duel }) {
   const searching = duel.searching;
-  const elapsed = useElapsed(searching?.since);
+  const { label: elapsed, seconds: waited } = useElapsed(searching?.since);
   if (searching) {
     return (
       <div className="relative overflow-hidden rounded-[18px] border border-accent/30 bg-accent/8 p-5 text-center animate-[duelIn_0.35s_ease-out] sm:p-7">
@@ -154,6 +166,11 @@ function RandomMatch({ duel }) {
             ? tr("Növbədə {n} oyunçu var", { n: searching.searching })
             : tr("Reytinqi sənə yaxın oyunçu axtarırıq. Gözləmə uzandıqca axtarış genişlənir.")}
         </p>
+        {waited > 45 ? (
+          <p className={`mx-auto mt-3 max-w-sm rounded-[10px] bg-yellow/12 px-3 py-2 ${FONT} text-sm text-ink`}>
+            {tr("Hazırda onlayn oyunçu azdır. Axtarışı ləğv edib otaq yarada və kodu dostuna göndərə bilərsən.")}
+          </p>
+        ) : null}
         <button type="button" onClick={() => void duel.cancelMatch()} className={`${BTN_LINE} mt-5`}>
           <X className="h-4.5 w-4.5" />
           {tr("Ləğv et")}
@@ -205,23 +222,26 @@ export function SettingsSummary({ items, dark = false }) {
   );
 }
 
-function WaitingRoom({ code, onLeave, summary }) {
-  const [copied, setCopied] = useState(false);
+function WaitingRoom({ code, game, onLeave, summary }) {
+  const [copied, setCopied] = useState("");
   const link = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}?otaq=${code}` : "";
-  const copy = async () => {
+  const message = tr("{game}-də səni gözləyirəm ⚽ Otaq kodu: {code}", { game: gameName(game), code });
+  const copy = async (what) => {
     try {
-      await navigator.clipboard.writeText(String(code));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
+      await navigator.clipboard.writeText(what === "link" ? `${message}\n${link}` : String(code));
+      setCopied(what);
+      setTimeout(() => setCopied(""), 1800);
     } catch {
     }
   };
   const share = async () => {
     try {
-      await navigator.share({ title: "FutGrid", text: tr("FutGrid-də mənə qoşul! Otaq kodu: {code}", { code }), url: link });
+      await navigator.share({ title: "FutGrid", text: message, url: link });
     } catch {
     }
   };
+  const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${message}\n${link}`)}`;
+  const telegram = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(message)}`;
   return (
     <div className="relative overflow-hidden rounded-[18px] border border-accent/25 bg-navy p-5 text-white sm:p-7">
       <span
@@ -240,16 +260,29 @@ function WaitingRoom({ code, onLeave, summary }) {
           </p>
         </div>
         <div className="flex flex-wrap gap-2.5 md:flex-col md:flex-nowrap">
-          <button type="button" onClick={() => void copy()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
-            {copied ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
-            {copied ? tr("Kopyalandı") : tr("Kodu kopyala")}
-          </button>
           {typeof navigator !== "undefined" && navigator.share ? (
-            <button type="button" onClick={() => void share()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap border border-white/25 text-white hover:border-white/60 md:w-56 md:flex-none`}>
+            <button type="button" onClick={() => void share()} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
               <Share2 className="h-4.5 w-4.5" />
-              {tr("Paylaş")}
+              {tr("Dostuna göndər")}
             </button>
-          ) : null}
+          ) : (
+            <button type="button" onClick={() => void copy("link")} className={`${BTN} min-w-36 flex-1 whitespace-nowrap bg-yellow text-on-yellow hover:brightness-110 md:w-56 md:flex-none`}>
+              {copied === "link" ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
+              {copied === "link" ? tr("Kopyalandı") : tr("Dəvət linkini kopyala")}
+            </button>
+          )}
+          <div className="flex min-w-36 flex-1 gap-2 md:w-56 md:flex-none">
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className={`${BTN} flex-1 border border-white/25 px-3 text-white hover:border-[#25D366] hover:text-[#25D366]`}>
+              WhatsApp
+            </a>
+            <a href={telegram} target="_blank" rel="noopener noreferrer" className={`${BTN} flex-1 border border-white/25 px-3 text-white hover:border-[#2AABEE] hover:text-[#2AABEE]`}>
+              Telegram
+            </a>
+          </div>
+          <button type="button" onClick={() => void copy("code")} className={`${BTN} min-w-36 flex-1 whitespace-nowrap border border-white/25 text-white hover:border-white/60 md:w-56 md:flex-none`}>
+            {copied === "code" ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
+            {copied === "code" ? tr("Kopyalandı") : tr("Kodu kopyala")}
+          </button>
           <button type="button" onClick={onLeave} className={`${BTN} basis-full whitespace-nowrap text-navy-soft hover:text-white md:w-56 md:basis-auto`}>
             <DoorOpen className="h-4.5 w-4.5" />
             {tr("Otağı bağla")}
@@ -289,6 +322,36 @@ function SetupStage({ duel, setup }) {
         </div>
         <JoinBox onJoin={(code) => void duel.joinRoom(code)} />
       </div>
+    </div>
+  );
+}
+
+/** Small "Rəqib: name · profile" strip shown during and after a match for registered opponents. */
+function OpponentChips({ players, myId }) {
+  const { openProfile } = useSocial();
+  const others = players.filter((player) => player.id !== myId && !player.guest && player.username);
+  if (!others.length) return null;
+  return (
+    <div className={`flex flex-wrap items-center justify-center gap-2 ${FONT} text-xs text-muted`}>
+      <span className="uppercase tracking-[0.14em]">{others.length > 1 ? tr("Rəqiblər") : tr("Rəqib")}:</span>
+      {others.map((player) => (
+        <button
+          key={player.id}
+          type="button"
+          onClick={() => openProfile(player.username)}
+          className="inline-flex items-center gap-1.5 rounded-full border border-line/15 bg-surface py-0.5 pl-0.5 pr-2.5 font-bold text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          {player.avatarUrl ? (
+            <img src={player.avatarUrl} alt="" className="h-5 w-5 rounded-full object-cover" />
+          ) : (
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-yellow text-[10px] font-black text-on-yellow">
+              {(player.displayName || player.name || "?")[0]?.toUpperCase()}
+            </span>
+          )}
+          @{player.username}
+          <span className="font-normal text-muted">· {tr("Profilə bax")}</span>
+        </button>
+      ))}
     </div>
   );
 }
@@ -383,8 +446,20 @@ export default function DuelLobby({ duel, children, finishedDetail = null, onBac
         </>
       )}
 
+      {duel.room && !duel.connected && !finished ? (
+        <p
+          role="status"
+          className={`sticky top-20 z-30 flex items-center justify-center gap-2 rounded-[12px] border border-yellow/40 bg-yellow/15 px-3 py-2.5 ${FONT} text-sm font-bold text-ink backdrop-blur`}
+        >
+          <Loader2 className="h-4 w-4 animate-spin text-yellow" />
+          {waiting
+            ? tr("Bağlantı kəsildi — bərpa olunur…")
+            : tr("Bağlantı kəsildi — bərpa olunur. 30 saniyə ərzində qayıtmasan, matç uduzulmuş sayılır.")}
+        </p>
+      ) : null}
       {waiting ? <VersusBar players={players} myId={duel.myId} live={false} /> : null}
-      {waiting ? <WaitingRoom code={duel.room.code} onLeave={() => void duel.leaveRoom()} summary={summary} /> : null}
+      {waiting ? <WaitingRoom code={duel.room.code} game={duel.room.game} onLeave={() => void duel.leaveRoom()} summary={summary} /> : null}
+      {waiting && duel.canInvite ? <FriendsPanel onInvite={duel.invite} compact /> : null}
       {waiting && waitingActions ? waitingActions : null}
 
       {duel.error ? (
@@ -393,6 +468,7 @@ export default function DuelLobby({ duel, children, finishedDetail = null, onBac
         </p>
       ) : null}
 
+      {duel.room && !waiting ? <OpponentChips players={players} myId={duel.myId} /> : null}
       {finished ? <DuelFinished duel={duel} detail={finishedDetail} /> : null}
       {duel.room && !waiting ? children : null}
     </div>

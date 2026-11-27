@@ -19,6 +19,7 @@ import { RevealCard } from "../sual/SualParts";
 import PixelBoard, { TileMeter } from "./PixelBoard";
 import { ERAS, GRID_OPTIONS, LEVELS, SPEEDS, TARGETS } from "./options";
 import { tr } from "../../../i18n";
+import { API_URL } from "../../../lib/api";
 
 const labelOf = (list, value) =>
   list.find((o) => o.value === value)?.label ?? String(value);
@@ -170,7 +171,11 @@ function Match({ duel, data }) {
   const nextIn =
     state.phase === "round" && playing ? secs(state.deadline) : null;
   const photo = useMemo(
-    () => ({ id: `r${state.round}`, photo_url: state.photoUrl }),
+    () => ({
+      id: `r${state.round}`,
+      // Server gives an opaque path so the file name can't spoil the answer.
+      photo_url: state.photoUrl?.startsWith("/duel/") ? `${API_URL}${state.photoUrl}` : state.photoUrl,
+    }),
     [state.round, state.photoUrl],
   );
   const order = useMemo(() => state.order ?? [], [state.order]);

@@ -37,7 +37,8 @@ export interface XoxSettings {
   difficulty: "easy" | "normal" | "hard";
   categories: { country: boolean; trophy: boolean; coach: boolean };
   steals: "none" | 3 | "unlimited";
-  timer: 0 | 15 | 40 | 60;
+  /** Online turns are always timed: an untimed turn lets an idle player stall the room forever. */
+  timer: 15 | 40 | 60;
   multipleChoice: boolean;
   target: 1 | 2 | 3;
 }
@@ -53,7 +54,7 @@ function normalize(raw: unknown): XoxSettings {
       coach: cats.coach !== false,
     },
     steals: oneOf(s.steals, ["none", 3, "unlimited"] as const, "none"),
-    timer: oneOf(Number(s.timer), [0, 15, 40, 60] as const, 40),
+    timer: oneOf(Number(s.timer), [15, 40, 60] as const, 40),
     multipleChoice: s.multipleChoice === true,
     target: oneOf(Number(s.target), [1, 2, 3] as const, 2),
   };

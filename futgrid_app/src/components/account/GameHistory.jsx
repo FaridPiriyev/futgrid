@@ -3,6 +3,7 @@ import { History, Swords, Target, TrendingUp, Trophy } from "lucide-react";
 import { api } from "../../lib/api";
 import { gameName } from "../../lib/games/names";
 import { getLang, tr } from "../../i18n";
+import { useSocial } from "../../lib/social";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
 const BODY = "font-['Roboto',sans-serif]";
@@ -75,6 +76,7 @@ function Delta({ value }) {
 }
 
 function DuelRow({ item }) {
+  const { openProfile } = useSocial();
   const result = RESULT[item.result] ?? RESULT.draw;
   const opponents = item.opponents ?? [];
   const first = opponents[0];
@@ -93,7 +95,20 @@ function DuelRow({ item }) {
           <span className="shrink-0">{tr("vs")}</span>
           {first ? <Avatar person={first} /> : null}
           <span className="truncate">
-            {opponents.map(personName).join(", ") || tr("Rəqib")}
+            {opponents.length
+              ? opponents.map((person, i) => (
+                  <span key={i}>
+                    {i ? ", " : ""}
+                    {!person.guest && !person.deleted && person.username ? (
+                      <button type="button" onClick={() => openProfile(person.username)} className="hover:text-accent hover:underline">
+                        {personName(person)}
+                      </button>
+                    ) : (
+                      personName(person)
+                    )}
+                  </span>
+                ))
+              : tr("Rəqib")}
           </span>
         </div>
         <p className={`mt-0.5 ${BODY} text-xs text-faint`}>

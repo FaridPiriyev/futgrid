@@ -1,6 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api, queuePendingResult } from "../api";
 import { seeded } from "../random";
+import { tr } from "../../i18n";
+
+/** Tell the player when a finished game earned no points, instead of failing silently. */
+function announce(result) {
+  const text =
+    result?.reason === "flagged"
+      ? tr("Bu oyunun nəticəsi avtomatik yoxlamaya düşdü və xal verilmədi. Narahat olma, növbəti oyunlar adi qaydada sayılır.")
+      : result?.reason === "daily_limit"
+        ? tr("Bu oyun üçün bugünkü reytinq limiti doldu — xallar sabah yenidən sayılacaq.")
+        : null;
+  if (text && typeof window !== "undefined") window.dispatchEvent(new CustomEvent("fg:notice", { detail: text }));
+}
 
 export function useRankedSession({ game, mode = "ranked", difficulty = "normal", settings = {} }) {
   const sessionRef = useRef(null);
@@ -55,7 +67,9 @@ export function useRankedSession({ game, mode = "ranked", difficulty = "normal",
       durationMs: durationMs ?? Math.max(0, Date.now() - startedAtRef.current),
     };
     try {
-      return await api.post(`/sessions/${current.sessionId}/finish`, payload);
+      const result = await api.post(`/sessions/${current.sessionId}/finish`, payload);
+      announce(result);
+      return result;
     } catch (error) {
       if (!error?.status || error.status >= 500 || error.status === 429) {
         queuePendingResult({ sessionId: current.sessionId, answers: payload.answers });

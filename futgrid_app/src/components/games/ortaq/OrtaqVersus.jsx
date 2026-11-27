@@ -191,6 +191,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
   const [curtain, setCurtain] = useState(true);
   const [answerer, setAnswerer] = useState(null);
   const [score, setScore] = useState({ A: 0, B: 0 });
+  const [wrongs, setWrongs] = useState({ A: 0, B: 0 });
   const [feedback, setFeedback] = useState(null);
   const [result, setResult] = useState(null);
   const [showAnswers, setShowAnswers] = useState(false);
@@ -267,10 +268,16 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
       setFeedback(null);
       if (next[answerer] >= target) setShowModal(true);
     } else {
-      setScore((s) => ({ ...s, [answerer]: s[answerer] - 1 }));
+      // Every 2nd wrong answer in a round costs a point; the 1st is a warning.
+      const count = (wrongs[answerer] ?? 0) + 1;
+      const penalty = count % 2 === 0;
+      setWrongs((w) => ({ ...w, [answerer]: count }));
+      if (penalty) setScore((s) => ({ ...s, [answerer]: s[answerer] - 1 }));
       setFeedback({
         type: "wrong",
-        text: tr("{answerer}: {name} ortaq oyunçu deyil. −1 xal", { answerer: names[answerer], name: player.name }),
+        text: penalty
+          ? tr("{answerer}: {name} ortaq oyunçu deyil. −1 xal", { answerer: names[answerer], name: player.name })
+          : tr("{answerer}: {name} ortaq oyunçu deyil. Xəbərdarlıq — növbəti səhv −1 xal", { answerer: names[answerer], name: player.name }),
       });
       setAnswerer(null);
     }
@@ -284,6 +291,7 @@ export default function OrtaqVersus({ data, settings, onSettings }) {
   };
 
   const startRound = (no, first) => {
+    setWrongs({ A: 0, B: 0 });
     setRound(no);
     setStarter(first);
     setPicks({ A: null, B: null });
