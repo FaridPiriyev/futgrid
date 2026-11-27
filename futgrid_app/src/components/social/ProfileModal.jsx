@@ -23,12 +23,12 @@ export default function ProfileModal({ username, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <style>{"@keyframes duelIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }"}</style>
-        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-accent via-yellow to-accent" />
+        <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-0.5 bg-linear-to-r from-accent via-yellow to-accent" />
         <button
           type="button"
           onClick={onClose}
           aria-label={tr("Bağla")}
-          className="absolute right-4 top-4 text-faint transition-colors duration-200 hover:text-ink"
+          className="absolute right-4 top-4 z-10 text-white/70 transition-colors duration-200 hover:text-white"
         >
           <X className="h-5 w-5" />
         </button>

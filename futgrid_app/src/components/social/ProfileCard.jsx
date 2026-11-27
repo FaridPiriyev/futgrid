@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, Clock, Loader2, Shield, Swords, Trophy, UserMinus, UserPlus } from "lucide-react";
-import { api } from "../../lib/api";
+import { fetchProfile } from "../../lib/useProfile";
 import { useAuth } from "../../lib/auth";
 import { useSocial } from "../../lib/social";
 import { gameName } from "../../lib/games/names";
@@ -74,117 +74,160 @@ function FriendButton({ profile, onChange }) {
   );
 }
 
-/** Public player profile: avatar, team, totals, duel Elo, recent duel form and friend button. */
+function RatingRow({ gameId, rating, games }) {
+  const diff = rating - 1000;
+  const width = Math.min(100, Math.abs(diff) / 2);
+  return (
+    <li className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 py-2">
+      <span className={`truncate ${FONT} text-sm font-bold text-ink`}>{gameName(gameId)}</span>
+      <span className={`${DIGITS} text-base font-bold text-ink`}>
+        {rating}
+        <span className={`ml-1.5 ${FONT} text-xs font-bold ${diff > 0 ? "text-good-hi" : diff < 0 ? "text-bad-hi" : "text-faint"}`}>
+          {diff > 0 ? "+" : ""}
+          {diff}
+        </span>
+      </span>
+      <span className="col-span-2 flex h-1.5 overflow-hidden rounded-full bg-line/8">
+        <span className="w-1/2 flex justify-end">
+          {diff < 0 ? <span className="h-full rounded-l-full bg-bad/70" style={{ width: `${width}%` }} /> : null}
+        </span>
+        <span className="w-px bg-line/30" />
+        <span className="w-1/2">
+          {diff > 0 ? <span className="block h-full rounded-r-full bg-good" style={{ width: `${width}%` }} /> : null}
+        </span>
+      </span>
+      <span className={`col-span-2 -mt-0.5 ${FONT} text-[11px] text-faint`}>{tr("{n} oyun", { n: games })}</span>
+    </li>
+  );
+}
+
+/** Public player profile: header, rating tiles, recent form, per-game ratings and friend button. */
 export default function ProfileCard({ username }) {
-  const [profile, setProfile] = useState(null);
-  const [error, setError] = useState(false);
+  const [state, setState] = useState({ username: null, profile: null, error: false });
 
   useEffect(() => {
     let alive = true;
-    setProfile(null);
-    setError(false);
-    api
-      .get(`/players/${encodeURIComponent(username)}`)
-      .then((data) => alive && setProfile(data))
-      .catch(() => alive && setError(true));
+    fetchProfile(username, { fresh: true })
+      .then((data) => alive && setState({ username, profile: data, error: false }))
+      .catch(() => alive && setState({ username, profile: null, error: true }));
     return () => {
       alive = false;
     };
   }, [username]);
 
-  if (error)
+  const current = state.username === username ? state : { profile: null, error: false };
+  const profile = current.profile;
+  const setProfile = (update) => setState((prev) => ({ ...prev, profile: update(prev.profile) }));
+
+  if (current.error)
     return <p className={`py-10 text-center ${FONT} text-sm text-muted`}>{tr("Oyunçu tapılmadı.")}</p>;
   if (!profile)
     return (
-      <div className="grid place-items-center py-14">
+      <div className="grid place-items-center py-16">
         <Loader2 className="h-6 w-6 animate-spin text-muted" />
       </div>
     );
 
   const since = new Date(profile.memberSince).toLocaleDateString(getLang(), { year: "numeric", month: "long" });
   const letter = (profile.displayName || profile.username || "?").slice(0, 1).toUpperCase();
+  const overall = profile.duel?.rating ?? 1000;
+  const ratings = [...profile.ratings].sort((a, b) => b.rating - a.rating);
 
   return (
     <div>
-      <div className="flex items-center gap-4">
-        <span className="relative shrink-0">
-          {profile.avatarUrl ? (
-            <img src={profile.avatarUrl} alt="" className="h-18 w-18 rounded-full object-cover ring-2 ring-line/15" />
-          ) : (
-            <span className={`grid h-18 w-18 place-items-center rounded-full bg-accent-lo ${FONT} text-3xl font-black text-white`}>
-              {letter}
-            </span>
-          )}
-          <span
-            title={profile.online ? tr("Onlayn") : tr("Oflayn")}
-            className={`absolute bottom-0.5 right-0.5 h-4 w-4 rounded-full ring-3 ring-surface ${profile.online ? "bg-good" : "bg-line/30"}`}
-          />
+      {/* Header band */}
+      <div className="relative -mx-5 -mt-5 overflow-hidden bg-navy px-5 pb-12 pt-6 text-white sm:-mx-6 sm:-mt-6 sm:px-6">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(255,255,255,.035)_0_60px,transparent_60px_120px)]"
+        />
+        {profile.team?.logoUrl ? (
+          <img src={profile.team.logoUrl} alt="" aria-hidden="true" className="pointer-events-none absolute -right-6 -top-6 h-36 w-36 object-contain opacity-15" />
+        ) : null}
+        <span
+          className={`relative inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 ${FONT} text-[11px] font-bold uppercase tracking-[0.14em] ${
+            profile.online ? "bg-good/20 text-good-hi" : "bg-white/10 text-navy-soft"
+          }`}
+        >
+          <span className={`h-2 w-2 rounded-full ${profile.online ? "bg-good" : "bg-white/40"}`} />
+          {profile.online ? tr("Onlayn") : tr("Oflayn")}
         </span>
-        <div className="min-w-0">
+      </div>
+
+      <div className="relative -mt-10 flex items-end gap-4">
+        {profile.avatarUrl ? (
+          <img src={profile.avatarUrl} alt="" className="h-24 w-24 shrink-0 rounded-full object-cover ring-4 ring-surface" />
+        ) : (
+          <span className={`grid h-24 w-24 shrink-0 place-items-center rounded-full bg-accent-lo ring-4 ring-surface ${FONT} text-4xl font-black text-white`}>
+            {letter}
+          </span>
+        )}
+        <div className="min-w-0 pb-1">
           <p className={`truncate ${FONT} text-2xl font-black uppercase leading-tight text-ink`}>{profile.displayName}</p>
           <p className={`truncate ${FONT} text-sm text-muted`}>@{profile.username}</p>
-          <p className={`mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 ${FONT} text-xs text-muted`}>
-            {profile.team ? (
-              <span className="inline-flex items-center gap-1.5">
-                {profile.team.logoUrl ? <img src={profile.team.logoUrl} alt="" className="h-4 w-4 object-contain" /> : <Shield className="h-3.5 w-3.5" />}
-                {profile.team.name}
-              </span>
-            ) : null}
-            <span>{tr("Üzv: {date}", { date: since })}</span>
-            <span>{tr("{n} dost", { n: profile.friendCount })}</span>
-          </p>
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-3 gap-2">
-        <Stat label={tr("Xal")} value={profile.totals.points} tone="text-gold-hi" />
-        <Stat label={tr("Oyun")} value={profile.totals.games} />
-        <Stat label={tr("Qələbə %")} value={`${profile.totals.winRate}`} />
+      <p className={`mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 ${FONT} text-xs text-muted`}>
+        {profile.team ? (
+          <span className="inline-flex items-center gap-1.5 font-bold text-ink">
+            {profile.team.logoUrl ? <img src={profile.team.logoUrl} alt="" className="h-4 w-4 object-contain" /> : <Shield className="h-3.5 w-3.5" />}
+            {profile.team.name}
+          </span>
+        ) : null}
+        <span>{tr("Üzv: {date}", { date: since })}</span>
+        <span>{tr("{n} dost", { n: profile.friendCount })}</span>
+      </p>
+
+      <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <Stat label={tr("Ümumi reytinq")} value={overall} tone="text-accent" />
+        <Stat label={tr("Ən yüksək")} value={profile.duel?.peak ?? overall} tone="text-gold-hi" />
+        <Stat label={tr("Oyun")} value={profile.duel?.games ?? profile.totals.games} />
+        <Stat
+          label={tr("Qələbə %")}
+          value={profile.duel?.games ? Math.round((profile.duel.wins / profile.duel.games) * 100) : profile.totals.winRate}
+        />
       </div>
 
       {profile.duel ? (
-        <div className="mt-3 rounded-[14px] border border-line/10 bg-line/3 p-3.5">
-          <div className="flex items-center justify-between gap-3">
-            <p className={`inline-flex items-center gap-2 ${FONT} text-sm font-bold uppercase tracking-[0.1em] text-ink`}>
-              <Swords className="h-4 w-4 text-accent" />
-              {tr("Ümumi reytinq")}
-            </p>
-            <p className={`${DIGITS} text-2xl font-bold text-ink`}>
-              {profile.duel.rating}
-              {profile.duel.provisional ? <span className={`ml-1 ${FONT} text-xs text-faint`}>?</span> : null}
-            </p>
-          </div>
-          <p className={`mt-1 ${FONT} text-xs text-muted`}>
-            {tr("{w} qələbə · {l} məğlubiyyət · {d} heç-heçə · pik {p}", {
-              w: profile.duel.wins,
-              l: profile.duel.losses,
-              d: profile.duel.draws,
-              p: profile.duel.peak,
-            })}
+        <p className={`mt-2 text-center ${FONT} text-xs text-muted`}>
+          {tr("{w} qələbə · {l} məğlubiyyət · {d} heç-heçə · pik {p}", {
+            w: profile.duel.wins,
+            l: profile.duel.losses,
+            d: profile.duel.draws,
+            p: profile.duel.peak,
+          })}
+        </p>
+      ) : null}
+
+      {profile.recent.length ? (
+        <div className="mt-4 flex items-center gap-2">
+          <span className={`${FONT} text-[11px] font-bold uppercase tracking-[0.14em] text-faint`}>{tr("Son duellər")}</span>
+          <span className="flex gap-1.5">
+            {profile.recent.map((match, i) => (
+              <span
+                key={i}
+                title={gameName(match.gameId)}
+                className={`grid h-7 w-7 place-items-center rounded-lg ${FONT} text-xs font-black ${RESULT_TONE[match.result]}`}
+              >
+                {RESULT_LETTER[match.result]()}
+              </span>
+            ))}
+          </span>
+        </div>
+      ) : null}
+
+      {ratings.length ? (
+        <div className="mt-4 rounded-[14px] border border-line/10 bg-line/3 px-3.5 py-2">
+          <p className={`inline-flex items-center gap-2 pt-1 ${FONT} text-xs font-bold uppercase tracking-[0.14em] text-muted`}>
+            <Swords className="h-3.5 w-3.5 text-accent" />
+            {tr("Oyunlar üzrə reytinq")}
           </p>
-          {profile.recent.length ? (
-            <div className="mt-2.5 flex items-center gap-1.5">
-              <span className={`${FONT} text-[11px] font-bold uppercase tracking-[0.12em] text-faint`}>{tr("Forma")}</span>
-              {profile.recent.map((match, i) => (
-                <span
-                  key={i}
-                  title={gameName(match.gameId)}
-                  className={`grid h-6 w-6 place-items-center rounded-md ${FONT} text-xs font-black ${RESULT_TONE[match.result]}`}
-                >
-                  {RESULT_LETTER[match.result]()}
-                </span>
-              ))}
-            </div>
-          ) : null}
-          {profile.ratings.length ? (
-            <ul className="mt-3 flex flex-wrap gap-1.5">
-              {profile.ratings.slice(0, 6).map((row) => (
-                <li key={row.gameId} className={`rounded-full border border-line/12 px-2.5 py-1 ${FONT} text-xs text-muted`}>
-                  {gameName(row.gameId)} <span className="font-bold text-ink">{row.rating}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <ul className="divide-y divide-line/8">
+            {ratings.slice(0, 8).map((row) => (
+              <RatingRow key={row.gameId} {...row} />
+            ))}
+          </ul>
         </div>
       ) : null}
 
@@ -195,8 +238,11 @@ export default function ProfileCard({ username }) {
         </p>
       ) : null}
 
-      <div className="mt-5 flex flex-wrap gap-2">
-        <FriendButton profile={profile} onChange={(friendStatus) => setProfile((p) => ({ ...p, friendStatus }))} />
+      <div className="mt-5 flex flex-wrap gap-2 [&>*]:flex-1">
+        <FriendButton
+          profile={profile}
+          onChange={(friendStatus) => setProfile((p) => ({ ...p, friendStatus }))}
+        />
       </div>
     </div>
   );

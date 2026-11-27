@@ -1480,5 +1480,8 @@
   "Yapışdır": "Вставить",
   "{game} reytinqi: {after} ({sign}{delta}) · Ümumi reytinq: {overall}": "Рейтинг {game}: {after} ({sign}{delta}) · Общий: {overall}",
   "Ümumi reytinq": "Общий рейтинг",
-  "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "Ты ещё не играл в рейтинговые игры. Все начинают с 1000: победа над ботом даёт +3/+5/+8, над другом — около +20."
+  "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "Ты ещё не играл в рейтинговые игры. Все начинают с 1000: победа над ботом даёт +3/+5/+8, над другом — около +20.",
+  "Oyunlar üzrə reytinq": "Рейтинг по играм",
+  "Qonaq oyunçu": "Гость",
+  "Son duellər": "Последние дуэли"
 }

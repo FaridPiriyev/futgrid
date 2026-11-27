@@ -7,6 +7,7 @@ import { tr } from "../../../i18n";
 import { useSocial } from "../../../lib/social";
 import { gameName } from "../../../lib/games/names";
 import FriendsPanel from "../../social/FriendsPanel";
+import MatchHeader from "./MatchHeader";
 
 const DIGITS = "font-['Tektur',sans-serif]";
 const BTN = `inline-flex h-12 items-center justify-center gap-2.5 rounded-[10px] px-5 ${FONT} text-[15px] font-bold uppercase tracking-[0.08em] transition-[background-color,border-color,color,translate] duration-200 disabled:cursor-not-allowed disabled:opacity-45`;
@@ -338,36 +339,6 @@ function SetupStage({ duel, setup }) {
   );
 }
 
-/** Small "Rəqib: name · profile" strip shown during and after a match for registered opponents. */
-function OpponentChips({ players, myId }) {
-  const { openProfile } = useSocial();
-  const others = players.filter((player) => player.id !== myId && !player.guest && player.username);
-  if (!others.length) return null;
-  return (
-    <div className={`flex flex-wrap items-center justify-center gap-2 ${FONT} text-xs text-muted`}>
-      <span className="uppercase tracking-[0.14em]">{others.length > 1 ? tr("Rəqiblər") : tr("Rəqib")}:</span>
-      {others.map((player) => (
-        <button
-          key={player.id}
-          type="button"
-          onClick={() => openProfile(player.username)}
-          className="inline-flex items-center gap-1.5 rounded-full border border-line/15 bg-surface py-0.5 pl-0.5 pr-2.5 font-bold text-ink transition-colors hover:border-accent hover:text-accent"
-        >
-          {player.avatarUrl ? (
-            <img src={player.avatarUrl} alt="" className="h-5 w-5 rounded-full object-cover" />
-          ) : (
-            <span className="grid h-5 w-5 place-items-center rounded-full bg-yellow text-[10px] font-black text-on-yellow">
-              {(player.displayName || player.name || "?")[0]?.toUpperCase()}
-            </span>
-          )}
-          @{player.username}
-          <span className="font-normal text-muted">· {tr("Profilə bax")}</span>
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export default function DuelLobby({ duel, children, finishedDetail = null, onBack = null, setup = null, summary = null, waitingActions = null }) {
   if (duel.loading && !duel.room) return <Loader text={tr("Otağa qoşulur...")} />;
 
@@ -480,7 +451,7 @@ export default function DuelLobby({ duel, children, finishedDetail = null, onBac
         </p>
       ) : null}
 
-      {duel.room && !waiting ? <OpponentChips players={players} myId={duel.myId} /> : null}
+      {duel.room && !waiting ? <MatchHeader duel={duel} /> : null}
       {finished ? <DuelFinished duel={duel} detail={finishedDetail} /> : null}
       {duel.room && !waiting ? children : null}
     </div>

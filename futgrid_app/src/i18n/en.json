@@ -1482,5 +1482,8 @@
   "Yapışdır": "Paste",
   "{game} reytinqi: {after} ({sign}{delta}) · Ümumi reytinq: {overall}": "{game} rating: {after} ({sign}{delta}) · Overall: {overall}",
   "Ümumi reytinq": "Overall rating",
-  "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "You haven't played a rated game yet. Everyone starts at 1000: beating the bot gives +3/+5/+8, beating a friend about +20."
+  "Hələ reytinqli oyun oynamamısan. Hamı 1000 xalla başlayır: botu udmaq +3/+5/+8, dostunu udmaq təxminən +20 verir.": "You haven't played a rated game yet. Everyone starts at 1000: beating the bot gives +3/+5/+8, beating a friend about +20.",
+  "Oyunlar üzrə reytinq": "Rating by game",
+  "Qonaq oyunçu": "Guest player",
+  "Son duellər": "Last duels"
 }
