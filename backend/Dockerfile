@@ -12,6 +12,7 @@ RUN npm ci --workspace @futgrid/backend --workspace @futgrid/game-core --include
 FROM deps AS build
 COPY packages/game-core packages/game-core
 COPY backend backend
+RUN npx prisma generate --schema=backend/prisma/schema.prisma
 RUN npm run build --workspace @futgrid/game-core && npm run build --workspace @futgrid/backend
 
 FROM base AS runner
