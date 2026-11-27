@@ -4,6 +4,7 @@ import { FONT } from "./ui";
 import { tr } from "../../../i18n";
 import { useSocial } from "../../../lib/social";
 import { DUEL_GAME_PATHS, gameName } from "../../../lib/games/names";
+import { resultCard } from "../../../lib/shareCard";
 
 export const DUEL_KEYFRAMES = `
 @keyframes duelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -252,12 +253,34 @@ function ShareResult({ duel, won, draw }) {
   const url = `https://futgrid.az${path}`;
   const share = async () => {
     try {
-      if (navigator.share) await navigator.share({ title: "FutGrid", text, url });
-      else {
-        await navigator.clipboard.writeText(`${text}\n${url}`);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
+      // A picture card for stories; falls back to text, then to download + copy.
+      const file = await resultCard({
+        game: gameName(room.game),
+        me: nameOf(duel.me),
+        them: nameOf(duel.opponent),
+        score: line.trim(),
+        verdict: won ? tr("Qazandım!") : draw ? tr("Heç-heçə") : tr("Revanş lazımdır"),
+        won,
+        draw,
+      }).catch(() => null);
+      if (file && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title: "FutGrid", text: `${text}\n${url}` });
+        return;
       }
+      if (navigator.share) {
+        await navigator.share({ title: "FutGrid", text, url });
+        return;
+      }
+      if (file) {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(file);
+        link.download = file.name;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+      }
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
     } catch {
       // user cancelled
     }

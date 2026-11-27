@@ -7,6 +7,8 @@ import BetaNotice from "./components/BetaNotice";
 import ResumeDuelBanner from "./components/ResumeDuelBanner";
 import NoticeToast from "./components/NoticeToast";
 import MobileTabBar from "./components/MobileTabBar";
+import AchievementWatcher from "./components/social/AchievementWatcher";
+import InstallPrompt from "./components/InstallPrompt";
 import { LanguageProvider, tr, useLang } from "./i18n";
 import { AuthProvider } from "./lib/auth";
 import { SocialProvider } from "./lib/social";
@@ -226,6 +228,8 @@ function AppShell() {
       <BetaNotice />
       <ResumeDuelBanner />
       <MobileTabBar />
+      <AchievementWatcher />
+      <InstallPrompt />
       <NoticeToast />
       </SocialProvider>
     </BrowserRouter>

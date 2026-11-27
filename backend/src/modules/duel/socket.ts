@@ -63,6 +63,7 @@ const GAMES: Record<DuelGame, GameModule> = {
 };
 
 const MATCH_TICK_MS = 1500;
+export const REACTIONS = new Set(["👏", "🔥", "😮", "😂", "😤", "🤝"]);
 
 const forfeitMs = () => Number(process.env.DUEL_FORFEIT_MS ?? 30_000);
 const SWEEP_MS = 500;
@@ -654,6 +655,22 @@ export function setupDuels(httpServer: HttpServer) {
       const searching = await redis.hlen(queueKey(game));
       reply(ack, { ok: true, game, rating: Math.round(rating), searching });
       if (searching >= 2) void matchGame(game).catch(() => {});
+    });
+
+    // Quick emoji reactions — a fixed set, no free text, so nothing to moderate.
+    let lastReaction = 0;
+    on("room:react", async (payload, ack) => {
+      const emoji = String(payload.emoji ?? "");
+      if (!REACTIONS.has(emoji)) return fail(ack, "INVALID_MOVE");
+      const now = Date.now();
+      if (now - lastReaction < 1200) return fail(ack, "RATE_LIMITED");
+      lastReaction = now;
+      const code = cleanCode(payload.code);
+      const room = code.length === 6 ? await readRoom(redis, code) : null;
+      const player = room?.players.find((entry) => entry.identityId === me.id);
+      if (!room || !player) return fail(ack, "NOT_IN_ROOM");
+      io.to(code).emit("room:reaction", { seat: player.seat, emoji, at: now });
+      reply(ack, { ok: true });
     });
 
     on("invite:send", async (payload, ack) => {

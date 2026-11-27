@@ -12,6 +12,7 @@ import {
   MessageSquare,
   Plus,
   Swords,
+  Zap,
 } from "lucide-react";
 import { SOCIAL_LINKS, externalProps } from "../lib/socials";
 import { GAME_CATALOG } from "../lib/games/catalog";
@@ -454,6 +455,13 @@ function Hero({ stats }) {
               {tr("Bütün oyunlar")}
             </Link>
           </div>
+          <Link
+            to="/oyunlar/futbol-x0x?tez=1"
+            className={`fg-fade mt-3.5 inline-flex items-center gap-2 [animation-delay:.5s] ${FONT} text-sm font-bold uppercase tracking-[0.1em] text-yellow transition-colors hover:text-ink light:text-gold-hi`}
+          >
+            <Zap className="h-4 w-4" />
+            {tr("10 saniyəyə oyna — botla X0X")}
+          </Link>
 
           <div className="fg-fade mt-10 hidden flex-wrap [animation-delay:.55s] sm:flex lg:mt-13">
             <HeroStat first value={GAME_CATALOG.length} label={tr("oyun")} />
@@ -1134,6 +1142,44 @@ function TopCard({ player, rank, run, onOpen }) {
   );
 }
 
+/** "Last week's champion" — the player who gained the most rating last week. */
+function WeeklyChampion({ entry, onOpen }) {
+  if (!entry) return null;
+  return (
+    <div className="mx-auto mt-6 max-w-xl">
+      <button
+        type="button"
+        onClick={entry.username ? () => onOpen(entry.username) : undefined}
+        className="group relative flex w-full items-center gap-4 overflow-hidden rounded-[18px] border-2 border-yellow/70 bg-surface px-4 py-3.5 text-left shadow-[0_26px_50px_-30px_rgba(176,122,0,0.7)] transition-transform hover:-translate-y-0.5 sm:px-5"
+      >
+        <span aria-hidden="true" className="fg-shine-gold pointer-events-none absolute inset-y-0 -left-22 w-17.5 -skew-x-20 bg-yellow/30" />
+        <span className="relative shrink-0">
+          {entry.avatarUrl ? (
+            <img src={entry.avatarUrl} alt="" className="h-14 w-14 rounded-full object-cover ring-3 ring-yellow" />
+          ) : (
+            <span className={`grid h-14 w-14 place-items-center rounded-full bg-navy ${FONT} text-xl font-black text-yellow ring-3 ring-yellow`}>
+              {initials(entry.displayName)}
+            </span>
+          )}
+          <Crown className="absolute -top-3 left-1/2 h-6 w-6 -translate-x-1/2 text-yellow drop-shadow" />
+        </span>
+        <span className="relative min-w-0 flex-1">
+          <span className={`block ${FONT} text-[11px] font-bold uppercase tracking-[0.18em] text-gold-hi`}>
+            {tr("Keçən həftənin çempionu")}
+          </span>
+          <span className={`block truncate ${FONT} text-xl font-black uppercase text-ink group-hover:text-accent`}>
+            {entry.displayName}
+          </span>
+          <span className={`block truncate ${BODY} text-xs text-muted`}>
+            {tr("Bir həftədə +{n} reytinq xalı", { n: entry.points })}
+          </span>
+        </span>
+        <Trophy className="relative h-8 w-8 shrink-0 text-gold" />
+      </button>
+    </div>
+  );
+}
+
 function ContactField({
   icon: Icon,
   label,
@@ -1402,6 +1448,14 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
+  const [champion, setChampion] = useState(null);
+  useEffect(() => {
+    api
+      .get("/ratings/leaderboard?period=lastweek&limit=1")
+      .then((data) => setChampion(data.entries?.[0] ?? null))
+      .catch(() => {});
+  }, []);
+
   // One rating system: "all" = current rating (everyone starts at 1000),
   // week/month = rating gained in that period. Optional per-game filter.
   const [ratingGame, setRatingGame] = useState("");
@@ -1486,6 +1540,8 @@ export default function Home() {
           <SectionHeading kicker={tr("Ən yaxşılar")}>
             {tr("Reytinq cədvəli")}
           </SectionHeading>
+
+          <WeeklyChampion entry={champion} onOpen={openProfile} />
 
           <div
             data-reveal

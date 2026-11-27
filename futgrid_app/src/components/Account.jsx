@@ -21,6 +21,7 @@ import { tr } from "../i18n";
 import { gameName } from "../lib/games/names";
 import GameHistory from "./account/GameHistory";
 import FriendsPanel from "./social/FriendsPanel";
+import MyAchievements from "./account/MyAchievements";
 import heroPhoto from "../assets/slider2.webp";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
@@ -482,6 +483,7 @@ function Profile({ user }) {
         )}
       </section>
 
+      <MyAchievements />
       <FriendsPanel />
       <GameHistory />
 

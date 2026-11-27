@@ -7,6 +7,7 @@ import { useSocial } from "../../lib/social";
 import { gameName } from "../../lib/games/names";
 import { nextTier, tierOf } from "../../lib/tiers";
 import TierBadge from "./TierBadge";
+import AchievementGrid from "./AchievementGrid";
 import { getLang, tr } from "../../i18n";
 
 const FONT = "font-['Roboto_Condensed',sans-serif]";
@@ -249,6 +250,12 @@ export default function ProfileCard({ username }) {
               <RatingRow key={row.gameId} {...row} />
             ))}
           </ul>
+        </div>
+      ) : null}
+
+      {profile.achievements?.length ? (
+        <div className="mt-4 rounded-[14px] border border-line/10 bg-line/3 p-3.5">
+          <AchievementGrid items={profile.achievements} />
         </div>
       ) : null}
 

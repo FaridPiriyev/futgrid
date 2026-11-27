@@ -3,11 +3,14 @@ import { api, queuePendingResult } from "../api";
 import { seeded } from "../random";
 import { tr } from "../../i18n";
 import { gameName } from "./names";
+import { play } from "../sound";
+import { checkAchievements } from "../achievements";
 
 /** Tell the player when a finished game earned no points, instead of failing silently. */
 function announce(result, game) {
   if (result?.rating && typeof window !== "undefined") {
     const { after, delta, overallAfter } = result.rating;
+    play(delta > 0 ? "win" : "lose");
     const sign = delta > 0 ? "+" : "";
     window.dispatchEvent(
       new CustomEvent("fg:notice", {
@@ -18,6 +21,16 @@ function announce(result, game) {
           delta: Math.round(delta),
           overall: Math.round(overallAfter),
         }),
+      }),
+    );
+    return;
+  }
+  if (result?.counted && !result.rating && result.reason === "session" && typeof window !== "undefined") {
+    // A guest finished a game: points aren't saved without an account.
+    play(result.score >= 0.8 ? "win" : "pop");
+    window.dispatchEvent(
+      new CustomEvent("fg:notice", {
+        detail: tr("Əla oyun! Hesab açsan, bu nəticələr reytinqinə yazılacaq — hamı 1000 xalla başlayır."),
       }),
     );
     return;
@@ -86,6 +99,7 @@ export function useRankedSession({ game, mode = "ranked", difficulty = "normal",
     try {
       const result = await api.post(`/sessions/${current.sessionId}/finish`, payload);
       announce(result, game);
+      checkAchievements();
       return result;
     } catch (error) {
       if (!error?.status || error.status >= 500 || error.status === 429) {

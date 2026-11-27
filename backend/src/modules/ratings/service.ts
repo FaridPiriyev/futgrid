@@ -186,7 +186,7 @@ export async function resetUserRatings(userId: string) {
   });
 }
 
-export type RatingPeriod = "week" | "month" | "all";
+export type RatingPeriod = "week" | "lastweek" | "month" | "all";
 
 const userSelect = {
   id: true,
@@ -235,10 +235,21 @@ export async function getRatingLeaderboard(period: RatingPeriod, gameId: string 
       };
     }
 
-    const since = period === "week" ? weekStartBaku(new Date()) : monthStartBaku(new Date());
+    const thisWeek = weekStartBaku(new Date());
+    const since =
+      period === "week"
+        ? thisWeek
+        : period === "lastweek"
+          ? new Date(thisWeek.getTime() - 7 * 24 * 60 * 60 * 1000)
+          : monthStartBaku(new Date());
+    const until = period === "lastweek" ? thisWeek : undefined;
     const grouped = await prisma.ratingEvent.groupBy({
       by: ["userId"],
-      where: { createdAt: { gte: since }, ...(gameId ? { gameId } : {}) },
+      where: {
+        createdAt: { gte: since, ...(until ? { lt: until } : {}) },
+        source: { in: ["solo", "duel", "revoke"] },
+        ...(gameId ? { gameId } : {}),
+      },
       _sum: { delta: true },
       _count: { _all: true },
       orderBy: { _sum: { delta: "desc" } },

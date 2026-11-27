@@ -2,6 +2,7 @@ import { prisma } from "../../lib/prisma.js";
 import { getRedis } from "../../lib/redis.js";
 import { AppError } from "../../lib/errors.js";
 import { ELO_MIN_GAMES, OVERALL_GAME } from "../duel/rating.js";
+import { getAchievements } from "../achievements/service.js";
 
 /** Socket connections refresh this zset; a user counts as online for PRESENCE_MS after the last beat. */
 export const PRESENCE_KEY = "presence:users";
@@ -62,7 +63,7 @@ async function relation(meId: string | undefined, otherId: string) {
 /** Public profile card shown from leaderboards and duels. No email, no ids of other people. */
 export async function getPublicProfile(username: string, viewerId?: string) {
   const user = await findPublicUser(username);
-  const [stats, ratings, recent, friend, online, friendCount] = await Promise.all([
+  const [stats, ratings, recent, friend, online, friendCount, achievements] = await Promise.all([
     prisma.userGameStats.findMany({
       where: { userId: user.id },
       select: { gameId: true, played: true, wins: true, totalPoints: true, bestStreak: true },
@@ -83,6 +84,7 @@ export async function getPublicProfile(username: string, viewerId?: string) {
     prisma.friendship.count({
       where: { status: "accepted", OR: [{ requesterId: user.id }, { addresseeId: user.id }] },
     }),
+    getAchievements(user.id),
   ]);
 
   const totals = stats.reduce(
@@ -126,6 +128,7 @@ export async function getPublicProfile(username: string, viewerId?: string) {
     ratings: ratings
       .filter((row) => row.gameId !== OVERALL_GAME)
       .map((row) => ({ gameId: row.gameId, rating: Math.round(row.rating), games: row.games })),
+    achievements,
     recent: recent.map((match) => ({
       gameId: match.gameId,
       result: match.winnerId === user.id ? "win" : match.loserId === user.id ? "loss" : "draw",

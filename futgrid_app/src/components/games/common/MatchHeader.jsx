@@ -8,6 +8,14 @@ import { FONT } from "./ui";
 import { tr } from "../../../i18n";
 
 const DIGITS = "font-['Tektur',sans-serif]";
+const REACTION_SET = ["👏", "🔥", "😮", "😂", "😤", "🤝"];
+const REACTION_KEYFRAMES = `
+@keyframes fgReact {
+  0% { transform: translateY(20px) scale(.6); opacity: 0; }
+  15% { transform: translateY(0) scale(1.15); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateY(-90px) scale(1); opacity: 0; }
+}`;
 
 const TONES = {
   me: {
@@ -143,8 +151,11 @@ export default function MatchHeader({ duel }) {
   const others = players.filter((p) => p.id !== duel.myId);
   if (!others.length) return null;
   const ratingVersion = duel.rating?.mine?.after ?? 0;
+  const reactions = duel.reactions ?? [];
 
   return (
+    <>
+    <style>{REACTION_KEYFRAMES}</style>
     <section
       className={`relative overflow-hidden rounded-[20px] border border-line/10 bg-surface px-3 py-3.5 sm:px-6 sm:py-5`}
     >
@@ -173,6 +184,34 @@ export default function MatchHeader({ duel }) {
           ))}
         </div>
       ) : null}
+      {/* Floating emoji reactions over the sender's side */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {reactions.map((r, i) => (
+          <span
+            key={r.id}
+            className="absolute bottom-2 text-4xl animate-[fgReact_2.4s_ease-out_forwards] sm:text-5xl"
+            style={{ [r.seat === duel.myId ? "left" : "right"]: `${10 + (i % 3) * 9}%` }}
+          >
+            {r.emoji}
+          </span>
+        ))}
+      </div>
     </section>
+    {duel.react && room.status !== "waiting" ? (
+      <div className="flex items-center justify-center gap-1.5">
+        {REACTION_SET.map((emoji) => (
+          <button
+            key={emoji}
+            type="button"
+            onClick={() => void duel.react(emoji)}
+            aria-label={tr("Reaksiya: {e}", { e: emoji })}
+            className="grid h-9 w-9 place-items-center rounded-full border border-line/12 bg-surface text-lg transition-transform hover:scale-115 active:scale-95 sm:h-10 sm:w-10 sm:text-xl"
+          >
+            {emoji}
+          </button>
+        ))}
+      </div>
+    ) : null}
+    </>
   );
 }

@@ -14,6 +14,8 @@ import {
   takeAutoMatch,
   writeStored,
 } from "./duelStore";
+import { play } from "../sound";
+import { checkAchievements } from "../achievements";
 
 export { activeDuels, forgetDuel, hasDuelEntry, requestAutoMatch, socketBase };
 
@@ -113,6 +115,7 @@ export function useDuelRoom({ game, invitedCode = "" }) {
   const [seat, setSeat] = useState(null);
   const [joining, setJoining] = useState(Boolean(codeRef.current));
   const [rating, setRating] = useState(null);
+  const [reactions, setReactions] = useState([]);
   const [searching, setSearchingState] = useState(null);
   const searchingRef = useRef(null);
   const setSearching = useCallback((value) => {
@@ -224,9 +227,17 @@ export function useDuelRoom({ game, invitedCode = "" }) {
       writeStored(game, payload.code);
       void join(socket, payload.code, { silent: true });
     });
+    socket.on("room:reaction", (payload) => {
+      if (!payload?.emoji) return;
+      const id = `${payload.seat}-${payload.at}-${Math.random()}`;
+      setReactions((list) => [...list.slice(-8), { ...payload, id }]);
+      play("pop");
+      setTimeout(() => setReactions((list) => list.filter((r) => r.id !== id)), 2600);
+    });
     socket.on("duel:rating", (payload) => {
       if (!payload || payload.code !== roomRef.current?.code) return;
       setRating(payload);
+      checkAchievements();
     });
     socket.on("error", (payload) => {
       const code = payload?.error?.code;
@@ -372,6 +383,15 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     if (takeAutoMatch()) void findMatch();
   }, [connected, findMatch, joining, loading, room]);
 
+  const react = useCallback(
+    async (emoji) => {
+      const code = roomRef.current?.code;
+      if (!code) return null;
+      return emit("room:react", { code, emoji });
+    },
+    [emit],
+  );
+
   const invite = useCallback(
     async (username) => {
       const code = roomRef.current?.code;
@@ -394,6 +414,8 @@ export function useDuelRoom({ game, invitedCode = "" }) {
   useEffect(() => {
     const e = roomRef.current?.state?.lastEvent;
     if (!e || e.seat !== seat || Date.now() + offsetRef.current - (e.at ?? 0) > 3000) return;
+    if (e.type === "wrong") play("wrong");
+    else if (e.type === "correct" || e.type === "found") play("correct");
     try {
       if (e.type === "wrong") navigator.vibrate?.(120);
       else if (e.type === "correct" || e.type === "found") navigator.vibrate?.([40, 40, 40]);
@@ -401,10 +423,17 @@ export function useDuelRoom({ game, invitedCode = "" }) {
       // vibration is optional
     }
   }, [lastEventAt, seat]);
+  // Match end jingle.
+  const winnerId = room?.winnerId;
+  useEffect(() => {
+    if (status !== "finished" || !seat) return;
+    play(winnerId === seat ? "win" : winnerId ? "lose" : "pop");
+  }, [status, winnerId, seat]);
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
     const mine = status === "playing" && turnSeat && turnSeat === seat;
     if (!mine) return undefined;
+    play("turn");
     try {
       navigator.vibrate?.(50);
     } catch {
@@ -453,5 +482,7 @@ export function useDuelRoom({ game, invitedCode = "" }) {
     reconnect: connect,
     invite,
     canInvite: Boolean(user),
+    reactions,
+    react,
   };
 }

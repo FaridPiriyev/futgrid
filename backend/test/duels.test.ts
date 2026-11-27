@@ -240,6 +240,16 @@ describe("duel server", () => {
     expect(round2.state.phase).toBe("pick");
   });
 
+  it("relays whitelisted emoji reactions to the room only", async () => {
+    const { a, b, code, aSeat } = await pair("xox");
+    const seen = next(b, ["room:reaction"], () => true);
+    const ok = await ack(a, "room:react", { code, emoji: "🔥" });
+    expect(ok.ok).toBe(true);
+    expect(await seen).toMatchObject({ seat: aSeat, emoji: "🔥" });
+    const bad = await ack(b, "room:react", { code, emoji: "hello" });
+    expect(bad.error?.code).toBe("INVALID_MOVE");
+  });
+
   it("never exposes real guest ids to the opponent", async () => {
     const guest = randomUUID();
     const a = client(guest);

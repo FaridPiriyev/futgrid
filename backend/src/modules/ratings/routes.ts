@@ -18,7 +18,7 @@ export async function registerRatingRoutes(fastify: FastifyInstance): Promise<vo
       schema: {
         tags: ["ratings"],
         querystring: z.object({
-          period: z.enum(["week", "month", "all"]).default("all"),
+          period: z.enum(["week", "lastweek", "month", "all"]).default("all"),
           game: gameId,
           limit: z.coerce.number().int().min(1).max(100).default(10),
         }),

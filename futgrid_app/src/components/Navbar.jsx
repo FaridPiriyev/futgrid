@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { SOCIAL_LINKS } from "../lib/socials";
 import ThemeToggle from "./ThemeToggle";
+import SoundToggle from "./SoundToggle";
 import logoUrl from "../assets/futgrid-logo.webp";
 import { LANGS, useLang } from "../i18n";
 import { initialsOf, useAuth } from "../lib/auth";
@@ -191,6 +192,10 @@ function MenuExtras({ open, language, setLanguage }) {
             </button>
           ))}
         </div>
+        <SoundToggle
+          tabIndex={tab}
+          className="h-8 w-8 rounded-md border border-nav-line hover:bg-line/5"
+        />
         <ThemeToggle
           tabIndex={tab}
           className="h-8 w-8 rounded-md border border-nav-line hover:bg-line/5"
@@ -513,6 +518,7 @@ export default function Navbar() {
             <div className="flex items-center gap-5 lg:gap-7">
               <LanguageMenu language={language} setLanguage={setLanguage} />
               <span className="h-4 w-px bg-nav-line lg:hidden" />
+              <SoundToggle className="h-6 w-6" />
               <ThemeToggle className="h-6 w-6" />
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a

@@ -16,10 +16,18 @@ const TITLE = "Futbol X0X";
 
 export default function FutbolX0X() {
   const [invited] = useState(() => hasDuelEntry("xox"));
+  // "?tez=1" (home page "Play in 10 seconds"): straight into a bot game with saved/default settings.
+  const [quick] = useState(() => {
+    try {
+      return !invited && new URLSearchParams(window.location.search).has("tez");
+    } catch {
+      return false;
+    }
+  });
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [screen, setScreen] = useState(invited ? "game" : "modes");
-  const [mode, setMode] = useState(invited ? "friend" : null);
+  const [screen, setScreen] = useState(invited || quick ? "game" : "modes");
+  const [mode, setMode] = useState(invited ? "friend" : quick ? "solo" : null);
   const [settings, setSettings] = useState(loadSettings);
   const [gameKey, setGameKey] = useState(0);
 

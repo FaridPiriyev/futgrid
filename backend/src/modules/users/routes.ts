@@ -3,6 +3,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { requireUser } from "../../lib/auth.js";
 import { AppError } from "../../lib/errors.js";
+import { getAchievements } from "../achievements/service.js";
 import {
   deleteMe,
   exportMe,
@@ -112,6 +113,11 @@ export async function registerUserRoutes(fastify: FastifyInstance): Promise<void
   app.get("/me/ratings", { schema: { tags: ["users"] } }, async (request) => {
     const user = requireUser(request);
     return getMyRatings(user.id);
+  });
+
+  app.get("/me/achievements", { schema: { tags: ["users"] } }, async (request) => {
+    const user = requireUser(request);
+    return { entries: await getAchievements(user.id) };
   });
 
   app.get("/me/duels", { schema: { tags: ["users"] } }, async (request) => {

@@ -410,6 +410,37 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
     },
   );
 
+  app.get(
+    "/admin/duels",
+    { schema: { tags: ["admin"], querystring: limitQuery } },
+    async (request) => {
+      await requireAdminTotp(request, STAFF);
+      const matches = await prisma.duelMatch.findMany({
+        orderBy: { createdAt: "desc" },
+        take: request.query.limit,
+      });
+      const ids = [...new Set(matches.flatMap((m) => m.playerIds))];
+      const users = await prisma.user.findMany({
+        where: { id: { in: ids } },
+        select: { id: true, username: true },
+      });
+      const nameOf = new Map(users.map((u) => [u.id, u.username]));
+      return {
+        entries: matches.map((m) => ({
+          id: m.id,
+          gameId: m.gameId,
+          roomCode: m.roomCode,
+          players: m.playerIds.map((id) => nameOf.get(id) ?? null),
+          winner: m.winnerId ? (nameOf.get(m.winnerId) ?? null) : null,
+          endedReason: m.endedReason,
+          rated: m.rated,
+          durationMs: m.durationMs,
+          createdAt: m.createdAt,
+        })),
+      };
+    },
+  );
+
   app.post(
     "/admin/users/:id/rating-reset",
     { schema: { tags: ["admin"], params: idParams } },

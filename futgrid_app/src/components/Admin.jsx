@@ -35,6 +35,7 @@ const TABS = [
   ["overview", () => tr("Ümumi"), true],
   ["users", () => tr("İstifadəçilər"), true],
   ["results", () => tr("Şübhəli nəticələr"), true],
+  ["duels", () => tr("Duellər"), true],
   ["contact", () => tr("Mesajlar"), true],
   ["daily", () => tr("Günlük"), false],
   ["players", () => tr("Oyunçular"), false],
@@ -291,6 +292,7 @@ export default function Admin() {
         overview: "/admin/overview",
         users: `/admin/users?limit=${PAGE}&offset=${offset}&status=${status}${q}`,
         results: `/admin/results?limit=100${flaggedOnly ? "&flagged=true" : ""}`,
+        duels: "/admin/duels?limit=100",
         contact: "/admin/contact-messages?limit=50",
         daily: "/admin/daily-puzzles?limit=30",
         players: `/admin/players?limit=50${q}`,
@@ -334,7 +336,7 @@ export default function Admin() {
     saveSession("");
   };
 
-  if (loading) return <Loader text={tr("Yüklənir...")} />;
+  if (loading) return <Loader text={tr("Yüklənir...")} variant="list" />;
   if (!user) return <Notice title={tr("Admin girişi")} text={tr("Əvvəlcə hesabınıza daxil olun.")} />;
   if (user.role !== "admin" && user.role !== "moderator") {
     return <Notice title={tr("İcazə yoxdur")} text={tr("Bu səhifə yalnız admin və moderatorlar üçündür.")} />;
@@ -676,6 +678,52 @@ export default function Admin() {
                 </table>
                 {!rows.length && !busy ? <p className={`py-6 text-center ${BODY} text-sm text-muted`}>{tr("Şübhəli nəticə yoxdur.")}</p> : null}
               </div>
+            </section>
+          ) : null}
+
+          {current && tab === "duels" ? (
+            <section className="mt-4 overflow-x-auto">
+              <table className={`w-full text-left ${BODY} text-sm`}>
+                <thead className={`${FONT} text-xs uppercase tracking-wide text-muted`}>
+                  <tr className="border-b border-line/15">
+                    <th className="py-2 pr-3">{tr("Oyun")}</th>
+                    <th className="py-2 pr-3">{tr("Oyunçular")}</th>
+                    <th className="py-2 pr-3">{tr("Qalib")}</th>
+                    <th className="py-2 pr-3">{tr("Bitmə səbəbi")}</th>
+                    <th className="py-2 pr-3">{tr("Müddət")}</th>
+                    <th className="py-2">{tr("Tarix")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.id} className="border-b border-line/10">
+                      <td className="py-2 pr-3 text-ink">
+                        {gameName(row.gameId)}
+                        {row.rated ? <span className={`${badge} ml-2 bg-accent/15 text-accent`}>{tr("Reytinqli")}</span> : null}
+                      </td>
+                      <td className="py-2 pr-3 text-muted">
+                        {row.players.map((name, i) => (
+                          <span key={i}>
+                            {i ? ", " : ""}
+                            {name ? (
+                              <button type="button" className="hover:text-accent hover:underline" onClick={() => openProfile(name)}>
+                                @{name}
+                              </button>
+                            ) : (
+                              tr("Qonaq")
+                            )}
+                          </span>
+                        ))}
+                      </td>
+                      <td className="py-2 pr-3 font-bold text-ink">{row.winner ? `@${row.winner}` : "—"}</td>
+                      <td className="py-2 pr-3 text-muted">{row.endedReason}</td>
+                      <td className="py-2 pr-3 text-muted">{row.durationMs ? `${Math.round(row.durationMs / 60000)} dəq` : "—"}</td>
+                      <td className="py-2 text-muted">{when(row.createdAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {!rows.length && !busy ? <p className={`py-6 text-center ${BODY} text-sm text-muted`}>{tr("Hələ duel yoxdur.")}</p> : null}
             </section>
           ) : null}
 
