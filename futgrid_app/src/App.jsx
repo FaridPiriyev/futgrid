@@ -107,6 +107,10 @@ const PAGES = {
     tr("FutGrid hesabınız, statistikanız və reytinq nəticələriniz."),
   ],
   "/admin": () => [tr("Admin panel"), tr("FutGrid idarəetmə paneli.")],
+  "/admin/deployments": () => [
+    tr("Deploy tarixçəsi"),
+    tr("Deploy tarixçəsi və cari deploy statusu."),
+  ],
 };
 
 function setMeta(attr, key, content) {
@@ -211,7 +215,7 @@ function AppShell() {
           <Route path="/oyunlar/ultimate-11" element={<Ultimate />} />
           <Route path="/hesab" element={<Account />} />
           <Route path="/oyuncu/:username" element={<PlayerPage />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/*" element={<Admin />} />
           <Route
             path="/mexfilik-siyaseti"
             element={<Legal page="privacy" lang={lang} />}

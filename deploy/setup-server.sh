@@ -32,3 +32,5 @@ fi
 mkdir -p /etc/letsencrypt /var/www/certbot
 docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env up -d --build
 docker compose -f deploy/docker-compose.prod.yml ps
+
+bash "$DIR/deploy/install-auto-deploy.sh"

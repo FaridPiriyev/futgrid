@@ -30,6 +30,7 @@ import {
 } from "../data/service.js";
 import { editDailyPuzzle, regenerateDailyPuzzle } from "../daily/service.js";
 import { mediaSchema, processMedia } from "../media/service.js";
+import { listDeploymentHistory } from "./deployments.js";
 
 const idParams = z.object({ id: z.string().uuid() });
 const playerParams = z.object({ id: z.coerce.number().int() });
@@ -786,6 +787,15 @@ export async function registerAdminRoutes(fastify: FastifyInstance): Promise<voi
           adminUsername: row.adminId ? (nameOf.get(row.adminId) ?? null) : null,
         })),
       };
+    },
+  );
+
+  app.get(
+    "/admin/deployments",
+    { schema: { tags: ["admin"], querystring: limitQuery } },
+    async (request) => {
+      await requireAdminTotp(request);
+      return { entries: await listDeploymentHistory(request.query.limit) };
     },
   );
 

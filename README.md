@@ -22,3 +22,4 @@ See `SETUP-ALL-PHASES.md` for the complete Phase 1–4 setup, every environment 
 admin/TOTP setup, data and media setup, duels, mobile push, and production checklist.
 See `backend/README.md` for backend details and `backend/PLAN.md` for the plan. Phase
 reports are in `backend/PHASE1-REPORT.md` and `backend/PHASES-2-4-REPORT.md`.
+See `deploy/README.md` for production server setup and automatic deployments.

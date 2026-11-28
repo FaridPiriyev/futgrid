@@ -1,0 +1,12 @@
+[Unit]
+Description=Poll GitHub for FutGrid updates
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=15s
+Persistent=true
+Unit=futgrid-auto-deploy.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Check FutGrid's production branch and deploy updates
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /usr/local/lib/futgrid-deploy/auto-deploy.sh
+TimeoutStartSec=30min

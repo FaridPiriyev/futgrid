@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Ban,
+  CheckCircle2,
+  CircleAlert,
   ChevronLeft,
   ChevronRight,
+  Clock3,
+  GitBranch,
   KeyRound,
+  LoaderCircle,
   LogOut,
   RefreshCw,
   Search,
@@ -44,6 +49,7 @@ const TABS = [
   ["goat", () => tr("GOAT"), false],
   ["media", () => tr("Media"), false],
   ["audit", () => tr("Audit"), true],
+  ["deployments", () => tr("Deploy tarixçəsi"), false],
 ];
 
 const METRICS = [
@@ -222,7 +228,151 @@ function UserDetail({ request, id }) {
   );
 }
 
+const DEPLOYMENT_STATUSES = {
+  building: {
+    label: "Build hazırlanır",
+    tone: "bg-accent/15 text-accent",
+    Icon: LoaderCircle,
+    live: true,
+  },
+  deploying: {
+    label: "Servislər yenilənir",
+    tone: "bg-accent/15 text-accent",
+    Icon: LoaderCircle,
+    live: true,
+  },
+  health_check: {
+    label: "Sağlamlıq yoxlanılır",
+    tone: "bg-yellow/20 text-ink",
+    Icon: LoaderCircle,
+    live: true,
+  },
+  succeeded: {
+    label: "Uğurlu",
+    tone: "bg-good/15 text-good-hi",
+    Icon: CheckCircle2,
+    live: false,
+  },
+  failed: {
+    label: "Uğursuz",
+    tone: "bg-bad/15 text-bad-hi",
+    Icon: CircleAlert,
+    live: false,
+  },
+};
+
+function deploymentDuration(entry) {
+  const end = entry.finishedAt ?? entry.updatedAt;
+  const seconds = Math.max(
+    0,
+    Math.floor((Date.parse(end) - Date.parse(entry.startedAt)) / 1000),
+  );
+  return `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
+}
+
+function DeploymentsPanel({ entries, busy, onRefresh }) {
+  const active = entries[0] && DEPLOYMENT_STATUSES[entries[0].status]?.live;
+
+  return (
+    <section className="mt-4 space-y-3">
+      <header className={`${card} flex flex-wrap items-center justify-between gap-3`}>
+        <div>
+          <p className={`${FONT} text-xs font-bold uppercase tracking-wide text-muted`}>
+            {tr("Avtomatik deploy")}
+          </p>
+          <h2 className={`mt-1 ${FONT} text-xl font-black text-ink`}>main</h2>
+          <p className={`mt-1 ${BODY} text-sm text-muted`}>
+            {tr("main branch-ə push edilən dəyişikliklər burada görünür.")}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {active ? (
+            <span
+              className={`${badge} gap-1.5 bg-accent/15 text-accent`}
+              role="status"
+              aria-live="polite"
+            >
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              {tr("Canlı deploy")}
+            </span>
+          ) : null}
+          <button type="button" className={btnGhost} onClick={onRefresh} disabled={busy}>
+            <RefreshCw className={`h-4 w-4 ${busy ? "animate-spin" : ""}`} />
+            {tr("Yenilə")}
+          </button>
+        </div>
+      </header>
+
+      {entries.length ? (
+        <div className="space-y-2" aria-live="polite">
+          {entries.map((entry) => {
+            const status = DEPLOYMENT_STATUSES[entry.status];
+            const StatusIcon = status?.Icon ?? CircleAlert;
+            return (
+              <article key={entry.id} className={`${card} ${BODY} text-sm`}>
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-start gap-3">
+                    <StatusIcon
+                      className={`mt-0.5 h-5 w-5 shrink-0 ${
+                        status?.live ? "animate-spin" : ""
+                      } ${status?.tone.split(" ").pop() ?? "text-muted"}`}
+                    />
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className={`${badge} ${status?.tone ?? "bg-page-2 text-muted"}`}>
+                          {tr(status?.label ?? entry.status)}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-xs text-muted">
+                          <GitBranch className="h-3.5 w-3.5" />
+                          {entry.branch}
+                        </span>
+                      </div>
+                      <a
+                        className="mt-2 inline-flex items-center gap-1 font-mono text-xs text-accent hover:underline"
+                        href={`https://github.com/FaridPiriyev/futgrid/commit/${entry.commit}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {entry.commit.slice(0, 7)}
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+                    <span className="inline-flex items-center gap-1">
+                      <Clock3 className="h-3.5 w-3.5" />
+                      {tr("Başladı")}: {when(entry.startedAt)}
+                    </span>
+                    <span>
+                      {tr("Müddət")}: {deploymentDuration(entry)}
+                    </span>
+                  </div>
+                </div>
+                {entry.error ? (
+                  <p className="mt-3 rounded-lg bg-bad/10 px-3 py-2 text-xs text-bad-hi">
+                    {entry.error}
+                  </p>
+                ) : null}
+                {entry.rollbackStatus ? (
+                  <p className="mt-2 text-xs text-muted">
+                    {tr("Rollback")}: {tr(entry.rollbackStatus === "succeeded" ? "Uğurlu" : "Uğursuz")}
+                  </p>
+                ) : null}
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div className={`${card} ${BODY} text-sm text-muted`}>
+          {tr("Hələ deploy tarixçəsi yoxdur.")}
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function Admin() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { user, loading } = useAuth();
   const { openProfile } = useSocial();
   const [session, setSession] = useState(() => {
@@ -232,7 +382,9 @@ export default function Admin() {
       return "";
     }
   });
-  const [tab, setTab] = useState("overview");
+  const [tab, setTab] = useState(() =>
+    location.pathname === "/admin/deployments" ? "deployments" : "overview",
+  );
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -255,6 +407,10 @@ export default function Admin() {
 
   const isAdmin = user?.role === "admin";
   const tabs = useMemo(() => TABS.filter(([, , mod]) => isAdmin || mod), [isAdmin]);
+
+  useEffect(() => {
+    if (location.pathname === "/admin/deployments") setTab("deployments");
+  }, [location.pathname]);
 
   const saveSession = useCallback((value) => {
     setSession(value);
@@ -301,6 +457,7 @@ export default function Admin() {
         goat: "/admin/goat/roster?size=128",
         audit: "/admin/audit-log?limit=50",
         media: "/admin/media?limit=50",
+        deployments: "/admin/deployments?limit=100",
       };
       setData({ tab, ...(await request(paths[tab])) });
     } catch (err) {
@@ -313,6 +470,14 @@ export default function Admin() {
   useEffect(() => {
     if (user && (user.role === "admin" || user.role === "moderator")) void load();
   }, [user, load]);
+
+  useEffect(() => {
+    if (!session || tab !== "deployments") return undefined;
+    const timer = setInterval(() => {
+      if (!busy) void load();
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [session, tab, busy, load]);
 
   const action = async (path, options, success = tr("Hazırdır"), confirmText = null) => {
     if (confirmText && !window.confirm(confirmText)) return;
@@ -372,20 +537,34 @@ export default function Admin() {
       ) : (
         <>
           <nav className="mt-5 flex flex-wrap gap-2">
-            {tabs.map(([key, label]) => (
-              <button
-                key={key}
-                type="button"
-                onClick={() => {
-                  setTab(key);
-                  setOpen(null);
-                  setMessage("");
-                }}
-                className={tab === key ? btn : btnGhost}
-              >
-                {label()}
-              </button>
-            ))}
+            {tabs.map(([key, label]) =>
+              key === "deployments" ? (
+                <Link
+                  key={key}
+                  to="/admin/deployments"
+                  className={tab === key ? btn : btnGhost}
+                  aria-current={tab === key ? "page" : undefined}
+                >
+                  {label()}
+                </Link>
+              ) : (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => {
+                    setTab(key);
+                    setOpen(null);
+                    setMessage("");
+                    if (location.pathname === "/admin/deployments") {
+                      navigate("/admin", { replace: true });
+                    }
+                  }}
+                  className={tab === key ? btn : btnGhost}
+                >
+                  {label()}
+                </button>
+              ),
+            )}
             <button type="button" className={btnGhost} onClick={() => void load()} title={tr("Yenilə")}>
               <RefreshCw className={`h-4 w-4 ${busy ? "animate-spin" : ""}`} />
             </button>
@@ -904,6 +1083,14 @@ export default function Admin() {
                 </details>
               ))}
             </section>
+          ) : null}
+
+          {current && tab === "deployments" ? (
+            <DeploymentsPanel
+              entries={current.entries ?? []}
+              busy={busy}
+              onRefresh={() => void load()}
+            />
           ) : null}
 
           {current && tab === "media" ? (
